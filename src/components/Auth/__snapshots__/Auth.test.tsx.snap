@@ -18,7 +18,13 @@ exports[`renders Auth on tokens unchanged 1`] = `
       <label
         class="memori-auth-widget--token"
       >
+        <span
+          class="sr-only"
+        >
+          auth.tokenNumber
+        </span>
         <input
+          aria-label="auth.tokenNumber"
           autocomplete="off"
           class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
           id="base-ui-:r2:"
@@ -101,12 +107,14 @@ exports[`renders Auth unchanged 1`] = `
     <fieldset
       class="memori-auth-widget--password-fieldset"
     >
-      <label>
+      <label
+        for="auth-password"
+      >
         Password:
          
         <input
           class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
-          id="base-ui-:r0:"
+          id="auth-password"
           name="password"
           placeholder="Password"
           required=""
@@ -147,12 +155,14 @@ exports[`renders Auth with tokens unchanged 1`] = `
     <fieldset
       class="memori-auth-widget--password-fieldset"
     >
-      <label>
+      <label
+        for="auth-password"
+      >
         Password:
          
         <input
           class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
-          id="base-ui-:r1:"
+          id="auth-password"
           name="password"
           placeholder="Password"
           required=""

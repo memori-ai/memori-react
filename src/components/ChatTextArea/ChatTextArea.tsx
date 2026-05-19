@@ -112,9 +112,13 @@ const ChatTextArea: React.FC<Props> = ({
       <div ref={innerRef} className="memori-chat-textarea--inner">
         <textarea
           ref={textareaRef}
+          id="memori-chat-message"
           className="memori-chat-textarea--input"
           disabled={disabled}
           value={displayValue}
+          aria-label={String(
+            t('placeholder', 'Ask a question') || 'Ask a question'
+          )}
           placeholder={t('placeholder', 'Ask a question') || 'Ask a question'}
           onChange={e => {
             const next = e.target.value;

@@ -96,6 +96,7 @@ exports[`renders MediaWidget with media unchanged 1`] = `
           class="memori-media-item"
         >
           <div
+            aria-label="Game Cover"
             class="memori-media-item--link memori-media-item--image-link"
             role="button"
             style="cursor: pointer;"

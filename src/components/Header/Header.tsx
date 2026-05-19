@@ -1125,8 +1125,7 @@ const Header: React.FC<Props> = ({
             !fullpageGuestChrome && (
               <div
                 className="memori-header--fullpage-divider"
-                role="separator"
-                aria-orientation="vertical"
+                aria-hidden="true"
               />
             )}
           <div className="memori-header--fullpage-secondary">
@@ -1134,8 +1133,7 @@ const Header: React.FC<Props> = ({
             {showFullpageChromeDividers && (
               <div
                 className="memori-header--fullpage-divider"
-                role="separator"
-                aria-orientation="vertical"
+                aria-hidden="true"
               />
             )}
             {loginNode}
@@ -1156,8 +1154,7 @@ const Header: React.FC<Props> = ({
             !fullpageGuestChrome && (
               <div
                 className="memori-header--fullpage-divider"
-                role="separator"
-                aria-orientation="vertical"
+                aria-hidden="true"
               />
             )}
           <div className="memori-header--fullpage-secondary">
@@ -1168,8 +1165,7 @@ const Header: React.FC<Props> = ({
               showFullpageChromeDividers && (
                 <div
                   className="memori-header--fullpage-divider"
-                  role="separator"
-                  aria-orientation="vertical"
+                  aria-hidden="true"
                 />
               )}
             {loginNode}

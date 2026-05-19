@@ -386,6 +386,7 @@ exports[`renders FullPage layout unchanged 1`] = `
             class="memori--avatar-toggle"
           >
             <button
+              aria-label="hide"
               class="memori-button memori-button--ghost memori-button--md"
               tabindex="0"
               type="button"
@@ -394,6 +395,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                 class="memori-button__icon"
               >
                 <svg
+                  aria-hidden="true"
                   class="lucide lucide-eye-off"
                   fill="none"
                   height="24"
@@ -1128,6 +1130,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
             class="memori--avatar-toggle"
           >
             <button
+              aria-label="hide"
               class="memori-button memori-button--ghost memori-button--md"
               tabindex="0"
               type="button"
@@ -1136,6 +1139,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                 class="memori-button__icon"
               >
                 <svg
+                  aria-hidden="true"
                   class="lucide lucide-eye-off"
                   fill="none"
                   height="24"

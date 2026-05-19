@@ -11,6 +11,13 @@
     margin-right: var(--memori-spacing-sm);
 }
 
+button.memori-artifact-handler {
+    width: 100%;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+
 .memori-artifact-handler {
     display: flex;
     min-width: 300px;

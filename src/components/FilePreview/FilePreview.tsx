@@ -158,7 +158,8 @@ const FilePreview = ({
           )}
           <div className="memori--preview-list">
             {previewFiles.map((file: any) => (
-              <div
+              <button
+                type="button"
                 key={file.id}
                 className={`memori--preview-item ${
                   isImageContent(file.content, file.type)
@@ -166,13 +167,14 @@ const FilePreview = ({
                     : 'memori--preview-item--document'
                 }`}
                 onClick={() => setSelectedFile(file)}
+                aria-label={file.name}
               >
                 {isImageContent(file.content, file.type) ? (
                   <div className="memori--preview-thumbnail">
                     <img src={file.content} alt={file.name} />
                   </div>
                 ) : (
-                  <File className="memori--preview-icon" />
+                  <File className="memori--preview-icon" aria-hidden />
                 )}
 
                 <div className="memori--preview-file-info">
@@ -187,16 +189,22 @@ const FilePreview = ({
                 {allowRemove && (
                   <Button
                     shape="circle"
-                    icon={<X />}
+                    icon={<X aria-hidden />}
                     danger
                     className="memori--remove-button"
+                    aria-label={String(
+                      t('upload.removeFile', {
+                        defaultValue: 'Remove {{name}}',
+                        name: file.name,
+                      })
+                    )}
                     onClick={e => {
                       e.stopPropagation();
                       removeFile(file.id, file?.mediumID);
                     }}
                   />
                 )}
-              </div>
+              </button>
             ))}
 
             {uploadingCount > 0 &&

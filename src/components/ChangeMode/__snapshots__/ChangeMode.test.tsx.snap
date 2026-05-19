@@ -8,7 +8,9 @@ exports[`renders ChangeMode in instruct mode unchanged 1`] = `
     role="radiogroup"
   >
     <button
+      aria-checked="true"
       class="memori-button memori-button--primary memori-button--md memori--changeMode-instruct-radio-button memori--changeMode-instruct-radio-button--selected"
+      role="radio"
       tabindex="0"
       type="button"
     >
@@ -19,7 +21,9 @@ exports[`renders ChangeMode in instruct mode unchanged 1`] = `
       </span>
     </button>
     <button
+      aria-checked="false"
       class="memori-button memori-button--outline memori-button--md memori--changeMode-instruct-radio-button"
+      role="radio"
       tabindex="0"
       type="button"
     >
@@ -41,7 +45,9 @@ exports[`renders ChangeMode in test mode unchanged 1`] = `
     role="radiogroup"
   >
     <button
+      aria-checked="false"
       class="memori-button memori-button--outline memori-button--md memori--changeMode-instruct-radio-button"
+      role="radio"
       tabindex="0"
       type="button"
     >
@@ -52,7 +58,9 @@ exports[`renders ChangeMode in test mode unchanged 1`] = `
       </span>
     </button>
     <button
+      aria-checked="true"
       class="memori-button memori-button--primary memori-button--md memori--changeMode-instruct-radio-button memori--changeMode-instruct-radio-button--selected"
+      role="radio"
       tabindex="0"
       type="button"
     >

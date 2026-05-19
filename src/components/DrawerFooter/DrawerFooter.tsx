@@ -27,10 +27,7 @@ const DrawerFooter: React.FC<DrawerFooterProps> = ({
   const hasSlots = start != null || end != null || center != null || closeLabel != null;
 
   return (
-    <footer
-      className={`memori-drawer-footer ${className}`.trim()}
-      role="contentinfo"
-    >
+    <footer className={`memori-drawer-footer ${className}`.trim()}>
       {center != null ? (
         <div className="memori-drawer-footer__inner memori-drawer-footer__inner--centered">
           {center}

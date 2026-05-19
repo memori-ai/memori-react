@@ -51,7 +51,7 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
               className="memori-tab-switch__tab"
               aria-label={tab.label}
             >
-              <IconComponent className="memori-tab-switch__icon" />
+              <IconComponent className="memori-tab-switch__icon" aria-hidden />
             </Tabs.Tab>
           );
         })}

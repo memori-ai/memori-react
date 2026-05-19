@@ -899,7 +899,9 @@ exports[`renders Chat unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -1907,7 +1909,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -2831,7 +2835,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -3761,7 +3767,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -4759,7 +4767,9 @@ exports[`renders Chat with dates unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -5771,7 +5781,9 @@ exports[`renders Chat with hints unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -6352,6 +6364,7 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-media-item"
                   >
                     <div
+                      aria-label="Image 0"
                       class="memori-media-item--link memori-media-item--image-link"
                       role="button"
                       style="cursor: pointer;"
@@ -6392,6 +6405,7 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-media-item"
                   >
                     <div
+                      aria-label="Image 1"
                       class="memori-media-item--link memori-media-item--image-link"
                       role="button"
                       style="cursor: pointer;"
@@ -6432,6 +6446,7 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-media-item"
                   >
                     <div
+                      aria-label="Image 2"
                       class="memori-media-item--link memori-media-item--image-link"
                       role="button"
                       style="cursor: pointer;"
@@ -6959,7 +6974,9 @@ exports[`renders Chat with media unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -7976,7 +7993,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -9101,7 +9120,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"
@@ -10031,7 +10052,9 @@ exports[`renders Chat with user unchanged 1`] = `
                 style="height: 36px;"
               >
                 <textarea
+                  aria-label="placeholder"
                   class="memori-chat-textarea--input"
+                  id="memori-chat-message"
                   maxlength="100000"
                   placeholder="placeholder"
                   style="height: 36px;"

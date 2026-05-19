@@ -185,6 +185,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   onLogin,
 }) => {
   const panelRef = useRef<HTMLElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const panelTitleId = 'mobile-session-panel-title';
   const touchStartYRef = useRef(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [activeView, setActiveView] = useState<
@@ -260,6 +262,43 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     document.addEventListener('keydown', onEscape);
     return () => document.removeEventListener('keydown', onEscape);
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const root = dialogRef.current;
+    if (!root) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = root.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements.length) return;
+
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    panelRef.current?.focus();
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [open]);
 
   useEffect(() => {
     if (open) setActiveView('session');
@@ -372,17 +411,29 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
 
   return (
     <div
+      ref={dialogRef}
       className={`memori-mobile-session-panel--overlay ${
         isPopover ? 'memori-mobile-session-panel--overlay-popover' : ''
       }`}
-      onClick={onClose}
+      role="presentation"
     >
+      {!isPopover && (
+        <button
+          type="button"
+          className="memori-mobile-session-panel--backdrop"
+          aria-label={String(t('close', { defaultValue: 'Close' }))}
+          onClick={onClose}
+        />
+      )}
       <section
         ref={panelRef}
+        tabIndex={-1}
         className={`memori-mobile-session-panel ${
           isPopover ? 'memori-mobile-session-panel--popover' : ''
         }`}
-        aria-label={title}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={panelTitleId}
         onClick={event => event.stopPropagation()}
         onTouchStart={
           isPopover
@@ -427,13 +478,18 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                         alt={userName || userEmail}
                         className="memori-dropdown--avatar"
                       />
-                      <span className="memori-dropdown--avatar-overlay">
+                      <span className="memori-dropdown--avatar-overlay" aria-hidden>
                         <Camera size={20} strokeWidth={2} />
                       </span>
+                      <label htmlFor="mobile-session-avatar-upload" className="sr-only">
+                        {t('login.changeAvatar', {
+                          defaultValue: 'Change profile picture',
+                        })}
+                      </label>
                       <input
                         type="file"
                         name="avatar"
-                        id="avatar"
+                        id="mobile-session-avatar-upload"
                         className="memori-dropdown--avatar-input"
                         onChange={e =>
                           updateAvatar(
@@ -451,13 +507,21 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                             .charAt(0)
                             .toUpperCase()}
                         </span>
-                        <span className="memori-dropdown--avatar-overlay">
+                        <span className="memori-dropdown--avatar-overlay" aria-hidden>
                           <Camera size={20} strokeWidth={2} />
                         </span>
+                        <label
+                          htmlFor="mobile-session-avatar-upload-placeholder"
+                          className="sr-only"
+                        >
+                          {t('login.changeAvatar', {
+                            defaultValue: 'Change profile picture',
+                          })}
+                        </label>
                         <input
                           type="file"
                           name="avatar"
-                          id="avatar"
+                          id="mobile-session-avatar-upload-placeholder"
                           className="memori-dropdown--avatar-input"
                           onChange={e =>
                             updateAvatar(
@@ -481,9 +545,12 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 </div>
               </div>
             )}
-            <div className="memori-mobile-session-panel--section-title">
+            <h2
+              id={panelTitleId}
+              className="memori-mobile-session-panel--section-title"
+            >
               {title}
-            </div>
+            </h2>
             {showSessionInfo && isLoggedIn && (
               <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
                 <li>

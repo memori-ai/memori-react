@@ -5,6 +5,7 @@ import {
   Memori,
 } from '@memori.ai/memori-api-client/dist/types';
 import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { stripHTML } from '../../helpers/utils';
 import Chat from '../Chat/Chat';
 import './ChatResumeDrawer.css';
@@ -72,8 +73,11 @@ const ChatResumeDrawer = ({
   isLoading = false,
   onExportChat,
 }: ChatResumeDrawerProps) => {
+  const { t } = useTranslation();
+  const dialogRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = 'chat-resume-drawer-title';
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [isVisible, setIsVisible] = useState(isOpen);
 
@@ -98,7 +102,11 @@ const ChatResumeDrawer = ({
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || embedded) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const root = dialogRef.current;
+    if (!root) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -106,8 +114,9 @@ const ChatResumeDrawer = ({
         return;
       }
 
-      if (event.key !== 'Tab' || !panelRef.current) return;
-      const focusableElements = panelRef.current.querySelectorAll<HTMLElement>(
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = root.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
       if (!focusableElements.length) return;
@@ -126,8 +135,11 @@ const ChatResumeDrawer = ({
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [embedded, isOpen, onClose]);
 
   const safeTitle = useMemo(() => {
     const cleaned = stripMarkdownChars(stripHTML(session.title || ''));
@@ -176,12 +188,16 @@ const ChatResumeDrawer = ({
           type="button"
           className="memori-chat-resume-drawer--header-icon-button"
           onClick={onBack || onClose}
-          aria-label="Back"
+          aria-label={String(t('back', { defaultValue: 'Back' }))}
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={16} aria-hidden />
         </Button>
         <div className="memori-chat-resume-drawer--header-main">
-          <h2 className="memori-chat-resume-drawer--title" title={safeTitle}>
+          <h2
+            id={titleId}
+            className="memori-chat-resume-drawer--title"
+            title={safeTitle}
+          >
             {safeTitle}
           </h2>
           <p className="memori-chat-resume-drawer--subtitle">
@@ -192,9 +208,9 @@ const ChatResumeDrawer = ({
           variant="ghost"
           size="sm"
           className="memori-chat-history-drawer--header-download-button"
-          aria-label="Download"
-          title="Download"
-          icon={<Download />}
+          aria-label={String(t('download', { defaultValue: 'Download' }))}
+          title={String(t('download', { defaultValue: 'Download' }))}
+          icon={<Download aria-hidden />}
           onClick={onExportChat}
         />
       </header>
@@ -243,7 +259,8 @@ const ChatResumeDrawer = ({
           variant="primary"
           onClick={() => onResume()}
         >
-          Riprendi conversazione <ArrowUpRight size={16} />
+          {t('chatResume.resume', { defaultValue: 'Resume conversation' })}{' '}
+          <ArrowUpRight size={16} aria-hidden />
         </Button>
       </footer>
     </div>
@@ -257,17 +274,18 @@ const ChatResumeDrawer = ({
 
   return (
     <div
+      ref={dialogRef}
       className={`memori-chat-resume-drawer ${
         isVisible ? 'memori-chat-resume-drawer--open' : ''
       }`}
       role="dialog"
       aria-modal="true"
-      aria-label="Riprendi conversazione"
+      aria-labelledby={titleId}
     >
       <Button
         className="memori-chat-resume-drawer--backdrop"
         type="button"
-        aria-label="Close resume drawer"
+        aria-label={String(t('close', { defaultValue: 'Close' }))}
         onClick={onClose}
       />
       {content}

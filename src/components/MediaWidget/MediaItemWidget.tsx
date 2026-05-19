@@ -365,6 +365,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={displayName}
           role="button"
           tabIndex={0}
+          aria-label={displayName}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -473,6 +474,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         title={item.title}
         role="button"
         tabIndex={0}
+        aria-label={item.title || 'Open preview'}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -575,6 +577,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={item.title}
           role="button"
           tabIndex={0}
+          aria-label={item.title || 'Open image preview'}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -720,6 +723,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
       style={{ cursor: 'pointer' }}
       role="button"
       tabIndex={0}
+      aria-label={item.title || 'Open snippet preview'}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();

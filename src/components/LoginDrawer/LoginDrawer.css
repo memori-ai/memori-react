@@ -533,7 +533,14 @@ p.memori--login-drawer--inline-error {
     min-width: 0;
     flex-direction: column;
     align-self: center;
+    padding: 0;
+    border: none;
+    margin: 0;
     gap: var(--memori-spacing-sm);
+}
+
+.memori--login-drawer--otp-label legend {
+    width: 100%;
 }
 
 .memori--login-drawer--otp-label-text {

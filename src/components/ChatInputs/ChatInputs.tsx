@@ -443,7 +443,7 @@ ${text}
                         'Start listening'
                   }
                 >
-                  <Mic className="icon" />
+                  <Mic className="icon" aria-hidden />
                 </button>
               )}
               {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (

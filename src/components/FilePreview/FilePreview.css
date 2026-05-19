@@ -122,6 +122,13 @@
     scrollbar-width: thin;
 }
 
+button.memori--preview-item {
+    width: auto;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+
 .memori--preview-item {
     position: relative;
     display: flex;

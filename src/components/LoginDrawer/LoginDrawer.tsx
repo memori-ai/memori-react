@@ -583,22 +583,23 @@ const LoginDrawer = ({
                   { loading }
                 )}
               >
-                <label
-                  htmlFor="otp-code"
+                <fieldset
                   className="memori--login-drawer--otp-label"
+                  aria-describedby="otp-help"
                 >
-                  <span
+                  <legend
                     className="memori--login-drawer--otp-label-text"
                     style={{ textAlign: 'center' }}
                   >
                     {t('login.otpCode')}
-                  </span>
+                  </legend>
                   <div className="memori--login-drawer--otp-segmented-inputs">
                     {[0, 1, 2, 3].map(index => (
                       <Input
                         key={index}
                         id={index === 0 ? 'otp-code' : `otp-code-${index}`}
                         name={`otp-code-${index}`}
+                        aria-label={`${t('login.otpCode')} ${index + 1} / 4`}
                         type="text"
                         inputMode="numeric"
                         pattern="[0-9]*"
@@ -621,14 +622,16 @@ const LoginDrawer = ({
                         maxLength={1}
                         required
                         disabled={loading}
-                        aria-describedby="otp-help"
                         ref={el => {
                           otpInputRefs.current[index] = el;
                         }}
                       />
                     ))}
                   </div>
-                </label>
+                  <p id="otp-help" className="sr-only">
+                    {t('login.otpCodeDescription', { email: otpEmail })}
+                  </p>
+                </fieldset>
               </div>
             )}
 
@@ -696,6 +699,9 @@ const LoginDrawer = ({
             }
             description={t('login.otpEmailDescription')}
           >
+            <p id="email-help" className="sr-only">
+              {t('login.otpEmailDescription')}
+            </p>
             <div className={cx('memori--login-drawer--otp-form', { loading })}>
               <label
                 htmlFor="otp-email"

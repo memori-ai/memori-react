@@ -316,11 +316,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
         return (
           <React.Fragment key={artifact.id}>
-            <div
+            <button
+              type="button"
               className={`memori-artifact-handler${
                 isSelected ? ' memori-artifact-handler--selected' : ''
               }`}
               onClick={() => handleArtifactClick(artifact)}
+              aria-pressed={isSelected}
+              aria-label={artifact.title}
               style={
                 isSelected
                   ? {
@@ -356,7 +359,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                   <ChevronRight className="memori-artifact-handler-action-icon" />
                 )}
               </div>
-            </div>
+            </button>
 
             {/* Render ArtifactDrawer inline when in chatlog panel */}
             {state.isDrawerOpen &&

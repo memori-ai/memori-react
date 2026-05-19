@@ -46,6 +46,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
             variant="ghost"
             shape="circle"
             onClick={() => setCollapsed(false)}
+            aria-label={t('expand') || 'Expand'}
+            aria-expanded={false}
             title={t('expand') || 'Expand'}
           >
             <Blob avatar={avatarProps?.memori.avatarURL} />
@@ -80,7 +82,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                     className="memori-website_assistant--close-button"
                     variant="ghost"
                     onClick={() => setCollapsed(true)}
-                    icon={<X />}
+                    aria-label={t('close') || 'Close'}
+                    icon={<X aria-hidden />}
                     title={t('close') || 'Close'}
                   />
                 </div>

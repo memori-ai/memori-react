@@ -437,6 +437,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       {/* Upload document button */}
       <button
+        type="button"
         className={cx(
           'memori-button',
           'memori-button--circle',
@@ -446,19 +447,21 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           'memori--document-upload-button',
           { 'memori--error': false } // Removed errors.length > 0
         )}
+        aria-label={String(
+          t('upload.addDocument', { defaultValue: 'Upload document' })
+        )}
         onClick={() => documentInputRef.current?.click()}
         disabled={
           isLoading ||
           (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
           false
         }
-        title="Upload documents"
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
         ) : (
           <React.Fragment>
-            <DocumentIcon className="memori--upload-icon" />
+            <DocumentIcon className="memori--upload-icon" aria-hidden />
           </React.Fragment>
         )}
       </button>

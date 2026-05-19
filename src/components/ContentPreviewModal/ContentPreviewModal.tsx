@@ -21,7 +21,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
   title,
   isImage = false,
   imageSrc,
-  imageAlt = '',
+  imageAlt,
   children,
   className,
 }) => {
@@ -51,7 +51,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
           <div className="memori-content-preview-modal--image-wrap">
             <img
               src={imageSrc}
-              alt={imageAlt}
+              alt={imageAlt ?? title ?? 'Preview'}
               className="memori-content-preview-modal--image"
             />
           </div>

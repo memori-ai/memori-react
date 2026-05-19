@@ -17,7 +17,14 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
       <Dropdown.Trigger
         showChevron={false}
         render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-          <Button {...props} variant="ghost" icon={<EllipsisVertical />} />
+          <Button
+            {...props}
+            variant="ghost"
+            aria-label={String(
+              t('widget.sendOptions', { defaultValue: 'Send options' })
+            )}
+            icon={<EllipsisVertical aria-hidden />}
+          />
         )}
       />
       <Dropdown.Menu>

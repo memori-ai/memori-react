@@ -481,7 +481,7 @@ const ShareButton: React.FC<Props> = ({
                 flashMenuItem(item.id);
               }}
             >
-              <IconComponent />
+              <IconComponent aria-hidden />
               <span>{item.title}</span>
             </button>
           );
@@ -717,28 +717,22 @@ const ShareButton: React.FC<Props> = ({
                       excavate: true,
                     }}
                   />
-                  <div
-                    role="button"
-                    tabIndex={0}
+                  <button
+                    type="button"
                     className="memori-share-button--qr-download"
                     onClick={event => {
                       event.stopPropagation();
                       handleDownloadQR();
                     }}
-                    onKeyDown={event => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        handleDownloadQR();
-                      }
-                    }}
                   >
                     <Download aria-hidden />
                     <span>
-                      {t('widget.downloadQrCode') ||
-                        t('download', { defaultValue: 'Download' })}
+                      {String(
+                        t('widget.downloadQrCode') ||
+                          t('download', { defaultValue: 'Download' })
+                      )}
                     </span>
-                  </div>
+                  </button>
                 </div>
               </Dropdown.Item>
             </>

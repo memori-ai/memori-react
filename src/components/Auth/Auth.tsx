@@ -100,9 +100,10 @@ export const AuthWidget = ({
     >
       {(pwdOrTokens === 'password' || !showTokens) && (
         <fieldset className="memori-auth-widget--password-fieldset">
-          <label>
+          <label htmlFor="auth-password">
             Password:{' '}
             <Input
+              id="auth-password"
               className="memori-auth-widget--input"
               required
               type="password"
@@ -126,12 +127,24 @@ export const AuthWidget = ({
           {createArrayWithNumbers(numTokens).map(idx => {
             return (
               <label className="memori-auth-widget--token" key={idx}>
+                <span className="sr-only">
+                  {t('auth.tokenNumber', {
+                    defaultValue: 'Recovery token {{number}}',
+                    number: idx + 1,
+                  })}
+                </span>
                 <Input
                   type="password"
                   className="memori-auth-widget--input"
                   placeholder="Recovery token"
                   required
                   autoComplete="off"
+                  aria-label={String(
+                    t('auth.tokenNumber', {
+                      defaultValue: 'Recovery token {{number}}',
+                      number: idx + 1,
+                    })
+                  )}
                   {...register(`tokens.${idx}`, {
                     required: true,
                   })}
@@ -156,18 +169,18 @@ export const AuthWidget = ({
       )}
 
       {errors.tokens?.type === 'minLength' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {t('auth.atLeast') || 'At least'} {minimumNumberOfRecoveryTokens}
         </div>
       )}
 
       {errors.password?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {errors.password.message}
         </div>
       )}
       {errors.tokens?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {errors.tokens.message}
         </div>
       )}

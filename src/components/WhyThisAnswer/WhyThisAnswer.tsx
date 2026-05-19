@@ -116,7 +116,7 @@ const WhyThisAnswer = ({
 
       <Spin primary spinning={loading}>
         {!loading && matches.length === 0 && (
-          <p role="info" className="memori--whythisanswer-no-results">
+          <p role="status" className="memori--whythisanswer-no-results">
             {t('nothingFound')}
           </p>
         )}

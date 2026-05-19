@@ -250,7 +250,8 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               <Button
                 onClick={closeArtifact}
                 variant="ghost"
-                icon={<X className="memori-artifact-panel--close-icon" />}
+                aria-label={t('artifact.close') || 'Close'}
+                icon={<X className="memori-artifact-panel--close-icon" aria-hidden />}
                 title={t('artifact.close') || 'Close'}
               />
             )}
@@ -393,10 +394,10 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               'memori-button--icon-only'
             )}
             variant="ghost"
+            aria-label={t('artifact.close') || 'Close'}
             title={t('artifact.close') || 'Close'}
-          >
-            <X className="memori-artifact-panel--close-icon" />
-          </Button>
+            icon={<X className="memori-artifact-panel--close-icon" aria-hidden />}
+          />
         )}
       </div>
 

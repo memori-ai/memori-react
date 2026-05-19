@@ -8,6 +8,7 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
     <button
       aria-expanded="false"
       aria-haspopup="menu"
+      aria-label="widget.sendOptions"
       class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
       id="base-ui-:r4:"
       tabindex="0"
@@ -17,6 +18,7 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
         class="memori-button__icon"
       >
         <svg
+          aria-hidden="true"
           class="lucide lucide-ellipsis-vertical"
           fill="none"
           height="24"
@@ -58,6 +60,7 @@ exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
     <button
       aria-expanded="false"
       aria-haspopup="menu"
+      aria-label="widget.sendOptions"
       class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
       id="base-ui-:ra:"
       tabindex="0"
@@ -67,6 +70,7 @@ exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
         class="memori-button__icon"
       >
         <svg
+          aria-hidden="true"
           class="lucide lucide-ellipsis-vertical"
           fill="none"
           height="24"

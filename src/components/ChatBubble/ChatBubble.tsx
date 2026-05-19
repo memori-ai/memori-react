@@ -743,9 +743,8 @@ const ChatBubble: React.FC<Props> = ({
                       shape="circle"
                       type="button"
                       className="memori-chat--bubble-action-button"
-                      icon={
-                        <Bot aria-label={String(t('generatedByAI'))} />
-                      }
+                      aria-label={String(t('generatedByAI'))}
+                      icon={<Bot aria-hidden />}
                     />
                   </span>
                 </Tooltip>
@@ -767,15 +766,10 @@ const ChatBubble: React.FC<Props> = ({
                         shape="circle"
                         type="button"
                         className="memori-chat--bubble-action-button"
-                        icon={
-                          <Languages
-                            aria-label={
-                              lang === 'it'
-                                ? 'Testo originale'
-                                : 'Original text'
-                            }
-                          />
+                        aria-label={
+                          lang === 'it' ? 'Testo originale' : 'Original text'
                         }
+                        icon={<Languages aria-hidden />}
                       />
                     </span>
                   </Tooltip>
@@ -796,13 +790,8 @@ const ChatBubble: React.FC<Props> = ({
                         className="memori-chat--bubble-action-button"
                         onClick={() => setShowingWhyThisAnswer(true)}
                         disabled={showingWhyThisAnswer}
-                        icon={
-                          <HelpCircle
-                            aria-label={
-                              t('whyThisAnswer') || 'Why this answer?'
-                            }
-                          />
-                        }
+                        aria-label={t('whyThisAnswer') || 'Why this answer?'}
+                        icon={<HelpCircle aria-hidden />}
                       />
                     </span>
                   </Tooltip>

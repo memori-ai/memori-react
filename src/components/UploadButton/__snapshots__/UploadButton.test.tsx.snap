@@ -68,10 +68,12 @@ exports[`renders UploadButton unchanged 1`] = `
           type="file"
         />
         <button
+          aria-label="upload.addDocument"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--document-upload-button"
-          title="Upload documents"
+          type="button"
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-file-text memori--upload-icon"
             fill="none"
             height="24"
@@ -116,10 +118,13 @@ exports[`renders UploadButton unchanged 1`] = `
           type="file"
         />
         <button
+          aria-label="upload.addImage"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--image-upload-button"
           disabled=""
+          type="button"
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-image memori--upload-icon"
             fill="none"
             height="24"

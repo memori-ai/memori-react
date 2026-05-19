@@ -208,9 +208,13 @@ const StartPanel: React.FC<Props> = ({
         {!!memori.enableBoardOfExperts && (
           <div className="memori--board-of-experts">
             <Tooltip align="left" content={t('boardOfExperts')}>
-              <span aria-label={t('boardOfExperts') || 'Board of Experts'}>
-                <Users />
-              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                shape="circle"
+                aria-label={t('boardOfExperts') || 'Board of Experts'}
+                icon={<Users aria-hidden />}
+              />
             </Tooltip>
           </div>
         )}

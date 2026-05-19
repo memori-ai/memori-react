@@ -673,8 +673,10 @@ exports[`renders Chat layout unchanged 1`] = `
                             style="height: 36px;"
                           >
                             <textarea
+                              aria-label="placeholder"
                               class="memori-chat-textarea--input"
                               disabled=""
+                              id="memori-chat-message"
                               maxlength="100000"
                               placeholder="placeholder"
                               style="height: 36px;"

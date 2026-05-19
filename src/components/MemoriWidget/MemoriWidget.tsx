@@ -1598,7 +1598,8 @@ const MemoriWidget = ({
                 <Button
                   variant="outline"
                   onClick={() => close(toastId)}
-                  icon={<X />}
+                  aria-label={String(t('close', { defaultValue: 'Close' }))}
+                  icon={<X aria-hidden />}
                 />
               </div>
             ),

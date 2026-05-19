@@ -10,6 +10,17 @@
     background: rgba(0, 0, 0, 0.34);
 }
 
+.memori-mobile-session-panel--backdrop {
+    position: absolute;
+    z-index: 0;
+    padding: 0;
+    border: none;
+    margin: 0;
+    background: transparent;
+    cursor: default;
+    inset: 0;
+}
+
 .memori-mobile-session-panel--overlay-popover {
     align-items: flex-start;
     justify-content: flex-end;
@@ -19,6 +30,7 @@
 
 .memori-mobile-session-panel {
     position: relative;
+    z-index: 1;
     overflow: auto;
     width: 100%;
     max-height: 90vh;

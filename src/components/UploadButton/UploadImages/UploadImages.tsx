@@ -459,6 +459,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
       {/* Upload image button */}
       <button
+        type="button"
         className={cx(
           'memori-button',
           'memori-button--circle',
@@ -467,6 +468,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           'memori--conversation-button',
           'memori--image-upload-button'
         )}
+        aria-label={String(t('upload.addImage', { defaultValue: 'Upload image' }))}
         onClick={() => imageInputRef.current?.click()}
         disabled={
           isLoading || !isMediaAccepted || currentMediaCount >= maxImages
@@ -475,7 +477,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
         ) : (
-          <ImageIcon className="memori--upload-icon" />
+          <ImageIcon className="memori--upload-icon" aria-hidden />
         )}
       </button>
 

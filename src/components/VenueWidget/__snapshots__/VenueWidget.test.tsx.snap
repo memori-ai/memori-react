@@ -19,6 +19,12 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
         <div
           class="memori--venue-widget__search-wrap"
         >
+          <label
+            class="sr-only"
+            for="venue-widget-search"
+          >
+            searchVenue
+          </label>
           <div
             class="memori-autocomplete memori--venue-widget-search"
           >
@@ -123,7 +129,9 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
+        aria-label="Location map"
         class="memori--venue-widget__map-container"
+        role="img"
       >
         <div
           data-testid="MapContainer"
@@ -173,6 +181,12 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
         <div
           class="memori--venue-widget__search-wrap"
         >
+          <label
+            class="sr-only"
+            for="venue-widget-search"
+          >
+            searchVenue
+          </label>
           <div
             class="memori-autocomplete memori--venue-widget-search"
           >
@@ -277,7 +291,9 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
+        aria-label="Location map"
         class="memori--venue-widget__map-container"
+        role="img"
       >
         <div
           data-testid="MapContainer"
@@ -327,6 +343,12 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
         <div
           class="memori--venue-widget__search-wrap"
         >
+          <label
+            class="sr-only"
+            for="venue-widget-search"
+          >
+            searchVenue
+          </label>
           <div
             class="memori-autocomplete memori--venue-widget-search"
           >
@@ -420,7 +442,9 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
+        aria-label="Location map"
         class="memori--venue-widget__map-container"
+        role="img"
       >
         <div
           data-testid="MapContainer"
@@ -470,6 +494,12 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
         <div
           class="memori--venue-widget__search-wrap"
         >
+          <label
+            class="sr-only"
+            for="venue-widget-search"
+          >
+            searchVenue
+          </label>
           <div
             class="memori-autocomplete memori--venue-widget-search"
           >
@@ -574,7 +604,9 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
+        aria-label="Location map"
         class="memori--venue-widget__map-container"
+        role="img"
       >
         <div
           data-testid="MapContainer"
@@ -624,6 +656,12 @@ exports[`renders empty VenueWidget unchanged 1`] = `
         <div
           class="memori--venue-widget__search-wrap"
         >
+          <label
+            class="sr-only"
+            for="venue-widget-search"
+          >
+            searchVenue
+          </label>
           <div
             class="memori-autocomplete memori--venue-widget-search"
           >
@@ -711,7 +749,9 @@ exports[`renders empty VenueWidget unchanged 1`] = `
       class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <div
+        aria-label="Location map"
         class="memori--venue-widget__map-container"
+        role="img"
       >
         <div
           data-testid="MapContainer"

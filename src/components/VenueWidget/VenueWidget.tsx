@@ -221,7 +221,11 @@ export const VenueCombobox = ({
   }));
 
   return (
-    <Autocomplete
+    <>
+      <label htmlFor={autocompleteRootId} className="sr-only">
+        {t('searchVenue')}
+      </label>
+      <Autocomplete
       id={autocompleteRootId}
       inputRef={inputRef as Ref<HTMLInputElement>}
       className="memori--venue-widget-search"
@@ -253,6 +257,7 @@ export const VenueCombobox = ({
       autoHighlight
       clearable={inputValue.trim() !== ''}
     />
+    </>
   );
 };
 
@@ -279,7 +284,11 @@ export const VenueMapPreview = ({ venue }: { venue?: Venue }) => {
   }, []);
 
   return (
-    <div className="memori--venue-widget__map-container">
+    <div
+      className="memori--venue-widget__map-container"
+      role="img"
+      aria-label="Location map"
+    >
       {isClient && (
         <MapContainer
           className="memori--venue-widget__map"

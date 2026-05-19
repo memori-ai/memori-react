@@ -133,6 +133,8 @@ const SettingsDrawer = ({
               role="radiogroup"
             >
               <Button
+                role="radio"
+                aria-checked={controlsPosition === 'center'}
                 variant={controlsPosition === 'center' ? 'primary' : 'outline'}
                 className="memori-settings-drawer--controlsposition-radio-button"
                 onClick={() => {
@@ -143,6 +145,8 @@ const SettingsDrawer = ({
                 {t('center') || 'Center'}
               </Button>
               <Button
+                role="radio"
+                aria-checked={controlsPosition === 'bottom'}
                 variant={controlsPosition === 'bottom' ? 'primary' : 'outline'}
                 className="memori-settings-drawer--controlsposition-radio-button"
                 onClick={() => {
@@ -170,6 +174,8 @@ const SettingsDrawer = ({
                   role="radiogroup"
                 >
                   <Button
+                    role="radio"
+                    aria-checked={avatarType === 'blob'}
                     variant={avatarType === 'blob' ? 'primary' : 'outline'}
                     className="memori-settings-drawer--avatarType-radio-button"
                     onClick={() => {
@@ -180,6 +186,8 @@ const SettingsDrawer = ({
                     {t('write_and_speak.blob') || 'Blob'}
                   </Button>
                   <Button
+                    role="radio"
+                    aria-checked={avatarType === 'avatar3d'}
                     variant={avatarType === 'avatar3d' ? 'primary' : 'outline'}
                     className="memori-settings-drawer--avatarType-radio-button"
                     onClick={() => {

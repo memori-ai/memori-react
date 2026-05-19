@@ -24,6 +24,8 @@ const ChangeMode: React.FC<Props> = ({
       aria-label={t('widget.instruct') || 'Mode'}
     >
       <Button
+        role="radio"
+        aria-checked={value === 'instruct'}
         variant={value === 'instruct' ? 'primary' : 'outline'}
         className={cx('memori--changeMode-instruct-radio-button', {
           'memori--changeMode-instruct-radio-button--selected': value === 'instruct',
@@ -33,6 +35,8 @@ const ChangeMode: React.FC<Props> = ({
         {t('widget.instruct') || 'Instruct'}
       </Button>
       <Button
+        role="radio"
+        aria-checked={value === 'test'}
         variant={value === 'test' ? 'primary' : 'outline'}
         className={cx('memori--changeMode-instruct-radio-button', {
           'memori--changeMode-instruct-radio-button--selected': value === 'test',
