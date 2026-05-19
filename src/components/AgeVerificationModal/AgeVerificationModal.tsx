@@ -87,7 +87,6 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       >
         <FieldGroup
           className="age-verification-birth-field"
-          label={String(t('dateOfBirth') || t('birthDate') || 'Birth date')}
           helperText={t('birthDateHelper')}
           error={error}
           invalid={!!error}

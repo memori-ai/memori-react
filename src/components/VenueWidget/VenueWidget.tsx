@@ -286,7 +286,7 @@ export const VenueMapPreview = ({ venue }: { venue?: Venue }) => {
   return (
     <div
       className="memori--venue-widget__map-container"
-      role="img"
+      role="region"
       aria-label="Location map"
     >
       {isClient && (

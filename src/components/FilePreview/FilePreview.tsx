@@ -158,33 +158,37 @@ const FilePreview = ({
           )}
           <div className="memori--preview-list">
             {previewFiles.map((file: any) => (
-              <button
-                type="button"
+              <div
                 key={file.id}
                 className={`memori--preview-item ${
                   isImageContent(file.content, file.type)
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-                onClick={() => setSelectedFile(file)}
-                aria-label={file.name}
               >
-                {isImageContent(file.content, file.type) ? (
-                  <div className="memori--preview-thumbnail">
-                    <img src={file.content} alt={file.name} />
-                  </div>
-                ) : (
-                  <File className="memori--preview-icon" aria-hidden />
-                )}
+                <button
+                  type="button"
+                  className="memori--preview-item-trigger"
+                  onClick={() => setSelectedFile(file)}
+                  aria-label={file.name}
+                >
+                  {isImageContent(file.content, file.type) ? (
+                    <div className="memori--preview-thumbnail">
+                      <img src={file.content} alt="" />
+                    </div>
+                  ) : (
+                    <File className="memori--preview-icon" aria-hidden />
+                  )}
 
-                <div className="memori--preview-file-info">
-                  <span className="memori--preview-filename">{file.name}</span>
-                  <span className="memori--preview-filetype">
-                    {file.mimeType
-                      ? getFileExtensionFromMime(file.mimeType)
-                      : getFileType(file.name, file.type)}
-                  </span>
-                </div>
+                  <div className="memori--preview-file-info">
+                    <span className="memori--preview-filename">{file.name}</span>
+                    <span className="memori--preview-filetype">
+                      {file.mimeType
+                        ? getFileExtensionFromMime(file.mimeType)
+                        : getFileType(file.name, file.type)}
+                    </span>
+                  </div>
+                </button>
 
                 {allowRemove && (
                   <Button
@@ -198,13 +202,10 @@ const FilePreview = ({
                         name: file.name,
                       })
                     )}
-                    onClick={e => {
-                      e.stopPropagation();
-                      removeFile(file.id, file?.mediumID);
-                    }}
+                    onClick={() => removeFile(file.id, file?.mediumID)}
                   />
                 )}
-              </button>
+              </div>
             ))}
 
             {uploadingCount > 0 &&

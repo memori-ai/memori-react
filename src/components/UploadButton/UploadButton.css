@@ -220,7 +220,7 @@
     align-items: center;
     padding: calc(var(--memori-spacing-sm) + 2px) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border-radius: var(--memori-radius-box);
-    border-left: 3px solid transparent;
+    /* border-left: 3px solid transparent; */
     margin-bottom: var(--memori-spacing-sm);
     background-color: #f8f9fa;
     cursor: pointer;

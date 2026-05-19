@@ -264,17 +264,37 @@ div.memori-media-item--link.memori-media-item--image-link {
 
 .memori-media-item--modal-iframe-wrap {
     display: flex;
+    overflow: hidden;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     min-height: 60vh;
     flex: 1;
 }
 
 .memori-media-item--modal-iframe {
     width: 100%;
+    max-width: 100%;
     min-height: 60vh;
     flex: 1;
     border: none;
     border-radius: var(--memori-radius-box);
+}
+
+@media (max-width: 768px) {
+    .memori-media-item-preview--content {
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .memori-media-item--modal-iframe-wrap {
+        min-height: 50vh;
+    }
+
+    .memori-media-item--modal-iframe {
+        min-height: 50vh;
+    }
 }
 
 /* Video in modal */

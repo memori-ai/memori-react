@@ -110,6 +110,8 @@
     display: flex;
     width: 100%;
     min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     flex-direction: row;
     flex-wrap: nowrap;
     padding: 0.875rem;
@@ -118,15 +120,10 @@
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     overflow-y: hidden;
+    overscroll-behavior-x: contain;
     scrollbar-color: hsla(var(--border-300) / 35%) transparent;
     scrollbar-width: thin;
-}
-
-button.memori--preview-item {
-    width: auto;
-    color: inherit;
-    font: inherit;
-    text-align: left;
+    touch-action: pan-x;
 }
 
 .memori--preview-item {
@@ -139,9 +136,23 @@ button.memori--preview-item {
     border-radius: 0.5rem;
     animation: slide-in 0.3s ease;
     background-color: var(--memori-secondary-background);
-    cursor: pointer;
     gap: var(--memori-spacing-sm);
     transition: all 0.2s ease;
+}
+
+.memori--preview-item-trigger {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    gap: var(--memori-spacing-sm);
+    text-align: left;
 }
 
 .memori--preview-item:hover {

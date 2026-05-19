@@ -107,7 +107,7 @@ const FeedbackButtons = ({
               <Dropdown.Menu
                 className="memori-chat--feedback-menu-items"
                 placement="bottom"
-                align="end"
+                align="start"
               >
                 <div className="memori-chat--feedback-menu-items-container">
                   <Dropdown.Item

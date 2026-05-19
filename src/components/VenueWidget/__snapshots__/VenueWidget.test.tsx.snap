@@ -131,7 +131,7 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
       <div
         aria-label="Location map"
         class="memori--venue-widget__map-container"
-        role="img"
+        role="region"
       >
         <div
           data-testid="MapContainer"
@@ -293,7 +293,7 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
       <div
         aria-label="Location map"
         class="memori--venue-widget__map-container"
-        role="img"
+        role="region"
       >
         <div
           data-testid="MapContainer"
@@ -444,7 +444,7 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
       <div
         aria-label="Location map"
         class="memori--venue-widget__map-container"
-        role="img"
+        role="region"
       >
         <div
           data-testid="MapContainer"
@@ -606,7 +606,7 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
       <div
         aria-label="Location map"
         class="memori--venue-widget__map-container"
-        role="img"
+        role="region"
       >
         <div
           data-testid="MapContainer"
@@ -751,7 +751,7 @@ exports[`renders empty VenueWidget unchanged 1`] = `
       <div
         aria-label="Location map"
         class="memori--venue-widget__map-container"
-        role="img"
+        role="region"
       >
         <div
           data-testid="MapContainer"

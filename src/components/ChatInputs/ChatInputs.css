@@ -3,15 +3,21 @@
     z-index: 10;
     bottom: 0;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     padding: 0;
     /* padding-bottom: 1.5rem; */
     margin: 0;
+    overflow-x: hidden;
     /* background: linear-gradient(to top, rgba(255, 255, 255, 0.8) 0%, transparent 100%); */
 }
 
 .memori-chat-inputs {
     position: relative;
     display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     box-sizing: border-box;
     flex-flow: column;
     flex-shrink: 0;
@@ -23,6 +29,7 @@
     margin: auto;
     background-color: var(--memori-secondary-background);
     box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.16);
+    overflow-x: hidden;
 }
 
 [data-theme='dark'] .memori-chat-inputs,

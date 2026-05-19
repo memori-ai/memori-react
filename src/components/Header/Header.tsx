@@ -509,9 +509,12 @@ const Header: React.FC<Props> = ({
                           alt={user.userName || user.eMail}
                           className="memori-dropdown--avatar"
                         />
-                        <span className="memori-dropdown--avatar-overlay">
+                        <span className="memori-dropdown--avatar-overlay" aria-hidden>
                           <Camera size={20} strokeWidth={2} />
                         </span>
+                        <label htmlFor="avatar" className="sr-only">
+                          {t('login.avatarChange')}
+                        </label>
                         <input
                           type="file"
                           name="avatar"
@@ -533,9 +536,12 @@ const Header: React.FC<Props> = ({
                               .charAt(0)
                               .toUpperCase()}
                           </span>
-                          <span className="memori-dropdown--avatar-overlay">
+                          <span className="memori-dropdown--avatar-overlay" aria-hidden>
                             <Camera size={20} strokeWidth={2} />
                           </span>
+                          <label htmlFor="avatar" className="sr-only">
+                            {t('login.avatarChange')}
+                          </label>
                           <input
                             type="file"
                             name="avatar"

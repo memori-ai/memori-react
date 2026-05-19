@@ -10,45 +10,49 @@ exports[`renders FilePreview with one file 1`] = `
     <div
       class="memori--preview-list"
     >
-      <button
-        aria-label="test.pdf"
+      <div
         class="memori--preview-item memori--preview-item--document"
-        type="button"
       >
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-file memori--preview-icon"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-label="test.pdf"
+          class="memori--preview-item-trigger"
+          type="button"
         >
-          <path
-            d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-          />
-          <path
-            d="M14 2v4a2 2 0 0 0 2 2h4"
-          />
-        </svg>
-        <div
-          class="memori--preview-file-info"
-        >
-          <span
-            class="memori--preview-filename"
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-file memori--preview-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            test.pdf
-          </span>
-          <span
-            class="memori--preview-filetype"
+            <path
+              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+            />
+            <path
+              d="M14 2v4a2 2 0 0 0 2 2h4"
+            />
+          </svg>
+          <div
+            class="memori--preview-file-info"
           >
-            PDF
-          </span>
-        </div>
+            <span
+              class="memori--preview-filename"
+            >
+              test.pdf
+            </span>
+            <span
+              class="memori--preview-filetype"
+            >
+              PDF
+            </span>
+          </div>
+        </button>
         <button
           aria-label="upload.removeFile"
           class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button"
@@ -80,7 +84,7 @@ exports[`renders FilePreview with one file 1`] = `
             </svg>
           </span>
         </button>
-      </button>
+      </div>
     </div>
   </div>
 </div>
@@ -94,45 +98,49 @@ exports[`renders FilePreview with two files 1`] = `
     <div
       class="memori--preview-list"
     >
-      <button
-        aria-label="test.pdf"
+      <div
         class="memori--preview-item memori--preview-item--document"
-        type="button"
       >
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-file memori--preview-icon"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-label="test.pdf"
+          class="memori--preview-item-trigger"
+          type="button"
         >
-          <path
-            d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-          />
-          <path
-            d="M14 2v4a2 2 0 0 0 2 2h4"
-          />
-        </svg>
-        <div
-          class="memori--preview-file-info"
-        >
-          <span
-            class="memori--preview-filename"
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-file memori--preview-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            test.pdf
-          </span>
-          <span
-            class="memori--preview-filetype"
+            <path
+              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+            />
+            <path
+              d="M14 2v4a2 2 0 0 0 2 2h4"
+            />
+          </svg>
+          <div
+            class="memori--preview-file-info"
           >
-            PDF
-          </span>
-        </div>
+            <span
+              class="memori--preview-filename"
+            >
+              test.pdf
+            </span>
+            <span
+              class="memori--preview-filetype"
+            >
+              PDF
+            </span>
+          </div>
+        </button>
         <button
           aria-label="upload.removeFile"
           class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button"
@@ -164,46 +172,50 @@ exports[`renders FilePreview with two files 1`] = `
             </svg>
           </span>
         </button>
-      </button>
-      <button
-        aria-label="test.pdf"
+      </div>
+      <div
         class="memori--preview-item memori--preview-item--document"
-        type="button"
       >
-        <svg
-          aria-hidden="true"
-          class="lucide lucide-file memori--preview-icon"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-label="test.pdf"
+          class="memori--preview-item-trigger"
+          type="button"
         >
-          <path
-            d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
-          />
-          <path
-            d="M14 2v4a2 2 0 0 0 2 2h4"
-          />
-        </svg>
-        <div
-          class="memori--preview-file-info"
-        >
-          <span
-            class="memori--preview-filename"
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-file memori--preview-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            test.pdf
-          </span>
-          <span
-            class="memori--preview-filetype"
+            <path
+              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+            />
+            <path
+              d="M14 2v4a2 2 0 0 0 2 2h4"
+            />
+          </svg>
+          <div
+            class="memori--preview-file-info"
           >
-            PDF
-          </span>
-        </div>
+            <span
+              class="memori--preview-filename"
+            >
+              test.pdf
+            </span>
+            <span
+              class="memori--preview-filetype"
+            >
+              PDF
+            </span>
+          </div>
+        </button>
         <button
           aria-label="upload.removeFile"
           class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button"
@@ -235,7 +247,7 @@ exports[`renders FilePreview with two files 1`] = `
             </svg>
           </span>
         </button>
-      </button>
+      </div>
     </div>
   </div>
 </div>
