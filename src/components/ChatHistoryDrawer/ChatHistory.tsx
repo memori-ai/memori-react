@@ -946,7 +946,10 @@ const ChatHistoryDrawer = ({
 
     return (
       <>
-        <ul className="memori-chat-history-drawer--list">
+        <ul
+          className="memori-chat-history-drawer--list"
+          aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
+        >
           {paginatedChatLogs.map((chatLog: ChatLog, index: number) => {
             const lastMessageDate = Math.max(
               ...chatLog.lines.map(line => new Date(line.timestamp).getTime())
@@ -967,27 +970,37 @@ const ChatHistoryDrawer = ({
               calculateTitle(chatLog.lines) ||
               'Chat-' + chatLog.chatLogID.substring(0, 4);
 
+            const isCurrentSession = chatLog?.sessionID === sessionId;
+
             return (
               <li key={chatLog.chatLogID}>
                 <button
                   type="button"
-                  disabled={chatLog?.sessionID === sessionId}
+                  aria-disabled={isCurrentSession || undefined}
+                  aria-label={title}
                   className={`memori-chat-history-drawer--list-item ${
                     selectedChatLog?.chatLogID === chatLog.chatLogID
                       ? 'memori-chat-history-drawer--list-item--selected'
                       : ''
                   } ${
-                    chatLog?.sessionID !== sessionId
+                    !isCurrentSession
                       ? 'memori-chat-history-drawer--list-item--hoverable'
                       : ''
                   } ${
-                    chatLog?.sessionID === sessionId
+                    isCurrentSession
                       ? 'memori-chat-history-drawer--list-item--disabled'
                       : ''
                   }`}
+                  onKeyDown={event => {
+                    if (
+                      isCurrentSession &&
+                      (event.key === 'Enter' || event.key === ' ')
+                    ) {
+                      event.preventDefault();
+                    }
+                  }}
                   onClick={async () => {
-                    // the active chat
-                    if (chatLog?.sessionID === sessionId) {
+                    if (isCurrentSession) {
                       return;
                     }
                     if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
@@ -1012,9 +1025,9 @@ const ChatHistoryDrawer = ({
                   </div> */}
                   <div className="memori-chat-history-drawer--list-item--content">
                     <div className="memori-chat-history-drawer--list-item--title-wrapper">
-                      <h3 className="memori-chat-history-drawer--list-item--title">
+                      <span className="memori-chat-history-drawer--list-item--title">
                         {title}
-                      </h3>
+                      </span>
                       {isUpdatedToday && (
                         <span className="memori-chat-history-drawer--list-item--today-pill">
                           {t('today') || 'Today'}

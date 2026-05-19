@@ -451,71 +451,62 @@ exports[`renders Chat layout unchanged 1`] = `
                       <div
                         class="memori--language-row"
                       >
-                        <span
-                          class="memori--language-row__label"
-                        >
-                          write_and_speak.chatLanguageLabel
-                        </span>
                         <div
-                          class="memori--language-row__control"
+                          class="memori-combobox memori-combobox--language-chooser memori--language-row__combobox"
                         >
-                          <div
-                            class="memori-combobox memori-combobox--language-chooser memori--language-row__combobox"
+                          <label
+                            class="memori-combobox__label"
+                            for=":ra:"
+                            id=":ra:-label"
                           >
-                            <label
-                              class="memori-combobox__label"
-                              for=":ra:"
-                              id=":ra:-label"
+                            write_and_speak.chatLanguageLabel
+                          </label>
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="dialog"
+                            aria-labelledby=":ra:-label"
+                            class="memori-combobox__trigger"
+                            id=":ra:"
+                            role="combobox"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="memori-combobox__value"
                             >
-                              write_and_speak.chatLanguageLabel
-                            </label>
-                            <button
-                              aria-expanded="false"
-                              aria-haspopup="dialog"
-                              aria-labelledby=":ra:-label"
-                              class="memori-combobox__trigger"
-                              id=":ra:"
-                              role="combobox"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-combobox__value"
-                              >
-                                Italian
-                              </span>
-                              <span
-                                aria-hidden="true"
-                                class="memori-combobox__trigger-icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-chevron-down"
-                                  fill="none"
-                                  height="16"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="m6 9 6 6 6-6"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                            <input
+                              Italian
+                            </span>
+                            <span
                               aria-hidden="true"
-                              id="base-ui-:rb:"
-                              name="user-lang-pref"
-                              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
-                              tabindex="-1"
-                              value="IT"
-                            />
-                          </div>
+                              class="memori-combobox__trigger-icon"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="lucide lucide-chevron-down"
+                                fill="none"
+                                height="16"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="m6 9 6 6 6-6"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                          <input
+                            aria-hidden="true"
+                            id="base-ui-:rb:"
+                            name="user-lang-pref"
+                            style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+                            tabindex="-1"
+                            value="IT"
+                          />
                         </div>
                       </div>
                       <section

@@ -177,7 +177,17 @@ div.memori-media-item--link.memori-media-item--image-link {
     height: 100%;
     border-radius: var(--memori-radius-box);
     text-decoration: none;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, outline 0.2s ease, transform 0.2s ease;
+}
+
+/* Tab focus — focus is on the link wrapper, not the inner card/document */
+a.memori-media-item--link:focus-visible,
+div.memori-media-item--link:focus-visible {
+    overflow: visible;
+    box-shadow: var(--memori-focus-ring);
+    outline: 2px solid var(--memori-primary);
+    outline-offset: var(--memori-focus-ring-offset, 2px);
+    transform: scale(0.99);
 }
 
 .memori-media-item--icon {
@@ -834,10 +844,6 @@ a.memori-media-item--document-link {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.memori-media-item--document:active {
-    transform: scale(0.99);
-}
-
 .memori-media-item--document-header {
     display: flex;
     align-items: flex-start;
@@ -901,6 +907,12 @@ a.memori-media-item--document-link {
     min-height: 120px;
     box-sizing: border-box;
     background-color: var(--memori-secondary-background);
+}
+
+/* Tab focus — focus is on the link wrapper, not the inner card/document */
+a.memori-media-item--link:focus-visible .memori-media-item--document,
+div.memori-media-item--link:focus-visible .memori-media-item--document {
+    border-color: var(--memori-border-primary, var(--memori-primary));
 }
 
 /* ============================================

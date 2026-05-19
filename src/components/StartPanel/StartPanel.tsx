@@ -28,9 +28,6 @@ import CompletionProviderStatus, {
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import { Expandable } from '@memori.ai/ui';
 
-const LANG_COMBO_GROUP_POPULAR = '__memori_lang_group_popular__';
-const LANG_COMBO_GROUP_ALL = '__memori_lang_group_all__';
-
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
 }
@@ -108,25 +105,21 @@ const StartPanel: React.FC<Props> = ({
     const { popular, all } = getGroupedChatLanguages();
     return [
       {
-        value: LANG_COMBO_GROUP_POPULAR,
-        label: 'Popular',
-        disabled: true,
+        groupLabel: t('popularLanguages') || 'Popular',
+        options: popular.map(lang => ({
+          label: lang.label,
+          value: lang.value,
+        })),
       },
-      ...popular.map(lang => ({
-        label: lang.label,
-        value: lang.value,
-      })),
       {
-        value: LANG_COMBO_GROUP_ALL,
-        label: 'All the languages',
-        disabled: true,
+        groupLabel: t('allLanguages') || 'All Languages',
+        options: all.map(lang => ({
+          label: lang.label,
+          value: lang.value,
+        })),
       },
-      ...all.map(lang => ({
-        label: lang.label,
-        value: lang.value,
-      })),
     ];
-  }, []);
+  }, [t]);
 
   const selectedChatLangCode = useMemo(() => {
     const raw = userLang ?? i18n.language ?? 'EN';
@@ -367,31 +360,23 @@ const StartPanel: React.FC<Props> = ({
             <div className="memori--description">
               {isMultilanguageEnabled && !instruct && (
                 <div className="memori--language-row">
-                  <span className="memori--language-row__label">
-                    {t('write_and_speak.chatLanguageLabel')}
-                  </span>
-                  <div className="memori--language-row__control">
-                    <Combobox
-                      name="user-lang-pref"
-                      className="memori-combobox--language-chooser memori--language-row__combobox"
-                      label={String(t('write_and_speak.chatLanguageLabel'))}
-                      value={selectedChatLangCode}
-                      onChange={(value: string | null) => {
-                        if (
-                          value &&
-                          value !== LANG_COMBO_GROUP_POPULAR &&
-                          value !== LANG_COMBO_GROUP_ALL
-                        ) {
-                          setUserLang(value);
-                        }
-                      }}
-                      placeholder={
-                        t('write_and_speak.iWantToTalkToIn') ||
-                        'I want to talk to Memori in'
+                  <Combobox
+                    name="user-lang-pref"
+                    className="memori-combobox--language-chooser memori--language-row__combobox"
+                    label={String(t('write_and_speak.chatLanguageLabel'))}
+                    value={selectedChatLangCode}
+                    onChange={(value: string | null) => {
+                      if (value) {
+                        setUserLang(value);
                       }
-                      options={languageComboboxOptions}
-                    />
-                  </div>
+                    }}
+                    placeholder={
+                      t('write_and_speak.iWantToTalkToIn', {
+                        name: memori.name,
+                      }) || `I want to talk to ${memori.name} in`
+                    }
+                    options={languageComboboxOptions}
+                  />
                 </div>
               )}
               {/* 

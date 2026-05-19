@@ -220,34 +220,17 @@
     gap: 0.25rem;
 }
 
-.memori--language-row__label {
-    flex-shrink: 0;
+.memori--language-row__combobox {
+    width: 100%;
+    min-width: 7rem;
+}
+
+.memori--language-row__combobox .memori-combobox__label {
+    display: block;
+    margin-bottom: 0.25rem;
     color: var(--memori-text-color);
     font-size: 0.8125rem;
     opacity: 0.72;
-}
-
-.memori--language-row__control {
-    position: relative;
-    min-width: 100%;
-    margin-left: auto;
-}
-
-.memori--language-row__control label,
-.memori--language-row__combobox label {
-    position: absolute !important;
-    overflow: hidden !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-    margin: -1px !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-}
-
-.memori--language-row__combobox {
-    min-width: 7rem;
 }
 
 .memori--start-panel__divider {
@@ -424,11 +407,6 @@
     .memori--start-panel {
         overflow-x: visible;
         overflow-y: auto;
-    }
-
-    .memori--language-row__control {
-        min-width: 100%;
-        margin-left: 0;
     }
 
     .memori--start-panel__mobile-info {

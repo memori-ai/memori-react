@@ -568,6 +568,33 @@ ${file.textAssetUrl || ''}
     return t('upload.uploadFilesOrImages') ?? 'Upload files or images';
   }, [hasReachedMediaLimit, t]);
 
+  const isUploadDisabled = disabled || isLoading || hasReachedMediaLimit;
+
+  const uploadButton = (
+    <button
+      ref={buttonRef}
+      type="button"
+      className={cx(
+        'memori-button',
+        'memori-button--circle',
+        'memori-button--icon-only',
+        'memori-share-button--button',
+        'memori--conversation-button',
+        'memori--unified-upload-button'
+      )}
+      onClick={handleButtonClick}
+      disabled={isUploadDisabled}
+      tabIndex={isUploadDisabled ? -1 : undefined}
+      aria-label={uploadTooltipTitle}
+    >
+      {isLoading ? (
+        <Spin spinning className="memori--upload-icon" />
+      ) : (
+        <UploadIcon className="memori--upload-icon" />
+      )}
+    </button>
+  );
+
   return (
     <div
       className={cx('memori--unified-upload-wrapper', {
@@ -587,30 +614,26 @@ ${file.textAssetUrl || ''}
         style={{ display: 'none' }}
       />
 
-      {/* Main upload button */}
+      {/* Main upload button — direct child of Tooltip so Tab reaches the button (no extra span wrapper) */}
       <Tooltip placement="top" title={uploadTooltipTitle}>
-        <span className="memori--unified-upload-button-tooltip-trigger">
-          <button
-            ref={buttonRef}
-            className={cx(
-              'memori-button',
-              'memori-button--circle',
-              'memori-button--icon-only',
-              'memori-share-button--button',
-              'memori--conversation-button',
-              'memori--unified-upload-button'
-            )}
-            onClick={handleButtonClick}
-            disabled={disabled || isLoading || hasReachedMediaLimit}
+        {isUploadDisabled ? (
+          <span
+            className="memori--unified-upload-button-tooltip-trigger"
+            tabIndex={0}
+            role="button"
+            aria-disabled="true"
             aria-label={uploadTooltipTitle}
+            onKeyDown={event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+              }
+            }}
           >
-            {isLoading ? (
-              <Spin spinning className="memori--upload-icon" />
-            ) : (
-              <UploadIcon className="memori--upload-icon" />
-            )}
-          </button>
-        </span>
+            {uploadButton}
+          </span>
+        ) : (
+          uploadButton
+        )}
       </Tooltip>
 
       {/* Media count indicator */}
@@ -625,7 +648,7 @@ ${file.textAssetUrl || ''}
       )}
 
       {/* Hidden components */}
-      <div className="memori--hidden-uploader" ref={documentRef}>
+      <div className="memori--hidden-uploader" ref={documentRef} aria-hidden>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
           authToken={authToken}
@@ -641,7 +664,7 @@ ${file.textAssetUrl || ''}
         />
       </div>
 
-      <div className="memori--hidden-uploader" ref={imageRef}>
+      <div className="memori--hidden-uploader" ref={imageRef} aria-hidden>
         <UploadImages
           authToken={authToken}
           client={client}

@@ -738,7 +738,7 @@
     align-items: center;
     padding: 3px 7px;
     border-radius: 999px;
-    background-color: var(--memori-primary-subtle);
+    /* background-color: var(--memori-primary-subtle); */
     /* background-color: var(--color-background-info, var(--memori-primary-subtle)); */
     color: var(--memori-text-color);
     font-size: 11px;
@@ -814,7 +814,8 @@
     border-color: var(--color-border-secondary, var(--memori-primary));
 }
 
-.memori-chat-history-drawer--list-item--disabled {
+.memori-chat-history-drawer--list-item--disabled,
+.memori-chat-history-drawer--list-item[aria-disabled='true'] {
     cursor: not-allowed;
     opacity: 0.5;
 }
