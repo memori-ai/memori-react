@@ -1,5 +1,17 @@
 
 
+## [8.38.5](https://github.com/memori-ai/memori-react/compare/v8.38.4...v8.38.5) (2026-05-20)
+
+
+### Bug Fixes
+
+* increase tooltip close delay and enable pointer events for content ([22f596b](https://github.com/memori-ai/memori-react/commit/22f596b308c0263331b93faf0b3b5b7c11af52b0))
+
+
+### Changes
+
+* improve file selection handling and document upload logic in UploadButton ([71117bc](https://github.com/memori-ai/memori-react/commit/71117bc0926779c103a57d9574ee69ccc6b914a8))
+
 ## [8.38.4](https://github.com/memori-ai/memori-react/compare/v8.38.3...v8.38.4) (2026-05-12)
 
 
