@@ -30,35 +30,24 @@
     box-shadow: var(--memori-shadow-lg);
 }
 
+/* Disabled items are used as non-selectable section headers in the language
+   Combobox. The grouped <Combobox.Group> API is avoided because it bypasses
+   the built-in search filter (see StartPanel.tsx for details). Style these
+   "fake group" headers to visually stand out from the actual options. */
 .memori-combobox__item[data-disabled],
 .memori-combobox__item[aria-disabled='true'],
 .memori-combobox__item.memori-combobox__item--disabled {
-    font-size: var(--memori-text-size-sm) !important;
-}
-
-/* Combobox optgroup: visually distinguish the group title from its options.
-   The popup is rendered in a portal so these selectors must apply globally. */
-.memori-combobox__popup .memori-combobox__group-label {
     padding-top: var(--memori-spacing-sm);
     padding-bottom: var(--memori-spacing-xs);
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
-    font-size: var(--memori-text-size-xs);
+    background: transparent !important;
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent) !important;
+    cursor: default !important;
+    font-size: var(--memori-text-size-xs) !important;
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.06em;
     line-height: var(--memori-text-line-tight);
+    pointer-events: none;
     text-transform: uppercase;
-}
-
-.memori-combobox__popup .memori-combobox__group + .memori-combobox__group .memori-combobox__group-label {
-    border-top: 0.5px solid var(--memori-border-color);
-    margin-top: var(--memori-spacing-xs);
-}
-
-.memori-combobox__popup .memori-combobox__group .memori-combobox__item {
-    font-size: var(--memori-text-size-base);
-    font-weight: var(--memori-text-weight-normal);
-    letter-spacing: normal;
-    text-transform: none;
 }
 
 .memori--start-panel {
