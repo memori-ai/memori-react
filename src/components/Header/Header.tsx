@@ -380,9 +380,7 @@ const Header: React.FC<Props> = ({
   const chatHistoryButtonLabel =
     layout === 'TOTEM'
       ? undefined
-      : layout === 'FULLPAGE' ||
-        layout === 'CHAT' ||
-        layout === 'HIDDEN_CHAT'
+      : layout === 'FULLPAGE' || layout === 'CHAT' || layout === 'HIDDEN_CHAT'
       ? t('widget.headerHistory') || t('write_and_speak.chatHistory')
       : t('write_and_speak.chatHistory');
   const fullpageHeaderProfileLabel =
@@ -509,7 +507,10 @@ const Header: React.FC<Props> = ({
                           alt={user.userName || user.eMail}
                           className="memori-dropdown--avatar"
                         />
-                        <span className="memori-dropdown--avatar-overlay" aria-hidden>
+                        <span
+                          className="memori-dropdown--avatar-overlay"
+                          aria-hidden
+                        >
                           <Camera size={20} strokeWidth={2} />
                         </span>
                         <label htmlFor="avatar" className="sr-only">
@@ -536,7 +537,10 @@ const Header: React.FC<Props> = ({
                               .charAt(0)
                               .toUpperCase()}
                           </span>
-                          <span className="memori-dropdown--avatar-overlay" aria-hidden>
+                          <span
+                            className="memori-dropdown--avatar-overlay"
+                            aria-hidden
+                          >
                             <Camera size={20} strokeWidth={2} />
                           </span>
                           <label htmlFor="avatar" className="sr-only">
@@ -916,7 +920,7 @@ const Header: React.FC<Props> = ({
                     {t('widget.knownFactsHint') || 'What I remember about you'}
                   </span>
                 </span>
-                <ChevronRight size={16} aria-hidden />
+                {/* <ChevronRight size={16} aria-hidden /> */}
               </button>
               {hasChatConsumptionData ? (
                 <ChatConsumptionDropdown
@@ -1205,10 +1209,7 @@ const Header: React.FC<Props> = ({
               role="presentation"
             />
           ) : (
-            <span
-              className="memori-fullpage-header-brand-icon"
-              aria-hidden
-            />
+            <span className="memori-fullpage-header-brand-icon" aria-hidden />
           )}
           {isConversationStarted && (
             <span
