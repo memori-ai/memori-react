@@ -104,7 +104,11 @@
     padding: 0.72rem 1rem !important;
     border: 0 !important;
     border-radius: 0 !important;
-    gap: 0.7rem;
+    gap: 0.5rem;
+}
+
+.memori-mobile-session-panel--login-cta > span {
+    gap: 0.5rem;
 }
 
 .memori-mobile-session-panel--avatar {
@@ -191,9 +195,15 @@
     height: 2.3rem;
     align-items: center;
     justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
     border-radius: 12px;
-    background: var(--memori-main-background);
-    color: var(--memori-text-color);
+    /* background: var(--memori-main-background); */
+    color: var(--memori-primary);
+}
+
+[data-theme='dark'] .memori-mobile-session-panel--action-icon {
+    border-color: color-mix(in srgb, #fff 16%, transparent);
+    color: #fff;
 }
 
 .memori-mobile-session-panel--action-icon svg {
@@ -202,6 +212,7 @@
     height: 1rem;
     max-height: 1rem;
     flex-shrink: 0;
+    /* color: var(--memori-primary); */
 }
 
 .memori-mobile-session-panel--action-copy {
@@ -239,7 +250,7 @@
     width: calc(100% - 2rem);
     align-items: center !important;
     justify-content: flex-start !important;
-    padding: 0.78rem 0.4rem !important;
+    padding: 0.85rem 0rem !important;
     border: 0;
     border-radius: 0 !important;
     border-top: 1px solid var(--memori-border-color);
@@ -250,10 +261,15 @@
     gap: 0.7rem;
 }
 
+.memori-mobile-session-panel--logout > span {
+    gap: 0.5rem;
+}
+
 .memori-mobile-session-panel--action .memori-button__content {
     display: flex !important;
     width: 100%;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .memori-mobile-session-panel--logout .memori-mobile-session-panel--action-icon {
@@ -327,6 +343,16 @@
 .memori-mobile-session-panel--share-content,
 .memori-mobile-session-panel--share-content * {
     font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
+}
+
+.memori-mobile-session-panel--ai-usage-content {
+    padding: 0;
+}
+
+.memori-mobile-session-panel--ai-usage.memori-dropdown--sustainability {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
 }
 
 .memori-mobile-session-panel--meta-label {

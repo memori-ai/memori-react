@@ -42,6 +42,25 @@
 pre[class*='language-'] {
     margin: 0 !important;
 }
+
+/* Override Prism theme defaults (pre/code[class*="language-"]) which force
+   white-space: pre and disable word-wrap. Without these overrides, long
+   unbreakable tokens make the snippet card overflow its container on mobile. */
+.memori-snippet pre[class*='language-'],
+.memori-snippet code[class*='language-'] {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    word-break: break-word;
+    word-spacing: normal;
+    word-wrap: break-word;
+}
+
+.memori-snippet pre[class*='language-'] {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
 /* Preview mode: full content with max height and scroll */
 .memori-snippet--preview .memori-snippet--content {
     display: flex;

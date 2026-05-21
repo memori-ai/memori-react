@@ -543,6 +543,7 @@ div.memori-media-item--link:focus-visible {
     display: flex;
     width: 100%;
     min-width: 0;
+    max-width: 100%;
     margin-bottom: var(--memori-spacing-lg);
 }
 
@@ -550,6 +551,7 @@ div.memori-media-item--link:focus-visible {
 .memori-media-items--grid .memori-media-item:has(.memori-media-item--snippet) {
     width: 100%;
     min-width: 0;
+    max-width: 100%;
 }
 
 .memori-media-items--grid .memori-media-item--snippet-direct {
@@ -566,7 +568,10 @@ div.memori-media-item--link:focus-visible {
 .memori-media-item--snippet-direct .memori-media-item--snippet {
     overflow: hidden;
     width: 100%;
-    min-width: auto;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex: 1 1 0;
     border: 1px solid var(--memori-border, #e5e7eb);
     border-radius: var(--memori-radius-box);
     background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);

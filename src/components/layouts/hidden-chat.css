@@ -241,16 +241,11 @@
 }
 
 /* Sidebar is narrow (~470px): icon-only chat history, same UX as <992px elsewhere */
-.memori-widget.memori-layout-hidden_chat
-    .memori-sidebar
-    .memori-header--chat-history-button
-    .memori-button__content {
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-header--chat-history-button .memori-button__content {
     display: none !important;
 }
 
-.memori-widget.memori-layout-hidden_chat
-    .memori-sidebar
-    .memori-header--chat-history-button.memori-button {
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-header--chat-history-button.memori-button {
     gap: 0;
     padding-inline: 8px;
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Brain,
   Camera,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   LogIn,
@@ -10,15 +9,12 @@ import {
 } from 'lucide-react';
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import {
-  Message,
-  User,
-} from '@memori.ai/memori-api-client/dist/types';
+import { Message, User } from '@memori.ai/memori-api-client/dist/types';
 import './MobileSessionPanel.css';
 import { getErrori18nKey } from '../../helpers/error';
 import { imgMimeTypes } from '../../helpers/utils';
 import GasStation from '../icons/GasStation';
-import ChatConsumptionDropdown from '../Header/ChatConsumptionDropdown';
+import { ChatConsumptionContent } from '../Header/ChatConsumptionDropdown';
 type SessionAction = {
   key: string;
   icon: React.ReactNode;
@@ -190,7 +186,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   const touchStartYRef = useRef(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [activeView, setActiveView] = useState<
-    'session' | 'location' | 'knownFacts' | 'share'
+    'session' | 'location' | 'knownFacts' | 'share' | 'aiUsage'
   >('session');
   const { uploadAsset, pwlUpdateUser } = apiClient?.backend || {};
   const { add } = useAlertManager();
@@ -249,9 +245,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
       )}`
     : t('widget.noData', { defaultValue: 'Nessun dato disponibile' });
   const resolvedKnownFactsHint =
-    knownFactsHint ||
-    t('widget.knownFactsHint') ||
-    'What I remember about you';
+    knownFactsHint || t('widget.knownFactsHint') || 'What I remember about you';
   const resolvedAiUsageTitle =
     aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
   useEffect(() => {
@@ -399,14 +393,13 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   const visibleActions = actions.filter(action => {
     const normalizedKey = action.key.toLowerCase();
     const normalizedTitle = action.title.toLowerCase();
-    const isLocationAction = action.view === 'location';
     const isKnownFactsAction = action.view === 'knownFacts';
     const isAudioAction =
       normalizedKey.includes('audio') ||
       normalizedTitle.includes('audio') ||
       normalizedTitle.includes('sound');
 
-    return !isLocationAction && !isKnownFactsAction && !isAudioAction;
+    return !isKnownFactsAction && !isAudioAction;
   });
 
   return (
@@ -478,10 +471,16 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                         alt={userName || userEmail}
                         className="memori-dropdown--avatar"
                       />
-                      <span className="memori-dropdown--avatar-overlay" aria-hidden>
+                      <span
+                        className="memori-dropdown--avatar-overlay"
+                        aria-hidden
+                      >
                         <Camera size={20} strokeWidth={2} />
                       </span>
-                      <label htmlFor="mobile-session-avatar-upload" className="sr-only">
+                      <label
+                        htmlFor="mobile-session-avatar-upload"
+                        className="sr-only"
+                      >
                         {t('login.changeAvatar', {
                           defaultValue: 'Change profile picture',
                         })}
@@ -507,7 +506,10 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                             .charAt(0)
                             .toUpperCase()}
                         </span>
-                        <span className="memori-dropdown--avatar-overlay" aria-hidden>
+                        <span
+                          className="memori-dropdown--avatar-overlay"
+                          aria-hidden
+                        >
                           <Camera size={20} strokeWidth={2} />
                         </span>
                         <label
@@ -551,88 +553,63 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             >
               {title}
             </h2>
-            {showSessionInfo && isLoggedIn && (
+            {showSessionInfo && (
               <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
+                {isLoggedIn && (
+                  <li>
+                    <Button
+                      variant="toolbar"
+                      size="sm"
+                      className="memori-mobile-session-panel--action"
+                      disabled={knownFactsDisabled}
+                      onClick={() => {
+                        if (knownFactsDisabled) return;
+                        onKnownFactsOpen?.();
+                      }}
+                    >
+                      <span className="memori-mobile-session-panel--action-icon">
+                        <Brain size={18} />
+                      </span>
+                      <span className="memori-mobile-session-panel--action-copy">
+                        <span className="memori-mobile-session-panel--action-title">
+                          {knownFactsPageTitle}
+                        </span>
+                        <span className="memori-mobile-session-panel--action-subtitle">
+                          {resolvedKnownFactsHint}
+                        </span>
+                      </span>
+                      <span className="memori-mobile-session-panel--action-trailing">
+                        <ChevronRight size={16} />
+                      </span>
+                    </Button>
+                  </li>
+                )}
                 <li>
                   <Button
                     variant="toolbar"
                     size="sm"
                     className="memori-mobile-session-panel--action"
-                    disabled={knownFactsDisabled}
+                    disabled={!hasChatConsumptionData}
                     onClick={() => {
-                      if (knownFactsDisabled) return;
-                      onKnownFactsOpen?.();
+                      if (!hasChatConsumptionData) return;
+                      setActiveView('aiUsage');
                     }}
                   >
                     <span className="memori-mobile-session-panel--action-icon">
-                      <Brain size={18} />
+                      <GasStation />
                     </span>
                     <span className="memori-mobile-session-panel--action-copy">
                       <span className="memori-mobile-session-panel--action-title">
-                        {knownFactsPageTitle}
+                        {resolvedAiUsageTitle}
                       </span>
                       <span className="memori-mobile-session-panel--action-subtitle">
-                        {resolvedKnownFactsHint}
+                        {aiUsageSubtitle}
                       </span>
                     </span>
                     <span className="memori-mobile-session-panel--action-trailing">
                       <ChevronRight size={16} />
                     </span>
                   </Button>
-                </li>
-                <li>
-                  {hasChatConsumptionData ? (
-                    <ChatConsumptionDropdown
-                      history={history}
-                      triggerVariant="toolbar"
-                      menuAlign="start"
-                      trigger={triggerProps => (
-                        <Button
-                          {...triggerProps}
-                          variant="toolbar"
-                          size="sm"
-                          className="memori-mobile-session-panel--action"
-                        >
-                          <span className="memori-mobile-session-panel--action-icon">
-                            <GasStation />
-                          </span>
-                          <span className="memori-mobile-session-panel--action-copy">
-                            <span className="memori-mobile-session-panel--action-title">
-                              {resolvedAiUsageTitle}
-                            </span>
-                            <span className="memori-mobile-session-panel--action-subtitle">
-                              {aiUsageSubtitle}
-                            </span>
-                          </span>
-                          <span className="memori-mobile-session-panel--action-trailing">
-                            <ChevronDown size={16} />
-                          </span>
-                        </Button>
-                      )}
-                    />
-                  ) : (
-                    <Button
-                      variant="toolbar"
-                      size="sm"
-                      className="memori-mobile-session-panel--action"
-                      disabled
-                    >
-                      <span className="memori-mobile-session-panel--action-icon">
-                        <GasStation />
-                      </span>
-                      <span className="memori-mobile-session-panel--action-copy">
-                        <span className="memori-mobile-session-panel--action-title">
-                          {resolvedAiUsageTitle}
-                        </span>
-                        <span className="memori-mobile-session-panel--action-subtitle">
-                          {aiUsageSubtitle}
-                        </span>
-                      </span>
-                      <span className="memori-mobile-session-panel--action-trailing">
-                        <ChevronDown size={16} />
-                      </span>
-                    </Button>
-                  )}
                 </li>
               </ul>
             )}
@@ -738,6 +715,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 ? locationPageTitle
                 : activeView === 'share'
                 ? sharePageTitle
+                : activeView === 'aiUsage'
+                ? resolvedAiUsageTitle
                 : knownFactsPageTitle}
             </h3>
             {activeView === 'location' ? (
@@ -774,6 +753,14 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             ) : activeView === 'share' ? (
               <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--share-content">
                 {shareContent}
+              </div>
+            ) : activeView === 'aiUsage' ? (
+              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--ai-usage-content">
+                <ChatConsumptionContent
+                  history={history}
+                  showTitle={false}
+                  className="memori-mobile-session-panel--ai-usage"
+                />
               </div>
             ) : (
               <div className="memori-mobile-session-panel--page-content">
