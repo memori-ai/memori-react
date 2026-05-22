@@ -1,5 +1,12 @@
 
 
+## [9.0.0-alpha.1](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.0...alpha/rc-v9.0.0-alpha.1) (2026-05-22)
+
+
+### Features
+
+* add ChatResumeDrawer and MobileSessionPanel styles to main stylesheet ([0863dca](https://github.com/memori-ai/memori-react/commit/0863dca0e8d61e4b977ab90eb79a701bab57f920))
+
 ## 9.0.0-alpha.0 (2026-05-22)
 
 
