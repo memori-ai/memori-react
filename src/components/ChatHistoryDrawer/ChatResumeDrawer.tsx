@@ -8,7 +8,6 @@ import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { stripHTML } from '../../helpers/utils';
 import Chat from '../Chat/Chat';
-import './ChatResumeDrawer.css';
 
 export interface ResumeDrawerMessage {
   id: string;

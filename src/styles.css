@@ -24,6 +24,7 @@
 @import url('./components/CustomGLBModelViewer/ModelViewer.css');
 @import url('./components/SettingsDrawer/SettingsDrawer.css');
 @import url('./components/ChatHistoryDrawer/ChatHistory.css');
+@import url('./components/ChatHistoryDrawer/ChatResumeDrawer.css');
 @import url('./components/ExpertsDrawer/ExpertsDrawer.css');
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
@@ -40,6 +41,7 @@
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');
+@import url('./components/MobileSessionPanel/MobileSessionPanel.css');
 @import url('./components/VenueWidget/VenueWidget.css');
 @import url('./components/WhyThisAnswer/WhyThisAnswer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');

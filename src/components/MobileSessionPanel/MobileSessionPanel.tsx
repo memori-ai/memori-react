@@ -10,7 +10,6 @@ import {
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { Message, User } from '@memori.ai/memori-api-client/dist/types';
-import './MobileSessionPanel.css';
 import { getErrori18nKey } from '../../helpers/error';
 import { imgMimeTypes } from '../../helpers/utils';
 import GasStation from '../icons/GasStation';
