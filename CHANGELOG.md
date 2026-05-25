@@ -1,5 +1,12 @@
 
 
+## [9.0.0-alpha.2](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.1...alpha/rc-v9.0.0-alpha.2) (2026-05-25)
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/ui dependency ([9f7a967](https://github.com/memori-ai/memori-react/commit/9f7a9675576bb090da1700756328414413889a4e))
+
 ## [9.0.0-alpha.1](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.0...alpha/rc-v9.0.0-alpha.1) (2026-05-22)
 
 
