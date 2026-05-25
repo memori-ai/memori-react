@@ -1,5 +1,12 @@
 
 
+## [9.0.0-alpha.3](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.2...alpha/rc-v9.0.0-alpha.3) (2026-05-25)
+
+
+### Maintenance
+
+* enhance build process with PostCSS integration and add CSS build scripts ([0d3af95](https://github.com/memori-ai/memori-react/commit/0d3af959b99f123b5a392f1f017a044c46760b88))
+
 ## [9.0.0-alpha.2](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.1...alpha/rc-v9.0.0-alpha.2) (2026-05-25)
 
 
