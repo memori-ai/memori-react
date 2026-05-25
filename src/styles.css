@@ -4,7 +4,10 @@
 /* Layer order: theme (defaults) < integration (integrationConfig overrides) */
 @layer theme, integration;
 
-/* --- 1. Design system esterno (variabili, reset, token) --- */
+/* --- 1. Design system esterno (variabili, reset, token) ---
+   NOTE: the bundler-style specifier below is intentional for dev/Storybook.
+   Published `dist/styles.css` and `esm/styles.css` are bundled by PostCSS
+   (`postcss-import`) so this import is inlined before publishing. */
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
 
 /* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
