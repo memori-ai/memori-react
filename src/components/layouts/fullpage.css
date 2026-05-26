@@ -1,7 +1,7 @@
 /* FullPage layout – spacing, typography and structure using global design tokens */
 
 .memori-widget.memori-layout-fullpage {
-    max-width: var(--memori-layout-max-width);
+    /* max-width: var(--memori-layout-max-width); */
     /* min-height: 100vh;
     min-height: 100dvh; */
     padding: var(--memori-spacing-md);
@@ -17,22 +17,11 @@
     flex-direction: column;
     gap: 0;
 }
-/* 
-.memori-widget.memori-layout-fullpage > .memori-spin > .memori--powered-by {
-    top: auto;
-    right: auto;
-    bottom: 22%;
-    left: 8%;
-} */
-
-/* 3D avatar: pin “Powered by” to the corner so it clears the figure */
-.memori-widget.memori-layout-fullpage > .memori-spin > .memori--powered-by,
-.memori-widget.memori-layout-fullpage.memori--avatar-readyplayerme > .memori-spin > .memori--powered-by,
-.memori-widget.memori-layout-fullpage.memori--avatar-readyplayerme-full > .memori-spin > .memori--powered-by,
-.memori-widget.memori-layout-fullpage.memori--avatar-customglb > .memori-spin > .memori--powered-by,
-.memori-widget.memori-layout-fullpage.memori--avatar-customrpm > .memori-spin > .memori--powered-by {
-    bottom: 3.5rem;
-    left: 1.5rem;
+/* "Powered by" is rendered inside .memori--grid-column-left and pinned to its bottom-left corner
+   via the default absolute positioning defined in PoweredBy.css. */
+.memori-widget.memori-layout-fullpage .memori--grid-column-left > .memori--powered-by {
+    bottom: 1rem;
+    left: 1rem;
 }
 
 /* Header spacing + fullpage chrome (brand + actions bar) */
@@ -164,6 +153,8 @@
 /* Grid: main + left column (avatar) */
 .memori-widget.memori-layout-fullpage .memori--grid {
     display: flex;
+    width: 100%;
+    max-width: var(--memori-layout-max-width);
     height: 100%;
     min-height: 0;
     flex: 1 1 auto;
@@ -172,6 +163,7 @@
     padding: 0 var(--memori-spacing-md) var(--memori-spacing-md);
     padding-top: var(--memori-spacing-md);
     padding-bottom: var(--memori-spacing-xl);
+    margin: 0 auto;
     gap: var(--memori-spacing-md);
 }
 

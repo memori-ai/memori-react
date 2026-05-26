@@ -216,7 +216,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading}>
-        {poweredBy}
+        {useSideArtifactChrome && poweredBy}
 
         {Header && headerProps && mobileHeaderProps && (
           <div className="memori-fullpage-top-header">
@@ -339,6 +339,8 @@ const FullPageLayout: React.FC<LayoutProps> = ({
               )}
 
               <div id="extension" />
+
+              {poweredBy}
             </div>
           )}
           <div

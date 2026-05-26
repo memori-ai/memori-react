@@ -81,13 +81,10 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
 }
-
-/* --- 5. Light mode: colori superficie (prima del base così memori-client #root < body.sb-show-main #root) --- */
-memori-client,
-memori-client #root,
-.memori-widget {
-    --memori-surface-contrast: white;
-    --memori-surface-contrast-inverse: black;
+.memori.memori-widget.memori-layout-chat,
+.memori.memori-widget.memori-layout-fullpage,
+.memori.memori-widget.memori-layout-zoomed-full-body {
+    contain: layout;
 }
 
 /* --- 6. Base: brand e tema di default (in layer così integration può sovrascrivere --memori-primary) --- */

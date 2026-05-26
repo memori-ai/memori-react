@@ -11,7 +11,7 @@
 }
 
 .memori-widget.memori-layout-zoomed_full_body {
-    max-width: var(--memori-layout-max-width);
+    /* max-width: var(--memori-layout-max-width); */
     padding: var(--memori-spacing-md);
     margin-right: auto;
     margin-left: auto;
@@ -143,6 +143,8 @@
 /* Grid: main + left column (avatar) */
 .memori-widget.memori-layout-zoomed_full_body .memori--grid {
     display: flex;
+    width: 100%;
+    max-width: var(--memori-layout-max-width);
     height: 100%;
     min-height: 0;
     flex: 1 1 auto;
@@ -151,6 +153,7 @@
     padding: 0 var(--memori-spacing-md) var(--memori-spacing-md);
     padding-top: var(--memori-spacing-md);
     padding-bottom: var(--memori-spacing-xl);
+    margin: 0 auto;
     gap: var(--memori-spacing-md);
 }
 
