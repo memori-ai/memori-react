@@ -1,5 +1,23 @@
 
 
+## [9.0.0-alpha.4](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.3...alpha/rc-v9.0.0-alpha.4) (2026-05-26)
+
+
+### Features
+
+* add venue management to Chat, FullPage, HiddenChat, and ZoomedFullBody layouts ([5ae3160](https://github.com/memori-ai/memori-react/commit/5ae31609b223a9c65d3dbbd5d3c40ce5474be845))
+* enhance ChatConsumptionDropdown with open state management ([1e10b7c](https://github.com/memori-ai/memori-react/commit/1e10b7cd9cdf118b81413cab9233970d8ba1f933))
+
+
+### Maintenance
+
+* refactor MemoriWidget to utilize MemoriUIProvider for improved theme management ([1cff0e9](https://github.com/memori-ai/memori-react/commit/1cff0e9266eeeef48123a9af1bf5eea6ca642b2c))
+
+
+### Changes
+
+* update snapshot styles for various components ([8bafaca](https://github.com/memori-ai/memori-react/commit/8bafacac510713778112de43667b5c6f3057d74e))
+
 ## [9.0.0-alpha.3](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.2...alpha/rc-v9.0.0-alpha.3) (2026-05-25)
 
 
