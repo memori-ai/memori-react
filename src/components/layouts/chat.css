@@ -1,9 +1,6 @@
 .memori-widget.memori-layout-chat {
     overflow: hidden;
     height: 100vh !important;
-    height: 100dvh !important;
-    min-height: 100vh;
-    min-height: 100dvh;
     padding: 0;
 }
 
@@ -69,6 +66,12 @@
     padding-bottom: var(--memori-spacing-4xl);
     margin: 0 auto;
     background: var(--memori-main-background);
+}
+
+/* When a global background image is present, let it overhang
+   the chat body's main background by making the body transparent. */
+.memori-widget.memori-layout-chat:has(.memori--global-background:not(.no-background-image)) .memori-chat-layout--body {
+    background: transparent;
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--start-shell {

@@ -26,6 +26,7 @@ import {
   Brain,
   MapPin,
   ChevronDown,
+  ChevronUp,
   ChevronRight,
   Users,
   User as UserIcon,
@@ -927,7 +928,7 @@ const Header: React.FC<Props> = ({
                   history={history}
                   triggerVariant={buttonVariant}
                   menuAlign="start"
-                  trigger={triggerProps => (
+                  trigger={(triggerProps, { open }) => (
                     <button
                       {...triggerProps}
                       type="button"
@@ -948,7 +949,11 @@ const Header: React.FC<Props> = ({
                           {sessionInfoConsumptionSubtitle}
                         </span>
                       </span>
-                      <ChevronDown size={16} aria-hidden />
+                      {open ? (
+                        <ChevronDown size={16} aria-hidden />
+                      ) : (
+                        <ChevronUp size={16} aria-hidden />
+                      )}
                     </button>
                   )}
                 />
@@ -969,7 +974,7 @@ const Header: React.FC<Props> = ({
                       {sessionInfoConsumptionSubtitle}
                     </span>
                   </span>
-                  <ChevronDown size={16} aria-hidden />
+                  <ChevronUp size={16} aria-hidden />
                 </button>
               )}
             </div>

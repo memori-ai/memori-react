@@ -104,9 +104,9 @@ ZoomedFullBody.args = {
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   baseURL: 'http://localhost:3000',
-  layout: 'FULLPAGE',
+  layout: 'ZOOMED_FULL_BODY',
   uiLang: 'IT',
   spokenLang: 'IT',
   integrationID: '32922e14-24d6-4f5f-a06b-d963da14a658',
-  showSettings: true
+  showSettings: true,
 };

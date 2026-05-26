@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,8 @@ export interface ChatConsumptionDropdownProps {
   menuAlign?: 'start' | 'center' | 'end';
   trigger?:
     | ((
-        props: React.ButtonHTMLAttributes<HTMLButtonElement>
+        props: React.ButtonHTMLAttributes<HTMLButtonElement>,
+        state: { open: boolean }
       ) => React.ReactElement)
     | React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 }
@@ -263,6 +264,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   trigger,
 }) => {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   const hasConsumptionData = useMemo(
     () =>
@@ -295,7 +297,8 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
     triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => {
     if (!trigger) return renderDefaultTrigger(triggerButtonProps);
-    if (typeof trigger === 'function') return trigger(triggerButtonProps);
+    if (typeof trigger === 'function')
+      return trigger(triggerButtonProps, { open });
     if (
       !React.isValidElement<React.ButtonHTMLAttributes<HTMLButtonElement>>(
         trigger
@@ -323,7 +326,11 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   };
 
   return (
-    <Dropdown className="memori-header--dropdown">
+    <Dropdown
+      className="memori-header--dropdown"
+      open={open}
+      onOpenChange={setOpen}
+    >
       <Dropdown.Trigger
         showChevron={false}
         render={props => renderTrigger(props)}

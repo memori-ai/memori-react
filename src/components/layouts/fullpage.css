@@ -2,8 +2,8 @@
 
 .memori-widget.memori-layout-fullpage {
     max-width: var(--memori-layout-max-width);
-    min-height: 100vh;
-    min-height: 100dvh;
+    /* min-height: 100vh;
+    min-height: 100dvh; */
     padding: var(--memori-spacing-md);
     margin-right: auto;
     margin-left: auto;
@@ -150,6 +150,7 @@
 /* CHAT: title block a sinistra, controlli allineati a destra */
 .memori-widget.memori-layout-chat .memori-fullpage-header-row {
     justify-content: flex-end;
+    background: var(--memori-secondary-background);
 }
 
 .memori-widget.memori-layout-chat .memori-fullpage-header-brand {
