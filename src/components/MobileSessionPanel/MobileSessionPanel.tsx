@@ -9,11 +9,12 @@ import {
 } from 'lucide-react';
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import { Message, User } from '@memori.ai/memori-api-client/dist/types';
+import { Message, User, Venue } from '@memori.ai/memori-api-client/dist/types';
 import { getErrori18nKey } from '../../helpers/error';
 import { imgMimeTypes } from '../../helpers/utils';
 import GasStation from '../icons/GasStation';
 import { ChatConsumptionContent } from '../Header/ChatConsumptionDropdown';
+import { PositionPopoverContent } from '../PositionPopover/PositionPopover';
 type SessionAction = {
   key: string;
   icon: React.ReactNode;
@@ -66,6 +67,8 @@ export interface MobileSessionPanelProps {
   locationUnknownLabel?: string;
   locationEnableLabel?: string;
   locationDisableLabel?: string;
+  venue?: Venue;
+  setVenue?: (venue?: Venue) => void;
   knownFactsDescription?: string;
   knownFactsCtaLabel?: string;
   knownFactsCountLabel?: string;
@@ -178,6 +181,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   isLoggedIn = false,
   loginLabel = 'Log in',
   onLogin,
+  venue,
+  setVenue,
 }) => {
   const panelRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -719,35 +724,44 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 : knownFactsPageTitle}
             </h3>
             {activeView === 'location' ? (
-              <div className="memori-mobile-session-panel--page-content">
-                <p className="memori-mobile-session-panel--meta-label">
-                  {locationStatusLabel}
-                </p>
-                <p className="memori-mobile-session-panel--meta-value">
-                  {locationPlace || locationUnknownLabel}
-                </p>
-                <div className="memori-mobile-session-panel--page-actions">
-                  <Button
-                    variant="toolbar"
-                    size="sm"
-                    className={`memori-mobile-session-panel--page-btn ${
-                      isLocationEnabled
-                        ? 'memori-mobile-session-panel--page-btn-active'
-                        : ''
-                    }`}
-                    onClick={onLocationEnable}
-                  >
-                    <span>{locationEnableLabel}</span>
-                  </Button>
-                  <Button
-                    variant="toolbar"
-                    size="sm"
-                    className="memori-mobile-session-panel--page-btn memori-mobile-session-panel--page-btn-secondary"
-                    onClick={onLocationDisable}
-                  >
-                    {locationDisableLabel}
-                  </Button>
-                </div>
+              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--location-content">
+                {setVenue ? (
+                  <PositionPopoverContent
+                    venue={venue}
+                    setVenue={setVenue}
+                  />
+                ) : (
+                  <>
+                    <p className="memori-mobile-session-panel--meta-label">
+                      {locationStatusLabel}
+                    </p>
+                    <p className="memori-mobile-session-panel--meta-value">
+                      {locationPlace || locationUnknownLabel}
+                    </p>
+                    <div className="memori-mobile-session-panel--page-actions">
+                      <Button
+                        variant="toolbar"
+                        size="sm"
+                        className={`memori-mobile-session-panel--page-btn ${
+                          isLocationEnabled
+                            ? 'memori-mobile-session-panel--page-btn-active'
+                            : ''
+                        }`}
+                        onClick={onLocationEnable}
+                      >
+                        <span>{locationEnableLabel}</span>
+                      </Button>
+                      <Button
+                        variant="toolbar"
+                        size="sm"
+                        className="memori-mobile-session-panel--page-btn memori-mobile-session-panel--page-btn-secondary"
+                        onClick={onLocationDisable}
+                      >
+                        {locationDisableLabel}
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             ) : activeView === 'share' ? (
               <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--share-content">

@@ -360,6 +360,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   }}
                   onLocationEnable={handleEnableLocation}
                   onLocationDisable={handleDisableLocation}
+                  venue={headerProps.position}
+                  setVenue={headerProps.setVenue}
                   logoutLabel={t('login.logout') || 'Log out'}
                   onLogout={() => {
                     handleMobileLogout();

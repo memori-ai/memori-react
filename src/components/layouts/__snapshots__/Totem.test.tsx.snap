@@ -210,10 +210,10 @@ exports[`renders Totem layout unchanged 1`] = `
           class="memori-header"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1:"
             >
               <span
@@ -259,10 +259,10 @@ exports[`renders Totem layout unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3:"
             >
               <span
@@ -305,10 +305,10 @@ exports[`renders Totem layout unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r5:"
             >
               <span
@@ -353,10 +353,10 @@ exports[`renders Totem layout unchanged 1`] = `
             class="memori-dropdown memori-share-button memori-share-button--align-left"
           >
             <span
-              class="styles-module__root___-ALla"
+              class="memori-tooltip"
             >
               <span
-                class="styles-module__trigger___V2aIF"
+                class="memori-tooltip__trigger"
                 id="base-ui-:rb:"
               >
                 <button
@@ -706,10 +706,10 @@ exports[`renders Totem layout unchanged 1`] = `
                         </p>
                       </div>
                       <span
-                        class="styles-module__root___-ALla"
+                        class="memori-tooltip"
                       >
                         <span
-                          class="styles-module__trigger___V2aIF"
+                          class="memori-tooltip__trigger"
                           id="base-ui-:ri:"
                         >
                           <button

@@ -232,10 +232,10 @@ exports[`renders FullPage layout unchanged 1`] = `
                   class="memori-header--fullpage-secondary"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1:"
                     >
                       <span
@@ -281,10 +281,10 @@ exports[`renders FullPage layout unchanged 1`] = `
                     class="memori-dropdown memori-share-button memori-share-button--align-left"
                   >
                     <span
-                      class="styles-module__root___-ALla"
+                      class="memori-tooltip"
                     >
                       <span
-                        class="styles-module__trigger___V2aIF"
+                        class="memori-tooltip__trigger"
                         id="base-ui-:r7:"
                       >
                         <button
@@ -644,10 +644,10 @@ exports[`renders FullPage layout unchanged 1`] = `
                             </p>
                           </div>
                           <span
-                            class="styles-module__root___-ALla"
+                            class="memori-tooltip"
                           >
                             <span
-                              class="styles-module__trigger___V2aIF"
+                              class="memori-tooltip__trigger"
                               id="base-ui-:re:"
                             >
                               <button
@@ -969,10 +969,10 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                   class="memori-header--fullpage-secondary"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r19:"
                     >
                       <span
@@ -1018,10 +1018,10 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                     class="memori-dropdown memori-share-button memori-share-button--align-left"
                   >
                     <span
-                      class="styles-module__root___-ALla"
+                      class="memori-tooltip"
                     >
                       <span
-                        class="styles-module__trigger___V2aIF"
+                        class="memori-tooltip__trigger"
                         id="base-ui-:r1f:"
                       >
                         <button
@@ -1381,10 +1381,10 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                             </p>
                           </div>
                           <span
-                            class="styles-module__root___-ALla"
+                            class="memori-tooltip"
                           >
                             <span
-                              class="styles-module__trigger___V2aIF"
+                              class="memori-tooltip__trigger"
                               id="base-ui-:r1m:"
                             >
                               <button

@@ -89,8 +89,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         enableDeepThought: false,
       },
       layout: 'HIDDEN_CHAT' as LayoutName,
-      showChatHistory:
-        headerProps.showChatHistory !== false && !!headerProps.loginToken,
+      showChatHistory: false,
       enableAudio: true,
     };
   }, [headerProps]);
@@ -685,6 +684,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                   }}
                   onLocationEnable={handleEnableLocation}
                   onLocationDisable={handleDisableLocation}
+                  venue={headerProps.position}
+                  setVenue={headerProps.setVenue}
                   logoutLabel={t('login.logout') || 'Log out'}
                   onLogout={() => {
                     handleOverflowActionClick('login');

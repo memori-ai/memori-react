@@ -214,7 +214,9 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {integrationStyle}
       {integrationBackground}
 
-      <Spin className="memori-spin--zoomed-full-body" spinning={loading}>
+      <Spin spinning={loading}>
+        {poweredBy}
+
         {Header && headerProps && mobileHeaderProps && (
           <div className="memori-fullpage-top-header">
             <div className="memori-chat-layout--header">
@@ -318,6 +320,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             }}
             onLocationEnable={handleEnableLocation}
             onLocationDisable={handleDisableLocation}
+            venue={headerProps.position}
+            setVenue={headerProps.setVenue}
             logoutLabel={t('login.logout') || 'Log out'}
             onLogout={() => {
               handleMobileLogout();
@@ -360,8 +364,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
           </div>
-
-          {poweredBy}
         </div>
       </Spin>
     </>

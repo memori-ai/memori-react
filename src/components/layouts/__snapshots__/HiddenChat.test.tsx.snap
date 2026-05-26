@@ -108,10 +108,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   class="memori-header"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1:"
                     >
                       <span
@@ -405,10 +405,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                                 </p>
                               </div>
                               <span
-                                class="styles-module__root___-ALla"
+                                class="memori-tooltip"
                               >
                                 <span
-                                  class="styles-module__trigger___V2aIF"
+                                  class="memori-tooltip__trigger"
                                   id="base-ui-:r6:"
                                 >
                                   <button
@@ -523,10 +523,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           class="memori-chat-inputs--trailing-inner"
                         >
                           <span
-                            class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                            class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
                           >
                             <span
-                              class="styles-module__trigger___V2aIF"
+                              class="memori-tooltip__trigger"
                               id="base-ui-:rd:"
                             >
                               <button
