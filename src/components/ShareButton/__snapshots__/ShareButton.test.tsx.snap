@@ -6,10 +6,10 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
     class="memori-dropdown memori-share-button memori-share-button--align-left"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1d:"
       >
         <button
@@ -88,10 +88,10 @@ exports[`renders ShareButton unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r5:"
       >
         <button
@@ -170,10 +170,10 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rt:"
       >
         <button
@@ -252,10 +252,10 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1t:"
       >
         <button
@@ -334,10 +334,10 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r25:"
       >
         <button
@@ -416,10 +416,10 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1l:"
       >
         <button
@@ -498,10 +498,10 @@ exports[`renders ShareButton with title unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rl:"
       >
         <button
@@ -580,10 +580,10 @@ exports[`renders ShareButton with url unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rd:"
       >
         <button
@@ -662,10 +662,10 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
     class="memori-dropdown memori-share-button"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r15:"
       >
         <button

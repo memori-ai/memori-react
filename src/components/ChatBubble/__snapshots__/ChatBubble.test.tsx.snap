@@ -40,10 +40,10 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r2o:"
             >
               <span
@@ -142,10 +142,10 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r2a:"
             >
               <span
@@ -246,10 +246,10 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r2h:"
             >
               <span
@@ -356,10 +356,10 @@ exports[`renders ChatBubble unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1:"
             >
               <span
@@ -2941,10 +2941,10 @@ M834 80h400000v40h-400000z"
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r57:"
             >
               <span
@@ -2990,10 +2990,10 @@ M834 80h400000v40h-400000z"
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r59:"
             >
               <span
@@ -4234,10 +4234,10 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r5g:"
             >
               <span
@@ -4283,10 +4283,10 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r5i:"
             >
               <span
@@ -5261,10 +5261,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r5p:"
             >
               <span
@@ -5310,10 +5310,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r5r:"
             >
               <span
@@ -5827,10 +5827,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r62:"
             >
               <span
@@ -5876,10 +5876,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r64:"
             >
               <span
@@ -6655,10 +6655,10 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r6b:"
             >
               <span
@@ -6704,10 +6704,10 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r6d:"
             >
               <span
@@ -6961,10 +6961,10 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r4u:"
             >
               <span
@@ -7010,10 +7010,10 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r50:"
             >
               <span
@@ -7193,10 +7193,10 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1v:"
             >
               <span
@@ -7242,10 +7242,10 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+            class="memori-tooltip memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r21:"
             >
               <span
@@ -7312,10 +7312,10 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+            class="memori-tooltip memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r23:"
             >
               <span
@@ -7427,10 +7427,10 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r8:"
             >
               <span
@@ -7564,10 +7564,10 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r43:"
             >
               <span
@@ -7613,10 +7613,10 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r45:"
             >
               <span
@@ -7719,10 +7719,10 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r4c:"
             >
               <span
@@ -7768,10 +7768,10 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r4e:"
             >
               <span
@@ -7932,10 +7932,10 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r4l:"
             >
               <span
@@ -7981,10 +7981,10 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r4n:"
             >
               <span
@@ -8308,10 +8308,10 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3q:"
             >
               <span
@@ -8357,10 +8357,10 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3s:"
             >
               <span
@@ -8447,10 +8447,10 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1m:"
             >
               <span
@@ -8496,10 +8496,10 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+            class="memori-tooltip memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1o:"
             >
               <span
@@ -8627,10 +8627,10 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r12:"
             >
               <span
@@ -8676,10 +8676,10 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+            class="memori-tooltip memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r14:"
             >
               <span
@@ -8830,10 +8830,10 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r2v:"
             >
               <span
@@ -8879,10 +8879,10 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r31:"
             >
               <span
@@ -9011,10 +9011,10 @@ end
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r6k:"
             >
               <span
@@ -9060,10 +9060,10 @@ end
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r6m:"
             >
               <span
@@ -9163,10 +9163,10 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3h:"
             >
               <span
@@ -9212,10 +9212,10 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3j:"
             >
               <span
@@ -9308,10 +9308,10 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r38:"
             >
               <span
@@ -9357,10 +9357,10 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r3a:"
             >
               <span
@@ -9453,10 +9453,10 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1b:"
             >
               <span
@@ -9502,10 +9502,10 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1d:"
             >
               <span
@@ -9546,10 +9546,10 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             </span>
           </span>
           <span
-            class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+            class="memori-tooltip memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:r1f:"
             >
               <span
@@ -9648,10 +9648,10 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:rf:"
             >
               <span
@@ -9768,10 +9768,10 @@ exports[`shows copy button for user messages 1`] = `
           class="memori-chat--bubble-addon"
         >
           <span
-            class="styles-module__root___-ALla"
+            class="memori-tooltip"
           >
             <span
-              class="styles-module__trigger___V2aIF"
+              class="memori-tooltip__trigger"
               id="base-ui-:rm:"
             >
               <span

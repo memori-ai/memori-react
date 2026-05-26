@@ -78,10 +78,10 @@ exports[`renders Chat unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1:"
                     >
                       <span
@@ -172,10 +172,10 @@ exports[`renders Chat unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r8:"
                     >
                       <span
@@ -311,10 +311,10 @@ exports[`renders Chat unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rf:"
                     >
                       <span
@@ -405,10 +405,10 @@ exports[`renders Chat unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rm:"
                     >
                       <span
@@ -583,10 +583,10 @@ exports[`renders Chat unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rt:"
                     >
                       <span
@@ -677,10 +677,10 @@ exports[`renders Chat unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r14:"
                     >
                       <span
@@ -816,10 +816,10 @@ exports[`renders Chat unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1b:"
                     >
                       <span
@@ -916,10 +916,10 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:r1i:"
                 >
                   <button
@@ -1058,10 +1058,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r8p:"
                     >
                       <span
@@ -1152,10 +1152,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r90:"
                     >
                       <span
@@ -1291,10 +1291,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r97:"
                     >
                       <span
@@ -1385,10 +1385,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r9e:"
                     >
                       <span
@@ -1563,10 +1563,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r9l:"
                     >
                       <span
@@ -1672,10 +1672,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r9s:"
                     >
                       <span
@@ -1811,10 +1811,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:ra3:"
                     >
                       <span
@@ -1926,10 +1926,10 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:raa:"
                 >
                   <button
@@ -2068,10 +2068,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rg0:"
                     >
                       <span
@@ -2162,10 +2162,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rg7:"
                     >
                       <span
@@ -2283,10 +2283,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rge:"
                     >
                       <span
@@ -2377,10 +2377,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rgl:"
                     >
                       <span
@@ -2537,10 +2537,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rgs:"
                     >
                       <span
@@ -2631,10 +2631,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rh3:"
                     >
                       <span
@@ -2752,10 +2752,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rha:"
                     >
                       <span
@@ -2852,10 +2852,10 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:rhh:"
                 >
                   <button
@@ -2994,10 +2994,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:re8:"
                     >
                       <span
@@ -3088,10 +3088,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:ref:"
                     >
                       <span
@@ -3211,10 +3211,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rem:"
                     >
                       <span
@@ -3305,10 +3305,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:ret:"
                     >
                       <span
@@ -3467,10 +3467,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rf4:"
                     >
                       <span
@@ -3561,10 +3561,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rfb:"
                     >
                       <span
@@ -3684,10 +3684,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rfi:"
                     >
                       <span
@@ -3784,10 +3784,10 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:rfp:"
                 >
                   <button
@@ -3926,10 +3926,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r71:"
                     >
                       <span
@@ -4025,10 +4025,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r78:"
                     >
                       <span
@@ -4164,10 +4164,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r7f:"
                     >
                       <span
@@ -4263,10 +4263,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r7m:"
                     >
                       <span
@@ -4441,10 +4441,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r7t:"
                     >
                       <span
@@ -4540,10 +4540,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r84:"
                     >
                       <span
@@ -4679,10 +4679,10 @@ exports[`renders Chat with dates unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r8b:"
                     >
                       <span
@@ -4784,10 +4784,10 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:r8i:"
                 >
                   <button
@@ -4926,10 +4926,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r3h:"
                     >
                       <span
@@ -5020,10 +5020,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r3o:"
                     >
                       <span
@@ -5159,10 +5159,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r3v:"
                     >
                       <span
@@ -5253,10 +5253,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r46:"
                     >
                       <span
@@ -5431,10 +5431,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r4d:"
                     >
                       <span
@@ -5525,10 +5525,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r4k:"
                     >
                       <span
@@ -5664,10 +5664,10 @@ exports[`renders Chat with hints unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r4r:"
                     >
                       <span
@@ -5798,10 +5798,10 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:r52:"
                 >
                   <button
@@ -5940,10 +5940,10 @@ exports[`renders Chat with media unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r59:"
                     >
                       <span
@@ -6034,10 +6034,10 @@ exports[`renders Chat with media unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r5g:"
                     >
                       <span
@@ -6173,10 +6173,10 @@ exports[`renders Chat with media unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r5n:"
                     >
                       <span
@@ -6267,10 +6267,10 @@ exports[`renders Chat with media unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r5u:"
                     >
                       <span
@@ -6658,10 +6658,10 @@ exports[`renders Chat with media unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r65:"
                     >
                       <span
@@ -6752,10 +6752,10 @@ exports[`renders Chat with media unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r6c:"
                     >
                       <span
@@ -6891,10 +6891,10 @@ exports[`renders Chat with media unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r6j:"
                     >
                       <span
@@ -6991,10 +6991,10 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:r6q:"
                 >
                   <button
@@ -7133,10 +7133,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1p:"
                     >
                       <span
@@ -7227,10 +7227,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r20:"
                     >
                       <span
@@ -7366,10 +7366,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r27:"
                     >
                       <span
@@ -7460,10 +7460,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r2e:"
                     >
                       <span
@@ -7638,10 +7638,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r2l:"
                     >
                       <span
@@ -7732,10 +7732,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r2s:"
                     >
                       <span
@@ -7871,10 +7871,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r33:"
                     >
                       <span
@@ -8010,10 +8010,10 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:r3a:"
                 >
                   <button
@@ -8136,10 +8136,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rah:"
                     >
                       <span
@@ -8230,10 +8230,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rao:"
                     >
                       <span
@@ -8369,10 +8369,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rav:"
                     >
                       <span
@@ -8463,10 +8463,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rb6:"
                     >
                       <span
@@ -8641,10 +8641,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rbd:"
                     >
                       <span
@@ -8735,10 +8735,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rbk:"
                     >
                       <span
@@ -8874,10 +8874,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rbr:"
                     >
                       <span
@@ -9037,10 +9037,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rc2:"
                     >
                       <span
@@ -9137,10 +9137,10 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:rc9:"
                 >
                   <button
@@ -9279,10 +9279,10 @@ exports[`renders Chat with user unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rcg:"
                     >
                       <span
@@ -9373,10 +9373,10 @@ exports[`renders Chat with user unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rcn:"
                     >
                       <span
@@ -9496,10 +9496,10 @@ exports[`renders Chat with user unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rcu:"
                     >
                       <span
@@ -9590,10 +9590,10 @@ exports[`renders Chat with user unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rd5:"
                     >
                       <span
@@ -9752,10 +9752,10 @@ exports[`renders Chat with user unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rdc:"
                     >
                       <span
@@ -9846,10 +9846,10 @@ exports[`renders Chat with user unchanged 1`] = `
                   class="memori-chat--bubble-addon"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rdj:"
                     >
                       <span
@@ -9969,10 +9969,10 @@ exports[`renders Chat with user unchanged 1`] = `
                     </span>
                   </div>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rdq:"
                     >
                       <span
@@ -10069,10 +10069,10 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat-inputs--trailing-inner"
             >
               <span
-                class="styles-module__root___-ALla memori-chat-inputs--send-btn-tooltip"
+                class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
               >
                 <span
-                  class="styles-module__trigger___V2aIF"
+                  class="memori-tooltip__trigger"
                   id="base-ui-:re1:"
                 >
                   <button

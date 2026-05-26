@@ -6,10 +6,10 @@ exports[`renders FeedbackButtons unchanged 1`] = `
     class="memori-chat--feedback"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1:"
       >
         <button

@@ -3,10 +3,10 @@
 exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
+    class="memori-tooltip blocked-memori-badge--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r9:"
     >
       <div
@@ -47,10 +47,10 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
 exports[`renders BlockedMemoriBadge unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
+    class="memori-tooltip blocked-memori-badge--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r1:"
     >
       <div
@@ -91,10 +91,10 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
 exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
+    class="memori-tooltip blocked-memori-badge--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r3:"
     >
       <div
@@ -135,10 +135,10 @@ exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
 exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
+    class="memori-tooltip blocked-memori-badge--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r7:"
     >
       <div
@@ -179,10 +179,10 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
 exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
+    class="memori-tooltip blocked-memori-badge--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r5:"
     >
       <div

@@ -3,10 +3,10 @@
 exports[`renders CompletionProviderStatus errored unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
+    class="memori-tooltip memori--completion-provider-status--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r3:"
     >
       <svg
@@ -39,10 +39,10 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
 exports[`renders CompletionProviderStatus errored with provider specified unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
+    class="memori-tooltip memori--completion-provider-status--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r5:"
     >
       <svg
@@ -75,10 +75,10 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
 exports[`renders CompletionProviderStatus unchanged 1`] = `
 <div>
   <span
-    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
+    class="memori-tooltip memori--completion-provider-status--tooltip"
   >
     <span
-      class="styles-module__trigger___V2aIF"
+      class="memori-tooltip__trigger"
       id="base-ui-:r1:"
     >
       <svg

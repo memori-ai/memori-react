@@ -6,10 +6,10 @@ exports[`renders Header for board of experts unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2a:"
       >
         <span
@@ -51,10 +51,10 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2c:"
       >
         <span
@@ -104,10 +104,10 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2e:"
       >
         <span
@@ -150,10 +150,10 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2g:"
       >
         <span
@@ -213,10 +213,10 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2i:"
       >
         <span
@@ -258,10 +258,10 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2k:"
       >
         <span
@@ -309,10 +309,10 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2m:"
       >
         <span
@@ -355,10 +355,10 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r2o:"
       >
         <span
@@ -418,10 +418,10 @@ exports[`renders Header unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1:"
       >
         <span
@@ -464,10 +464,10 @@ exports[`renders Header unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r3:"
       >
         <span
@@ -527,10 +527,10 @@ exports[`renders Header with audio disabled unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:ri:"
       >
         <span
@@ -590,10 +590,10 @@ exports[`renders Header with clear button unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r14:"
       >
         <span
@@ -648,10 +648,10 @@ exports[`renders Header with clear button unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r16:"
       >
         <span
@@ -694,10 +694,10 @@ exports[`renders Header with clear button unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r18:"
       >
         <span
@@ -757,10 +757,10 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r24:"
       >
         <span
@@ -802,10 +802,10 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r26:"
       >
         <span
@@ -848,10 +848,10 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r28:"
       >
         <span
@@ -911,10 +911,10 @@ exports[`renders Header with deep thought logged but without permission flag unc
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1i:"
       >
         <span
@@ -956,10 +956,10 @@ exports[`renders Header with deep thought logged but without permission flag unc
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1k:"
       >
         <span
@@ -1002,13 +1002,13 @@ exports[`renders Header with deep thought logged but without permission flag unc
       </span>
     </span>
     <span
-      class="styles-module__root___kBCdl memori-header--dropdown"
+      class="memori-popover memori-header--dropdown"
     >
       <span
-        class="styles-module__root___-ALla"
+        class="memori-tooltip"
       >
         <span
-          class="styles-module__trigger___V2aIF"
+          class="memori-tooltip__trigger"
           id="base-ui-:r1p:"
         >
           <span
@@ -1073,10 +1073,10 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1r:"
       >
         <span
@@ -1118,10 +1118,10 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1t:"
       >
         <span
@@ -1164,13 +1164,13 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </span>
     <span
-      class="styles-module__root___kBCdl memori-header--dropdown"
+      class="memori-popover memori-header--dropdown"
     >
       <span
-        class="styles-module__root___-ALla"
+        class="memori-tooltip"
       >
         <span
-          class="styles-module__trigger___V2aIF"
+          class="memori-tooltip__trigger"
           id="base-ui-:r22:"
         >
           <span
@@ -1235,10 +1235,10 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1e:"
       >
         <span
@@ -1281,10 +1281,10 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1g:"
       >
         <span
@@ -1347,17 +1347,17 @@ exports[`renders Header with position unchanged 1`] = `
       class="memori-header--position"
     >
       <span
-        class="styles-module__root___-ALla"
+        class="memori-tooltip"
       >
         <span
-          class="styles-module__trigger___V2aIF"
+          class="memori-tooltip__trigger"
           id="base-ui-:r5:"
         >
           <span
             style="display: inline-flex;"
           >
             <span
-              class="styles-module__root___kBCdl"
+              class="memori-popover"
             >
               <button
                 aria-expanded="false"
@@ -1402,10 +1402,10 @@ exports[`renders Header with position unchanged 1`] = `
       </span>
     </div>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:ra:"
       >
         <span
@@ -1448,10 +1448,10 @@ exports[`renders Header with position unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rc:"
       >
         <span
@@ -1511,10 +1511,10 @@ exports[`renders Header with settings button unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r10:"
       >
         <span
@@ -1557,10 +1557,10 @@ exports[`renders Header with settings button unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r12:"
       >
         <span
@@ -1620,10 +1620,10 @@ exports[`renders Header with share button unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rk:"
       >
         <span
@@ -1669,10 +1669,10 @@ exports[`renders Header with share button unchanged 1`] = `
       class="memori-dropdown memori-share-button memori-share-button--align-left"
     >
       <span
-        class="styles-module__root___-ALla"
+        class="memori-tooltip"
       >
         <span
-          class="styles-module__trigger___V2aIF"
+          class="memori-tooltip__trigger"
           id="base-ui-:rq:"
         >
           <button
@@ -1734,10 +1734,10 @@ exports[`renders Header with share button unchanged 1`] = `
       </span>
     </div>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:ru:"
       >
         <span
@@ -1797,10 +1797,10 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:re:"
       >
         <span
@@ -1849,10 +1849,10 @@ exports[`renders Header with speaker muted unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:rg:"
       >
         <span
@@ -1912,10 +1912,10 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     class="memori-header"
   >
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1a:"
       >
         <span
@@ -1958,10 +1958,10 @@ exports[`renders Header with user activated speak unchanged 1`] = `
       </span>
     </span>
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1c:"
       >
         <span

@@ -12,10 +12,10 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
         class="memori--board-of-experts"
       >
         <span
-          class="styles-module__root___-ALla"
+          class="memori-tooltip"
         >
           <span
-            class="styles-module__trigger___V2aIF"
+            class="memori-tooltip__trigger"
             id="base-ui-:rm:"
           >
             <button
@@ -194,10 +194,10 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:ro:"
                   >
                     <button
@@ -409,10 +409,10 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r1q:"
                   >
                     <button
@@ -624,10 +624,10 @@ exports[`renders StartPanel unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r1:"
                   >
                     <button
@@ -743,10 +743,10 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           </div>
         </div>
         <span
-          class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
+          class="memori-tooltip memori--completion-provider-status--tooltip"
         >
           <span
-            class="styles-module__trigger___V2aIF"
+            class="memori-tooltip__trigger"
             id="base-ui-:r2s:"
           >
             <svg
@@ -834,10 +834,10 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r2u:"
                   >
                     <button
@@ -1049,10 +1049,10 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:rf:"
                   >
                     <button
@@ -1281,10 +1281,10 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                     </span>
                   </button>
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r18:"
                     >
                       <button
@@ -1374,10 +1374,10 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r1a:"
                   >
                     <button
@@ -1593,10 +1593,10 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   class="memori--settings-section__actions-right"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:r1h:"
                     >
                       <button
@@ -1686,10 +1686,10 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r1j:"
                   >
                     <button
@@ -1905,10 +1905,10 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   class="memori--settings-section__actions-right"
                 >
                   <span
-                    class="styles-module__root___-ALla"
+                    class="memori-tooltip"
                   >
                     <span
-                      class="styles-module__trigger___V2aIF"
+                      class="memori-tooltip__trigger"
                       id="base-ui-:rv:"
                     >
                       <button
@@ -1998,10 +1998,10 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r11:"
                   >
                     <button
@@ -2213,10 +2213,10 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r8:"
                   >
                     <button
@@ -2428,10 +2428,10 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r2b:"
                   >
                     <button
@@ -2833,10 +2833,10 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
                   </p>
                 </div>
                 <span
-                  class="styles-module__root___-ALla"
+                  class="memori-tooltip"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
+                    class="memori-tooltip__trigger"
                     id="base-ui-:r2l:"
                   >
                     <button

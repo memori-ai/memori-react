@@ -13,10 +13,10 @@ exports[`renders UploadButton unchanged 1`] = `
       type="file"
     />
     <span
-      class="styles-module__root___-ALla"
+      class="memori-tooltip"
     >
       <span
-        class="styles-module__trigger___V2aIF"
+        class="memori-tooltip__trigger"
         id="base-ui-:r1:"
       >
         <button
