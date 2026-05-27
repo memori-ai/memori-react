@@ -35,6 +35,7 @@ import {
 } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { usePressTooltip } from '../../helpers/usePressTooltip';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
 
 const sanitizeRawCopyText = (text: string) =>
@@ -122,6 +123,7 @@ const ChatBubble: React.FC<Props> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
+  const generatedByAiTooltip = usePressTooltip();
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
   const [copyStatus, setCopyStatus] = useState<{
@@ -736,6 +738,7 @@ const ChatBubble: React.FC<Props> = ({
                   placement="bottom"
                   content={t('generatedByAI')}
                   className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+                  {...generatedByAiTooltip.tooltipProps}
                 >
                   <span className="memori-chat--bubble-addon-tooltip-trigger">
                     <Button
@@ -745,6 +748,7 @@ const ChatBubble: React.FC<Props> = ({
                       className="memori-chat--bubble-action-button"
                       aria-label={String(t('generatedByAI'))}
                       icon={<Bot aria-hidden />}
+                      {...generatedByAiTooltip.pressTriggerProps}
                     />
                   </span>
                 </Tooltip>

@@ -630,7 +630,8 @@
     text-align: left;
 }
 
-.memori-dropdown--auth-row:hover {
+.memori-dropdown--auth-row:hover,
+.memori-dropdown--auth-row--active {
     background: color-mix(in srgb, var(--memori-text-color, #111827) 7%, transparent);
 }
 

@@ -190,6 +190,42 @@
     justify-content: stretch;
 }
 
+/* Full-height flex row: [grid] [artifact column] */
+.memori-widget.memori-layout-zoomed_full_body .memori-fullpage-content-row {
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+/* Artifact column — flex sibling of .memori--grid, outside the padded grid */
+.memori-widget.memori-layout-zoomed_full_body .memori--grid-column-artifact {
+    overflow: hidden;
+    width: 0;
+    min-width: 0;
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
+
+.memori-widget.memori-layout-zoomed_full_body .memori--grid-column-artifact--open {
+    width: 480px;
+    border-left: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 10%, transparent);
+    background: var(--memori-secondary-background);
+}
+
+/* Hide avatar column when artifact drawer is open */
+.memori-widget.memori-layout-zoomed_full_body .memori-fullpage-content-row:has(.memori--grid-column-artifact--open) .memori--grid-column-left {
+    display: none;
+}
+
+@media (max-width: 1260px) {
+    .memori-widget.memori-layout-zoomed_full_body .memori--grid-column-artifact {
+        display: none;
+    }
+}
+
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls {
     display: flex;
     width: 100%;

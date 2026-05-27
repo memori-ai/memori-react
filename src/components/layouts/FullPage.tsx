@@ -331,8 +331,10 @@ const FullPageLayout: React.FC<LayoutProps> = ({
           />
         )}
 
-        <div className="memori--grid">
-          {!useSideArtifactChrome && (
+        {/* Content row: grid (avatar+chat) + artifact column as full-height siblings */}
+        <div className="memori-fullpage-content-row">
+          <div className="memori--grid">
+            {/* Avatar column — hidden via CSS when artifact is open */}
             <div className="memori--grid-column memori--grid-column-left">
               {Avatar && avatarProps && (
                 <Avatar chatProps={chatProps} {...avatarProps} />
@@ -342,31 +344,34 @@ const FullPageLayout: React.FC<LayoutProps> = ({
 
               {poweredBy}
             </div>
-          )}
+
+            {/* Chat column — flex:1, shrinks naturally when artifact column grows */}
+            <div className="memori-chat-layout--main">
+              <div
+                className={
+                  state.isFullscreen
+                    ? `memori-chat-layout-controls-hide`
+                    : `memori-chat-layout--controls`
+                }
+              >
+                {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                  <Chat {...chatProps} />
+                ) : startPanelProps ? (
+                  <StartPanel {...startPanelProps} />
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          {/* Artifact column — outside the padded grid, spans full content height */}
           <div
-            className={`memori-chat-layout--main ${
-              hasArtifact && !state.isChatLogPanelPresentation
-                ? 'memori-chat-layout--main-with-artifact'
-                : ''
+            className={`memori--grid-column-artifact${
+              useSideArtifactChrome ? ' memori--grid-column-artifact--open' : ''
             }`}
           >
-            <div
-              className={
-                state.isFullscreen
-                  ? `memori-chat-layout-controls-hide`
-                  : `memori-chat-layout--controls ${
-                      useSideArtifactChrome
-                        ? 'memori-chat-layout--controls-with-artifact'
-                        : ''
-                    }`
-              }
-            >
-              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-                <Chat {...chatProps} />
-              ) : startPanelProps ? (
-                <StartPanel {...startPanelProps} />
-              ) : null}
-            </div>
+            {useSideArtifactChrome && (
+              <ArtifactDrawer isLayoutColumn />
+            )}
           </div>
         </div>
       </Spin>

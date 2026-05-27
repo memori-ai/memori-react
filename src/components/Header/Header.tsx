@@ -935,6 +935,7 @@ const Header: React.FC<Props> = ({
                       className={cx(
                         'memori-dropdown--auth-row',
                         'memori-dropdown--auth-row--navigable',
+                        open && 'memori-dropdown--auth-row--active',
                         triggerProps.className
                       )}
                     >

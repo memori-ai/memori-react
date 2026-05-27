@@ -214,9 +214,7 @@
 @media (min-width: 1024px) {
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
-        width: 30vw;
-        min-width: 400px;
-        max-width: 480px;
+        width: 480px;
         border-radius: var(--memori-radius-box) 0 0 0;
     }
 

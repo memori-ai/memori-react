@@ -23,6 +23,7 @@ import {
   X,
 } from 'lucide-react';
 import { getResourceUrl } from '../../helpers/media';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import ShareButton from '../ShareButton/ShareButton';
 import MobileSessionPanel from '../MobileSessionPanel/MobileSessionPanel';
@@ -752,6 +753,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           </div>
         </aside>
       </div>
+
+      {/* Artifact drawer — fixed overlay that pairs with the sidebar shift (right: 46%) */}
+      {useSideArtifactChrome && <ArtifactDrawer />}
     </>
   );
 };

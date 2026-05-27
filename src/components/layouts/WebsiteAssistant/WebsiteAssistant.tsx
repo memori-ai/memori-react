@@ -4,6 +4,8 @@ import { LayoutProps } from '../../MemoriWidget/MemoriWidget';
 import Blob from '../../Blob/Blob';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useArtifact } from '../../MemoriArtifactSystem/context/ArtifactContext';
+import ArtifactDrawer from '../../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   Header,
@@ -22,6 +24,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   avatar3dHidden,
 }) => {
   const { t } = useTranslation();
+  const { state: artifactState } = useArtifact();
+  const useSideArtifactChrome =
+    artifactState.isDrawerOpen && !artifactState.isChatLogPanelPresentation;
   const [collapsed, _setCollapsed] = useState(true);
   const [expandedKey, setExpandedKey] = useState<string>();
 
@@ -131,6 +136,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
           </>
         )}
       </div>
+
+      {/* Artifact drawer — fixed overlay beside the website assistant panel */}
+      {useSideArtifactChrome && <ArtifactDrawer />}
     </>
   );
 };

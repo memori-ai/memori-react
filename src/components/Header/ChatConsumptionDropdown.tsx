@@ -285,7 +285,11 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
       {...triggerButtonProps}
       variant={triggerVariant}
       shape="default"
-      className="memori-header--button memori-header--button--sustainability"
+      className={cx(
+        'memori-header--button memori-header--button--sustainability',
+        open && 'memori-button--active',
+        triggerButtonProps.className
+      )}
       aria-label={triggerLabel}
       title={triggerLabel}
       icon={

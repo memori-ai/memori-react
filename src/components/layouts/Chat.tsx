@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Spin } from '@memori.ai/ui';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useTranslation } from 'react-i18next';
 import {
   Expand,
@@ -229,31 +230,16 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
         <div id="extension" />
 
-        <div
-          className={`memori-chat-layout--main ${
-            useSideArtifactChrome
-              ? 'memori-chat-layout--main-with-artifact'
-              : ''
-          }`}
-        >
+        <div className="memori-chat-layout--main">
+          {/* Chat column — flex:1, shrinks when artifact column grows */}
           <div
             className={
               state.isFullscreen
                 ? `memori-chat-layout-controls-hide`
-                : `memori-chat-layout--controls ${
-                    useSideArtifactChrome
-                      ? 'memori-chat-layout--controls-with-artifact'
-                      : ''
-                  }`
+                : `memori-chat-layout--controls`
             }
           >
-            <div
-              className={`memori-chat-layout--header ${
-                useSideArtifactChrome
-                  ? 'memori-chat-layout--header-with-artifact'
-                  : ''
-              }`}
-            >
+            <div className="memori-chat-layout--header">
               {Header && headerProps && mobileHeaderProps && (
                 <div className="memori-fullpage-header-row">
                     <Header
@@ -423,6 +409,17 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 </div>
               ) : null}
             </div>
+          </div>
+
+          {/* Artifact column — width 0→480px with CSS transition */}
+          <div
+            className={`memori--grid-column-artifact${
+              useSideArtifactChrome ? ' memori--grid-column-artifact--open' : ''
+            }`}
+          >
+            {useSideArtifactChrome && (
+              <ArtifactDrawer isLayoutColumn />
+            )}
           </div>
         </div>
       </Spin>

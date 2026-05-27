@@ -27,6 +27,7 @@ import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import { Expandable } from '@memori.ai/ui';
+import { usePressTooltip } from '../../helpers/usePressTooltip';
 
 /**
  * Sentinel values used as non-selectable section headers in the language
@@ -96,6 +97,10 @@ const StartPanel: React.FC<Props> = ({
   showFullDescriptionOnMobile = false,
 }) => {
   const { t, i18n } = useTranslation();
+  const boardOfExpertsTooltip = usePressTooltip();
+  const nsfwTooltip = usePressTooltip();
+  const deepThoughtTooltip = usePressTooltip();
+  const privacyTooltip = usePressTooltip();
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
@@ -213,21 +218,35 @@ const StartPanel: React.FC<Props> = ({
       >
         {!!memori.enableBoardOfExperts && (
           <div className="memori--board-of-experts">
-            <Tooltip align="left" content={t('boardOfExperts')}>
+            <Tooltip
+              align="left"
+              content={t('boardOfExperts')}
+              {...boardOfExpertsTooltip.tooltipProps}
+            >
               <Button
                 type="button"
                 variant="ghost"
                 shape="circle"
                 aria-label={t('boardOfExperts') || 'Board of Experts'}
                 icon={<Users aria-hidden />}
+                {...boardOfExpertsTooltip.pressTriggerProps}
               />
             </Tooltip>
           </div>
         )}
         {!!memori.nsfw && (
           <div className="memori--nsfw">
-            <Tooltip align="left" content={t('nsfw')}>
-              <span title={t('nsfw') || 'NSFW'}>🔞</span>
+            <Tooltip
+              align="left"
+              content={t('nsfw')}
+              {...nsfwTooltip.tooltipProps}
+            >
+              <span
+                title={t('nsfw') || 'NSFW'}
+                {...nsfwTooltip.pressTriggerProps}
+              >
+                🔞
+              </span>
             </Tooltip>
           </div>
         )}
@@ -453,6 +472,7 @@ const StartPanel: React.FC<Props> = ({
                               leaveDelay={150}
                               sideOffset={8}
                               content={t('deepThoughtHelper')}
+                              {...deepThoughtTooltip.tooltipProps}
                               slotProps={{
                                 positioner: {
                                   className:
@@ -471,6 +491,7 @@ const StartPanel: React.FC<Props> = ({
                                 aria-label={String(
                                   t('deepThoughtHelper') ?? 'Deep Thought help'
                                 )}
+                                {...deepThoughtTooltip.pressTriggerProps}
                               >
                                 <Info className="memori--settings-section__inline-info-icon" />
                               </Button>
@@ -557,6 +578,7 @@ const StartPanel: React.FC<Props> = ({
                               </a>
                             </div>
                           }
+                          {...privacyTooltip.tooltipProps}
                           slotProps={{
                             positioner: {
                               className: 'memori--privacy-popover-positioner',
@@ -572,6 +594,7 @@ const StartPanel: React.FC<Props> = ({
                             size="sm"
                             className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
                             aria-label={String(t('privacyPolicy') ?? '')}
+                            {...privacyTooltip.pressTriggerProps}
                           >
                             <Info className="memori--settings-section__inline-info-icon" />
                           </Button>

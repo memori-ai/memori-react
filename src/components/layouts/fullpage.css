@@ -39,8 +39,8 @@
     min-width: 100%;
     flex-shrink: 0;
     /* padding: 0.625rem 0.9rem; */
-    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
-    border-radius: 0.9rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
+    /* border-radius: 0.9rem; */
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     background: color-mix(in oklch, var(--memori-secondary-background), transparent 8%);
@@ -150,6 +150,17 @@
     flex: 0 0 auto;
 }
 
+/* Full-height flex row: [grid] [artifact column] — outside the grid so artifact
+   spans the entire content height without inheriting grid padding/max-width */
+.memori-widget.memori-layout-fullpage .memori-fullpage-content-row {
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: stretch;
+}
+
 /* Grid: main + left column (avatar) */
 .memori-widget.memori-layout-fullpage .memori--grid {
     display: flex;
@@ -198,6 +209,36 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: stretch;
+}
+
+/* Artifact column — flex sibling of .memori--grid inside .memori-fullpage-content-row.
+   Sits outside the padded grid so it spans the full content height with no padding gaps. */
+.memori-widget.memori-layout-fullpage .memori--grid-column-artifact {
+    overflow: hidden;
+    width: 0;
+    min-width: 0;
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
+
+.memori-widget.memori-layout-fullpage .memori--grid-column-artifact--open {
+    width: 600px;
+    border-left: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 10%, transparent);
+    background: var(--memori-secondary-background);
+}
+
+/* Hide avatar column when artifact drawer is open.
+   Selector updated: artifact is now a sibling of .memori--grid, not inside it. */
+.memori-widget.memori-layout-fullpage
+    .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
+    .memori--grid-column-left {
+    display: none;
+}
+
+@media (max-width: 1260px) {
+    .memori-widget.memori-layout-fullpage .memori--grid-column-artifact {
+        display: none;
+    }
 }
 
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls {

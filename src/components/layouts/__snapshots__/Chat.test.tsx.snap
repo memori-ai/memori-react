@@ -207,13 +207,13 @@ exports[`renders Chat layout unchanged 1`] = `
         id="extension"
       />
       <div
-        class="memori-chat-layout--main "
+        class="memori-chat-layout--main"
       >
         <div
-          class="memori-chat-layout--controls "
+          class="memori-chat-layout--controls"
         >
           <div
-            class="memori-chat-layout--header "
+            class="memori-chat-layout--header"
           >
             <div
               class="memori-fullpage-header-row"
@@ -734,6 +734,9 @@ exports[`renders Chat layout unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori--grid-column-artifact"
+        />
       </div>
     </div>
     <audio

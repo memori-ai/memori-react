@@ -274,15 +274,6 @@
     transition: all 0.05s ease-in-out;
 }
 
-.memori-chat-layout--main-with-artifact {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    /* padding: 1rem; */
-    gap: 1rem;
-}
-
 .memori-chat-layout--controls {
     position: relative;
     z-index: 5;
@@ -293,15 +284,28 @@
     max-height: 100%;
     flex: 1;
     flex-direction: column;
-    /* padding-bottom: 1.5rem; */
     transition: all 0.05s ease-in-out;
 }
 
-.memori-chat-layout--controls-with-artifact {
-    max-height: 100%;
-    flex: 0 0 60%;
-    /* padding-bottom: 2.5rem; */
-    margin: 0;
+/* Artifact drawer column inside the Chat layout's flex row */
+.memori-chat-layout .memori--grid-column-artifact {
+    overflow: hidden;
+    width: 0;
+    min-width: 0;
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
+
+.memori-chat-layout .memori--grid-column-artifact--open {
+    width: 480px;
+    border-left: 1px solid var(--memori-border-color);
+    background: var(--memori-secondary-background);
+}
+
+@media (max-width: 1260px) {
+    .memori-chat-layout .memori--grid-column-artifact {
+        display: none;
+    }
 }
 
 .memori-chat-layout--artifact-panel {
@@ -638,19 +642,3 @@
     }
 }
 
-/* Adjust chat layout when drawer is open */
-.memori-chat-layout:has(.memori-chat-layout--artifact-drawer .memori-artifact-drawer[data-headlessui-state~='open'])
-    .memori-chat-layout--controls {
-    margin-right: 50%;
-    filter: blur(1px);
-    opacity: 0.8;
-    transform: scale(0.98);
-    transition: all 0.05s ease-in-out;
-}
-
-.memori-chat-layout:has(.memori-chat-layout--artifact-drawer .memori-artifact-drawer[data-headlessui-state~='open'])
-    .memori-chat-layout--main {
-    backdrop-filter: blur(5px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(248, 250, 252, 0.02) 100%);
-    transition: all 0.05s ease-in-out;
-}
