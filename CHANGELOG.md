@@ -1,5 +1,18 @@
 
 
+## [9.0.0-alpha.5](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.4...alpha/rc-v9.0.0-alpha.5) (2026-05-27)
+
+
+### Features
+
+* add ArtifactDrawer stories and fix hooks order bug ([5bab851](https://github.com/memori-ai/memori-react/commit/5bab85162c58f0263cdc1037406064991a8a3bb4))
+* integrate artifact drawer column into chat layouts ([78d389d](https://github.com/memori-ai/memori-react/commit/78d389dabe3437652243d1e9d62f1068c7023919))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/ui to version 1.16.0 and adjust FullPage and ZoomedFullBody styles ([1ff5a22](https://github.com/memori-ai/memori-react/commit/1ff5a2298a8b1ff5e836092869679e05b629c824))
+
 ## [9.0.0-alpha.4](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.3...alpha/rc-v9.0.0-alpha.4) (2026-05-26)
 
 
