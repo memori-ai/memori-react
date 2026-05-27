@@ -361,10 +361,11 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               </div>
             </button>
 
-            {/* Render ArtifactDrawer inline when in chatlog panel */}
-            {state.isDrawerOpen &&
+            {/* Render inline drawer only for chatlog-panel mode.
+                In layout-column mode the drawer is mounted by the page layout. */}
+            {isChatlogPanel && state.isDrawerOpen &&
               state.currentArtifact?.id === artifact.id && (
-                <ArtifactDrawer isChatLogPanel={isChatlogPanel} />
+                <ArtifactDrawer isChatLogPanel={true} />
               )}
           </React.Fragment>
         );

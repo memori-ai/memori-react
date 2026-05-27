@@ -24,9 +24,13 @@ import cx from 'classnames';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
 
-const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
-  isChatLogPanel = false,
-}) => {
+const ArtifactDrawer: React.FC<{
+  isChatLogPanel?: boolean;
+  /** Render as a plain flex column (no Drawer overlay). Used when the drawer
+   *  is mounted as a proper flex sibling in the page layout. On mobile the
+   *  component falls back to the Drawer overlay regardless of this flag. */
+  isLayoutColumn?: boolean;
+}> = ({ isChatLogPanel = false, isLayoutColumn = false }) => {
   const { state, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
@@ -59,7 +63,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1260);
     };
 
     checkMobile();
@@ -112,13 +116,9 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
     closeArtifact();
   }, [closeArtifact]);
 
-  if (!state.currentArtifact) {
-    return null;
-  }
-
   const hasPreview =
-    state.currentArtifact.mimeType === 'html' ||
-    state.currentArtifact.mimeType === 'markdown';
+    state.currentArtifact?.mimeType === 'html' ||
+    state.currentArtifact?.mimeType === 'markdown';
 
   const ContentContainer = useCallback(
     ({ children }: { children: React.ReactNode }) => {
@@ -137,7 +137,11 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             {children}
           </div>
         );
+      } else if (isLayoutColumn && !isMobile) {
+        // Desktop inline column — rendered as a normal flex child by the layout
+        return <div className="memori-artifact-layout-column">{children}</div>;
       } else {
+        // Mobile or legacy: floating Drawer overlay
         return (
           <Drawer
             open={state.isDrawerOpen}
@@ -158,6 +162,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
     },
     [
       isChatLogPanel,
+      isLayoutColumn,
       handleClose,
       state.isDrawerOpen,
       state.isFullscreen,
@@ -217,7 +222,11 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
     } catch (error) {
       console.error('External open failed:', error);
     }
-  }, []);
+  }, [getMimeTypeString]);
+
+  if (!state.currentArtifact) {
+    return null;
+  }
 
   // Render web split panel
   return (
@@ -249,9 +258,15 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             {!isChatLogPanel && (
               <Button
                 onClick={closeArtifact}
-                variant="ghost"
+                variant="outline"
                 aria-label={t('artifact.close') || 'Close'}
-                icon={<X className="memori-artifact-panel--close-icon" aria-hidden />}
+                className="memori-artifact-drawer--close-desktop"
+                icon={
+                  <X
+                    className="memori-artifact-panel--close-icon"
+                    aria-hidden
+                  />
+                }
                 title={t('artifact.close') || 'Close'}
               />
             )}
@@ -396,7 +411,9 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             variant="ghost"
             aria-label={t('artifact.close') || 'Close'}
             title={t('artifact.close') || 'Close'}
-            icon={<X className="memori-artifact-panel--close-icon" aria-hidden />}
+            icon={
+              <X className="memori-artifact-panel--close-icon" aria-hidden />
+            }
           />
         )}
       </div>

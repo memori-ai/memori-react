@@ -21,8 +21,23 @@
 .memori-artifact-panel-drawer {
     --memori-drawer--width-lg: 46%;
     /* background-color: var(--memori-main-background); */
-    /* Ensure drawer doesn't block left side chat interaction */
-    pointer-events: none;
+}
+
+/* Hide the Drawer backdrop so the chat remains fully visible on the left
+   (applies to the mobile/legacy Drawer-overlay path) */
+body:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
+body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop {
+    display: none !important;
+}
+
+/* Inline layout column — renders inside the flex grid, not as a fixed overlay */
+.memori-artifact-layout-column {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 /* Main Drawer Container (Mobile Only) */
@@ -32,9 +47,6 @@
     font-family: var(--memori-font-family);
 }
 
-.memori-artifact-panel-drawer > div > div > div {
-    pointer-events: auto;
-}
 /* Web Split Panel Container */
 .memori-artifact-panel {
     position: relative;
@@ -595,6 +607,7 @@
     display: flex;
     flex-flow: row;
     align-items: center;
+    padding: 0 var(--memori-spacing-md);
     margin-top: var(--memori-spacing-lg);
     /* justify-content: space-between; */
     gap: var(--memori-spacing-sm);
@@ -642,14 +655,8 @@
 
 .memori-button--more-options {
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
-    border: 1px solid #e1e5e9;
+    border: 1px solid var(--memori-border-color, #e1e5e9);
     border-radius: var(--memori-radius-box);
-    border-top-color: rgb(225, 229, 233);
-    border-right-color: rgb(225, 229, 233);
-    border-bottom-color: rgb(225, 229, 233);
-    border-left-color: rgb(225, 229, 233);
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
 }
 
 .memori-artifact-drawer--sidebar {
@@ -658,8 +665,23 @@
     padding: 1rem;
     padding-left: 1rem;
     border-radius: var(--memori-radius-box);
-    border-left: var(--memori-border) solid var(--memori-border-color);
+    border-left: var(--memori-border) solid var(--memori-primary);
     background: var(--memori-primary-subtle);
+}
+
+.memori-artifact-drawer--close-desktop {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: var(--memori-border) solid var(--memori-border-color);
+    margin: 0;
+    margin-left: 0 !important;
+}
+
+.memori-artifact-drawer--close-desktop:hover {
+    color: #fff !important;
 }
 
 /* Mobile Drawer Panel */
@@ -696,18 +718,64 @@
 }
 
 @media (max-width: 1024px) {
-    .memori-artifact-panel-drawer > div > div > div {
-        z-index: 0;
-        box-shadow: none !important;
-    }
-
     .memori-artifact-drawer-fullscreen {
         display: none;
     }
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1260px) {
+    /* Hide the empty desktop-only action bar on mobile — all actions live in top-right */
+    .memori-artifact-drawer-container-actions {
+        display: none;
+    }
+
+    /* Mobile header: full-width bar with tabs on left, actions on right */
+    .memori-artifact-drawer-top-right {
+        width: 100%;
+        justify-content: space-between;
+        padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+        border-bottom: 1px solid var(--memori-border-color);
+        margin-bottom: var(--memori-spacing-xs);
+    }
+
+    /* Make mobile action buttons match the tab switch height */
+    .memori-artifact-drawer-top-right .memori-button--more-options,
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+        display: flex;
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid var(--memori-border-color);
+        border-radius: var(--memori-radius-box);
+    }
+
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+        margin-left: 0;
+    }
+
+    /* Solid opaque dropdown popover on mobile */
+    .memori-artifact-drawer-top-right .memori-mobile-dropdown {
+        z-index: 1100;
+        border: 1px solid var(--memori-border-color);
+        backdrop-filter: none;
+        background: var(--memori-main-background, #fff);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Dropdown icon visibility */
+    .memori-artifact-drawer-top-right .memori-mobile-dropdown .memori-artifact-action-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--memori-text-color);
+    }
+}
+
+@media (max-width: 1260px) {
     /* Mobile header actions */
     .memori-artifact-drawer-header-actions {
         display: none;
@@ -811,8 +879,8 @@
     }
 }
 
-@media (min-width: 769px) {
-    /* Hide mobile drawer on desktop */
+@media (min-width: 1261px) {
+    /* Hide mobile drawer on desktop — inline column layout takes over */
     .memori-artifact-drawer {
         display: none !important;
     }
@@ -820,18 +888,6 @@
     /* Show web panel on desktop */
     .memori-artifact-panel {
         display: flex !important;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .memori-artifact-drawer--panel {
-        width: 70%;
-    }
-}
-
-@media (min-width: 1025px) {
-    .memori-artifact-drawer--panel {
-        width: 50%;
     }
 }
 
@@ -869,10 +925,6 @@
 
 .memori-artifact-drawer-container-actions--no-preview {
     justify-content: flex-end;
-}
-
-.memori-artifact-drawer--close-desktop {
-    margin-left: 0 !important;
 }
 
 .memori-artifact-drawer-container-actions--chatlog {
@@ -918,7 +970,7 @@
 }
 
 /* Mobile-specific dropdown positioning */
-@media (max-width: 768px) {
+@media (max-width: 1260px) {
     .memori-artifact-drawer--close {
         margin-left: 0;
     }

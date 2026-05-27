@@ -63,14 +63,14 @@
 }
 
 .memori-copy-button--success {
-    border-color: #22c55e;
-    background: color-mix(in oklch, var(--memori-main-background) 82%, #22c55e 18%);
+    border-color: var(--memori-success-color);
+    background: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-success-color) 18%);
     color: var(--memori-text-color);
 }
 
 .memori-copy-button--error {
-    border-color: #ef4444;
-    background: color-mix(in oklch, var(--memori-main-background) 84%, #ef4444 16%);
+    border-color: var(--memori-error-color);
+    background: color-mix(in oklch, var(--memori-main-background) 84%, var(--memori-error-color) 16%);
     color: var(--memori-text-color);
 }
 
@@ -180,6 +180,7 @@
     min-width: 280px;
     max-width: 320px;
     border: 1px solid var(--memori-copy-border);
+    border: var(--memori-border) solid var(--memori-border-color);
     border-radius: 0.5rem;
     margin-top: var(--memori-spacing-xs);
     background: var(--memori-secondary-background);
