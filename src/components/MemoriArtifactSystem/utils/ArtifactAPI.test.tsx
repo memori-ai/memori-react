@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '../../../testUtils';
 import { ArtifactProvider } from '../context/ArtifactContext';
 import { ArtifactAPIBridge } from './ArtifactAPI';
 import { ArtifactData } from '../types/artifact.types';
@@ -259,6 +259,7 @@ describe('ArtifactAPIBridge', () => {
     expect(state.currentArtifact).toBeNull();
     expect(state.isDrawerOpen).toBe(false);
     expect(state.isFullscreen).toBe(false);
+    expect(state.isChatLogPanelPresentation).toBe(false);
   });
 
   it('should clean up API on unmount', () => {

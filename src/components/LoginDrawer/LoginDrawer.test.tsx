@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '../../testUtils';
 import LoginDrawer from './LoginDrawer';
 import { tenant, user } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';

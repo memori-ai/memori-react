@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
-import Modal from '../ui/Modal';
+import { Button, Input, Modal, Form } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Plus from '../icons/Plus';
+import { Plus } from 'lucide-react';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
@@ -94,16 +93,17 @@ export const AuthWidget = ({
   };
 
   const form = (
-    <form
-      name="memoriAuth"
+    <Form
+      name="auth"
       onSubmit={handleSubmit(onSubmit)}
       className="memori-auth-widget--form"
     >
       {(pwdOrTokens === 'password' || !showTokens) && (
         <fieldset className="memori-auth-widget--password-fieldset">
-          <label>
+          <label htmlFor="auth-password">
             Password:{' '}
-            <input
+            <Input
+              id="auth-password"
               className="memori-auth-widget--input"
               required
               type="password"
@@ -114,7 +114,7 @@ export const AuthWidget = ({
           {showTokens && (
             <>
               <hr />
-              <Button outlined onClick={() => setPwdOrTokens('tokens')}>
+              <Button variant="outline" onClick={() => setPwdOrTokens('tokens')}>
                 {t('auth.useRecoveryTokens') || 'Recovery tokens'}
               </Button>
             </>
@@ -127,12 +127,24 @@ export const AuthWidget = ({
           {createArrayWithNumbers(numTokens).map(idx => {
             return (
               <label className="memori-auth-widget--token" key={idx}>
-                <input
+                <span className="sr-only">
+                  {t('auth.tokenNumber', {
+                    defaultValue: 'Recovery token {{number}}',
+                    number: idx + 1,
+                  })}
+                </span>
+                <Input
                   type="password"
                   className="memori-auth-widget--input"
                   placeholder="Recovery token"
                   required
                   autoComplete="off"
+                  aria-label={String(
+                    t('auth.tokenNumber', {
+                      defaultValue: 'Recovery token {{number}}',
+                      number: idx + 1,
+                    })
+                  )}
                   {...register(`tokens.${idx}`, {
                     required: true,
                   })}
@@ -150,46 +162,46 @@ export const AuthWidget = ({
           </Button>
 
           <hr />
-          <Button outlined onClick={() => setPwdOrTokens('password')}>
+          <Button variant="outline" onClick={() => setPwdOrTokens('password')}>
             {t('auth.usePassword') || 'Password'}
           </Button>
         </fieldset>
       )}
 
       {errors.tokens?.type === 'minLength' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {t('auth.atLeast') || 'At least'} {minimumNumberOfRecoveryTokens}
         </div>
       )}
 
       {errors.password?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {errors.password.message}
         </div>
       )}
       {errors.tokens?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
+        <div role="alert" className="memori-auth-widget--error">
           {errors.tokens.message}
         </div>
       )}
 
       <Button
-        htmlType="submit"
-        primary
+        type="submit"
+        variant="primary"
         className="memori-auth-widget--submit"
         loading={isSubmitting}
       >
         {t('confirm') || 'Submit'}
       </Button>
-    </form>
+    </Form>
   );
 
   return withModal ? (
     <Modal
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
-      onClose={() => setPwdOrTokens(null)}
-      closable={false}
+      closable={true}
+      onOpenChange={() => setPwdOrTokens(null)}
     >
       {form}
     </Modal>

@@ -4,37 +4,49 @@
  * Handles both mobile drawer and web split panel layouts
  */
 
-/* CSS Custom Properties for consistent theming */
+/* CSS Custom Properties – use library design tokens */
 :root {
-    --artifact-drawer-bg: var(--memori-chat-bubble-bg, #ffffff);
-    --artifact-drawer-border: var(--memori-button-border-color, #e9ecef);
-    --artifact-drawer-text: var(--memori-text-color, #333333);
-    --artifact-drawer-text-muted: var(--memori-text-color, #666666);
-    --artifact-drawer-accent: var(--memori-primary, #007bff);
-    --artifact-drawer-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    --artifact-drawer-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
-    --artifact-drawer-radius: var(--memori-border-radius, 8px);
-    --artifact-drawer-radius-lg: 12px;
+    --artifact-drawer-bg: var(--memori-main-background);
+    --artifact-drawer-border: var(--memori-border-color);
+    --artifact-drawer-text: var(--memori-text-color);
+    --artifact-drawer-text-muted: color-mix(in oklch, var(--memori-text-color) 70%, transparent);
+    --artifact-drawer-accent: var(--memori-primary);
+    --artifact-drawer-shadow: var(--memori-shadow-lg);
+    --artifact-drawer-shadow-lg: var(--memori-shadow-2xl);
+    --artifact-drawer-radius: var(--memori-radius-box);
+    --artifact-drawer-radius-lg: var(--memori-radius-box);
 }
 
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
     --memori-drawer--width-lg: 46%;
-    /* Ensure drawer doesn't block left side chat interaction */
-    pointer-events: none;
+    /* background-color: var(--memori-main-background); */
+}
+
+/* Hide the Drawer backdrop so the chat remains fully visible on the left
+   (applies to the mobile/legacy Drawer-overlay path) */
+body:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
+body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop {
+    display: none !important;
+}
+
+/* Inline layout column — renders inside the flex grid, not as a fixed overlay */
+.memori-artifact-layout-column {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 /* Main Drawer Container (Mobile Only) */
 .memori-artifact-drawer {
     position: relative;
     z-index: 1001;
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
 }
 
-.memori-artifact-panel-drawer > div > div > div {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    pointer-events: auto;
-}
 /* Web Split Panel Container */
 .memori-artifact-panel {
     position: relative;
@@ -42,10 +54,10 @@
     overflow: visible;
     height: 100%;
     flex-direction: column;
-    border-left: 1px solid var(--artifact-drawer-border);
+    /* border-left: 1px solid var(--artifact-drawer-border); */
     backdrop-filter: blur(10px);
-    box-shadow: var(--artifact-drawer-shadow);
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    /* box-shadow: var(--artifact-drawer-shadow); */
+    font-family: var(--memori-font-family);
 }
 
 .memori-artifact-panel::before {
@@ -54,7 +66,7 @@
     right: 0;
     left: 0;
     height: 1px;
-    background: white;
+    /* background: white; */
     content: '';
     opacity: 0.6;
 }
@@ -71,8 +83,6 @@
     padding-top: 1rem;
 }
 
-
-
 .memori-artifact-panel--header-content {
     min-width: 0;
     flex: 1;
@@ -85,33 +95,31 @@
     background: white;
     background-clip: text;
     color: var(--artifact-drawer-text);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-bold);
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: var(--memori-text-line-tight);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 
 .memori-artifact-panel--subtitle {
     margin: 0 0 1rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;
     opacity: 0.9;
 }
 
-
 .memori-artifact-panel--meta {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
-    font-weight: 500;
-    gap: 0.5rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-panel--meta-item {
@@ -121,13 +129,10 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(0, 123, 255, 0.15);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     background: rgba(0, 123, 255, 0.08);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
-
-
-
 
 .memori-artifact-panel--header-actions {
     position: absolute;
@@ -142,22 +147,21 @@
     /* margin-top: 1rem; */
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-panel--close {
     position: absolute;
     z-index: 10;
     top: 1.5rem;
     right: 1.5rem;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
-    color: #000 !important;
+    color: var(--memori-text-color) !important;
 }
 
 /* Web Split Panel Content */
@@ -165,11 +169,12 @@
     position: relative;
     display: flex;
     overflow: visible;
-    height: 88vh;
+    height: 87vh;
     min-height: 0;
+    max-height: 87vh;
     flex: 1;
     /* padding: 1.5rem 1.5rem; */
-    gap: 1.5rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-panel--main {
@@ -229,10 +234,9 @@
     border-left: 1px solid rgba(255, 255, 255, 0.2);
     background: white;
     box-shadow: var(--artifact-drawer-shadow-lg);
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
     transform: opacity(0);
 }
-
 
 .memori-artifact-drawer--panel-left {
     right: auto;
@@ -257,15 +261,14 @@
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: var(--memori-spacing-lg);
     border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
     border-bottom: 1px solid var(--artifact-drawer-border);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--memori-spacing-lg);
     backdrop-filter: blur(20px);
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
-
 
 .memori-artifact-drawer--header-content {
     min-width: 0;
@@ -278,23 +281,21 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: var(--artifact-drawer-text);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-bold);
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: var(--memori-text-line-tight);
     -webkit-text-fill-color: transparent;
 }
-
 
 .memori-artifact-drawer--subtitle {
     margin: 0 0 1rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;
     opacity: 0.9;
 }
-
 
 .memori-artifact-drawer--meta {
     display: flex;
@@ -303,8 +304,8 @@
     margin-top: 0.5rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
-    font-weight: 500;
-    gap: 1rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-drawer--meta-item {
@@ -316,9 +317,9 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(0, 123, 255, 0.15);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     background: rgba(0, 123, 255, 0.08);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-panel-drawer-fullscreen > div > div > div {
@@ -328,31 +329,27 @@
     transform: translateX(0) !important;
 }
 
-
-
 .memori-artifact-drawer--header-actions {
     z-index: 100;
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    padding: 0.5rem;
+    padding: var(--memori-spacing-sm);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--artifact-drawer-radius);
-    margin-top: 1rem;
+    margin-top: var(--memori-spacing-lg);
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-drawer--history-toggle {
-    margin-right: 0.5rem;
+    margin-right: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-drawer-fullscreen {
     display: flex;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 /* New Header Actions Layout */
@@ -372,7 +369,7 @@
     overflow: hidden;
     align-items: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
 }
 
@@ -382,7 +379,7 @@
     height: 36px;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text-muted);
@@ -416,7 +413,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text-muted);
     transition: all 0.2s ease;
@@ -434,21 +431,21 @@
     overflow: hidden;
     align-items: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
 }
 
 .memori-artifact-copy-button {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: none;
     border-right: 1px solid var(--artifact-drawer-border);
     background: transparent;
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
     transition: all 0.2s ease;
 }
 
@@ -459,12 +456,12 @@
 
 .memori-artifact-copy-button--success {
     background: #f0fdf4;
-    color: #15803d;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--error {
     background: #fef2f2;
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--loading {
@@ -472,8 +469,8 @@
 }
 
 .memori-artifact-copy-text {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 .memori-artifact-copy-dropdown-wrapper {
@@ -490,7 +487,7 @@
     height: 36px;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text-muted);
@@ -516,26 +513,26 @@
     right: 0;
     min-width: 200px;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
-    margin-top: 4px;
+    border-radius: var(--memori-radius-box);
+    margin-top: var(--memori-spacing-xs);
     background: var(--artifact-drawer-bg);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .memori-artifact-copy-dropdown-list {
-    padding: 4px 0;
+    padding: var(--memori-spacing-xs) 0;
 }
 
 .memori-artifact-copy-dropdown-item {
     display: flex;
     width: 100%;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--memori-text-size-small);
     text-align: left;
     transition: all 0.2s ease;
 }
@@ -547,36 +544,36 @@
 }
 
 .memori-artifact-copy-dropdown-text {
-    margin-left: 8px;
-    font-size: 14px;
-    font-weight: 500;
+    margin-left: var(--memori-spacing-sm);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 /* Share Button */
 .memori-artifact-share-button {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    gap: 8px;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
     transition: all 0.2s ease;
 }
 
 .memori-artifact-share-button:hover {
     border-color: var(--artifact-drawer-accent);
     background: var(--artifact-drawer-accent);
-    color: white;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-share-text {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 /* Close Button */
@@ -587,7 +584,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text-muted);
     cursor: pointer;
@@ -597,7 +594,7 @@
 .memori-artifact-close-button:hover {
     border-color: #ef4444;
     background: #fef2f2;
-    color: #ef4444;
+    color: var(--memori-text-color);
 }
 
 /* Mobile Actions */
@@ -606,20 +603,20 @@
 }
 
 /* Legacy container for backward compatibility */
-.memori-artifact-drawer-container-actions{
+.memori-artifact-drawer-container-actions {
     display: flex;
     flex-flow: row;
     align-items: center;
-    margin-top: 1rem;
+    padding: 0 var(--memori-spacing-md);
+    margin-top: var(--memori-spacing-lg);
     /* justify-content: space-between; */
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-drawer--close-icon {
     width: 18px;
     height: 18px;
 }
-
 
 /* Content */
 .memori-artifact-drawer--content {
@@ -629,7 +626,7 @@
     min-height: 0;
     flex: 1;
     padding: 0 0 1.5rem;
-    gap: 1.5rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-drawer--main {
@@ -656,16 +653,10 @@
     content: '';
 }
 
-.memori-button--more-options{
-    padding: 8px 16px;
-    border: 1px solid #e1e5e9;
-  border-radius: 6px;
-    border-top-color: rgb(225, 229, 233);
-    border-right-color: rgb(225, 229, 233);
-    border-bottom-color: rgb(225, 229, 233);
-    border-left-color: rgb(225, 229, 233);
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
+.memori-button--more-options {
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: 1px solid var(--memori-border-color, #e1e5e9);
+    border-radius: var(--memori-radius-box);
 }
 
 .memori-artifact-drawer--sidebar {
@@ -673,9 +664,24 @@
     flex-shrink: 0;
     padding: 1rem;
     padding-left: 1rem;
-    border-radius: var(--memori-border-radius, 6px);
-    border-left: 1px solid var(--memori-button-border-color, #e9ecef);
-    background: var(--memori-inner-bg, #f8f9fa);
+    border-radius: var(--memori-radius-box);
+    border-left: var(--memori-border) solid var(--memori-primary);
+    background: var(--memori-primary-subtle);
+}
+
+.memori-artifact-drawer--close-desktop {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: var(--memori-border) solid var(--memori-border-color);
+    margin: 0;
+    margin-left: 0 !important;
+}
+
+.memori-artifact-drawer--close-desktop:hover {
+    color: #fff !important;
 }
 
 /* Mobile Drawer Panel */
@@ -695,35 +701,81 @@
     backdrop-filter: blur(20px);
     background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
     box-shadow: none;
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
 }
 
 .memori-artifact-drawer--close {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     /* background: var(--artifact-drawer-bg); */
     margin-left: auto;
 }
 
-@media (max-width: 1024px) {
-    .memori-artifact-panel-drawer > div > div > div {
-        z-index: 0;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-shadow: none !important;
-    }
+.memori-artifact-actions {
+    flex: 1;
+}
 
+@media (max-width: 1024px) {
     .memori-artifact-drawer-fullscreen {
         display: none;
     }
 }
 
-
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1260px) {
+    /* Hide the empty desktop-only action bar on mobile — all actions live in top-right */
+    .memori-artifact-drawer-container-actions {
+        display: none;
+    }
 
+    /* Mobile header: full-width bar with tabs on left, actions on right */
+    .memori-artifact-drawer-top-right {
+        width: 100%;
+        justify-content: space-between;
+        padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+        border-bottom: 1px solid var(--memori-border-color);
+        margin-bottom: var(--memori-spacing-xs);
+    }
+
+    /* Make mobile action buttons match the tab switch height */
+    .memori-artifact-drawer-top-right .memori-button--more-options,
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+        display: flex;
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid var(--memori-border-color);
+        border-radius: var(--memori-radius-box);
+    }
+
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+        margin-left: 0;
+    }
+
+    /* Solid opaque dropdown popover on mobile */
+    .memori-artifact-drawer-top-right .memori-mobile-dropdown {
+        z-index: 1100;
+        border: 1px solid var(--memori-border-color);
+        backdrop-filter: none;
+        background: var(--memori-main-background, #fff);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Dropdown icon visibility */
+    .memori-artifact-drawer-top-right .memori-mobile-dropdown .memori-artifact-action-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--memori-text-color);
+    }
+}
+
+@media (max-width: 1260px) {
     /* Mobile header actions */
     .memori-artifact-drawer-header-actions {
         display: none;
@@ -765,16 +817,12 @@
         border-radius: 0;
         margin-bottom: 1rem;
         backdrop-filter: blur(20px) !important;
-        background: linear-gradient(
-            135deg,
-            var(--memori-inner-bg, #f8f9fa) 0%,
-            rgba(255, 255, 255, 0.9) 100%
-        ) !important;
-        gap: 1.5rem;
+        background: linear-gradient(135deg, var(--memori-primary-subtle) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+        gap: var(--memori-spacing-lg);
     }
 
-    .memori-artifact-drawer--header-content{
-      width: 100%;
+    .memori-artifact-drawer--header-content {
+        width: 100%;
     }
 
     .memori-artifact-drawer--header-actions {
@@ -815,7 +863,7 @@
 
     .memori-artifact-drawer--meta {
         width: 100%;
-        gap: 0.75rem;
+        gap: var(--memori-spacing-sm);
     }
 
     .memori-artifact-drawer--meta-item {
@@ -831,8 +879,8 @@
     }
 }
 
-@media (min-width: 769px) {
-    /* Hide mobile drawer on desktop */
+@media (min-width: 1261px) {
+    /* Hide mobile drawer on desktop — inline column layout takes over */
     .memori-artifact-drawer {
         display: none !important;
     }
@@ -841,21 +889,6 @@
     .memori-artifact-panel {
         display: flex !important;
     }
-}
-
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .memori-artifact-drawer--panel {
-        width: 70%;
-    }
-
-}
-
-@media (min-width: 1025px) {
-    .memori-artifact-drawer--panel {
-        width: 50%;
-    }
-
 }
 
 /* Fullscreen Mode */
@@ -894,10 +927,6 @@
     justify-content: flex-end;
 }
 
-.memori-artifact-drawer--close-desktop {
-    margin-left: 0 !important;
-}
-
 .memori-artifact-drawer-container-actions--chatlog {
     padding: 0rem 1rem;
 }
@@ -912,7 +941,7 @@
     display: flex;
     align-items: center;
     padding: 0rem 1rem;
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 /* Mobile Actions Dropdown */
@@ -934,47 +963,46 @@
     min-width: 200px;
     border: 1px solid var(--artifact-drawer-border);
     border-radius: var(--artifact-drawer-radius);
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     backdrop-filter: blur(10px);
     background: var(--artifact-drawer-bg);
     box-shadow: var(--artifact-drawer-shadow);
 }
 
 /* Mobile-specific dropdown positioning */
-@media (max-width: 768px) {
-
-    .memori-artifact-drawer--close{
+@media (max-width: 1260px) {
+    .memori-artifact-drawer--close {
         margin-left: 0;
     }
 
-    .memori-artifact-panel--header{
-        margin-bottom: 0.5rem;
+    .memori-artifact-panel--header {
+        margin-bottom: var(--memori-spacing-sm);
     }
-    
+
     .memori-mobile-dropdown {
         right: 0;
         left: auto;
         min-width: 180px;
         max-width: calc(100vw - 2rem);
     }
-    
+
     .memori-mobile-dropdown-list {
         padding: 0.25rem;
-        gap: 0.125rem;
+        gap: var(--memori-spacing-xs);
     }
-    
+
     .memori-mobile-dropdown .memori-artifact-action-btn {
         min-height: 44px; /* Ensure touch-friendly size */
         padding: 0.625rem 0.75rem;
-        font-size: 0.875rem;
+        font-size: var(--memori-text-size-small);
     }
-    
+
     .memori-mobile-dropdown .memori-artifact-action-text {
         color: var(--artifact-drawer-text);
         font-size: 0.8125rem;
-        font-weight: 600;
+        font-weight: var(--memori-text-weight-semibold);
     }
-    
+
     .memori-mobile-dropdown .memori-artifact-action-icon {
         width: 16px;
         height: 16px;
@@ -986,7 +1014,7 @@
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    gap: 0.25rem;
+    gap: var(--memori-spacing-xs);
 }
 
 .memori-mobile-dropdown .memori-artifact-action-btn {
@@ -994,7 +1022,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.75rem 1rem;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid transparent;
     border-radius: var(--artifact-drawer-radius);
     background: transparent;
@@ -1005,16 +1033,16 @@
 
 .memori-mobile-dropdown .memori-artifact-action-btn:hover {
     border-color: var(--memori-primary);
-    background: var(--memori-button-hover-bg, rgba(0, 123, 255, 0.1));
+    background: var(--memori-primary-subtle);
     color: var(--memori-primary);
 }
 
 .memori-mobile-dropdown .memori-artifact-action-text {
     overflow: visible;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
     color: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
     white-space: nowrap;
 }
 
@@ -1056,4 +1084,3 @@
     outline: 2px solid var(--memori-primary);
     outline-offset: 2px;
 }
-

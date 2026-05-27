@@ -353,7 +353,7 @@ export function MediaPreviewModal({
             className="memori-media-item--modal-video"
             controls
             src={mediaSrc}
-            title={medium.title || 'Video preview'}
+            aria-label={medium.title || 'Video preview'}
           >
             {medium.mimeType === 'video/quicktime' && (
               <source src={mediaSrc} type="video/mp4" />

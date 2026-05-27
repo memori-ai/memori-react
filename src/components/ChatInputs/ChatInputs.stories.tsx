@@ -5,6 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import { dialogState } from '../../mocks/data';
 
 import './ChatInputs.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Chat inputs (footer)',
@@ -52,16 +53,18 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <div style={{ paddingTop: '10rem' }}>
-        <ChatInputs
-          {...args}
-          listening={listening}
-          startListening={startListening}
-          stopListening={stopListening}
-          userMessage={userMessage}
-          onChangeUserMessage={setUserMessage}
-        />
-      </div>
+      <AlertProvider defaultDuration={5000}>
+        <div style={{ paddingTop: '10rem' }}>
+          <ChatInputs
+            {...args}
+            listening={listening}
+            startListening={startListening}
+            stopListening={stopListening}
+            userMessage={userMessage}
+            onChangeUserMessage={setUserMessage}
+          />
+        </div>
+      </AlertProvider>
     </I18nWrapper>
   );
 };

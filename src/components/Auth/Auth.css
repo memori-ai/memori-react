@@ -1,3 +1,7 @@
+.memori-auth-widget--form {
+    padding: var(--memori-spacing-md);
+}
+
 .memori-auth-widget--form fieldset {
     padding: 0;
     border: 0;
@@ -17,10 +21,10 @@
 input.memori-auth-widget--input {
     min-height: 2.5rem;
     border: 1px solid #e0e0e0;
-    border-radius: 0.375rem;
+    border-radius: var(--memori-radius-box);
     appearance: none;
     background: inherit;
-    font-size: 1rem;
+    font-size: var(--memori-text-size-base);
     outline: transparent solid 2px;
     outline-offset: 2px;
     padding-inline-end: 1rem;
@@ -30,7 +34,7 @@ input.memori-auth-widget--input {
 }
 
 input.memori-auth-widget--input::placeholder {
-    color: #bdbdbd;
+    color: var(--memori-text-color);
 }
 
 input.memori-auth-widget--input:hover {
@@ -43,15 +47,15 @@ input.memori-auth-widget--input:focus {
 
 .memori-auth-widget--token {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-auth-widget--error {
-    padding: 1rem 1.5rem;
+    padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
     border: 1px solid currentColor;
-    border-radius: 10px;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+        border-radius: var(--memori-radius-box);
+        margin-top: var(--memori-spacing-sm);
+    margin-bottom: var(--memori-spacing-lg);
     background-color: rgba(255, 235, 238, 0.5);
-    color: #f44336;
+    color: var(--memori-text-color);
 }

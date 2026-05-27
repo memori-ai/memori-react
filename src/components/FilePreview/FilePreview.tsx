@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import File from '../icons/File';
-import CloseIcon from '../icons/Close';
-import Button from '../ui/Button';
+import { File, X } from 'lucide-react';
+import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
@@ -146,8 +145,8 @@ const FilePreview = ({
               style={{
                 color: 'rgb(138, 138, 138)',
                 display: 'block',
-                marginTop: '6px',
-                marginBottom: '6px',
+                marginTop: '8px',
+                marginLeft: '8px',
                 fontSize: '0.7rem',
               }}
             >
@@ -166,35 +165,44 @@ const FilePreview = ({
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-                onClick={() => setSelectedFile(file)}
               >
-                {isImageContent(file.content, file.type) ? (
-                  <div className="memori--preview-thumbnail">
-                    <img src={file.content} alt={file.name} />
-                  </div>
-                ) : (
-                  <File className="memori--preview-icon" />
-                )}
+                <button
+                  type="button"
+                  className="memori--preview-item-trigger"
+                  onClick={() => setSelectedFile(file)}
+                  aria-label={file.name}
+                >
+                  {isImageContent(file.content, file.type) ? (
+                    <div className="memori--preview-thumbnail">
+                      <img src={file.content} alt="" />
+                    </div>
+                  ) : (
+                    <File className="memori--preview-icon" aria-hidden />
+                  )}
 
-                <div className="memori--preview-file-info">
-                  <span className="memori--preview-filename">{file.name}</span>
-                  <span className="memori--preview-filetype">
-                    {file.mimeType
-                      ? getFileExtensionFromMime(file.mimeType)
-                      : getFileType(file.name, file.type)}
-                  </span>
-                </div>
+                  <div className="memori--preview-file-info">
+                    <span className="memori--preview-filename">{file.name}</span>
+                    <span className="memori--preview-filetype">
+                      {file.mimeType
+                        ? getFileExtensionFromMime(file.mimeType)
+                        : getFileType(file.name, file.type)}
+                    </span>
+                  </div>
+                </button>
 
                 {allowRemove && (
                   <Button
-                    shape="rounded"
-                    icon={<CloseIcon />}
+                    shape="circle"
+                    icon={<X aria-hidden />}
                     danger
                     className="memori--remove-button"
-                    onClick={e => {
-                      e.stopPropagation();
-                      removeFile(file.id, file?.mediumID);
-                    }}
+                    aria-label={String(
+                      t('upload.removeFile', {
+                        defaultValue: 'Remove {{name}}',
+                        name: file.name,
+                      })
+                    )}
+                    onClick={() => removeFile(file.id, file?.mediumID)}
                   />
                 )}
               </div>
@@ -221,6 +229,7 @@ const FilePreview = ({
         open={!!selectedFile}
         onClose={() => setSelectedFile(null)}
         title={selectedFile?.name}
+        className="memori-file-preview-modal"
         isImage={
           !!selectedFile &&
           isImageContent(selectedFile.content, selectedFile.type)

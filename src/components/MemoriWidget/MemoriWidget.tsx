@@ -18,7 +18,11 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
-import type { LayoutName, PiiDetectionConfig } from '../../types/layout';
+import type {
+  LayoutName,
+  LayoutProp,
+  PiiDetectionConfig,
+} from '../../types/layout';
 import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
 
 // Libraries
@@ -35,10 +39,13 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { IAudioContext } from 'standardized-audio-context';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
-import toast from 'react-hot-toast';
+import {
+  useAlertManager,
+  createAlertOptions,
+  MemoriUIProvider,
+} from '@memori.ai/ui';
 
 // Components
-import PositionDrawer from '../PositionDrawer/PositionDrawer';
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
@@ -50,14 +57,14 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
-import Button from '../ui/Button';
-import CloseIcon from '../icons/Close';
+import { Button } from '@memori.ai/ui';
+import { X } from 'lucide-react';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
 import ChatLayout from '../layouts/Chat';
-import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
+import WebsiteAssistantLayout from '../layouts/WebsiteAssistant/WebsiteAssistant';
 import HiddenChatLayout from '../layouts/HiddenChat';
 import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
 
@@ -343,6 +350,7 @@ declare global {
         currentArtifact: ArtifactData | null;
         isDrawerOpen: boolean;
         isFullscreen: boolean;
+        isChatLogPanelPresentation: boolean;
       };
     };
   }
@@ -392,7 +400,8 @@ export interface Props {
   spokenLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: LayoutName;
+  /** Layout name, or object when PII is configured (e.g. from integration customData). */
+  layout?: LayoutProp;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -447,6 +456,56 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
+}
+
+/** Config shape for chat styling (integration customData). */
+type ChatStylesConfig = {
+  buttonBgColor?: string;
+  buttonTextColor?: string;
+};
+
+/**
+ * Returns CSS custom properties for the chat container when a brand primary is set.
+ * Maps buttonBgColor → --memori-primary-color / --memori-primary and injects derived
+ * tokens (hover, active, borders, etc.) in the same scope.
+ * If buttonBgColor is missing, returns {} so global CSS defaults are used.
+ */
+export function getChatStyles(
+  config: ChatStylesConfig | null | undefined
+): CSSProperties {
+  const primary = config?.buttonBgColor;
+  if (!primary) return {};
+
+  const primaryContent = config?.buttonTextColor ?? '#ffffff';
+
+  return {
+    '--memori-primary-color': primary,
+    '--memori-primary': primary,
+    '--memori-primary-content': primaryContent,
+    '--memori-primary-hover':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
+    '--memori-primary-active':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
+    '--memori-primary-disabled':
+      'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+    '--memori-primary-subtle':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
+    '--memori-primary-subtle-hover':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
+    '--memori-border-primary':
+      'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-border-primary-hover':
+      'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+    '--memori-focus-ring-color':
+      'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+    '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
+    '--memori-shadow-primary':
+      '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-skeleton-base':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
+    '--memori-skeleton-highlight':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
+  } as CSSProperties;
 }
 
 const MemoriWidget = ({
@@ -510,7 +569,7 @@ const MemoriWidget = ({
   maxTextareaCharacters,
 }: Props) => {
   const { t, i18n } = useTranslation();
-
+  const { add, close } = useAlertManager();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -532,6 +591,28 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
+
+  // Capture the widget root via a callback ref so the value is non-null on
+  // the first render that matters (used as the `container` for portal-based
+  // UI primitives via `MemoriUIProvider`). `useRef` would not trigger a
+  // re-render and would leave the value `null` on the first pass.
+  const [widgetRootEl, setWidgetRootEl] = useState<HTMLDivElement | null>(null);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  useEffect(() => {
+    if (!widgetRootEl) return;
+    const check = () => {
+      setIsDarkTheme(!!widgetRootEl.closest('[data-theme="dark"]'));
+    };
+    check();
+    const observer = new MutationObserver(check);
+    const parent = widgetRootEl.parentElement ?? document.body;
+    observer.observe(parent, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+      subtree: true,
+    });
+    return () => observer.disconnect();
+  }, [widgetRootEl]);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -627,18 +708,47 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  // Layout: prop can be string or object { name, piiDetection } (e.g. from integration customData when PII is enabled).
   const layoutName =
     typeof layout === 'string'
       ? layout
+      : layout &&
+        typeof layout === 'object' &&
+        layout !== null &&
+        'name' in layout &&
+        typeof (layout as { name: string }).name === 'string'
+      ? (layout as { name: string }).name
       : typeof integrationConfig?.layout === 'string'
       ? integrationConfig.layout
       : integrationConfig?.layout?.name;
-  const selectedLayout = layoutName || 'DEFAULT';
+  // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
+  const selectedLayout = ((): LayoutName => {
+    if (typeof layoutName === 'string') {
+      const lower = layoutName.toLowerCase();
+      if (lower === 'fullpage' || lower === 'fullscreen' || lower === '2')
+        return 'FULLPAGE';
+      if (lower === 'totem') return 'TOTEM';
+      if (lower === 'chat') return 'CHAT';
+      if (lower === 'website_assistant') return 'WEBSITE_ASSISTANT';
+      if (lower === 'hidden_chat') return 'HIDDEN_CHAT';
+      if (lower === 'zoomed_full_body') return 'ZOOMED_FULL_BODY';
+      if (lower === 'default') return 'DEFAULT';
+      return layoutName as LayoutName;
+    }
+    if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
+    return 'DEFAULT';
+  })();
+  // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
   const piiDetection: PiiDetectionConfig | undefined =
-    typeof integrationConfig?.layout === 'object' &&
-    integrationConfig?.layout !== null &&
-    integrationConfig?.layout?.piiDetection?.enabled
+    layout &&
+    typeof layout === 'object' &&
+    layout !== null &&
+    'piiDetection' in layout &&
+    layout.piiDetection?.enabled
+      ? layout.piiDetection
+      : typeof integrationConfig?.layout === 'object' &&
+        integrationConfig?.layout !== null &&
+        integrationConfig?.layout?.piiDetection?.enabled
       ? integrationConfig.layout.piiDetection
       : undefined;
 
@@ -648,7 +758,7 @@ const MemoriWidget = ({
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
   const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
-  const [showPositionDrawer, setShowPositionDrawer] = useState(false);
+  const [positionPopoverOpen, setPositionPopoverOpenState] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
@@ -707,7 +817,9 @@ const MemoriWidget = ({
     setRuntimeShowMessageConsumption(
       getLocalConfig(
         'showMessageConsumption',
-        showMessageConsumption ?? integrationConfig?.showMessageConsumption ?? false
+        showMessageConsumption ??
+          integrationConfig?.showMessageConsumption ??
+          false
       )
     );
 
@@ -751,10 +863,16 @@ const MemoriWidget = ({
   /** True when the user has set a real position; false when position is missing or "I don't want to provide my position". */
   const hasUserProvidedPosition = useCallback((venue: Venue | undefined) => {
     if (!venue) return false;
+    const hasOptOutCoordinates =
+      Number(venue.latitude) === 0 && Number(venue.longitude) === 0;
+    const hasEmptyPlaceName = !venue.placeName?.trim();
+    const isLegacyOptOutPlaceName = venue.placeName === 'Position';
+    const hasNoUncertainty = Number(venue.uncertainty ?? 0) === 0;
+
     if (
-      venue.placeName === 'Position' &&
-      venue.latitude === 0 &&
-      venue.longitude === 0
+      hasOptOutCoordinates &&
+      (hasEmptyPlaceName || isLegacyOptOutPlaceName) &&
+      hasNoUncertainty
     ) {
       return false;
     }
@@ -770,17 +888,11 @@ const MemoriWidget = ({
       longitude?: number;
       uncertaintyKm?: number;
     } = {};
-    if (
-      venue.latitude != null &&
-      venue.longitude != null
-    ) {
+    if (venue.latitude != null && venue.longitude != null) {
       place.latitude = venue.latitude;
       place.longitude = venue.longitude;
       if (venue.placeName) place.placeName = venue.placeName;
-      if (
-        venue.uncertainty != null &&
-        venue.uncertainty > 0
-      )
+      if (venue.uncertainty != null && venue.uncertainty > 0)
         place.uncertaintyKm = venue.uncertainty;
     } else if (venue.placeName) {
       place.placeName = venue.placeName;
@@ -1468,7 +1580,12 @@ const MemoriWidget = ({
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.warn(session);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1480,23 +1597,22 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.warn(session);
-        toast.error(
-          tst => (
-            <div>
-              <p>{t(getErrori18nKey(session?.resultCode))}</p>
-              <Button
-                outlined
-                padded={false}
-                onClick={() => toast.dismiss(tst.id)}
-                icon={<CloseIcon />}
-              >
-                {t('close')}
-              </Button>
-            </div>
-          ),
-          {
-            duration: Infinity,
-          }
+        const toastId = add(
+          createAlertOptions({
+            description: (
+              <div>
+                <p>{t(getErrori18nKey(session?.resultCode))}</p>
+                <Button
+                  variant="outline"
+                  onClick={() => close(toastId)}
+                  aria-label={String(t('close', { defaultValue: 'Close' }))}
+                  icon={<X aria-hidden />}
+                />
+              </div>
+            ),
+            severity: 'error',
+            duration: 0,
+          })
         );
         setGotErrorInOpening(true);
         return session;
@@ -1691,7 +1807,12 @@ const MemoriWidget = ({
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error('[REOPEN_SESSION] Age restriction error:', response);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1703,7 +1824,12 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.error('[REOPEN_SESSION] Other error:', response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(
+          createAlertOptions({
+            description: t(getErrori18nKey(response.resultCode)),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -1957,9 +2083,6 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
-      // continuousRecording: continuousSpeech,
-      // silenceTimeout: continuousSpeechTimeout,
-      // autoStart: autoStart,
     },
     defaultEnableAudio
   );
@@ -2134,61 +2257,53 @@ const MemoriWidget = ({
     : null;
 
   const integrationProperties = (
-    integration
-      ? {
-          '--memori-chat-bubble-bg': '#fff',
-          ...(integrationConfig && !instruct
-            ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
-            : {}),
-          ...(integrationConfig?.buttonBgColor
-            ? {
-                '--memori-button-bg': integrationConfig.buttonBgColor,
-                '--memori-primary': integrationConfig.buttonBgColor,
-              }
-            : {}),
-          ...(integrationConfig?.buttonTextColor
-            ? {
-                '--memori-button-text': integrationConfig.buttonTextColor,
-              }
-            : {}),
-          ...(integrationConfig?.blurBackground
-            ? {
-                '--memori-blur-background': '5px',
-              }
-            : {
-                '--memori-blur-background': '0px',
-              }),
-          ...(integrationConfig?.innerBgColor
-            ? {
-                '--memori-inner-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
-                '--memori-inner-content-pad': '1.5rem',
-                '--memori-nav-bg-image': 'none',
-                '--memori-nav-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
-              }
-            : {
-                '--memori-inner-content-pad': '0px',
-              }),
-        }
-      : {}
+    integration ? getChatStyles(integrationConfig) : {}
   ) as CSSProperties;
 
-  const integrationStylesheet = `
-    ${
-      preview ? '#preview, ' : applyVarsToRoot ? ':root, ' : ''
-    }memori-client, .memori-widget, .memori-drawer, .memori-modal {
-      ${Object.entries(integrationProperties)
-        .map(([key, value]) => `${key}: ${value};`)
-        .join('\n')}
-    }
-  `;
+  const integrationSelectors = [
+    preview ? '#preview' : null,
+    applyVarsToRoot ? ':root' : null,
+    integration ? 'body' : null,
+    '.memori-client',
+    '.memori-widget',
+    '.memori-drawer',
+    '.memori-modal',
+    '.memori-header',
+    '.memori-dropdown',
+    '.memori-select',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const integrationCssBlock = Object.entries(integrationProperties)
+    .map(([key, value]) => `${key}: ${value};`)
+    .join('\n    ');
+
+  const integrationStylesheetParts: string[] = [];
+  if (integrationCssBlock) {
+    integrationStylesheetParts.push(
+      `${integrationSelectors} {
+    ${integrationCssBlock}
+  }`
+    );
+    integrationStylesheetParts.push(
+      `[data-theme="dark"] .memori-widget,
+  .memori-widget[data-theme="dark"],
+  [data-theme="dark"] memori-client .memori-widget,
+  memori-client[data-theme="dark"] .memori-widget {
+    ${integrationCssBlock}
+  }`
+    );
+  }
+  if (integrationConfig?.blurBackground) {
+    integrationStylesheetParts.push(
+      '.memori-widget .memori--global-background { filter: blur(5px); }'
+    );
+  }
+  const integrationStylesheet = `@layer integration {
+  ${integrationStylesheetParts.join('\n  ')}
+}
+`;
 
   const showAIicon =
     integrationConfig?.showAIicon === undefined
@@ -2366,7 +2481,7 @@ const MemoriWidget = ({
       );
       // Only check for position requirement if memori.needsPosition is true
       if (autoStart && !localPosition && memori.needsPosition) {
-        setShowPositionDrawer(true);
+        setPositionPopoverOpenState(true);
         return;
       }
 
@@ -2722,7 +2837,6 @@ const MemoriWidget = ({
             );
           }
         }
-
       }
       // Default case - just translate and activate
       else {
@@ -2734,6 +2848,16 @@ const MemoriWidget = ({
       }
     },
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
+  );
+
+  const setPositionPopoverOpen = useCallback(
+    (open: boolean) => {
+      setPositionPopoverOpenState(open);
+      if (!open && autoStart) {
+        onClickStart();
+      }
+    },
+    [autoStart, onClickStart]
   );
 
   useEffect(() => {
@@ -2886,7 +3010,9 @@ const MemoriWidget = ({
     position,
     layout: selectedLayout,
     additionalSettings,
-    setShowPositionDrawer,
+    setVenue: setPosition,
+    positionPopoverOpen,
+    setPositionPopoverOpen,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
@@ -2953,7 +3079,8 @@ const MemoriWidget = ({
     baseUrl: baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     position: position,
-    openPositionDrawer: () => setShowPositionDrawer(true),
+    setVenue: setPosition,
+    openPositionPopover: () => setPositionPopoverOpen(true),
     integrationConfig: integrationConfig,
     instruct: instruct,
     sessionId: sessionId,
@@ -2965,6 +3092,9 @@ const MemoriWidget = ({
     notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin: canShowLoginButton,
     setShowLoginDrawer,
+    showChatHistory:
+      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+    setShowChatHistoryDrawer,
     user,
   };
 
@@ -3044,6 +3174,9 @@ const MemoriWidget = ({
     useMathFormatting: applyMathFormatting,
     maxTotalMessagePayload,
     maxTextareaCharacters,
+    isChatlogPanel:
+      (integrationConfig as { artifactChatLogPanel?: boolean } | undefined)
+        ?.artifactChatLogPanel === true,
   };
 
   const integrationBackground =
@@ -3058,9 +3191,12 @@ const MemoriWidget = ({
       <div className="memori--global-background no-background-image" />
     );
 
-  const integrationStyle = integration ? (
-    <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
-  ) : null;
+  const integrationStyle =
+    integration &&
+    (Object.keys(integrationProperties).length > 0 ||
+      integrationConfig?.blurBackground) ? (
+      <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+    ) : null;
 
   const poweredBy = (
     <PoweredBy
@@ -3087,13 +3223,21 @@ const MemoriWidget = ({
     ? ZoomedFullBodyLayout
     : FullPageLayout;
 
+  // Resolve the widget theme once so both `data-theme` on the root and the
+  // `MemoriUIProvider` (which stamps portaled popups) stay in sync.
+  const widgetTheme: 'light' | 'dark' | undefined =
+    integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+      ? integrationConfig.theme
+      : undefined;
+
   return (
     <div
+      ref={setWidgetRootEl}
       className={cx(
         'memori',
         'memori-widget',
-        `memori-layout-${selectedLayout.toLowerCase()}`,
-        `memori-controls-${controlsPosition.toLowerCase()}`,
+        `memori-layout-${String(selectedLayout).toLowerCase()}`,
+        `memori-controls-${String(controlsPosition).toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
           'memori--auto-start': autoStart,
@@ -3106,6 +3250,7 @@ const MemoriWidget = ({
           'memori--has-active-session': !!sessionId,
         }
       )}
+      data-theme={widgetTheme}
       data-memori-name={memori?.name}
       data-memori-id={memori?.engineMemoriID}
       data-memori-secondary-id={memori?.memoriID}
@@ -3117,121 +3262,64 @@ const MemoriWidget = ({
       })}
       style={{ height }}
     >
-      <Layout
-        Header={Header}
-        headerProps={headerProps}
-        Avatar={Avatar}
-        avatarProps={avatarProps}
-        Chat={Chat}
-        chatProps={chatProps}
-        StartPanel={StartPanel}
-        startPanelProps={startPanelProps}
-        integrationStyle={integrationStyle}
-        integrationBackground={integrationBackground}
-        poweredBy={poweredBy}
-        autoStart={autoStart}
-        sessionId={sessionId}
-        hasUserActivatedSpeak={hasUserActivatedSpeak}
-        loading={loading}
-        avatar3dHidden={avatar3dHidden ?? integrationConfig?.avatar_3d_hidden}
-      />
-
-      <ArtifactAPIBridge
-        pushMessage={(message: Message) => {
-          setHistory(history => {
-            if (!history.length) return history;
-            const lastMessage = history[history.length - 1];
-            if (!lastMessage || lastMessage.fromUser) return history;
-            // Create a new message object with the updated text
-            const updatedLastMessage = {
-              ...lastMessage,
-              text: lastMessage.text + message.text,
-            };
-            return [...history.slice(0, -1), updatedLastMessage];
-          });
-        }}
-      />
-
-      <audio
-        id="memori-audio"
-        style={{ display: 'none' }}
-        src="https://aisuru.com/intro.mp3"
-      />
-
-      {isClient && (
-        <MemoriAuth
-          withModal
-          pwdOrTokens={authModalState}
-          openModal={!!authModalState}
-          setPwdOrTokens={setAuthModalState}
-          showTokens={memori.privacyType === 'SECRET'}
-          onFinish={(values: any) => {
-            if (values['password']) setMemoriPwd(values['password']);
-            if (values['password']) memoriPassword = values['password'];
-            if (values['tokens']) setMemoriTokens(values['tokens']);
-
-            return reopenSession(
-              !sessionId,
-              values['password'],
-              values['tokens'],
-              personification?.tag,
-              personification?.pin,
-              {
-                LANG: userLang,
-                PATHNAME: window.location.pathname?.toUpperCase(),
-                ROUTE:
-                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
-                  '',
-                ...(initialContextVars || {}),
-              },
-              initialQuestion,
-              birthDate
-            )
-              .then(state => {
-                if (!state?.sessionID) {
-                  throw new Error('AUTH_FAILED');
-                }
-
-                setAuthModalState(null);
-                // If we got a valid state from reopenSession, don't call onClickStart again
-                // to avoid duplicate snippet execution
-                if (state?.dialogState) {
-                  setHasUserActivatedSpeak(true);
-                } else {
-                  // Only call onClickStart if reopenSession didn't return a valid state
-                  onClickStart(state);
-                }
-              })
-              .catch(error => {
-                if (
-                  !(error instanceof Error) ||
-                  error.message !== 'AUTH_FAILED'
-                ) {
-                  setGotErrorInOpening(true);
-                }
-                throw error;
-              });
-          }}
-          minimumNumberOfRecoveryTokens={
-            memori?.minimumNumberOfRecoveryTokens ?? 1
-          }
+      <MemoriUIProvider container={widgetRootEl} theme={widgetTheme}>
+        <Layout
+          Header={Header}
+          headerProps={headerProps}
+          Avatar={Avatar}
+          avatarProps={avatarProps}
+          Chat={Chat}
+          chatProps={chatProps}
+          StartPanel={StartPanel}
+          startPanelProps={startPanelProps}
+          integrationStyle={integrationStyle}
+          integrationBackground={integrationBackground}
+          poweredBy={poweredBy}
+          autoStart={autoStart}
+          sessionId={sessionId}
+          hasUserActivatedSpeak={hasUserActivatedSpeak}
+          loading={loading}
+          avatar3dHidden={avatar3dHidden ?? integrationConfig?.avatar_3d_hidden}
         />
-      )}
 
-      {isClient && (
-        <AgeVerificationModal
-          visible={showAgeVerification}
-          minAge={minAge}
-          onClose={birthDate => {
-            if (birthDate) {
-              setBirthDate(birthDate);
+        <ArtifactAPIBridge
+          pushMessage={(message: Message) => {
+            setHistory(history => {
+              if (!history.length) return history;
+              const lastMessage = history[history.length - 1];
+              if (!lastMessage || lastMessage.fromUser) return history;
+              // Create a new message object with the updated text
+              const updatedLastMessage = {
+                ...lastMessage,
+                text: lastMessage.text + message.text,
+              };
+              return [...history.slice(0, -1), updatedLastMessage];
+            });
+          }}
+        />
 
-              setLocalConfig('birthDate', birthDate);
+        <audio
+          id="memori-audio"
+          style={{ display: 'none' }}
+          src="https://aisuru.com/intro.mp3"
+        />
 
-              reopenSession(
+        {isClient && (
+          <MemoriAuth
+            withModal
+            pwdOrTokens={authModalState}
+            openModal={!!authModalState}
+            setPwdOrTokens={setAuthModalState}
+            showTokens={memori.privacyType === 'SECRET'}
+            onFinish={(values: any) => {
+              if (values['password']) setMemoriPwd(values['password']);
+              if (values['password']) memoriPassword = values['password'];
+              if (values['tokens']) setMemoriTokens(values['tokens']);
+
+              return reopenSession(
                 !sessionId,
-                memoriPassword || memoriPwd || memori?.secretToken,
-                memoriTokens,
+                values['password'],
+                values['tokens'],
                 personification?.tag,
                 personification?.pin,
                 {
@@ -3248,193 +3336,240 @@ const MemoriWidget = ({
                 birthDate
               )
                 .then(state => {
-                  setShowAgeVerification(false);
+                  if (!state?.sessionID) {
+                    throw new Error('AUTH_FAILED');
+                  }
+
                   setAuthModalState(null);
-                  onClickStart(state || undefined);
+                  // If we got a valid state from reopenSession, don't call onClickStart again
+                  // to avoid duplicate snippet execution
+                  if (state?.dialogState) {
+                    setHasUserActivatedSpeak(true);
+                  } else {
+                    // Only call onClickStart if reopenSession didn't return a valid state
+                    onClickStart(state);
+                  }
                 })
-                .catch(() => {
-                  setShowAgeVerification(false);
-                  setGotErrorInOpening(true);
+                .catch(error => {
+                  if (
+                    !(error instanceof Error) ||
+                    error.message !== 'AUTH_FAILED'
+                  ) {
+                    setGotErrorInOpening(true);
+                  }
+                  throw error;
                 });
-            } else {
-              setShowAgeVerification(false);
-              setClickedStart(false);
+            }}
+            minimumNumberOfRecoveryTokens={
+              memori?.minimumNumberOfRecoveryTokens ?? 1
             }
-          }}
-        />
-      )}
+          />
+        )}
 
-      {showSettingsDrawer && (
-        <SettingsDrawer
-          layout={selectedLayout}
-          open={!!showSettingsDrawer}
-          onClose={() => setShowSettingsDrawer(false)}
-          microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
-          continuousSpeechTimeout={continuousSpeechTimeout}
-          setMicrophoneMode={mode => setContinuousSpeech(mode === 'CONTINUOUS')}
-          setContinuousSpeechTimeout={setContinuousSpeechTimeout}
-          controlsPosition={controlsPosition}
-          setControlsPosition={setControlsPosition}
-          hideEmissions={hideEmissions}
-          setHideEmissions={setHideEmissions}
-          avatarType={avatarType}
-          setAvatarType={setAvatarType}
-          enablePositionControls={enablePositionControls}
-          setEnablePositionControls={setEnablePositionControls}
-          isAvatar3d={!!integrationConfig?.avatarURL}
-          additionalSettings={additionalSettings}
-          speakerMuted={speakerMuted}
-        />
-      )}
+        {isClient && (
+          <AgeVerificationModal
+            visible={showAgeVerification}
+            minAge={minAge}
+            onClose={birthDate => {
+              if (birthDate) {
+                setBirthDate(birthDate);
 
-      {showChatHistoryDrawer && (
-        <ChatHistoryDrawer
-          open={!!showChatHistoryDrawer}
-          onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={chatLog => {
-            setChatLogID(chatLog.chatLogID);
-            onClickStart(undefined, false, chatLog);
-            setShowChatHistoryDrawer(false);
-          }}
-          apiClient={client}
-          sessionId={sessionId || ''}
-          memori={memori}
-          baseUrl={baseUrl}
-          history={history}
-          apiUrl={client.constants.BACKEND_URL}
-          loginToken={loginToken}
-          language={language}
-          userLang={userLang}
-          isMultilanguageEnabled={isMultilanguageEnabled}
-        />
-      )}
+                setLocalConfig('birthDate', birthDate);
 
-      {showPositionDrawer && (
-        <PositionDrawer
-          memori={memori}
-          open={!!showPositionDrawer}
-          venue={position}
-          setVenue={setPosition}
-          onClose={() => {
-            setShowPositionDrawer(false);
-            if (autoStart) {
-              onClickStart();
-            }
-          }}
-          drawerClassName={
-            selectedLayout === 'WEBSITE_ASSISTANT'
-              ? 'memori-drawer--above-website-assistant'
-              : undefined
-          }
-        />
-      )}
-
-      {showKnownFactsDrawer && sessionId && (
-        <KnownFacts
-          apiClient={client}
-          memori={memori}
-          sessionID={sessionId}
-          visible={showKnownFactsDrawer}
-          closeDrawer={() => setShowKnownFactsDrawer(false)}
-        />
-      )}
-
-      {showExpertsDrawer && !!experts && (
-        <ExpertsDrawer
-          apiUrl={client.constants.BACKEND_URL}
-          baseUrl={baseUrl}
-          tenant={tenant}
-          experts={experts}
-          open={showExpertsDrawer}
-          onClose={() => setShowExpertsDrawer(false)}
-        />
-      )}
-
-      {showLoginDrawer && tenant?.name && (
-        <LoginDrawer
-          tenant={tenant}
-          apiClient={client}
-          open={!!showLoginDrawer}
-          user={user}
-          loginToken={loginToken}
-          onClose={() => setShowLoginDrawer(false)}
-          drawerClassName={
-            selectedLayout === 'WEBSITE_ASSISTANT'
-              ? 'memori-drawer--above-website-assistant'
-              : undefined
-          }
-          onLogin={(user, token) => {
-            //The user is logged in, so we need to set open a new session with the new token
-            reopenSession(
-              false,
-              memoriPassword || memoriPwd || memori?.secretToken,
-              [],
-              personification?.tag,
-              personification?.pin,
-              {
-                LANG: userLang,
-                PATHNAME: window.location.pathname?.toUpperCase(),
-                ROUTE:
-                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
-                  '',
-                ...(initialContextVars || {}),
-              },
-              undefined, // Don't send initialQuestion after login, only show the login status chip
-              birthDate,
-              { loginToken: token } as any,
-              undefined,
-              sessionId
-            ).then(state => {
-              setShowLoginDrawer(false);
-              setUser(user);
-              setLoginToken(token);
-              userToken = token;
-              setLocalConfig('loginToken', token);
-              // Push a message with initial status to show status message when a new session is created after login
-              if (
-                state?.sessionID &&
-                state.sessionID !== sessionId &&
-                state?.dialogState
-              ) {
-                // Push a message with initial status message showing successful login
-                // Only show the chip component, not the emission text
-                const username = user?.userName || t('login.user');
-                pushMessage({
-                  text: '', // Empty text so only the chip is visible
-                  emitter: state.dialogState.emitter,
-                  media:
-                    state.dialogState.emittedMedia ??
-                    state.dialogState.media ??
-                    [],
-                  fromUser: false,
-                  initial: t('login.successfullyLoggedIn', { username }) as any,
-                  contextVars: state.dialogState.contextVars,
-                  date: state.dialogState.currentDate,
-                  placeName: state.dialogState.currentPlaceName,
-                  placeLatitude: state.dialogState.currentLatitude,
-                  placeLongitude: state.dialogState.currentLongitude,
-                  placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
-                  tag: state.dialogState.currentTag,
-                  memoryTags: state.dialogState.memoryTags,
-                });
-                // Update the dialog state so the UI reflects the new session
-                setCurrentDialogState(state.dialogState);
+                reopenSession(
+                  !sessionId,
+                  memoriPassword || memoriPwd || memori?.secretToken,
+                  memoriTokens,
+                  personification?.tag,
+                  personification?.pin,
+                  {
+                    LANG: userLang,
+                    PATHNAME: window.location.pathname?.toUpperCase(),
+                    ROUTE:
+                      window.location.pathname
+                        ?.split('/')
+                        ?.pop()
+                        ?.toUpperCase() || '',
+                    ...(initialContextVars || {}),
+                  },
+                  initialQuestion,
+                  birthDate
+                )
+                  .then(state => {
+                    setShowAgeVerification(false);
+                    setAuthModalState(null);
+                    onClickStart(state || undefined);
+                  })
+                  .catch(() => {
+                    setShowAgeVerification(false);
+                    setGotErrorInOpening(true);
+                  });
+              } else {
+                setShowAgeVerification(false);
+                setClickedStart(false);
               }
-            });
-          }}
-          setUser={setUser}
-          onLogout={() => {
-            if (!loginToken) return;
-            client.backend.pwlUserLogout(loginToken).then(() => {
-              setShowLoginDrawer(false);
-              setUser(undefined);
-              setLoginToken(undefined);
-              userToken = undefined;
-              removeLocalConfig('loginToken');
-            });
-          }}
-        />
-      )}
+            }}
+          />
+        )}
+
+        {showSettingsDrawer && (
+          <SettingsDrawer
+            layout={selectedLayout}
+            open={!!showSettingsDrawer}
+            onClose={() => setShowSettingsDrawer(false)}
+            microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
+            continuousSpeechTimeout={continuousSpeechTimeout}
+            setMicrophoneMode={mode =>
+              setContinuousSpeech(mode === 'CONTINUOUS')
+            }
+            setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+            controlsPosition={controlsPosition}
+            setControlsPosition={setControlsPosition}
+            hideEmissions={hideEmissions}
+            setHideEmissions={setHideEmissions}
+            avatarType={avatarType}
+            setAvatarType={setAvatarType}
+            enablePositionControls={enablePositionControls}
+            setEnablePositionControls={setEnablePositionControls}
+            isAvatar3d={!!integrationConfig?.avatarURL}
+            additionalSettings={additionalSettings}
+            speakerMuted={speakerMuted}
+          />
+        )}
+
+        {showChatHistoryDrawer && (
+          <ChatHistoryDrawer
+            open={!!showChatHistoryDrawer}
+            onClose={() => setShowChatHistoryDrawer(false)}
+            resumeSession={chatLog => {
+              setChatLogID(chatLog.chatLogID);
+              onClickStart(undefined, false, chatLog);
+              setShowChatHistoryDrawer(false);
+            }}
+            apiClient={client}
+            sessionId={sessionId || ''}
+            memori={memori}
+            baseUrl={baseUrl}
+            history={history}
+            apiUrl={client.constants.BACKEND_URL}
+            loginToken={loginToken}
+            language={language}
+            userLang={userLang}
+            isMultilanguageEnabled={isMultilanguageEnabled}
+          />
+        )}
+
+        {showKnownFactsDrawer && sessionId && (
+          <KnownFacts
+            apiClient={client}
+            memori={memori}
+            sessionID={sessionId}
+            visible={showKnownFactsDrawer}
+            closeDrawer={() => setShowKnownFactsDrawer(false)}
+          />
+        )}
+
+        {showExpertsDrawer && !!experts && (
+          <ExpertsDrawer
+            apiUrl={client.constants.BACKEND_URL}
+            baseUrl={baseUrl}
+            tenant={tenant}
+            experts={experts}
+            open={showExpertsDrawer}
+            onClose={() => setShowExpertsDrawer(false)}
+          />
+        )}
+
+        {showLoginDrawer && tenant?.name && (
+          <LoginDrawer
+            tenant={tenant}
+            apiClient={client}
+            open={!!showLoginDrawer}
+            user={user}
+            loginToken={loginToken}
+            onClose={() => setShowLoginDrawer(false)}
+            drawerClassName={
+              selectedLayout === 'WEBSITE_ASSISTANT'
+                ? 'memori-drawer--above-website-assistant'
+                : undefined
+            }
+            onLogin={(user, token) => {
+              //The user is logged in, so we need to set open a new session with the new token
+              reopenSession(
+                false,
+                memoriPassword || memoriPwd || memori?.secretToken,
+                [],
+                personification?.tag,
+                personification?.pin,
+                {
+                  LANG: userLang,
+                  PATHNAME: window.location.pathname?.toUpperCase(),
+                  ROUTE:
+                    window.location.pathname
+                      ?.split('/')
+                      ?.pop()
+                      ?.toUpperCase() || '',
+                  ...(initialContextVars || {}),
+                },
+                undefined, // Don't send initialQuestion after login, only show the login status chip
+                birthDate,
+                { loginToken: token } as any,
+                undefined,
+                sessionId
+              ).then(state => {
+                setShowLoginDrawer(false);
+                setUser(user);
+                setLoginToken(token);
+                userToken = token;
+                setLocalConfig('loginToken', token);
+                // Push a message with initial status to show status message when a new session is created after login
+                if (
+                  state?.sessionID &&
+                  state.sessionID !== sessionId &&
+                  state?.dialogState
+                ) {
+                  // Push a message with initial status message showing successful login
+                  // Only show the chip component, not the emission text
+                  const username = user?.userName || t('login.user');
+                  pushMessage({
+                    text: '', // Empty text so only the chip is visible
+                    emitter: state.dialogState.emitter,
+                    media:
+                      state.dialogState.emittedMedia ??
+                      state.dialogState.media ??
+                      [],
+                    fromUser: false,
+                    initial: t('login.successfullyLoggedIn', {
+                      username,
+                    }) as any,
+                    contextVars: state.dialogState.contextVars,
+                    date: state.dialogState.currentDate,
+                    placeName: state.dialogState.currentPlaceName,
+                    placeLatitude: state.dialogState.currentLatitude,
+                    placeLongitude: state.dialogState.currentLongitude,
+                    placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
+                    tag: state.dialogState.currentTag,
+                    memoryTags: state.dialogState.memoryTags,
+                  });
+                  // Update the dialog state so the UI reflects the new session
+                  setCurrentDialogState(state.dialogState);
+                }
+              });
+            }}
+            setUser={setUser}
+            onLogout={() => {
+              if (!loginToken) return;
+              client.backend.pwlUserLogout(loginToken).then(() => {
+                setShowLoginDrawer(false);
+                setUser(undefined);
+                setLoginToken(undefined);
+                userToken = undefined;
+                removeLocalConfig('loginToken');
+              });
+            }}
+          />
+        )}
+      </MemoriUIProvider>
     </div>
   );
 };

@@ -17,13 +17,9 @@ import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
-import Card from '../ui/Card';
-import Modal from '../ui/Modal';
-import File from '../icons/File';
-import { Transition } from '@headlessui/react';
+import { Card, Modal } from '@memori.ai/ui';
+import { File, Volume2, Link as LinkIcon } from 'lucide-react';
 import cx from 'classnames';
-import Sound from '../icons/Sound';
-import Link from '../icons/Link';
 import { ellipsis } from 'ellipsed';
 
 import type {
@@ -241,7 +237,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           return (
             <div className="memori-media-item--audio-container">
               <div className="memori-media-item--audio-icon">
-                <Sound />
+                <Volume2 />
               </div>
               <audio
                 className="memori-media-item--audio-player"
@@ -293,7 +289,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
               })()}
-              icon={<Link className="memori-media-item--document-icon-svg" />}
+              icon={<LinkIcon className="memori-media-item--document-icon-svg" />}
             />
           );
 
@@ -369,6 +365,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={displayName}
           role="button"
           tabIndex={0}
+          aria-label={displayName}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -386,7 +383,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             meta={metaLine}
             icon={
               item.mimeType === 'text/html' ? (
-                <Link className="memori-media-item--document-icon-svg" />
+                <LinkIcon className="memori-media-item--document-icon-svg" />
               ) : (
                 <File className="memori-media-item--document-icon-svg" />
               )
@@ -455,7 +452,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           meta={metaLine}
           icon={
             item.mimeType === 'text/html' ? (
-              <Link className="memori-media-item--document-icon-svg" />
+              <LinkIcon className="memori-media-item--document-icon-svg" />
             ) : (
               <File className="memori-media-item--document-icon-svg" />
             )
@@ -477,6 +474,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         title={item.title}
         role="button"
         tabIndex={0}
+        aria-label={item.title || 'Open preview'}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -535,7 +533,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
               />
             ) : (
               <div className="memori-media-item--card-cover-icon">
-                <Link className="memori-media-item--icon" />
+                <LinkIcon className="memori-media-item--icon" />
               </div>
             )
           }
@@ -579,6 +577,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={item.title}
           role="button"
           tabIndex={0}
+          aria-label={item.title || 'Open image preview'}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -724,6 +723,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
       style={{ cursor: 'pointer' }}
       role="button"
       tabIndex={0}
+      aria-label={item.title || 'Open snippet preview'}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -868,7 +868,7 @@ const MediaItemWidget: React.FC<Props> = ({
 
   // Render transitions and the main grid layouts for media
   return (
-    <Transition appear show as="div" className="memori-media-items">
+    <div className="memori-media-items">
       {/* Main media grid: non-code media (images, files, html, video, etc) */}
       {nonCodeDisplayMedia.length > 0 && (
         <div
@@ -881,16 +881,9 @@ const MediaItemWidget: React.FC<Props> = ({
           })}
         >
           {nonCodeDisplayMedia.map((item, index) => (
-            <Transition.Child
+            <div
               key={`media-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderMediaItem
                 isChild
@@ -910,7 +903,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 descriptionOneLine={descriptionOneLine}
                 onLinkPreviewInfo={onLinkPreviewInfo}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -924,16 +917,9 @@ const MediaItemWidget: React.FC<Props> = ({
           })}
         >
           {codeSnippets.map((item, index) => (
-            <Transition.Child
+            <div
               key={`snippet-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderSnippetItem
                 sessionID={sessionID}
@@ -949,7 +935,7 @@ const MediaItemWidget: React.FC<Props> = ({
                   type: 'document',
                 }}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -977,7 +963,7 @@ const MediaItemWidget: React.FC<Props> = ({
           onMediumClick={handleModalNavigate}
         />
       )}
-    </Transition>
+    </div>
   );
 };
 

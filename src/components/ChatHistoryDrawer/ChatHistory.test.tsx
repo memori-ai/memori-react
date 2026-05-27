@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import ChatHistoryDrawer from './ChatHistory';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { memori } from '../../mocks/data';
+import { AlertProvider } from '@memori.ai/ui';
 
 // Mock IntersectionObserver
 beforeEach(() => {
@@ -28,80 +29,88 @@ const client = memoriApiClient();
 
 it('renders ChatHistoryDrawer unchanged', () => {
   const { container } = render(
-    <ChatHistoryDrawer
-      history={[]}
-      open={true}
-      onClose={jest.fn()}
-      apiClient={client}
-      sessionId="test-session"
-      memori={memori}
-      resumeSession={jest.fn()}
-      baseUrl="https://www.aisuru.com"
-      apiUrl="https://backend.memori.ai"
-      loginToken="test-login-token"
-      language="EN"
-      userLang="EN"
-    />
+    <AlertProvider>
+      <ChatHistoryDrawer
+        history={[]}
+        open={true}
+        onClose={jest.fn()}
+        apiClient={client}
+        sessionId="test-session"
+        memori={memori}
+        resumeSession={jest.fn()}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
+        loginToken="test-login-token"
+        language="EN"
+        userLang="EN"
+      />
+    </AlertProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders ChatHistoryDrawer with chat logs unchanged', () => {
   const { container } = render(
-    <ChatHistoryDrawer
-      history={[]}
-      open={true}
-      onClose={jest.fn()}
-      apiClient={client}
-      sessionId="test-session"
-      memori={memori}
-      resumeSession={jest.fn()}
-      baseUrl="https://www.aisuru.com"
-      apiUrl="https://backend.memori.ai"
-      loginToken="test-login-token"
-      language="EN"
-      userLang="EN"
-    />
+    <AlertProvider>
+      <ChatHistoryDrawer
+        history={[]}
+        open={true}
+        onClose={jest.fn()}
+        apiClient={client}
+        sessionId="test-session"
+        memori={memori}
+        resumeSession={jest.fn()}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
+        loginToken="test-login-token"
+        language="EN"
+        userLang="EN"
+      />
+    </AlertProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders ChatHistoryDrawer with selected chat log unchanged', () => {
   const { container } = render(
-    <ChatHistoryDrawer
-      history={[]}
-      open={true}
-      onClose={jest.fn()}
-      apiClient={client}
-      sessionId="test-session"
-      memori={memori}
-      resumeSession={jest.fn()}
-      baseUrl="https://www.aisuru.com"
-      apiUrl="https://backend.memori.ai"
-      loginToken="test-login-token"
-      language="EN"
-      userLang="EN"
-    />
+    <AlertProvider>
+      <ChatHistoryDrawer
+        history={[]}
+        open={true}
+        onClose={jest.fn()}
+        apiClient={client}
+        sessionId="test-session"
+        memori={memori}
+        resumeSession={jest.fn()}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
+        loginToken="test-login-token"
+        language="EN"
+        userLang="EN"
+      />
+    </AlertProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders ChatHistoryDrawer closed unchanged', () => {
   const { container } = render(
-    <ChatHistoryDrawer
-      history={[]}
-      open={false}
-      onClose={jest.fn()}
-      apiClient={client}
-      sessionId="test-session"
-      memori={memori}
-      resumeSession={jest.fn()}
-      baseUrl="https://www.aisuru.com"
-      apiUrl="https://backend.memori.ai"
-      loginToken="test-login-token"
-      language="EN"
-      userLang="EN"
-    />
+    <AlertProvider>
+      <ChatHistoryDrawer
+        history={[]}
+        open={false}
+        onClose={jest.fn()}
+        apiClient={client}
+        sessionId="test-session"
+        memori={memori}
+        resumeSession={jest.fn()}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
+        loginToken="test-login-token"
+        language="EN"
+        userLang="EN"
+      />
+    </AlertProvider>
   );
   expect(container).toMatchSnapshot();
 });

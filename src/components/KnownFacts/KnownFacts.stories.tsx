@@ -6,6 +6,7 @@ import KnownFacts, { Props } from './KnownFacts';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './KnownFacts.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Known Facts',
@@ -26,14 +27,16 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <KnownFacts
-      // @ts-ignore-next-line
-      memori={memori}
-      {...args}
-      sessionID={sessionID}
-      closeDrawer={() => {}}
-      apiClient={memoriApiClient()}
-    />
+    <AlertProvider defaultDuration={5000}>
+      <KnownFacts
+        // @ts-ignore-next-line
+        memori={memori}
+        {...args}
+        sessionID={sessionID}
+        closeDrawer={() => {}}
+        apiClient={memoriApiClient()}
+      />
+    </AlertProvider>
   </I18nWrapper>
 );
 

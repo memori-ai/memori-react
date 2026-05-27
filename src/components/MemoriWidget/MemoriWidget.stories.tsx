@@ -7,6 +7,7 @@ import MemoriWidget, { Props } from './MemoriWidget';
 import './MemoriWidget.css';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Default',
@@ -38,11 +39,13 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <ArtifactProvider>
-      <VisemeProvider>
-        <MemoriWidget {...args} />
-      </VisemeProvider>
-    </ArtifactProvider>
+    <AlertProvider defaultDuration={5000}>
+      <ArtifactProvider>
+        <VisemeProvider>
+          <MemoriWidget {...args} />
+        </VisemeProvider>
+      </ArtifactProvider>
+    </AlertProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
@@ -58,6 +61,7 @@ WithAutoStart.args = {
   memori,
   tenant,
   autoStart: true,
+  layout: 'FULLPAGE',
 };
 
 export const WithPosition = Template.bind({});
@@ -67,6 +71,7 @@ WithPosition.args = {
     needsPosition: true,
   },
   tenant,
+  layout: 'FULLPAGE',
 };
 
 export const WithLoginRequired = Template.bind({});
@@ -76,6 +81,7 @@ WithLoginRequired.args = {
     requireLoginToken: true,
   },
   tenant,
+  layout: 'FULLPAGE',
 };
 
 export const WithDates = Template.bind({});
@@ -85,6 +91,7 @@ WithDates.args = {
     needsDateTime: true,
   },
   tenant,
+  layout: 'FULLPAGE',
 };
 
 /** To test dateUTC/place in Enter Text: open DevTools → Network, start chat, set position (header position icon) if testing place, then send a message. Inspect the request to your backend/engine for body.dateUTC (ISO) and body.place (placeName, latitude, longitude, uncertaintyKm). */
@@ -96,6 +103,7 @@ WithDateAndPlaceForEnterText.args = {
     needsPosition: true,
   },
   tenant,
+  layout: 'FULLPAGE',
 };
 
 export const WithPublicPageIntegration = Template.bind({});
@@ -112,6 +120,7 @@ WithPublicPageIntegration.args = {
         new Date(Date.now()).getTime(),
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithPublicPageIntegrationAndFullbodyAvatar = Template.bind({});
@@ -128,6 +137,7 @@ WithPublicPageIntegrationAndFullbodyAvatar.args = {
         new Date(Date.now()).getTime(),
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithPublicPageIntegrationAndNonDefaultLang = Template.bind({});
@@ -141,6 +151,7 @@ WithPublicPageIntegrationAndNonDefaultLang.args = {
       lang: 'es',
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const ShowShare = Template.bind({});
@@ -148,6 +159,7 @@ ShowShare.args = {
   memori,
   tenant,
   showShare: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowSettings = Template.bind({});
@@ -155,6 +167,7 @@ ShowSettings.args = {
   memori,
   tenant,
   showSettings: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowClear = Template.bind({});
@@ -162,6 +175,7 @@ ShowClear.args = {
   memori,
   tenant,
   showClear: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowUpload = Template.bind({});
@@ -169,6 +183,7 @@ ShowUpload.args = {
   memori,
   tenant,
   showUpload: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowUploadFromIntegration = Template.bind({});
@@ -183,6 +198,7 @@ ShowUploadFromIntegration.args = {
       showUpload: true,
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithoutAudio = Template.bind({});
@@ -191,6 +207,7 @@ WithoutAudio.args = {
   tenant,
   enableAudio: false,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const WithoutAudioFromIntegrationConfig = Template.bind({});
@@ -204,6 +221,7 @@ WithoutAudioFromIntegrationConfig.args = {
     }),
   },
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const DefautSpeakerDisabled = Template.bind({});
@@ -212,6 +230,7 @@ DefautSpeakerDisabled.args = {
   tenant,
   defaultSpeakerActive: false,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const ShowOnlyLastMessages = Template.bind({});
@@ -219,6 +238,7 @@ ShowOnlyLastMessages.args = {
   memori,
   tenant,
   showOnlyLastMessages: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowOnlyLastMessagesWithAnotherDefault = Template.bind({});
@@ -226,7 +246,7 @@ ShowOnlyLastMessagesWithAnotherDefault.args = {
   memori,
   tenant,
   showOnlyLastMessages: false,
-  layout: 'WEBSITE_ASSISTANT',
+  layout: 'FULLPAGE',
 };
 
 export const WithAzureSpeechKey = Template.bind({});
@@ -234,6 +254,7 @@ WithAzureSpeechKey.args = {
   memori,
   tenant,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const WithCustomMediaRenderer = Template.bind({});
@@ -262,6 +283,7 @@ WithUserAvatar.args = {
   memori,
   tenant,
   userAvatar: 'https://picsum.photos/200',
+  layout: 'FULLPAGE',
 };
 
 export const WithUserAvatarAsElement = Template.bind({});
@@ -269,6 +291,5 @@ WithUserAvatarAsElement.args = {
   memori,
   tenant,
   userAvatar: <span>USER</span>,
+  layout: 'FULLPAGE',
 };
-
-

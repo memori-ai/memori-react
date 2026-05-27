@@ -1,13 +1,14 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, tenant, history } from '../../mocks/data';
+import { memori, tenant, history, user } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
-
+import memoriApiClient from '@memori.ai/memori-api-client';
 import './Header.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Header',
@@ -70,48 +71,47 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <ArtifactProvider>
-        <Header
-          {...args}
-          speakerMuted={speakerMuted}
-          setSpeakerMuted={setSpeakerMuted}
-          showSettings
-          setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
-          setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
-          setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
-          setShowLoginDrawer={() => setShowLoginDrawer(true)}
-        />
-        <SettingsDrawer
-          open={!!showSettingsDrawer}
-          onClose={() => setShowSettingsDrawer(false)}
-          microphoneMode="HOLD_TO_TALK"
-          setMicrophoneMode={() => {}}
-          continuousSpeechTimeout={2}
-          setContinuousSpeechTimeout={() => {}}
-          controlsPosition="bottom"
-          setControlsPosition={() => {}}
-          hideEmissions={false}
-          setHideEmissions={() => {}}
-          setAvatarType={() => {}}
-          setEnablePositionControls={() => {}}
-        />
-        <LoginDrawer
-          setUser={() => {}}
-          tenant={tenant}
-          open={!!showLoginDrawer}
-          onClose={() => setShowLoginDrawer(false)}
-          onLogin={(user, token) => {
-            console.log(user, token);
-            setShowLoginDrawer(false);
-          }}
-          onLogout={() => setShowLoginDrawer(false)}
-          apiClient={
-            {
-              backend: {},
-            } as any
-          }
-        />
-      </ArtifactProvider>
+      <AlertProvider defaultDuration={5000}>
+        <ArtifactProvider>
+          <Header
+            {...args}
+            apiClient={memoriApiClient()}
+            speakerMuted={speakerMuted}
+            setSpeakerMuted={setSpeakerMuted}
+            showSettings
+            setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
+            setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
+            setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
+            setShowLoginDrawer={() => setShowLoginDrawer(true)}
+          />
+          <SettingsDrawer
+            open={!!showSettingsDrawer}
+            onClose={() => setShowSettingsDrawer(false)}
+            microphoneMode="HOLD_TO_TALK"
+            setMicrophoneMode={() => {}}
+            continuousSpeechTimeout={2}
+            setContinuousSpeechTimeout={() => {}}
+            controlsPosition="bottom"
+            setControlsPosition={() => {}}
+            hideEmissions={false}
+            setHideEmissions={() => {}}
+            setAvatarType={() => {}}
+            setEnablePositionControls={() => {}}
+          />
+          <LoginDrawer
+            setUser={() => {}}
+            tenant={tenant}
+            open={!!showLoginDrawer}
+            onClose={() => setShowLoginDrawer(false)}
+            onLogin={(user, token) => {
+              console.log(user, token);
+              setShowLoginDrawer(false);
+            }}
+            onLogout={() => setShowLoginDrawer(false)}
+            apiClient={memoriApiClient()}
+          />
+        </ArtifactProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };
@@ -122,7 +122,9 @@ export const Default = Template.bind({});
 Default.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -143,7 +145,9 @@ WithPosition.args = {
     latitude: 52.520008,
     longitude: 13.404954,
   },
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -156,7 +160,9 @@ export const SpeakerMuted = Template.bind({});
 SpeakerMuted.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: true,
@@ -169,7 +175,9 @@ export const WithoutAudio = Template.bind({});
 WithoutAudio.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: true,
@@ -183,7 +191,9 @@ export const WithShare = Template.bind({});
 WithShare.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -196,7 +206,9 @@ export const WithSettings = Template.bind({});
 WithSettings.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -209,7 +221,9 @@ export const WithClear = Template.bind({});
 WithClear.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -223,7 +237,9 @@ export const WithOngoingChat = Template.bind({});
 WithOngoingChat.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -239,7 +255,9 @@ WithDeepThoughtEnabled.args = {
     enableDeepThought: true,
   },
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -256,7 +274,9 @@ WithDeepThoughtEnabledAndOngoingChat.args = {
     enableDeepThought: true,
   },
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -274,7 +294,9 @@ ForBoardOfExperts.args = {
     enableBoardOfExperts: true,
   },
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   showExperts: true,
   clearHistory: () => {},
@@ -292,7 +314,9 @@ ForBoardOfExpertsAndOngoingChat.args = {
     enableBoardOfExperts: true,
   },
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   showExperts: true,
   clearHistory: () => {},
@@ -308,7 +332,9 @@ export const WithLogin = Template.bind({});
 WithLogin.args = {
   memori,
   history,
-  setShowPositionDrawer: () => {},
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
   setShowSettingsDrawer: () => {},
   clearHistory: () => {},
   speakerMuted: false,
@@ -335,4 +361,44 @@ WithSustainabilityPopover.args = {
   apiClient: {
     backend: {},
   } as any,
+};
+
+export const AllButtonsShowcase = Template.bind({});
+AllButtonsShowcase.args = {
+  memori: {
+    ...memori,
+    needsPosition: true,
+    enableDeepThought: true,
+    enableBoardOfExperts: true,
+  },
+  history: historyWithConsumption,
+  position: {
+    placeName: 'Berlin',
+    latitude: 52.520008,
+    longitude: 13.404954,
+  },
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
+  setShowSettingsDrawer: () => {},
+  setShowChatHistoryDrawer: () => {},
+  setShowKnownFactsDrawer: () => {},
+  setShowExpertsDrawer: () => {},
+  setShowLoginDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: true,
+  showReload: true,
+  showClear: true,
+  showShare: true,
+  showSettings: true,
+  showChatHistory: true,
+  showLogin: true,
+  showMessageConsumption: true,
+  sessionID: '1234',
+  loginToken: 'abcd',
+  user: {
+    ...user,
+    pAndCUAccepted: true,
+  },
 };

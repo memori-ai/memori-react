@@ -5,6 +5,7 @@ import FeedbackButtons, { Props } from './FeedbackButtons';
 import { memori } from '../../mocks/data';
 
 import './FeedbackButtons.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Feedback Buttons',
@@ -26,7 +27,9 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <FeedbackButtons {...args} />
+    <AlertProvider defaultDuration={5000}>
+      <FeedbackButtons {...args} />
+    </AlertProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

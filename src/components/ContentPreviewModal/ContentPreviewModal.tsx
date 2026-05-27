@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Modal from '../ui/Modal';
+import { Modal } from '@memori.ai/ui';
 import cx from 'classnames';
 
 export interface ContentPreviewModalProps {
@@ -21,7 +21,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
   title,
   isImage = false,
   imageSrc,
-  imageAlt = '',
+  imageAlt,
   children,
   className,
 }) => {
@@ -33,6 +33,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
       onClose={() => onClose()}
       width={width}
       widthMd={width}
+      backdropClassName="memori-content-preview-modal-backdrop"
       className={cx('memori-content-preview-modal', className, {
         'memori-content-preview-modal--image': isImage,
       })}
@@ -50,7 +51,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
           <div className="memori-content-preview-modal--image-wrap">
             <img
               src={imageSrc}
-              alt={imageAlt}
+              alt={imageAlt ?? title ?? 'Preview'}
               className="memori-content-preview-modal--image"
             />
           </div>

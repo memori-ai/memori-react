@@ -5,6 +5,7 @@ import ShareButton, { Props } from './ShareButton';
 import { tenant, memori, sessionID } from '../../mocks/data';
 
 import './ShareButton.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Share Button',
@@ -30,14 +31,18 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <ShareButton {...args} />
+    <AlertProvider defaultDuration={5000}>
+      <ShareButton {...args} />
+    </AlertProvider>
   </I18nWrapper>
 );
 const TemplateRight: Story<Props> = args => (
   <I18nWrapper>
-    <div style={{ textAlign: 'right' }}>
-      <ShareButton {...args} />
-    </div>
+    <AlertProvider defaultDuration={5000}>
+      <div style={{ textAlign: 'right' }}>
+        <ShareButton {...args} />
+      </div>
+    </AlertProvider>
   </I18nWrapper>
 );
 

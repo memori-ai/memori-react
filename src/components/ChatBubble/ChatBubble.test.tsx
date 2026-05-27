@@ -3,6 +3,11 @@ import { render } from '@testing-library/react';
 import ChatBubble from './ChatBubble';
 import { memori, tenant, sessionID } from '../../mocks/data';
 
+jest.mock(
+  '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler',
+  () => () => null
+);
+
 it('renders ChatBubble unchanged', () => {
   const { container } = render(
     <ChatBubble

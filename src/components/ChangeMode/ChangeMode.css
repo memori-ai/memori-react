@@ -1,6 +1,8 @@
 .memori--changeMode-instruct {
+    display: flex;
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: var(--memori-radius-box);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--changeMode-instruct-radio {
@@ -18,5 +20,5 @@
 }
 
 .memori--changeMode-instruct-radio-button[data-headlessui-state='checked'] button {
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import Chat from './Chat';
 import {
   memori,
@@ -11,6 +10,7 @@ import {
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { render } from '../../testUtils';
 
 const client = memoriApiClient();
 
@@ -20,7 +20,11 @@ const dialogState = {
 };
 
 const DateTimeFormat = Intl.DateTimeFormat;
+const FIXED_TEST_DATE = new Date('2024-01-15T10:30:00.000Z');
+
 beforeEach(() => {
+  jest.useFakeTimers();
+  jest.setSystemTime(FIXED_TEST_DATE);
   jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(
     (locale, options) =>
       new DateTimeFormat(locale, {
@@ -28,6 +32,11 @@ beforeEach(() => {
         timeZone: 'Europe/Rome',
       })
   );
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+  jest.useRealTimers();
 });
 
 it('renders Chat unchanged', () => {
@@ -239,7 +248,7 @@ it('renders Chat with message consumption unchanged', () => {
           {
             text: 'AI message with usage',
             fromUser: false,
-            timestamp: new Date().toISOString(),
+            timestamp: FIXED_TEST_DATE.toISOString(),
             llmUsage: {
               provider: 'openai',
               model: 'gpt-4.1-mini',

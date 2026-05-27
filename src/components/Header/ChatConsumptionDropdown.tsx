@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
-import Dropdown from '../ui/Dropdown';
+import { Button, Dropdown } from '@memori.ai/ui';
 import GasStation from '../icons/GasStation';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
 
@@ -25,8 +24,20 @@ type MessageLlmUsage = {
 
 export interface ChatConsumptionDropdownProps {
   history: Message[];
-  hasSpacedButtons?: boolean;
-  trigger?: React.ReactNode;
+  triggerVariant?: React.ComponentProps<typeof Button>['variant'];
+  menuAlign?: 'start' | 'center' | 'end';
+  trigger?:
+    | ((
+        props: React.ButtonHTMLAttributes<HTMLButtonElement>,
+        state: { open: boolean }
+      ) => React.ReactElement)
+    | React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+}
+
+export interface ChatConsumptionContentProps {
+  history: Message[];
+  showTitle?: boolean;
+  className?: string;
 }
 
 const getMetricValue = (
@@ -85,13 +96,12 @@ const formatImpactInReadableUnit = (
   return `${formatMetricValue(ml * 1000, locale)} μL`;
 };
 
-const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
+export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
   history,
-  hasSpacedButtons = false,
-  trigger,
+  showTitle = true,
+  className,
 }) => {
   const { t, i18n } = useTranslation();
-
   const currentLocale = i18n.language || navigator.language || 'en';
   const chatLog = useMemo(() => ({ lines: history }), [history]);
 
@@ -106,9 +116,11 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
     };
 
     (chatLog?.lines ?? []).forEach(line => {
-      const llmUsage = (line as Message & {
-        llmUsage?: MessageLlmUsage;
-      }).llmUsage;
+      const llmUsage = (
+        line as Message & {
+          llmUsage?: MessageLlmUsage;
+        }
+      ).llmUsage;
 
       if (!llmUsage) return;
 
@@ -137,137 +149,203 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
     [chatConsumptionTotals.models]
   );
 
+  return (
+    <div className={cx('memori-dropdown--sustainability', className)}>
+      {showTitle && (
+        <h4 className="memori-dropdown--sustainability-title">
+          {t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat'}
+        </h4>
+      )}
+      <div className="memori-dropdown--sustainability-section">
+        <h5 className="memori-dropdown--sustainability-section-title">
+          {t('chatLogs.modelUsage') || 'Model usage'}
+        </h5>
+        <div className="memori-dropdown--sustainability-summary">
+          <div className="memori-dropdown--sustainability-stat">
+            <span className="memori-dropdown--sustainability-stat-label">
+              {t('chatLogs.input') || 'Input'}
+            </span>
+            <strong className="memori-dropdown--sustainability-stat-value">
+              {formatCountValue(
+                chatConsumptionTotals.totalInputTokens,
+                currentLocale
+              )}
+            </strong>
+            <span className="memori-dropdown--sustainability-stat-meta">
+              {t('chatLogs.tokens') || 'Tokens'}
+            </span>
+          </div>
+          <div className="memori-dropdown--sustainability-stat">
+            <span className="memori-dropdown--sustainability-stat-label">
+              {t('chatLogs.output') || 'Output'}
+            </span>
+            <strong className="memori-dropdown--sustainability-stat-value">
+              {formatCountValue(
+                chatConsumptionTotals.totalOutputTokens,
+                currentLocale
+              )}
+            </strong>
+            <span className="memori-dropdown--sustainability-stat-meta">
+              {t('chatLogs.tokens') || 'Tokens'}
+            </span>
+          </div>
+        </div>
+        {llmUsageModels.length > 0 && (
+          <div className="memori-dropdown--sustainability-row memori-dropdown--sustainability-row--stacked">
+            <span className="memori-dropdown--sustainability-label">
+              {t('chatLogs.provider') || 'Provider'} /{' '}
+              {t('chatLogs.model') || 'Model'}
+            </span>
+            <div className="memori-dropdown--sustainability-tags">
+              {llmUsageModels.map(modelLabel => (
+                <span
+                  key={modelLabel}
+                  className="memori-dropdown--sustainability-tag"
+                >
+                  {modelLabel}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="memori-dropdown--sustainability-metrics">
+        <h5 className="memori-dropdown--sustainability-section-title">
+          {t('chatLogs.environmentalImpact') || 'Environmental impact'}
+        </h5>
+        <div className="memori-dropdown--sustainability-row">
+          <span className="memori-dropdown--sustainability-label">
+            <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
+            {t('chatLogs.energy') || 'Energy'}
+          </span>
+          <strong className="memori-dropdown--sustainability-value">
+            {formatImpactInReadableUnit(
+              chatConsumptionTotals.energy,
+              'energy',
+              currentLocale
+            )}
+          </strong>
+        </div>
+        <div className="memori-dropdown--sustainability-row">
+          <span className="memori-dropdown--sustainability-label">
+            <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
+            {t('chatLogs.co2') || 'CO2'}
+          </span>
+          <strong className="memori-dropdown--sustainability-value">
+            {formatImpactInReadableUnit(
+              chatConsumptionTotals.gwp,
+              'co2',
+              currentLocale
+            )}
+          </strong>
+        </div>
+        <div className="memori-dropdown--sustainability-row">
+          <span className="memori-dropdown--sustainability-label">
+            <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
+            {t('chatLogs.water') || 'Water'}
+          </span>
+          <strong className="memori-dropdown--sustainability-value">
+            {formatImpactInReadableUnit(
+              chatConsumptionTotals.wcf,
+              'water',
+              currentLocale
+            )}
+          </strong>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
+  history,
+  triggerVariant = 'ghost',
+  menuAlign = 'end',
+  trigger,
+}) => {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
   const hasConsumptionData = useMemo(
     () =>
-      (chatLog?.lines ?? []).some(
-        line =>
-          !!(line as Message & { llmUsage?: MessageLlmUsage }).llmUsage
+      (history ?? []).some(
+        line => !!(line as Message & { llmUsage?: MessageLlmUsage }).llmUsage
       ),
-    [chatLog]
+    [history]
   );
 
   if (!hasConsumptionData) return null;
 
+  const triggerLabel =
+    t('write_and_speak.showMessageConsumptionLabel') || 'Show chat consumption';
+  const renderDefaultTrigger = (
+    triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ) => (
+    <Button
+      {...triggerButtonProps}
+      variant={triggerVariant}
+      shape="default"
+      className={cx(
+        'memori-header--button memori-header--button--sustainability',
+        open && 'memori-button--active',
+        triggerButtonProps.className
+      )}
+      aria-label={triggerLabel}
+      title={triggerLabel}
+      icon={
+        <GasStation className="memori-header--button--sustainability-icon" />
+      }
+    />
+  );
+  const renderTrigger = (
+    triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ) => {
+    if (!trigger) return renderDefaultTrigger(triggerButtonProps);
+    if (typeof trigger === 'function')
+      return trigger(triggerButtonProps, { open });
+    if (
+      !React.isValidElement<React.ButtonHTMLAttributes<HTMLButtonElement>>(
+        trigger
+      )
+    ) {
+      return renderDefaultTrigger(triggerButtonProps);
+    }
+
+    const triggerProps = trigger.props ?? {};
+    const mergedClassName = cx(
+      triggerButtonProps.className,
+      triggerProps.className
+    );
+    const mergedOnClick: React.MouseEventHandler<HTMLButtonElement> = event => {
+      triggerButtonProps.onClick?.(event);
+      triggerProps.onClick?.(event);
+    };
+
+    return React.cloneElement(trigger, {
+      ...triggerProps,
+      ...triggerButtonProps,
+      className: mergedClassName || undefined,
+      onClick: mergedOnClick,
+    });
+  };
+
   return (
     <Dropdown
-      placement="bottom-right"
-      trigger={
-        trigger ?? (
-          <Button
-            primary
-            shape="circle"
-            className={cx(
-              'memori-header--button',
-              'memori-header--button--sustainability',
-              hasSpacedButtons && 'memori-header--button-spaced'
-            )}
-            title={
-              t('write_and_speak.showMessageConsumptionLabel') ||
-              'LLM consumption'
-            }
-            icon={
-              <GasStation className="memori-header--button--sustainability-icon" />
-            }
-          />
-        )
-      }
+      className="memori-header--dropdown"
+      open={open}
+      onOpenChange={setOpen}
     >
-      <div className="memori-dropdown--sustainability">
-        <h4 className="memori-dropdown--sustainability-title">
-          {t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat'}
-        </h4>
-        <div className="memori-dropdown--sustainability-section">
-          <h5 className="memori-dropdown--sustainability-section-title">
-            {t('chatLogs.modelUsage') || 'Model usage'}
-          </h5>
-          <div className="memori-dropdown--sustainability-summary">
-            <div className="memori-dropdown--sustainability-stat">
-              <span className="memori-dropdown--sustainability-stat-label">
-                {t('chatLogs.input') || 'Input'}
-              </span>
-              <strong className="memori-dropdown--sustainability-stat-value">
-                {formatCountValue(chatConsumptionTotals.totalInputTokens, currentLocale)}
-              </strong>
-              <span className="memori-dropdown--sustainability-stat-meta">
-                {t('chatLogs.tokens') || 'Tokens'}
-              </span>
-            </div>
-            <div className="memori-dropdown--sustainability-stat">
-              <span className="memori-dropdown--sustainability-stat-label">
-                {t('chatLogs.output') || 'Output'}
-              </span>
-              <strong className="memori-dropdown--sustainability-stat-value">
-                {formatCountValue(chatConsumptionTotals.totalOutputTokens, currentLocale)}
-              </strong>
-              <span className="memori-dropdown--sustainability-stat-meta">
-                {t('chatLogs.tokens') || 'Tokens'}
-              </span>
-            </div>
-          </div>
-          {llmUsageModels.length > 0 && (
-            <div className="memori-dropdown--sustainability-row memori-dropdown--sustainability-row--stacked">
-              <span className="memori-dropdown--sustainability-label">
-                {t('chatLogs.provider') || 'Provider'} /{' '}
-                {t('chatLogs.model') || 'Model'}
-              </span>
-              <div className="memori-dropdown--sustainability-tags">
-                {llmUsageModels.map(modelLabel => (
-                  <span
-                    key={modelLabel}
-                    className="memori-dropdown--sustainability-tag"
-                  >
-                    {modelLabel}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="memori-dropdown--sustainability-metrics">
-          <h5 className="memori-dropdown--sustainability-section-title">
-            {t('chatLogs.environmentalImpact') || 'Environmental impact'}
-          </h5>
-          <div className="memori-dropdown--sustainability-row">
-            <span className="memori-dropdown--sustainability-label">
-              <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
-              {t('chatLogs.energy') || 'Energy'}
-            </span>
-            <strong className="memori-dropdown--sustainability-value">
-              {formatImpactInReadableUnit(
-                chatConsumptionTotals.energy,
-                'energy',
-                currentLocale
-              )}
-            </strong>
-          </div>
-          <div className="memori-dropdown--sustainability-row">
-            <span className="memori-dropdown--sustainability-label">
-              <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
-              {t('chatLogs.co2') || 'CO2'}
-            </span>
-            <strong className="memori-dropdown--sustainability-value">
-              {formatImpactInReadableUnit(
-                chatConsumptionTotals.gwp,
-                'co2',
-                currentLocale
-              )}
-            </strong>
-          </div>
-          <div className="memori-dropdown--sustainability-row">
-            <span className="memori-dropdown--sustainability-label">
-              <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
-              {t('chatLogs.water') || 'Water'}
-            </span>
-            <strong className="memori-dropdown--sustainability-value">
-              {formatImpactInReadableUnit(
-                chatConsumptionTotals.wcf,
-                'water',
-                currentLocale
-              )}
-            </strong>
-          </div>
-        </div>
-      </div>
+      <Dropdown.Trigger
+        showChevron={false}
+        render={props => renderTrigger(props)}
+      />
+      <Dropdown.Menu
+        className="memori-dropdown--sustainability-menu"
+        placement="bottom"
+        align={menuAlign}
+      >
+        <ChatConsumptionContent history={history} />
+      </Dropdown.Menu>
     </Dropdown>
   );
 };

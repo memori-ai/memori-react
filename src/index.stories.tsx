@@ -22,7 +22,6 @@ export default meta;
 
 const Template: Story<Props> = args => <Memori {...args} />;
 
-
 export const WithInitialContextAndQuestion = Template.bind({});
 WithInitialContextAndQuestion.args = {
   ownerUserName: 'nzambello',
@@ -33,6 +32,7 @@ WithInitialContextAndQuestion.args = {
   baseURL: 'https://www.aisuru.com',
   uiLang: 'IT',
   spokenLang: 'IT',
+  layout: 'FULLPAGE',
   enableAudio: true,
   autoStart: true,
   initialQuestion: 'Ciao',
@@ -47,6 +47,7 @@ WithInitialContextAndQuestionFromIntegration.args = {
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
@@ -69,6 +70,7 @@ WithPreviousSession.args = {
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
   sessionID: '1234567890',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
 };
@@ -94,6 +96,7 @@ WithUploadNoTotalPayloadLimit.args = {
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
@@ -108,6 +111,7 @@ WithMaxTextareaCharacters.args = {
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
@@ -115,8 +119,8 @@ WithMaxTextareaCharacters.args = {
   maxTextareaCharacters: 500,
 };
 
-export const WithPrivateAgent = Template.bind({});
-WithPrivateAgent.args = {
+export const TestingAgent = Template.bind({});
+TestingAgent.args = {
   memoriName: 'Test Private',
   ownerUserName: 'Andrea-Patini',
   memoriID: 'c58cd5f9-43c4-4a3b-9fb6-56aedf58ff7a',
@@ -150,7 +154,8 @@ const piiDetectionConfig = {
     {
       id: 'iban',
       label: { it: 'IBAN', en: 'IBAN' },
-      pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
+      pattern:
+        '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: {
         it: 'Il messaggio contiene un codice IBAN.',
         en: 'The message contains an IBAN code.',
@@ -168,6 +173,7 @@ export const WithPiiDetection = Template.bind({});
 WithPiiDetection.args = {
   memoriName: 'Layout Storybook',
   ownerUserName: 'andrea.patini',
+  layout: 'FULLPAGE',
   memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
   tenantID: 'aisuru-staging.aclambda.online',

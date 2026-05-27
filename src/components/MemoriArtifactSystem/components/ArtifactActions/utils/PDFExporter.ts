@@ -87,7 +87,7 @@ export class PDFExporter {
             font-size: 0.9em;
             background-color: #f5f5f5;
             border: 1px solid #ddd;
-            border-radius: 3px;
+            border-radius: .5rem;
             padding: 0.2em 0.4em;
             page-break-inside: avoid;
           }
@@ -142,7 +142,7 @@ export class PDFExporter {
           }
 
           a {
-            color: #0066cc;
+            color: var(--memori-text-color);
             text-decoration: none;
           }
 
@@ -284,13 +284,13 @@ export class PDFExporter {
                 background: #f0f8ff;
                 border: 2px solid #0066cc;
                 padding: 20px;
-                border-radius: 8px;
+                border-radius: .5rem;
                 font-family: system-ui, sans-serif;
                 z-index: 10000;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
               `;
               instructionDiv.innerHTML = `
-                <h3 style="margin: 0 0 10px 0; color: #0066cc;">📄 PDF Export Instructions</h3>
+                <h3 style="margin: 0 0 10px 0; color: var(--memori-text-color);">📄 PDF Export Instructions</h3>
                 <p style="margin: 0 0 10px 0;">To save as PDF:</p>
                 <ol style="margin: 0 0 15px 0; padding-left: 20px;">
                   <li>Press <strong>Cmd+P</strong> (Mac) or <strong>Ctrl+P</strong> (Windows)</li>
@@ -303,7 +303,7 @@ export class PDFExporter {
                   color: white;
                   border: none;
                   padding: 8px 16px;
-                  border-radius: 4px;
+                  border-radius: .5rem;
                   cursor: pointer;
                 ">Got it!</button>
               `;

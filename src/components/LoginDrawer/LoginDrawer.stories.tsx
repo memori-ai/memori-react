@@ -5,6 +5,7 @@ import LoginDrawer, { Props } from './LoginDrawer';
 import { tenant, user } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import './LoginDrawer.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/LoginDrawer',
@@ -26,6 +27,7 @@ export default meta;
 const Template: Story<Props> = args => {
   return (
     <I18nWrapper>
+      <AlertProvider defaultDuration={5000}>
       <LoginDrawer
         {...args}
         onClose={() => {}}
@@ -34,6 +36,7 @@ const Template: Story<Props> = args => {
         tenant={tenant}
         apiClient={memoriApiClient()}
       />
+      </AlertProvider>
     </I18nWrapper>
   );
 };

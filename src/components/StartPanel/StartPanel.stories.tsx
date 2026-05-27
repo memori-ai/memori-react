@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import { memori, sessionID, integration, tenant, user } from '../../mocks/data';
+import { getChatStyles } from '../MemoriWidget/MemoriWidget';
 import StartPanel, { Props } from './StartPanel';
 
 import '../../i18n';
@@ -31,59 +32,31 @@ const integrationConfig = {
     '#' +
     new Date(Date.now()).getTime(),
 };
-const integrationProperties = {
-  '--memori-chat-bubble-bg': '#fff',
-  ...(integrationConfig?.buttonBgColor
-    ? {
-        '--memori-button-bg': integrationConfig.buttonBgColor,
-        '--memori-primary': integrationConfig.buttonBgColor,
-      }
-    : {}),
-  ...(integrationConfig?.buttonTextColor
-    ? {
-        '--memori-button-text': integrationConfig.buttonTextColor,
-        '--memori-text-color': integrationConfig.buttonTextColor,
-      }
-    : {}),
-  ...(integrationConfig?.blurBackground
-    ? {
-        '--memori-blur-background': '5px',
-      }
-    : {
-        '--memori-blur-background': '0px',
-      }),
-  ...(integrationConfig?.innerBgColor
-    ? {
-        '--memori-inner-bg': `rgba(${
-          integrationConfig.innerBgColor === 'dark'
-            ? '0, 0, 0'
-            : '255, 255, 255'
-        }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
-        '--memori-inner-content-pad': '1.5rem',
-        '--memori-nav-bg-image': 'none',
-        '--memori-nav-bg': `rgba(${
-          integrationConfig.innerBgColor === 'dark'
-            ? '0, 0, 0'
-            : '255, 255, 255'
-        }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
-      }
-    : {
-        '--memori-inner-content-pad': '0px',
-      }),
-};
 
-const integrationStylesheet = `
-    #root, .memori-widget {
-      ${Object.entries(integrationProperties)
-        .map(([key, value]) => `${key}: ${value};`)
-        .join('\n')}
-    }
-  `;
+// Allineato a MemoriWidget: design tokens (solo buttonBgColor → getChatStyles), data-theme light/dark
+const integrationProperties = getChatStyles(integrationConfig);
+
+const integrationStylesheet =
+  Object.keys(integrationProperties).length > 0
+    ? `@layer integration {
+  #root, .memori-widget {
+    ${Object.entries(integrationProperties)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join('\n    ')}
+  }
+}
+`
+    : '';
+
+const dataTheme =
+  integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+    ? integrationConfig.theme
+    : undefined;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <div style={{ maxWidth: '600px', margin: 'auto' }}>
-      {args.integrationConfig && (
+    <div style={{ maxWidth: '600px', margin: 'auto' }} data-theme={dataTheme}>
+      {args.integrationConfig && integrationStylesheet && (
         <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
       )}
       <StartPanel {...args} setShowLoginDrawer={() => {}} />
@@ -103,7 +76,8 @@ Default.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -120,7 +94,8 @@ WithExistingSession.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   hasInitialSession: true,
@@ -138,7 +113,8 @@ WithCompletionsEnabled.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -156,7 +132,8 @@ WithNSFWFlag.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -174,7 +151,8 @@ WithCompletionsAndNSFW.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -191,7 +169,8 @@ WithDeepThoughtEnabled.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -213,7 +192,8 @@ WithDeepThoughtEnabledUnlogged.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -233,7 +213,8 @@ WithDeepThoughtEnabledWithoutPermissionFlag.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -256,7 +237,8 @@ BoardOfExpert.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -275,7 +257,8 @@ BoardOfExpertNSFW.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -289,7 +272,8 @@ Instruct.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: true,
   sessionId: sessionID,
   clickedStart: false,
@@ -306,7 +290,8 @@ PositionRequired.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: true,
   sessionId: sessionID,
   clickedStart: false,
@@ -323,7 +308,8 @@ LoginRequired.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: true,
   sessionId: sessionID,
   clickedStart: false,
@@ -340,7 +326,8 @@ LoginRequiredWithAuth.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   isUserLoggedIn: true,
@@ -356,7 +343,8 @@ WithIntegration.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,
@@ -374,7 +362,8 @@ WithCompletionProviderDown.args = {
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},
-  openPositionDrawer: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
   instruct: false,
   sessionId: sessionID,
   clickedStart: false,

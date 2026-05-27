@@ -11,7 +11,8 @@ it('renders StartPanel unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -31,7 +32,8 @@ it('renders StartPanel with existing sessionunchanged', () => {
       userLang="en"
       hasInitialSession
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -53,7 +55,8 @@ it('renders StartPanel with completions enabled unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -75,7 +78,8 @@ it('renders StartPanel for board of experts unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -97,7 +101,8 @@ it('renders StartPanel with deep thought enabled unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -124,7 +129,8 @@ it('renders StartPanel with deep thought but unlogged unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -147,7 +153,8 @@ it('renders StartPanel with deep thought enabled but without permission flag unc
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -171,7 +178,8 @@ it('renders StartPanel on instruct unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -193,7 +201,8 @@ it('renders StartPanel with position required unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -215,7 +224,8 @@ it('renders StartPanel with login required unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -235,7 +245,8 @@ it('renders StartPanel with integrationConfig unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -255,7 +266,8 @@ it('renders StartPanel with multilangual unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -282,7 +294,8 @@ it('renders StartPanel with completion provider down unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
