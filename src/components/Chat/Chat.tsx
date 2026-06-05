@@ -16,7 +16,10 @@ import {
   Tenant,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import { hasTouchscreen } from '../../helpers/utils';
+import {
+  hasTouchscreen,
+  parseDocumentAttachmentsFromMessage,
+} from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import MediaWidget, {
@@ -445,49 +448,21 @@ const Chat: React.FC<Props> = ({
                     ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
                     []),
 
-                  // Extract document attachments that are embedded in the message text
-                  ...(() => {
-                    // Get the translated or original message text
-                    const text = message.translatedText || message.text;
-
-                    // Regex to match document attachments in format:
-                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
-                    const documentAttachmentRegex =
-                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-
-                    const attachments: (Medium & { type?: string })[] = [];
-                    let match;
-                    let attachmentIndex = 0;
-
-                    // Find all document attachments in the text
-                    while (
-                      (match = documentAttachmentRegex.exec(text)) !== null
-                    ) {
-                      const [, filename, type, content] = match;
-
-                      // Create a Medium object for each attachment with:
-                      // - Unique ID using timestamp and random string
-                      // - Empty URL since content is embedded
-                      // - Original mime type and filename
-                      // - Trimmed content from the attachment
-                      // - Properties to mark it as a document attachment
-                      attachments.push({
-                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-                          .toString(36)
-                          .substr(2, 9)}`,
-                        url: '',
-                        mimeType: type,
-                        title: filename,
-                        content: content.trim(),
-                        properties: { isDocumentAttachment: true },
-                        type: 'document',
-                      });
-
-                      attachmentIndex++;
-                    }
-
-                    return attachments;
-                  })(),
+                  // Extract document attachments from the original message text.
+                  // Use message.text (not translatedText) so internal tags stay intact.
+                  ...parseDocumentAttachmentsFromMessage(
+                    message.text || ''
+                  ).map((attachment, attachmentIndex) => ({
+                    mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+                      .toString(36)
+                      .substr(2, 9)}`,
+                    url: attachment.url,
+                    mimeType: attachment.type,
+                    title: attachment.filename,
+                    content: attachment.content,
+                    properties: { isDocumentAttachment: true },
+                    type: 'document' as const,
+                  })),
                 ]}
                 sessionID={sessionID}
                 baseUrl={baseUrl}

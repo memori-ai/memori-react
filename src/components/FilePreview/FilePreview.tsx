@@ -4,7 +4,12 @@ import CloseIcon from '../icons/Close';
 import Button from '../ui/Button';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
-import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
+import {
+  stripHTML,
+  stripDocumentAttachmentTags,
+  isOfficeNativeFilename,
+  extractAttachmentLink,
+} from '../../helpers/utils';
 import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
 
@@ -61,6 +66,12 @@ const FilePreview = ({
         return 'CSV';
       case 'html':
         return 'HTML';
+      case 'docx':
+        return 'Word';
+      case 'xltx':
+        return 'Excel';
+      case 'potx':
+        return 'PowerPoint';
       case 'jpg':
       case 'jpeg':
         return 'JPEG';
@@ -166,7 +177,16 @@ const FilePreview = ({
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-                onClick={() => setSelectedFile(file)}
+                onClick={() => {
+                  if (isOfficeNativeFilename(file.name || '')) {
+                    const url = extractAttachmentLink(file.content);
+                    if (url) {
+                      window.open(url, '_blank', 'noopener,noreferrer');
+                    }
+                  } else {
+                    setSelectedFile(file);
+                  }
+                }}
               >
                 {isImageContent(file.content, file.type) ? (
                   <div className="memori--preview-thumbnail">

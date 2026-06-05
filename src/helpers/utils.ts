@@ -237,6 +237,71 @@ export const stripMarkdown = (text: string) => {
   return text;
 };
 
+export const OFFICE_NATIVE_EXTENSIONS = ['.docx', '.xltx', '.potx'] as const;
+
+export const isOfficeNativeFilename = (filename: string): boolean => {
+  const ext = `.${filename.split('.').pop()?.toLowerCase() || ''}`;
+  return (OFFICE_NATIVE_EXTENSIONS as readonly string[]).includes(ext);
+};
+
+export type ParsedDocumentAttachment = {
+  filename: string;
+  type: string;
+  content: string;
+  url: string;
+};
+
+const DOCUMENT_ATTACHMENT_REGEX =
+  /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+
+const ATTACHMENT_LINK_AFTER_REGEX =
+  /<attachment_link>\s*([\s\S]*?)\s*<\/attachment_link>/;
+
+export const parseDocumentAttachmentsFromMessage = (
+  text: string
+): ParsedDocumentAttachment[] => {
+  if (!text) return [];
+
+  const attachments: ParsedDocumentAttachment[] = [];
+  const regex = new RegExp(DOCUMENT_ATTACHMENT_REGEX.source, 'g');
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    const [, filename, type, content] = match;
+    const afterTag = text.slice(match.index + match[0].length);
+    const linkMatch = afterTag.match(ATTACHMENT_LINK_AFTER_REGEX);
+    const rawUrl = linkMatch?.[1]?.trim() || '';
+    const url = /^https?:\/\//.test(rawUrl) ? rawUrl : '';
+
+    attachments.push({
+      filename,
+      type,
+      content: content.trim(),
+      url,
+    });
+  }
+
+  return attachments;
+};
+
+export const extractAttachmentLinks = (content: string): string[] => {
+  return parseDocumentAttachmentsFromMessage(content).map(
+    attachment => attachment.url
+  );
+};
+
+export const extractAttachmentLink = (content: string): string | null => {
+  const match = content?.match(
+    /<attachment_link>\s*(https?:\/\/[^\s<]+)\s*<\/attachment_link>/
+  );
+  return match ? match[1].trim() : null;
+};
+
+export const isAssetOnlyDocumentAttachment = (attachment: {
+  content?: string | null;
+  url?: string | null;
+}): boolean => !attachment.content?.trim() && !!attachment.url?.trim();
+
 export const stripDocumentAttachmentTags = (text: string): string => {
   const documentAttachmentTagRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
   return text

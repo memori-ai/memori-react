@@ -12,6 +12,7 @@ import { getResourceUrl } from '../../helpers/media';
 import {
   withLinksOpenInNewTab,
   stripDocumentAttachmentTags,
+  isAssetOnlyDocumentAttachment,
 } from '../../helpers/utils';
 import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
@@ -359,8 +360,16 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     const metaParts = [lineText, sizeText].filter(Boolean);
     const metaLine = metaParts.length > 0 ? metaParts.join(' · ') : null;
 
+    // Asset-only attachments (e.g. Office native files) open via URL, not modal
+    const isAssetOnlyAttachment = isAssetOnlyDocumentAttachment(item);
+
     // Document attachments and attached files should open in modal, not as links
-    if ((isDocumentAttachment || isAttachedFile) && item.mediumID && _onClick) {
+    if (
+      (isDocumentAttachment || isAttachedFile) &&
+      item.mediumID &&
+      _onClick &&
+      !isAssetOnlyAttachment
+    ) {
       return (
         <div
           onClick={() => _onClick(item)}

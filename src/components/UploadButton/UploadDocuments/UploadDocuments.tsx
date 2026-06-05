@@ -5,6 +5,7 @@ import { DocumentIcon } from '../../icons/Document';
 import Modal from '../../ui/Modal';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { isOfficeNativeFilename } from '../../../helpers/utils';
 // Types
 type PreviewFile = {
   name: string;
@@ -235,17 +236,20 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const processDocumentFile = async (
     file: File
-  ): Promise<{ text: string | null }> => {
-    const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
+  ): Promise<{ text: string | null; uploadAsOriginal?: boolean }> => {
+    if (isOfficeNativeFilename(file.name)) {
+      return { text: null, uploadAsOriginal: true };
+    }
 
+    const ext = file.name.split('.').pop()?.toLowerCase() || '';
     try {
       let text: string | null = null;
 
-      if (fileExt === 'pdf') {
+      if (ext === 'pdf') {
         text = await extractTextFromPDF(file);
-      } else if (['txt', 'md', 'json', 'csv', 'html'].includes(fileExt)) {
+      } else if (['txt', 'md', 'json', 'csv', 'html'].includes(ext)) {
         text = await file.text();
-      } else if (fileExt === 'xlsx') {
+      } else if (ext === 'xlsx') {
         text = await extractTextFromXLSX(file);
       }
 
@@ -295,7 +299,12 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       throw new Error(response.resultMessage || 'Upload failed');
     }
 
-    return response.asset?.assetURL;
+    const assetURL = response.asset?.assetURL;
+    if (!assetURL) {
+      throw new Error('Upload failed: missing asset URL');
+    }
+
+    return assetURL;
   };
 
   const handleDocumentUpload = async (
@@ -360,9 +369,38 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         const fileId = Math.random().toString(36).substr(2, 9);
 
         try {
-          const { text } = await processDocumentFile(file);
+          const { text, uploadAsOriginal } = await processDocumentFile(file);
 
-          if (text) {
+          if (uploadAsOriginal) {
+            // Office native format: upload the original file as asset, no text extraction
+            let assetUrl: string | undefined;
+            try {
+              assetUrl = await uploadAssetFile(file);
+            } catch (uploadError) {
+              console.error('Office asset upload failed:', uploadError);
+              onDocumentError?.({
+                message: t('upload.officeAssetUploadFailed', {
+                  fileName: file.name,
+                  defaultValue: `"${file.name}" could not be uploaded and was not added.`,
+                }),
+                severity: 'error',
+              });
+            }
+
+            if (!assetUrl) {
+              activeCount--;
+              onLoadingChange?.(true, activeCount);
+              continue;
+            }
+
+            processedFiles.push({
+              name: file.name,
+              id: fileId,
+              content: '',
+              mimeType: file.type,
+              textAssetUrl: assetUrl,
+            });
+          } else if (text) {
             const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
             const textFile = new File([text], `${baseName}.txt`, {
               type: 'text/plain',
@@ -429,7 +467,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       <input
         ref={documentInputRef}
         type="file"
-        accept=".pdf,.txt,.md,.json,.xlsx,.csv,.html"
+        accept=".pdf,.txt,.md,.json,.xlsx,.csv,.html,.docx,.xltx,.potx"
         multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
