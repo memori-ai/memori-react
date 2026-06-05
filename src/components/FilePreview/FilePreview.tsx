@@ -3,7 +3,12 @@ import { File, X } from 'lucide-react';
 import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
-import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
+import {
+  stripHTML,
+  stripDocumentAttachmentTags,
+  isOfficeNativeFilename,
+  extractAttachmentLink,
+} from '../../helpers/utils';
 import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
 
@@ -60,6 +65,12 @@ const FilePreview = ({
         return 'CSV';
       case 'html':
         return 'HTML';
+      case 'docx':
+        return 'Word';
+      case 'xltx':
+        return 'Excel';
+      case 'potx':
+        return 'PowerPoint';
       case 'jpg':
       case 'jpeg':
         return 'JPEG';
@@ -169,7 +180,16 @@ const FilePreview = ({
                 <button
                   type="button"
                   className="memori--preview-item-trigger"
-                  onClick={() => setSelectedFile(file)}
+                  onClick={() => {
+                    if (isOfficeNativeFilename(file.name || '')) {
+                      const url = extractAttachmentLink(file.content);
+                      if (url) {
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                      }
+                    } else {
+                      setSelectedFile(file);
+                    }
+                  }}
                   aria-label={file.name}
                 >
                   {isImageContent(file.content, file.type) ? (

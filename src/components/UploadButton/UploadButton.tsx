@@ -116,6 +116,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       '.csv',
       '.md',
       '.html',
+      '.docx',
+      '.xltx',
+      '.potx',
     ];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     return documentExtensions.includes(fileExt);
@@ -413,15 +416,30 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     // Process each document file
     const processedDocuments = files.map(file => {
       const escapedFileName = escapeAttributeValue(file.name);
-      // Truncate the inlined content to the per-document character limit.
-      // The full text remains available via the uploaded asset link.
-      const inlinedContent =
-        file.content.length > effectivePerDocumentLimit
-          ? file.content.slice(0, effectivePerDocumentLimit)
-          : file.content;
-      const formattedContent = `<document_attachment filename="${escapedFileName}" type="${
-        file.mimeType
-      }">
+
+      let formattedContent: string;
+
+      if (!file.content) {
+        // Office native format: metadata-only attachment tag + asset link (no text body)
+        formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+</document_attachment>
+
+<attachment_link>
+${file.textAssetUrl || ''}
+</attachment_link>`;
+      } else {
+        // Truncate only the content that gets inlined inside the message
+        // <document_attachment> tag. The full text is still available via
+        // textAssetUrl as an uploaded asset.
+        const inlinedContent =
+          file.content.length > effectivePerDocumentLimit
+            ? file.content.substring(0, effectivePerDocumentLimit) +
+              '\n\n[Content truncated due to size limits]'
+            : file.content;
+
+        formattedContent = `<document_attachment filename="${escapedFileName}" type="${
+          file.mimeType
+        }">
 
 ${inlinedContent}
 
@@ -430,6 +448,7 @@ ${inlinedContent}
 <attachment_link>
 ${file.textAssetUrl || ''}
 </attachment_link>`;
+      }
 
       return {
         name: file.name,
@@ -455,6 +474,9 @@ ${file.textAssetUrl || ''}
       '.csv',
       '.md',
       '.html',
+      '.docx',
+      '.xltx',
+      '.potx',
     ];
     const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 
@@ -607,7 +629,7 @@ ${file.textAssetUrl || ''}
       <input
         ref={unifiedInputRef}
         type="file"
-        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html"
+        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html,.docx,.xltx,.potx"
         multiple
         className="memori--upload-file-input"
         onChange={handleFileInputChange}

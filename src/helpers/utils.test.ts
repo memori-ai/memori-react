@@ -4,6 +4,11 @@ import {
   stripMarkdown,
   stripOutputTags,
   escapeHTML,
+  extractAttachmentLinks,
+  extractAttachmentLink,
+  isAssetOnlyDocumentAttachment,
+  isOfficeNativeFilename,
+  parseDocumentAttachmentsFromMessage,
 } from './utils';
 
 describe('Utils/difference', () => {
@@ -138,6 +143,98 @@ describe('utils/stripOutputTags', () => {
       'test\n<output class="memori-output">pippo</output>'
     );
     expect(result).toEqual('test\n');
+  });
+});
+
+describe('utils/attachment helpers', () => {
+  it('extracts multiple attachment links in order', () => {
+    const input = [
+      '<document_attachment filename="a.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document">',
+      '</document_attachment>',
+      '<attachment_link>',
+      'https://assets.example.com/a.docx',
+      '</attachment_link>',
+      '<document_attachment filename="b.pdf" type="application/pdf">',
+      'pdf text',
+      '</document_attachment>',
+      '<attachment_link>https://assets.example.com/b.txt</attachment_link>',
+    ].join('\n');
+
+    expect(extractAttachmentLinks(input)).toEqual([
+      'https://assets.example.com/a.docx',
+      'https://assets.example.com/b.txt',
+    ]);
+  });
+
+  it('extracts a single attachment link', () => {
+    const input =
+      '<attachment_link>\nhttps://assets.example.com/file.docx\n</attachment_link>';
+    expect(extractAttachmentLink(input)).toBe(
+      'https://assets.example.com/file.docx'
+    );
+  });
+
+  it('detects office native filenames', () => {
+    expect(isOfficeNativeFilename('report.docx')).toBe(true);
+    expect(isOfficeNativeFilename('template.XLTX')).toBe(true);
+    expect(isOfficeNativeFilename('notes.pdf')).toBe(false);
+  });
+
+  it('detects asset-only document attachments', () => {
+    expect(
+      isAssetOnlyDocumentAttachment({
+        content: '',
+        url: 'https://assets.example.com/file.docx',
+      })
+    ).toBe(true);
+    expect(
+      isAssetOnlyDocumentAttachment({
+        content: 'extracted text',
+        url: 'https://assets.example.com/file.txt',
+      })
+    ).toBe(false);
+  });
+
+  it('pairs each document attachment with its adjacent link', () => {
+    const input = [
+      '<attachment_link>https://assets.example.com/orphan.txt</attachment_link>',
+      '<document_attachment filename="a.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document">',
+      '</document_attachment>',
+      '<attachment_link>https://assets.example.com/a.docx</attachment_link>',
+      '<document_attachment filename="b.pdf" type="application/pdf">',
+      'pdf text',
+      '</document_attachment>',
+      '<attachment_link>https://assets.example.com/b.txt</attachment_link>',
+    ].join('\n');
+
+    expect(parseDocumentAttachmentsFromMessage(input)).toEqual([
+      {
+        filename: 'a.docx',
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        content: '',
+        url: 'https://assets.example.com/a.docx',
+      },
+      {
+        filename: 'b.pdf',
+        type: 'application/pdf',
+        content: 'pdf text',
+        url: 'https://assets.example.com/b.txt',
+      },
+    ]);
+  });
+
+  it('returns an empty url when no adjacent attachment link exists', () => {
+    const input =
+      '<document_attachment filename="a.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"></document_attachment>';
+
+    expect(parseDocumentAttachmentsFromMessage(input)).toEqual([
+      {
+        filename: 'a.docx',
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        content: '',
+        url: '',
+      },
+    ]);
   });
 });
 
