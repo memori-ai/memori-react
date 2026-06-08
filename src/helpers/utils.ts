@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Material, MeshStandardMaterial, SkinnedMesh } from 'three';
 import * as THREE from 'three';
+import { officeNativeExtensions } from './constants';
 
 export const hasTouchscreen = (): boolean => {
   let hasTouchScreen = false;
@@ -237,11 +238,11 @@ export const stripMarkdown = (text: string) => {
   return text;
 };
 
-export const OFFICE_NATIVE_EXTENSIONS = ['.docx', '.xltx', '.potx'] as const;
+export const OFFICE_NATIVE_EXTENSIONS = officeNativeExtensions;
 
 export const isOfficeNativeFilename = (filename: string): boolean => {
   const ext = `.${filename.split('.').pop()?.toLowerCase() || ''}`;
-  return (OFFICE_NATIVE_EXTENSIONS as readonly string[]).includes(ext);
+  return (officeNativeExtensions as readonly string[]).includes(ext);
 };
 
 export type ParsedDocumentAttachment = {

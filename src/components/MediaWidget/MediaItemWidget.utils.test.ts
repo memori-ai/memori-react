@@ -2,6 +2,7 @@ import {
   formatBytes,
   getFileExtensionFromUrl,
   getFileExtensionFromMime,
+  getDocumentBadgeLabel,
   countLines,
   shouldUseDarkFileCard,
   fetchLinkPreview,
@@ -57,8 +58,25 @@ describe('MediaItemWidget.utils', () => {
       expect(getFileExtensionFromMime('text/html')).toBe('HTML');
       expect(getFileExtensionFromMime('text/plain')).toBe('TXT');
       expect(getFileExtensionFromMime('application/json')).toBe('JSON');
-      expect(getFileExtensionFromMime('application/vnd.ms-excel')).toBe('XLS');
-      expect(getFileExtensionFromMime('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')).toBe('XLSX');
+      expect(getFileExtensionFromMime('application/vnd.ms-excel')).toBe('Excel');
+      expect(
+        getFileExtensionFromMime(
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+      ).toBe('Excel');
+    });
+
+    it('maps office mime types with parameters to short labels', () => {
+      expect(
+        getFileExtensionFromMime(
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document; charset=binary'
+        )
+      ).toBe('Word');
+      expect(
+        getFileExtensionFromMime(
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.template'
+        )
+      ).toBe('Excel');
     });
 
     it('uses subtype when not in MIME_TO_EXT map', () => {
@@ -68,6 +86,31 @@ describe('MediaItemWidget.utils', () => {
 
     it('falls back to FILE when mime has no subtype', () => {
       expect(getFileExtensionFromMime('unknown')).toBe('FILE');
+    });
+  });
+
+  describe('getDocumentBadgeLabel', () => {
+    it('prefers URL extension, then filename, then mime type', () => {
+      expect(
+        getDocumentBadgeLabel(
+          'application/pdf',
+          'report.docx',
+          'https://example.com/file.pdf'
+        )
+      ).toBe('PDF');
+      expect(
+        getDocumentBadgeLabel(
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'report.docx',
+          'https://example.com/asset/123'
+        )
+      ).toBe('Word');
+      expect(
+        getDocumentBadgeLabel(
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'budget.xlsx'
+        )
+      ).toBe('Excel');
     });
   });
 

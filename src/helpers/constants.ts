@@ -35,13 +35,22 @@ export const getGroupedChatLanguages = () => {
     popularLanguageCodes.includes(lang.value)
   );
   const all = chatLanguages.filter(lang => !popularLanguageCodes.includes(lang.value));
-  return {  
+  return {
     popular,
     all,
   };
 };
 
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
+
+/** Extensions uploaded as original Office binaries (no text extraction) */
+export const officeNativeExtensions = [
+  '.doc',
+  '.docx',
+  '.xls',
+  '.xltx',
+  '.potx',
+] as const;
 
 export const allowedMediaTypes = [
   'image/jpeg',
@@ -61,6 +70,25 @@ export const allowedMediaTypes = [
   'video/mpeg',
   'model/gltf-binary',
 ];
+
+/** Short badge labels for Office document cards */
+export const officeMimeShortLabels: Record<string, string> = {
+  'application/msword': 'Word',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word',
+  'application/vnd.ms-excel': 'Excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.template': 'Excel',
+  'application/vnd.openxmlformats-officedocument.presentationml.template': 'PPT',
+};
+
+export const officeExtensionShortLabels: Record<string, string> = {
+  DOC: 'Word',
+  DOCX: 'Word',
+  XLS: 'Excel',
+  XLSX: 'Excel',
+  XLTX: 'Excel',
+  POTX: 'PPT',
+};
 
 export const anonTag = '👤';
 

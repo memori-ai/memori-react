@@ -175,9 +175,13 @@ describe('utils/attachment helpers', () => {
   });
 
   it('detects office native filenames', () => {
+    expect(isOfficeNativeFilename('report.doc')).toBe(true);
     expect(isOfficeNativeFilename('report.docx')).toBe(true);
+    expect(isOfficeNativeFilename('budget.xls')).toBe(true);
     expect(isOfficeNativeFilename('template.XLTX')).toBe(true);
+    expect(isOfficeNativeFilename('slides.potx')).toBe(true);
     expect(isOfficeNativeFilename('notes.pdf')).toBe(false);
+    expect(isOfficeNativeFilename('data.xlsx')).toBe(false);
   });
 
   it('detects asset-only document attachments', () => {
