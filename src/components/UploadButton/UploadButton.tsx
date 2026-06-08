@@ -454,6 +454,7 @@ ${file.textAssetUrl || ''}
         content: formattedContent,
         type: 'document',
         mimeType: file.mimeType,
+        url: file.textAssetUrl,
       };
     });
 

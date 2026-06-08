@@ -293,15 +293,11 @@ export const extractAttachmentLinks = (content: string): string[] => {
 
 export const extractAttachmentLink = (content: string): string | null => {
   const match = content?.match(
-    /<attachment_link>\s*(https?:\/\/[^\s<]+)\s*<\/attachment_link>/
+    /<attachment_link>\s*([\s\S]*?)\s*<\/attachment_link>/
   );
-  return match ? match[1].trim() : null;
+  const rawUrl = match?.[1]?.trim() || '';
+  return /^https?:\/\//.test(rawUrl) ? rawUrl : null;
 };
-
-export const isAssetOnlyDocumentAttachment = (attachment: {
-  content?: string | null;
-  url?: string | null;
-}): boolean => !attachment.content?.trim() && !!attachment.url?.trim();
 
 export const stripDocumentAttachmentTags = (text: string): string => {
   const documentAttachmentTagRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
@@ -309,6 +305,36 @@ export const stripDocumentAttachmentTags = (text: string): string => {
     .replace(documentAttachmentTagRegex, '$3')
     .replace(/<attachment_source>\s*[\s\S]*?\s*<\/attachment_source>/g, '')
     .replace(/<attachment_link>\s*[\s\S]*?\s*<\/attachment_link>/g, '');
+};
+
+export const getDocumentAttachmentAssetUrl = (attachment: {
+  content?: string | null;
+  url?: string | null;
+}): string =>
+  attachment.url?.trim() ||
+  extractAttachmentLink(attachment.content || '') ||
+  '';
+
+export const isAssetOnlyDocumentAttachment = (attachment: {
+  title?: string;
+  name?: string;
+  content?: string | null;
+  url?: string | null;
+}): boolean => {
+  const filename = attachment.title || attachment.name || '';
+  const assetUrl = getDocumentAttachmentAssetUrl(attachment);
+
+  if (!assetUrl) return false;
+
+  if (isOfficeNativeFilename(filename)) {
+    return true;
+  }
+
+  const strippedContent = attachment.content
+    ? stripDocumentAttachmentTags(attachment.content).trim()
+    : '';
+
+  return !strippedContent;
 };
 
 export const stripOutputTags = (text: string): string => {

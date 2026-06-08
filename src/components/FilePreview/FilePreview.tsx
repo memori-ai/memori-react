@@ -7,7 +7,7 @@ import {
   stripHTML,
   stripDocumentAttachmentTags,
   isOfficeNativeFilename,
-  extractAttachmentLink,
+  getDocumentAttachmentAssetUrl,
 } from '../../helpers/utils';
 import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
@@ -178,6 +178,19 @@ const FilePreview = ({
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
+<<<<<<< HEAD
+=======
+                onClick={() => {
+                  if (isOfficeNativeFilename(file.name || '')) {
+                    const url = getDocumentAttachmentAssetUrl(file);
+                    if (url) {
+                      window.open(url, '_blank', 'noopener,noreferrer');
+                    }
+                  } else {
+                    setSelectedFile(file);
+                  }
+                }}
+>>>>>>> 475b440a (fix: upload docx media type card opens up a link instead of a modal)
               >
                 <button
                   type="button"
