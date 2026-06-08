@@ -1,4 +1,8 @@
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
+import {
+  officeExtensionShortLabels,
+  officeMimeShortLabels,
+} from '../../helpers/constants';
 import type { LinkPreviewInfo } from './MediaItemWidget.types';
 
 export const FILE_EXTENSIONS_DARK_CARD = [
@@ -54,11 +58,6 @@ export const IMAGE_MIME_TYPES = [
 
 const MIME_TO_EXT: Record<string, string> = {
   'application/pdf': 'PDF',
-  'application/msword': 'DOC',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-    'DOCX',
-  'application/vnd.ms-excel': 'XLS',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'XLSX',
   'text/html': 'HTML',
   'text/plain': 'TXT',
   'text/css': 'CSS',
@@ -87,12 +86,44 @@ export function getFileExtensionFromUrl(
   return match ? match[1].toUpperCase() : null;
 }
 
+function normalizeMimeType(mimeType: string): string {
+  return mimeType.split(';')[0].trim();
+}
+
 export function getFileExtensionFromMime(mimeType: string): string {
+  const normalized = normalizeMimeType(mimeType);
+  const normalizedLower = normalized.toLowerCase();
+
+  const officeLabel =
+    officeMimeShortLabels[normalized] ||
+    officeMimeShortLabels[normalizedLower];
+  if (officeLabel) return officeLabel;
+
   return (
+    MIME_TO_EXT[normalized] ||
+    MIME_TO_EXT[normalizedLower] ||
     MIME_TO_EXT[mimeType] ||
-    mimeType.split('/')[1]?.toUpperCase() ||
+    normalized.split('/')[1]?.toUpperCase() ||
     'FILE'
   );
+}
+
+export function getDocumentBadgeLabel(
+  mimeType: string,
+  filename?: string | null,
+  url?: string | null
+): string {
+  const fromUrl = getFileExtensionFromUrl(url || undefined);
+  if (fromUrl) {
+    return officeExtensionShortLabels[fromUrl] || fromUrl;
+  }
+
+  const fromFilename = getFileExtensionFromUrl(filename || undefined);
+  if (fromFilename) {
+    return officeExtensionShortLabels[fromFilename] || fromFilename;
+  }
+
+  return getFileExtensionFromMime(mimeType);
 }
 
 export function countLines(content: string | undefined): number {

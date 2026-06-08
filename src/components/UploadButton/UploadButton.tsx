@@ -12,7 +12,7 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-
+import { officeNativeExtensions } from '../../helpers/constants';
 // Props interface
 interface UploadManagerProps {
   authToken?: string;
@@ -116,9 +116,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       '.csv',
       '.md',
       '.html',
-      '.docx',
-      '.xltx',
-      '.potx',
+      ...officeNativeExtensions,
     ];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     return documentExtensions.includes(fileExt);
@@ -474,9 +472,7 @@ ${file.textAssetUrl || ''}
       '.csv',
       '.md',
       '.html',
-      '.docx',
-      '.xltx',
-      '.potx',
+      ...officeNativeExtensions,
     ];
     const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 
@@ -629,7 +625,7 @@ ${file.textAssetUrl || ''}
       <input
         ref={unifiedInputRef}
         type="file"
-        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html,.docx,.xltx,.potx"
+        accept={`.jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html,${officeNativeExtensions.join(',')}`}
         multiple
         className="memori--upload-file-input"
         onChange={handleFileInputChange}

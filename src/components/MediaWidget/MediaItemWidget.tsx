@@ -33,7 +33,7 @@ import type {
 import {
   formatBytes,
   getFileExtensionFromUrl,
-  getFileExtensionFromMime,
+  getDocumentBadgeLabel,
   countLines,
   shouldUseDarkFileCard,
   fetchLinkPreview,
@@ -269,7 +269,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           ) : (
             <DocumentCard
               title={medium.title || 'File'}
-              badge={getFileExtensionFromMime(medium.mimeType)}
+              badge={getDocumentBadgeLabel(medium.mimeType, medium.title)}
               meta={(() => {
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
@@ -285,7 +285,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           return (
             <DocumentCard
               title={medium.title || 'File'}
-              badge={getFileExtensionFromMime(medium.mimeType)}
+              badge={getDocumentBadgeLabel(medium.mimeType, medium.title)}
               meta={(() => {
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
@@ -299,7 +299,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           return (
             <DocumentCard
               title={medium.title || 'File'}
-              badge={getFileExtensionFromMime(medium.mimeType)}
+              badge={getDocumentBadgeLabel(medium.mimeType, medium.title)}
               meta={(() => {
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
@@ -325,8 +325,11 @@ export const RenderMediaItem = memo(function RenderMediaItem({
 
   // Extension and file detection helpers
   const fileExtensionFromUrl = getFileExtensionFromUrl(normURL || item.url);
-  const fileExtensionFromMime = getFileExtensionFromMime(item.mimeType);
-  const fileExtension = fileExtensionFromUrl || fileExtensionFromMime;
+  const fileExtension = getDocumentBadgeLabel(
+    item.mimeType,
+    item.title,
+    normURL || item.url
+  );
   const isFile = shouldUseDarkFileCard(
     item,
     fileExtensionFromUrl,

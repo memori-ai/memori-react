@@ -9,7 +9,7 @@ import {
   isOfficeNativeFilename,
   extractAttachmentLink,
 } from '../../helpers/utils';
-import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
+import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
 
 type FilePreviewProps = {
@@ -65,8 +65,10 @@ const FilePreview = ({
         return 'CSV';
       case 'html':
         return 'HTML';
+      case 'doc':
       case 'docx':
         return 'Word';
+      case 'xls':
       case 'xltx':
         return 'Excel';
       case 'potx':
@@ -204,7 +206,7 @@ const FilePreview = ({
                     <span className="memori--preview-filename">{file.name}</span>
                     <span className="memori--preview-filetype">
                       {file.mimeType
-                        ? getFileExtensionFromMime(file.mimeType)
+                        ? getDocumentBadgeLabel(file.mimeType, file.name)
                         : getFileType(file.name, file.type)}
                     </span>
                   </div>

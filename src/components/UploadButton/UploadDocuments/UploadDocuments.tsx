@@ -5,6 +5,7 @@ import { FileText as DocumentIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { officeNativeExtensions } from '../../../helpers/constants';
 import { isOfficeNativeFilename } from '../../../helpers/utils';
 // Types
 type PreviewFile = {
@@ -467,7 +468,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       <input
         ref={documentInputRef}
         type="file"
-        accept=".pdf,.txt,.md,.json,.xlsx,.csv,.html,.docx,.xltx,.potx"
+        accept={`.pdf,.txt,.md,.json,.xlsx,.csv,.html,${officeNativeExtensions.join(',')}`}
         multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
