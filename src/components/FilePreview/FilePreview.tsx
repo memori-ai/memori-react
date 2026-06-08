@@ -8,7 +8,7 @@ import {
   stripHTML,
   stripDocumentAttachmentTags,
   isOfficeNativeFilename,
-  extractAttachmentLink,
+  getDocumentAttachmentAssetUrl,
 } from '../../helpers/utils';
 import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
@@ -181,7 +181,7 @@ const FilePreview = ({
                 }`}
                 onClick={() => {
                   if (isOfficeNativeFilename(file.name || '')) {
-                    const url = extractAttachmentLink(file.content);
+                    const url = getDocumentAttachmentAssetUrl(file);
                     if (url) {
                       window.open(url, '_blank', 'noopener,noreferrer');
                     }

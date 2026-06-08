@@ -13,6 +13,7 @@ import {
   withLinksOpenInNewTab,
   stripDocumentAttachmentTags,
   isAssetOnlyDocumentAttachment,
+  getDocumentAttachmentAssetUrl,
 } from '../../helpers/utils';
 import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
@@ -410,16 +411,17 @@ export const RenderMediaItem = memo(function RenderMediaItem({
 
     // Build href: open in new tab (never modal). Use URL, or blob for content-only items.
     const getFileCardHref = (): string => {
-      if (item.url) {
+      const assetUrl = getDocumentAttachmentAssetUrl(item);
+      if (assetUrl) {
         return (
           getResourceUrl({
-            resourceURI: item.url,
+            resourceURI: assetUrl,
             sessionID,
             tenantID,
             baseURL,
             apiURL,
           }) ||
-          item.url ||
+          assetUrl ||
           '#'
         );
       }

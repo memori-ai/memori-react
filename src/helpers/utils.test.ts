@@ -187,8 +187,20 @@ describe('utils/attachment helpers', () => {
   it('detects asset-only document attachments', () => {
     expect(
       isAssetOnlyDocumentAttachment({
+        title: 'report.docx',
         content: '',
         url: 'https://assets.example.com/file.docx',
+      })
+    ).toBe(true);
+    expect(
+      isAssetOnlyDocumentAttachment({
+        title: 'report.docx',
+        content: [
+          '<document_attachment filename="report.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document">',
+          '</document_attachment>',
+          '<attachment_link>https://assets.example.com/file.docx</attachment_link>',
+        ].join('\n'),
+        url: '',
       })
     ).toBe(true);
     expect(
