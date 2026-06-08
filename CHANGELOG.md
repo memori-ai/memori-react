@@ -1,5 +1,17 @@
 
 
+## [8.38.6](https://github.com/memori-ai/memori-react/compare/v8.38.5...v8.38.6) (2026-06-08)
+
+
+### Features
+
+* add support for Office native file formats in file upload and preview components ([c3129ee](https://github.com/memori-ai/memori-react/commit/c3129ee401829090e7576003861f6727770449a7))
+
+
+### Changes
+
+* replace file extension extraction with document badge labels ([ac35e54](https://github.com/memori-ai/memori-react/commit/ac35e540d857e6d44080b9e0d0a08eb7056855df))
+
 ## [8.38.5](https://github.com/memori-ai/memori-react/compare/v8.38.4...v8.38.5) (2026-05-20)
 
 
