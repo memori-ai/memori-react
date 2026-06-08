@@ -1,5 +1,12 @@
 
 
+## [8.38.7](https://github.com/memori-ai/memori-react/compare/v8.38.6...v8.38.7) (2026-06-08)
+
+
+### Bug Fixes
+
+* upload docx media type card opens up a link instead of a modal ([475b440](https://github.com/memori-ai/memori-react/commit/475b440aaa188abc7a3a637626e550f2fcd2318b))
+
 ## [8.38.6](https://github.com/memori-ai/memori-react/compare/v8.38.5...v8.38.6) (2026-06-08)
 
 
