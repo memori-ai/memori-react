@@ -48,6 +48,7 @@ export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
 export const officeNativeExtensions = [
   '.doc',
   '.docx',
+  '.dotx',
   '.xls',
   '.xltx',
   '.potx',
@@ -60,6 +61,7 @@ export const allowedMediaTypes = [
   'image/gif',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
   'application/vnd.ms-excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   'application/pdf',
@@ -76,6 +78,7 @@ export const allowedMediaTypes = [
 export const officeMimeShortLabels: Record<string, string> = {
   'application/msword': 'Word',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.template': 'Word',
   'application/vnd.ms-excel': 'Excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.template': 'Excel',
@@ -85,6 +88,7 @@ export const officeMimeShortLabels: Record<string, string> = {
 export const officeExtensionShortLabels: Record<string, string> = {
   DOC: 'Word',
   DOCX: 'Word',
+  DOTX: 'Word',
   XLS: 'Excel',
   XLSX: 'Excel',
   XLTX: 'Excel',

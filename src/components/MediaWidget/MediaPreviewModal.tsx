@@ -70,6 +70,8 @@ const MIME_MARKDOWN = 'text/markdown';
 const MIME_WORD_DOC = 'application/msword';
 const MIME_WORD_DOCX =
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const MIME_WORD_DOTX =
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
 
 const VIDEO_MIME_TYPES = [
   'video/mp4',
@@ -99,7 +101,11 @@ function isAudio(mimeType: string): boolean {
 }
 
 function isWordDoc(mimeType: string): boolean {
-  return mimeType === MIME_WORD_DOC || mimeType === MIME_WORD_DOCX;
+  return (
+    mimeType === MIME_WORD_DOC ||
+    mimeType === MIME_WORD_DOCX ||
+    mimeType === MIME_WORD_DOTX
+  );
 }
 
 // Document attachments (PDF, XLSX, TXT, CSV, etc.) are extracted as text, not binary.
