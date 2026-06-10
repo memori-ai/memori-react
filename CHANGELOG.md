@@ -1,5 +1,12 @@
 
 
+## [8.38.8](https://github.com/memori-ai/memori-react/compare/v8.38.7...v8.38.8) (2026-06-10)
+
+
+### Features
+
+* add support for DOTX file format in file preview and media components ([4179c11](https://github.com/memori-ai/memori-react/commit/4179c11516dae755a1cd2d756c63dedb12174031))
+
 ## [8.38.7](https://github.com/memori-ai/memori-react/compare/v8.38.6...v8.38.7) (2026-06-08)
 
 
