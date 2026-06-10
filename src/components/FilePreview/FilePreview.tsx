@@ -68,6 +68,7 @@ const FilePreview = ({
         return 'HTML';
       case 'doc':
       case 'docx':
+      case 'dotx':
         return 'Word';
       case 'xls':
       case 'xltx':
