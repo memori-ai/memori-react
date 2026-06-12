@@ -464,7 +464,6 @@ const Memori: React.FC<Props> = ({
                 secretToken,
               }}
               __WEBCOMPONENT__={__WEBCOMPONENT__}
-              ownerUserName={ownerUserName ?? memori.ownerUserName}
               ownerUserID={ownerUserID ?? memori.ownerUserID}
               tenant={tenant}
               tenantID={tenantID}

@@ -381,3 +381,24 @@ WithCompletionProviderDown.args = {
   onClickStart: () => {},
   _TEST_forceProviderStatus: 'major',
 };
+
+/** Public agent whose owner has run out of credits: the start button is
+ * disabled and a "not enough credits" badge is shown instead of starting a
+ * session or asking for a password. */
+export const NotEnoughCredits = Template.bind({});
+NotEnoughCredits.args = {
+  memori: {
+    ...memori,
+    privacyType: 'PUBLIC',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+  notEnoughCredits: true,
+};
