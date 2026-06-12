@@ -1,5 +1,12 @@
 
 
+## [8.39.0](https://github.com/memori-ai/memori-react/compare/v8.38.8...v8.39.0) (2026-06-12)
+
+
+### Features
+
+* implement credit verification and UI updates ([50fd797](https://github.com/memori-ai/memori-react/commit/50fd7976d24a67067f92087f499f5d46d6db70de))
+
 ## [8.38.8](https://github.com/memori-ai/memori-react/compare/v8.38.7...v8.38.8) (2026-06-10)
 
 
