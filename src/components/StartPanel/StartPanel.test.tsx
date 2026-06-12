@@ -1,5 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { memori, tenant, sessionID, integration, user } from '../../mocks/data';
 import StartPanel from './StartPanel';
 
@@ -305,4 +306,66 @@ it('renders StartPanel with completion provider down unchanged', () => {
     />
   );
   expect(container).toMatchSnapshot();
+});
+
+it('renders StartPanel with not enough credits unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
+      instruct={false}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+      notEnoughCredits
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+// When the agent owner has not enough credits, opening the chat for a PUBLIC
+// agent must not start a session nor ask for a password: the start button is
+// disabled and a "not enough credits" badge is shown instead.
+it('blocks start and shows credits badge when owner has not enough credits', () => {
+  const onClickStart = jest.fn();
+  const { container, getByText, queryByPlaceholderText } = render(
+    <StartPanel
+      memori={{ ...memori, privacyType: 'PUBLIC' }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
+      instruct={false}
+      clickedStart={false}
+      onClickStart={onClickStart}
+      setShowLoginDrawer={jest.fn()}
+      notEnoughCredits
+    />
+  );
+
+  const startButton = container.querySelector(
+    '.memori--start-actions__start'
+  ) as HTMLButtonElement;
+  expect(startButton).toBeInTheDocument();
+  expect(startButton).toBeDisabled();
+
+  // Clicking the disabled button must not attempt to open a session.
+  fireEvent.click(startButton);
+  expect(onClickStart).not.toHaveBeenCalled();
+
+  // No password field is ever rendered for a public agent.
+  expect(queryByPlaceholderText('Password')).not.toBeInTheDocument();
+
+  // The credits badge is rendered (tooltip content is portaled on hover by
+  // @memori.ai/ui and is covered by BlockedMemoriBadge unit tests).
+  const badge = container.querySelector('.blocked-memori-badge--wrapper');
+  expect(badge).toBeInTheDocument();
+  expect(getByText('memoriBlockedTitle')).toBeInTheDocument();
 });

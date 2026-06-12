@@ -389,7 +389,7 @@ export interface LayoutProps {
 
 export interface Props {
   memori: Memori;
-  ownerUserName?: string | null;
+  // ownerUserName?: string | null;
   ownerUserID?: string | null;
   tenantID: string;
   memoriConfigs?: MemoriConfig[];
@@ -512,7 +512,7 @@ const MemoriWidget = ({
   memori,
   memoriConfigs,
   ownerUserID,
-  ownerUserName,
+  // ownerUserName,
   tenantID,
   memoriLang,
   uiLang,
@@ -646,7 +646,6 @@ const MemoriWidget = ({
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
-  const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
 
   const language =
     memori.culture?.split('-')?.[0]?.toUpperCase()! ||
@@ -1505,6 +1504,10 @@ const MemoriWidget = ({
       return;
     }
 
+    if (!(await checkCredits({ notify: true, goBack: true }))) {
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -1589,7 +1592,7 @@ const MemoriWidget = ({
         setGotErrorInOpening(true);
       }
       // Handle authentication error
-      else if (session?.resultCode === 403) {
+      else if (session?.resultCode === 403 && memori.privacyType !== 'PUBLIC') {
         setMemoriPwd(undefined);
         setAuthModalState('password');
         return session;
@@ -1614,7 +1617,6 @@ const MemoriWidget = ({
             duration: 0,
           })
         );
-        setGotErrorInOpening(true);
         return session;
       }
     } catch (err) {
@@ -1679,6 +1681,11 @@ const MemoriWidget = ({
         // console.log('[REOPEN_SESSION] Authentication required, showing modal');
         setAuthModalState('password');
         return;
+      }
+
+      if (!(await checkCredits({ notify: true, goBack: true }))) {
+        setLoading(false);
+        return null;
       }
 
       // Get current URL as referral
@@ -1816,7 +1823,10 @@ const MemoriWidget = ({
         setGotErrorInOpening(true);
       }
       // Handle authentication error
-      else if (response?.resultCode === 403) {
+      else if (
+        response?.resultCode === 403 &&
+        memori.privacyType !== 'PUBLIC'
+      ) {
         console.error('[REOPEN_SESSION] Authentication error');
         setMemoriPwd(undefined);
         setAuthModalState('password');
@@ -2485,6 +2495,12 @@ const MemoriWidget = ({
         return;
       }
 
+      if (!(await checkCredits({ notify: true, goBack: true }))) {
+        setClickedStart(false);
+        setLoading(false);
+        return;
+      }
+
       // Handle age verification
       if (!sessionID && !!minAge && !birth) {
         setShowAgeVerification(true);
@@ -2492,12 +2508,11 @@ const MemoriWidget = ({
       }
       // Handle authentication
       else if (
-        (!sessionID &&
-          memori.privacyType !== 'PUBLIC' &&
-          !memori.secretToken &&
-          !memoriPwd &&
-          !memoriTokens) ||
-        (!sessionID && gotErrorInOpening)
+        !sessionID &&
+        memori.privacyType !== 'PUBLIC' &&
+        !memori.secretToken &&
+        !memoriPwd &&
+        !memoriTokens
       ) {
         setAuthModalState('password');
         setClickedStart(false);
@@ -2506,7 +2521,6 @@ const MemoriWidget = ({
       // Create new session if needed
       else if (!sessionID || initialSessionExpired) {
         setClickedStart(false);
-        setGotErrorInOpening(false);
         const session = await fetchSession({
           memoriID: memori.engineMemoriID!,
           password: secret || memoriPwd || memori.secretToken,
@@ -2628,7 +2642,6 @@ const MemoriWidget = ({
 
         if (response.resultCode !== 0 || !currentState) {
           const { chatLogs } = await getSessionChatLogs(sessionID!, sessionID!);
-          setGotErrorInOpening(true);
           setSessionId(undefined);
           setClickedStart(false);
           await onClickStart(undefined, true, chatLogs?.[0]);
@@ -2941,36 +2954,82 @@ const MemoriWidget = ({
   // check if owner has enough credits
   const needsCredits = tenant?.billingDelegation;
   const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
-  const checkCredits = useCallback(async () => {
-    if (!tenant?.billingDelegation) return;
+  const handleNotEnoughCredits = useCallback(
+    (goBack = false) => {
+      setHasEnoughCredits(false);
+      setAuthModalState(null);
+      add(
+        createAlertOptions({
+          description: t('notEnoughCredits'),
+          severity: 'error',
+        })
+      );
 
-    try {
-      const resp = await getCredits({
-        operation: deepThoughtEnabled
-          ? 'dt_session_creation'
-          : 'session_creation',
-        baseUrl: baseUrl,
-        userID: ownerUserID,
-        userName: ownerUserName,
-        tenant: tenantID,
-      });
-
-      if (resp.enough) {
-        setHasEnoughCredits(true);
-      } else {
-        setHasEnoughCredits(false);
-        console.warn('Not enough credits. Required:', resp.required);
+      if (goBack && window.history.length > 1) {
+        window.history.back();
       }
-    } catch (e) {
-      let err = e as Error;
-      console.debug(err);
-    }
-  }, [tenant?.billingDelegation, deepThoughtEnabled]);
+    },
+    [add, t]
+  );
+  const checkCredits = useCallback(
+    async (options?: { notify?: boolean; goBack?: boolean }) => {
+      if (!tenant?.billingDelegation) return true;
+
+      // Billing delegation is active: credits MUST be verified.
+      // Without an ownerUserID we cannot call the API, so we fail closed
+      // instead of silently letting the session start unverified.
+      if (!ownerUserID) {
+        console.warn('Cannot verify credits: missing ownerUserID');
+        if (options?.notify) {
+          handleNotEnoughCredits(!!options.goBack);
+        } else {
+          setHasEnoughCredits(false);
+        }
+        return false;
+      }
+
+      try {
+        const resp = await getCredits({
+          operation: deepThoughtEnabled
+            ? 'dt_session_creation'
+            : 'session_creation',
+          baseUrl: baseUrl,
+          userID: ownerUserID,
+          tenant: tenantID,
+        });
+
+        if (resp.enough) {
+          setHasEnoughCredits(true);
+          return true;
+        } else {
+          console.warn('Not enough credits. Required:', resp.required);
+          if (options?.notify) {
+            handleNotEnoughCredits(!!options.goBack);
+          } else {
+            setHasEnoughCredits(false);
+          }
+          return false;
+        }
+      } catch (e) {
+        let err = e as Error;
+        console.debug(err);
+        return true;
+      }
+    },
+    [
+      baseUrl,
+      deepThoughtEnabled,
+      handleNotEnoughCredits,
+      ownerUserID,
+      tenant?.billingDelegation,
+      tenantID,
+    ]
+  );
   useEffect(() => {
     if (tenant?.billingDelegation) {
       checkCredits();
     }
-  }, [tenant?.billingDelegation, deepThoughtEnabled]);
+  }, [tenant?.billingDelegation, deepThoughtEnabled, checkCredits]);
 
   useEffect(() => {
     if (__WEBCOMPONENT__) return;

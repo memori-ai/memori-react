@@ -179,26 +179,13 @@ const FilePreview = ({
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-<<<<<<< HEAD
-=======
-                onClick={() => {
-                  if (isOfficeNativeFilename(file.name || '')) {
-                    const url = getDocumentAttachmentAssetUrl(file);
-                    if (url) {
-                      window.open(url, '_blank', 'noopener,noreferrer');
-                    }
-                  } else {
-                    setSelectedFile(file);
-                  }
-                }}
->>>>>>> 475b440a (fix: upload docx media type card opens up a link instead of a modal)
               >
                 <button
                   type="button"
                   className="memori--preview-item-trigger"
                   onClick={() => {
                     if (isOfficeNativeFilename(file.name || '')) {
-                      const url = extractAttachmentLink(file.content);
+                      const url = getDocumentAttachmentAssetUrl(file);
                       if (url) {
                         window.open(url, '_blank', 'noopener,noreferrer');
                       }
