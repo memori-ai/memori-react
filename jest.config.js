@@ -4,6 +4,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   silent: true,
+  setupFiles: ['<rootDir>/jest.polyfills.js'],
   testPathIgnorePatterns: [
     '/node_modules/',
     '/dist/',

@@ -192,3 +192,19 @@ WithPiiDetection.args = {
     }),
   },
 };
+
+export const WithLocalNats = Template.bind({});
+WithLocalNats.args = {
+  memoriName: 'test324',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'd661a9ca-e907-4396-a986-5095ccd582d6',
+  ownerUserID: '69fcc557-9cb6-4e5e-b8ab-140cff975492',
+  tenantID: 'localhost:3000',
+  engineURL: 'http://localhost:7778/memori/v2',
+  apiURL: 'http://localhost:7778/api/v2',
+  baseURL: 'http://localhost:3000',
+  layout: 'FULLPAGE',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: 'ee1c3d98-7819-4506-ba28-818e79ba86cb',
+};
