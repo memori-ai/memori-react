@@ -3,6 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   silent: true,
+  setupFiles: ['<rootDir>/jest.polyfills.js'],
   testPathIgnorePatterns: [
     '/node_modules/',
     '/dist/',

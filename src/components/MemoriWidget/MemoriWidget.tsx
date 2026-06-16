@@ -85,6 +85,12 @@ import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
+import { useNats } from '../../helpers/nats/useNats';
+import {
+  NatsProgressEvent,
+  NatsDialogResponseEvent,
+  NatsErrorEvent,
+} from '../../helpers/nats/useNatsSession';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -1966,6 +1972,30 @@ const MemoriWidget = ({
     },
     defaultEnableAudio
   );
+
+  // Additive NATS subscription, always active. Runs in parallel to the HTTP
+  // flow: postTextEnteredEvent keeps sending text and handling the synchronous
+  // response; NATS only *receives* asynchronous events on the session channel.
+  useNats({
+    baseUrl,
+    sessionId,
+    // progress -> feed the typing indicator with the latest step message.
+    onProgress: useCallback((event: NatsProgressEvent) => {
+      if (event.message) {
+        setTypingText(event.message);
+      }
+    }, []),
+    // dialog.text_entered_response -> currently logged only. The synchronous
+    // HTTP response remains the source of truth; an anti-duplication strategy
+    // (match via correlation_id/requestID) is required before rendering these
+    // live (see docs/nats-text-entered-plan.md, open points).
+    onDialogResponse: useCallback((event: NatsDialogResponseEvent) => {
+      console.debug('[NATS] dialog.text_entered_response', event);
+    }, []),
+    onError: useCallback((event: NatsErrorEvent) => {
+      console.error('[NATS] error event', event);
+    }, []),
+  });
 
   /**
    * Enhanced handleSpeak that integrates with the improved useTTS hook

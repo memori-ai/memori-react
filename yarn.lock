@@ -3220,6 +3220,7 @@ __metadata:
     "@commitlint/config-conventional": 17.3.0
     "@headlessui/react": 1.7.4
     "@memori.ai/memori-api-client": 6.22.0
+    "@nats-io/nats-core": ^3.4.0
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
     "@release-it/conventional-changelog": 5.1.1
@@ -3301,6 +3302,32 @@ __metadata:
     typescript: ">=4.8"
   languageName: unknown
   linkType: soft
+
+"@nats-io/nats-core@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@nats-io/nats-core@npm:3.4.0"
+  dependencies:
+    "@nats-io/nkeys": 2.0.3
+    "@nats-io/nuid": 3.0.0
+  checksum: f53a42c0e728ac0fa39962ec61214ad1a586d5432f1857050fc25771800cfbca1d79bc5402bce2f0807ed433687e96d3f63486d0e12250650aeabddf6a20725a
+  languageName: node
+  linkType: hard
+
+"@nats-io/nkeys@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@nats-io/nkeys@npm:2.0.3"
+  dependencies:
+    tweetnacl: ^1.0.3
+  checksum: bc00502688aad5c3f1c01b24e4828dda145a1b102f81287f9ad71745343ebce61324a555e7303d08929330a546167eb2902d1c38628189fda78373bf8c5db15a
+  languageName: node
+  linkType: hard
+
+"@nats-io/nuid@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@nats-io/nuid@npm:3.0.0"
+  checksum: c61138c7e59a092e82098be03ed0da595c8ee6cefee890de41ce49afb4f303de857afe85480f7809acf76c4797ae8facb1beffa952cbc48d7d73c654f9f92062
+  languageName: node
+  linkType: hard
 
 "@ndelangen/get-tarball@npm:^3.0.7":
   version: 3.0.9
@@ -19936,6 +19963,13 @@ __metadata:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: 1843f4c1b2e0f975e08c4c21caa4af4f7f65a12ac1b81b3b8489366826259323feb3fc7a243123453d2d1a02314205a7634e048d4a8009921da19f99755cdc48
+  languageName: node
+  linkType: hard
+
+"tweetnacl@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tweetnacl@npm:1.0.3"
+  checksum: e4a57cac188f0c53f24c7a33279e223618a2bfb5fea426231991652a13247bea06b081fd745d71291fcae0f4428d29beba1b984b1f1ce6f66b06a6d1ab90645c
   languageName: node
   linkType: hard
 
