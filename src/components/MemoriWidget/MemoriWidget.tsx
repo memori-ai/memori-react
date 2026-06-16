@@ -381,7 +381,7 @@ export interface LayoutProps {
 
 export interface Props {
   memori: Memori;
-  // ownerUserName?: string | null;
+  ownerUserName?: string | null;
   ownerUserID?: string | null;
   tenantID: string;
   memoriConfigs?: MemoriConfig[];
@@ -453,7 +453,7 @@ const MemoriWidget = ({
   memori,
   memoriConfigs,
   ownerUserID,
-  // ownerUserName,
+  ownerUserName,
   tenantID,
   memoriLang,
   uiLang,
@@ -1388,7 +1388,7 @@ const MemoriWidget = ({
       return;
     }
 
-    if (!(await checkCredits({ notify: true, goBack: true }))) {
+    if (!(await checkCredits({ notify: true }))) {
       return;
     }
 
@@ -1562,7 +1562,7 @@ const MemoriWidget = ({
         return;
       }
 
-      if (!(await checkCredits({ notify: true, goBack: true }))) {
+      if (!(await checkCredits({ notify: true }))) {
         setLoading(false);
         return null;
       }
@@ -2373,7 +2373,7 @@ const MemoriWidget = ({
         return;
       }
 
-      if (!(await checkCredits({ notify: true, goBack: true }))) {
+      if (!(await checkCredits({ notify: true }))) {
         setClickedStart(false);
         setLoading(false);
         return;
@@ -2822,29 +2822,22 @@ const MemoriWidget = ({
   // check if owner has enough credits
   const needsCredits = tenant?.billingDelegation;
   const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
-  const handleNotEnoughCredits = useCallback(
-    (goBack = false) => {
-      setHasEnoughCredits(false);
-      setAuthModalState(null);
-      toast.error(t('notEnoughCredits'));
-
-      if (goBack && window.history.length > 1) {
-        window.history.back();
-      }
-    },
-    [t]
-  );
+  const handleNotEnoughCredits = useCallback(() => {
+    setHasEnoughCredits(false);
+    setAuthModalState(null);
+    toast.error(t('notEnoughCredits'));
+  }, [t]);
   const checkCredits = useCallback(
-    async (options?: { notify?: boolean; goBack?: boolean }) => {
+    async (options?: { notify?: boolean }) => {
       if (!tenant?.billingDelegation) return true;
 
       // Billing delegation is active: credits MUST be verified.
-      // Without an ownerUserID we cannot call the API, so we fail closed
+      // Without either owner identifier we cannot call the API, so we fail closed
       // instead of silently letting the session start unverified.
-      if (!ownerUserID) {
-        console.warn('Cannot verify credits: missing ownerUserID');
+      if (!ownerUserID && !ownerUserName) {
+        console.warn('Cannot verify credits: missing owner identifier');
         if (options?.notify) {
-          handleNotEnoughCredits(!!options.goBack);
+          handleNotEnoughCredits();
         } else {
           setHasEnoughCredits(false);
         }
@@ -2858,6 +2851,7 @@ const MemoriWidget = ({
             : 'session_creation',
           baseUrl: baseUrl,
           userID: ownerUserID,
+          userName: ownerUserName,
           tenant: tenantID,
         });
 
@@ -2867,7 +2861,7 @@ const MemoriWidget = ({
         } else {
           console.warn('Not enough credits. Required:', resp.required);
           if (options?.notify) {
-            handleNotEnoughCredits(!!options.goBack);
+            handleNotEnoughCredits();
           } else {
             setHasEnoughCredits(false);
           }
@@ -2884,6 +2878,7 @@ const MemoriWidget = ({
       deepThoughtEnabled,
       handleNotEnoughCredits,
       ownerUserID,
+      ownerUserName,
       tenant?.billingDelegation,
       tenantID,
     ]
