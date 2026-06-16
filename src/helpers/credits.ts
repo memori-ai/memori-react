@@ -10,12 +10,14 @@ export const getCredits = async ({
   operation = 'session_creation',
   baseUrl,
   userID,
+  userName,
   tenant,
   characters,
 }: {
   operation?: CreditsOperation;
   baseUrl: string;
-  userID: string;
+  userID?: string | null;
+  userName?: string | null;
   tenant: string;
   characters?: number;
 }): Promise<{
@@ -23,8 +25,8 @@ export const getCredits = async ({
   required: number;
   tokens?: number;
 }> => {
-  if (!userID) {
-    throw new Error('userID must be provided');
+  if (!userID && !userName) {
+    throw new Error('Either userID or userName must be provided');
   }
   if (operation === 'import_document' && characters == null) {
     throw new Error('characters must be provided for import_document');
@@ -38,6 +40,7 @@ export const getCredits = async ({
     body: JSON.stringify({
       operation,
       userID,
+      userName,
       tenant,
       ...(operation === 'import_document' ? { characters } : {}),
     }),
