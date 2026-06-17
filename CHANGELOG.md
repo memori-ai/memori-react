@@ -1,5 +1,12 @@
 
 
+## [8.40.3](https://github.com/memori-ai/memori-react/compare/v8.40.2...v8.40.3) (2026-06-17)
+
+
+### Changes
+
+* remove unused NATS timeout logic from MemoriWidget ([895f1b1](https://github.com/memori-ai/memori-react/commit/895f1b133ff2efa59444d7306d6714167a03d0e3))
+
 ## [8.40.2](https://github.com/memori-ai/memori-react/compare/v8.40.1...v8.40.2) (2026-06-17)
 
 
