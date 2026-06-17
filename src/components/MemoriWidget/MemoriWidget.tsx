@@ -131,6 +131,10 @@ const NULL_PLACE_SPEC = {
 
 const ENTER_TEXT_NATS_TIMEOUT_MS = 120_000;
 
+const logWidgetError = (context: string, detail?: unknown) => {
+  console.error(`[MemoriWidget] ${context}`, detail ?? '');
+};
+
 /** Reads correlation id from HTTP async response (supports camelCase / snake_case). */
 function readCorrelationID(response: {
   correlationID?: string;
@@ -985,12 +989,6 @@ const MemoriWidget = ({
 
     try {
       const placeSpec = getPlaceSpecForEnterText(position);
-      console.debug('[EnterText] sendMessage: posting', {
-        sessionId: sessionID,
-        textLength: msg.length,
-        hasBatchQueued,
-        typingText,
-      });
       const response = await postEnterTextAsync({
         sessionId: sessionID,
         text: msg,
@@ -998,11 +996,6 @@ const MemoriWidget = ({
           dateUTC: DateTime.utc().toISO() ?? undefined,
         }),
         ...(placeSpec !== undefined && { place: placeSpec }),
-      });
-      console.debug('[EnterText] sendMessage: HTTP response', {
-        resultCode: response.resultCode,
-        correlationID: readCorrelationID(response),
-        resultMessage: response.resultMessage,
       });
       const correlationID = readCorrelationID(response);
       if (response.resultCode === 0 && correlationID) {
@@ -1012,20 +1005,10 @@ const MemoriWidget = ({
           useLoaderTextAsMsg,
           hasBatchQueued,
         });
-        console.info(
-          '[EnterText] sendMessage: accepted, showing typing indicator',
-          {
-            correlationID: correlationID,
-            typingText,
-          }
-        );
         setMemoriTyping(true);
         setTypingText(typingText);
       } else if (response.resultCode === 0) {
-        console.error(
-          '[EnterText] sendMessage: HTTP 200 but missing correlationID — cannot match NATS response',
-          response
-        );
+        logWidgetError('enter-text missing correlationID', response);
       } else if (response.resultCode === 404) {
         // Handle expired session
         // remove last sent message, will set it as initial
@@ -1050,7 +1033,6 @@ const MemoriWidget = ({
           undefined,
           true // isSessionExpired
         ).then(state => {
-          console.info('session timeout');
           if (state?.sessionID) {
             setTimeout(() => {
               sendMessage(text, media, state?.sessionID);
@@ -1070,12 +1052,11 @@ const MemoriWidget = ({
           },
         ]);
       } else {
-        console.warn('[SEND_MESSAGE]', response);
         return Promise.reject(response);
       }
     } catch (error) {
-      console.error('[EnterText] sendMessage: request failed', error);
       gotError = true;
+      logWidgetError('sendMessage failed', error);
 
       setTypingText(undefined);
       setMemoriTyping(false);
@@ -1092,12 +1073,6 @@ const MemoriWidget = ({
     msg?: string,
     avoidPushingMessage: boolean = false
   ) => {
-    // console.log('[TRANSLATE] Starting translation with params:', {
-    //   state,
-    //   userLang,
-    //   msg
-    // });
-
     const emission = state?.emission ?? currentDialogState?.emission;
 
     let translatedState = { ...state };
@@ -1110,7 +1085,6 @@ const MemoriWidget = ({
       !isMultilanguageEnabled ||
       avoidPushingMessage
     ) {
-      // console.log('[TRANSLATE] Skipping translation - using original emission');
       translatedState = { ...state, emission };
       if (emission) {
         translatedMsg = {
@@ -1132,12 +1106,10 @@ const MemoriWidget = ({
       }
     } else {
       try {
-        // console.log('[TRANSLATE] Translating emission');
         const t = await getTranslation(emission, userLang, language, baseUrl);
 
         // Handle hints translation if present
         if (state.hints && state.hints.length > 0) {
-          // console.log('[TRANSLATE] Translating hints');
           const translatedHints = await Promise.all(
             (state.hints ?? []).map(async hint => {
               const tHint = await getTranslation(
@@ -1169,7 +1141,6 @@ const MemoriWidget = ({
         }
 
         if (t.text.length > 0) {
-          // console.log('[TRANSLATE] Creating translated message');
           translatedMsg = {
             text: emission,
             translatedText: t.text,
@@ -1190,7 +1161,6 @@ const MemoriWidget = ({
           };
         }
       } catch (error) {
-        console.error('[TRANSLATE] Error during translation:', error);
         translatedState = { ...state, emission };
         translatedMsg = {
           text: emission,
@@ -1211,10 +1181,8 @@ const MemoriWidget = ({
       }
     }
 
-    // console.log('[TRANSLATE] Setting translated state and message');
     setCurrentDialogState(translatedState);
     if (!avoidPushingMessage && translatedMsg) {
-      // console.log('[TRANSLATE] Pushing translated message', translatedMsg);
       pushMessage(translatedMsg);
     }
 
@@ -1320,7 +1288,6 @@ const MemoriWidget = ({
     executableSnippets?.forEach(s => {
       try {
         setTimeout(() => {
-          console.log('snippet', s);
           // eslint-disable-next-line no-new-func
           new Function(s.content ?? '')();
 
@@ -1334,8 +1301,8 @@ const MemoriWidget = ({
               );
           }, 400);
         }, 1000);
-      } catch (e) {
-        console.warn(e);
+      } catch {
+        // ignore snippet execution errors
       }
     });
   };
@@ -1411,8 +1378,8 @@ const MemoriWidget = ({
         referral = (() => {
           return window.location.href;
         })();
-      } catch (err) {
-        console.debug(err);
+      } catch {
+        // ignore referral URL errors
       }
 
       // Initialize session with parameters
@@ -1464,7 +1431,6 @@ const MemoriWidget = ({
       else if (
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
-        console.warn(session);
         toast.error(t('underageTwinSession', { age: minAge }));
       }
       // Handle authentication error
@@ -1475,7 +1441,6 @@ const MemoriWidget = ({
       }
       // Handle other errors
       else {
-        console.warn(session);
         toast.error(
           tst => (
             <div>
@@ -1497,7 +1462,7 @@ const MemoriWidget = ({
         return session;
       }
     } catch (err) {
-      console.error(err);
+      logWidgetError('fetchSession failed', err);
     }
   };
 
@@ -1536,12 +1501,10 @@ const MemoriWidget = ({
       undefined
     );
     let userBirthDate = birthDate ?? storageBirthDate;
-    // console.log('[REOPEN_SESSION] Using birth date:', userBirthDate);
 
     try {
       // Show age verification if required and birth date not provided
       if (!userBirthDate && !!minAge) {
-        // console.log('[REOPEN_SESSION] Age verification required, showing modal');
         setShowAgeVerification(true);
         return;
       }
@@ -1555,7 +1518,6 @@ const MemoriWidget = ({
         !recoveryTokens &&
         !memoriTokens
       ) {
-        // console.log('[REOPEN_SESSION] Authentication required, showing modal');
         setAuthModalState('password');
         return;
       }
@@ -1571,13 +1533,11 @@ const MemoriWidget = ({
         referral = (() => {
           return window.location.href;
         })();
-        // console.log('[REOPEN_SESSION] Got referral:', referral);
-      } catch (err) {
-        console.debug('[REOPEN_SESSION] Error getting referral:', err);
+      } catch {
+        // ignore referral URL errors
       }
 
       // Initialize session with provided parameters
-      // console.log('[REOPEN_SESSION] Initializing session...');
       const { sessionID, currentState, ...response } = await initSession({
         memoriID: memori.engineMemoriID ?? '',
         password: password || memoriPwd || memori.secretToken,
@@ -1614,22 +1574,13 @@ const MemoriWidget = ({
 
       // Handle successful session initialization
       if (sessionID && currentState && response.resultCode === 0) {
-        console.log(
-          '[REOPEN_SESSION] Session initialized successfully:',
-          sessionID
-        );
         setSessionId(sessionID);
 
         // Update dialog state and history if requested
         if (updateDialogState) {
-          // console.log('[REOPEN_SESSION] Updating dialog state');
           setCurrentDialogState(currentState);
 
           if (currentState.emission) {
-            console.log(
-              '[REOPEN_SESSION] Processing emission:',
-              currentState.emission
-            );
             // Determine initial status message based on context
             // Show status message only if session expired and there's existing history
             const initialStatus =
@@ -1690,7 +1641,6 @@ const MemoriWidget = ({
       else if (
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
-        console.error('[REOPEN_SESSION] Age restriction error:', response);
         toast.error(t('underageTwinSession', { age: minAge }));
       }
       // Handle authentication error
@@ -1698,17 +1648,15 @@ const MemoriWidget = ({
         response?.resultCode === 403 &&
         memori.privacyType !== 'PUBLIC'
       ) {
-        console.error('[REOPEN_SESSION] Authentication error');
         setMemoriPwd(undefined);
         setAuthModalState('password');
       }
       // Handle other errors
       else {
-        console.error('[REOPEN_SESSION] Other error:', response);
         toast.error(t(getErrori18nKey(response.resultCode)));
       }
     } catch (err) {
-      console.error('[REOPEN_SESSION] Caught error:', err);
+      logWidgetError('reopenSession failed', err);
     }
     // Reset loading state
     setLoading(false);
@@ -1723,7 +1671,6 @@ const MemoriWidget = ({
     pin?: string
   ) => {
     if (!memoriId || !sessionId) {
-      console.error('CHANGETAG/Session not found');
       return Promise.reject('Session not found');
     }
 
@@ -1763,7 +1710,6 @@ const MemoriWidget = ({
             };
           }
         } else if ([400, 401, 403, 404, 500].includes(resultCode)) {
-          console.warn('[APPCONTEXT/CHANGETAG]', resultCode);
           let storageBirthDate = getLocalConfig<string | undefined>(
             'birthDate',
             undefined
@@ -1774,8 +1720,8 @@ const MemoriWidget = ({
             referral = (() => {
               return window.location.href;
             })();
-          } catch (err) {
-            console.debug(err);
+          } catch {
+            // ignore referral URL errors
           }
 
           fetchSession({
@@ -1817,7 +1763,6 @@ const MemoriWidget = ({
       }
     } catch (_e) {
       let err = _e as Error;
-      console.warn('[APPCONTEXT/CHANGETAG]', err);
       return Promise.reject(err);
     }
 
@@ -1856,8 +1801,6 @@ const MemoriWidget = ({
    */
   const [requestedListening, setRequestedListening] = useState(false);
   const startListeningRef = useRef<(() => Promise<void>) | null>(null);
-
-  // console.log('tenantID', tenantID);
 
   // Define TTS configuration
   const ttsConfig = useMemo(
@@ -1913,7 +1856,6 @@ const MemoriWidget = ({
       'muteSpeaker',
       !defaultEnableAudio
     );
-    console.log('[MemoriWidget] shouldPlayAudio', currentSpeakerMuted);
     return (
       text &&
       text.trim() &&
@@ -1925,7 +1867,6 @@ const MemoriWidget = ({
 
   // Create a single, centralized function to process and send messages
   const processSpeechAndSendMessage = (text: string) => {
-    // console.log('processSpeechAndSendMessage', text);
     // Skip if already processing or no text
     if (!text || text.trim().length === 0) {
       return;
@@ -1934,17 +1875,15 @@ const MemoriWidget = ({
     try {
       // Process the text
       const message = stripDuplicates(text);
-      console.debug('Processing speech message:', message);
 
       if (message.length > 0) {
         setUserMessage('');
 
         // Send the message
-        console.debug('Sending message:', message);
         sendMessage(message);
       }
-    } catch (error) {
-      console.error('Error in processSpeechAndSendMessage:', error);
+    } catch {
+      // ignore speech processing errors
     }
   };
 
@@ -2027,8 +1966,7 @@ const MemoriWidget = ({
         }
 
         return translatedState;
-      } catch (error) {
-        console.error('Error in translateAndSpeak:', error);
+      } catch {
         // Still update activation state even if there's an error
         if (!hasUserActivatedSpeak) {
           setHasUserActivatedSpeak(true);
@@ -2047,12 +1985,6 @@ const MemoriWidget = ({
 
   const processEnterTextDialogResponse = useCallback(
     (event: NatsDialogResponseEvent, pending: PendingEnterText) => {
-      console.debug('[EnterText] processDialogResponse', {
-        correlationID: event.correlationID,
-        resultCode: event.resultCode,
-        hasCurrentState: !!event.currentState,
-        hasBatchQueued: pending.hasBatchQueued,
-      });
       const {
         msg,
         typingText: pendingTypingText,
@@ -2062,10 +1994,6 @@ const MemoriWidget = ({
 
       if (event.resultCode !== 0 || !currentState) {
         if (event.resultCode === 500 && event.resultMessage) {
-          console.warn('[EnterText] processDialogResponse: server error', {
-            correlationID: event.correlationID,
-            resultMessage: event.resultMessage,
-          });
           setHistory(h => [
             ...h,
             {
@@ -2077,16 +2005,11 @@ const MemoriWidget = ({
               date: new Date().toISOString(),
             },
           ]);
-        } else if (event.resultCode !== 0) {
-          console.warn('[SEND_MESSAGE/NATS]', event);
         }
         return;
       }
 
       if (!msg) {
-        console.debug(
-          '[EnterText] processDialogResponse: no msg in pending, skipping'
-        );
         return;
       }
 
@@ -2095,12 +2018,6 @@ const MemoriWidget = ({
         useLoaderTextAsMsg && pendingTypingText
           ? pendingTypingText
           : currentState.emission ?? currentDialogState?.emission;
-
-      console.debug('[EnterText] processDialogResponse: rendering emission', {
-        correlationID: event.correlationID,
-        emissionPreview: emission?.slice(0, 80),
-        state: currentState.state,
-      });
 
       if (
         userLang.toLowerCase() !== language.toLowerCase() &&
@@ -2178,12 +2095,6 @@ const MemoriWidget = ({
         ? `Error: ${event.errorCode}`
         : 'Error: An unexpected error occurred';
 
-      console.error('[EnterText] NATS error event', {
-        correlationID,
-        errorCode: event.errorCode,
-        errorMessage: event.errorMessage,
-      });
-
       pushMessage({
         text: errorText,
         emitter: 'system',
@@ -2213,19 +2124,6 @@ const MemoriWidget = ({
     (correlationID: string, event: NatsDialogResponseEvent) => {
       const pending = pendingEnterTextRef.current.get(correlationID);
       if (!pending) {
-        const pendingCorrelationIDs = [...pendingEnterTextRef.current.keys()];
-        console.warn(
-          '[EnterText] NATS response buffered (no matching pending)',
-          {
-            receivedCorrelationID: correlationID,
-            resultCode: event.resultCode,
-            pendingCorrelationIDs,
-            hint:
-              pendingCorrelationIDs.length > 0
-                ? 'Use one of pendingCorrelationIDs in your nats pub correlation_id'
-                : 'Send a message in the widget first, then copy correlationID from HTTP response logs',
-          }
-        );
         bufferedNatsResponsesRef.current.set(correlationID, event);
         return;
       }
@@ -2233,10 +2131,6 @@ const MemoriWidget = ({
       clearEnterTextPending(correlationID, pending);
 
       if (pending.waitForResponse) {
-        console.info('[EnterText] NATS response delivered to waiter', {
-          correlationID,
-          resultCode: event.resultCode,
-        });
         pending.waitForResponse.resolve(event);
         setMemoriTyping(false);
         setTypingText(undefined);
@@ -2246,13 +2140,8 @@ const MemoriWidget = ({
       processEnterTextDialogResponse(event, pending);
 
       if (!pending.hasBatchQueued) {
-        console.info('[EnterText] typing indicator cleared', { correlationID });
         setMemoriTyping(false);
         setTypingText(undefined);
-      } else {
-        console.debug('[EnterText] typing kept (batch queued)', {
-          correlationID,
-        });
       }
     },
     [processEnterTextDialogResponse, clearEnterTextPending]
@@ -2262,10 +2151,6 @@ const MemoriWidget = ({
     (correlationID: string, pending: PendingEnterText) => {
       const buffered = bufferedNatsResponsesRef.current.get(correlationID);
       if (buffered) {
-        console.info('[EnterText] replaying buffered NATS response', {
-          correlationID,
-          waitForResponse: !!pending.waitForResponse,
-        });
         bufferedNatsResponsesRef.current.delete(correlationID);
         pendingEnterTextRef.current.set(correlationID, pending);
         deliverEnterTextNatsResponse(correlationID, buffered);
@@ -2277,7 +2162,7 @@ const MemoriWidget = ({
           const current = pendingEnterTextRef.current.get(correlationID);
           if (!current) return;
           clearEnterTextPending(correlationID, current);
-          console.error('[EnterText] NATS response timeout', {
+          logWidgetError('NATS timeout', {
             correlationID,
             timeoutMs: ENTER_TEXT_NATS_TIMEOUT_MS,
           });
@@ -2291,11 +2176,6 @@ const MemoriWidget = ({
         }, ENTER_TEXT_NATS_TIMEOUT_MS);
       }
 
-      console.debug('[EnterText] pending registered', {
-        correlationID,
-        waitForResponse: !!pending.waitForResponse,
-        hasBatchQueued: pending.hasBatchQueued,
-      });
       pendingEnterTextRef.current.set(correlationID, pending);
     },
     [deliverEnterTextNatsResponse, clearEnterTextPending]
@@ -2304,19 +2184,12 @@ const MemoriWidget = ({
   const waitForEnterTextNatsResponse = useCallback(
     (correlationID: string, timeoutMs = 120000) =>
       new Promise<NatsDialogResponseEvent>((resolve, reject) => {
-        console.debug('[EnterText] waiting for NATS response', {
-          correlationID,
-          timeoutMs,
-        });
         const timeoutId = setTimeout(() => {
           const current = pendingEnterTextRef.current.get(correlationID);
           if (current) {
             clearEnterTextPending(correlationID, current);
           }
-          console.error('[EnterText] NATS response timeout', {
-            correlationID,
-            timeoutMs,
-          });
+          logWidgetError('NATS timeout', { correlationID, timeoutMs });
           reject(new Error('NATS enter-text response timeout'));
         }, timeoutMs);
 
@@ -2342,12 +2215,6 @@ const MemoriWidget = ({
     baseUrl,
     sessionId,
     onProgress: useCallback((event: NatsProgressEvent) => {
-      console.debug('[EnterText] NATS progress', {
-        correlationID: event.correlationID,
-        step: event.currentStep,
-        finalStep: event.finalStep,
-        message: event.message,
-      });
       if (event.message) {
         setTypingText(event.message);
       }
@@ -2355,19 +2222,8 @@ const MemoriWidget = ({
     onDialogResponse: useCallback(
       (event: NatsDialogResponseEvent) => {
         const correlationID = event.correlationID;
-        console.debug(
-          '[EnterText] NATS dialog.text_entered_response received',
-          {
-            correlationID,
-            resultCode: event.resultCode,
-            requestID: event.requestID,
-          }
-        );
         if (!correlationID) {
-          console.warn(
-            '[EnterText] dialog_text_entered_response without correlationID',
-            event
-          );
+          logWidgetError('NATS dialog response missing correlationID', event);
           setMemoriTyping(false);
           setTypingText(undefined);
           return;
@@ -2408,8 +2264,8 @@ const MemoriWidget = ({
       setClickedStart(false);
       timeoutRef.current = undefined;
       ttsStop();
-    } catch (e) {
-      // console.log('Error: resetUIEffects', e);
+    } catch {
+      // ignore reset errors
     }
   };
   useEffect(() => {
@@ -2673,12 +2529,6 @@ const MemoriWidget = ({
       chatLog?: ChatLog,
       targetSessionID?: string
     ) => {
-      // console.log('[onClickStart] Starting with params:', {
-      //   session,
-      //   initialSessionExpired,
-      //   chatLog
-      // });
-
       const sessionID = chatLog ? undefined : session?.sessionID || sessionId;
       const dialogState = chatLog
         ? undefined
@@ -2829,8 +2679,8 @@ const MemoriWidget = ({
                     };
                   })
                 );
-              } catch (e) {
-                console.error('[onClickStart] Error translating messages:', e);
+              } catch {
+                // ignore translation errors
               }
             }
 
@@ -2897,8 +2747,7 @@ const MemoriWidget = ({
             } else {
               throw new Error('No session');
             }
-          } catch (e) {
-            console.error('[onClickStart] Error changing tag:', e);
+          } catch {
             reopenSession(
               true,
               memori?.secretToken,
@@ -3010,14 +2859,14 @@ const MemoriWidget = ({
                     ).text,
                   }))
                 );
-              } catch (e) {
-                console.error('[onClickStart] Error translating messages:', e);
+              } catch {
+                // ignore translation errors
               }
             }
 
             setHistory(translatedMessages);
-          } catch (e) {
-            console.error('[onClickStart] Error retrieving chat logs:', e);
+          } catch {
+            // ignore chat log retrieval errors
           }
 
           if (
@@ -3036,19 +2885,12 @@ const MemoriWidget = ({
               !!translatedMessages?.length
             );
           } else {
-            console.log('[onClickStart] Starting with initial question');
             // remove default initial message
             translatedMessages = [];
             setHistory([]);
 
             // we have no chat history, we start by initial question
             const placeSpec = getPlaceSpecForEnterText(position);
-            console.debug(
-              '[EnterText] onClickStart: posting initial question',
-              {
-                sessionId: sessionID,
-              }
-            );
             const response = await postEnterTextAsync({
               sessionId: sessionID!,
               text: initialQuestion,
@@ -3057,11 +2899,6 @@ const MemoriWidget = ({
               }),
               ...(placeSpec !== undefined && { place: placeSpec }),
             });
-            console.debug('[EnterText] onClickStart: HTTP response', {
-              resultCode: response.resultCode,
-              correlationID: readCorrelationID(response),
-            });
-
             // Handle 500 error from EnterTextAsync
             if (response.resultCode === 500 && response.resultMessage) {
               setHistory(h => [
@@ -3080,23 +2917,10 @@ const MemoriWidget = ({
 
             const onClickStartCorrelationID = readCorrelationID(response);
             if (response.resultCode === 0 && onClickStartCorrelationID) {
-              console.info(
-                '[EnterText] onClickStart: accepted, showing typing indicator',
-                {
-                  correlationID: onClickStartCorrelationID,
-                }
-              );
               setMemoriTyping(true);
               try {
                 const natsEvent = await waitForEnterTextNatsResponse(
                   onClickStartCorrelationID
-                );
-                console.info(
-                  '[EnterText] onClickStart: NATS response received',
-                  {
-                    correlationID: onClickStartCorrelationID,
-                    resultCode: natsEvent.resultCode,
-                  }
                 );
                 if (natsEvent.resultCode === 0 && natsEvent.currentState) {
                   await translateAndSpeak(
@@ -3107,16 +2931,13 @@ const MemoriWidget = ({
                   );
                   setClickedStart(false);
                 }
-              } catch (e) {
-                console.error('[EnterText] onClickStart: NATS wait failed', e);
+              } catch (err) {
+                logWidgetError('onClickStart NATS wait failed', err);
                 setMemoriTyping(false);
                 setTypingText(undefined);
               }
             } else if (response.resultCode === 0) {
-              console.error(
-                '[EnterText] onClickStart: HTTP 200 but missing correlationID',
-                response
-              );
+              logWidgetError('onClickStart enter-text missing correlationID', response);
             }
           }
         }
@@ -3201,11 +3022,9 @@ const MemoriWidget = ({
 
       if (resp.resultCode === 0) {
         setExperts(experts);
-      } else {
-        console.warn('Error fetching experts', resp);
       }
-    } catch (err) {
-      console.warn(err);
+    } catch {
+      // ignore expert fetch errors
     }
   }, [sessionId, memori?.enableBoardOfExperts]);
   useEffect(() => {
@@ -3234,7 +3053,6 @@ const MemoriWidget = ({
       // Without either owner identifier we cannot call the API, so we fail closed
       // instead of silently letting the session start unverified.
       if (!ownerUserID && !ownerUserName) {
-        console.warn('Cannot verify credits: missing owner identifier');
         if (options?.notify) {
           handleNotEnoughCredits();
         } else {
@@ -3258,7 +3076,6 @@ const MemoriWidget = ({
           setHasEnoughCredits(true);
           return true;
         } else {
-          console.warn('Not enough credits. Required:', resp.required);
           if (options?.notify) {
             handleNotEnoughCredits();
           } else {
@@ -3266,9 +3083,8 @@ const MemoriWidget = ({
           }
           return false;
         }
-      } catch (e) {
-        let err = e as Error;
-        console.debug(err);
+      } catch (err) {
+        logWidgetError('checkCredits failed', err);
         return true;
       }
     },
