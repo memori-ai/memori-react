@@ -2903,6 +2903,7 @@ const MemoriWidget = ({
             await translateAndSpeak(session.dialogState, userLang);
             // No need for additional handleSpeak call since translateAndSpeak already handles it
             setHasUserActivatedSpeak(true);
+            setClickedStart(false);
           } else {
             const messages = chatLog.lines.map(
               (l, i) =>
@@ -2964,6 +2965,7 @@ const MemoriWidget = ({
               true
             ).finally(() => {
               setHasUserActivatedSpeak(true);
+              setClickedStart(false);
             });
           }
           } else if (session?.resultCode === 0) {
@@ -2988,7 +2990,6 @@ const MemoriWidget = ({
         if (response.resultCode !== 0 || !currentState) {
           const { chatLogs } = await getSessionChatLogs(sessionID!, sessionID!);
           setSessionId(undefined);
-          setClickedStart(false);
           await onClickStart(undefined, true, chatLogs?.[0]);
           return;
         }
@@ -3014,6 +3015,7 @@ const MemoriWidget = ({
 
             if (session && session.resultCode === 0) {
               await translateAndSpeak(session.currentState, userLang);
+              setClickedStart(false);
             } else {
               throw new Error('No session');
             }
@@ -3037,6 +3039,7 @@ const MemoriWidget = ({
               birth
             ).then(() => {
               setHasUserActivatedSpeak(true);
+              setClickedStart(false);
             });
           }
         }
@@ -3059,6 +3062,7 @@ const MemoriWidget = ({
 
             if (session && session.resultCode === 0) {
               await translateAndSpeak(session.currentState, userLang);
+              setClickedStart(false);
             } else {
               throw new Error('No session');
             }
@@ -3081,6 +3085,7 @@ const MemoriWidget = ({
               birth
             ).then(() => {
               setHasUserActivatedSpeak(true);
+              setClickedStart(false);
             });
           }
         }
@@ -3143,6 +3148,7 @@ const MemoriWidget = ({
           ) {
             // we have a history, don't push message
             setHasUserActivatedSpeak(true);
+            setClickedStart(false);
             await translateAndSpeak(
               currentState,
               userLang,
@@ -3221,6 +3227,7 @@ const MemoriWidget = ({
                     undefined,
                     false
                   );
+                  setClickedStart(false);
                 }
               } catch (e) {
                 console.error('[EnterText] onClickStart: NATS wait failed', e);
@@ -3243,6 +3250,7 @@ const MemoriWidget = ({
 
         // everything is fine, just translate dialog state and activate chat
         await translateAndSpeak(dialogState!, userLang);
+        setClickedStart(false);
       }
     },
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
@@ -3262,6 +3270,7 @@ const MemoriWidget = ({
     if (
       !clickedStart &&
       !sessionStartingRef.current &&
+      !sessionId &&
       autoStart &&
       selectedLayout !== 'HIDDEN_CHAT'
     ) {
