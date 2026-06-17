@@ -129,8 +129,6 @@ const NULL_PLACE_SPEC = {
   uncertaintyKm: null,
 } as const;
 
-const ENTER_TEXT_NATS_TIMEOUT_MS = 120_000;
-
 const logWidgetError = (context: string, detail?: unknown) => {
   console.error(`[MemoriWidget] ${context}`, detail ?? '');
 };
@@ -653,7 +651,6 @@ const MemoriWidget = ({
     typingText?: string;
     useLoaderTextAsMsg?: boolean;
     hasBatchQueued?: boolean;
-    natsTimeoutId?: ReturnType<typeof setTimeout>;
     waitForResponse?: {
       resolve: (event: NatsDialogResponseEvent) => void;
       reject: (error: Error) => void;
@@ -2075,9 +2072,6 @@ const MemoriWidget = ({
 
   const clearEnterTextPending = useCallback(
     (correlationID: string, pending: PendingEnterText) => {
-      if (pending.natsTimeoutId) {
-        clearTimeout(pending.natsTimeoutId);
-      }
       if (pending.waitForResponse?.timeoutId) {
         clearTimeout(pending.waitForResponse.timeoutId);
       }
@@ -2157,28 +2151,9 @@ const MemoriWidget = ({
         return;
       }
 
-      if (!pending.waitForResponse && !pending.natsTimeoutId) {
-        pending.natsTimeoutId = setTimeout(() => {
-          const current = pendingEnterTextRef.current.get(correlationID);
-          if (!current) return;
-          clearEnterTextPending(correlationID, current);
-          logWidgetError('NATS timeout', {
-            correlationID,
-            timeoutMs: ENTER_TEXT_NATS_TIMEOUT_MS,
-          });
-          if (!current.hasBatchQueued) {
-            setMemoriTyping(false);
-            setTypingText(undefined);
-          }
-          current.waitForResponse?.reject(
-            new Error('NATS enter-text response timeout')
-          );
-        }, ENTER_TEXT_NATS_TIMEOUT_MS);
-      }
-
       pendingEnterTextRef.current.set(correlationID, pending);
     },
-    [deliverEnterTextNatsResponse, clearEnterTextPending]
+    [deliverEnterTextNatsResponse]
   );
 
   const waitForEnterTextNatsResponse = useCallback(
