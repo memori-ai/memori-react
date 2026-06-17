@@ -71,6 +71,26 @@ function readNumber(
 }
 
 /**
+ * Unwraps the `currentState` of a `dialog_text_entered_response`.
+ *
+ * The async (NATS) response wraps the dialog state one level deeper than the
+ * synchronous HTTP response: `currentState` is a `ResponseSpec` that *contains*
+ * the actual `DialogState` under a nested `currentState` key. We unwrap it so
+ * downstream consumers always receive the `DialogState` directly, while still
+ * accepting the already-flat shape for backward compatibility.
+ */
+function unwrapDialogState(value: unknown): unknown {
+  if (
+    value &&
+    typeof value === 'object' &&
+    'currentState' in (value as Record<string, unknown>)
+  ) {
+    return (value as Record<string, unknown>).currentState;
+  }
+  return value;
+}
+
+/**
  * Normalizes raw NATS payloads (snake_case or camelCase) into typed events.
  */
 export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEvent {
@@ -102,7 +122,7 @@ export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEve
         typeof raw.resultCode === 'number' ? raw.resultCode : undefined,
       resultMessage:
         typeof raw.resultMessage === 'string' ? raw.resultMessage : undefined,
-      currentState: raw.currentState,
+      currentState: unwrapDialogState(raw.currentState),
       correlationID,
     };
   }
