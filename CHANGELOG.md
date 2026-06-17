@@ -1,5 +1,12 @@
 
 
+## [8.40.1](https://github.com/memori-ai/memori-react/compare/v8.40.0...v8.40.1) (2026-06-17)
+
+
+### Features
+
+* add session management improvements in MemoriWidget ([a055776](https://github.com/memori-ai/memori-react/commit/a05577666d53c5ee8becf51954f6abdf9f2bd864))
+
 ## [8.40.0](https://github.com/memori-ai/memori-react/compare/v8.39.0...v8.40.0) (2026-06-17)
 
 
