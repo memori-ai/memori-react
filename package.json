@@ -301,7 +301,7 @@
     "typescript": ">=4.8"
   },
   "dependencies": {
-    "@memori.ai/memori-api-client": "6.22.0",
+    "@memori.ai/memori-api-client": "6.24.1",
     "@memori.ai/ui": "^1.16.1",
     "@nats-io/nats-core": "^3.4.0",
     "@react-three/drei": "8.20.2",
