@@ -8,10 +8,9 @@ import Spin from '../ui/Spin';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
-
 const meta: Meta = {
   title: 'General/Layouts',
-  component: (args: Props) => <Memori {...args}    />,
+  component: (args: Props) => <Memori {...args} />,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
@@ -20,7 +19,6 @@ const meta: Meta = {
 };
 
 export default meta;
-
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
@@ -55,14 +53,10 @@ DefaultLayout.args = {
   showMessageConsumption: true,
 };
 
-
-
 export const Default = Template.bind({});
 Default.args = {
   ...DefaultLayout.args,
 };
-
-
 
 export const Totem = Template.bind({});
 Totem.args = {
@@ -154,22 +148,21 @@ WebsiteAssistant2.args = {
 
 export const WebsiteAssistant3 = Template.bind({});
 WebsiteAssistant3.args = {
-  memoriName: "Layout Storybook",
-  ownerUserName: "Andrea-Patini",
-  memoriID: "ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e",
-  ownerUserID: "91dbc9ba-b684-4fbe-9828-b5980af6cda9",
-  tenantID: "aisuru-staging.aclambda.online",
-  engineURL: "https://engine-staging.memori.ai/memori/v2",
-  apiURL: "https://backend-staging.memori.ai/api/v2",
-  baseURL: "http://localhost:3000",
-  layout: "WEBSITE_ASSISTANT",
+  memoriName: 'Layout Storybook',
+  ownerUserName: 'Andrea-Patini',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  baseURL: 'http://localhost:3000',
+  layout: 'WEBSITE_ASSISTANT',
   avatar3dHidden: true,
-  uiLang: "IT",
-  spokenLang: "IT",
+  uiLang: 'IT',
+  spokenLang: 'IT',
   showOnlyLastMessages: true,
-  integrationID: "716f4728-919c-4015-aae1-88998a081c6f",
+  integrationID: '716f4728-919c-4015-aae1-88998a081c6f',
 };
-
 
 export const WebsiteAssistant = Template.bind({});
 WebsiteAssistant.args = {
@@ -203,7 +196,8 @@ WebsiteAssistant.args = {
       innerBgAlpha: 0.8,
       multilanguage: true,
       avatar: 'readyplayerme',
-      avatarURL: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+      avatarURL:
+        'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
     }),
   },
 };
@@ -228,17 +222,17 @@ HiddenChat.args = {
 export const ZoomedFullBody = Template.bind({});
 ZoomedFullBody.args = {
   ...DefaultLayout.args,
-  memoriName: "Layout Storybook",
-  ownerUserName: "Andrea-Patini",
-  memoriID: "ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e",
-  ownerUserID: "91dbc9ba-b684-4fbe-9828-b5980af6cda9",
-  tenantID: "aisuru-staging.aclambda.online",
-  engineURL: "https://engine-staging.memori.ai/memori/v2",
-  apiURL: "https://backend-staging.memori.ai/api/v2",
-  baseURL: "http://localhost:3000",
-  layout: "FULLPAGE",
-  uiLang: "IT",
-  spokenLang: "IT",
-  integrationID: "32922e14-24d6-4f5f-a06b-d963da14a658",
-  showSettings: true
+  memoriName: 'Layout Storybook',
+  ownerUserName: 'Andrea-Patini',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  baseURL: 'http://localhost:3000',
+  layout: 'FULLPAGE',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: '32922e14-24d6-4f5f-a06b-d963da14a658',
+  showSettings: true,
 };

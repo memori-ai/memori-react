@@ -22,7 +22,6 @@ export default meta;
 
 const Template: Story<Props> = args => <Memori {...args} />;
 
-
 export const WithInitialContextAndQuestion = Template.bind({});
 WithInitialContextAndQuestion.args = {
   ownerUserName: 'nzambello',
@@ -150,7 +149,8 @@ const piiDetectionConfig = {
     {
       id: 'iban',
       label: { it: 'IBAN', en: 'IBAN' },
-      pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
+      pattern:
+        '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: {
         it: 'Il messaggio contiene un codice IBAN.',
         en: 'The message contains an IBAN code.',
@@ -185,4 +185,20 @@ WithPiiDetection.args = {
       lang: 'it',
     }),
   },
+};
+
+export const WithLocalNats = Template.bind({});
+WithLocalNats.args = {
+  memoriName: 'test324',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'd661a9ca-e907-4396-a986-5095ccd582d6',
+  ownerUserID: '69fcc557-9cb6-4e5e-b8ab-140cff975492',
+  tenantID: 'localhost:3000',
+  engineURL: 'http://localhost:7778/memori/v2',
+  apiURL: 'http://localhost:7778/api/v2',
+  baseURL: 'http://localhost:3000',
+  layout: 'FULLPAGE',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: 'ee1c3d98-7819-4506-ba28-818e79ba86cb',
 };
