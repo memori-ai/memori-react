@@ -1,5 +1,22 @@
 
 
+## [8.40.2](https://github.com/memori-ai/memori-react/compare/v8.40.1...v8.40.2) (2026-06-17)
+
+
+### Features
+
+* add unwrapDialogState function to handle nested currentState in NATS responses ([a6fcafc](https://github.com/memori-ai/memori-react/commit/a6fcafc7f000946baac6bb12e5f37972a956e828))
+
+
+### Bug Fixes
+
+* reset clickedStart state in multiple scenarios within MemoriWidget ([a34ed85](https://github.com/memori-ai/memori-react/commit/a34ed853504a107b1096c8e82be64b97cdb30ede))
+
+
+### Changes
+
+* improve error logging and clean up debug statements in MemoriWidget ([372b09a](https://github.com/memori-ai/memori-react/commit/372b09ac584aab552f5f1a7cde6258fef2a5493c))
+
 ## [8.40.1](https://github.com/memori-ai/memori-react/compare/v8.40.0...v8.40.1) (2026-06-17)
 
 
