@@ -121,13 +121,23 @@ const getMemoriState = (integrationId?: string): object | null => {
   };
 };
 
-/** Place spec with all nulls for postTextEnteredEvent when position is not set or user chose "I don't want to provide my position". */
+/** Place spec with all nulls for postEnterTextAsync when position is not set or user chose "I don't want to provide my position". */
 const NULL_PLACE_SPEC = {
   placeName: null,
   latitude: null,
   longitude: null,
   uncertaintyKm: null,
 } as const;
+
+const ENTER_TEXT_NATS_TIMEOUT_MS = 120_000;
+
+/** Reads correlation id from HTTP async response (supports camelCase / snake_case). */
+function readCorrelationID(response: {
+  correlationID?: string;
+}): string | undefined {
+  const value = response.correlationID;
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
 
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
@@ -527,6 +537,7 @@ const MemoriWidget = ({
   const {
     initSession,
     deleteSession,
+    postEnterTextAsync,
     postTextEnteredEvent,
     postPlaceChangedEvent,
     postDateChangedEvent,
@@ -631,6 +642,23 @@ const MemoriWidget = ({
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
+
+  type PendingEnterText = {
+    msg?: string;
+    typingText?: string;
+    useLoaderTextAsMsg?: boolean;
+    hasBatchQueued?: boolean;
+    natsTimeoutId?: ReturnType<typeof setTimeout>;
+    waitForResponse?: {
+      resolve: (event: NatsDialogResponseEvent) => void;
+      reject: (error: Error) => void;
+      timeoutId: ReturnType<typeof setTimeout>;
+    };
+  };
+  const pendingEnterTextRef = useRef<Map<string, PendingEnterText>>(new Map());
+  const bufferedNatsResponsesRef = useRef<Map<string, NatsDialogResponseEvent>>(
+    new Map()
+  );
 
   // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
   const layoutName =
@@ -789,7 +817,7 @@ const MemoriWidget = ({
     return Object.keys(place).length > 0 ? place : undefined;
   }, []);
 
-  /** Place to send with postTextEnteredEvent: real place, nulls when no/declined position, or undefined when position not needed. */
+  /** Place to send with postEnterTextAsync: real place, nulls when no/declined position, or undefined when position not needed. */
   const getPlaceSpecForEnterText = useCallback(
     (venue: Venue | undefined) => {
       if (!memori.needsPosition) return undefined;
@@ -951,27 +979,18 @@ const MemoriWidget = ({
           : !!newSessionId,
       });
 
-    // Show typing indicator
-    setMemoriTyping(true);
-    setTypingText(typingText);
-
+    // Show typing indicator after the async enter-text request is accepted (HTTP 200).
     let gotError = false;
 
     try {
-      // Add chat reference link to the message if it exists
-      // if (chatLogID) {
-      //   msg =
-      //     msg +
-      //     ' \n\n' +
-      //     '<chat-reference session-id="' +
-      //     sessionID +
-      //     '" event-log-id="' +
-      //     chatLogID +
-      //     '"></chat-reference>';
-      // }
-
       const placeSpec = getPlaceSpecForEnterText(position);
-      const { currentState, ...response } = await postTextEnteredEvent({
+      console.debug('[EnterText] sendMessage: posting', {
+        sessionId: sessionID,
+        textLength: msg.length,
+        hasBatchQueued,
+        typingText,
+      });
+      const response = await postEnterTextAsync({
         sessionId: sessionID,
         text: msg,
         ...(memori.needsDateTime && {
@@ -979,55 +998,33 @@ const MemoriWidget = ({
         }),
         ...(placeSpec !== undefined && { place: placeSpec }),
       });
-      if (response.resultCode === 0 && currentState) {
-        setChatLogID(undefined);
-        const emission =
-          useLoaderTextAsMsg && typingText
-            ? typingText
-            : currentState.emission ?? currentDialogState?.emission;
-
-        if (
-          userLang.toLowerCase() !== language.toLowerCase() &&
-          emission &&
-          isMultilanguageEnabled
-        ) {
-          currentState.emission = emission;
-
-          translateDialogState(currentState, userLang, msg).then(ts => {
-            let text = ts.translatedEmission || ts.emission;
-            if (text && shouldPlayAudio(text)) {
-              handleSpeak(text);
-            }
-          });
-        } else {
-          setCurrentDialogState({
-            ...currentState,
-            emission,
-          });
-
-          if (emission) {
-            pushMessage({
-              text: emission,
-              emitter: currentState.emitter,
-              media: currentState.emittedMedia ?? currentState.media,
-              llmUsage: (currentState as any).llmUsage,
-              fromUser: false,
-              questionAnswered: msg,
-              generatedByAI: !!currentState.completion,
-              contextVars: currentState.contextVars,
-              date: currentState.currentDate,
-              placeName: currentState.currentPlaceName,
-              placeLatitude: currentState.currentLatitude,
-              placeLongitude: currentState.currentLongitude,
-              placeUncertaintyKm: currentState.currentUncertaintyKm,
-              tag: currentState.currentTag,
-              memoryTags: currentState.memoryTags,
-            } as any);
-            if (emission && shouldPlayAudio(emission)) {
-              handleSpeak(emission);
-            }
+      console.debug('[EnterText] sendMessage: HTTP response', {
+        resultCode: response.resultCode,
+        correlationID: readCorrelationID(response),
+        resultMessage: response.resultMessage,
+      });
+      const correlationID = readCorrelationID(response);
+      if (response.resultCode === 0 && correlationID) {
+        registerPendingEnterText(correlationID, {
+          msg,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+        });
+        console.info(
+          '[EnterText] sendMessage: accepted, showing typing indicator',
+          {
+            correlationID: correlationID,
+            typingText,
           }
-        }
+        );
+        setMemoriTyping(true);
+        setTypingText(typingText);
+      } else if (response.resultCode === 0) {
+        console.error(
+          '[EnterText] sendMessage: HTTP 200 but missing correlationID — cannot match NATS response',
+          response
+        );
       } else if (response.resultCode === 404) {
         // Handle expired session
         // remove last sent message, will set it as initial
@@ -1076,15 +1073,9 @@ const MemoriWidget = ({
         return Promise.reject(response);
       }
     } catch (error) {
-      console.log('error', error);
-      console.error(error);
+      console.error('[EnterText] sendMessage: request failed', error);
       gotError = true;
 
-      setTypingText(undefined);
-      setMemoriTyping(false);
-    }
-
-    if (!hasBatchQueued) {
       setTypingText(undefined);
       setMemoriTyping(false);
     }
@@ -1973,30 +1964,6 @@ const MemoriWidget = ({
     defaultEnableAudio
   );
 
-  // Additive NATS subscription, always active. Runs in parallel to the HTTP
-  // flow: postTextEnteredEvent keeps sending text and handling the synchronous
-  // response; NATS only *receives* asynchronous events on the session channel.
-  useNats({
-    baseUrl,
-    sessionId,
-    // progress -> feed the typing indicator with the latest step message.
-    onProgress: useCallback((event: NatsProgressEvent) => {
-      if (event.message) {
-        setTypingText(event.message);
-      }
-    }, []),
-    // dialog.text_entered_response -> currently logged only. The synchronous
-    // HTTP response remains the source of truth; an anti-duplication strategy
-    // (match via correlation_id/requestID) is required before rendering these
-    // live (see docs/nats-text-entered-plan.md, open points).
-    onDialogResponse: useCallback((event: NatsDialogResponseEvent) => {
-      console.debug('[NATS] dialog.text_entered_response', event);
-    }, []),
-    onError: useCallback((event: NatsErrorEvent) => {
-      console.error('[NATS] error event', event);
-    }, []),
-  });
-
   /**
    * Enhanced handleSpeak that integrates with the improved useTTS hook
    * Uses promise-based approach for better reliability
@@ -2075,6 +2042,341 @@ const MemoriWidget = ({
       speakerMuted,
     ]
   );
+
+  const processEnterTextDialogResponse = useCallback(
+    (event: NatsDialogResponseEvent, pending: PendingEnterText) => {
+      console.debug('[EnterText] processDialogResponse', {
+        correlationID: event.correlationID,
+        resultCode: event.resultCode,
+        hasCurrentState: !!event.currentState,
+        hasBatchQueued: pending.hasBatchQueued,
+      });
+      const {
+        msg,
+        typingText: pendingTypingText,
+        useLoaderTextAsMsg,
+      } = pending;
+      const currentState = event.currentState;
+
+      if (event.resultCode !== 0 || !currentState) {
+        if (event.resultCode === 500 && event.resultMessage) {
+          console.warn('[EnterText] processDialogResponse: server error', {
+            correlationID: event.correlationID,
+            resultMessage: event.resultMessage,
+          });
+          setHistory(h => [
+            ...h,
+            {
+              text: 'Error: ' + event.resultMessage,
+              emitter: 'system',
+              fromUser: false,
+              initial: false,
+              contextVars: {},
+              date: new Date().toISOString(),
+            },
+          ]);
+        } else if (event.resultCode !== 0) {
+          console.warn('[SEND_MESSAGE/NATS]', event);
+        }
+        return;
+      }
+
+      if (!msg) {
+        console.debug(
+          '[EnterText] processDialogResponse: no msg in pending, skipping'
+        );
+        return;
+      }
+
+      setChatLogID(undefined);
+      const emission =
+        useLoaderTextAsMsg && pendingTypingText
+          ? pendingTypingText
+          : currentState.emission ?? currentDialogState?.emission;
+
+      console.debug('[EnterText] processDialogResponse: rendering emission', {
+        correlationID: event.correlationID,
+        emissionPreview: emission?.slice(0, 80),
+        state: currentState.state,
+      });
+
+      if (
+        userLang.toLowerCase() !== language.toLowerCase() &&
+        emission &&
+        isMultilanguageEnabled
+      ) {
+        currentState.emission = emission;
+
+        translateDialogState(currentState, userLang, msg).then(ts => {
+          const text = ts.translatedEmission || ts.emission;
+          if (text && shouldPlayAudio(text)) {
+            handleSpeak(text);
+          }
+        });
+      } else {
+        setCurrentDialogState({
+          ...currentState,
+          emission,
+        });
+
+        if (emission) {
+          pushMessage({
+            text: emission,
+            emitter: currentState.emitter,
+            media: currentState.emittedMedia ?? currentState.media,
+            llmUsage: (currentState as any).llmUsage,
+            fromUser: false,
+            questionAnswered: msg,
+            generatedByAI: !!currentState.completion,
+            contextVars: currentState.contextVars,
+            date: currentState.currentDate,
+            placeName: currentState.currentPlaceName,
+            placeLatitude: currentState.currentLatitude,
+            placeLongitude: currentState.currentLongitude,
+            placeUncertaintyKm: currentState.currentUncertaintyKm,
+            tag: currentState.currentTag,
+            memoryTags: currentState.memoryTags,
+          } as any);
+          if (emission && shouldPlayAudio(emission)) {
+            handleSpeak(emission);
+          }
+        }
+      }
+    },
+    [
+      userLang,
+      language,
+      isMultilanguageEnabled,
+      currentDialogState?.emission,
+      translateDialogState,
+      handleSpeak,
+      shouldPlayAudio,
+    ]
+  );
+
+  const clearEnterTextPending = useCallback(
+    (correlationID: string, pending: PendingEnterText) => {
+      if (pending.natsTimeoutId) {
+        clearTimeout(pending.natsTimeoutId);
+      }
+      if (pending.waitForResponse?.timeoutId) {
+        clearTimeout(pending.waitForResponse.timeoutId);
+      }
+      pendingEnterTextRef.current.delete(correlationID);
+    },
+    []
+  );
+
+  const deliverEnterTextNatsError = useCallback(
+    (event: NatsErrorEvent) => {
+      const correlationID = event.correlationID;
+      const errorText = event.errorMessage
+        ? `Error: ${event.errorMessage}`
+        : event.errorCode
+        ? `Error: ${event.errorCode}`
+        : 'Error: An unexpected error occurred';
+
+      console.error('[EnterText] NATS error event', {
+        correlationID,
+        errorCode: event.errorCode,
+        errorMessage: event.errorMessage,
+      });
+
+      pushMessage({
+        text: errorText,
+        emitter: 'system',
+        fromUser: false,
+        initial: false,
+        contextVars: {},
+        date: new Date().toISOString(),
+      });
+
+      if (correlationID) {
+        const pending = pendingEnterTextRef.current.get(correlationID);
+        if (pending) {
+          clearEnterTextPending(correlationID, pending);
+          pending.waitForResponse?.reject(
+            new Error(event.errorMessage ?? String(event.errorCode ?? 'NATS error'))
+          );
+        }
+      }
+
+      setMemoriTyping(false);
+      setTypingText(undefined);
+    },
+    [clearEnterTextPending]
+  );
+
+  const deliverEnterTextNatsResponse = useCallback(
+    (correlationID: string, event: NatsDialogResponseEvent) => {
+      const pending = pendingEnterTextRef.current.get(correlationID);
+      if (!pending) {
+        const pendingCorrelationIDs = [...pendingEnterTextRef.current.keys()];
+        console.warn(
+          '[EnterText] NATS response buffered (no matching pending)',
+          {
+            receivedCorrelationID: correlationID,
+            resultCode: event.resultCode,
+            pendingCorrelationIDs,
+            hint:
+              pendingCorrelationIDs.length > 0
+                ? 'Use one of pendingCorrelationIDs in your nats pub correlation_id'
+                : 'Send a message in the widget first, then copy correlationID from HTTP response logs',
+          }
+        );
+        bufferedNatsResponsesRef.current.set(correlationID, event);
+        return;
+      }
+
+      clearEnterTextPending(correlationID, pending);
+
+      if (pending.waitForResponse) {
+        console.info('[EnterText] NATS response delivered to waiter', {
+          correlationID,
+          resultCode: event.resultCode,
+        });
+        pending.waitForResponse.resolve(event);
+        setMemoriTyping(false);
+        setTypingText(undefined);
+        return;
+      }
+
+      processEnterTextDialogResponse(event, pending);
+
+      if (!pending.hasBatchQueued) {
+        console.info('[EnterText] typing indicator cleared', { correlationID });
+        setMemoriTyping(false);
+        setTypingText(undefined);
+      } else {
+        console.debug('[EnterText] typing kept (batch queued)', {
+          correlationID,
+        });
+      }
+    },
+    [processEnterTextDialogResponse, clearEnterTextPending]
+  );
+
+  const registerPendingEnterText = useCallback(
+    (correlationID: string, pending: PendingEnterText) => {
+      const buffered = bufferedNatsResponsesRef.current.get(correlationID);
+      if (buffered) {
+        console.info('[EnterText] replaying buffered NATS response', {
+          correlationID,
+          waitForResponse: !!pending.waitForResponse,
+        });
+        bufferedNatsResponsesRef.current.delete(correlationID);
+        pendingEnterTextRef.current.set(correlationID, pending);
+        deliverEnterTextNatsResponse(correlationID, buffered);
+        return;
+      }
+
+      if (!pending.waitForResponse && !pending.natsTimeoutId) {
+        pending.natsTimeoutId = setTimeout(() => {
+          const current = pendingEnterTextRef.current.get(correlationID);
+          if (!current) return;
+          clearEnterTextPending(correlationID, current);
+          console.error('[EnterText] NATS response timeout', {
+            correlationID,
+            timeoutMs: ENTER_TEXT_NATS_TIMEOUT_MS,
+          });
+          if (!current.hasBatchQueued) {
+            setMemoriTyping(false);
+            setTypingText(undefined);
+          }
+          current.waitForResponse?.reject(
+            new Error('NATS enter-text response timeout')
+          );
+        }, ENTER_TEXT_NATS_TIMEOUT_MS);
+      }
+
+      console.debug('[EnterText] pending registered', {
+        correlationID,
+        waitForResponse: !!pending.waitForResponse,
+        hasBatchQueued: pending.hasBatchQueued,
+      });
+      pendingEnterTextRef.current.set(correlationID, pending);
+    },
+    [deliverEnterTextNatsResponse, clearEnterTextPending]
+  );
+
+  const waitForEnterTextNatsResponse = useCallback(
+    (correlationID: string, timeoutMs = 120000) =>
+      new Promise<NatsDialogResponseEvent>((resolve, reject) => {
+        console.debug('[EnterText] waiting for NATS response', {
+          correlationID,
+          timeoutMs,
+        });
+        const timeoutId = setTimeout(() => {
+          const current = pendingEnterTextRef.current.get(correlationID);
+          if (current) {
+            clearEnterTextPending(correlationID, current);
+          }
+          console.error('[EnterText] NATS response timeout', {
+            correlationID,
+            timeoutMs,
+          });
+          reject(new Error('NATS enter-text response timeout'));
+        }, timeoutMs);
+
+        registerPendingEnterText(correlationID, {
+          waitForResponse: {
+            resolve: event => {
+              clearTimeout(timeoutId);
+              resolve(event);
+            },
+            reject: error => {
+              clearTimeout(timeoutId);
+              reject(error);
+            },
+            timeoutId,
+          },
+        });
+      }),
+    [registerPendingEnterText, clearEnterTextPending]
+  );
+
+  // NATS subscription: receives progress updates and the async enter-text response.
+  useNats({
+    baseUrl,
+    sessionId,
+    onProgress: useCallback((event: NatsProgressEvent) => {
+      console.debug('[EnterText] NATS progress', {
+        correlationID: event.correlationID,
+        step: event.currentStep,
+        finalStep: event.finalStep,
+        message: event.message,
+      });
+      if (event.message) {
+        setTypingText(event.message);
+      }
+    }, []),
+    onDialogResponse: useCallback(
+      (event: NatsDialogResponseEvent) => {
+        const correlationID = event.correlationID;
+        console.debug(
+          '[EnterText] NATS dialog.text_entered_response received',
+          {
+            correlationID,
+            resultCode: event.resultCode,
+            requestID: event.requestID,
+          }
+        );
+        if (!correlationID) {
+          console.warn(
+            '[EnterText] dialog_text_entered_response without correlationID',
+            event
+          );
+          setMemoriTyping(false);
+          setTypingText(undefined);
+          return;
+        }
+
+        deliverEnterTextNatsResponse(correlationID, event);
+      },
+      [deliverEnterTextNatsResponse]
+    ),
+    onError: deliverEnterTextNatsError,
+  });
 
   const focusChatInput = () => {
     let textarea = document.querySelector(
@@ -2720,11 +3022,15 @@ const MemoriWidget = ({
             translatedMessages = [];
             setHistory([]);
 
-            setMemoriTyping(true);
-
             // we have no chat history, we start by initial question
             const placeSpec = getPlaceSpecForEnterText(position);
-            const response = await postTextEnteredEvent({
+            console.debug(
+              '[EnterText] onClickStart: posting initial question',
+              {
+                sessionId: sessionID,
+              }
+            );
+            const response = await postEnterTextAsync({
               sessionId: sessionID!,
               text: initialQuestion,
               ...(memori.needsDateTime && {
@@ -2732,8 +3038,12 @@ const MemoriWidget = ({
               }),
               ...(placeSpec !== undefined && { place: placeSpec }),
             });
+            console.debug('[EnterText] onClickStart: HTTP response', {
+              resultCode: response.resultCode,
+              correlationID: readCorrelationID(response),
+            });
 
-            // Handle 500 error from TextEnteredEvent
+            // Handle 500 error from EnterTextAsync
             if (response.resultCode === 500 && response.resultMessage) {
               setHistory(h => [
                 ...h,
@@ -2746,16 +3056,48 @@ const MemoriWidget = ({
                   date: new Date().toISOString(),
                 },
               ]);
-              setMemoriTyping(false);
               return;
             }
 
-            await translateAndSpeak(
-              response.currentState ?? currentState,
-              userLang,
-              undefined,
-              false
-            );
+            const onClickStartCorrelationID = readCorrelationID(response);
+            if (response.resultCode === 0 && onClickStartCorrelationID) {
+              console.info(
+                '[EnterText] onClickStart: accepted, showing typing indicator',
+                {
+                  correlationID: onClickStartCorrelationID,
+                }
+              );
+              setMemoriTyping(true);
+              try {
+                const natsEvent = await waitForEnterTextNatsResponse(
+                  onClickStartCorrelationID
+                );
+                console.info(
+                  '[EnterText] onClickStart: NATS response received',
+                  {
+                    correlationID: onClickStartCorrelationID,
+                    resultCode: natsEvent.resultCode,
+                  }
+                );
+                if (natsEvent.resultCode === 0 && natsEvent.currentState) {
+                  await translateAndSpeak(
+                    natsEvent.currentState,
+                    userLang,
+                    undefined,
+                    false
+                  );
+                }
+              } catch (e) {
+                console.error('[EnterText] onClickStart: NATS wait failed', e);
+                setMemoriTyping(false);
+                setTypingText(undefined);
+              }
+            } else if (response.resultCode === 0) {
+              console.error(
+                '[EnterText] onClickStart: HTTP 200 but missing correlationID',
+                response
+              );
+            }
           }
         }
       }

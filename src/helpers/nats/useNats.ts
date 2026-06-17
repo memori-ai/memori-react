@@ -1,8 +1,8 @@
 // helpers/nats/useNats.ts - Orchestrates NATS config retrieval + subscription.
 //
-// Additive to the existing HTTP flow: text is still sent via
-// `postTextEnteredEvent`; this hook only *receives* asynchronous events on the
-// session channel (progress / dialog.text_entered_response / error).
+// Additive to the existing HTTP flow: text is sent via `postEnterTextAsync`;
+// this hook *receives* asynchronous events on the session channel (progress /
+// dialog.text_entered_response / error).
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { getNatsConfig } from './getNatsConfig';
 import {
@@ -95,11 +95,12 @@ export function useNats({
   }, [baseUrl, sessionId]);
 
   const handleMessage = useCallback((event: NatsSessionEvent) => {
-    switch (event.event_type) {
+    console.debug('[NATS] dispatching event', { eventType: event.eventType });
+    switch (event.eventType) {
       case 'progress':
         onProgressRef.current?.(event);
         break;
-      case 'dialog.text_entered_response':
+      case 'dialog_text_entered_response':
         onDialogResponseRef.current?.(event);
         break;
       case 'error':

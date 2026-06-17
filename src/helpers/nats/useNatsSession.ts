@@ -11,40 +11,37 @@ import { wsconnect, NatsConnection } from '@nats-io/nats-core';
  * `progress` event: job advancement updates.
  */
 export interface NatsProgressEvent {
-  event_type: 'progress';
-  job_id?: string;
-  current_step?: number;
-  final_step?: number;
+  eventType: 'progress';
+  jobId?: string;
+  currentStep?: number;
+  finalStep?: number;
   message?: string;
-  starting_time?: string;
-  /** Correlation field (to be confirmed with backend). */
-  correlation_id?: string;
+  startingTime?: string;
+  correlationID?: string;
 }
 
 /**
  * `dialog.text_entered_response` event: same body returned by
- * `POST /memori/v2/TextEnteredEvent/{sessionId}`.
+ * `POST /memori/v2/EnterTextAsync/{sessionId}` (via NATS).
  */
 export interface NatsDialogResponseEvent {
-  event_type: 'dialog.text_entered_response';
+  eventType: 'dialog_text_entered_response';
   requestID?: string;
   resultCode?: number;
   resultMessage?: string;
   currentState?: any;
-  /** Correlation field (to be confirmed with backend). */
-  correlation_id?: string;
+  correlationID?: string;
 }
 
 /**
  * `error` event.
  */
 export interface NatsErrorEvent {
-  event_type: 'error';
-  error_code?: string | number;
-  error_message?: string;
+  eventType: 'error';
+  errorCode?: string | number;
+  errorMessage?: string;
   backtrace?: string;
-  /** Correlation field (to be confirmed with backend). */
-  correlation_id?: string;
+  correlationID?: string;
 }
 
 /**
@@ -54,6 +51,77 @@ export type NatsSessionEvent =
   | NatsProgressEvent
   | NatsDialogResponseEvent
   | NatsErrorEvent;
+
+function readString(
+  raw: Record<string, unknown>,
+  camelKey: string,
+  snakeKey: string
+): string | undefined {
+  const value = raw[camelKey] ?? raw[snakeKey];
+  return typeof value === 'string' ? value : undefined;
+}
+
+function readNumber(
+  raw: Record<string, unknown>,
+  camelKey: string,
+  snakeKey: string
+): number | undefined {
+  const value = raw[camelKey] ?? raw[snakeKey];
+  return typeof value === 'number' ? value : undefined;
+}
+
+/**
+ * Normalizes raw NATS payloads (snake_case or camelCase) into typed events.
+ */
+export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEvent {
+  const eventType = (readString(raw, 'eventType', 'event_type') ??
+    'unknown') as NatsSessionEvent['eventType'];
+
+  const correlationID =
+    readString(raw, 'correlationID', 'correlation_id') ??
+    readString(raw, 'correlationId', 'correlation_id');
+
+  if (eventType === 'progress') {
+    return {
+      eventType: 'progress',
+      jobId: readString(raw, 'jobId', 'job_id'),
+      currentStep: readNumber(raw, 'currentStep', 'current_step'),
+      finalStep: readNumber(raw, 'finalStep', 'final_step'),
+      message: typeof raw.message === 'string' ? raw.message : undefined,
+      startingTime: readString(raw, 'startingTime', 'starting_time'),
+      correlationID,
+    };
+  }
+
+  if (eventType === 'dialog_text_entered_response') {
+    return {
+      eventType: 'dialog_text_entered_response',
+      requestID:
+        typeof raw.requestID === 'string' ? raw.requestID : undefined,
+      resultCode:
+        typeof raw.resultCode === 'number' ? raw.resultCode : undefined,
+      resultMessage:
+        typeof raw.resultMessage === 'string' ? raw.resultMessage : undefined,
+      currentState: raw.currentState,
+      correlationID,
+    };
+  }
+
+  if (eventType === 'error') {
+    return {
+      eventType: 'error',
+      errorCode: (raw.errorCode ?? raw.error_code) as string | number | undefined,
+      errorMessage: readString(raw, 'errorMessage', 'error_message'),
+      backtrace: typeof raw.backtrace === 'string' ? raw.backtrace : undefined,
+      correlationID,
+    };
+  }
+
+  return {
+    eventType,
+    correlationID,
+  } as NatsSessionEvent;
+}
 
 /**
  * Open a NATS WebSocket connection, subscribe to the session subject and
@@ -91,7 +159,7 @@ export function useNatsSession(
       return;
     }
     let closed = false;
-    const subject = `sessions.${sessionId}`;
+    const subject = sessionId;
 
     (async () => {
       console.info('[NATS] connecting to', natsWsUrl, 'for session', sessionId);
@@ -115,9 +183,11 @@ export function useNatsSession(
       for await (const msg of sub) {
         received += 1;
         try {
-          const payload = msg.json<NatsSessionEvent>();
+          const payload = normalizeNatsEvent(
+            msg.json<Record<string, unknown>>()
+          );
           console.debug(
-            `[NATS] message #${received} on ${subject} (event_type=${payload.event_type})`,
+            `[NATS] message #${received} on ${subject} (eventType=${payload.eventType})`,
             payload
           );
           onMessageRef.current(payload);
