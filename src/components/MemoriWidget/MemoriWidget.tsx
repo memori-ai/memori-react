@@ -663,6 +663,7 @@ const MemoriWidget = ({
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
+  const sessionStartingRef = useRef(false);
 
   const language =
     memori.culture?.split('-')?.[0]?.toUpperCase()! ||
@@ -1976,6 +1977,7 @@ const MemoriWidget = ({
     return () => {
       setHasUserActivatedSpeak(false);
       setClickedStart(false);
+      sessionStartingRef.current = false;
       clearInteractionTimeout();
       timeoutRef.current = undefined;
     };
@@ -2837,6 +2839,7 @@ const MemoriWidget = ({
       if (!sessionID && !!minAge && !birth) {
         setShowAgeVerification(true);
         setClickedStart(false);
+        return;
       }
       // Handle authentication
       else if (
@@ -2852,41 +2855,46 @@ const MemoriWidget = ({
       }
       // Create new session if needed
       else if (!sessionID || initialSessionExpired) {
-        setClickedStart(false);
-        const session = await fetchSession({
-          memoriID: memori.engineMemoriID!,
-          password: secret || memoriPwd || memori.secretToken,
-          tag: personification?.tag,
-          pin: personification?.pin,
-          continueFromChatLogID: chatLog?.chatLogID,
-          initialContextVars: {
-            LANG: userLang,
-            PATHNAME: window.location.pathname?.toUpperCase(),
-            ROUTE:
-              window.location.pathname?.split('/')?.pop()?.toUpperCase() || '',
-            ...((!chatLog
-              ? initialContextVars
-              : chatLog.lines[chatLog.lines.length - 1].contextVars) || {}),
-          },
-          initialQuestion: chatLog ? undefined : initialQuestion,
-          birthDate: birth,
-          additionalInfo: {
-            ...(additionalInfo || {}),
-            loginToken:
-              userToken ??
-              loginToken ??
-              additionalInfo?.loginToken ??
-              authToken,
-            language: (
-              userLang ??
-              memori.culture?.split('-')?.[0] ??
-              'IT'
-            ).toLowerCase(),
-            timeZoneOffset: new Date().getTimezoneOffset().toString(),
-          },
-        });
+        if (sessionStartingRef.current) {
+          return;
+        }
+        sessionStartingRef.current = true;
+        try {
+          const session = await fetchSession({
+            memoriID: memori.engineMemoriID!,
+            password: secret || memoriPwd || memori.secretToken,
+            tag: personification?.tag,
+            pin: personification?.pin,
+            continueFromChatLogID: chatLog?.chatLogID,
+            initialContextVars: {
+              LANG: userLang,
+              PATHNAME: window.location.pathname?.toUpperCase(),
+              ROUTE:
+                window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                '',
+              ...((!chatLog
+                ? initialContextVars
+                : chatLog.lines[chatLog.lines.length - 1].contextVars) || {}),
+            },
+            initialQuestion: chatLog ? undefined : initialQuestion,
+            birthDate: birth,
+            additionalInfo: {
+              ...(additionalInfo || {}),
+              loginToken:
+                userToken ??
+                loginToken ??
+                additionalInfo?.loginToken ??
+                authToken,
+              language: (
+                userLang ??
+                memori.culture?.split('-')?.[0] ??
+                'IT'
+              ).toLowerCase(),
+              timeZoneOffset: new Date().getTimezoneOffset().toString(),
+            },
+          });
 
-        if (session?.dialogState) {
+          if (session?.dialogState) {
           // reset history
           if (!chatLog) {
             setHistory([]);
@@ -2958,10 +2966,15 @@ const MemoriWidget = ({
               setHasUserActivatedSpeak(true);
             });
           }
-        } else if (session?.resultCode === 0) {
-          await onClickStart((session as any) || undefined);
-        } else {
-          setLoading(false);
+          } else if (session?.resultCode === 0) {
+            sessionStartingRef.current = false;
+            await onClickStart((session as any) || undefined);
+          } else {
+            setLoading(false);
+            setClickedStart(false);
+          }
+        } finally {
+          sessionStartingRef.current = false;
         }
 
         return;
@@ -3246,10 +3259,15 @@ const MemoriWidget = ({
   );
 
   useEffect(() => {
-    if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
+    if (
+      !clickedStart &&
+      !sessionStartingRef.current &&
+      autoStart &&
+      selectedLayout !== 'HIDDEN_CHAT'
+    ) {
       onClickStart();
     }
-  }, [clickedStart, autoStart, selectedLayout]);
+  }, [clickedStart, autoStart, selectedLayout, sessionId]);
 
   useEffect(() => {
     const targetNode =
