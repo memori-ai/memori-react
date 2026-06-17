@@ -1,5 +1,18 @@
 
 
+## [8.40.0](https://github.com/memori-ai/memori-react/compare/v8.39.0...v8.40.0) (2026-06-17)
+
+
+### Features
+
+* enhance user identification for credit verification by adding ownerUserName ([540e50a](https://github.com/memori-ai/memori-react/commit/540e50aa7b913122e09d988a21701635342c1fe3))
+* integrate NATS support for real-time event handling in MemoriWidget ([2fc0a8d](https://github.com/memori-ai/memori-react/commit/2fc0a8dcec8d6a04d89a7b014ca353fd478e847d))
+
+
+### Maintenance
+
+*  refactor MemoriWidget for improved NATS event handling ([7d18afa](https://github.com/memori-ai/memori-react/commit/7d18afa28d4f6cc24b3907d34bd34732e2a720c1))
+
 ## [8.39.0](https://github.com/memori-ai/memori-react/compare/v8.38.8...v8.39.0) (2026-06-12)
 
 
