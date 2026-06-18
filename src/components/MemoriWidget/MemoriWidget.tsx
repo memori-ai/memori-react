@@ -2930,17 +2930,29 @@ const MemoriWidget = ({
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
 
+  // check if owner has enough credits
+  const needsCredits = tenant?.billingDelegation;
+  const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
+
   useEffect(() => {
     if (
       !clickedStart &&
       !sessionStartingRef.current &&
       !sessionId &&
       autoStart &&
-      selectedLayout !== 'HIDDEN_CHAT'
+      selectedLayout !== 'HIDDEN_CHAT' &&
+      (!needsCredits || hasEnoughCredits)
     ) {
       onClickStart();
     }
-  }, [clickedStart, autoStart, selectedLayout, sessionId]);
+  }, [
+    clickedStart,
+    autoStart,
+    selectedLayout,
+    sessionId,
+    needsCredits,
+    hasEnoughCredits,
+  ]);
 
   useEffect(() => {
     const targetNode =
@@ -3012,9 +3024,6 @@ const MemoriWidget = ({
     !!user?.userID &&
     user?.pAndCUAccepted;
 
-  // check if owner has enough credits
-  const needsCredits = tenant?.billingDelegation;
-  const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
   const handleNotEnoughCredits = useCallback(() => {
     setHasEnoughCredits(false);
     setAuthModalState(null);
