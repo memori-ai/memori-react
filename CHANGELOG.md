@@ -1,5 +1,17 @@
 
 
+## [8.40.4](https://github.com/memori-ai/memori-react/compare/v8.40.3...v8.40.4) (2026-06-19)
+
+
+### Changes
+
+* enhance credit check logic in MemoriWidget to conditionally start session ([738b308](https://github.com/memori-ai/memori-react/commit/738b308841f0759923c303bce8aa4c3835b785be))
+
+
+### Maintenance
+
+* update dompurify dependency to version 3.4.11 ([6e94db8](https://github.com/memori-ai/memori-react/commit/6e94db8611fb2edb592519406e0622d6bff5a3ad))
+
 ## [8.40.3](https://github.com/memori-ai/memori-react/compare/v8.40.2...v8.40.3) (2026-06-17)
 
 
