@@ -4,7 +4,7 @@
 // this hook *receives* asynchronous events on the session channel (progress /
 // dialog.text_entered_response / error).
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { getNatsConfig } from './getNatsConfig';
+import { getNatsConfig, NatsConfig } from './getNatsConfig';
 import {
   useNatsSession,
   NatsSessionEvent,
@@ -39,9 +39,7 @@ export function useNats({
   onDialogResponse,
   onError,
 }: UseNatsOptions) {
-  const [config, setConfig] = useState<{ url: string; token: string } | null>(
-    null
-  );
+  const [config, setConfig] = useState<NatsConfig | null>(null);
   const [configError, setConfigError] = useState<Error | null>(null);
 
   // Keep callbacks in refs so the dispatcher identity stays stable.
@@ -75,7 +73,11 @@ export function useNats({
     getNatsConfig(baseUrl, sessionId, controller.signal)
       .then(cfg => {
         if (!cancelled) {
-          console.info('[NATS] config received, server url:', cfg.url);
+          console.info('[NATS] config received', {
+            url: cfg.url,
+            jetStream: !!cfg.stream,
+            stream: cfg.stream,
+          });
           setConfig(cfg);
           setConfigError(null);
         }
@@ -111,7 +113,7 @@ export function useNats({
     }
   }, []);
 
-  useNatsSession(sessionId, config?.url, config?.token, handleMessage);
+  useNatsSession(sessionId, config ?? undefined, handleMessage);
 
   return {
     /** True once connection config has been retrieved. */
