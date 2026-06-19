@@ -9,6 +9,87 @@ export interface NatsConfig {
   url: string;
   /** Bearer token used to authenticate the WebSocket connection. */
   token: string;
+  /**
+   * JetStream stream that stores session events. When set, the client consumes
+   * via JetStream instead of core NATS subscribe.
+   */
+  stream?: string;
+  /**
+   * Optional durable consumer name. When omitted, an ordered ephemeral consumer
+   * filtered to the session subject is used.
+   */
+  consumer?: string;
+  /**
+   * Subject to subscribe or filter on. Defaults to the session UUID when omitted.
+   */
+  subject?: string;
+}
+
+function readStringField(
+  raw: Record<string, unknown>,
+  ...keys: string[]
+): string | undefined {
+  for (const key of keys) {
+    const value = raw[key];
+    if (typeof value === 'string' && value.length > 0) {
+      return value;
+    }
+  }
+  return undefined;
+}
+
+function readBooleanField(
+  raw: Record<string, unknown>,
+  ...keys: string[]
+): boolean | undefined {
+  for (const key of keys) {
+    const value = raw[key];
+    if (typeof value === 'boolean') {
+      return value;
+    }
+  }
+  return undefined;
+}
+
+/**
+ * Normalizes raw `/api/nats` payloads (camelCase or snake_case) into {@link NatsConfig}.
+ */
+export function parseNatsConfig(raw: Record<string, unknown>): NatsConfig {
+  const url = readStringField(raw, 'url');
+  const token = readStringField(raw, 'token');
+
+  if (!url || !token) {
+    throw new Error('Invalid response from NATS config service');
+  }
+
+  const useJetStream = readBooleanField(raw, 'useJetStream', 'use_jetstream');
+  const stream = readStringField(raw, 'stream', 'streamName', 'stream_name');
+  const consumer = readStringField(
+    raw,
+    'consumer',
+    'consumerName',
+    'consumer_name',
+    'durableName',
+    'durable_name'
+  );
+  const subject = readStringField(
+    raw,
+    'subject',
+    'filterSubject',
+    'filter_subject'
+  );
+
+  if (useJetStream && !stream) {
+    throw new Error('Invalid response from NATS config service: JetStream enabled but stream missing');
+  }
+
+  return {
+    url,
+    token,
+    ...(stream ? { stream } : {}),
+    ...(consumer ? { consumer } : {}),
+    ...(subject ? { subject } : {}),
+  };
 }
 
 /**
@@ -59,11 +140,6 @@ export async function getNatsConfig(
     }
   }
 
-  const data = (await response.json()) as Partial<NatsConfig>;
-
-  if (!data.url || !data.token) {
-    throw new Error('Invalid response from NATS config service');
-  }
-
-  return { url: data.url, token: data.token };
+  const data = (await response.json()) as Record<string, unknown>;
+  return parseNatsConfig(data);
 }

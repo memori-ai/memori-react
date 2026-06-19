@@ -3220,6 +3220,7 @@ __metadata:
     "@commitlint/config-conventional": 17.3.0
     "@headlessui/react": 1.7.4
     "@memori.ai/memori-api-client": 6.24.1
+    "@nats-io/jetstream": ^3.4.0
     "@nats-io/nats-core": ^3.4.0
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
@@ -3303,7 +3304,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nats-io/nats-core@npm:^3.4.0":
+"@nats-io/jetstream@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@nats-io/jetstream@npm:3.4.0"
+  dependencies:
+    "@nats-io/nats-core": 3.4.0
+  checksum: 35b74f7471d9b9e7458eaf1dd48df71866a6631d8a3f05443fb4108ea0018610cbdc493a109d0cc1840ebaf84dd2c1e9bf37f6e48c50d5dcd3147f25c45de969
+  languageName: node
+  linkType: hard
+
+"@nats-io/nats-core@npm:3.4.0, @nats-io/nats-core@npm:^3.4.0":
   version: 3.4.0
   resolution: "@nats-io/nats-core@npm:3.4.0"
   dependencies:
