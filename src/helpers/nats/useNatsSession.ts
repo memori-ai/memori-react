@@ -333,7 +333,7 @@ export function useNatsSession(
     }
 
     let closed = false;
-    const subject = config.subject ?? sessionId;
+    const subject = config.subject ?? `sessions.${sessionId}`;
     const useJetStream = !!config.stream;
     const jetStreamMode: JetStreamConsumeMode =
       useJetStream && resumeGeneration > 0 ? 'catch-up' : 'live';

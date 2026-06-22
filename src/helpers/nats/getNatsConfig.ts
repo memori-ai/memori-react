@@ -20,7 +20,7 @@ export interface NatsConfig {
    */
   consumer?: string;
   /**
-   * Subject to subscribe or filter on. Defaults to the session UUID when omitted.
+   * Subject to subscribe or filter on. Defaults to `sessions.<sessionId>` when omitted.
    */
   subject?: string;
 }
