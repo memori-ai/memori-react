@@ -1,5 +1,17 @@
 
 
+## [8.41.0](https://github.com/memori-ai/memori-react/compare/v8.40.4...v8.41.0) (2026-06-22)
+
+
+### Features
+
+* integrate JetStream support in NATS configuration and session handling ([d133c95](https://github.com/memori-ai/memori-react/commit/d133c95fc9385a7e06875dadcc6ea9be444f3868))
+
+
+### Bug Fixes
+
+* update NATS subject default value to include session ID format ([dc0e7ea](https://github.com/memori-ai/memori-react/commit/dc0e7ea0a1c0eba5fb8f834df3ef55d598e05166))
+
 ## [8.40.4](https://github.com/memori-ai/memori-react/compare/v8.40.3...v8.40.4) (2026-06-19)
 
 
