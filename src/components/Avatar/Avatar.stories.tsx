@@ -6,6 +6,7 @@ import Avatar, { Props } from './Avatar';
 
 import './Avatar.css';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { VisemeProvider } from '../../context/visemeContext';
 
 const meta: Meta = {
   title: 'Widget/Avatar',
@@ -33,34 +34,38 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <ArtifactProvider>
-      <div
-        style={
-          args.integrationConfig?.avatar === 'customglb' ||
-          args.integrationConfig?.avatar === 'readyplayerme' ||
-          args.integrationConfig?.avatar === 'readyplayerme-full'
-            ? {}
-            : { marginTop: '20vw' }
-        }
-      >
-        <Avatar
-          {...args}
-          integrationConfig={
-            args.integrationConfig
-              ? {
-                  ...args.integrationConfig,
-                  avatarURL:
-                    args.integrationConfig.avatarURL?.split('#')?.[0] +
-                    `#${new Date(Date.now()).toISOString()}`,
-                }
-              : undefined
-          }
-          avatar3dVisible={avatar3dVisible}
-          setAvatar3dVisible={setAvatar3dVisible}
-          key={Date.now()}
-        />
-      </div>
-      </ArtifactProvider>
+      <VisemeProvider>
+        {' '}
+        <ArtifactProvider>
+          <div
+            style={
+              args.integrationConfig?.avatar === 'customglb' ||
+              args.integrationConfig?.avatar === 'readyplayerme' ||
+              args.integrationConfig?.avatar === 'readyplayerme-full' ||
+              args.integrationConfig?.avatar === 'avatar-configurator'
+                ? {}
+                : { marginTop: '20vw' }
+            }
+          >
+            <Avatar
+              {...args}
+              integrationConfig={
+                args.integrationConfig
+                  ? {
+                      ...args.integrationConfig,
+                      avatarURL:
+                        args.integrationConfig.avatarURL?.split('#')?.[0] +
+                        `#${new Date(Date.now()).toISOString()}`,
+                    }
+                  : undefined
+              }
+              avatar3dVisible={avatar3dVisible}
+              setAvatar3dVisible={setAvatar3dVisible}
+              key={Date.now()}
+            />
+          </div>
+        </ArtifactProvider>
+      </VisemeProvider>
     </I18nWrapper>
   );
 };
@@ -140,4 +145,16 @@ FullbodyReadyPlayerMeAvatar.args = {
     avatarURL:
       'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#1669136149862',
   },
+};
+
+export const AvatarConfigurator = Template.bind({});
+AvatarConfigurator.args = {
+  ...FullbodyReadyPlayerMeAvatar.args,
+  integrationConfig: {
+    ...integrationConfig,
+    avatar: 'avatar-configurator',
+    avatarURL:
+      'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#1669136149862',
+  },
+  avatarType: 'avatar3d',
 };
