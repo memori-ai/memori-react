@@ -17,6 +17,7 @@ import Edit from '../icons/Edit';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
 import { useViseme } from '../../context/visemeContext';
+import { is3dAvatarWithUrl, usesRpmAvatarView } from '../../types/integration';
 
 export interface Props {
   memori: Memori;
@@ -90,11 +91,10 @@ const Avatar: React.FC<Props> = ({
 
   const renderAvatar = () => {
     if (
-      (integrationConfig?.avatar === 'readyplayerme' ||
-        integrationConfig?.avatar === 'readyplayerme-full' ||
-        integrationConfig?.avatar === 'customglb' ||
-        integrationConfig?.avatar === 'customrpm') &&
-      integrationConfig?.avatarURL &&
+      is3dAvatarWithUrl(
+        integrationConfig?.avatar,
+        integrationConfig?.avatarURL
+      ) &&
       avatarType &&
       avatarType !== 'blob'
     ) {
@@ -123,12 +123,8 @@ const Avatar: React.FC<Props> = ({
   };
 
   const renderAvatarContent = () => {
-    if (!isClient) return null;
-    if (
-      integrationConfig?.avatar === 'readyplayerme' ||
-      integrationConfig?.avatar === 'readyplayerme-full' ||
-      integrationConfig?.avatar === 'customrpm'
-    ) {
+    if (!isClient || !integrationConfig) return null;
+    if (usesRpmAvatarView(integrationConfig.avatar)) {
       return (
         <ErrorBoundary
           fallback={
@@ -163,7 +159,7 @@ const Avatar: React.FC<Props> = ({
       );
     }
 
-    if (integrationConfig?.avatar === 'customglb') {
+    if (integrationConfig.avatar === 'customglb') {
       return (
         <ModelViewer
           poster={getAvatarUrl() || ''}

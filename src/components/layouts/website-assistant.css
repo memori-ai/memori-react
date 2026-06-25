@@ -397,7 +397,8 @@
     transform: none !important;
 }
 
-.memori-layout-website_assistant.memori--avatar-readyplayerme-full .memori--avatar-wrapper > div {
+.memori-layout-website_assistant.memori--avatar-readyplayerme-full .memori--avatar-wrapper > div,
+.memori-layout-website_assistant.memori--avatar-avatar-configurator .memori--avatar-wrapper > div {
     transform: scale(1.7) translate(0px, 10vh);
 }
 
