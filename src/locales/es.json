@@ -75,6 +75,7 @@
   "errorFetchingSession": "Error durante el cargamento de la sesión",
   "errorGettingReferralURL": "Error durante el cargamento del référent",
   "errorReopeningSession": "Error durante el re-abrir la sesión",
+  "sessionExpiredReopening": "Sesión expirada, reabriendo sesión",
   "ageVerification": "Verificación de edad",
   "ageVerificationText": "Para interactuar con este Gemelo, debes tener al menos {{minAge}} años.",
   "nsfw": "NSFW: Este gemelo contiene contenido para adultos",

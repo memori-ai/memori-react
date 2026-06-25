@@ -91,6 +91,10 @@ import {
   NatsDialogResponseEvent,
   NatsErrorEvent,
 } from '../../helpers/nats/useNatsSession';
+import {
+  isSessionExpiredNatsError,
+  isSessionExpiredNatsResponse,
+} from '../../helpers/nats/isSessionExpiredError';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -646,11 +650,21 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  type PendingEnterText = {
-    msg?: string;
+  type EnterTextRetryParams = {
+    text?: string;
+    media?: Medium[];
+    translate?: boolean;
+    translatedText?: string;
+    hidden?: boolean;
     typingText?: string;
     useLoaderTextAsMsg?: boolean;
     hasBatchQueued?: boolean;
+    expiredSessionID?: string;
+    continueFromChatLogID?: string;
+  };
+
+  type PendingEnterText = EnterTextRetryParams & {
+    msg?: string;
     waitForResponse?: {
       resolve: (event: NatsDialogResponseEvent) => void;
       reject: (error: Error) => void;
@@ -893,6 +907,7 @@ const MemoriWidget = ({
    * @param typingText Optional custom typing indicator text
    * @param useLoaderTextAsMsg Whether to use the loader text as the message (default false)
    * @param hasBatchQueued Whether there are more messages queued to be sent (default false)
+   * @param skipHistoryPush Skip adding the user message to history (e.g. session-expired retry)
    */
   const sendMessage = async (
     text: string,
@@ -903,7 +918,8 @@ const MemoriWidget = ({
     hidden: boolean = false,
     typingText?: string,
     useLoaderTextAsMsg = false,
-    hasBatchQueued = false
+    hasBatchQueued = false,
+    skipHistoryPush = false
   ) => {
     // Get the session ID from params or global state
     const sessionID =
@@ -970,7 +986,7 @@ const MemoriWidget = ({
     }
 
     // Add user message to chat history if not hidden
-    if (!hidden)
+    if (!hidden && !skipHistoryPush)
       pushMessage({
         text: text,
         translatedText,
@@ -998,6 +1014,11 @@ const MemoriWidget = ({
       if (response.resultCode === 0 && correlationID) {
         registerPendingEnterText(correlationID, {
           msg,
+          text,
+          media,
+          translate,
+          translatedText,
+          hidden,
           typingText,
           useLoaderTextAsMsg,
           hasBatchQueued,
@@ -1007,34 +1028,17 @@ const MemoriWidget = ({
       } else if (response.resultCode === 0) {
         logWidgetError('enter-text missing correlationID', response);
       } else if (response.resultCode === 404) {
-        // Handle expired session
-        // remove last sent message, will set it as initial
-        setHistory(h => [...h.slice(0, h.length - 1)]);
-
-        reopenSession(
-          true,
-          memoriPwd || memori.secretToken,
-          memoriTokens,
-          undefined,
-          undefined,
-          {
-            LANG: userLang,
-            PATHNAME: window.location.pathname,
-            ROUTE: window.location.pathname?.split('/')?.pop() || '',
-            ...(initialContextVars || {}),
-          },
-          initialQuestion,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          true // isSessionExpired
-        ).then(state => {
-          if (state?.sessionID) {
-            setTimeout(() => {
-              sendMessage(text, media, state?.sessionID);
-            }, 500);
-          }
+        retryAfterExpiredSessionRef.current({
+          text,
+          media,
+          translate,
+          translatedText,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+          expiredSessionID: sessionID,
+          continueFromChatLogID: chatLogID,
         });
       } else if (response.resultCode === 500 && response.resultMessage) {
         setHistory(h => [
@@ -1487,7 +1491,8 @@ const MemoriWidget = ({
     additionalInfoProp?: { [key: string]: string | undefined },
     continueFromChatLogID?: string,
     continueFromSessionID?: string,
-    isSessionExpired?: boolean
+    isSessionExpired?: boolean,
+    suppressHistoryUpdate?: boolean
   ) => {
     // Set loading state while reopening session
     setLoading(true);
@@ -1577,12 +1582,28 @@ const MemoriWidget = ({
         if (updateDialogState) {
           setCurrentDialogState(currentState);
 
-          if (currentState.emission) {
+          const sessionExpiredStatus =
+            isSessionExpired && history.length > 1
+              ? t('sessionExpiredReopening')
+              : null;
+
+          if (sessionExpiredStatus && suppressHistoryUpdate) {
+            pushMessage({
+              text: '',
+              emitter: 'system',
+              fromUser: false,
+              initial: sessionExpiredStatus as any,
+              contextVars: {},
+              date: new Date().toISOString(),
+            });
+          }
+
+          if (currentState.emission && !suppressHistoryUpdate) {
             // Determine initial status message based on context
             // Show status message only if session expired and there's existing history
             const initialStatus =
-              isSessionExpired && history.length > 1
-                ? 'Session Expired, reopening session'
+              sessionExpiredStatus
+                ? sessionExpiredStatus
                 : history.length <= 1
                 ? true
                 : undefined;
@@ -1659,6 +1680,94 @@ const MemoriWidget = ({
     setLoading(false);
 
     return null;
+  };
+
+  const retryAfterExpiredSessionRef = useRef<
+    (params: EnterTextRetryParams) => ReturnType<typeof reopenSession>
+  >(() => Promise.resolve(null));
+
+  retryAfterExpiredSessionRef.current = (params: EnterTextRetryParams) => {
+    const {
+      text,
+      media,
+      translate = true,
+      translatedText,
+      hidden = false,
+      typingText,
+      useLoaderTextAsMsg = false,
+      hasBatchQueued = false,
+      expiredSessionID,
+      continueFromChatLogID: continueFromChatLogIDParam,
+    } = params;
+
+    const continueFromSessionID = expiredSessionID ?? sessionId;
+    const continueFromChatLogID = continueFromChatLogIDParam ?? chatLogID;
+
+    const reopenAfterExpiry = () =>
+      reopenSession(
+        true,
+        memoriPwd || memori.secretToken,
+        memoriTokens,
+        undefined,
+        undefined,
+        {
+          LANG: userLang,
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
+        initialQuestion,
+        undefined,
+        undefined,
+        continueFromChatLogID,
+        continueFromSessionID,
+        true,
+        true
+      );
+
+    const scheduleRetry = (newSessionID: string) => {
+      setTimeout(() => {
+        sendMessage(
+          text!,
+          media,
+          newSessionID,
+          translate,
+          translatedText,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+          true
+        );
+      }, 500);
+    };
+
+    const handleReopenFailure = (state: Awaited<ReturnType<typeof reopenSession>>) => {
+      setMemoriTyping(false);
+      setTypingText(undefined);
+      // `null` = explicit failure; `undefined` = auth/age modal opened (message kept in history)
+      if (state === null && text && !hidden) {
+        toast.error(t('errors.SESSION_EXPIRED'));
+      }
+    };
+
+    if (!text) {
+      return reopenAfterExpiry().then(state => {
+        if (!state?.sessionID) {
+          handleReopenFailure(state);
+        }
+        return state;
+      });
+    }
+
+    return reopenAfterExpiry().then(state => {
+      if (state?.sessionID) {
+        scheduleRetry(state.sessionID);
+      } else {
+        handleReopenFailure(state);
+      }
+      return state;
+    });
   };
 
   const changeTag = async (
@@ -1990,6 +2099,24 @@ const MemoriWidget = ({
       const currentState = event.currentState;
 
       if (event.resultCode !== 0 || !currentState) {
+        if (isSessionExpiredNatsResponse(event) && pending.text) {
+          setMemoriTyping(false);
+          setTypingText(undefined);
+          retryAfterExpiredSessionRef.current({
+            text: pending.text,
+            media: pending.media,
+            translate: pending.translate,
+            translatedText: pending.translatedText,
+            hidden: pending.hidden,
+            typingText: pending.typingText,
+            useLoaderTextAsMsg: pending.useLoaderTextAsMsg,
+            hasBatchQueued: pending.hasBatchQueued,
+            expiredSessionID: sessionId,
+            continueFromChatLogID: chatLogID,
+          });
+          return;
+        }
+
         if (event.resultCode === 500 && event.resultMessage) {
           setHistory(h => [
             ...h,
@@ -2083,6 +2210,38 @@ const MemoriWidget = ({
   const deliverEnterTextNatsError = useCallback(
     (event: NatsErrorEvent) => {
       const correlationID = event.correlationID;
+      let pending: PendingEnterText | undefined;
+
+      if (correlationID) {
+        pending = pendingEnterTextRef.current.get(correlationID);
+        if (pending) {
+          clearEnterTextPending(correlationID, pending);
+          pending.waitForResponse?.reject(
+            new Error(
+              event.errorMessage ?? String(event.errorCode ?? 'NATS error')
+            )
+          );
+        }
+      }
+
+      if (isSessionExpiredNatsError(event) && pending?.text) {
+        setMemoriTyping(false);
+        setTypingText(undefined);
+        retryAfterExpiredSessionRef.current({
+          text: pending.text,
+          media: pending.media,
+          translate: pending.translate,
+          translatedText: pending.translatedText,
+          hidden: pending.hidden,
+          typingText: pending.typingText,
+          useLoaderTextAsMsg: pending.useLoaderTextAsMsg,
+          hasBatchQueued: pending.hasBatchQueued,
+          expiredSessionID: sessionId,
+          continueFromChatLogID: chatLogID,
+        });
+        return;
+      }
+
       const errorText = event.errorMessage
         ? `Error: ${event.errorMessage}`
         : event.errorCode
@@ -2097,16 +2256,6 @@ const MemoriWidget = ({
         contextVars: {},
         date: new Date().toISOString(),
       });
-
-      if (correlationID) {
-        const pending = pendingEnterTextRef.current.get(correlationID);
-        if (pending) {
-          clearEnterTextPending(correlationID, pending);
-          pending.waitForResponse?.reject(
-            new Error(event.errorMessage ?? String(event.errorCode ?? 'NATS error'))
-          );
-        }
-      }
 
       setMemoriTyping(false);
       setTypingText(undefined);

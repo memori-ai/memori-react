@@ -75,6 +75,7 @@
   "errorFetchingSession": "Fehler beim Laden der Sitzung",
   "errorGettingReferralURL": "Fehler beim Laden des Referrals",
   "errorReopeningSession": "Fehler beim erneuten Öffnen der Sitzung",
+  "sessionExpiredReopening": "Sitzung abgelaufen, Sitzung wird neu geöffnet",
   "ageVerification": "Altersüberprüfung",
   "ageVerificationText": "Um mit diesem Zwilling interagieren zu können, müssen Sie mindestens sein {{minAge}} Jahre alt.",
   "nsfw": "NSFW: Dieser Agent enthält Inhalte für Erwachsene",

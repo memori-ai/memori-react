@@ -78,6 +78,7 @@
   "errorFetchingSession": "Errore durante il caricamento della sessione",
   "errorGettingReferralURL": "Errore durante il caricamento del riferimento",
   "errorReopeningSession": "Errore durante il riapertura della sessione",
+  "sessionExpiredReopening": "Sessione scaduta, riapertura in corso",
   "ageVerification": "Verifica dell'età",
   "ageVerificationText": "Per interagire con questo agente, devi aver almeno {{minAge}} anni.",
   "nsfw": "NSFW: Questo agente contiene contenuti per adulti",

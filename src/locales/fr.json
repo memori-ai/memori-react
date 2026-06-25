@@ -74,6 +74,7 @@
   "errorFetchingSession": "Erreur lors du chargement de la session",
   "errorGettingReferralURL": "Erreur lors du chargement du référent",
   "errorReopeningSession": "Erreur lors de la re-ouverture de la session",
+  "sessionExpiredReopening": "Session expirée, réouverture en cours",
   "ageVerification": "Vérification de l'âge",
   "ageVerificationText": "Pour interagir avec ce Agent, vous devez être au minimum {{minAge}} ans.",
   "nsfw": "NSFW : Ce jumeau contient du contenu pour adultes",

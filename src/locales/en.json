@@ -77,6 +77,7 @@
   "errorFetchingSession": "Error during session loading",
   "errorGettingReferralURL": "Error during referral loading",
   "errorReopeningSession": "Error during session reopening",
+  "sessionExpiredReopening": "Session expired, reopening session",
   "ageVerification": "Age verification",
   "ageVerificationText": "To interact with this agent, you must be at least {{minAge}} years old.",
   "nsfw": "NSFW: This agent contains adult contents",
