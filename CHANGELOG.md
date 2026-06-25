@@ -1,5 +1,12 @@
 
 
+## [8.41.2](https://github.com/memori-ai/memori-react/compare/v8.41.1...v8.41.2) (2026-06-25)
+
+
+### Features
+
+* add avatar-configurator support in Avatar component and related tests ([1575bd8](https://github.com/memori-ai/memori-react/commit/1575bd8c48b6a15f2790e3a0fb64aaca2f991861))
+
 ## [8.41.1](https://github.com/memori-ai/memori-react/compare/v8.41.0...v8.41.1) (2026-06-25)
 
 
