@@ -1,5 +1,12 @@
 
 
+## [8.41.1](https://github.com/memori-ai/memori-react/compare/v8.41.0...v8.41.1) (2026-06-25)
+
+
+### Features
+
+* implement session expiration handling in MemoriWidget and add related tests ([65e96fa](https://github.com/memori-ai/memori-react/commit/65e96fa561462fc60abbcd71ef461cacd7b2b263))
+
 ## [8.41.0](https://github.com/memori-ai/memori-react/compare/v8.40.4...v8.41.0) (2026-06-22)
 
 
