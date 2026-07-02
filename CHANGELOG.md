@@ -1,5 +1,19 @@
 
 
+## [8.41.3](https://github.com/memori-ai/memori-react/compare/v8.41.2...v8.41.3) (2026-07-02)
+
+
+### Features
+
+* enhance Avatar component with totem layout support and improve animation handling ([78af528](https://github.com/memori-ai/memori-react/commit/78af52838927646bdec47a450097acd0e813904b))
+* extend ChatBubble component to support function cache copy functionality ([333df37](https://github.com/memori-ai/memori-react/commit/333df374b5fca920b46b6eb6a480d6af1e6fbd03))
+* refactor XLSX file handling in UploadDocuments component to improve text extraction ([601418c](https://github.com/memori-ai/memori-react/commit/601418c08e1cb6c94fca0e00fa05cb0acf385b70))
+
+
+### Bug Fixes
+
+* update mouth smile blend shape constants ([a44c9ad](https://github.com/memori-ai/memori-react/commit/a44c9ad025a70181857b003875834de28b28578b))
+
 ## [8.41.2](https://github.com/memori-ai/memori-react/compare/v8.41.1...v8.41.2) (2026-06-25)
 
 
