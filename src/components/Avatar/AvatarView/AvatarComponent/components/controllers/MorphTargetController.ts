@@ -2,6 +2,7 @@ import { SkinnedMesh } from 'three';
 import { MathUtils } from 'three';
 import {
   EMOTION_SMOOTHING,
+  EMOTION_INTENSITY,
   VISEME_SMOOTHING,
   BLINK_CONFIG,
   MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH,
@@ -214,7 +215,7 @@ export class MorphTargetController {
           const currentEmotionValue = this.currentEmotionValues[key] || 0;
           const newEmotionValue = MathUtils.lerp(
             currentEmotionValue,
-            targetEmotionValue * 1.5, // Apply emotion at 80% intensity for more natural expressions
+            targetEmotionValue * EMOTION_INTENSITY,
             EMOTION_SMOOTHING
           );
           this.currentEmotionValues[key] = newEmotionValue;

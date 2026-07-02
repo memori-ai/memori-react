@@ -9,6 +9,7 @@ import {
   ANIMATION_URLS,
   AVATAR_POSITION,
   AVATAR_ROTATION,
+  MALE_EXCLUDED_ANIMATIONS,
   SCALE_LERP_FACTOR,
 } from '../../constants';
 import DynamicShadow from '../../Shadow/DynamicShadow';
@@ -64,11 +65,17 @@ export function FullbodyAvatar({
     return found;
   }, [scene]);
 
-  // Merge base and additional animations only if needed
-  const mergedAnimations = useMemo(
-    () => needsAdditionalAnimations ? [...baseAnimations, ...additionalAnimations] : baseAnimations,
-    [baseAnimations, additionalAnimations, needsAdditionalAnimations]
-  );
+  // Merge base and additional animations only if needed.
+  // For male avatars, exclude problematic idle clips from the full set (base + pack).
+  const mergedAnimations = useMemo(() => {
+    const clips = needsAdditionalAnimations
+      ? [...baseAnimations, ...additionalAnimations]
+      : baseAnimations;
+
+    if (sex !== 'MALE') return clips;
+
+    return clips.filter(clip => !MALE_EXCLUDED_ANIMATIONS.has(clip.name));
+  }, [baseAnimations, additionalAnimations, needsAdditionalAnimations, sex]);
 
   // Create animation actions from the merged animations
   const { actions } = useAnimations(mergedAnimations, scene);
