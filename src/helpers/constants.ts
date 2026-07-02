@@ -48,7 +48,6 @@ export const officeNativeExtensions = [
   '.doc',
   '.docx',
   '.dotx',
-  '.xls',
   '.xltx',
   '.potx',
 ] as const;
