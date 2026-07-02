@@ -100,13 +100,16 @@ const ChatBubble: React.FC<Props> = ({
   const [copyFeedback, setCopyFeedback] = useState({
     plain: false,
     raw: false,
+    functionCache: false,
   });
   const copyFeedbackTimers = useRef<{
     plain: ReturnType<typeof setTimeout> | null;
     raw: ReturnType<typeof setTimeout> | null;
+    functionCache: ReturnType<typeof setTimeout> | null;
   }>({
     plain: null,
     raw: null,
+    functionCache: null,
   });
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -191,7 +194,9 @@ const ChatBubble: React.FC<Props> = ({
   useEffect(() => {
     return () => {
       (
-        Object.keys(copyFeedbackTimers.current) as Array<'plain' | 'raw'>
+        Object.keys(copyFeedbackTimers.current) as Array<
+          'plain' | 'raw' | 'functionCache'
+        >
       ).forEach(key => {
         const timer = copyFeedbackTimers.current[key];
         if (timer) {
@@ -202,7 +207,12 @@ const ChatBubble: React.FC<Props> = ({
     };
   }, []);
 
-  const triggerCopyFeedback = (type: 'plain' | 'raw') => {
+  const functionCacheCopyText =
+    functionCacheData
+      ?.map(f => `${f.title}\n\n${f.content}`)
+      .join('\n\n---\n\n') ?? '';
+
+  const triggerCopyFeedback = (type: 'plain' | 'raw' | 'functionCache') => {
     setCopyFeedback(prev => ({ ...prev, [type]: true }));
     if (copyFeedbackTimers.current[type]) {
       clearTimeout(copyFeedbackTimers.current[type]!);
@@ -213,7 +223,10 @@ const ChatBubble: React.FC<Props> = ({
     }, 1500);
   };
 
-  const handleCopyClick = (type: 'plain' | 'raw', text: string) => {
+  const handleCopyClick = (
+    type: 'plain' | 'raw' | 'functionCache',
+    text: string
+  ) => {
     if (!text?.length) return;
     if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
       navigator.clipboard
@@ -718,6 +731,18 @@ const ChatBubble: React.FC<Props> = ({
         open={openFunctionCache}
         onClose={() => setOpenFunctionCache(false)}
         className="memori-chat--function-cache-modal"
+        footer={
+          <Button
+            icon={<Copy />}
+            onClick={() =>
+              handleCopyClick('functionCache', functionCacheCopyText)
+            }
+          >
+            {copyFeedback.functionCache
+              ? copiedLabel
+              : t('copy') || 'Copy'}
+          </Button>
+        }
       >
         {functionCacheData?.map((f, i) => (
           <div
