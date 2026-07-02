@@ -32,25 +32,18 @@ const Template: Story<Props> = args => (
 
 const DefaultLayout = Template.bind({});
 DefaultLayout.args = {
-  memoriName: 'Layout Storybook',
-  ownerUserName: 'andrea.patini',
-  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  memoriName: 'prova-sharepoint',
+  ownerUserName: 'Andrea-Patini',
+  memoriID: '019f129c-a5a3-74d3-b0c8-b7794437bb23',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
   tenantID: 'aisuru-staging.aclambda.online',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
-  layout: 'FULLPAGE',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  layout: 'TOTEM',
   uiLang: 'IT',
   spokenLang: 'IT',
-  integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
-  autoStart: true,
-  sessionID: '' as string | undefined,
-  showUpload: true,
-  showReasoning: false,
-  showLogin: true,
-  multilingual: true,
-  avatar3dHidden: true,
-  showMessageConsumption: true,
+  integrationID: '019f1896-730d-7e19-9a88-6413f485247b',
 };
 
 export const Default = Template.bind({});

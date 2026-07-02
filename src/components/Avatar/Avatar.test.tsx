@@ -129,3 +129,30 @@ it('renders Avatar with avatar-configurator like readyplayerme-full', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders Avatar with avatar-configurator on totem layout unchanged', () => {
+  const { container } = render(
+    <VisemeProvider>
+      <Avatar
+        memori={memori}
+        integration={integration}
+        isTotem
+        setEnablePositionControls={() => {}}
+        integrationConfig={{
+          ...integrationConfig,
+          avatar: 'avatar-configurator',
+          avatarURL:
+            'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+        }}
+        tenant={tenant}
+        instruct={false}
+        avatar3dVisible={true}
+        setAvatar3dVisible={() => {}}
+        hasUserActivatedSpeak={false}
+        isPlayingAudio={false}
+        avatarType="avatar3d"
+      />
+    </VisemeProvider>
+  );
+  expect(container).toMatchSnapshot();
+});

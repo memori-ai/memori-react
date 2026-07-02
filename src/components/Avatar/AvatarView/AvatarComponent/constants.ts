@@ -109,6 +109,12 @@ export const ANIMATION_URLS = {
     'https://assets.memori.ai/api/v2/asset/2adc934b-24b2-45bd-94ad-ffec58d3cb32.glb',
 };
 
+/** Idle clips excluded from the male animation pack. */
+export const MALE_EXCLUDED_ANIMATIONS = new Set([
+  'Idle',
+  'Idle2'
+]);
+
 // Blink configuration
 export const BLINK_CONFIG = {
   minInterval: 1000,
@@ -127,3 +133,5 @@ export const DEFAULT_CONFIG: AnimationConfig = {
 // Smoothing factors for emotion and viseme morphs
 export const EMOTION_SMOOTHING = 0.3;
 export const VISEME_SMOOTHING = 0.5;
+/** Multiplier applied to emotion morph target values before clamping (1 = raw mapping). */
+export const EMOTION_INTENSITY = 2;
