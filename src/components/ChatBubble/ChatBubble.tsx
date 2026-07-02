@@ -133,9 +133,11 @@ const ChatBubble: React.FC<Props> = ({
   const copyResetTimers = useRef<{
     plain: ReturnType<typeof setTimeout> | null;
     raw: ReturnType<typeof setTimeout> | null;
+    functionCache: ReturnType<typeof setTimeout> | null;
   }>({
     plain: null,
     raw: null,
+    functionCache: null,
   });
   // Initialize MathJax on component mount
   useEffect(() => {

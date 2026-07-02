@@ -1884,7 +1884,12 @@ const MemoriWidget = ({
       setTypingText(undefined);
       // `null` = explicit failure; `undefined` = auth/age modal opened (message kept in history)
       if (state === null && text && !hidden) {
-        toast.error(t('errors.SESSION_EXPIRED'));
+        add(
+          createAlertOptions({
+            description: t('errors.SESSION_EXPIRED'),
+            severity: 'error',
+          })
+        );
       }
     };
 
