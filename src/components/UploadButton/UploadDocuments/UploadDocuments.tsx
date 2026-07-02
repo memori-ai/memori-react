@@ -167,64 +167,101 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }
   };
 
-  const extractTextFromXLSX = async (file: File): Promise<string> => {
-    try {
-      if (!window.XLSX) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = XLSX_URL;
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
+  const loadXLSXLibrary = async (): Promise<void> => {
+    if (window.XLSX) return;
 
-      const arrayBuffer = await file.arrayBuffer();
-      const workbook = window.XLSX.read(arrayBuffer, {
-        type: 'array',
-        cellFormula: true,
-        cellNF: true,
-        cellText: true,
-        cellDates: true,
+    await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = XLSX_URL;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+
+  const readXLSXWorkbook = async (file: File) => {
+    await loadXLSXLibrary();
+
+    const arrayBuffer = await file.arrayBuffer();
+    return window.XLSX.read(arrayBuffer, {
+      type: 'array',
+      cellFormula: true,
+      cellNF: true,
+      cellText: true,
+      cellDates: true,
+    });
+  };
+
+  const formatXLSXWorkbookForDisplay = (workbook: {
+    SheetNames: string[];
+    Sheets: Record<string, unknown>;
+  }): string => {
+    let text = '';
+
+    for (const sheetName of workbook.SheetNames) {
+      const worksheet = workbook.Sheets[sheetName];
+      const data = window.XLSX.utils.sheet_to_json(worksheet, {
+        header: 1,
+        raw: false,
       });
 
-      let text = '';
-      for (const sheetName of workbook.SheetNames) {
-        const worksheet = workbook.Sheets[sheetName];
-        const data = window.XLSX.utils.sheet_to_json(worksheet, {
-          header: 1,
-          raw: false,
+      const colWidths = data.reduce((widths: number[], row: any[]) => {
+        row.forEach((cell, i) => {
+          const cellWidth = (cell || '').toString().length;
+          widths[i] = Math.max(widths[i] || 0, cellWidth);
         });
+        return widths;
+      }, []);
 
-        const colWidths = data.reduce((widths: number[], row: any[]) => {
-          row.forEach((cell, i) => {
-            const cellWidth = (cell || '').toString().length;
-            widths[i] = Math.max(widths[i] || 0, cellWidth);
-          });
-          return widths;
-        }, []);
+      const formattedText = data.map((row: any[]) => {
+        return row
+          .map((cell, i) => {
+            const cellStr = (cell || '').toString();
+            return cellStr.padEnd(colWidths[i] + 2);
+          })
+          .join('|')
+          .trim();
+      });
 
-        const formattedText = data.map((row: any[]) => {
-          return row
-            .map((cell, i) => {
-              const cellStr = (cell || '').toString();
-              return cellStr.padEnd(colWidths[i] + 2);
-            })
-            .join('|')
-            .trim();
-        });
-
-        if (formattedText.length > 0) {
-          const separator = colWidths
-            .map((w: number) => '-'.repeat(w + 2))
-            .join('+');
-          formattedText.splice(1, 0, separator);
-        }
-
-        text += `Sheet: ${sheetName}\n${formattedText.join('\n')}\n\n`;
+      if (formattedText.length > 0) {
+        const separator = colWidths
+          .map((w: number) => '-'.repeat(w + 2))
+          .join('+');
+        formattedText.splice(1, 0, separator);
       }
 
-      return text;
+      text += `Sheet: ${sheetName}\n${formattedText.join('\n')}\n\n`;
+    }
+
+    return text;
+  };
+
+  const formatXLSXWorkbookAsCsv = (workbook: {
+    SheetNames: string[];
+    Sheets: Record<string, unknown>;
+  }): string => {
+    let text = '';
+
+    for (const sheetName of workbook.SheetNames) {
+      const worksheet = workbook.Sheets[sheetName];
+      const csv = window.XLSX.utils.sheet_to_csv(worksheet, { raw: false });
+      if (csv.trim()) {
+        text += `Sheet: ${sheetName}\n${csv}\n\n`;
+      }
+    }
+
+    return text;
+  };
+
+  const extractTextFromXLSX = async (
+    file: File
+  ): Promise<{ display: string; asset: string }> => {
+    try {
+      const workbook = await readXLSXWorkbook(file);
+      return {
+        display: formatXLSXWorkbookForDisplay(workbook),
+        asset: formatXLSXWorkbookAsCsv(workbook),
+      };
     } catch (error) {
       console.error('XLSX extraction failed:', error);
       throw new Error(
@@ -237,7 +274,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const processDocumentFile = async (
     file: File
-  ): Promise<{ text: string | null; uploadAsOriginal?: boolean }> => {
+  ): Promise<{
+    text: string | null;
+    textForAsset?: string;
+    uploadAsOriginal?: boolean;
+  }> => {
     if (isOfficeNativeFilename(file.name)) {
       return { text: null, uploadAsOriginal: true };
     }
@@ -245,16 +286,19 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     const ext = file.name.split('.').pop()?.toLowerCase() || '';
     try {
       let text: string | null = null;
+      let textForAsset: string | undefined;
 
       if (ext === 'pdf') {
         text = await extractTextFromPDF(file);
       } else if (['txt', 'md', 'json', 'csv', 'html'].includes(ext)) {
         text = await file.text();
       } else if (ext === 'xlsx') {
-        text = await extractTextFromXLSX(file);
+        const extracted = await extractTextFromXLSX(file);
+        text = extracted.display;
+        textForAsset = extracted.asset;
       }
 
-      return { text };
+      return { text, textForAsset };
     } catch (error) {
       console.error('Document processing failed:', error);
       throw new Error(
@@ -370,7 +414,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         const fileId = Math.random().toString(36).substr(2, 9);
 
         try {
-          const { text, uploadAsOriginal } = await processDocumentFile(file);
+          const { text, textForAsset, uploadAsOriginal } =
+            await processDocumentFile(file);
 
           if (uploadAsOriginal) {
             // Office native format: upload the original file as asset, no text extraction
@@ -403,7 +448,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             });
           } else if (text) {
             const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
-            const textFile = new File([text], `${baseName}.txt`, {
+            const assetText = textForAsset ?? text;
+            const textFile = new File([assetText], `${baseName}.txt`, {
               type: 'text/plain',
             });
 
@@ -468,7 +514,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       <input
         ref={documentInputRef}
         type="file"
-        accept={`.pdf,.txt,.md,.json,.xlsx,.csv,.html,${officeNativeExtensions.join(',')}`}
+        accept={`.pdf,.txt,.md,.json,.xlsx,.csv,.html,${officeNativeExtensions.join(
+          ','
+        )}`}
         multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
