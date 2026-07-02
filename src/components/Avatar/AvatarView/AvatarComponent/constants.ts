@@ -58,7 +58,8 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browDownRight': 0.5,
       'browOuterUpLeft': 0.5,
       'browOuterUpRight': 0.5,
-      'mouthSmile': -0.2,
+      'mouthSmileLeft': -0.2,
+      'mouthSmileRight': -0.2,
     },
   },
   {
@@ -77,7 +78,8 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browDownRight': -0.5,
       'eyeSquintLeft': 0.5,
       'eyeSquintRight': 0.5,
-      'mouthSmile': -0.6,
+      'mouthSmileLeft': -0.6,
+      'mouthSmileRight': -0.6,
     },
   },
   {
@@ -88,7 +90,8 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browOuterUpRight': 0.5,
       'eyeWideLeft': 0.5,
       'eyeWideRight': 0.5,
-      'mouthSmile': 0.5,
+      'mouthSmileLeft': 0.5,
+      'mouthSmileRight': 0.5,
     },
   },
   {
@@ -97,7 +100,8 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browDownLeft': 0.5,
       'browDownRight': 0.5,
       'browInnerUp': 0.5,
-      'mouthSmile': 0.5,
+      'mouthSmileLeft': 0.5,
+      'mouthSmileRight': 0.5,
     },
   },
 ];
@@ -134,4 +138,4 @@ export const DEFAULT_CONFIG: AnimationConfig = {
 export const EMOTION_SMOOTHING = 0.3;
 export const VISEME_SMOOTHING = 0.5;
 /** Multiplier applied to emotion morph target values before clamping (1 = raw mapping). */
-export const EMOTION_INTENSITY = 2;
+export const EMOTION_INTENSITY = 2.5;
