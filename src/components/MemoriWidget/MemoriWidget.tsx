@@ -125,6 +125,20 @@ const getMemoriState = (integrationId?: string): object | null => {
   };
 };
 
+/** Unified login token resolution: React state > ref > call-site override > props. */
+const resolveLoginTokenValue = (
+  loginToken: string | undefined,
+  userTokenRef: string | undefined,
+  callAdditionalInfoLoginToken: string | undefined,
+  additionalInfoLoginToken: string | undefined,
+  authTokenProp: string | undefined
+): string | undefined =>
+  loginToken ??
+  userTokenRef ??
+  callAdditionalInfoLoginToken ??
+  additionalInfoLoginToken ??
+  authTokenProp;
+
 /** Place spec with all nulls for postEnterTextAsync when position is not set or user chose "I don't want to provide my position". */
 const NULL_PLACE_SPEC = {
   placeName: null,
@@ -561,43 +575,75 @@ const MemoriWidget = ({
   const userTokenRef = useRef<string | undefined>(
     additionalInfo?.loginToken ?? authToken
   );
-
-  // Sync loginToken state when the parent passes a new token via props
-  useEffect(() => {
-    const incomingToken = additionalInfo?.loginToken ?? authToken;
-    if (incomingToken && incomingToken !== loginToken) {
-      setLoginToken(incomingToken);
-      userTokenRef.current = incomingToken;
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [additionalInfo?.loginToken, authToken]);
+  const prevPropsLoginTokenRef = useRef<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
 
   const [user, setUser] = useState<User | undefined>({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
-  useEffect(() => {
-    if (
-      loginToken &&
-      !user?.userID &&
-      (showLogin || memori.requireLoginToken)
-    ) {
-      client.backend
-        .pwlGetCurrentUser(loginToken)
-        .then(({ user, resultCode }) => {
-          if (user && resultCode === 0) {
-            setUser(user);
-            setLocalConfig('loginToken', loginToken);
 
-            if (!birthDate && user.birthDate) {
-              setBirthDate(user.birthDate);
-              setLocalConfig('birthDate', user.birthDate);
-            }
-          } else {
-            removeLocalConfig('loginToken');
-          }
-        });
+  const resolveLoginToken = useCallback(
+    (callAdditionalInfoLoginToken?: string) =>
+      resolveLoginTokenValue(
+        loginToken,
+        userTokenRef.current,
+        callAdditionalInfoLoginToken,
+        additionalInfo?.loginToken,
+        authToken
+      ),
+    [loginToken, additionalInfo?.loginToken, authToken]
+  );
+
+  // Sync loginToken when props change (including explicit removal from parent)
+  useEffect(() => {
+    const incomingToken = additionalInfo?.loginToken ?? authToken;
+    const prevPropsToken = prevPropsLoginTokenRef.current;
+    prevPropsLoginTokenRef.current = incomingToken;
+
+    if (incomingToken !== prevPropsToken) {
+      setLoginToken(incomingToken);
+      userTokenRef.current = incomingToken;
+      if (!incomingToken) {
+        removeLocalConfig('loginToken');
+        setUser(undefined);
+      }
     }
-  }, [loginToken, user?.userID]);
+  }, [additionalInfo?.loginToken, authToken]);
+
+  useEffect(() => {
+    if (!loginToken || !(showLogin || memori.requireLoginToken)) {
+      return;
+    }
+
+    let cancelled = false;
+
+    client.backend
+      .pwlGetCurrentUser(loginToken)
+      .then(({ user: fetchedUser, resultCode }) => {
+        if (cancelled) return;
+
+        if (fetchedUser && resultCode === 0) {
+          setUser(fetchedUser);
+          setLocalConfig('loginToken', loginToken);
+          userTokenRef.current = loginToken;
+
+          if (!birthDate && fetchedUser.birthDate) {
+            setBirthDate(fetchedUser.birthDate);
+            setLocalConfig('birthDate', fetchedUser.birthDate);
+          }
+        } else {
+          setLoginToken(undefined);
+          userTokenRef.current = undefined;
+          setUser(undefined);
+          removeLocalConfig('loginToken');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [loginToken, showLogin, memori.requireLoginToken]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -1404,12 +1450,7 @@ const MemoriWidget = ({
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
           ...(params.additionalInfo || additionalInfo || {}),
-          loginToken:
-            loginToken ??
-            userTokenRef.current ??
-            params.additionalInfo?.loginToken ??
-            additionalInfo?.loginToken ??
-            authToken,
+          loginToken: resolveLoginToken(params.additionalInfo?.loginToken),
           language: (
             userLang ??
             memori.culture?.split('-')?.[0] ??
@@ -1571,12 +1612,7 @@ const MemoriWidget = ({
         birthDate: userBirthDate,
         additionalInfo: {
           ...(additionalInfoProp || additionalInfo || {}),
-          loginToken:
-            userTokenRef.current ??
-            loginToken ??
-            additionalInfoProp?.loginToken ??
-            additionalInfo?.loginToken ??
-            authToken,
+          loginToken: resolveLoginToken(additionalInfoProp?.loginToken),
           language: (
             userLang ??
             memori.culture?.split('-')?.[0] ??
@@ -1858,11 +1894,7 @@ const MemoriWidget = ({
             birthDate: birthDate || storageBirthDate || undefined,
             additionalInfo: {
               ...(additionalInfo || {}),
-              loginToken:
-                userTokenRef.current ??
-                loginToken ??
-                additionalInfo?.loginToken ??
-                authToken,
+              loginToken: resolveLoginToken(),
               language: (
                 userLang ??
                 memori.culture?.split('-')?.[0] ??
@@ -2745,11 +2777,7 @@ const MemoriWidget = ({
             birthDate: birth,
             additionalInfo: {
               ...(additionalInfo || {}),
-              loginToken:
-                userTokenRef.current ??
-                loginToken ??
-                additionalInfo?.loginToken ??
-                authToken,
+              loginToken: resolveLoginToken(),
               language: (
                 userLang ??
                 memori.culture?.split('-')?.[0] ??
@@ -3125,29 +3153,31 @@ const MemoriWidget = ({
       return;
     }
 
+    const propsToken = additionalInfo?.loginToken ?? authToken;
+    const initialDomToken = targetNode.getAttribute('authtoken') || undefined;
+    if (initialDomToken && !propsToken) {
+      setLoginToken(initialDomToken);
+      userTokenRef.current = initialDomToken;
+    }
+
+    const applyAuthTokenFromElement = (element: Element) => {
+      const clientNode =
+        element.nodeName === 'MEMORI-CLIENT'
+          ? element
+          : element.closest('memori-client') ?? element.parentElement;
+      const token = clientNode?.getAttribute('authtoken') || undefined;
+      setLoginToken(token);
+      userTokenRef.current = token;
+    };
+
     const config = { attributes: true, childList: false, subtree: false };
-    const callback: MutationCallback = (mutationList, _observer) => {
+    const callback: MutationCallback = mutationList => {
       for (const mutation of mutationList) {
         if (
           mutation.type === 'attributes' &&
           mutation.attributeName?.toLowerCase() === 'authtoken'
         ) {
-          if (mutation.target.nodeName === 'MEMORI-CLIENT') {
-            setLoginToken(
-              // @ts-ignore
-              mutation.target.getAttribute('authtoken') || undefined
-            );
-            // @ts-ignore
-            userTokenRef.current = mutation.target.getAttribute('authtoken') || undefined;
-          } else {
-            // @ts-ignore
-            setLoginToken(
-              mutation.target?.parentElement?.getAttribute('authtoken') ||
-                undefined
-            );
-            // @ts-ignore
-            userTokenRef.current = mutation.target.getAttribute('authtoken') || undefined;
-          }
+          applyAuthTokenFromElement(mutation.target as Element);
         }
       }
     };
@@ -3157,7 +3187,7 @@ const MemoriWidget = ({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [memori.name, memori.memoriID, additionalInfo?.loginToken, authToken]);
 
   /**
    * Experts references
@@ -3392,8 +3422,7 @@ const MemoriWidget = ({
     showTypingText:
       showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),
-    authToken:
-      loginToken ?? userTokenRef.current ?? additionalInfo?.loginToken ?? authToken,
+    authToken: resolveLoginToken(),
     dialogState: currentDialogState,
     pushMessage,
     simulateUserPrompt,
