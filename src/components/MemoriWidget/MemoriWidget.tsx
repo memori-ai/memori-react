@@ -385,7 +385,6 @@ window.typeBatchMessages = typeBatchMessages;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
-let userToken: string | undefined;
 
 export interface LayoutProps {
   Header?: typeof Header;
@@ -640,6 +639,20 @@ const MemoriWidget = ({
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
   );
+  const userTokenRef = useRef<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
+
+  // Sync loginToken state when the parent passes a new token via props
+  useEffect(() => {
+    const incomingToken = additionalInfo?.loginToken ?? authToken;
+    if (incomingToken && incomingToken !== loginToken) {
+      setLoginToken(incomingToken);
+      userTokenRef.current = incomingToken;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [additionalInfo?.loginToken, authToken]);
+
   const [user, setUser] = useState<User | undefined>({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
@@ -874,7 +887,7 @@ const MemoriWidget = ({
 
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
-      userToken = getLocalConfig<typeof loginToken>('loginToken', undefined);
+      userTokenRef.current = getLocalConfig<typeof loginToken>('loginToken', undefined);
 
       setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
     }
@@ -1508,8 +1521,8 @@ const MemoriWidget = ({
         additionalInfo: {
           ...(params.additionalInfo || additionalInfo || {}),
           loginToken:
-            userToken ??
             loginToken ??
+            userTokenRef.current ??
             params.additionalInfo?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
@@ -1682,7 +1695,7 @@ const MemoriWidget = ({
         additionalInfo: {
           ...(additionalInfoProp || additionalInfo || {}),
           loginToken:
-            userToken ??
+            userTokenRef.current ??
             loginToken ??
             additionalInfoProp?.loginToken ??
             additionalInfo?.loginToken ??
@@ -1988,7 +2001,7 @@ const MemoriWidget = ({
             additionalInfo: {
               ...(additionalInfo || {}),
               loginToken:
-                userToken ??
+                userTokenRef.current ??
                 loginToken ??
                 additionalInfo?.loginToken ??
                 authToken,
@@ -2864,7 +2877,7 @@ const MemoriWidget = ({
             additionalInfo: {
               ...(additionalInfo || {}),
               loginToken:
-                userToken ??
+                userTokenRef.current ??
                 loginToken ??
                 additionalInfo?.loginToken ??
                 authToken,
@@ -3262,7 +3275,7 @@ const MemoriWidget = ({
               mutation.target.getAttribute('authtoken') || undefined
             );
             // @ts-ignore
-            userToken = mutation.target.getAttribute('authtoken') || undefined;
+            userTokenRef.current = mutation.target.getAttribute('authtoken') || undefined;
           } else {
             // @ts-ignore
             setLoginToken(
@@ -3270,7 +3283,7 @@ const MemoriWidget = ({
                 undefined
             );
             // @ts-ignore
-            userToken = mutation.target.getAttribute('authtoken') || undefined;
+            userTokenRef.current = mutation.target.getAttribute('authtoken') || undefined;
           }
         }
       }
@@ -3450,7 +3463,7 @@ const MemoriWidget = ({
         setShowLoginDrawer(false);
         setUser(undefined);
         setLoginToken(undefined);
-        userToken = undefined;
+        userTokenRef.current = undefined;
         removeLocalConfig('loginToken');
       });
     },
@@ -3528,7 +3541,7 @@ const MemoriWidget = ({
       showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),
     authToken:
-      loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
+      loginToken ?? userTokenRef.current ?? additionalInfo?.loginToken ?? authToken,
     dialogState: currentDialogState,
     pushMessage,
     simulateUserPrompt,
