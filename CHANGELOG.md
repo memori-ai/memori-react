@@ -1,5 +1,14 @@
 
 
+## [8.41.4](https://github.com/memori-ai/memori-react/compare/v8.41.3...v8.41.4) (2026-07-15)
+
+
+### Bug Fixes
+
+* login token async conditions ([28ec006](https://github.com/memori-ai/memori-react/commit/28ec006c296a2045a775fe6adfdf369f7c135c60))
+* remove '.xls' from office native extensions ([3890334](https://github.com/memori-ai/memori-react/commit/3890334fed4f6f6e7c8fbfbb5afbbe23989ff5f0))
+* unify login token resolution logic in MemoriWidget component ([c84f305](https://github.com/memori-ai/memori-react/commit/c84f305246a4a868fbfadecbf0febb635623fdb5))
+
 ## [8.41.3](https://github.com/memori-ai/memori-react/compare/v8.41.2...v8.41.3) (2026-07-02)
 
 
