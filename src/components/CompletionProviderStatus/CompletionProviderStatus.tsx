@@ -35,17 +35,21 @@ const PROVIDER_CONFIGS: Record<string, ProviderConfig> = {
     statusPage: 'https://status.mistral-data.com/',
     apiComponentName: ['Mistral'],
   },
+  // Use status.claude.com directly: status.anthropic.com 302-redirects and
+  // browsers block the redirected response (missing CORS on the redirect).
   Anthropic: {
-    statusUrl: 'https://status.anthropic.com/api/v2/summary.json',
-    statusPage: 'https://status.anthropic.com/',
-    apiComponentName: ['api.anthropic.com'],
+    statusUrl: 'https://status.claude.com/api/v2/summary.json',
+    statusPage: 'https://status.claude.com/',
+    apiComponentName: [
+      'Claude API (api.anthropic.com)',
+      'api.anthropic.com',
+    ],
   },
 };
 
 // Modified to handle fetch errors, different component names, and check incidents
 const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
   try {
-    // Use cross-fetch instead of native fetch
     const response = await fetch(config.statusUrl);
     if (!response.ok) {
       console.warn(`Status API returned ${response.status}`);
