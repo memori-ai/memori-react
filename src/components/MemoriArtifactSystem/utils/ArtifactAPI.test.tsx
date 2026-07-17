@@ -116,6 +116,7 @@ describe('ArtifactAPIBridge', () => {
 
     const artifact: ArtifactData = {
       id: 'test-artifact-123',
+      artifactId: 'test-artifact',
       content: '<div>Full artifact</div>',
       mimeType: 'html',
       title: 'Full Artifact Test',

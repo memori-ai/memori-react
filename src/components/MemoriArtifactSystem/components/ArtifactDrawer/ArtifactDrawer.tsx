@@ -378,6 +378,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                         timestamp: new Date(),
                         size: 0,
                         id: '',
+                        artifactId: '',
                       })}
                       disabled={false}
                       className="memori-artifact-action-btn"

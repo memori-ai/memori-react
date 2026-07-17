@@ -197,6 +197,7 @@
   "artifact": {
     "close": "Cerrar",
     "size": "Tamaño",
+    "updated": "actualizado",
     "generated": "Generado",
     "download": "Descargar",
     "print": "Imprimir",

@@ -138,4 +138,4 @@ export const DEFAULT_CONFIG: AnimationConfig = {
 export const EMOTION_SMOOTHING = 0.3;
 export const VISEME_SMOOTHING = 0.5;
 /** Multiplier applied to emotion morph target values before clamping (1 = raw mapping). */
-export const EMOTION_INTENSITY = 2.5;
+export const EMOTION_INTENSITY = 1.5;

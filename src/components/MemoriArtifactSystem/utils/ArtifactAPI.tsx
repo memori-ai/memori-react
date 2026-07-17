@@ -73,7 +73,7 @@ export const ArtifactAPIBridge = ({
 }: {
   pushMessage: (message: Message) => void;
 }) => {
-  const { openArtifact, closeArtifact, toggleFullscreen, state } =
+  const { openArtifact, closeArtifact, toggleFullscreen, state, registerArtifact } =
     useArtifact();
   
   const apiRef = useRef<any>(null);
@@ -105,12 +105,14 @@ export const ArtifactAPIBridge = ({
           title?: string
         ) => {
           const autoTitle = title || getTitleFromMimeType(mimeType);
+          const artifactId = `api-${Date.now()}-${Math.random()
+            .toString(36)
+            .substr(2, 9)}`;
 
           // Create the artifact object
           const artifact: ArtifactData = {
-            id: `artifact-${Date.now()}-${Math.random()
-              .toString(36)
-              .substr(2, 9)}`,
+            id: `artifact-ui-${artifactId}`,
+            artifactId,
             content,
             mimeType,
             title: autoTitle,
@@ -121,8 +123,8 @@ export const ArtifactAPIBridge = ({
           // Create wrapped message text for artifact detection
           // Don't reassign content parameter - use a new variable
           let messageText = content;
-          if (!messageText.includes('<output class="memori-artifact">')) {
-            messageText = `<output class="memori-artifact" data-mimetype="${mimeType}" data-title="${autoTitle}">${content}</output>`;
+          if (!messageText.includes('class="memori-artifact"')) {
+            messageText = `<output class="memori-artifact" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${autoTitle}">${content}</output>`;
           }
 
           //we have to push in the history the artifact as message
@@ -143,6 +145,7 @@ export const ArtifactAPIBridge = ({
             placeUncertaintyKm: undefined,
           });
 
+          registerArtifact(artifact);
           // Open the artifact immediately
           openArtifact(artifact);
         },
@@ -159,15 +162,17 @@ export const ArtifactAPIBridge = ({
           const title =
             outputElement.getAttribute('data-title') ||
             getTitleFromMimeType(mimeType);
+          const artifactId =
+            outputElement.getAttribute('data-artifact-id') ||
+            `api-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
           // Nascondi l'elemento originale
           outputElement.style.display = 'none';
           outputElement.setAttribute('data-memori-processed', 'true');
 
           const artifact: ArtifactData = {
-            id: `artifact-${Date.now()}-${Math.random()
-              .toString(36)
-              .substr(2, 9)}`,
+            id: `artifact-ui-${artifactId}`,
+            artifactId,
             content,
             mimeType,
             title,
@@ -178,8 +183,8 @@ export const ArtifactAPIBridge = ({
           // Create wrapped message text for artifact detection
           // Don't reassign content - use a new variable
           let messageText = content;
-          if (!messageText.includes('<output class="memori-artifact">')) {
-            messageText = `<output class="memori-artifact" data-mimetype="${mimeType}" data-title="${title}">${content}</output>`;
+          if (!messageText.includes('class="memori-artifact"')) {
+            messageText = `<output class="memori-artifact" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${title}">${content}</output>`;
           }
 
           pushMessage({
@@ -199,10 +204,11 @@ export const ArtifactAPIBridge = ({
             placeUncertaintyKm: undefined,
           });
 
+          registerArtifact(artifact);
           // Open the artifact immediately
           openArtifact(artifact);
 
-          return artifact.id;
+          return artifact.artifactId;
         },
 
         /**
@@ -283,7 +289,7 @@ export const ArtifactAPIBridge = ({
         delete (window as any).MemoriArtifactAPI;
       }
     };
-  }, [openArtifact, closeArtifact, toggleFullscreen, state, pushMessage]);
+  }, [openArtifact, closeArtifact, toggleFullscreen, state, pushMessage, registerArtifact]);
 
   return null;
 };

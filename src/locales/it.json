@@ -212,6 +212,7 @@
   "artifact": {
     "close": "Chiudi",
     "size": "Dimensione",
+    "updated": "aggiornato",
     "generated": "Generato",
     "download": "Scarica",
     "print": "Stampa",

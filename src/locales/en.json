@@ -210,6 +210,7 @@
   "artifact": {
     "close": "Close",
     "size": "Size",
+    "updated": "updated",
     "generated": "Generated",
     "download": "Download",
     "print": "Print",

@@ -111,6 +111,10 @@ export const renderMsg = (
         /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
         ''
       )
+      .replaceAll(
+        /<output\s+class\s*=\s*["\']memori-artifact-update["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
+        ''
+      )
       .replaceAll(/```markdown([^```]+)```/g, '$1')
       .replaceAll('($', '( $')
       .replaceAll(':$', ': $')
