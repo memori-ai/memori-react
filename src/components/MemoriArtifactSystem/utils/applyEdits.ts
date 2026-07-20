@@ -143,7 +143,7 @@ const isValidEditsArray = (value: unknown): value is ArtifactEdit[] => {
 };
 
 /**
- * Parse the body of a memori-artifact-update tag into an edits array.
+ * Parse the body of a memori-artifact update tag into an edits array.
  * Handles valid JSON and HTML-entity-encoded JSON. Returns null on failure.
  */
 export const parseEdits = (body: string): ArtifactEdit[] | null => {

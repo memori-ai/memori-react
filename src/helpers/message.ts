@@ -111,6 +111,17 @@ export const renderMsg = (
         /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
         ''
       )
+      // Preferred: data-action="update" on memori-artifact
+      .replaceAll(
+        /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-action\s*=\s*["\']update["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
+        ''
+      )
+      // data-action may appear before class
+      .replaceAll(
+        /<output\s+[^>]*data-action\s*=\s*["\']update["\'][^>]*class\s*=\s*["\'][^"']*memori-artifact[^"']*["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
+        ''
+      )
+      // Legacy class name
       .replaceAll(
         /<output\s+class\s*=\s*["\']memori-artifact-update["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
         ''

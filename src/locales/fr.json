@@ -197,6 +197,8 @@
     "close": "Fermer",
     "size": "Taille",
     "updated": "mis à jour",
+    "updateFailed": "Mise à jour non appliquée",
+    "updateFailedHint": "Le correctif ne correspond pas au contenu actuel. Demandez de réécrire l'artifact.",
     "generated": "Généré",
     "download": "Télécharger",
     "print": "Imprimer",

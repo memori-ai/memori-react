@@ -21,7 +21,10 @@ export interface ApplyUpdateResult {
   success: boolean;
   failedEdits: ArtifactEdit[];
   updatedArtifact: ArtifactData | null;
+  /** Why the update failed when updatedArtifact is null */
+  failureReason?: 'not-found' | 'no-match';
 }
+
 
 export interface ArtifactSystemState {
   currentArtifact: ArtifactData | null;

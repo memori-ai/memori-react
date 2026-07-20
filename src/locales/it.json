@@ -213,6 +213,8 @@
     "close": "Chiudi",
     "size": "Dimensione",
     "updated": "aggiornato",
+    "updateFailed": "Aggiornamento non applicato",
+    "updateFailedHint": "Il patch non corrisponde al contenuto attuale. Chiedi di riscrivere l'artifact.",
     "generated": "Generato",
     "download": "Scarica",
     "print": "Stampa",

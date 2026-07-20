@@ -198,6 +198,8 @@
     "close": "Cerrar",
     "size": "Tamaño",
     "updated": "actualizado",
+    "updateFailed": "No se pudo aplicar la actualización",
+    "updateFailedHint": "El parche no coincide con el contenido actual. Pide reescribir el artifact.",
     "generated": "Generado",
     "download": "Descargar",
     "print": "Imprimir",

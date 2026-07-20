@@ -124,7 +124,7 @@ export const ArtifactAPIBridge = ({
           // Don't reassign content parameter - use a new variable
           let messageText = content;
           if (!messageText.includes('class="memori-artifact"')) {
-            messageText = `<output class="memori-artifact" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${autoTitle}">${content}</output>`;
+            messageText = `<output class="memori-artifact" data-action="create" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${autoTitle}">${content}</output>`;
           }
 
           //we have to push in the history the artifact as message
@@ -184,7 +184,7 @@ export const ArtifactAPIBridge = ({
           // Don't reassign content - use a new variable
           let messageText = content;
           if (!messageText.includes('class="memori-artifact"')) {
-            messageText = `<output class="memori-artifact" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${title}">${content}</output>`;
+            messageText = `<output class="memori-artifact" data-action="create" data-artifact-id="${artifactId}" data-mimetype="${mimeType}" data-title="${title}">${content}</output>`;
           }
 
           pushMessage({

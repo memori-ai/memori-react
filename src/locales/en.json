@@ -211,6 +211,8 @@
     "close": "Close",
     "size": "Size",
     "updated": "updated",
+    "updateFailed": "Update could not be applied",
+    "updateFailedHint": "The patch did not match the current content. Ask to rewrite the artifact.",
     "generated": "Generated",
     "download": "Download",
     "print": "Print",

@@ -78,6 +78,7 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
           success: false,
           failedEdits: edits,
           updatedArtifact: null,
+          failureReason: 'not-found',
         };
       }
 
@@ -91,11 +92,14 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
           success: false,
           failedEdits,
           updatedArtifact: null,
+          failureReason: 'no-match',
         };
       }
 
       const updatedArtifact: ArtifactData = {
-        id: `artifact-ui-${artifactId}-${Date.now()}`,
+        id: `artifact-ui-${artifactId}-${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2, 8)}`,
         artifactId,
         content,
         mimeType: current.mimeType,

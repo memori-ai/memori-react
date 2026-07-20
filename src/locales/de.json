@@ -198,6 +198,8 @@
     "close": "Schließen",
     "size": "Größe",
     "updated": "aktualisiert",
+    "updateFailed": "Update konnte nicht angewendet werden",
+    "updateFailedHint": "Der Patch stimmt nicht mit dem aktuellen Inhalt überein. Bitten Sie um ein Neuschreiben des Artifacts.",
     "generated": "Generiert",
     "download": "Herunterladen",
     "print": "Drucken",

@@ -18,7 +18,6 @@ import { stripReasoningTags } from '../../../../helpers/utils';
 import { parseEdits } from '../../utils/applyEdits';
 import { useTranslation } from 'react-i18next';
 
-// Event type for artifact creation
 type ArtifactCreatedEvent = CustomEvent<{
   artifact: ArtifactData;
   message: Message;
@@ -34,6 +33,11 @@ interface DetectedUpdate {
   edits: ArtifactEdit[];
 }
 
+interface FailedUpdate {
+  artifactId: string;
+  reason: 'not-found' | 'no-match' | 'invalid';
+}
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -46,29 +50,75 @@ const formatBytes = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
-/**
- * Returns true when the `class` attribute contains the whole-word
- * "memori-artifact" but NOT "memori-artifact-update".
- */
 const CLASS_ATTR_RE = /class\s*=\s*["']([^"']*)["']/i;
-const hasMemoriArtifactClass = (openingTag: string): boolean => {
+const DATA_ACTION_RE = /data-action\s*=\s*["']([^"']+)["']/i;
+
+const getClassList = (openingTag: string): string[] => {
   const m = openingTag.match(CLASS_ATTR_RE);
-  if (!m) return false;
-  const classes = m[1].split(/\s+/);
-  return (
-    classes.includes('memori-artifact') &&
-    !classes.includes('memori-artifact-update')
-  );
+  if (!m) return [];
+  return m[1].split(/\s+/).filter(Boolean);
 };
 
-const hasMemoriArtifactUpdateClass = (openingTag: string): boolean => {
-  const m = openingTag.match(CLASS_ATTR_RE);
-  if (!m) return false;
-  return m[1].split(/\s+/).includes('memori-artifact-update');
+const getDataAction = (openingTag: string): string | null => {
+  const m = openingTag.match(DATA_ACTION_RE);
+  return m?.[1]?.trim().toLowerCase() || null;
+};
+
+/** True for create tags: class memori-artifact, action create/absent (not update). */
+const isCreateArtifactTag = (openingTag: string): boolean => {
+  const classes = getClassList(openingTag);
+  if (classes.includes('memori-artifact-update')) return false;
+  if (!classes.includes('memori-artifact')) return false;
+  const action = getDataAction(openingTag);
+  return action === null || action === 'create';
 };
 
 /**
- * Parser-style artifact detector for create tags (class="memori-artifact").
+ * True for update tags:
+ * - preferred: class="memori-artifact" data-action="update"
+ * - legacy: class="memori-artifact-update"
+ */
+const isUpdateArtifactTag = (openingTag: string): boolean => {
+  const classes = getClassList(openingTag);
+  if (classes.includes('memori-artifact-update')) return true;
+  if (!classes.includes('memori-artifact')) return false;
+  return getDataAction(openingTag) === 'update';
+};
+
+const findMatchingOutputClose = (
+  cleaned: string,
+  openEnd: number
+): number => {
+  let depth = 1;
+  let pos = openEnd;
+  let closeStart = -1;
+
+  while (pos < cleaned.length && depth > 0) {
+    const nextOpen = cleaned.indexOf('<output', pos);
+    const nextClose = cleaned.indexOf('</output>', pos);
+
+    if (nextClose === -1) {
+      return cleaned.length;
+    }
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      pos = nextOpen + '<output'.length;
+    } else {
+      depth--;
+      if (depth === 0) {
+        closeStart = nextClose;
+      } else {
+        pos = nextClose + '</output>'.length;
+      }
+    }
+  }
+
+  return closeStart;
+};
+
+/**
+ * Detect create artifacts (class="memori-artifact", data-action create/absent).
  */
 const detectArtifacts = (
   text: string,
@@ -90,41 +140,14 @@ const detectArtifacts = (
     if (!openMatch) break;
 
     const fullOpenTag = openMatch[0];
-    const openStart = openMatch.index;
-    const openEnd = openStart + fullOpenTag.length;
+    const openEnd = openMatch.index + fullOpenTag.length;
 
-    if (!hasMemoriArtifactClass(fullOpenTag)) {
+    if (!isCreateArtifactTag(fullOpenTag)) {
       searchFrom = openEnd;
       continue;
     }
 
-    let depth = 1;
-    let pos = openEnd;
-    let closeStart = -1;
-
-    while (pos < cleaned.length && depth > 0) {
-      const nextOpen = cleaned.indexOf('<output', pos);
-      const nextClose = cleaned.indexOf('</output>', pos);
-
-      if (nextClose === -1) {
-        closeStart = cleaned.length;
-        depth = 0;
-        break;
-      }
-
-      if (nextOpen !== -1 && nextOpen < nextClose) {
-        depth++;
-        pos = nextOpen + '<output'.length;
-      } else {
-        depth--;
-        if (depth === 0) {
-          closeStart = nextClose;
-        } else {
-          pos = nextClose + '</output>'.length;
-        }
-      }
-    }
-
+    const closeStart = findMatchingOutputClose(cleaned, openEnd);
     if (closeStart === -1) {
       searchFrom = openEnd;
       continue;
@@ -175,7 +198,7 @@ const detectArtifacts = (
 };
 
 /**
- * Detect memori-artifact-update tags and parse their JSON edit bodies.
+ * Detect update tags and parse their JSON edit bodies.
  */
 const detectUpdates = (
   text: string,
@@ -197,7 +220,7 @@ const detectUpdates = (
     const fullOpenTag = openMatch[0];
     const openEnd = openMatch.index + fullOpenTag.length;
 
-    if (!hasMemoriArtifactUpdateClass(fullOpenTag)) {
+    if (!isUpdateArtifactTag(fullOpenTag)) {
       searchFrom = openEnd;
       continue;
     }
@@ -214,6 +237,9 @@ const detectUpdates = (
 
     if (artifactId && edits) {
       updates.push({ artifactId, edits });
+    } else if (artifactId) {
+      // Invalid body — still surface as a failed update for UI feedback
+      updates.push({ artifactId, edits: [] });
     }
 
     searchFrom =
@@ -231,8 +257,13 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   isChatlogPanel = false,
   message,
 }) => {
-  const { openArtifact, state, closeArtifact, registerArtifact, applyArtifactUpdate } =
-    useArtifact();
+  const {
+    openArtifact,
+    state,
+    closeArtifact,
+    registerArtifact,
+    applyArtifactUpdate,
+  } = useArtifact();
   const { t } = useTranslation();
 
   const messageText = useMemo(() => message.text || '', [message.text]);
@@ -270,16 +301,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     return detectUpdates(translatedMessageText, fromUser);
   }, [messageText, translatedMessageText, message.fromUser]);
 
-  // Per-message map of update index → resulting ArtifactData version
   const [updateResultMap, setUpdateResultMap] = useState<
     Record<number, ArtifactData>
   >({});
+  const [failedUpdates, setFailedUpdates] = useState<FailedUpdate[]>([]);
 
-  // Prevent re-applying the same update payload (e.g. streaming re-renders)
   const processedUpdatesRef = useRef<string>('');
   const hasAutoOpenedRef = useRef<string>('');
 
-  // Register creates + apply updates when this message arrives
   useEffect(() => {
     if (!messageText && !translatedMessageText) return;
 
@@ -300,17 +329,32 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     ) {
       processedUpdatesRef.current = updatesSignature;
       const nextMap: Record<number, ArtifactData> = {};
+      const nextFailed: FailedUpdate[] = [];
 
       detectedUpdates.forEach((update, idx) => {
+        if (!update.edits.length) {
+          nextFailed.push({
+            artifactId: update.artifactId,
+            reason: 'invalid',
+          });
+          return;
+        }
+
         const result = applyArtifactUpdate(update.artifactId, update.edits);
         if (result.updatedArtifact) {
           nextMap[idx] = result.updatedArtifact;
           lastUpdated = result.updatedArtifact;
           dispatchArtifactCreatedEvent(result.updatedArtifact);
+        } else {
+          nextFailed.push({
+            artifactId: update.artifactId,
+            reason: result.failureReason ?? 'no-match',
+          });
         }
       });
 
       setUpdateResultMap(nextMap);
+      setFailedUpdates(nextFailed);
     }
 
     if (isChatlogPanel) return;
@@ -366,12 +410,33 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   }, []);
 
   const updatedLabel = t('artifact.updated') || 'updated';
+  const updateFailedLabel =
+    t('artifact.updateFailed') || 'Update could not be applied';
+  const updateFailedHint =
+    t('artifact.updateFailedHint') ||
+    'The patch did not match the current content. Ask to rewrite the artifact.';
 
-  const hasCreates = artifacts.length > 0;
   const updateEntries = Object.entries(updateResultMap);
+  const hasCreates = artifacts.length > 0;
   const hasUpdates = updateEntries.length > 0;
+  const hasFailed = failedUpdates.length > 0;
 
-  if (!hasCreates && !hasUpdates) return null;
+  if (!hasCreates && !hasUpdates && !hasFailed) return null;
+
+  const renderChevron = (isSelected: boolean) => {
+    if (isChatlogPanel) {
+      return isSelected ? (
+        <ChevronUp className="memori-artifact-handler-action-icon" />
+      ) : (
+        <ChevronDown className="memori-artifact-handler-action-icon" />
+      );
+    }
+    return isSelected ? (
+      <ChevronLeft className="memori-artifact-handler-action-icon" />
+    ) : (
+      <ChevronRight className="memori-artifact-handler-action-icon" />
+    );
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -407,17 +472,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                 </div>
               </div>
               <div className="memori-artifact-handler-action">
-                {isChatlogPanel ? (
-                  isSelected ? (
-                    <ChevronUp className="memori-artifact-handler-action-icon" />
-                  ) : (
-                    <ChevronDown className="memori-artifact-handler-action-icon" />
-                  )
-                ) : isSelected ? (
-                  <ChevronLeft className="memori-artifact-handler-action-icon" />
-                ) : (
-                  <ChevronRight className="memori-artifact-handler-action-icon" />
-                )}
+                {renderChevron(isSelected)}
               </div>
             </div>
 
@@ -456,17 +511,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                 </div>
               </div>
               <div className="memori-artifact-handler-action">
-                {isChatlogPanel ? (
-                  isSelected ? (
-                    <ChevronUp className="memori-artifact-handler-action-icon" />
-                  ) : (
-                    <ChevronDown className="memori-artifact-handler-action-icon" />
-                  )
-                ) : isSelected ? (
-                  <ChevronLeft className="memori-artifact-handler-action-icon" />
-                ) : (
-                  <ChevronRight className="memori-artifact-handler-action-icon" />
-                )}
+                {renderChevron(isSelected)}
               </div>
             </div>
 
@@ -474,13 +519,32 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
           </React.Fragment>
         );
       })}
+
+      {failedUpdates.map((failed, idx) => (
+        <div
+          key={`failed-${failed.artifactId}-${idx}`}
+          className="memori-artifact-handler memori-artifact-handler--failed"
+          style={{
+            opacity: 0.85,
+            border: '1px dashed var(--memori-danger, #ef4444)',
+            cursor: 'default',
+          }}
+          role="status"
+        >
+          <div className="memori-artifact-handler-icon">⚠️</div>
+          <div className="memori-artifact-handler-info">
+            <div className="memori-artifact-handler-title">
+              {updateFailedLabel}
+            </div>
+            <div className="memori-artifact-handler-meta">
+              {failed.artifactId} • {updateFailedHint}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
-
-// ---------------------------------------------------------------------------
-// Memoised export
-// ---------------------------------------------------------------------------
 
 const MemoizedArtifactHandler = memo(ArtifactHandler, (prev, next) => {
   const prevText = prev.message.text || prev.message.translatedText || '';
