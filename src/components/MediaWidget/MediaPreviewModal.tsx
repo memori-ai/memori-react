@@ -274,9 +274,7 @@ export function MediaPreviewModal({
             // HTML document attachment: display HTML content in a code-like format
             let htmlContent = medium.content || '';
             if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
-              const div = document.createElement('div');
-              div.innerHTML = htmlContent;
-              htmlContent = div.textContent || div.innerText || htmlContent;
+              htmlContent = stripHTML(htmlContent) || htmlContent;
             } else {
               htmlContent = stripDocumentAttachmentTags(htmlContent);
             }
@@ -296,9 +294,7 @@ export function MediaPreviewModal({
             // Other document attachments: render as plain text
             let displayContent = medium.content;
             if (displayContent.includes('&lt;') || displayContent.includes('&quot;')) {
-              const div = document.createElement('div');
-              div.innerHTML = displayContent;
-              displayContent = div.textContent || div.innerText || displayContent;
+              displayContent = stripHTML(displayContent) || displayContent;
             } else {
               displayContent = stripDocumentAttachmentTags(displayContent);
             }

@@ -1,4 +1,24 @@
-import { renderMsg, stripAttachmentTags, stripAllInternalTags } from './message';
+import {
+  renderMsg,
+  sanitizeMsg,
+  stripAttachmentTags,
+  stripAllInternalTags,
+} from './message';
+
+describe('sanitizeMsg', () => {
+  it('strips onerror from partner XSS img payload', () => {
+    const payload =
+      '<img src="immagine-inesistente.jpg" onerror="alert(\'XSS Eseguito!\')">';
+    const result = sanitizeMsg(payload);
+    expect(result).toBe('<img src="immagine-inesistente.jpg">');
+    expect(result).not.toMatch(/onerror/i);
+  });
+
+  it('strips svg onload handlers', () => {
+    const result = sanitizeMsg('<svg onload="alert(1)"></svg>');
+    expect(result).not.toMatch(/onload/i);
+  });
+});
 
 describe('renderMsg', () => {
   it('should render message with reasoning and output tag adjacent correctly', () => {
@@ -10,6 +30,13 @@ describe('renderMsg', () => {
     expect(result.text).toBe(
       '<details class="memori-think"><summary>Reasoning...</summary>L\'utente vuole che io elenchi i parametri dell\'ALBERO ESISTENTE.</details>\n\n<output class="rails-query" style="display:none">\nproject = Project.find("68d99b05783713e16737d32b")\n</output>\n\n<p>Recupero tutti i 7 parametri dell\'ALBERO ESISTENTE...</p>'
     );
+  });
+
+  it('strips onerror from XSS img payload in rendered output', () => {
+    const payload =
+      '<img src="immagine-inesistente.jpg" onerror="alert(\'XSS Eseguito!\')">';
+    const result = renderMsg(payload, false, 'Reasoning...', false);
+    expect(result.text).not.toMatch(/onerror/i);
   });
 });
 

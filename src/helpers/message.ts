@@ -85,6 +85,9 @@ export const truncateMessage = (message: string) => {
   return truncatedMessage;
 };
 
+export const sanitizeMsg = (msg: string) =>
+  DOMPurify.sanitize(msg, { ADD_ATTR: ['target'] });
+
 export const renderMsg = (
   text: string,
   useMathFormatting = false,
@@ -211,9 +214,6 @@ export const renderMsg = (
     return { text: finalText };
   } catch (e) {
     console.error('Error rendering message:', e);
-    return { text };
+    return { text: sanitizeMsg(text) };
   }
 };
-
-export const sanitizeMsg = (msg: string) =>
-  DOMPurify.sanitize(msg, { ADD_ATTR: ['target'] });
