@@ -363,10 +363,23 @@ export const stripReasoningTags = (text: string) => {
   return strippedText;
 };
 
+/**
+ * Strip HTML tags / decode entities without executing scripts or event handlers.
+ * Uses an inert DOMParser document (no resource loads / onerror), unlike live innerHTML.
+ */
 export const stripHTML = (text: string) => {
-  const el = document.createElement('div');
-  el.innerHTML = text;
-  return el.textContent || '';
+  if (typeof DOMParser !== 'undefined') {
+    try {
+      return (
+        new DOMParser().parseFromString(text, 'text/html').body.textContent ||
+        ''
+      );
+    } catch {
+      // fall through
+    }
+  }
+  // Non-DOM / parse failure: strip tags only (does not decode entities)
+  return text.replace(/<[^>]*>/g, '');
 };
 
 /** Ensures all <a> tags in HTML open in a new tab (target="_blank" rel="noopener noreferrer"). */
