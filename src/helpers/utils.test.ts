@@ -1,6 +1,7 @@
 import {
   difference,
   stripEmojis,
+  stripHTML,
   stripMarkdown,
   stripOutputTags,
   escapeHTML,
@@ -251,6 +252,54 @@ describe('utils/attachment helpers', () => {
         url: '',
       },
     ]);
+  });
+});
+
+describe('utils/stripHTML', () => {
+  it('strips tags and returns text content', () => {
+    expect(stripHTML('<p>Hello <strong>world</strong></p>')).toBe(
+      'Hello world'
+    );
+  });
+
+  it('does not retain onerror from partner XSS payload', () => {
+    const payload =
+      '<img src="immagine-inesistente.jpg" onerror="alert(\'XSS Eseguito!\')">';
+    const result = stripHTML(payload);
+    expect(result).toBe('');
+    expect(result).not.toMatch(/onerror/i);
+    // Re-parse result: must not introduce an executable handler attribute
+    const reparsed = new DOMParser().parseFromString(result, 'text/html');
+    expect(reparsed.querySelector('[onerror]')).toBeNull();
+    expect(reparsed.querySelector('img')).toBeNull();
+  });
+
+  it('strips svg onload payloads without leaving handlers', () => {
+    const payload = '<svg onload="alert(1)"><text>x</text></svg>';
+    const result = stripHTML(payload);
+    expect(result).toBe('x');
+    expect(result).not.toMatch(/onload/i);
+  });
+
+  it('decodes HTML entities without executing nested markup', () => {
+    const encoded =
+      '&lt;img src="x" onerror="alert(1)"&gt;hello&lt;/img&gt;';
+    const result = stripHTML(encoded);
+    expect(result).toContain('hello');
+    // Entity-decoded text may contain the string "onerror" as text; ensure no live element
+    const reparsed = new DOMParser().parseFromString(
+      `<div>${result.replace(/</g, '&lt;')}</div>`,
+      'text/html'
+    );
+    expect(reparsed.querySelector('[onerror]')).toBeNull();
+  });
+
+  it('handles nested tags', () => {
+    expect(stripHTML('<div><span>a</span><b>b</b></div>')).toBe('ab');
+  });
+
+  it('returns empty string for empty input', () => {
+    expect(stripHTML('')).toBe('');
   });
 });
 

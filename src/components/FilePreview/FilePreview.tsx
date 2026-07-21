@@ -126,9 +126,7 @@ const FilePreview = ({
     if (isHtmlFile(file)) {
       let htmlContent = content;
       if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
-        const div = document.createElement('div');
-        div.innerHTML = htmlContent;
-        htmlContent = div.textContent || div.innerText || htmlContent;
+        htmlContent = stripHTML(htmlContent) || htmlContent;
       }
       htmlContent = stripDocumentAttachmentTags(htmlContent);
       return htmlContent;
