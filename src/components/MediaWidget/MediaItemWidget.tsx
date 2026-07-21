@@ -11,6 +11,7 @@ import React, {
 import { getResourceUrl } from '../../helpers/media';
 import {
   withLinksOpenInNewTab,
+  stripHTML,
   stripDocumentAttachmentTags,
   isAssetOnlyDocumentAttachment,
   getDocumentAttachmentAssetUrl,
@@ -430,9 +431,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           htmlContent.includes('<document_attachment')
         ) {
           if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
-            const div = document.createElement('div');
-            div.innerHTML = htmlContent;
-            htmlContent = div.textContent || div.innerText || htmlContent;
+            htmlContent = stripHTML(htmlContent) || htmlContent;
           }
           htmlContent = stripDocumentAttachmentTags(htmlContent);
         }
