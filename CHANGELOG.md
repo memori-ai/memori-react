@@ -1,5 +1,13 @@
 
 
+## [8.41.5](https://github.com/memori-ai/memori-react/compare/v8.41.4...v8.41.5) (2026-07-21)
+
+
+### Bug Fixes
+
+* prevent XSS vulnerability among sanification ([2ca6262](https://github.com/memori-ai/memori-react/commit/2ca6262873c8e44c7b6d34c7d69baa920e097b7a))
+* update Anthropic status URL to use status.claude.com ([2b889ac](https://github.com/memori-ai/memori-react/commit/2b889acc318e2c10e7207d546e136ec0f18b4087))
+
 ## [8.41.4](https://github.com/memori-ai/memori-react/compare/v8.41.3...v8.41.4) (2026-07-15)
 
 
