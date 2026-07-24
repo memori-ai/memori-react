@@ -1,5 +1,17 @@
 
 
+## [8.41.6](https://github.com/memori-ai/memori-react/compare/v8.41.5...v8.41.6) (2026-07-24)
+
+
+### Maintenance
+
+* update dompurify ([66aa725](https://github.com/memori-ai/memori-react/commit/66aa72599369c4f34773030bd3121f49b0f9610e))
+
+
+### Changes
+
+* improve date handling in AgeVerificationModal ([76317ea](https://github.com/memori-ai/memori-react/commit/76317ea22c0f5a07f956341d772a6e4719822f8e))
+
 ## [8.41.5](https://github.com/memori-ai/memori-react/compare/v8.41.4...v8.41.5) (2026-07-21)
 
 
