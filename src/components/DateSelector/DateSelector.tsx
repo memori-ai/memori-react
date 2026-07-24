@@ -5,16 +5,23 @@ import { useTranslation } from 'react-i18next';
 export interface Props {
   defaultDate?: string | Date;
   disabled?: boolean;
+  /** Minimum age; latest selectable birth date is today minus this many years. */
+  minAge?: number;
   onChange: (date: DateTime | undefined) => void;
 }
 
 const DateSelector = memo(
-  ({ defaultDate, onChange, disabled = false }: Props) => {
+  ({ defaultDate, onChange, disabled = false, minAge = 18 }: Props) => {
     const { t } = useTranslation();
 
-    // Calculate constraints for birth date (18 years ago to 1900)
-    const maxDate = useMemo(() => DateTime.now().minus({ years: 18 }), []);
-    const minDate = useMemo(() => DateTime.fromObject({ year: 1900, month: 1, day: 1 }), []);
+    const maxDate = useMemo(
+      () => DateTime.now().minus({ years: minAge }).startOf('day'),
+      [minAge]
+    );
+    const minDate = useMemo(
+      () => DateTime.fromObject({ year: 1900, month: 1, day: 1 }),
+      []
+    );
 
     // State for individual fields as strings to allow empty values
     const [day, setDay] = useState<string>('');
@@ -54,10 +61,22 @@ const DateSelector = memo(
       return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
+    // Avoid re-running when parent passes an unstable onChange (inline arrow).
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+    const lastEmittedRef = useRef<string | null | undefined>(undefined);
+
     // Validate and propagate changes
     useEffect(() => {
+      const emit = (next: DateTime | undefined) => {
+        const key = next?.isValid ? next.toISODate() : null;
+        if (key === lastEmittedRef.current) return;
+        lastEmittedRef.current = key;
+        onChangeRef.current(next);
+      };
+
       if (!day || !month || !year) {
-        onChange(undefined);
+        emit(undefined);
         return;
       }
 
@@ -66,7 +85,7 @@ const DateSelector = memo(
       const y = parseInt(year);
 
       if (isNaN(d) || isNaN(m) || isNaN(y)) {
-        onChange(undefined);
+        emit(undefined);
         return;
       }
 
@@ -75,11 +94,11 @@ const DateSelector = memo(
       // Basic validation: check if it's a valid date (e.g. not Feb 30)
       // and within range.
       if (newDate.isValid && newDate >= minDate && newDate <= maxDate) {
-        onChange(newDate);
+        emit(newDate);
       } else {
-        onChange(undefined);
+        emit(undefined);
       }
-    }, [day, month, year, onChange, minDate, maxDate]);
+    }, [day, month, year, minDate, maxDate]);
 
     // Handle mobile native input change
     const handleMobileChange = (e: ChangeEvent<HTMLInputElement>) => {
