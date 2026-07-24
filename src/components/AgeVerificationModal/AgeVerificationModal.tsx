@@ -43,6 +43,10 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
     onClose(birthDate.toJSDate().toISOString());
   }, [birthDate, minAge, onClose, t]);
 
+  const handleDateChange = useCallback((date: DateTime | undefined) => {
+    setBirthDate(date);
+  }, []);
+
   return (
     <Modal
       open={visible}
@@ -67,10 +71,8 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
             <legend className="sr-only">{t('birthDate')}</legend>
 
             <DateSelector
-              //defaultDate={new Date(Date.now())}
-              onChange={date => {
-                setBirthDate(date);
-              }}
+              minAge={minAge}
+              onChange={handleDateChange}
             />
 
             <p className="form-item-help">{t('birthDateHelper')}</p>
