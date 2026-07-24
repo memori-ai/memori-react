@@ -25,14 +25,23 @@ const Template: Story<Props> = args => (
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
 Default.args = {
-  defaultDate: new Date(Date.now()),
+  defaultDate: '1990-06-15',
+  minAge: 18,
+  onChange: console.log,
+  disabled: false,
+};
+
+export const MinAge14 = Template.bind({});
+MinAge14.args = {
+  minAge: 14,
   onChange: console.log,
   disabled: false,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  defaultDate: new Date(Date.now()),
+  defaultDate: '1990-06-15',
+  minAge: 18,
   onChange: () => {},
   disabled: true,
 };

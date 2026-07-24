@@ -66,6 +66,10 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
     setSubmitting(false);
   }, [add, birthDate, minAge, onClose, t]);
 
+  const handleDateChange = useCallback((date: DateTime | undefined) => {
+    setBirthDate(date);
+  }, []);
+
   return (
     <Modal
       open={visible}

@@ -40,7 +40,7 @@ DefaultLayout.args = {
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   baseURL: 'https://aisuru-staging.aclambda.online',
-  layout: 'TOTEM',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   integrationID: '019f1896-730d-7e19-9a88-6413f485247b',
