@@ -97,8 +97,9 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
           required
         >
           <DateSelector
+            minAge={minAge}
             onChange={date => {
-              setBirthDate(date);
+              handleDateChange(date);
               setError(undefined);
             }}
           />

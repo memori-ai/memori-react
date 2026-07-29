@@ -728,7 +728,10 @@ const MemoriWidget = ({
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
+  const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
   const sessionStartingRef = useRef(false);
+  const needsCredits = tenant?.billingDelegation;
+  const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
 
   const language =
     memori.culture?.split('-')?.[0]?.toUpperCase()! ||
@@ -2871,11 +2874,12 @@ const MemoriWidget = ({
       }
       // Handle authentication
       else if (
-        !sessionID &&
-        memori.privacyType !== 'PUBLIC' &&
-        !memori.secretToken &&
-        !memoriPwd &&
-        !memoriTokens
+        (!sessionID &&
+          memori.privacyType !== 'PUBLIC' &&
+          !memori.secretToken &&
+          !memoriPwd &&
+          !memoriTokens) ||
+        (!sessionID && gotErrorInOpening)
       ) {
         setAuthModalState('password');
         setClickedStart(false);
@@ -2883,6 +2887,7 @@ const MemoriWidget = ({
       }
       // Create new session if needed
       else if (!sessionID || initialSessionExpired) {
+        setGotErrorInOpening(false);
         if (sessionStartingRef.current) {
           return;
         }
@@ -3969,7 +3974,7 @@ const MemoriWidget = ({
                 setShowLoginDrawer(false);
                 setUser(user);
                 setLoginToken(token);
-                userToken = token;
+                userTokenRef.current = token;
                 setLocalConfig('loginToken', token);
                 // Push a message with initial status to show status message when a new session is created after login
                 if (
@@ -4012,7 +4017,7 @@ const MemoriWidget = ({
                 setShowLoginDrawer(false);
                 setUser(undefined);
                 setLoginToken(undefined);
-                userToken = undefined;
+                userTokenRef.current = undefined;
                 removeLocalConfig('loginToken');
               });
             }}

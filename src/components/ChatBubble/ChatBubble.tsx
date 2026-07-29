@@ -129,7 +129,8 @@ const ChatBubble: React.FC<Props> = ({
   const [copyStatus, setCopyStatus] = useState<{
     plain: 'idle' | 'success' | 'error';
     raw: 'idle' | 'success' | 'error';
-  }>({ plain: 'idle', raw: 'idle' });
+    functionCache: 'idle' | 'success' | 'error';
+  }>({ plain: 'idle', raw: 'idle', functionCache: 'idle' });
   const copyResetTimers = useRef<{
     plain: ReturnType<typeof setTimeout> | null;
     raw: ReturnType<typeof setTimeout> | null;
@@ -246,26 +247,33 @@ const ChatBubble: React.FC<Props> = ({
 
   useEffect(() => {
     return () => {
-      (Object.keys(copyResetTimers.current) as Array<'plain' | 'raw'>).forEach(
-        key => {
-          const timer = copyResetTimers.current[key];
-          if (timer) {
-            clearTimeout(timer);
-            copyResetTimers.current[key] = null;
-          }
+      (
+        Object.keys(copyResetTimers.current) as Array<
+          'plain' | 'raw' | 'functionCache'
+        >
+      ).forEach(key => {
+        const timer = copyResetTimers.current[key];
+        if (timer) {
+          clearTimeout(timer);
+          copyResetTimers.current[key] = null;
         }
-      );
+      });
     };
   }, []);
 
-  const clearCopyReset = (type: 'plain' | 'raw') => {
+  const functionCacheCopyText =
+    functionCacheData
+      ?.map(f => `${f.title}\n\n${f.content}`)
+      .join('\n\n---\n\n') ?? '';
+
+  const clearCopyReset = (type: 'plain' | 'raw' | 'functionCache') => {
     if (copyResetTimers.current[type]) {
       clearTimeout(copyResetTimers.current[type]!);
       copyResetTimers.current[type] = null;
     }
   };
 
-  const scheduleCopyReset = (type: 'plain' | 'raw') => {
+  const scheduleCopyReset = (type: 'plain' | 'raw' | 'functionCache') => {
     clearCopyReset(type);
     copyResetTimers.current[type] = setTimeout(() => {
       setCopyStatus(prev => ({ ...prev, [type]: 'idle' }));
@@ -273,7 +281,10 @@ const ChatBubble: React.FC<Props> = ({
     }, COPY_FEEDBACK_MS);
   };
 
-  const handleCopyClick = async (type: 'plain' | 'raw', text: string) => {
+  const handleCopyClick = async (
+    type: 'plain' | 'raw' | 'functionCache',
+    text: string
+  ) => {
     if (!text?.length) return;
     try {
       if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
@@ -829,6 +840,18 @@ const ChatBubble: React.FC<Props> = ({
         closable={true}
         onOpenChange={setOpenFunctionCache}
       >
+        <div style={{ marginBottom: '1rem' }}>
+          <Button
+            icon={<Copy aria-hidden />}
+            onClick={() =>
+              handleCopyClick('functionCache', functionCacheCopyText)
+            }
+          >
+            {copyStatus.functionCache === 'success'
+              ? copiedLabel
+              : t('copy') || 'Copy'}
+          </Button>
+        </div>
         {functionCacheData?.map((f, i) => (
           <div
             key={f.mediumID}
