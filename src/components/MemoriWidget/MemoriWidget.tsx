@@ -24,6 +24,7 @@ import type {
   PiiDetectionConfig,
 } from '../../types/layout';
 import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
+import { shouldRestartSessionOnPositionPopoverClose } from '../../helpers/positionPopover';
 
 // Libraries
 import React, {
@@ -3264,10 +3265,17 @@ const MemoriWidget = ({
 
   const setPositionPopoverOpen = useCallback(
     (open: boolean) => {
-      setPositionPopoverOpenState(open);
-      if (!open && autoStart) {
-        onClickStart();
-      }
+      setPositionPopoverOpenState(wasOpen => {
+        if (
+          shouldRestartSessionOnPositionPopoverClose(wasOpen, open, autoStart)
+        ) {
+          // Defer: React setState updaters must stay pure.
+          queueMicrotask(() => {
+            onClickStart();
+          });
+        }
+        return open;
+      });
     },
     [autoStart, onClickStart]
   );

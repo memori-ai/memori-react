@@ -30,6 +30,7 @@
 
 ### Bug Fixes
 
+* prevent autoStart from clearing chat history when dismissing an already-closed position popover (user/info header popovers)
 * login token async conditions ([10ce585](https://github.com/memori-ai/memori-react/commit/10ce58543b1597084f5e58b0c1a14d0a4822a697))
 * prevent XSS vulnerability among sanification ([a432905](https://github.com/memori-ai/memori-react/commit/a4329053411f47e25662c6937c35f86764189839))
 * remove '.xls' from office native extensions ([5958e02](https://github.com/memori-ai/memori-react/commit/5958e02dc602ca4d7a9503625ad5e653250df4c5))
