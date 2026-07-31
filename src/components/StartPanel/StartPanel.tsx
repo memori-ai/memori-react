@@ -28,6 +28,7 @@ import CompletionProviderStatus, {
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import { Expandable } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 /**
  * Sentinel values used as non-selectable section headers in the language
@@ -97,6 +98,7 @@ const StartPanel: React.FC<Props> = ({
   showFullDescriptionOnMobile = false,
 }) => {
   const { t, i18n } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
   const boardOfExpertsTooltip = usePressTooltip();
   const nsfwTooltip = usePressTooltip();
   const deepThoughtTooltip = usePressTooltip();
@@ -683,6 +685,7 @@ const StartPanel: React.FC<Props> = ({
           )}
       </div>
       <Modal
+        container={surfaceEl ?? undefined}
         open={isMobile && mobileInfoModal !== null}
         onClose={() => setMobileInfoModal(null)}
         title={

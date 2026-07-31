@@ -195,6 +195,15 @@
     pointer-events: all;
 }
 
+/*
+ * Keep in sync with ArtifactDrawer split width (46% / --memori-modal-size-md override).
+ * Same pairing as HiddenChat's `.memori-sidebar-toggle-artifact` → `right: 46%`.
+ */
+.memori-widget.memori-layout-website_assistant
+    .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
+    right: 46%;
+}
+
 /* Tablet */
 @media (min-width: 601px) {
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
@@ -203,6 +212,11 @@
         width: 90vw;
         max-width: 480px;
         border-radius: var(--memori-radius-box) 0 0 0;
+    }
+
+    .memori-widget.memori-layout-website_assistant
+        .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
+        right: 46%;
     }
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
@@ -216,6 +230,11 @@
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
         width: 480px;
         border-radius: var(--memori-radius-box) 0 0 0;
+    }
+
+    .memori-widget.memori-layout-website_assistant
+        .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
+        right: 46%;
     }
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {

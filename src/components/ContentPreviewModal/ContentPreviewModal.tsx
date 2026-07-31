@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Modal } from '@memori.ai/ui';
 import cx from 'classnames';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 export interface ContentPreviewModalProps {
   open: boolean;
@@ -25,10 +26,12 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
   children,
   className,
 }) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const width = 'min(90vw, 800px)';
 
   return (
     <Modal
+      container={surfaceEl ?? undefined}
       open={open}
       onClose={() => onClose()}
       width={width}

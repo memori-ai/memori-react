@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { officeNativeExtensions } from '../../../helpers/constants';
 import { isOfficeNativeFilename } from '../../../helpers/utils';
+import { useWidgetSurfaceEl } from '../../../context/widgetSurfaceContext';
 // Types
 type PreviewFile = {
   name: string;
@@ -80,6 +81,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onValidatePayloadSize,
 }) => {
   const { t } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
   const { backend } = client || {
     backend: { uploadAsset: null, uploadAssetUnlogged: null },
   };
@@ -555,6 +557,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       {/* Modal */}
       <Modal
+        container={surfaceEl ?? undefined}
         width="80%"
         widthMd="80%"
         open={!!selectedFile}

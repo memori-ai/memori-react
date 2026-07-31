@@ -8,7 +8,8 @@
     background: none;
 }
 
-.memori-widget > .memori-spin.memori-chat-layout {
+.memori-widget > .memori-spin.memori-chat-layout,
+.memori-widget > .memori-widget__surface > .memori-spin.memori-chat-layout {
     display: flex;
     overflow: hidden;
     height: 100%;

@@ -23,6 +23,7 @@ import type {
 } from '@tanstack/react-table';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import { Trash2 } from 'lucide-react';
 
 export interface Props {
@@ -45,6 +46,7 @@ const KnownFacts = ({
   initialKnownFacts = [],
   closeDrawer,
 }: Props) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
   const { getKnownFactsPaginated, deleteKnownFact } = apiClient.knownFacts;
@@ -168,6 +170,7 @@ const KnownFacts = ({
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       open={visible}
       anchor="right"
       className="memori-known-facts-drawer"
@@ -180,6 +183,7 @@ const KnownFacts = ({
     >
         <div className="memori-known-facts-body">
           <Modal
+          container={surfaceEl ?? undefined}
           className="memori-known-facts-modal"
           open={bulkDeleteModalVisible}
           closable
@@ -316,6 +320,7 @@ const KnownFacts = ({
         />
 
         <Modal
+          container={surfaceEl ?? undefined}
           className="memori-known-facts-modal"
           open={deleteModalVisibleFor !== undefined}
           closable

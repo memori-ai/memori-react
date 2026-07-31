@@ -83,8 +83,68 @@
 }
 .memori.memori-widget.memori-layout-chat,
 .memori.memori-widget.memori-layout-fullpage,
-.memori.memori-widget.memori-layout-zoomed-full-body {
+.memori.memori-widget.memori-layout-zoomed_full_body {
+    /* Portal root for Floating UI menus — do NOT set contain here.
+       Use 100dvh (not height:100% alone): Storybook’s root often has no
+       definite height, and % / flex children do not resolve against min-height. */
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    flex-direction: column;
+}
+
+/*
+ * Layout containment lives on the inner surface so fixed Drawers/Modals stay
+ * clipped to the chat widget, while Select/Popover menus can portal to the
+ * outer .memori-widget (MemoriUIProvider container) without the left-offset bug.
+ */
+.memori-widget__surface {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+}
+
+.memori.memori-widget.memori-layout-chat > .memori-widget__surface,
+.memori.memori-widget.memori-layout-fullpage > .memori-widget__surface,
+.memori.memori-widget.memori-layout-zoomed_full_body > .memori-widget__surface {
     contain: layout;
+}
+
+/* After inserting .memori-widget__surface, Spin is no longer a direct child of
+   .memori-widget — keep it a stretching flex column so fullpage/chat fill the viewport. */
+.memori-widget > .memori-widget__surface > .memori-spin {
+    display: flex !important;
+    overflow: hidden;
+    width: 100%;
+    height: 100% !important;
+    min-height: 0;
+    flex: 1 1 0% !important;
+    flex-direction: column !important;
+}
+
+.memori-widget
+    > .memori-widget__surface
+    > .memori-spin
+    > .memori-fullpage-content-row,
+.memori-widget
+    > .memori-widget__surface
+    > .memori-spin.memori-chat-layout
+    > .memori-chat-layout--main {
+    height: 100% !important;
+    min-height: 0;
+    flex: 1 1 0% !important;
+}
+
+.memori-widget > .memori-widget__surface > .memori-spin > .memori-fullpage-top-header {
+    flex-shrink: 0;
 }
 
 /* --- 6. Base: brand e tema di default (in layer così integration può sovrascrivere --memori-primary) --- */

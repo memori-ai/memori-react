@@ -12,56 +12,60 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="memori-website_assistant--trigger"
+      class="memori-widget__surface"
     >
-      <button
-        aria-expanded="false"
-        aria-label="expand"
-        class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
-        tabindex="0"
-        title="expand"
-        type="button"
+      <div
+        class="memori-website_assistant--trigger"
       >
-        <span
-          class="memori-button__content"
+        <button
+          aria-expanded="false"
+          aria-label="expand"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
+          tabindex="0"
+          title="expand"
+          type="button"
         >
-          <div
-            class="memori-blob"
+          <span
+            class="memori-button__content"
           >
-            <figure>
-              <img
-                alt=""
-                role="presentation"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
+            <div
+              class="memori-blob"
+            >
+              <figure>
+                <img
+                  alt=""
+                  role="presentation"
+                  src="https://aisuru.com/images/aisuru/square_logo.png"
+                />
+              </figure>
+              <div
+                class="mainDiv"
               />
-            </figure>
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-          </div>
-        </span>
-      </button>
+              <div
+                class="mainDiv"
+              />
+              <div
+                class="mainDiv"
+              />
+              <div
+                class="mainDiv"
+              />
+              <div
+                class="mainDiv"
+              />
+            </div>
+          </span>
+        </button>
+      </div>
+      <div
+        class="memori-website_assistant--collapsed"
+      />
+      <audio
+        id="memori-audio"
+        src="https://aisuru.com/intro.mp3"
+        style="display: none;"
+      />
     </div>
-    <div
-      class="memori-website_assistant--collapsed"
-    />
-    <audio
-      id="memori-audio"
-      src="https://aisuru.com/intro.mp3"
-      style="display: none;"
-    />
   </div>
   <div
     aria-atomic="false"

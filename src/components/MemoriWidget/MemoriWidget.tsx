@@ -44,6 +44,7 @@ import {
   createAlertOptions,
   MemoriUIProvider,
 } from '@memori.ai/ui';
+import { WidgetSurfaceProvider } from '../../context/widgetSurfaceContext';
 
 // Components
 import MemoriAuth from '../Auth/Auth';
@@ -633,6 +634,11 @@ const MemoriWidget = ({
   // UI primitives via `MemoriUIProvider`). `useRef` would not trigger a
   // re-render and would leave the value `null` on the first pass.
   const [widgetRootEl, setWidgetRootEl] = useState<HTMLDivElement | null>(null);
+  // Inner surface establishes `contain: layout` for Drawers/Modals. Kept separate
+  // from widgetRootEl so Floating UI menus can portal outside containment.
+  const [widgetSurfaceEl, setWidgetSurfaceEl] = useState<HTMLDivElement | null>(
+    null
+  );
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   useEffect(() => {
     if (!widgetRootEl) return;
@@ -3679,9 +3685,12 @@ const MemoriWidget = ({
 
   // Resolve the widget theme once so both `data-theme` on the root and the
   // `MemoriUIProvider` (which stamps portaled popups) stay in sync.
+  // Prefer integration config; fall back to host dark mode when unset.
   const widgetTheme: 'light' | 'dark' | undefined =
     integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
       ? integrationConfig.theme
+      : isDarkTheme
+      ? 'dark'
       : undefined;
 
   return (
@@ -3717,24 +3726,28 @@ const MemoriWidget = ({
       style={{ height }}
     >
       <MemoriUIProvider container={widgetRootEl} theme={widgetTheme}>
-        <Layout
-          Header={Header}
-          headerProps={headerProps}
-          Avatar={Avatar}
-          avatarProps={avatarProps}
-          Chat={Chat}
-          chatProps={chatProps}
-          StartPanel={StartPanel}
-          startPanelProps={startPanelProps}
-          integrationStyle={integrationStyle}
-          integrationBackground={integrationBackground}
-          poweredBy={poweredBy}
-          autoStart={autoStart}
-          sessionId={sessionId}
-          hasUserActivatedSpeak={hasUserActivatedSpeak}
-          loading={loading}
-          avatar3dHidden={avatar3dHidden ?? integrationConfig?.avatar_3d_hidden}
-        />
+        <WidgetSurfaceProvider value={widgetSurfaceEl}>
+          <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
+            <Layout
+              Header={Header}
+              headerProps={headerProps}
+              Avatar={Avatar}
+              avatarProps={avatarProps}
+              Chat={Chat}
+              chatProps={chatProps}
+              StartPanel={StartPanel}
+              startPanelProps={startPanelProps}
+              integrationStyle={integrationStyle}
+              integrationBackground={integrationBackground}
+              poweredBy={poweredBy}
+              autoStart={autoStart}
+              sessionId={sessionId}
+              hasUserActivatedSpeak={hasUserActivatedSpeak}
+              loading={loading}
+              avatar3dHidden={
+                avatar3dHidden ?? integrationConfig?.avatar_3d_hidden
+              }
+            />
 
         <ArtifactAPIBridge
           pushMessage={(message: Message) => {
@@ -4023,6 +4036,8 @@ const MemoriWidget = ({
             }}
           />
         )}
+          </div>
+        </WidgetSurfaceProvider>
       </MemoriUIProvider>
     </div>
   );

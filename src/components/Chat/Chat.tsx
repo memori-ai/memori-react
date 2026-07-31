@@ -30,6 +30,7 @@ import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tooltip, Modal } from '@memori.ai/ui';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import {
   maxDocumentsPerMessage,
   maxDocumentContentLength,
@@ -186,6 +187,7 @@ const Chat: React.FC<Props> = ({
     useState<UsageBadgeModalState | null>(null);
   const chatWrapperRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
   const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
 
   const llmUsageLabels = useMemo<LlmUsageLabels>(
@@ -625,6 +627,7 @@ const Chat: React.FC<Props> = ({
       )}
 
       <Modal
+        container={surfaceEl ?? undefined}
         open={!!activeUsageBadge}
         onClose={() => setActiveUsageBadge(null)}
         title={

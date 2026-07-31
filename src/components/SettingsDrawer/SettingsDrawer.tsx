@@ -1,4 +1,5 @@
 import { Drawer, Checkbox, Button, Slider, Tooltip } from '@memori.ai/ui';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import { useTranslation } from 'react-i18next';
 import { setLocalConfig } from '../../helpers/configuration';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
@@ -46,9 +47,11 @@ const SettingsDrawer = ({
   isAvatar3d,
 }: Props) => {
   const { t } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       className="memori-settings-drawer"
       open={open}
       onClose={onClose}

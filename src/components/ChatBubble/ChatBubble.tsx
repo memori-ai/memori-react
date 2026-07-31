@@ -36,6 +36,7 @@ import {
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
 
 const sanitizeRawCopyText = (text: string) =>
@@ -122,6 +123,7 @@ const ChatBubble: React.FC<Props> = ({
   customMediaRenderer,
 }) => {
   const { t, i18n } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
   const lang = i18n.language || 'en';
   const generatedByAiTooltip = usePressTooltip();
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
@@ -834,6 +836,7 @@ const ChatBubble: React.FC<Props> = ({
       )}
 
       <Modal
+        container={surfaceEl ?? undefined}
         open={openFunctionCache}
         className="memori-chat--function-cache-modal"
         title={t('functionCache') || 'Function Cache'}

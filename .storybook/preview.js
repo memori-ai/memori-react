@@ -49,8 +49,46 @@ style.textContent = `
     --showcase-title-color: #e0e0e0;
   }
 
+  /*
+   * Fullscreen widget layouts need a definite height chain. Otherwise
+   * height:100% / flex:1 on .memori-widget__surface collapse to content
+   * (min-height on the widget alone does not make % children resolve).
+   */
+  html,
+  body,
+  #storybook-root,
+  #root {
+    height: 100%;
+    margin: 0;
+  }
+
   body {
     color: var(--memori-label-color);
+  }
+
+  #storybook-root,
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  /* Story wrappers (providers) and the widget must fill the canvas. */
+  #storybook-root > *,
+  #root > * {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+  }
+
+  #storybook-root .memori-widget,
+  #root .memori-widget {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
   }
 `;
 document.head.appendChild(style);

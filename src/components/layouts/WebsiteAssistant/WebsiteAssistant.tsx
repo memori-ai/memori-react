@@ -62,6 +62,10 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
       <div
         className={`memori-website_assistant--${
           collapsed ? 'collapsed' : 'expanded'
+        }${
+          useSideArtifactChrome
+            ? ' memori-website_assistant--artifact-open'
+            : ''
         }`}
       >
         {!collapsed && (

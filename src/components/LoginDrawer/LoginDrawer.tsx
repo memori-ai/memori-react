@@ -11,6 +11,7 @@ import {
   Form,
 } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
@@ -50,6 +51,7 @@ const LoginDrawer = ({
   __TEST__signup = false,
   __TEST__needMissingData = false,
 }: Props) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
   const lang = i18n.language === 'it' ? 'it' : 'en';
@@ -436,6 +438,7 @@ const LoginDrawer = ({
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       open={open}
       onClose={onClose}
       className={cx('memori--login-drawer', {

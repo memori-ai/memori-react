@@ -6,7 +6,8 @@
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget > .memori-spin.memori-totem-layout {
+.memori-widget > .memori-spin.memori-totem-layout,
+.memori-widget > .memori-widget__surface > .memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
     flex-direction: column;

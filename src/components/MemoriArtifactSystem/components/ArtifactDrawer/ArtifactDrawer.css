@@ -17,16 +17,30 @@
     --artifact-drawer-radius-lg: var(--memori-radius-box);
 }
 
-/* Override drawer width for ArtifactDrawer */
-.memori-artifact-panel-drawer {
-    --memori-drawer--width-lg: 46%;
-    /* background-color: var(--memori-main-background); */
+/*
+ * Split-panel width for ArtifactDrawer.
+ * Must stay in sync with HiddenChat's sidebar shift (`right: 46%`).
+ * @memori.ai/ui Drawer uses `--memori-modal-size-*` (not the legacy
+ * `--memori-drawer--width-*` tokens), and size="md" maps to `--memori-modal-size-md`.
+ */
+.memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer {
+    --memori-modal-size-md: 46%;
+    width: 46%;
+    max-width: 100vw;
+}
+
+.memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
+    --memori-modal-size-md: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* Hide the Drawer backdrop so the chat remains fully visible on the left
    (applies to the mobile/legacy Drawer-overlay path) */
 body:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
-body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop {
+body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
+.memori-widget:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
+.memori-widget:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop {
     display: none !important;
 }
 

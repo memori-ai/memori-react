@@ -13,6 +13,7 @@ import {
 } from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import Snippet from '../Snippet/Snippet';
 import MediaWidget from '../MediaWidget/MediaWidget';
 import { Card } from '@memori.ai/ui';
@@ -40,6 +41,7 @@ const WhyThisAnswer = ({
   client,
   _TEST_loading = false,
 }: Props) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
   const { add } = useAlertManager();
   const searchMemory = client?.search.searchMemory;
@@ -97,6 +99,7 @@ const WhyThisAnswer = ({
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       open={visible}
       anchor="right"
       className="memori-whythisanswer-drawer"

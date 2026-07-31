@@ -9,7 +9,8 @@
     box-sizing: border-box;
 }
 
-.memori-widget > .memori-spin {
+.memori-widget > .memori-spin,
+.memori-widget > .memori-widget__surface > .memori-spin {
     height: calc(100vh - 50px);
 }
 
@@ -17,7 +18,8 @@
     .memori-widget {
         overflow-y: hidden;
     }
-    .memori-widget > .memori-spin {
+    .memori-widget > .memori-spin,
+    .memori-widget > .memori-widget__surface > .memori-spin {
         height: calc(100vh - 100px);
     }
 }
