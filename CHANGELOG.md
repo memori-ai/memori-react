@@ -1,5 +1,12 @@
 
 
+## [9.0.0-alpha.7](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.6...alpha/rc-v9.0.0-alpha.7) (2026-07-31)
+
+
+### Features
+
+* implement widget surface context for improved modal and drawer containment ([eb8fb1e](https://github.com/memori-ai/memori-react/commit/eb8fb1e6536587dfef7cc937959f538ac03766d6))
+
 ## [9.0.0-alpha.6](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.5...alpha/rc-v9.0.0-alpha.6) (2026-07-30)
 
 
