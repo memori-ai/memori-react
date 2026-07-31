@@ -1,32 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Button, Spin } from '@memori.ai/ui';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
-import {
-  EllipsisVertical,
-  HelpCircle,
-  LogIn,
-  LogOut,
-  MapPin,
-  MessageCircle,
-  RefreshCw,
-  Settings,
-  Share2,
-  Trash2,
-  User,
-  Users,
-  Volume2,
-  VolumeX,
-  Maximize,
-  X,
-} from 'lucide-react';
+import { HelpCircle, X } from 'lucide-react';
 import { getResourceUrl } from '../../helpers/media';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import ChatInputs from '../ChatInputs/ChatInputs';
-import ShareButton from '../ShareButton/ShareButton';
-import MobileSessionPanel from '../MobileSessionPanel/MobileSessionPanel';
 import {
   maxDocumentsPerMessage,
   maxDocumentContentLength,
@@ -47,11 +28,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   StartPanel,
   onSidebarToggle,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
-  const [sessionPanelOpen, setSessionPanelOpen] = useState(false);
 
   const { state, closeArtifact } = useArtifact();
   const useSideArtifactChrome =
@@ -61,18 +41,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const memori = headerProps?.memori;
   const tenant = headerProps?.tenant;
   const baseUrl = headerProps?.baseUrl;
-  const hasSustainabilityData = useMemo(
-    () =>
-      !!headerProps?.history?.some(
-        line =>
-          !!(
-            line as {
-              llmUsage?: { energyImpact?: unknown };
-            }
-          ).llmUsage?.energyImpact
-      ),
-    [headerProps?.history]
-  );
   const hiddenChatHeaderProps = useMemo(() => {
     if (!headerProps) return undefined;
     return {
@@ -95,259 +63,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     };
   }, [headerProps]);
 
-  const loggedUser =
-    headerProps?.loginToken && headerProps?.user ? headerProps.user : undefined;
-  const sharedUrl = useMemo(() => {
-    if (!headerProps?.memori || !headerProps?.sessionID) return undefined;
-    const currentLanguage = i18n.language === 'it' ? 'it' : 'en';
-    if (headerProps.memori.ownerUserID) {
-      return `${
-        headerProps.baseUrl ?? 'https://www.aisuru.com'
-      }/${currentLanguage}/shared/${headerProps.memori.ownerUserID}/${
-        headerProps.memori.memoriID
-      }/${headerProps.sessionID}`;
-    }
-    if (headerProps.memori.exposed) {
-      return `${
-        headerProps.baseUrl ?? 'https://www.aisuru.com'
-      }/${currentLanguage}/shared/${headerProps.memori.ownerUserName}/${
-        headerProps.memori.name
-      }/${headerProps.sessionID}`;
-    }
-    return window.location.href;
-  }, [headerProps, i18n.language]);
-  const loggedUserDisplayName = useMemo(() => {
-    if (!loggedUser) return '';
-    const enrichedUser = loggedUser as typeof loggedUser & {
-      name?: string;
-      surname?: string;
-      firstName?: string;
-      lastName?: string;
-    };
-    const fullName =
-      [enrichedUser.name, enrichedUser.surname]
-        .filter(Boolean)
-        .join(' ')
-        .trim() ||
-      [enrichedUser.firstName, enrichedUser.lastName]
-        .filter(Boolean)
-        .join(' ')
-        .trim();
-    return fullName || loggedUser.userName || loggedUser.eMail || '';
-  }, [loggedUser]);
-  const loggedUserInitial = useMemo(
-    () => (loggedUserDisplayName || 'U').charAt(0).toUpperCase(),
-    [loggedUserDisplayName]
-  );
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
-
-  const handleOverflowActionClick = (
-    action:
-      | 'reload'
-      | 'clear'
-      | 'chatHistory'
-      | 'fullscreen'
-      | 'deepThought'
-      | 'experts'
-      | 'audio'
-      | 'settings'
-      | 'share'
-      | 'login'
-  ) => {
-    if (!headerProps) return;
-    switch (action) {
-      case 'reload':
-        window.location.reload();
-        break;
-      case 'clear':
-        headerProps.clearHistory();
-        break;
-      case 'chatHistory':
-        headerProps.setShowChatHistoryDrawer(true);
-        break;
-      case 'fullscreen':
-        handleFullscreenToggle();
-        break;
-      case 'deepThought':
-        headerProps.setShowKnownFactsDrawer(true);
-        break;
-      case 'experts':
-        headerProps.setShowExpertsDrawer(true);
-        break;
-      case 'audio':
-        headerProps.setSpeakerMuted(!headerProps.speakerMuted);
-        break;
-      case 'settings':
-        headerProps.setShowSettingsDrawer(true);
-        break;
-      case 'share': {
-        const targetUrl = sharedUrl || window.location.href;
-        if (navigator.share) {
-          navigator
-            .share({
-              title: headerProps.memori?.name,
-              url: targetUrl,
-            })
-            .catch(() => {
-              // User dismissed share sheet or browser blocked it.
-            });
-          break;
-        }
-        if (navigator.clipboard?.writeText) {
-          navigator.clipboard.writeText(targetUrl).catch(() => {
-            const opened = window.open(targetUrl, '_blank');
-            if (!opened) window.location.assign(targetUrl);
-          });
-          break;
-        }
-        {
-          const opened = window.open(targetUrl, '_blank');
-          if (!opened) window.location.assign(targetUrl);
-        }
-        break;
-      }
-      case 'login':
-        if (loggedUser && headerProps.onLogout) {
-          headerProps.onLogout();
-        } else {
-          headerProps.setShowLoginDrawer(true);
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleEnableLocation = () => {
-    if (!headerProps) return;
-    if (!navigator.geolocation) {
-      headerProps.setPositionPopoverOpen(true);
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        headerProps.setVenue({
-          latitude,
-          longitude,
-          placeName: `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`,
-          uncertainty: position.coords.accuracy / 1000,
-        });
-      },
-      () => {
-        headerProps.setPositionPopoverOpen(true);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-    );
-  };
-
-  const handleDisableLocation = () => {
-    headerProps?.setVenue({
-      latitude: 0,
-      longitude: 0,
-      placeName: '',
-      uncertainty: 0,
-    });
-  };
-
-  const sessionPanelActions = useMemo(
-    () => [
-      {
-        key: 'fullscreen',
-        icon: <Maximize size={18} />,
-        title: t('fullscreenEnter') || 'Full screen',
-        subtitle: t('widget.expandToImmersive') || 'Expand to immersive view',
-        onClick: () => {
-          handleFullscreenToggle();
-          setSessionPanelOpen(false);
-        },
-      },
-      ...(headerProps?.loginToken
-        ? [
-            {
-              key: 'chatHistory',
-              icon: <MessageCircle size={18} />,
-              title: t('write_and_speak.chatHistory') || 'Chat history',
-              onClick: () => {
-                handleOverflowActionClick('chatHistory');
-                setSessionPanelOpen(false);
-              },
-            },
-          ]
-        : []),
-      {
-        key: 'share',
-        icon: <Share2 size={18} />,
-        title: t('widget.share') || 'Share chat',
-        subtitle:
-          t('widget.mobileSession.copyLinkOrDownload') ||
-          'Copy link or download',
-        view: 'share' as const,
-      },
-      {
-        key: 'location',
-        icon: <MapPin size={18} />,
-        title:
-          t('widget.mobileSession.locationTracking') || 'Location tracking',
-        subtitle:
-          headerProps?.position?.placeName ||
-          t('widget.mobileSession.currentlyOff') ||
-          'Currently off',
-        view: 'location' as const,
-        trailing: (
-          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
-        ),
-      },
-      ...(headerProps?.showReload
-        ? [
-            {
-              key: 'reload',
-              icon: <RefreshCw size={18} />,
-              title: t('reload') || 'Reload',
-              onClick: () => handleOverflowActionClick('reload'),
-            },
-          ]
-        : []),
-      ...(headerProps?.showClear
-        ? [
-            {
-              key: 'clear',
-              icon: <Trash2 size={18} />,
-              title: t('clearHistory') || 'Clear chat',
-              onClick: () => handleOverflowActionClick('clear'),
-            },
-          ]
-        : []),
-      // ...(headerProps?.memori?.enableBoardOfExperts
-      //   ? [
-      //       {
-      //         key: 'experts',
-      //         icon: <Users size={18} />,
-      //         title:
-      //           t('widget.showExpertsInTheBoard') || 'Experts in this board',
-      //         disabled: !isSessionStarted,
-      //         onClick: () => handleOverflowActionClick('experts'),
-      //       },
-      //     ]
-      //   : []),
-      // ...(headerProps?.enableAudio
-      //   ? [
-      //       {
-      //         key: 'audio',
-      //         icon: headerProps?.speakerMuted ? (
-      //           <VolumeX size={18} />
-      //         ) : (
-      //           <Volume2 size={18} />
-      //         ),
-      //         title: t('widget.sound') || 'Sound',
-      //         onClick: () => handleOverflowActionClick('audio'),
-      //       },
-      //     ]
-      //   : []),
-    ],
-    [t, headerProps, isSessionStarted]
-  );
 
   const brandAvatarSrc = memori
     ? memori.avatarURL && memori.avatarURL.length > 0
@@ -585,21 +301,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         {...hiddenChatHeaderProps}
                         buttonVariant="outline"
                         fullScreenHandler={handleFullscreenToggle}
-                        extraActions={
-                          <Button
-                            variant="outline"
-                            className={`memori-hidden-chat-layout--overflow-trigger ${
-                              sessionPanelOpen ? 'memori-button--active' : ''
-                            }`}
-                            aria-label={
-                              t('widget.moreActions') || 'More actions'
-                            }
-                            icon={<EllipsisVertical />}
-                            onClick={() =>
-                              setSessionPanelOpen(currentOpen => !currentOpen)
-                            }
-                          />
-                        }
                       />
                     )}
                   </div>
@@ -607,93 +308,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               )}
             </div>
             <div className="memori-chat-layout--body">
-              {headerProps && (
-                <MobileSessionPanel
-                  open={sessionPanelOpen}
-                  onClose={() => setSessionPanelOpen(false)}
-                  presentation="popover"
-                  title={t('widget.mobileSession.session') || 'Session'}
-                  loginToken={headerProps.loginToken}
-                  user={headerProps.user}
-                  apiClient={headerProps.apiClient}
-                  userName={loggedUserDisplayName || memori?.name || 'User'}
-                  userEmail={loggedUser?.eMail}
-                  userInitial={loggedUserInitial}
-                  avatarURL={loggedUser?.avatarURL}
-                  birthDate={loggedUser?.birthDate}
-                  actions={sessionPanelActions}
-                  knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
-                  sharePageTitle={t('widget.share') || 'Share'}
-                  locationPageTitle={
-                    t('widget.mobileSession.locationTracking') ||
-                    'Location tracking'
-                  }
-                  backLabel={t('back') || 'Back'}
-                  locationStatusLabel={
-                    t('widget.mobileSession.locationStatus') || 'Status'
-                  }
-                  locationPlace={headerProps.position?.placeName}
-                  locationUnknownLabel={
-                    t('write_and_speak.unknownPosition') || 'Unknown position'
-                  }
-                  locationEnableLabel={
-                    t('widget.shareLocation') || 'Share location'
-                  }
-                  locationDisableLabel={
-                    t('widget.mobileSession.disableLocationSharing') ||
-                    'Disable location sharing'
-                  }
-                  knownFactsDescription={
-                    t('knownFacts.description', {
-                      memoriName: memori?.name || '',
-                    }) || ''
-                  }
-                  knownFactsCtaLabel={
-                    t('widget.mobileSession.openKnownFacts') ||
-                    'Open full known facts'
-                  }
-                  knownFactsCountLabel={
-                    (t('widget.mobileSession.knownFactsMessages', {
-                      count: headerProps.history?.length || 0,
-                    }) as string) || ''
-                  }
-                  shareContent={
-                    <ShareButton
-                      tenant={headerProps?.tenant}
-                      memori={headerProps?.memori}
-                      sessionID={headerProps?.sessionID}
-                      title={headerProps?.memori?.name}
-                      baseUrl={headerProps?.baseUrl}
-                      align="left"
-                      history={headerProps?.history}
-                      renderMode="inline"
-                    />
-                  }
-                  knownFactsDisabled={!isSessionStarted}
-                  showSessionInfo={isSessionStarted}
-                  history={headerProps.history ?? []}
-                  isLoggedIn={!!loggedUser}
-                  loginLabel={t('login.login') || 'Log in'}
-                  onLogin={() => {
-                    headerProps.setShowLoginDrawer(true);
-                    setSessionPanelOpen(false);
-                  }}
-                  onKnownFactsOpen={() => {
-                    if (!isSessionStarted) return;
-                    headerProps.setShowKnownFactsDrawer(true);
-                    setSessionPanelOpen(false);
-                  }}
-                  onLocationEnable={handleEnableLocation}
-                  onLocationDisable={handleDisableLocation}
-                  venue={headerProps.position}
-                  setVenue={headerProps.setVenue}
-                  logoutLabel={t('login.logout') || 'Log out'}
-                  onLogout={() => {
-                    handleOverflowActionClick('login');
-                    setSessionPanelOpen(false);
-                  }}
-                />
-              )}
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                 <Chat {...chatProps} />
               ) : !autoStart && startPanelProps ? (

@@ -514,9 +514,3 @@
     border: var(--memori-border) solid #fff;
     color: #fff;
 }
-
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-hidden-chat-layout--overflow-trigger,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-hidden-chat-layout--overflow-trigger {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}

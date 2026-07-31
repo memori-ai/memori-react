@@ -156,45 +156,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                         </span>
                       </span>
                     </span>
-                    <button
-                      aria-label="widget.moreActions"
-                      class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-hidden-chat-layout--overflow-trigger "
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="memori-button__icon"
-                      >
-                        <svg
-                          class="lucide lucide-ellipsis-vertical"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="1"
-                          />
-                          <circle
-                            cx="12"
-                            cy="5"
-                            r="1"
-                          />
-                          <circle
-                            cx="12"
-                            cy="19"
-                            r="1"
-                          />
-                        </svg>
-                      </span>
-                    </button>
                   </div>
                 </div>
               </div>
