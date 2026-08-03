@@ -6,6 +6,47 @@ export interface ResourceURLParams {
   apiURL?: string;
   tenantID?: string;
 }
+
+/**
+ * Whether this HTTP(S) URL should get a session ID appended for auth.
+ * Matches Memori asset API paths on any host, known Memori/AIsuru hosts,
+ * and the configured API host — instead of a hard hostname allowlist only.
+ */
+const shouldAppendSessionId = (
+  resourceURI: string,
+  apiURL?: string
+): boolean => {
+  const url = new URL(resourceURI);
+  const { hostname, pathname } = url;
+
+  // Memori asset endpoints require session auth regardless of host
+  // (e.g. backend-ws-bologna.aisuru.ai/api/v2/asset/…)
+  if (/\/api\/v\d+\/asset\//i.test(pathname)) {
+    return true;
+  }
+
+  if (
+    hostname.includes('memori.ai') ||
+    hostname.includes('aisuru.ai') ||
+    hostname.includes('aclambda.online') ||
+    hostname.includes('localhost')
+  ) {
+    return true;
+  }
+
+  if (apiURL) {
+    try {
+      if (new URL(apiURL).hostname === hostname) {
+        return true;
+      }
+    } catch {
+      // ignore invalid apiURL
+    }
+  }
+
+  return false;
+};
+
 export const getResourceUrl = ({
   type,
   resourceURI,
@@ -30,9 +71,7 @@ export const getResourceUrl = ({
     } else if (
       (resourceURI.startsWith('https://') ||
         resourceURI.startsWith('http://')) &&
-      (new URL(resourceURI).hostname.includes('memori.ai') ||
-        new URL(resourceURI).hostname.includes('aclambda.online') ||
-        new URL(resourceURI).hostname.includes('localhost'))
+      shouldAppendSessionId(resourceURI, apiURL)
     ) {
       return `${resourceURI}${
         resourceURI.endsWith('/') || !sessionID ? '' : '/'

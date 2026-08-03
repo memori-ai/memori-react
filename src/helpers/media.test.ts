@@ -43,9 +43,45 @@ describe('Media URL helper', () => {
         resourceURI:
           'https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2',
         apiURL: 'https://backend.memori.ai/api/v2',
+        sessionID: sessionID,
       })
     ).toBe('https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2');
   });
+
+  it('appends session ID for aisuru.ai asset URLs', () => {
+    expect(
+      getResourceUrl({
+        resourceURI:
+          'https://backend-ws-bologna.aisuru.ai/api/v2/asset/ad10ce11-914b-4b9b-a033-ba06cb4b4042.pdf',
+        sessionID: sessionID,
+      })
+    ).toBe(
+      `https://backend-ws-bologna.aisuru.ai/api/v2/asset/ad10ce11-914b-4b9b-a033-ba06cb4b4042.pdf/${sessionID}`
+    );
+  });
+
+  it('appends session ID for /api/v2/asset/ paths on unknown hosts', () => {
+    expect(
+      getResourceUrl({
+        resourceURI:
+          'https://custom-backend.example.com/api/v2/asset/abc123.pdf',
+        sessionID: sessionID,
+      })
+    ).toBe(
+      `https://custom-backend.example.com/api/v2/asset/abc123.pdf/${sessionID}`
+    );
+  });
+
+  it('appends session ID when resource host matches apiURL host', () => {
+    expect(
+      getResourceUrl({
+        resourceURI: 'https://my-api.example.com/files/doc.pdf',
+        sessionID: sessionID,
+        apiURL: 'https://my-api.example.com/api/v2',
+      })
+    ).toBe(`https://my-api.example.com/files/doc.pdf/${sessionID}`);
+  });
+
 
   it('Get correct URL for old memoriai/memory media', async () => {
     expect(
