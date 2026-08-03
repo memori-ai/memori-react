@@ -1,5 +1,17 @@
 
 
+## [8.42.0](https://github.com/memori-ai/memori-react/compare/v8.41.6...v8.42.0) (2026-08-03)
+
+
+### Features
+
+* enhance resource URL handling by appending session ID for specific asset paths ([29fbc31](https://github.com/memori-ai/memori-react/commit/29fbc31769b82d3c6d4a1ca9ee2fd3d357f6bafd))
+
+
+### Changes
+
+* clean up media URL handling ([a917b60](https://github.com/memori-ai/memori-react/commit/a917b60aa2324a7015d5655d19a0ec9a30c01453))
+
 ## [8.41.6](https://github.com/memori-ai/memori-react/compare/v8.41.5...v8.41.6) (2026-07-24)
 
 
