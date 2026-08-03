@@ -46,4 +46,11 @@
     .memori-widget .memori--powered-by {
         display: none !important;
     }
+
+    /* Keep the footer strip visible under the input on compact chat layouts */
+    .memori-widget.memori-layout-chat .memori--powered-by,
+    .memori-widget.memori-layout-website_assistant .memori--powered-by,
+    .memori-widget.memori-layout-hidden_chat .memori--powered-by {
+        display: flex !important;
+    }
 }

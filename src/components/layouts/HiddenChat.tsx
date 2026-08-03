@@ -27,6 +27,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   autoStart,
   StartPanel,
   onSidebarToggle,
+  poweredBy,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -168,11 +169,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const restoreFromFullscreen = () => {
     const sidebarElement = document.querySelector('.memori-sidebar');
     if (sidebarElement) {
-      //restore closing button
-      const closeButton = document.querySelector('.memori-close-label');
-      if (closeButton) {
-        (closeButton as HTMLElement).style.display = 'flex';
-      }
       // Restore original styles
       const sidebar = sidebarElement as HTMLElement;
       sidebar.style.right = originalSidebarStyles.current.right;
@@ -193,12 +189,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       if (sidebarElement) {
         const sidebar = sidebarElement as HTMLElement;
 
-        //hide closing button
-        const closeButton = document.querySelector('.memori-close-label');
-        if (closeButton) {
-          (closeButton as HTMLElement).style.display = 'none';
-        }
-
         // Store original styles before modifying
         originalSidebarStyles.current = {
           right: sidebar.style.right,
@@ -206,10 +196,11 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           backgroundColor: sidebar.style.backgroundColor,
         };
 
-        // Set styles for fullscreen
+        // Set styles for fullscreen — keep --chat-bg via CSS, clear inline white
         sidebar.style.right = '0';
         sidebar.style.width = '100%';
-        sidebar.style.backgroundColor = '#FFFFFF';
+        sidebar.style.backgroundColor = '';
+        sidebar.classList.add('memori-sidebar-fullscreen');
 
         // Request fullscreen
         sidebar.requestFullscreen().catch(err => {
@@ -255,17 +246,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             fullScreen ? 'memori-sidebar-fullscreen' : ''
           }`}
         >
-          <label
-            htmlFor="memori-sidebar-toggle"
-            className="memori-sidebar-toggle-label memori-close-label"
-          >
-            <span>
-              <X
-                className="memori-icon-close"
-                aria-label={t('collapse') ?? undefined}
-              />
-            </span>
-          </label>
           <div className="memori-hidden-chat-layout--controls memori-chat-layout--controls">
             <div className="memori-chat-layout--header">
               {Header && headerProps && (
@@ -303,6 +283,14 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         fullScreenHandler={handleFullscreenToggle}
                       />
                     )}
+                    <label
+                      htmlFor="memori-sidebar-toggle"
+                      className="memori-sidebar-toggle-label memori-close-label memori-hidden-chat-layout--header-close"
+                      aria-label={t('collapse') || 'Close'}
+                      title={t('collapse') || 'Close'}
+                    >
+                      <X className="memori-icon-close" aria-hidden />
+                    </label>
                   </div>
                 </div>
               )}
@@ -364,6 +352,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               )}
               <div id="extension" />
             </div>
+            {poweredBy}
           </div>
         </aside>
       </div>

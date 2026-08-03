@@ -76,7 +76,6 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
               spinning={loading}
               className="memori-website_assistant-layout"
             >
-              {poweredBy}
               <div className="memori-website_assistant-layout--header-row">
                 {Header && headerProps && (
                   <Header
@@ -136,6 +135,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   />
                 ) : null}
               </div>
+              {poweredBy}
             </Spin>
           </>
         )}

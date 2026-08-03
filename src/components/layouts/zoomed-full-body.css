@@ -67,7 +67,14 @@
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori-chat--history {
+    min-height: 0;
+    flex: 1 1 auto;
     border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
+    border-bottom: none;
+    margin-bottom: 0;
+    background-color: var(--chat-bg, #f4f4f5);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-header-row {
@@ -181,7 +188,7 @@
     border-radius: 0.9rem;
     margin-right: 0;
     backdrop-filter: blur(10px);
-    background: var(--memori-bg-color, #f4f7fa23);
+    background: #ffffff;
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori--grid-column-left .memori--avatar-wrapper {
@@ -261,14 +268,18 @@
     flex-direction: column;
     align-items: stretch;
     padding: 0;
+    background: var(--chat-bg, #f4f4f5);
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori--start-panel,
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori-chat--wrapper {
+    display: flex;
     width: 100%;
     max-width: 100%;
     height: 100%;
     min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
     padding: 0 !important;
     margin-right: 0;
     margin-left: 0;
@@ -292,25 +303,24 @@
     line-height: var(--memori-text-line-relaxed);
 }
 
-/* ZoomedFullBody + dark: main surface on inputs (ancestor or widget may carry data-theme). */
-.memori-widget.memori-layout-zoomed_full_body[data-theme='dark'] .memori-chat-inputs,
-[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs {
-    background-color: var(--memori-main-background);
+/* ZoomedFullBody: Memori brand lives in the header; no footer watermark.
+   Input bar styles live in ChatInputs.css (shared with FULLPAGE). */
+
+/* Keep the input bar inside the chat panel, pinned to the bottom of the column */
+.memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori-chat--wrapper {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
 }
 
-.memori-widget.memori-layout-zoomed_full_body[data-theme='dark'] .memori-chat-textarea,
-[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body .memori-chat-textarea {
-    background-color: var(--memori-main-background);
-}
-
-.memori-widget.memori-layout-zoomed_full_body[data-theme='dark'] .memori-chat-textarea--inner,
-[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body .memori-chat-textarea--inner {
-    background-color: var(--memori-main-background);
-}
-
-.memori-widget.memori-layout-zoomed_full_body[data-theme='dark'] textarea.memori-chat-textarea--input,
-[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body textarea.memori-chat-textarea--input {
-    background-color: var(--memori-main-background);
+.memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori-chat-inputs-wrapper {
+    width: 100%;
+    flex-shrink: 0;
+    border-top: none;
+    background: var(--chat-bg, #f4f4f5);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 @media (max-width: 870px) {

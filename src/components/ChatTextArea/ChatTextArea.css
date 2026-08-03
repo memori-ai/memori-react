@@ -95,12 +95,12 @@ textarea.memori-chat-textarea--input {
     box-sizing: border-box;
     flex: 1;
     border: none;
-    outline: none;
     background: transparent;
-    color: #1f1425;
+    color: var(--memori-text-color, #1f1425);
     font-family: var(--memori-font-family);
     font-size: 14.5px;
     line-height: var(--memori-text-line-normal);
+    outline: none;
     overflow-y: auto;
     resize: none;
     scrollbar-width: thin;
@@ -212,12 +212,9 @@ button.memori-chat-textarea--expand-button:focus {
 }
 
 .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,
-[data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder {
-    color: #7d7a86;
-}
-
 .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
 .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder {
     color: #7d7a86;

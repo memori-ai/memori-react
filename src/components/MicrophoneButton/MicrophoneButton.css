@@ -15,24 +15,24 @@
     min-width: 34px;
     height: 34px;
     box-sizing: border-box;
+    flex-shrink: 0;
     padding: 0;
-    margin-left: 0;
     border: none;
     border-radius: 10px;
+    margin-left: 0;
     background: transparent;
     color: #888;
     cursor: pointer;
-    flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-touch-callout: none;
+    transition: background 0.15s ease, color 0.15s ease;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     -webkit-user-select: none;
     user-select: none;
-    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .memori-chat-inputs--mic svg {
@@ -52,6 +52,11 @@
 .memori-chat-inputs--mic:active,
 .memori-chat-inputs--mic:focus {
     box-shadow: none !important;
+}
+
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active,
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):focus {
+    color: #555 !important;
 }
 
 /* Layout-scoped mic colors (FULL_PAGE / HIDDEN_CHAT / WEBSITE_ASSISTANT) */
@@ -82,13 +87,6 @@
     .memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active {
         background-color: #f2eef5;
     }
-}
-
-/* Prevent double-tap zoom on mobile - already defined above */
-
-.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active,
-.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):focus {
-    color: #555 !important;
 }
 
 @keyframes micBtnActivePulse {

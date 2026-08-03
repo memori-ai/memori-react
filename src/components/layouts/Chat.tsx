@@ -226,8 +226,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading} className="memori-chat-layout">
-        {poweredBy}
-
         <div id="extension" />
 
         <div className="memori-chat-layout--main">
@@ -408,6 +406,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 showAiGeneratedNote={isSessionStarted}
               />
             )}
+            {poweredBy}
           </div>
 
           {/* Artifact column — width 0→480px with CSS transition */}

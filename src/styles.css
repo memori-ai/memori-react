@@ -166,6 +166,34 @@
     }
 }
 
+/* Shared chat surface for FULLPAGE / ZOOMED_FULL_BODY / CHAT / HIDDEN_CHAT /
+   WEBSITE_ASSISTANT. Message area, input wrapper, disclaimer and Powered-by
+   strip use --chat-bg. The input pill uses --chat-input-bg so it stays
+   distinct in both themes. */
+.memori-widget.memori-layout-fullpage,
+.memori-widget.memori-layout-zoomed_full_body,
+.memori-widget.memori-layout-chat,
+.memori-widget.memori-layout-hidden_chat,
+.memori-widget.memori-layout-website_assistant {
+    --chat-bg: #f4f4f5;
+    --chat-input-bg: #ffffff;
+}
+
+[data-theme='dark'] .memori-widget.memori-layout-fullpage,
+[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body,
+[data-theme='dark'] .memori-widget.memori-layout-chat,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat,
+[data-theme='dark'] .memori-widget.memori-layout-website_assistant,
+.memori-widget.memori-layout-fullpage[data-theme='dark'],
+.memori-widget.memori-layout-zoomed_full_body[data-theme='dark'],
+.memori-widget.memori-layout-chat[data-theme='dark'],
+.memori-widget.memori-layout-hidden_chat[data-theme='dark'],
+.memori-widget.memori-layout-website_assistant[data-theme='dark'] {
+    /* zinc-800 / zinc-900 — dark counterparts of #f4f4f5 / #ffffff */
+    --chat-bg: #27272a;
+    --chat-input-bg: #18181b;
+}
+
 /* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
 .memori-widget {
     /* --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color)); */
