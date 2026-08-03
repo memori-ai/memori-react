@@ -1,5 +1,17 @@
 
 
+## [9.0.0-alpha.8](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.7...alpha/rc-v9.0.0-alpha.8) (2026-08-03)
+
+
+### Bug Fixes
+
+* prevent chat history clearance when dismissing popovers ([19ec445](https://github.com/memori-ai/memori-react/commit/19ec4455549b5e28af88c6e31f30ba4dad8f1de7))
+
+
+### Changes
+
+* clean up HiddenChat component by removing header prop component ([c9d5559](https://github.com/memori-ai/memori-react/commit/c9d5559795b66401c92eda97b75571528bafef05))
+
 ## [9.0.0-alpha.7](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.6...alpha/rc-v9.0.0-alpha.7) (2026-07-31)
 
 
