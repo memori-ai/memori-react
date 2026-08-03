@@ -25,15 +25,6 @@ const shouldAppendSessionId = (
     return true;
   }
 
-  if (
-    hostname.includes('memori.ai') ||
-    hostname.includes('aisuru.ai') ||
-    hostname.includes('aclambda.online') ||
-    hostname.includes('localhost')
-  ) {
-    return true;
-  }
-
   if (apiURL) {
     try {
       if (new URL(apiURL).hostname === hostname) {
@@ -73,17 +64,14 @@ export const getResourceUrl = ({
         resourceURI.startsWith('http://')) &&
       shouldAppendSessionId(resourceURI, apiURL)
     ) {
-      return `${resourceURI}${
-        resourceURI.endsWith('/') || !sessionID ? '' : '/'
-      }${sessionID || ''}`;
+      return `${resourceURI}${resourceURI.endsWith('/') || !sessionID ? '' : '/'
+        }${sessionID || ''}`;
     } else if (resourceURI.startsWith('cloud://')) {
-      return `${
-        apiURL?.replace(/v2/, 'v1') || ''
-      }/CloudAsset/${resourceURI.replace('cloud://', '')}`;
+      return `${apiURL?.replace(/v2/, 'v1') || ''
+        }/CloudAsset/${resourceURI.replace('cloud://', '')}`;
     } else if (resourceURI.startsWith('guid://')) {
-      return `${
-        apiURL?.replace(/v2/, 'v1') || ''
-      }/GuidAsset/${resourceURI.replace('guid://', '')}`;
+      return `${apiURL?.replace(/v2/, 'v1') || ''
+        }/GuidAsset/${resourceURI.replace('guid://', '')}`;
     } else {
       return resourceURI || defaultUri;
     }
