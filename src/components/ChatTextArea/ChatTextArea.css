@@ -89,15 +89,17 @@
 
 textarea.memori-chat-textarea--input {
     width: 100%;
+    min-width: 0;
     min-height: 36px;
     max-height: 208px;
     box-sizing: border-box;
-    /* padding: var(--memori-spacing-sm) 0; */
+    flex: 1;
     border: none;
+    outline: none;
     background: transparent;
-    color: var(--memori-text-color, #000);
+    color: #1f1425;
     font-family: var(--memori-font-family);
-    font-size: var(--memori-text-size-base);
+    font-size: 14.5px;
     line-height: var(--memori-text-line-normal);
     overflow-y: auto;
     resize: none;
@@ -107,7 +109,7 @@ textarea.memori-chat-textarea--input {
 
 /* Placeholder styling */
 textarea.memori-chat-textarea--input::placeholder {
-    color: var(--memori-text-color);
+    color: #999;
 }
 
 /* Scrollbar styling */
@@ -132,14 +134,14 @@ textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
 @media (max-width: 768px) {
     textarea.memori-chat-textarea--input {
         max-height: 200px;
-        font-size: var(--memori-text-size-base); /* Prevent zoom on iOS */
+        font-size: 14.5px; /* Prevent zoom on iOS */
     }
 }
 
 @media (max-width: 480px) {
     textarea.memori-chat-textarea--input {
         max-height: 150px;
-        font-size: var(--memori-text-size-base); /* Prevent zoom on iOS */
+        font-size: 14.5px; /* Prevent zoom on iOS */
     }
 }
 
@@ -196,6 +198,29 @@ button.memori-chat-textarea--expand-button:focus {
 
 [data-theme='dark'] textarea.memori-chat-textarea--input::placeholder {
     color: var(--memori-text-color-muted, rgba(255, 255, 255, 0.5));
+}
+
+/* Layout-scoped dark pills: keep exact text/placeholder colors */
+.memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input,
+.memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input,
+.memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input,
+[data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input {
+    background: transparent;
+    color: #f2f0f4;
+}
+
+.memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder {
+    color: #7d7a86;
+}
+
+.memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
+.memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
+[data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder {
+    color: #7d7a86;
 }
 
 [data-theme='dark'] textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {

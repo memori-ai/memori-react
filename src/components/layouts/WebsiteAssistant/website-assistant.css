@@ -27,8 +27,25 @@
     transition: all 0.3s ease;
 }
 
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs-wrapper {
-    margin-bottom: var(--memori-spacing-xl);
+/* Input bar styles (dark compact pill) live in ChatInputs.css.
+   Anchor the bar at the bottom of the assistant panel. */
+.memori-widget.memori-layout-website_assistant .memori-website_assistant-layout--controls .memori-chat--wrapper {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.memori-widget.memori-layout-website_assistant .memori-website_assistant-layout--controls .memori-chat--history {
+    min-height: 0;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+}
+
+.memori-widget.memori-layout-website_assistant .memori-website_assistant-layout--controls .memori-chat-inputs-wrapper {
+    flex-shrink: 0;
+    width: 100%;
+    margin-bottom: 0;
 }
 
 .memori-website_assistant--trigger-button .memori-blob,
@@ -327,6 +344,7 @@
     right: 0.75rem;
     padding: 0.5rem;
     border-radius: var(--memori-radius-box);
+    background: var(--memori-secondary-background);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     text-align: right;
 }
@@ -476,12 +494,12 @@
     flex: 1;
     flex-direction: column;
     padding: 1rem;
-    background-color: var(--memori-secondary-background);
+    background-color: var(--memori-main-background);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history,
 .memori-website_assistant-layout--controls .memori-chat--content {
-    background: var(--memori-secondary-background);
+    background: var(--memori-main-background);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history {

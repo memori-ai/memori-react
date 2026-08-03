@@ -63,8 +63,6 @@
     flex: 1;
     flex-direction: column;
     align-items: stretch;
-    /* padding: 0.75rem 1rem 0.75rem; */
-    padding-bottom: var(--memori-spacing-4xl);
     margin: 0 auto;
     background: var(--memori-main-background);
 }
@@ -81,7 +79,6 @@
     min-height: 0;
     flex: 1;
     flex-direction: column;
-    /* margin-bottom: var(--memori-spacing-4xl); */
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--start-panel-wrap {
@@ -92,20 +89,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* padding: 0.5rem 0 0.25rem; */
 }
 
-.memori-widget.memori-layout-chat .memori-chat-layout--prechat-inputs {
-    width: 100%;
-    max-width: 56rem;
+/* Input bar is a flex sibling of body — full-bleed footer outside the scroll area */
+.memori-widget.memori-layout-chat .memori-chat-layout--controls > .memori-chat-inputs-wrapper {
     flex-shrink: 0;
-    padding-top: 0.25rem;
-    padding-bottom: env(safe-area-inset-bottom, 0);
-    margin: 0 auto;
+    width: 100%;
+    border-top: 1px solid var(--memori-border-color);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background: var(--memori-secondary-background);
+    overflow: hidden;
 }
 
 .memori-widget.memori-layout-chat .memori-chat-inputs {
-    background: var(--memori-secondary-background);
+    background: transparent;
 }
 
 .memori-chat-layout--header-with-artifact {
@@ -286,6 +284,10 @@
     flex: 1;
     flex-direction: column;
     transition: all 0.05s ease-in-out;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--controls {
+    border-radius: 12px;
 }
 
 /* Artifact drawer column inside the Chat layout's flex row */

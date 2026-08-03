@@ -11,11 +11,13 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat--history {
-    background: transparent;
+    background: var(--memori-main-background);
 }
 
-.memori-widget.memori-layout-hidden_chat .memori-chat--bubble {
+.memori-widget.memori-layout-hidden_chat .memori-chat--bubble:not(.memori-chat--user-bubble) {
+    border: none;
     background-color: var(--memori-secondary-background);
+    box-shadow: none;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-media-item--document {
@@ -85,15 +87,36 @@
     height: calc(100% - var(--memori-spacing-5xl));
     padding: 0;
     margin: 0;
-    background: var(--memori-secondary-background);
+    background: var(--memori-main-background);
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs {
-    background: var(--memori-secondary-background);
+    background: transparent;
 }
 
-.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-inputs {
-    padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
+/* Input bar styles (dark compact pill) live in ChatInputs.css.
+   Keep the bar full-width at the bottom of the sidebar column. */
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat--wrapper {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat--history {
+    min-height: 0;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+}
+
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-inputs-wrapper {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--prechat-inputs {
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori--start-description {
@@ -219,7 +242,7 @@
     width: 100%;
     flex-shrink: 0;
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid var(--memori-border-color);
     margin-bottom: 0;
     background: var(--memori-secondary-background);
     text-align: left;

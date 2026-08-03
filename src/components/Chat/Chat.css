@@ -18,9 +18,9 @@
     width: 100%;
     height: calc(100% - 50px);
     flex: 1;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-box) var(--memori-radius-box) 0 0;
     margin-bottom: 1rem;
-    background-color: var(--memori-secondary-background);
+    background-color: var(--memori-main-background);
 }
 
 /* Adjust chat history when textarea is expanded */
@@ -28,13 +28,15 @@
     margin-bottom: var(--memori-spacing-sm);
 }
 
-/* Solo widget layout CHAT: area messaggi a card */
+/* Solo widget layout CHAT: area messaggi a card — top radius only;
+   bottom radius lives on the input bar so the panel reads as one unit */
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--history {
+    height: 100%;
     min-height: 0;
     padding: 0;
-    border-radius: 12px;
-    margin: 0.5rem 0 1rem;
-    background-color: transparent;
+    border-radius: 12px 12px 0 0;
+    margin: 0.5rem 0 0;
+    background-color: var(--memori-main-background);
     box-shadow: none;
 }
 
@@ -42,7 +44,8 @@
     padding: 0;
 }
 
-.memori-widget.memori-layout-chat .memori-chat--bubble {
+.memori-widget.memori-layout-chat .memori-chat--bubble:not(.memori-chat--user-bubble) {
+    border: none;
     background-color: var(--memori-secondary-background);
 }
 

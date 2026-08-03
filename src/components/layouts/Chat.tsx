@@ -356,7 +356,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 />
               )}
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-                <Chat {...chatProps} />
+                <Chat {...chatProps} showInputs={false} />
               ) : startPanelProps ? (
                 <div
                   className="memori-chat-layout--start-shell"
@@ -365,50 +365,49 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   <div className="memori-chat-layout--start-panel-wrap">
                     <StartPanel {...startPanelProps} />
                   </div>
-                  {Chat && chatProps && chatProps.showInputs !== false && (
-                    <div className="memori-chat-layout--prechat-inputs">
-                      <ChatInputs
-                        userMessage={chatProps.userMessage}
-                        onChangeUserMessage={chatProps.onChangeUserMessage}
-                        dialogState={chatProps.dialogState}
-                        instruct={chatProps.instruct}
-                        authToken={chatProps.authToken}
-                        sendMessage={chatProps.sendMessage}
-                        isTyping={chatProps.memoriTyping}
-                        microphoneMode={chatProps.microphoneMode}
-                        sendOnEnter={chatProps.sendOnEnter}
-                        setSendOnEnter={chatProps.setSendOnEnter}
-                        client={chatProps.client}
-                        sessionID={chatProps.sessionID}
-                        showUpload={chatProps.showUpload}
-                        attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
-                        setAttachmentsMenuOpen={
-                          chatProps.setAttachmentsMenuOpen
-                        }
-                        onTextareaFocus={() => {
-                          chatProps.stopListening?.();
-                        }}
-                        onTextareaBlur={() => {}}
-                        onTextareaExpanded={() => {}}
-                        startListening={chatProps.startListening}
-                        stopListening={chatProps.stopListening}
-                        stopAudio={chatProps.stopAudio}
-                        listening={chatProps.listening}
-                        isPlayingAudio={chatProps.isPlayingAudio}
-                        showMicrophone={chatProps.showMicrophone}
-                        memoriID={chatProps.memori?.memoriID}
-                        maxTextareaCharacters={chatProps.maxTextareaCharacters}
-                        maxDocumentsPerMessage={maxDocumentsPerMessage}
-                        maxDocumentContentLength={maxDocumentContentLength}
-                        pasteAsCardLineThreshold={pasteAsCardLineThreshold}
-                        pasteAsCardCharThreshold={pasteAsCardCharThreshold}
-                        showAiGeneratedNote={false}
-                      />
-                    </div>
-                  )}
                 </div>
               ) : null}
             </div>
+
+            {/* Input bar sits outside body so it spans full width below the scroll area */}
+            {Chat && chatProps && chatProps.showInputs !== false && (
+              <ChatInputs
+                userMessage={chatProps.userMessage}
+                onChangeUserMessage={chatProps.onChangeUserMessage}
+                dialogState={chatProps.dialogState}
+                instruct={chatProps.instruct}
+                authToken={chatProps.authToken}
+                sendMessage={chatProps.sendMessage}
+                isTyping={chatProps.memoriTyping}
+                microphoneMode={chatProps.microphoneMode}
+                sendOnEnter={chatProps.sendOnEnter}
+                setSendOnEnter={chatProps.setSendOnEnter}
+                client={chatProps.client}
+                sessionID={chatProps.sessionID}
+                showUpload={chatProps.showUpload}
+                attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
+                setAttachmentsMenuOpen={chatProps.setAttachmentsMenuOpen}
+                onTextareaFocus={() => {
+                  chatProps.stopListening?.();
+                }}
+                onTextareaBlur={() => {}}
+                onTextareaExpanded={() => {}}
+                startListening={chatProps.startListening}
+                stopListening={chatProps.stopListening}
+                stopAudio={chatProps.stopAudio}
+                listening={chatProps.listening}
+                isPlayingAudio={chatProps.isPlayingAudio}
+                showMicrophone={chatProps.showMicrophone}
+                memoriID={chatProps.memori?.memoriID}
+                maxTextareaCharacters={chatProps.maxTextareaCharacters}
+                maxTotalMessagePayload={chatProps.maxTotalMessagePayload}
+                maxDocumentsPerMessage={maxDocumentsPerMessage}
+                maxDocumentContentLength={maxDocumentContentLength}
+                pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+                pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                showAiGeneratedNote={isSessionStarted}
+              />
+            )}
           </div>
 
           {/* Artifact column — width 0→480px with CSS transition */}
