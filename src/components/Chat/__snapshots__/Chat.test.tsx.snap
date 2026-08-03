@@ -322,7 +322,7 @@ exports[`renders Chat unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -961,7 +961,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -1614,7 +1614,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -2233,7 +2233,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -2886,7 +2886,7 @@ exports[`renders Chat with dates unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -3540,7 +3540,7 @@ exports[`renders Chat with hints unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -4382,7 +4382,7 @@ exports[`renders Chat with media unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/en/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai/en"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link Memori Srl"
@@ -5111,7 +5111,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -5762,7 +5762,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
@@ -6504,7 +6504,7 @@ exports[`renders Chat with user unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
-                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  href="https://memori.ai"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Link"
