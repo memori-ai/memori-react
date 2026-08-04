@@ -208,7 +208,7 @@ button.memori-chat-textarea--expand-button:focus {
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input,
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input {
     background: transparent;
-    color: #f2f0f4;
+    /* color: #f2f0f4; */
 }
 
 .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,

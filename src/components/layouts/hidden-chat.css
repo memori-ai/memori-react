@@ -11,12 +11,12 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat--history {
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat--bubble:not(.memori-chat--user-bubble) {
     border: none;
-    background-color: var(--memori-secondary-background);
+    /* background-color: var(--memori-secondary-background); */
     box-shadow: none;
 }
 
@@ -44,7 +44,10 @@
     justify-content: center;
     padding: var(--memori-spacing-sm);
     border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
-    background-color: var(--memori-primary);
+    /* Prefer --memori-primary-color: dark theme remaps --memori-primary to
+       --memori-primary-hover, which can circularly resolve to an invalid value. */
+    background-color: var(--memori-primary-color, var(--memori-primary));
+    color: var(--memori-primary-content, #fff);
     cursor: pointer;
     font-size: var(--memori-text-size-large);
     font-weight: var(--memori-text-weight-semibold);
@@ -75,10 +78,10 @@
     top: auto;
     right: auto;
     display: inline-flex;
-    width: 2.25rem;
-    min-width: 2.25rem;
-    height: 2.25rem;
-    min-height: 2.25rem;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    min-height: 2.5rem;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -131,7 +134,7 @@
     stroke: currentColor;
 }
 
-/* Powered-by footer under the input on --chat-bg */
+/* Powered-by footer under the input on --memori-secondary-background */
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori--powered-by {
     position: relative;
     z-index: 5;
@@ -146,7 +149,7 @@
     padding: 0.35rem 1rem 0.85rem;
     border-radius: 0;
     margin: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
     transform: none;
 }
 
@@ -157,21 +160,20 @@
     right: calc(-1 * var(--memori-hidden-chat-width));
     width: var(--memori-hidden-chat-width);
     height: 100%;
-    background-color: var(--chat-bg, #f4f4f5);
+    background-color: var(--memori-secondary-background);
     box-shadow: -2px 0 var(--memori-spacing-sm) rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat--content {
-    padding: 0;
-    padding-top: var(--memori-spacing-xl);
+    padding: var(--memori-spacing-xl);
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-history {
     height: calc(100% - var(--memori-spacing-5xl));
     padding: 0;
     margin: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs {
@@ -193,10 +195,19 @@
     margin-bottom: 0;
 }
 
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-chat--content--has-global-background,
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-chat--history:has(.memori-chat--content--has-global-background) {
+    background: transparent;
+}
+
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-inputs-wrapper {
     width: 100%;
     flex-shrink: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--prechat-inputs {
@@ -480,7 +491,13 @@
     flex-direction: column;
     align-items: stretch;
     padding: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
+}
+
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-chat-layout--body:has(.memori-chat--content--has-global-background) {
+    background: transparent;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--start-shell {
@@ -557,6 +574,16 @@
         width: 100% !important;
         height: 100% !important;
     }
+}
+
+/* Dark theme: keep open/floating toggle on a solid primary fill */
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-sidebar-toggle-label:not(.memori-hidden-chat-layout--header-close),
+[data-theme='dark']
+    .memori-widget.memori-layout-hidden_chat
+    .memori-sidebar-toggle-label:not(.memori-hidden-chat-layout--header-close) {
+    background-color: var(--memori-primary-color, var(--memori-primary));
+    color: var(--memori-primary-content, #fff);
 }
 
 /* Dark theme: header controls — white outline and icon (incl. share + position popover) */

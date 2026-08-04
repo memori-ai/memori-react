@@ -64,12 +64,11 @@
     flex-direction: column;
     align-items: stretch;
     margin: 0 auto;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
 }
 
-/* When a global background image is present, let it overhang
-   the chat body's main background by making the body transparent. */
-.memori-widget.memori-layout-chat:has(.memori--global-background:not(.no-background-image)) .memori-chat-layout--body {
+/* When a global background is on chat content, keep the body strip neutral. */
+.memori-widget.memori-layout-chat:has(.memori-chat--content--has-global-background) .memori-chat-layout--body {
     background: transparent;
 }
 
@@ -97,7 +96,7 @@
     width: 100%;
     flex-shrink: 0;
     border-top: none;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -161,7 +160,7 @@
     background-image: none !important;
 }
 
-/* Powered-by footer under the input, on the same --chat-bg strip */
+/* Powered-by footer under the input, on the same --memori-secondary-background strip */
 .memori-widget.memori-layout-chat .memori-chat-layout--controls > .memori--powered-by {
     position: relative;
     z-index: 5;
@@ -176,7 +175,7 @@
     padding: 0.35rem 1rem 0.85rem;
     border-radius: 0;
     margin: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
     transform: none;
 }
 
@@ -206,6 +205,7 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel__body {
     padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
     padding-top: 0;
+    background: var(--memori-main-background);
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container {
@@ -305,7 +305,7 @@
 
 .memori-widget.memori-layout-chat .memori-chat-layout--controls {
     border-radius: 0;
-    background: var(--chat-bg, #f4f4f5);
+    background: var(--memori-secondary-background);
 }
 
 /* Artifact drawer column inside the Chat layout's flex row */
@@ -411,7 +411,7 @@
 }
 
 .memori-chat-layout .memori-chat--content {
-    padding: 0;
+    padding: var(--memori-spacing-xl);
 }
 
 @media (max-width: 991px) {
@@ -656,4 +656,3 @@
         transform: translateX(100%);
     }
 }
-

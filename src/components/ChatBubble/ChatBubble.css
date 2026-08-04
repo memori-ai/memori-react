@@ -76,7 +76,7 @@
     border: none;
     border-radius: 13px;
     /* margin-top: 1.5rem; */
-    background: var(--memori-secondary-background);
+    background: var(--memori-main-background);
     border-bottom-left-radius: 4px;
     box-shadow: none;
     color: var(--memori-text-color);

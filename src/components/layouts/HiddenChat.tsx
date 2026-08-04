@@ -196,7 +196,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           backgroundColor: sidebar.style.backgroundColor,
         };
 
-        // Set styles for fullscreen — keep --chat-bg via CSS, clear inline white
+        // Set styles for fullscreen — keep --memori-secondary-background via CSS, clear inline white
         sidebar.style.right = '0';
         sidebar.style.width = '100%';
         sidebar.style.backgroundColor = '';

@@ -120,6 +120,8 @@ export interface Props {
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
   /** Max attachments (docs + images) per message. */
+  /** Integration global background image URL applied to `.memori-chat--content`. */
+  globalBackground?: string;
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -180,6 +182,7 @@ const Chat: React.FC<Props> = ({
   showFunctionCache = false,
   maxTotalMessagePayload,
   maxTextareaCharacters,
+  globalBackground,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -421,7 +424,15 @@ const Chat: React.FC<Props> = ({
         <div
           className={cx('memori-chat--content', {
             'memori-chat--content-touch': hasTouchscreen(),
+            'memori-chat--content--has-global-background': !!globalBackground,
           })}
+          style={
+            globalBackground
+              ? ({
+                  ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
+                } as React.CSSProperties)
+              : undefined
+          }
         >
           <div
             className={cx('memori-chat--cover')}

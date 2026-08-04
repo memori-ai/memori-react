@@ -6,6 +6,7 @@ import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../../MemoriArtifactSystem/context/ArtifactContext';
 import ArtifactDrawer from '../../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { getResourceUrl } from '../../../helpers/media';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   Header,
@@ -31,6 +32,28 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   const [expandedKey, setExpandedKey] = useState<string>();
 
   const stopAudio = useMemo(() => chatProps?.stopAudio, [chatProps?.stopAudio]);
+
+  const memori = headerProps?.memori;
+  const tenant = headerProps?.tenant;
+  const baseUrl = headerProps?.baseUrl;
+  const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
+
+  const brandAvatarSrc = memori
+    ? memori.avatarURL && memori.avatarURL.length > 0
+      ? getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          resourceURI: memori.avatarURL,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+      : getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+    : undefined;
 
   const setCollapsed = (collapsed: boolean) => {
     _setCollapsed(collapsed);
@@ -77,23 +100,44 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
               className="memori-website_assistant-layout"
             >
               <div className="memori-website_assistant-layout--header-row">
-                {Header && headerProps && (
-                  <Header
-                    buttonVariant="outline"
-                    {...headerProps}
-                    showSettings={false}
-                    showReload={false}
-                  />
+                {memori && brandAvatarSrc && (
+                  <div className="memori-chat-layout--brand">
+                    <img
+                      className="memori-chat-layout--brand-avatar"
+                      src={brandAvatarSrc}
+                      alt=""
+                      role="presentation"
+                    />
+                    <div className="memori-chat-layout--brand-text">
+                      {isSessionStarted && (
+                        <span
+                          className="memori-chat-layout--brand-name"
+                          title={memori.name}
+                        >
+                          {memori.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 )}
-                <div className="memori-website_assistant--close-button-wrapper">
-                  <Button
+                <div className="memori-website_assistant-layout--header-actions">
+                  {Header && headerProps && (
+                    <Header
+                      buttonVariant="outline"
+                      {...headerProps}
+                      showSettings={false}
+                      showReload={false}
+                    />
+                  )}
+                  <button
+                    type="button"
                     className="memori-website_assistant--close-button"
-                    variant="ghost"
                     onClick={() => setCollapsed(true)}
-                    aria-label={t('close') || 'Close'}
-                    icon={<X aria-hidden />}
-                    title={t('close') || 'Close'}
-                  />
+                    aria-label={t('collapse') || 'Close'}
+                    title={t('collapse') || 'Close'}
+                  >
+                    <X className="memori-icon-close" aria-hidden />
+                  </button>
                 </div>
               </div>
 

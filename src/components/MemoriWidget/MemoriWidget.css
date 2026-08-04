@@ -156,9 +156,7 @@
 }
 
 .memori.memori-widget.chat-focused .memori--powered-by,
-.memori.memori-widget.chat-focused
-    .memori-website_assistant--close-button-wrapper
-    button.memori-website_assistant--close-button {
+.memori.memori-widget.chat-focused .memori-website_assistant--close-button {
     display: none;
 }
 

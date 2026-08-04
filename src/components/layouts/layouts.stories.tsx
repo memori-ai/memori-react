@@ -43,6 +43,7 @@ DefaultLayout.args = {
   layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
+  showLogin: true,
   integrationID: '019f1896-730d-7e19-9a88-6413f485247b',
 };
 

@@ -499,7 +499,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               borderTop: '1px solid rgba(255, 255, 255, 0.2)',
             }}
           >
-            <Button onClick={handleCancelUpload} variant="outline">
+            <Button onClick={handleCancelUpload} variant="outline" danger>
               {t('cancel') ?? 'Cancel'}
             </Button>
             <Button
