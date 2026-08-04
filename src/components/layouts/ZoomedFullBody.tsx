@@ -216,7 +216,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading}>
-        {poweredBy}
+        {useSideArtifactChrome && poweredBy}
 
         {Header && headerProps && mobileHeaderProps && (
           <div className="memori-fullpage-top-header">
@@ -340,6 +340,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
               )}
 
               <div id="extension" />
+
+              {poweredBy}
             </div>
 
             {/* Chat column — flex:1, shrinks naturally when artifact column grows */}
