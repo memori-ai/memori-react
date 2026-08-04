@@ -230,7 +230,9 @@
     max-width: 100%;
     border: none;
     border-radius: var(--memori-radius-box);
-    background: var(--memori-primary) !important;
+    /* Prefer --memori-primary-color: dark theme remaps --memori-primary to
+       --memori-primary-hover, which circularly resolves and drops the fill. */
+    background: var(--memori-primary-color, var(--memori-primary)) !important;
     border-top-right-radius: 4px;
     box-shadow: none;
     color: var(--memori-primary-content);
@@ -238,10 +240,9 @@
     font-weight: 400;
 }
 
-[data-theme='dark'] {
-    .memori-chat--bubble.memori-chat--user-bubble {
-        background: var(--memori-primary-hover);
-    }
+[data-theme='dark'] .memori-chat--bubble.memori-chat--user-bubble,
+.memori-widget[data-theme='dark'] .memori-chat--bubble.memori-chat--user-bubble {
+    background: var(--memori-primary-color, var(--memori-primary)) !important;
 }
 
 .memori-chat--bubble-avatar {
