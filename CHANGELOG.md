@@ -1,5 +1,29 @@
 
 
+## [9.0.0-alpha.9](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.8...alpha/rc-v9.0.0-alpha.9) (2026-08-04)
+
+
+### Features
+
+* enhance chat layout styles with unified background and input designs across all themes ([bdf878e](https://github.com/memori-ai/memori-react/commit/bdf878e172621c852f70ed505aac6feaea242077))
+* refine chat layouts with global backgrounds and danger cancel buttons ([3f28abc](https://github.com/memori-ai/memori-react/commit/3f28abc6311e890a5777a662352b5c0e863c4e13))
+* update chat inputs styles over all layouts ([9657d05](https://github.com/memori-ai/memori-react/commit/9657d054c76385c6b7a617d8a87db9974a882b84))
+
+
+### Bug Fixes
+
+* use primary-color for user bubble background in dark theme ([c7eceda](https://github.com/memori-ai/memori-react/commit/c7eceda840630264dfc24c73df79fc502cf9fadd))
+
+
+### Changes
+
+* adjust positioning of "Powered by" element and update chat input border styles ([b3250df](https://github.com/memori-ai/memori-react/commit/b3250df7eba5f30e73b163d7e792581c74390bfa))
+
+
+### Maintenance
+
+* bump package version to 9.0.0-alpha.9 ([0be7121](https://github.com/memori-ai/memori-react/commit/0be7121f824c6392d040eea7f0e244c2c785212c))
+
 ## [9.0.0-alpha.8](https://github.com/memori-ai/memori-react/compare/alpha/rc-v9.0.0-alpha.7...alpha/rc-v9.0.0-alpha.8) (2026-08-03)
 
 
