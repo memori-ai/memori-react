@@ -58,9 +58,8 @@
     align-items: center;
     padding: 10px 12px 10px 16px;
     border: 1.5px solid var(--memori-border-color, #ddd);
-    border-radius: 9999px;
+    border-radius: var(--memori-radius-box);
     margin: 0;
-    background-color: var(--memori-main-background);
     gap: 10px;
     transition: border-color 0.15s, box-shadow 0.15s;
 }
