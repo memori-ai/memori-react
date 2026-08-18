@@ -1963,11 +1963,20 @@ const MemoriWidget = ({
         memori.voiceType as 'MALE' | 'FEMALE' | 'NEUTRAL'
       ),
       tenant: tenantID,
+      sessionId,
       region: 'westeurope',
       voiceType: memori.voiceType,
       layout: selectedLayout,
     }),
-    [ttsProvider, userLang, memori.culture, memori.voiceType, selectedLayout]
+    [
+      ttsProvider,
+      userLang,
+      memori.culture,
+      memori.voiceType,
+      selectedLayout,
+      tenantID,
+      sessionId,
+    ]
   );
 
   const sttConfig = useMemo(
@@ -1975,8 +1984,9 @@ const MemoriWidget = ({
       provider: ttsProvider,
       language: getCultureCodeByLanguage(userLang),
       tenant: tenantID,
+      sessionId,
     }),
-    [ttsProvider, userLang]
+    [ttsProvider, userLang, tenantID, sessionId]
   );
 
   // Initialize TTS hook with basic options first

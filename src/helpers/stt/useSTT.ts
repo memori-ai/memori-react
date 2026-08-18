@@ -15,6 +15,8 @@ export interface STTConfig {
   model?: string;
   region?: string; // required for Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
+  /** Active Memori dialog session — required by the speech API for authorization */
+  sessionId?: string;
 }
 
 /**
@@ -294,6 +296,10 @@ export function useSTT(
    */
   const transcribeAudio = useCallback(
     async (audioBlob: Blob): Promise<STTResult> => {
+      if (!config.sessionId) {
+        throw new Error('Missing sessionId for STT request');
+      }
+
       const formData = new FormData();
       let fileExtension = 'webm';
 
@@ -312,6 +318,7 @@ export function useSTT(
       formData.append('audio', audioBlob, `recording.${fileExtension}`);
       formData.append('provider', config.provider);
       formData.append('tenant', config.tenant || 'www.aisuru.com');
+      formData.append('sessionId', config.sessionId);
 
       if (config.language) {
         formData.append('language', config.language);
