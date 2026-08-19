@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   ChatLog,
   ChatLogLine,
+  ChatMedium,
   Memori,
   Message,
   ChatLogFilters,
@@ -56,7 +57,19 @@ type ContentTypeFilter = 'all' | 'with_images' | 'with_files';
 const isImageMimeType = (mimeType?: string) =>
   mimeType?.startsWith('image/') ?? false;
 
-const isFileMimeType = (mimeType?: string) => !isImageMimeType(mimeType);
+/**
+ * Media carrying a function call or its cached result: the engine ships them as
+ * regular media, but they are tool invocations and not attachments.
+ */
+const isFunctionCallMedium = (medium: ChatMedium) =>
+  Boolean(medium.properties?.functionSignature) ||
+  Boolean(medium.properties?.functionCache);
+
+const isFileMedium = (medium: ChatMedium) =>
+  !isFunctionCallMedium(medium) && !isImageMimeType(medium.mimeType);
+
+const isImageMedium = (medium: ChatMedium) =>
+  !isFunctionCallMedium(medium) && isImageMimeType(medium.mimeType);
 
 // This function calculates the title of the chat log based on the most meaningful user message
 const calculateTitle = (lines: ChatLogLine[]): string => {
@@ -487,17 +500,18 @@ const ChatHistoryDrawer = ({
 
   const getChatLogStats = (chatLog: ChatLog) => {
     const imageCount = chatLog.lines.reduce((total, line) => {
-      const imagesInLine =
-        line.media?.filter(medium => isImageMimeType(medium.mimeType))
-          .length || 0;
+      const imagesInLine = line.media?.filter(isImageMedium).length || 0;
       return total + imagesInLine;
     }, 0);
 
     const fileCount = chatLog.lines.reduce((total, line) => {
-      const filesInLine =
-        line.media?.filter(medium => isFileMimeType(medium.mimeType))
-          .length || 0;
+      const filesInLine = line.media?.filter(isFileMedium).length || 0;
       return total + filesInLine;
+    }, 0);
+
+    const functionCount = chatLog.lines.reduce((total, line) => {
+      const functionsInLine = line.media?.filter(isFunctionCallMedium).length || 0;
+      return total + functionsInLine;
     }, 0);
 
     const assistantReplies = chatLog.lines.filter(
@@ -518,6 +532,7 @@ const ChatHistoryDrawer = ({
     return {
       imageCount,
       fileCount,
+      functionCount,
       preview,
       isTestConversation,
       messageCount: chatLog.lines.length,
@@ -851,34 +866,39 @@ const ChatHistoryDrawer = ({
       summary:
         t('write_and_speak.sessionSummaryDescription') ||
         'Hai caricato un file Markdown con la presentazione del gruppo. L’AI stava elaborando una risposta.',
-      messages: selectedChatLog.lines.map((line, index) => ({
-        id: `${selectedChatLog.chatLogID}-${index}`,
-        role: line.inbound ? ('user' as const) : ('assistant' as const),
-        content: line.text || '',
-        timestamp: line.timestamp,
-        media: (line.media || []).map((medium, mediumIndex) => ({
-          ...medium,
-          mediumID:
-            (medium as { mediumID?: string }).mediumID ||
-            `${selectedChatLog.chatLogID}-${index}-${mediumIndex}`,
-        })),
-        status:
-          !line.inbound && !line.text?.trim() && hasInterruptedLine
-            ? ('interrupted' as const)
-            : ('completed' as const),
-        attachment:
-          line.inbound && Array.isArray(line.media) && line.media.length > 0
+      messages: selectedChatLog.lines.map((line, index) => {
+        const attachmentMedium = line.inbound
+          ? (line.media || []).find(isFileMedium)
+          : undefined;
+
+        return {
+          id: `${selectedChatLog.chatLogID}-${index}`,
+          role: line.inbound ? ('user' as const) : ('assistant' as const),
+          content: line.text || '',
+          timestamp: line.timestamp,
+          media: (line.media || []).map((medium, mediumIndex) => ({
+            ...medium,
+            mediumID:
+              (medium as { mediumID?: string }).mediumID ||
+              `${selectedChatLog.chatLogID}-${index}-${mediumIndex}`,
+          })),
+          status:
+            !line.inbound && !line.text?.trim() && hasInterruptedLine
+              ? ('interrupted' as const)
+              : ('completed' as const),
+          attachment: attachmentMedium
             ? {
                 name:
-                  line.media[0].url?.split('/').pop() ||
-                  line.media[0].url ||
+                  attachmentMedium.url?.split('/').pop() ||
+                  attachmentMedium.url ||
                   'Attachment file',
                 type: 'Markdown',
                 size: '2.4 KB',
                 ext: 'MD',
               }
             : undefined,
-      })),
+        };
+      }),
       quickActions: [
         {
           label:
@@ -1070,6 +1090,15 @@ const ChatHistoryDrawer = ({
                             stats.fileCount,
                             t('write_and_speak.file') || 'file',
                             t('write_and_speak.files') || 'files'
+                          )}
+                        </span>
+                      )}
+                      {stats.functionCount > 0 && (
+                        <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-functions">
+                          {formatCountLabel(
+                            stats.functionCount,
+                            t('write_and_speak.function') || 'function',
+                            t('write_and_speak.functions') || 'functions'
                           )}
                         </span>
                       )}

@@ -798,6 +798,10 @@
     color: var(--memori-text-color);
 }
 
+.memori-chat-history-drawer--list-item--meta-badge-functions {
+    color: var(--memori-text-color);
+}
+
 .memori-chat-history-drawer--list-item--meta-badge-boe {
     background-color: var(--color-background-secondary, var(--memori-primary-subtle));
     color: var(--color-text-primary, var(--memori-primary));
