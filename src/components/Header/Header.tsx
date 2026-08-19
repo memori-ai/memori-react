@@ -1181,7 +1181,9 @@ const Header: React.FC<Props> = ({
     <div
       className={cx('memori-totem-rail', className)}
       role="toolbar"
-      aria-label={t('widget.sessionControls', { defaultValue: 'Controlli' })}
+      aria-label={String(
+        t('widget.sessionControls', { defaultValue: 'Controlli' })
+      )}
       aria-orientation="vertical"
     >
       <div className="memori-totem-rail--group">
