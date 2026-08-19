@@ -419,20 +419,21 @@ const Chat: React.FC<Props> = ({
       <div
         className={cx('memori-chat--history', {
           'memori-chat--history-touch': hasTouchscreen(),
+          'memori-chat--history--has-global-background': !!globalBackground,
         })}
+        style={
+          globalBackground
+            ? ({
+                ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
+              } as React.CSSProperties)
+            : undefined
+        }
       >
         <div
           className={cx('memori-chat--content', {
             'memori-chat--content-touch': hasTouchscreen(),
             'memori-chat--content--has-global-background': !!globalBackground,
           })}
-          style={
-            globalBackground
-              ? ({
-                  ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
-                } as React.CSSProperties)
-              : undefined
-          }
         >
           <div
             className={cx('memori-chat--cover')}

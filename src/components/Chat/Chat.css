@@ -81,14 +81,18 @@
     scroll-behavior: smooth;
 }
 
-/* Global background image lives on the chat content area (not the whole layout).
-   Pseudo-element keeps blur from affecting messages. */
 .memori-chat--content--has-global-background {
     background-color: transparent;
+}
+
+/* Global background image lives on the chat history area (not the whole layout),
+   which is the messages viewport and does not scroll: the image therefore stays
+   put while messages scroll over it. Pseudo-element keeps blur off the messages. */
+.memori-chat--history--has-global-background {
     isolation: isolate;
 }
 
-.memori-chat--content--has-global-background::before {
+.memori-chat--history--has-global-background::before {
     position: absolute;
     z-index: 0;
     top: 0;
@@ -104,7 +108,7 @@
     pointer-events: none;
 }
 
-.memori-chat--content--has-global-background > * {
+.memori-chat--history--has-global-background > * {
     position: relative;
     z-index: 1;
 }
