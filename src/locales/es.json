@@ -243,12 +243,17 @@
     "images": "imagenes",
     "file": "archivo",
     "files": "archivos",
+    "function": "función",
+    "functions": "funciones",
     "iWantToTalkToIn": "quiero hablar con {{name}} en",
     "chatLanguageLabel": "Elige el idioma de la conversación",
     "chatResumed": "Conversación reanudada correctamente.",
     "message": "mensaje",
     "messages": "mensajes",
     "page": "Página {{current}} de {{total}}"
+  },
+  "chatResume": {
+    "resume": "Reanudar la conversación"
   },
   "artifact": {
     "close": "Cerrar",

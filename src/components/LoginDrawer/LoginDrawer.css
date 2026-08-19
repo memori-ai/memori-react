@@ -541,6 +541,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-label legend {
     width: 100%;
+    margin-bottom: var(--memori-spacing-md);
 }
 
 .memori--login-drawer--otp-label-text {

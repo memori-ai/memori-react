@@ -2689,7 +2689,7 @@ const MemoriWidget = ({
   }
   if (integrationConfig?.blurBackground) {
     integrationStylesheetParts.push(
-      '.memori-widget .memori-chat--content--has-global-background::before { filter: blur(5px); }'
+      '.memori-widget .memori-chat--history--has-global-background::before { filter: blur(5px); }'
     );
   }
   const integrationStylesheet = `@layer integration {

@@ -116,6 +116,13 @@
     min-width: fit-content;
 }
 
+/* fit-content outranks the bubble max-width, so a wide markdown code block or table
+   would stretch the bubble past the messages viewport and make the whole chat scroll
+   sideways. Those blocks are kept scrollable on their own instead. */
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table) {
+    min-width: 0;
+}
+
 .memori-chat--bubble-avatar svg {
     fill: #000;
     font-size: var(--memori-text-size-heading-large);
@@ -183,6 +190,16 @@
 .memori-chat--bubble ul br,
 .memori-chat--bubble ol br {
     display: none;
+}
+
+.memori-chat--bubble pre,
+.memori-chat--bubble .memori--responsive-table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.memori-chat--bubble table {
+    max-width: 100%;
 }
 
 .memori-chat--bubble a {
@@ -272,12 +289,21 @@
     object-fit: cover;
 }
 
+/* The addon row sits outside the bubble, directly over the chat background, which
+   can be a dark image or colour: it carries its own surface so the icons and the
+   timestamp keep contrast whatever is painted behind them. */
 .memori-chat--bubble-addon {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-self: flex-start;
     justify-content: flex-start;
+    padding: calc(var(--memori-spacing-xs) * 0.5) var(--memori-spacing-xs);
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    background: color-mix(in srgb, var(--memori-main-background) 92%, transparent);
+    color: var(--memori-text-color);
     gap: calc(var(--memori-spacing-xs) * 0.5);
     opacity: 0;
     pointer-events: none;

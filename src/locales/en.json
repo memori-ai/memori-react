@@ -257,12 +257,17 @@
     "images": "images",
     "file": "file",
     "files": "files",
+    "function": "function",
+    "functions": "functions",
     "iWantToTalkToIn": "I want to talk to {{name}} in",
     "chatLanguageLabel": "Choose the conversation language",
     "chatResumed": "Conversation resumed successfully.",
     "message": "message",
     "messages": "messages",
     "page": "Page {{current}} of {{total}}"
+  },
+  "chatResume": {
+    "resume": "Resume conversation"
   },
   "artifact": {
     "close": "Close",

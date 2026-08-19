@@ -244,12 +244,17 @@
     "images": "Bilder",
     "file": "Datei",
     "files": "Dateien",
+    "function": "Funktion",
+    "functions": "Funktionen",
     "iWantToTalkToIn": "Ich möchte mit reden {{name}} In",
     "chatLanguageLabel": "Wählen Sie die Sprache der Unterhaltung",
     "chatResumed": "Unterhaltung erfolgreich fortgesetzt.",
     "message": "nachricht",
     "messages": "nachrichten",
     "page": "Seite {{current}} von {{total}}"
+  },
+  "chatResume": {
+    "resume": "Unterhaltung fortsetzen"
   },
   "artifact": {
     "close": "Schließen",
