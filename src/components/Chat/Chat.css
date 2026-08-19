@@ -6,6 +6,25 @@
     flex-direction: column;
 }
 
+/**
+ * Shared conversation axis for CHAT + FULLPAGE:
+ * message list, empty/start state and input share one max-width and inline padding.
+ * Children must not set their own column max-width / margin-inline.
+ */
+.memori-conversation-column {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: var(--memori-conversation-max-width, 48rem);
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    flex-direction: column;
+    margin-inline: auto;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
+}
+
 @media (max-width: 768px) {
     .memori-chat--wrapper.chat-focused {
         padding-bottom: 0;
@@ -30,6 +49,48 @@
 /* Adjust chat history when textarea is expanded */
 .memori-chat-wrapper--expanded .memori-chat--history {
     margin-bottom: var(--memori-spacing-sm);
+}
+
+.memori-chat--history.memori-chat--history-touch {
+    height: 80% !important;
+    padding: 0;
+}
+
+.memori-chat--content {
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex: 1;
+    flex-direction: column;
+    /* background-color: var(--memori-secondary-background); */
+    /* padding: 2rem var(--memori-spacing-sm); */
+    /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* Conversation-column overrides sit between base and layout-scoped rules. */
+.memori-conversation-column .memori-chat--wrapper,
+.memori-conversation-column .memori-chat--history,
+.memori-conversation-column .memori-chat--content,
+.memori-conversation-column .memori-chat-inputs-wrapper,
+.memori-conversation-column .memori-chat-inputs,
+.memori-conversation-column .memori-chat-inputs--ai-note,
+.memori-conversation-column .memori--start-panel,
+.memori-conversation-column .memori-chat-layout--body,
+.memori-conversation-column .memori-chat-layout--start-shell,
+.memori-conversation-column .memori-chat-layout--start-panel-wrap {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+}
+
+.memori-conversation-column .memori-chat--content {
+    padding-inline: 0;
+}
+
+.memori-conversation-column .memori-chat-inputs-wrapper {
+    padding-inline: 0;
 }
 
 /* Solo widget layout CHAT: area messaggi a card — top radius only;
@@ -61,24 +122,6 @@
 
 .memori-widget.memori-layout-chat .memori-media-item--document {
     background-color: var(--memori-secondary-background);
-}
-
-.memori-chat--history.memori-chat--history-touch {
-    height: 80% !important;
-    padding: 0;
-}
-
-.memori-chat--content {
-    position: relative;
-    display: flex;
-    height: 100%;
-    flex: 1;
-    flex-direction: column;
-    /* background-color: var(--memori-secondary-background); */
-    /* padding: 2rem var(--memori-spacing-sm); */
-    /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
-    overflow-y: auto;
-    scroll-behavior: smooth;
 }
 
 .memori-chat--content--has-global-background {

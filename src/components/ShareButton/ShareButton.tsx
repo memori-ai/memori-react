@@ -552,6 +552,7 @@ const ShareButton: React.FC<Props> = ({
             <Button
               {...props}
               variant={triggerVariant}
+              title={String(triggerLabel || t('widget.share') || 'Share')}
               aria-label={String(
                 triggerLabel || t('widget.share') || 'Share'
               )}
@@ -564,9 +565,11 @@ const ShareButton: React.FC<Props> = ({
                 isShareMenuOpen && 'memori-button--active'
               )}
             >
-              {triggerMode === 'menu-item'
-                ? triggerLabel || t('widget.share')
-                : undefined}
+              {triggerMode === 'menu-item' || triggerLabel ? (
+                <span className="memori-header--action-label">
+                  {triggerLabel || t('widget.share')}
+                </span>
+              ) : undefined}
             </Button>
           )}
         />

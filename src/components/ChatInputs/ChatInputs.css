@@ -18,7 +18,7 @@
     display: flex;
     width: 100%;
     min-width: 0;
-    max-width: 760px;
+    max-width: var(--memori-conversation-max-width, 48rem);
     box-sizing: border-box;
     flex-flow: column;
     flex-shrink: 0;
@@ -58,13 +58,18 @@
     align-items: center;
     padding: 10px 12px 10px 16px;
     border: 1.5px solid var(--memori-border-color, #ddd);
-    border-radius: var(--memori-radius-box);
+    border-radius: 8px;
     margin: 0;
     gap: 10px;
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .memori-chat-inputs--container:focus-within {
+    border-color: var(--memori-border-color, #ddd);
+    box-shadow: none;
+}
+
+.memori-chat-inputs--container:focus-within:has(:focus-visible) {
     border-color: var(--memori-primary);
     box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
@@ -206,20 +211,13 @@
     fill: currentColor;
 }
 
-.memori-chat-inputs--send-btn svg {
-    width: 18px;
-    height: 18px;
-    color: #fff;
-    fill: #fff;
-    stroke: #fff;
-}
-
+.memori-chat-inputs--send-btn svg,
 .memori-chat-inputs--send-btn .icon {
     width: 18px;
     height: 18px;
-    color: #fff;
-    fill: #fff;
-    stroke: #fff;
+    color: var(--memori-primary-content, #fff) !important;
+    fill: var(--memori-primary-content, #fff);
+    stroke: currentColor;
 }
 
 .memori-chat-inputs--upload-wrapper .memori-button svg,
@@ -280,7 +278,7 @@
     color: inherit;
 }
 
-/* Send button — solid purple, white icon (all layouts) */
+/* Send button — solid brand fill, high-contrast icon (all layouts) */
 .memori-chat-inputs--send-btn,
 .memori-chat-inputs--send-btn.memori-button {
     display: flex;
@@ -292,10 +290,10 @@
     justify-content: center;
     padding: 0 !important;
     border: none !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     background: var(--memori-primary) !important;
     box-shadow: none !important;
-    color: #fff !important;
+    color: var(--memori-primary-content, #fff) !important;
     cursor: pointer;
     transition: background 0.15s ease;
 }
@@ -304,7 +302,7 @@
 .memori-chat-inputs--send-btn.memori-button:disabled,
 .memori-chat-inputs--send-btn--disabled {
     background: var(--memori-primary) !important;
-    color: #fff !important;
+    color: var(--memori-primary-content, #fff) !important;
     cursor: not-allowed;
     opacity: 0.35;
 }
@@ -312,18 +310,18 @@
 .memori-chat-inputs--send-btn:hover:not(:disabled),
 .memori-chat-inputs--send-btn.memori-button:hover:not(:disabled) {
     background: var(--memori-primary-hover) !important;
-    color: #fff !important;
+    color: var(--memori-primary-content, #fff) !important;
     opacity: 1;
 }
 
 .memori-chat-inputs--send-btn--active {
-    color: #fff !important;
+    color: var(--memori-primary-content, #fff) !important;
 }
 
 .memori-chat-inputs--send-btn--loading {
     width: 16px;
     height: 16px;
-    border: 2px solid #fff;
+    border: 2px solid var(--memori-primary-content, #fff);
     border-radius: 50%;
     border-top-color: transparent;
     animation: spin 0.8s linear infinite;
@@ -362,13 +360,57 @@
 }
 
 .memori-chat-inputs--ai-note {
-    max-width: 760px;
-    margin: 8px auto 0;
+    max-width: var(--memori-conversation-max-width, 48rem);
+    margin: 0;
     background: transparent;
-    color: #999;
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
     font-size: 0.75rem;
     line-height: 1.3;
-    text-align: center;
+    text-align: left;
+}
+
+.memori-conversation-footer {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--memori-spacing-sm) 0 0;
+    border-top: 1px solid var(--memori-border-color);
+    margin-top: var(--memori-spacing-sm);
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
+    gap: var(--memori-spacing-md);
+}
+
+.memori-conversation-footer .memori-chat-inputs--ai-note {
+    min-width: 0;
+    flex: 1 1 auto;
+    margin: 0;
+    text-align: left;
+}
+
+.memori-conversation-footer .memori--powered-by {
+    position: static;
+    z-index: auto;
+    bottom: auto;
+    left: auto;
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    transform: none;
+}
+
+.memori-conversation-footer .memori--powered-by-icon {
+    opacity: 0.8;
+}
+
+.memori-conversation-footer .memori--powered-by-label,
+.memori-conversation-footer .memori--powered-by-label a {
+    color: inherit;
 }
 
 @media (max-width: 768px) {
@@ -440,6 +482,15 @@
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--container:focus-within,
 .memori-widget.memori-layout-website_assistant .memori-chat-inputs--container:focus-within,
 .memori-widget.memori-layout-chat .memori-chat-inputs--container:focus-within {
+    border-color: var(--memori-border-color, #ddd);
+    box-shadow: none;
+}
+
+.memori-widget.memori-layout-fullpage .memori-chat-inputs--container:focus-within:has(:focus-visible),
+.memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--container:focus-within:has(:focus-visible),
+.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--container:focus-within:has(:focus-visible),
+.memori-widget.memori-layout-website_assistant .memori-chat-inputs--container:focus-within:has(:focus-visible),
+.memori-widget.memori-layout-chat .memori-chat-inputs--container:focus-within:has(:focus-visible) {
     border-color: var(--memori-primary);
     box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
@@ -447,7 +498,7 @@
 .memori-widget.memori-layout-fullpage .memori-chat-inputs--ai-note,
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--ai-note {
     max-width: 100%;
-    color: #999;
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
 }
 
 /* =============================================================================
@@ -486,5 +537,5 @@
 .memori-widget.memori-layout-website_assistant .memori-chat-inputs--ai-note,
 .memori-widget.memori-layout-chat .memori-chat-inputs--ai-note {
     max-width: 100%;
-    color: #999;
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
 }

@@ -77,6 +77,38 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   const loggedUserInitial = loggedUserDisplayName.charAt(0).toUpperCase();
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
 
+  // Agent status indicator above the avatar, bound to the real conversation state.
+  const agentStatus = useMemo(() => {
+    if (chatProps?.isPlayingAudio) {
+      return {
+        key: 'speaking' as const,
+        label: t('widget.agentStatusSpeaking', { defaultValue: 'sta parlando' }),
+      };
+    }
+    if (chatProps?.memoriTyping) {
+      return {
+        key: 'processing' as const,
+        label: t('widget.agentStatusProcessing', {
+          defaultValue: 'in elaborazione',
+        }),
+      };
+    }
+    if (chatProps?.listening) {
+      return {
+        key: 'listening' as const,
+        label: t('widget.agentStatusListening', {
+          defaultValue: 'in ascolto',
+        }),
+      };
+    }
+    return null;
+  }, [
+    chatProps?.isPlayingAudio,
+    chatProps?.memoriTyping,
+    chatProps?.listening,
+    t,
+  ]);
+
   const handleMobileFullscreen = useCallback(() => {
     if (!isFullscreenAllowedOnDevice()) return;
 
@@ -335,13 +367,27 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
           <div className="memori--grid">
             {/* Avatar column — hidden via CSS when artifact is open */}
             <div className="memori--grid-column memori--grid-column-left">
+              {isSessionStarted && agentStatus && (
+                <div
+                  className="memori-fullpage-agent-status"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <span
+                    className={`memori-fullpage-agent-status--dot memori-fullpage-agent-status--dot-${agentStatus.key}`}
+                    aria-hidden="true"
+                  />
+                  <span className="memori-fullpage-agent-status--label">
+                    {agentStatus.label}
+                  </span>
+                </div>
+              )}
+
               {Avatar && avatarProps && (
                 <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
               )}
 
               <div id="extension" />
-
-              {poweredBy}
             </div>
 
             {/* Chat column — flex:1, shrinks naturally when artifact column grows */}
@@ -354,9 +400,21 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                 }
               >
                 {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-                  <Chat {...chatProps} />
+                  <Chat
+                    {...chatProps}
+                    footerBrand={poweredBy}
+                    showAiGeneratedNote
+                  />
                 ) : startPanelProps ? (
-                  <StartPanel {...startPanelProps} />
+                  <div className="memori-conversation-column">
+                    <StartPanel {...startPanelProps} />
+                    {poweredBy ? (
+                      <div className="memori-conversation-footer">
+                        <span aria-hidden />
+                        {poweredBy}
+                      </div>
+                    ) : null}
+                  </div>
                 ) : null}
               </div>
             </div>

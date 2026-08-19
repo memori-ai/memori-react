@@ -378,18 +378,60 @@ const Header: React.FC<Props> = ({
   const isFullPageChrome = layout === 'FULLPAGE' || layout === 'CHAT';
   const showFullpageChromeDividers = layout !== 'CHAT' && showFullpageDividers;
   const fullpageGuestChrome = layout === 'FULLPAGE' && !loginToken;
+
+  // Sticky header solid background when the conversation list scrolls.
+  useEffect(() => {
+    if (!isFullPageChrome) return;
+
+    const historyEl = document.querySelector(
+      '.memori-widget .memori-chat--history'
+    ) as HTMLElement | null;
+    if (!historyEl) return;
+
+    const syncScrolled = () => {
+      const scrolled = historyEl.scrollTop > 2;
+      document
+        .querySelectorAll(
+          '.memori-widget .memori-chat-layout--header, .memori-widget .memori-fullpage-top-header, .memori-widget .memori-fullpage-header-row'
+        )
+        .forEach(node => {
+          node.classList.toggle('memori-header--scrolled', scrolled);
+        });
+    };
+
+    syncScrolled();
+    historyEl.addEventListener('scroll', syncScrolled, { passive: true });
+    return () => {
+      historyEl.removeEventListener('scroll', syncScrolled);
+      document
+        .querySelectorAll('.memori-header--scrolled')
+        .forEach(node => node.classList.remove('memori-header--scrolled'));
+    };
+  }, [isFullPageChrome, sessionID, hasUserActivatedSpeak]);
+
   const chatHistoryButtonLabel =
-    layout === 'TOTEM'
-      ? undefined
-      : layout === 'FULLPAGE' || layout === 'CHAT' || layout === 'HIDDEN_CHAT'
-      ? t('widget.headerHistory') || t('write_and_speak.chatHistory')
-      : t('write_and_speak.chatHistory');
-  const fullpageHeaderProfileLabel =
-    t('widget.headerProfile') || t('login.user') || 'Profile';
+    layout === 'TOTEM' ? undefined : t('widget.headerHistory') || 'History';
   const fullpageHeaderLoginLabel =
     t('widget.headerLogin') || t('login.login') || 'Login';
+  const soundLabel = speakerMuted
+    ? t('widget.soundOff', { defaultValue: 'Audio off' })
+    : t('widget.sound', { defaultValue: 'Audio' });
+  const fullscreenLabel = fullScreen
+    ? t('fullscreenExit') || 'Exit fullscreen'
+    : t('fullscreenEnter') || 'Full screen';
   const isAuthenticated = !!loginToken && !!user;
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
+
+  const brandTitle = memori?.name?.trim() || '';
+  const brandRole = useMemo(() => {
+    const raw = memori?.description?.trim();
+    if (!raw) return '';
+    return raw
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 140);
+  }, [memori?.description]);
 
   const brandAvatarSrc = useMemo(() => {
     if (!isFullPageChrome || !memori) return undefined;
@@ -482,15 +524,11 @@ const Header: React.FC<Props> = ({
                       variant={buttonVariant}
                       className={cx(
                         'memori-dropdown--user-trigger-button',
-                        isFullPageChrome &&
-                          'memori-header--fullpage-labeled-trigger',
                         userPopoverOpen && 'memori-button--active'
                       )}
                       aria-label={t('login.user') || 'User'}
                       icon={<UserIcon />}
-                    >
-                      {isFullPageChrome ? fullpageHeaderProfileLabel : null}
-                    </Button>
+                    />
                   </span>
                 </Tooltip>
               ),
@@ -595,9 +633,10 @@ const Header: React.FC<Props> = ({
         <Tooltip title={t('login.login') || 'Login'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
-              variant={buttonVariant}
+              variant={isFullPageChrome ? 'primary' : buttonVariant}
               className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}
+              title={t('login.login') || 'Login'}
               aria-label={t('login.login') || 'Login'}
               onClick={() => setShowLoginDrawer(true)}
             >
@@ -687,22 +726,12 @@ const Header: React.FC<Props> = ({
         />
       )}
       {showFullscreen && fullScreenAvailable && (
-        <Tooltip
-          title={
-            fullScreen
-              ? t('fullscreenExit') || 'Exit fullscreen'
-              : t('fullscreenEnter') || 'Enter fullscreen'
-          }
-          placement="bottom"
-        >
+        <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
-              aria-label={
-                fullScreen
-                  ? t('fullscreenExit') || 'Exit fullscreen'
-                  : t('fullscreenEnter') || 'Enter fullscreen'
-              }
+              title={fullscreenLabel}
+              aria-label={fullscreenLabel}
               icon={fullScreen ? <Maximize /> : <Minimize />}
               onClick={
                 fullScreenHandler ||
@@ -806,12 +835,13 @@ const Header: React.FC<Props> = ({
         </Tooltip>
       )}
       {enableAudio && (
-        <Tooltip title={t('widget.sound') || 'Sound'} placement="bottom">
+        <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
               icon={speakerMuted ? <VolumeX /> : <Volume2 />}
-              aria-label={t('widget.sound') || 'Sound'}
+              title={soundLabel}
+              aria-label={soundLabel}
               onClick={() => setSpeakerMuted(!speakerMuted)}
             />
           </span>
@@ -985,23 +1015,13 @@ const Header: React.FC<Props> = ({
         </Popover>
       )}
       {showFullscreen && fullScreenAvailable && (
-        <Tooltip
-          title={
-            fullScreen
-              ? t('fullscreenExit') || 'Exit fullscreen'
-              : t('fullscreenEnter') || 'Enter fullscreen'
-          }
-          placement="bottom"
-        >
+        <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
               className="memori-header--auth-icon-button"
-              aria-label={
-                fullScreen
-                  ? t('fullscreenExit') || 'Exit fullscreen'
-                  : t('fullscreenEnter') || 'Enter fullscreen'
-              }
+              title={fullscreenLabel}
+              aria-label={fullscreenLabel}
               icon={fullScreen ? <Minimize /> : <Maximize />}
               onClick={
                 fullScreenHandler ||
@@ -1063,12 +1083,13 @@ const Header: React.FC<Props> = ({
         </Tooltip>
       )}
       {enableAudio && (
-        <Tooltip title={t('widget.sound') || 'Sound'} placement="bottom">
+        <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
               className="memori-header--auth-icon-button"
-              aria-label={t('widget.sound') || 'Sound'}
+              title={soundLabel}
+              aria-label={soundLabel}
               icon={speakerMuted ? <VolumeX /> : <Volume2 />}
               onClick={() => setSpeakerMuted(!speakerMuted)}
             />
@@ -1217,13 +1238,25 @@ const Header: React.FC<Props> = ({
           ) : (
             <span className="memori-fullpage-header-brand-icon" aria-hidden />
           )}
-          {isConversationStarted && (
-            <span
-              className="memori-fullpage-header-brand-name"
-              title={memori.name}
-            >
-              {memori.name}
-            </span>
+          {(brandTitle || brandRole) && (
+            <div className="memori-fullpage-header-brand-text">
+              {brandTitle ? (
+                <span
+                  className="memori-fullpage-header-brand-name"
+                  title={brandTitle}
+                >
+                  {brandTitle}
+                </span>
+              ) : null}
+              {brandRole ? (
+                <span
+                  className="memori-fullpage-header-brand-role"
+                  title={brandRole}
+                >
+                  {brandRole}
+                </span>
+              ) : null}
+            </div>
           )}
         </div>
       )}

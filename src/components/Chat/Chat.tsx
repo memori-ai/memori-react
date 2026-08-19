@@ -122,6 +122,10 @@ export interface Props {
   /** Max attachments (docs + images) per message. */
   /** Integration global background image URL applied to `.memori-chat--content`. */
   globalBackground?: string;
+  /** Optional branding node for the conversation footer row. */
+  footerBrand?: React.ReactNode;
+  /** When false, hides the AI disclaimer in the footer. */
+  showAiGeneratedNote?: boolean;
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -183,6 +187,8 @@ const Chat: React.FC<Props> = ({
   maxTotalMessagePayload,
   maxTextareaCharacters,
   globalBackground,
+  footerBrand,
+  showAiGeneratedNote = true,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -417,6 +423,10 @@ const Chat: React.FC<Props> = ({
         </div>
       )}
       <div
+        className={cx({ 'memori-conversation-column': showInputs })}
+        style={showInputs ? undefined : { display: 'contents' }}
+      >
+      <div
         className={cx('memori-chat--history', {
           'memori-chat--history-touch': hasTouchscreen(),
           'memori-chat--history--has-global-background': !!globalBackground,
@@ -635,8 +645,11 @@ const Chat: React.FC<Props> = ({
           maxDocumentContentLength={maxDocumentContentLength}
           pasteAsCardLineThreshold={pasteAsCardLineThreshold}
           pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+          showAiGeneratedNote={showAiGeneratedNote}
+          footerBrand={footerBrand}
         />
       )}
+      </div>
 
       <Modal
         container={surfaceEl ?? undefined}

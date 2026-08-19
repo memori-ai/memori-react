@@ -19,6 +19,7 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r1e:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -101,6 +102,7 @@ exports[`renders ShareButton unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r6:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -183,6 +185,7 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:ru:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -265,6 +268,7 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r1u:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -347,6 +351,7 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r26:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -429,6 +434,7 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r1m:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -511,6 +517,7 @@ exports[`renders ShareButton with title unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:rm:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -593,6 +600,7 @@ exports[`renders ShareButton with url unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:re:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span
@@ -675,6 +683,7 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
           class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
           id="base-ui-:r16:"
           tabindex="0"
+          title="widget.share"
           type="button"
         >
           <span

@@ -51,6 +51,8 @@ export interface Props {
   pasteAsCardCharThreshold?: number;
   /** When false, hides the AI disclaimer below the input (e.g. pre-start / start panel). */
   showAiGeneratedNote?: boolean;
+  /** Optional branding node rendered in the footer row next to the disclaimer. */
+  footerBrand?: React.ReactNode;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -81,6 +83,7 @@ const ChatInputs: React.FC<Props> = ({
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
   showAiGeneratedNote = true,
+  footerBrand,
 }) => {
   const { t } = useTranslation();
   const alertManager = useAlertManager();
@@ -498,10 +501,17 @@ ${text}
           </div>
         </div>
       </fieldset>
-      {showAiGeneratedNote && (
-        <p className="memori-chat-inputs--ai-note">
-          {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
-        </p>
+      {(showAiGeneratedNote || footerBrand) && (
+        <div className="memori-conversation-footer">
+          {showAiGeneratedNote ? (
+            <p className="memori-chat-inputs--ai-note">
+              {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
+            </p>
+          ) : (
+            <span className="memori-chat-inputs--ai-note" aria-hidden />
+          )}
+          {footerBrand}
+        </div>
       )}
     </div>
   );

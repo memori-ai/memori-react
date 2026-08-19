@@ -94,6 +94,7 @@ textarea.memori-chat-textarea--input {
     max-height: 208px;
     box-sizing: border-box;
     flex: 1;
+    padding: 8px 6px;
     border: none;
     background: transparent;
     color: var(--memori-text-color, #1f1425);
@@ -109,7 +110,8 @@ textarea.memori-chat-textarea--input {
 
 /* Placeholder styling */
 textarea.memori-chat-textarea--input::placeholder {
-    color: #999;
+    color: color-mix(in srgb, var(--memori-text-color) 55%, transparent);
+    opacity: 1;
 }
 
 /* Scrollbar styling */

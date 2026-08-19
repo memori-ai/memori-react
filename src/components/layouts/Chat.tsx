@@ -265,94 +265,95 @@ const ChatLayout: React.FC<LayoutProps> = ({
               )}
             </div>
 
+            {headerProps && (
+              <MobileSessionPanel
+                open={mobileSheetOpen}
+                presentation="popover"
+                onClose={() => setMobileSheetOpen(false)}
+                title={t('widget.mobileSession.session') || 'Session'}
+                loginToken={headerProps.loginToken}
+                user={headerProps.user}
+                apiClient={headerProps.apiClient}
+                userName={loggedUserDisplayName}
+                userEmail={loggedUser?.eMail}
+                userInitial={loggedUserInitial}
+                avatarURL={loggedUser?.avatarURL}
+                birthDate={loggedUser?.birthDate}
+                actions={mobileSessionActions}
+                knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
+                sharePageTitle={t('widget.share') || 'Share'}
+                locationPageTitle={
+                  t('widget.mobileSession.locationTracking') ||
+                  'Location tracking'
+                }
+                backLabel={t('back') || 'Back'}
+                locationStatusLabel={
+                  t('widget.mobileSession.locationStatus') || 'Status'
+                }
+                locationPlace={headerProps.position?.placeName}
+                locationUnknownLabel={
+                  t('write_and_speak.unknownPosition') || 'Unknown position'
+                }
+                locationEnableLabel={
+                  t('widget.shareLocation') || 'Share location'
+                }
+                locationDisableLabel={
+                  t('widget.mobileSession.disableLocationSharing') ||
+                  'Disable location sharing'
+                }
+                knownFactsDescription={
+                  t('knownFacts.description', {
+                    memoriName: memori?.name || '',
+                  }) || ''
+                }
+                knownFactsCtaLabel={
+                  t('widget.mobileSession.openKnownFacts') ||
+                  'Open full known facts'
+                }
+                knownFactsCountLabel={
+                  (t('widget.mobileSession.knownFactsMessages', {
+                    count: headerProps.history?.length || 0,
+                  }) as string) || ''
+                }
+                shareContent={
+                  <ShareButton
+                    tenant={headerProps?.tenant}
+                    memori={headerProps?.memori}
+                    sessionID={headerProps?.sessionID}
+                    title={headerProps?.memori?.name}
+                    baseUrl={headerProps?.baseUrl}
+                    align="left"
+                    history={headerProps?.history}
+                    renderMode="inline"
+                  />
+                }
+                knownFactsDisabled={!isSessionStarted}
+                showSessionInfo={isSessionStarted}
+                history={headerProps.history ?? []}
+                isLoggedIn={!!loggedUser}
+                loginLabel={t('login.login') || 'Log in'}
+                onLogin={() => {
+                  headerProps.setShowLoginDrawer(true);
+                  setMobileSheetOpen(false);
+                }}
+                onKnownFactsOpen={() => {
+                  if (!isSessionStarted) return;
+                  headerProps.setShowKnownFactsDrawer(true);
+                  setMobileSheetOpen(false);
+                }}
+                onLocationEnable={handleEnableLocation}
+                onLocationDisable={handleDisableLocation}
+                venue={headerProps.position}
+                setVenue={headerProps.setVenue}
+                logoutLabel={t('login.logout') || 'Log out'}
+                onLogout={() => {
+                  handleMobileLogout();
+                  setMobileSheetOpen(false);
+                }}
+              />
+            )}
+            <div className="memori-conversation-column">
             <div className="memori-chat-layout--body">
-              {headerProps && (
-                <MobileSessionPanel
-                  open={mobileSheetOpen}
-                  presentation="popover"
-                  onClose={() => setMobileSheetOpen(false)}
-                  title={t('widget.mobileSession.session') || 'Session'}
-                  loginToken={headerProps.loginToken}
-                  user={headerProps.user}
-                  apiClient={headerProps.apiClient}
-                  userName={loggedUserDisplayName}
-                  userEmail={loggedUser?.eMail}
-                  userInitial={loggedUserInitial}
-                  avatarURL={loggedUser?.avatarURL}
-                  birthDate={loggedUser?.birthDate}
-                  actions={mobileSessionActions}
-                  knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
-                  sharePageTitle={t('widget.share') || 'Share'}
-                  locationPageTitle={
-                    t('widget.mobileSession.locationTracking') ||
-                    'Location tracking'
-                  }
-                  backLabel={t('back') || 'Back'}
-                  locationStatusLabel={
-                    t('widget.mobileSession.locationStatus') || 'Status'
-                  }
-                  locationPlace={headerProps.position?.placeName}
-                  locationUnknownLabel={
-                    t('write_and_speak.unknownPosition') || 'Unknown position'
-                  }
-                  locationEnableLabel={
-                    t('widget.shareLocation') || 'Share location'
-                  }
-                  locationDisableLabel={
-                    t('widget.mobileSession.disableLocationSharing') ||
-                    'Disable location sharing'
-                  }
-                  knownFactsDescription={
-                    t('knownFacts.description', {
-                      memoriName: memori?.name || '',
-                    }) || ''
-                  }
-                  knownFactsCtaLabel={
-                    t('widget.mobileSession.openKnownFacts') ||
-                    'Open full known facts'
-                  }
-                  knownFactsCountLabel={
-                    (t('widget.mobileSession.knownFactsMessages', {
-                      count: headerProps.history?.length || 0,
-                    }) as string) || ''
-                  }
-                  shareContent={
-                    <ShareButton
-                      tenant={headerProps?.tenant}
-                      memori={headerProps?.memori}
-                      sessionID={headerProps?.sessionID}
-                      title={headerProps?.memori?.name}
-                      baseUrl={headerProps?.baseUrl}
-                      align="left"
-                      history={headerProps?.history}
-                      renderMode="inline"
-                    />
-                  }
-                  knownFactsDisabled={!isSessionStarted}
-                  showSessionInfo={isSessionStarted}
-                  history={headerProps.history ?? []}
-                  isLoggedIn={!!loggedUser}
-                  loginLabel={t('login.login') || 'Log in'}
-                  onLogin={() => {
-                    headerProps.setShowLoginDrawer(true);
-                    setMobileSheetOpen(false);
-                  }}
-                  onKnownFactsOpen={() => {
-                    if (!isSessionStarted) return;
-                    headerProps.setShowKnownFactsDrawer(true);
-                    setMobileSheetOpen(false);
-                  }}
-                  onLocationEnable={handleEnableLocation}
-                  onLocationDisable={handleDisableLocation}
-                  venue={headerProps.position}
-                  setVenue={headerProps.setVenue}
-                  logoutLabel={t('login.logout') || 'Log out'}
-                  onLogout={() => {
-                    handleMobileLogout();
-                    setMobileSheetOpen(false);
-                  }}
-                />
-              )}
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                 <Chat {...chatProps} showInputs={false} />
               ) : startPanelProps ? (
@@ -367,7 +368,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
 
-            {/* Input bar sits outside body so it spans full width below the scroll area */}
+            {/* Input bar sits outside body so it spans the shared column below the scroll area */}
             {Chat && chatProps && chatProps.showInputs !== false && (
               <ChatInputs
                 userMessage={chatProps.userMessage}
@@ -404,9 +405,10 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 pasteAsCardLineThreshold={pasteAsCardLineThreshold}
                 pasteAsCardCharThreshold={pasteAsCardCharThreshold}
                 showAiGeneratedNote={isSessionStarted}
+                footerBrand={poweredBy}
               />
             )}
-            {poweredBy}
+            </div>
           </div>
 
           {/* Artifact column — width 0→480px with CSS transition */}

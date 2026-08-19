@@ -155,6 +155,9 @@
         --memori-primary-color: rgb(var(--memori-primary-rgb, 130 70 175));
         --memori-primary: var(--memori-primary-color);
         --memori-layout-max-width: 1280px;
+        /* Shared conversation axis (message list, empty state, input) */
+        --memori-conversation-max-width: 48rem; /* 768px */
+        --memori-conversation-inline-padding: var(--memori-spacing-md);
         font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
         font-size: var(--memori-text-size-base);
     }

@@ -97,6 +97,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             aria-label="widget.sound"
                             class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                             tabindex="0"
+                            title="widget.sound"
                             type="button"
                           >
                             <span
