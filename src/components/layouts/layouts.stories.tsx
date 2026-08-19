@@ -39,12 +39,11 @@ DefaultLayout.args = {
   tenantID: 'aisuru-staging.aclambda.online',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
-  baseURL: 'https://aisuru-staging.aclambda.online',
+  baseURL: 'http://localhost:3000',
   layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
-  showLogin: true,
-  integrationID: '019f1896-730d-7e19-9a88-6413f485247b',
+  integrationID: '019f2219-ca8c-7803-848c-dc25be50e359',
 };
 
 export const Default = Template.bind({});

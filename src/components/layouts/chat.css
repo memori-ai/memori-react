@@ -337,6 +337,80 @@
     }
 }
 
+/* Custom background image fills the messages area across the whole page width:
+   it is painted on the layout row instead of the conversation column, so it also
+   covers the side gutters, while header and input bar stay solid strips. */
+.memori-chat-layout--main--has-background {
+    isolation: isolate;
+}
+
+.memori-chat-layout--main--has-background::before {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #eee;
+    background-image: var(--memori-chat-global-background);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    pointer-events: none;
+}
+
+.memori-chat-layout--main--has-background .memori--grid-column-artifact {
+    position: relative;
+    z-index: 5;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--controls,
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--body {
+    background: transparent;
+}
+
+/* The header is a solid strip, so the image starts below it. */
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--header {
+    background: var(--memori-secondary-background);
+}
+
+/* The input bar stays a solid strip, so the image ends where the messages end.
+   It breaks out of the conversation column to span the whole width; the
+   surrounding `overflow: hidden` on the controls clips it to the chat column. */
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-conversation-column
+    > .memori-chat-inputs-wrapper {
+    width: 100vw;
+    max-width: 100vw;
+    margin-bottom: 0;
+    background: var(--memori-secondary-background);
+    margin-inline: calc(50% - 50vw);
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
+}
+
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-conversation-column
+    > .memori-chat-inputs-wrapper
+    .memori-chat-inputs,
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-conversation-column
+    > .memori-chat-inputs-wrapper
+    .memori-conversation-footer {
+    max-width: var(--memori-conversation-max-width, 48rem);
+    margin-inline: auto;
+}
+
+/* The column-scoped image would otherwise paint a second, narrower copy. */
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-chat--history--has-global-background::before {
+    display: none;
+}
+
 .memori-chat-layout--artifact-panel {
     position: relative;
     display: flex;

@@ -67,7 +67,8 @@ exports[`renders Chat layout unchanged 1`] = `
           id="extension"
         />
         <div
-          class="memori-chat-layout--main"
+          class="memori-chat-layout--main memori-chat-layout--main--has-background"
+          style="--memori-chat-global-background: url(https://assets.memori.ai/api/v2/asset/364e498c-11da-42d5-9e32-19e5d137d4b8.jpeg);"
         >
           <div
             class="memori-chat-layout--controls"

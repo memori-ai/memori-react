@@ -61,6 +61,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
     return () => mediaQuery.removeEventListener('change', update);
   }, []);
 
+  const globalBackground = chatProps?.globalBackground;
+
   const memori = headerProps?.memori;
   const tenant = headerProps?.tenant;
   const baseUrl = headerProps?.baseUrl;
@@ -228,7 +230,18 @@ const ChatLayout: React.FC<LayoutProps> = ({
       <Spin spinning={loading} className="memori-chat-layout">
         <div id="extension" />
 
-        <div className="memori-chat-layout--main">
+        <div
+          className={`memori-chat-layout--main${
+            globalBackground ? ' memori-chat-layout--main--has-background' : ''
+          }`}
+          style={
+            globalBackground
+              ? ({
+                  ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
+                } as React.CSSProperties)
+              : undefined
+          }
+        >
           {/* Chat column — flex:1, shrinks when artifact column grows */}
           <div
             className={

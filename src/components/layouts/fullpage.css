@@ -80,7 +80,7 @@
     min-height: 0;
     flex: 1 1 auto;
     border: none;
-    border-radius: 0;
+    border-radius: var(--memori-radius-box);
     margin-bottom: 0;
     background-color: var(--memori-secondary-background);
 }
