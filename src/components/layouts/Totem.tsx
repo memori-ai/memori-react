@@ -17,12 +17,28 @@ const TotemLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
-}) => (
+  totemContentMaxWidth,
+}) => {
+  const axisStyle =
+    totemContentMaxWidth != null
+      ? ({
+          ['--memori-totem-max-width' as string]:
+            typeof totemContentMaxWidth === 'number'
+              ? `${totemContentMaxWidth}px`
+              : totemContentMaxWidth,
+        } as React.CSSProperties)
+      : undefined;
+
+  return (
   <>
     {integrationStyle}
     {integrationBackground}
 
-    <Spin spinning={loading} className="memori-totem-layout">
+    <Spin
+      spinning={loading}
+      className="memori-totem-layout"
+      style={axisStyle}
+    >
       {poweredBy}
 
       <div className="memori-totem-layout--header">
@@ -48,6 +64,7 @@ const TotemLayout: React.FC<LayoutProps> = ({
       </div>
     </Spin>
   </>
-);
+  );
+};
 
 export default TotemLayout;

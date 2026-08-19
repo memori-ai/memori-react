@@ -422,6 +422,9 @@ export interface LayoutProps {
   onSidebarToggle?: (isOpen: boolean) => void;
   /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar. */
   avatar3dHidden?: boolean | string;
+  /** TOTEM only: max-width of the shared content axis (avatar + panel + status).
+   * Accepts a number (px) or a CSS length string; enables vertical-kiosk widths. */
+  totemContentMaxWidth?: number | string;
 }
 
 export interface Props {
@@ -3757,6 +3760,7 @@ const MemoriWidget = ({
               avatar3dHidden={
                 avatar3dHidden ?? integrationConfig?.avatar_3d_hidden
               }
+              totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
             />
 
             <ArtifactAPIBridge

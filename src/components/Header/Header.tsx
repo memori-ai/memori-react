@@ -1141,6 +1141,239 @@ const Header: React.FC<Props> = ({
     </div>
   );
 
+  const handleTotemFullscreen = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    if (fullScreenHandler) {
+      fullScreenHandler(e);
+      return;
+    }
+    if (!document.fullscreenElement) {
+      document.documentElement
+        .requestFullscreen?.()
+        .then(() => setFullScreen(true))
+        .catch(() => {});
+    } else {
+      document
+        .exitFullscreen?.()
+        .then(() => setFullScreen(false))
+        .catch(() => {});
+    }
+  };
+
+  const totemAccountLabel = t('login.user') || 'Account';
+  const totemResetLabel = t('reload') || 'Restart conversation';
+  const totemSettingsLabel = t('widget.settings') || 'Settings';
+  const totemKnownFactsLabel = t('knownFacts.title') || 'Known facts';
+  const totemShowSettings =
+    showSettings && hasSettingsContent(layout, additionalSettings);
+  const totemShowKnownFacts =
+    !!memori.enableDeepThought &&
+    !!loginToken &&
+    !!user?.pAndCUAccepted &&
+    hasUserActivatedSpeak &&
+    !!sessionID;
+
+  // TOTEM rail: two-tier grouping inside one bordered container (section 5).
+  // Tier 1 (visible): session utilities — audio, fullscreen, share.
+  // Tier 2 (profile menu): account items — reset, settings, user data, logout.
+  const totemRail = (
+    <div
+      className={cx('memori-totem-rail', className)}
+      role="toolbar"
+      aria-label={t('widget.sessionControls', { defaultValue: 'Controlli' })}
+      aria-orientation="vertical"
+    >
+      <div className="memori-totem-rail--group">
+        {enableAudio && (
+          <Tooltip title={soundLabel} placement="left">
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant={buttonVariant}
+                className="memori-totem-rail--button"
+                icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+                title={soundLabel}
+                aria-label={soundLabel}
+                aria-pressed={speakerMuted}
+                onClick={() => setSpeakerMuted(!speakerMuted)}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {showFullscreen && fullScreenAvailable && (
+          <Tooltip title={fullscreenLabel} placement="left">
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant={buttonVariant}
+                className="memori-totem-rail--button"
+                icon={fullScreen ? <Minimize /> : <Maximize />}
+                title={fullscreenLabel}
+                aria-label={fullscreenLabel}
+                aria-pressed={fullScreen}
+                onClick={handleTotemFullscreen}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {showShare && (
+          <ShareButton
+            title={memori.name}
+            memori={memori}
+            sessionID={sessionID}
+            tenant={tenant}
+            showQrCode
+            align="left"
+            baseUrl={baseUrl}
+            history={history}
+            triggerVariant={buttonVariant}
+            className="memori-totem-rail--button"
+          />
+        )}
+      </div>
+
+      <div className="memori-totem-rail--divider" aria-hidden="true" />
+
+      <div className="memori-totem-rail--group">
+        <Popover
+          className="memori-header--dropdown"
+          open={userPopoverOpen}
+          onOpenChange={open => {
+            setUserPopoverOpen(open);
+            if (open) {
+              setInfoPopoverOpen(false);
+              setPositionPopoverOpen(false);
+            }
+          }}
+          placement="left-start"
+          sideOffset={8}
+          closable={false}
+          contentClassName="memori-dropdown--menu memori-totem-rail--menu"
+          slotProps={{
+            trigger: {
+              render: (props: React.ComponentProps<typeof Button>) => (
+                <Tooltip title={totemAccountLabel} placement="left">
+                  <span style={{ display: 'inline-flex' }}>
+                    <Button
+                      {...props}
+                      variant={buttonVariant}
+                      className={cx(
+                        'memori-totem-rail--button',
+                        'memori-totem-rail--account-trigger',
+                        userPopoverOpen && 'memori-button--active'
+                      )}
+                      title={totemAccountLabel}
+                      aria-label={totemAccountLabel}
+                      icon={<UserIcon />}
+                    />
+                  </span>
+                </Tooltip>
+              ),
+            },
+          }}
+          content={
+            <div className="memori-totem-rail--menu-content">
+              {isAuthenticated && (
+                <div className="memori-totem-rail--menu-identity">
+                  <span className="memori-totem-rail--menu-identity-name">
+                    {user?.userName || t('login.welcomeUser')}
+                  </span>
+                  {user?.eMail && (
+                    <span className="memori-totem-rail--menu-identity-email">
+                      {user.eMail}
+                    </span>
+                  )}
+                </div>
+              )}
+              {showReload && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="memori-totem-rail--menu-item"
+                  icon={<RefreshCw size={18} aria-hidden />}
+                  title={totemResetLabel}
+                  aria-label={totemResetLabel}
+                  onClick={() => {
+                    setUserPopoverOpen(false);
+                    window.location.reload();
+                  }}
+                >
+                  {totemResetLabel}
+                </Button>
+              )}
+              {totemShowSettings && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="memori-totem-rail--menu-item"
+                  icon={<Settings size={18} aria-hidden />}
+                  title={totemSettingsLabel}
+                  aria-label={totemSettingsLabel}
+                  onClick={() => {
+                    setUserPopoverOpen(false);
+                    setShowSettingsDrawer(true);
+                  }}
+                >
+                  {totemSettingsLabel}
+                </Button>
+              )}
+              {totemShowKnownFacts && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="memori-totem-rail--menu-item"
+                  icon={<Brain size={18} aria-hidden />}
+                  title={totemKnownFactsLabel}
+                  aria-label={totemKnownFactsLabel}
+                  onClick={() => {
+                    setUserPopoverOpen(false);
+                    setShowKnownFactsDrawer(true);
+                  }}
+                >
+                  {totemKnownFactsLabel}
+                </Button>
+              )}
+              {isAuthenticated ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="memori-totem-rail--menu-item memori-totem-rail--menu-item--logout"
+                  icon={<LogOut size={18} aria-hidden />}
+                  title={t('login.logout') || 'Logout'}
+                  aria-label={t('login.logout') || 'Logout'}
+                  onClick={() => {
+                    setUserPopoverOpen(false);
+                    onLogout?.();
+                  }}
+                >
+                  {t('login.logout') || 'Logout'}
+                </Button>
+              ) : (
+                showLogin && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="memori-totem-rail--menu-item"
+                    icon={<UserIcon size={18} aria-hidden />}
+                    title={t('login.login') || 'Login'}
+                    aria-label={t('login.login') || 'Login'}
+                    onClick={() => {
+                      setUserPopoverOpen(false);
+                      setShowLoginDrawer(true);
+                    }}
+                  >
+                    {t('login.login') || 'Login'}
+                  </Button>
+                )
+              )}
+            </div>
+          }
+        >
+          {null}
+        </Popover>
+      </div>
+    </div>
+  );
+
   const headerControls = (
     <div
       className={cx(
@@ -1219,6 +1452,10 @@ const Header: React.FC<Props> = ({
       {extraActions}
     </div>
   );
+
+  if (layout === 'TOTEM') {
+    return totemRail;
+  }
 
   if (!isFullPageChrome) {
     return headerControls;

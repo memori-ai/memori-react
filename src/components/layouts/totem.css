@@ -1,5 +1,10 @@
 .memori-widget.memori-layout-totem {
-    height: 95vh !important;
+    /* Shared content axis for avatar + panel + status indicator (section 3).
+       Overridable per-integration via the `totemContentMaxWidth` prop, which
+       sets this custom property inline (e.g. wider for vertical kiosks). */
+    --memori-totem-max-width: 600px;
+    height: 100vh !important;
+    height: 100dvh !important;
 }
 
 .memori-widget.memori-layout-totem .memori--global-background.no-background-image {
@@ -8,26 +13,42 @@
 
 .memori-widget > .memori-spin.memori-totem-layout,
 .memori-widget > .memori-widget__surface > .memori-spin.memori-totem-layout {
+    position: relative;
     display: flex;
     height: 100%;
     flex-direction: column;
 }
 
+/* Rail/header is an overlay so it does not consume vertical flow: the 3D
+   scene height equals 100vh minus the panel height, per spec. */
 .memori-totem-layout--header {
+    position: absolute;
+    z-index: 101;
+    top: var(--memori-spacing-md);
+    right: var(--memori-spacing-md);
     text-align: right;
 }
 
+/* Avatar fills the flex space above the panel: height = 100vh - panel. */
 .memori-totem-layout--avatar {
-    flex: 1;
+    position: relative;
+    min-height: 0;
+    flex: 1 1 auto;
 }
 
+/* Avatar shares the same centered axis and max-width as the panel below it,
+   so on wide desktop the face is not lost in empty space (section 3). */
 .memori-totem-layout--avatar .memori--avatar-wrapper {
-    position: fixed;
+    position: absolute;
     z-index: 0;
     top: 0;
-    left: 0;
+    bottom: 0;
+    left: 50%;
     overflow: hidden;
     width: 100%;
+    max-width: var(--memori-totem-max-width, 600px);
+    height: 100%;
+    transform: translateX(-50%);
 }
 
 .memori-totem-layout--avatar .memori--blob-container {
@@ -46,42 +67,74 @@
     }
 }
 
-.memori-totem-layout .memori-header {
-    position: relative;
-    z-index: 101;
+/* ==========================================================================
+   SECTION 4–5 — Side rail: one visible container, two tiers, flat surface.
+   Solid surface (no blur) so text/icon contrast never depends on the 3D
+   frame behind it.
+   ========================================================================== */
+.memori-totem-rail {
     display: inline-flex;
-    width: auto;
-    height: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(18px);
-    background: color-mix(in oklch, var(--memori-main-background) 68%, transparent);
-    text-align: center;
+    padding: var(--memori-spacing-xs);
+    border: 1px solid var(--memori-border-color);
+    border-radius: 12px;
+    background: var(--memori-secondary-background);
+    gap: var(--memori-spacing-xs);
 }
 
-.memori-totem-layout .memori-header .memori-header--button,
-.memori-totem-layout .memori-header .memori-header--button button {
-    width: 38px;
-    height: 38px;
+.memori-totem-rail--group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-totem-rail--divider {
+    width: 24px;
+    height: 1px;
+    flex-shrink: 0;
+    background: var(--memori-border-color);
+}
+
+.memori-totem-rail--button,
+.memori-totem-rail--button button {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
     aspect-ratio: 1;
 }
 
-.memori-totem-layout .memori-header .memori-header--button--position,
-.memori-totem-layout .memori-header .memori-header--button-login,
-.memori-totem-layout .memori-header .memori-share-button,
-.memori-totem-layout .memori-header .memori-header--button + .memori-header--button {
-    margin-top: var(--memori-spacing-xs);
-    margin-right: 0;
-    margin-left: 0;
+.memori-totem-rail--menu-content {
+    display: flex;
+    min-width: 220px;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.memori-totem-layout .memori-header .memori-header--button--position {
+.memori-totem-rail--menu-identity {
+    display: flex;
+    flex-direction: column;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-sm) var(--memori-spacing-xs);
+    border-bottom: 1px solid var(--memori-border-color);
     margin-bottom: var(--memori-spacing-xs);
+    gap: 2px;
 }
 
-.memori-totem-layout .memori-header--position .memori-header--position-placeName {
-    display: none;
+.memori-totem-rail--menu-identity-name {
+    color: var(--memori-text-color);
+    font-weight: var(--memori-text-weight-bold);
+}
+
+.memori-totem-rail--menu-identity-email {
+    color: color-mix(in srgb, var(--memori-text-color) 70%, transparent);
+    font-size: 0.8rem;
+}
+
+.memori-totem-rail--menu-item,
+.memori-totem-rail--menu-item button {
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .memori-totem-layout .memori-chat--cover {
@@ -123,38 +176,85 @@
     z-index: 5;
 } */
 
-.memori-totem-layout--controls .memori--start-panel,
-.memori-totem-layout--controls .memori-chat--history,
-.memori-totem-layout--controls .memori-chat--content {
-    z-index: 100;
-    backdrop-filter: blur(18px);
-    background: color-mix(in oklch, var(--memori-main-background) 68%, transparent);
-}
-
-.memori-totem-layout--controls .memori-chat--history .memori-chat--content {
-    max-height: 400px;
-}
-
+/* Panel sits below the avatar and never grows into it: capped height with
+   internal scroll instead of pushing the scene up. */
 .memori-totem-layout--controls {
     z-index: 100;
+    flex-shrink: 0;
 }
 
-.memori-totem-layout--controls .memori--start-panel,
-.memori-totem-layout--controls .memori-chat--wrapper {
-    width: 80vw;
-    max-width: 800px;
-    padding: 1rem;
+/* ==========================================================================
+   SECTION 2–3 — Single unified panel + shared alignment axis
+   One container (surface + 1px border + 12px radius). Inner sections have
+   NO border/shadow/width of their own, only 1px dividers between them.
+   ========================================================================== */
+.memori-totem-layout--controls .memori-chat--wrapper,
+.memori-totem-layout--controls .memori--start-panel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: var(--memori-totem-max-width, 600px);
+    max-height: 48vh;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid var(--memori-border-color);
+    border-radius: 12px;
     margin: 0 auto;
+    background: var(--memori-secondary-background);
+}
+
+/* Nested conversation column must not add its own axis/padding/surface. */
+.memori-totem-layout--controls .memori-conversation-column {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Messages section: height follows content (no empty band), scrolls when capped. */
+.memori-totem-layout--controls .memori-chat--history {
+    height: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+}
+
+.memori-totem-layout--controls .memori-chat--content {
+    height: auto;
+    max-height: none;
+    padding: var(--memori-spacing-md);
+    background: transparent;
+}
+
+/* Input section: 1px divider above, no own surface. */
+.memori-totem-layout--controls .memori-chat-inputs-wrapper {
+    padding: var(--memori-spacing-md);
+    border-top: 1px solid var(--memori-border-color);
+    background: transparent;
+}
+
+.memori-totem-layout--controls .memori-chat-inputs--container {
+    border-width: 1px;
+    border-radius: 8px;
+}
+
+/* Start-panel body scrolls internally instead of stretching the panel. */
+.memori-totem-layout--controls .memori--start-panel__body {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
 }
 
 @media (max-width: 870px) {
-    .memori-totem-layout--controls .memori--start-panel,
-    .memori-totem-layout--controls .memori-chat--wrapper {
-        width: 100%;
-    }
-
-    .memori-totem-layout--controls .memori-chat--wrapper {
-        padding: 0;
+    .memori-totem-layout--controls .memori-chat--wrapper,
+    .memori-totem-layout--controls .memori--start-panel {
+        max-width: 100%;
     }
 }
 
