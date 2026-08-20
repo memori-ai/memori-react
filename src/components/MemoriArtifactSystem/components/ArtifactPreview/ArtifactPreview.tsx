@@ -31,9 +31,6 @@ const ArtifactPreview: React.FC<{
           <iframe
             className="memori-artifact-preview-iframe"
             srcDoc={artifact.content}
-            // allow-scripts alone: scripts run, but not same-origin to the host.
-            // Do not combine with allow-same-origin — that would undo isolation.
-            sandbox="allow-scripts"
             style={{
               width: '100%',
               height: '100%',
