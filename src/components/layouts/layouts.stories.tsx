@@ -32,18 +32,19 @@ const Template: Story<Props> = args => (
 
 const DefaultLayout = Template.bind({});
 DefaultLayout.args = {
-  memoriName: 'prova-sharepoint',
+  memoriName: 'Layout Storybook',
   ownerUserName: 'Andrea-Patini',
-  memoriID: '019f129c-a5a3-74d3-b0c8-b7794437bb23',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
   tenantID: 'aisuru-staging.aclambda.online',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
-  baseURL: 'http://localhost:3000',
-  layout: 'FULLPAGE',
+  // baseURL: 'http://localhost:3000',
+  layout: 'ZOOMED_FULL_BODY',
   uiLang: 'IT',
   spokenLang: 'IT',
-  integrationID: '019f2219-ca8c-7803-848c-dc25be50e359',
+  // integrationID: '32922e14-24d6-4f5f-a06b-d963da14a658',
+  showSettings: true,
 };
 
 export const Default = Template.bind({});
@@ -57,7 +58,7 @@ Totem.args = {
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  memori: memori,
+  // memori: memori,
   integration: {
     ...integration,
   },
@@ -222,7 +223,7 @@ ZoomedFullBody.args = {
   tenantID: 'aisuru-staging.aclambda.online',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
-  baseURL: 'http://localhost:3000',
+  // baseURL: 'http://localhost:3000',
   layout: 'ZOOMED_FULL_BODY',
   uiLang: 'IT',
   spokenLang: 'IT',
