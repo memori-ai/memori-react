@@ -484,3 +484,27 @@ it('renders ChatBubble with reasoning and output and markdown unchanged', () => 
   );
   expect(container).toMatchSnapshot();
 });
+
+it('uses the adjacent attachment link for document media', () => {
+  const attachmentUrl = 'https://assets.example.com/report.docx';
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        initial: false,
+        text: [
+          '<document_attachment filename="report.docx" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document">',
+          '</document_attachment>',
+          `<attachment_link>${attachmentUrl}</attachment_link>`,
+        ].join('\n'),
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector(`a[href="${attachmentUrl}"]`)
+  ).toBeInTheDocument();
+});

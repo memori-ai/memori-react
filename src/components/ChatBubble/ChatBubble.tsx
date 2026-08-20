@@ -25,7 +25,11 @@ import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
-import { stripHTML, stripOutputTags } from '../../helpers/utils';
+import {
+  parseDocumentAttachmentsFromMessage,
+  stripHTML,
+  stripOutputTags,
+} from '../../helpers/utils';
 import {
   renderMsg,
   sanitizeMsg,
@@ -454,32 +458,21 @@ const ChatBubble: React.FC<Props> = ({
             (m.mimeType === 'text/html' && !!m.url)
           )
       ) || []),
-    ...(() => {
-      const text = message.translatedText || message.text;
-      const documentAttachmentRegex =
-        /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-      const attachments: (Medium & { type?: string })[] = [];
-      let match;
-      let attachmentIndex = 0;
-
-      while ((match = documentAttachmentRegex.exec(text)) !== null) {
-        const [, filename, type, content] = match;
-        attachments.push({
-          mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-            .toString(36)
-            .substr(2, 9)}`,
-          url: '',
-          mimeType: type,
-          title: filename,
-          content: content.trim(),
-          properties: { isDocumentAttachment: true },
-          type: 'document',
-        });
-        attachmentIndex++;
-      }
-
-      return attachments;
-    })(),
+    ...parseDocumentAttachmentsFromMessage(
+      message.translatedText || message.text
+    ).map(
+      (attachment, attachmentIndex): Medium & { type?: string } => ({
+        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+          .toString(36)
+          .substr(2, 9)}`,
+        url: attachment.url,
+        mimeType: attachment.type,
+        title: attachment.filename,
+        content: attachment.content,
+        properties: { isDocumentAttachment: true },
+        type: 'document',
+      })
+    ),
   ];
 
   const codeMediaWidgetMedia =

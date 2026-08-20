@@ -12,7 +12,7 @@ import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import { Code, Eye as PreviewIcon } from 'lucide-react';
 import Snippet from '../../../Snippet/Snippet';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
-import { renderMsg } from '../../../../helpers/message';
+import { renderMsg, sanitizeMsg } from '../../../../helpers/message';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
@@ -30,6 +30,9 @@ const ArtifactPreview: React.FC<{
           <iframe
             className="memori-artifact-preview-iframe"
             srcDoc={artifact.content}
+            // allow-scripts alone: scripts run, but not same-origin to the host.
+            // Do not combine with allow-same-origin — that would undo isolation.
+            sandbox="allow-scripts"
             style={{
               width: '100%',
               height: '100%',
@@ -63,7 +66,7 @@ const ArtifactPreview: React.FC<{
           <div
             className="memori-artifact-preview-text"
             dangerouslySetInnerHTML={{
-              __html: artifact.content,
+              __html: sanitizeMsg(artifact.content),
             }}
           />
         );
