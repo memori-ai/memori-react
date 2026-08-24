@@ -1,5 +1,7 @@
 
 
+## [9.0.0-alpha.12](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.11...v9.0.0-alpha.12) (2026-08-24)
+
 ## [9.0.0-alpha.11](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-08-24)
 
 
