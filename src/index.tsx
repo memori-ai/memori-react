@@ -13,7 +13,7 @@ import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
 import { VisemeProvider } from './context/visemeContext';
-import { AlertProvider, AlertViewport } from '@memori.ai/ui';
+import { AlertProvider } from '@memori.ai/ui';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
@@ -442,10 +442,6 @@ const Memori: React.FC<Props> = ({
       <AlertProvider defaultDuration={5000}>
         <VisemeProvider>
           <ArtifactProvider>
-            <AlertViewport
-              placement="top-end"
-              style={{ zIndex: 10002, top: 30, right: 30, position: 'fixed' }}
-            />
             {memori ? (
               <MemoriWidget
                 // General props

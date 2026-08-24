@@ -12,6 +12,16 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <div
+      aria-atomic="false"
+      aria-label="Notifications"
+      aria-live="polite"
+      aria-relevant="additions text"
+      class="memori-alert-viewport memori-alert-viewport--top-end"
+      role="region"
+      style="z-index: 10002;"
+      tabindex="-1"
+    />
+    <div
       class="memori-widget__surface"
     >
       <div

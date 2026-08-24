@@ -445,7 +445,7 @@ const StartPanel: React.FC<Props> = ({
                           </div>
                         </div>
                         <div className="memori--settings-section__actions-right">
-                          {!isUserLoggedIn && showLogin && (
+                          {!isMobile && !isUserLoggedIn && showLogin && (
                             <Button
                               variant="toolbar"
                               size="sm"

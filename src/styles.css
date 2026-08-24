@@ -236,6 +236,22 @@
     max-width: calc(100vw - 2 * var(--memori-spacing-sm));
 }
 
+/* Dark theme: alert copy must stay light (viewport may sit outside themed tokens). */
+.memori-widget[data-theme='dark'] .memori-alert__title,
+.memori-widget[data-theme='dark'] .memori-alert__description,
+.memori-widget[data-theme='dark'] .memori-alert__close,
+[data-theme='dark'] .memori-widget .memori-alert__title,
+[data-theme='dark'] .memori-widget .memori-alert__description,
+[data-theme='dark'] .memori-widget .memori-alert__close,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__title,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__description,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__close,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__title,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__description,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__close {
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     .memori-alert-viewport.memori-alert-viewport--top-end {
         top: auto !important;

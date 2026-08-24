@@ -3,16 +3,6 @@
 exports[`renders client 1`] = `
 <div>
   <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    style="z-index: 10002; top: 30px; right: 30px; position: fixed;"
-    tabindex="-1"
-  />
-  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -27,16 +17,6 @@ exports[`renders client 1`] = `
 
 exports[`renders client with all the props 1`] = `
 <div>
-  <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    style="z-index: 10002; top: 30px; right: 30px; position: fixed;"
-    tabindex="-1"
-  />
   <div
     style="display: flex; align-items: center; justify-content: center;"
   >
@@ -53,16 +33,6 @@ exports[`renders client with all the props 1`] = `
 exports[`renders client with audio disabled 1`] = `
 <div>
   <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    style="z-index: 10002; top: 30px; right: 30px; position: fixed;"
-    tabindex="-1"
-  />
-  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -78,16 +48,6 @@ exports[`renders client with audio disabled 1`] = `
 exports[`renders client with whiteListedDomains on allowed domains 1`] = `
 <div>
   <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    style="z-index: 10002; top: 30px; right: 30px; position: fixed;"
-    tabindex="-1"
-  />
-  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -102,16 +62,6 @@ exports[`renders client with whiteListedDomains on allowed domains 1`] = `
 
 exports[`renders client with whiteListedDomains on not allowed domains 1`] = `
 <div>
-  <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    style="z-index: 10002; top: 30px; right: 30px; position: fixed;"
-    tabindex="-1"
-  />
   <div
     style="display: flex; align-items: center; justify-content: center;"
   >

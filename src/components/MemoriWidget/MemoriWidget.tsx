@@ -44,6 +44,7 @@ import {
   useAlertManager,
   createAlertOptions,
   MemoriUIProvider,
+  AlertViewport,
 } from '@memori.ai/ui';
 import { WidgetSurfaceProvider } from '../../context/widgetSurfaceContext';
 
@@ -3739,6 +3740,8 @@ const MemoriWidget = ({
       style={{ height }}
     >
       <MemoriUIProvider container={widgetRootEl} theme={widgetTheme}>
+        {/* Inside themed root so alert text uses dark-theme tokens (white). */}
+        <AlertViewport placement="top-end" style={{ zIndex: 10002 }} />
         <WidgetSurfaceProvider value={widgetSurfaceEl}>
           <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
             <Layout

@@ -12,6 +12,16 @@ exports[`renders FullPage layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <div
+      aria-atomic="false"
+      aria-label="Notifications"
+      aria-live="polite"
+      aria-relevant="additions text"
+      class="memori-alert-viewport memori-alert-viewport--top-end"
+      role="region"
+      style="z-index: 10002;"
+      tabindex="-1"
+    />
+    <div
       class="memori-widget__surface"
     >
       <style>
@@ -783,6 +793,16 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
     data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
     style="height: 100vh;"
   >
+    <div
+      aria-atomic="false"
+      aria-label="Notifications"
+      aria-live="polite"
+      aria-relevant="additions text"
+      class="memori-alert-viewport memori-alert-viewport--top-end"
+      role="region"
+      style="z-index: 10002;"
+      tabindex="-1"
+    />
     <div
       class="memori-widget__surface"
     >
