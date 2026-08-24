@@ -1,5 +1,271 @@
 
 
+## [9.0.0-alpha.11](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-08-24)
+
+
+### Features
+
+* add support for global background images in chat layout and improved responsivness ([2dfe436](https://github.com/memori-ai/memori-react/commit/2dfe43646e044ac8cec896c9fae8a2675d4897a5))
+* enhance artifact preview by sanitizing content and adding iframe sandboxing ([353ec87](https://github.com/memori-ai/memori-react/commit/353ec87e60634cd8797af728e18257a719931524))
+
+
+### Bug Fixes
+
+* update layout storybook configuration with new memoriName and memoriID, adjust layout type and enable showSettings ([ccc98d3](https://github.com/memori-ai/memori-react/commit/ccc98d31244156d515ff60d5f57fb5fd6b273e9e))
+
+
+### Maintenance
+
+* update dompurify to version 3.4.13 and remove iframe sandbox attribute in ArtifactPreview ([1f719b9](https://github.com/memori-ai/memori-react/commit/1f719b9bc51da7f1f488426d6f70bbb4d22328df))
+
+
+### Changes
+
+* remove AlertViewport from index.tsx and add it to MemoriWidget for improved alert theming ([0869c2a](https://github.com/memori-ai/memori-react/commit/0869c2aa465415f4efcc431a7a135ca0b0357b7a))
+
+## [8.42.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-08-03)
+
+
+### Features
+
+* enhance resource URL handling by appending session ID for specific asset paths ([29fbc31](https://github.com/memori-ai/memori-react/commit/29fbc31769b82d3c6d4a1ca9ee2fd3d357f6bafd))
+
+
+### Changes
+
+* clean up media URL handling ([a917b60](https://github.com/memori-ai/memori-react/commit/a917b60aa2324a7015d5655d19a0ec9a30c01453))
+
+
+### Maintenance
+
+* release v8.42.0 ([b86a073](https://github.com/memori-ai/memori-react/commit/b86a073e43a2b42357855e09f277dca4a2fa60d7))
+
+## [8.41.6](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-07-24)
+
+
+### Changes
+
+* improve date handling in AgeVerificationModal ([76317ea](https://github.com/memori-ai/memori-react/commit/76317ea22c0f5a07f956341d772a6e4719822f8e))
+
+
+### Maintenance
+
+* release v8.41.6 ([5883b46](https://github.com/memori-ai/memori-react/commit/5883b462175a39259b65ae2136d06c7503c95c83))
+* update dompurify ([66aa725](https://github.com/memori-ai/memori-react/commit/66aa72599369c4f34773030bd3121f49b0f9610e))
+
+## [8.41.5](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-07-21)
+
+
+### Bug Fixes
+
+* prevent XSS vulnerability among sanification ([2ca6262](https://github.com/memori-ai/memori-react/commit/2ca6262873c8e44c7b6d34c7d69baa920e097b7a))
+* update Anthropic status URL to use status.claude.com ([2b889ac](https://github.com/memori-ai/memori-react/commit/2b889acc318e2c10e7207d546e136ec0f18b4087))
+
+
+### Maintenance
+
+* release v8.41.5 ([f73615c](https://github.com/memori-ai/memori-react/commit/f73615c43e56fc608cbee319e8c358182b399278))
+
+## [8.41.4](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-07-15)
+
+
+### Bug Fixes
+
+* login token async conditions ([28ec006](https://github.com/memori-ai/memori-react/commit/28ec006c296a2045a775fe6adfdf369f7c135c60))
+* remove '.xls' from office native extensions ([3890334](https://github.com/memori-ai/memori-react/commit/3890334fed4f6f6e7c8fbfbb5afbbe23989ff5f0))
+* unify login token resolution logic in MemoriWidget component ([c84f305](https://github.com/memori-ai/memori-react/commit/c84f305246a4a868fbfadecbf0febb635623fdb5))
+
+
+### Maintenance
+
+* release v8.41.4 ([6c92373](https://github.com/memori-ai/memori-react/commit/6c9237368b701126988fd854aca8565236a1b826))
+
+## [8.41.3](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-07-02)
+
+
+### Features
+
+* enhance Avatar component with totem layout support and improve animation handling ([78af528](https://github.com/memori-ai/memori-react/commit/78af52838927646bdec47a450097acd0e813904b))
+* extend ChatBubble component to support function cache copy functionality ([333df37](https://github.com/memori-ai/memori-react/commit/333df374b5fca920b46b6eb6a480d6af1e6fbd03))
+* refactor XLSX file handling in UploadDocuments component to improve text extraction ([601418c](https://github.com/memori-ai/memori-react/commit/601418c08e1cb6c94fca0e00fa05cb0acf385b70))
+
+
+### Bug Fixes
+
+* update mouth smile blend shape constants ([a44c9ad](https://github.com/memori-ai/memori-react/commit/a44c9ad025a70181857b003875834de28b28578b))
+
+
+### Maintenance
+
+* release v8.41.3 ([2ee5fab](https://github.com/memori-ai/memori-react/commit/2ee5fab3bbeaa03d6d11f08f3d141a3d88997630))
+
+## [8.41.2](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-25)
+
+
+### Features
+
+* add avatar-configurator support in Avatar component and related tests ([1575bd8](https://github.com/memori-ai/memori-react/commit/1575bd8c48b6a15f2790e3a0fb64aaca2f991861))
+
+
+### Maintenance
+
+* release v8.41.2 ([b206c77](https://github.com/memori-ai/memori-react/commit/b206c77120f95bfadaa4caf7417838037916a457))
+
+## [8.41.1](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-25)
+
+
+### Features
+
+* implement session expiration handling in MemoriWidget and add related tests ([65e96fa](https://github.com/memori-ai/memori-react/commit/65e96fa561462fc60abbcd71ef461cacd7b2b263))
+
+
+### Maintenance
+
+* release v8.41.1 ([0e67279](https://github.com/memori-ai/memori-react/commit/0e672799eb19e6b51a939989b8a755aeda11b972))
+
+## [8.41.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-22)
+
+
+### Features
+
+* integrate JetStream support in NATS configuration and session handling ([d133c95](https://github.com/memori-ai/memori-react/commit/d133c95fc9385a7e06875dadcc6ea9be444f3868))
+
+
+### Bug Fixes
+
+* update NATS subject default value to include session ID format ([dc0e7ea](https://github.com/memori-ai/memori-react/commit/dc0e7ea0a1c0eba5fb8f834df3ef55d598e05166))
+
+
+### Maintenance
+
+* release v8.41.0 ([281987e](https://github.com/memori-ai/memori-react/commit/281987e0fcabff2c2bb3847bb5519eaf8468531a))
+
+## [8.40.4](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-19)
+
+
+### Changes
+
+* enhance credit check logic in MemoriWidget to conditionally start session ([738b308](https://github.com/memori-ai/memori-react/commit/738b308841f0759923c303bce8aa4c3835b785be))
+
+
+### Maintenance
+
+* release v8.40.4 ([749ca2b](https://github.com/memori-ai/memori-react/commit/749ca2b2afe7e7f36fe867836f155ed0cb8a05bd))
+* update dompurify dependency to version 3.4.11 ([6e94db8](https://github.com/memori-ai/memori-react/commit/6e94db8611fb2edb592519406e0622d6bff5a3ad))
+
+## [8.40.3](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-17)
+
+
+### Changes
+
+* remove unused NATS timeout logic from MemoriWidget ([895f1b1](https://github.com/memori-ai/memori-react/commit/895f1b133ff2efa59444d7306d6714167a03d0e3))
+
+
+### Maintenance
+
+* release v8.40.3 ([6b8a24c](https://github.com/memori-ai/memori-react/commit/6b8a24cb6fd812df0cd4629882cb921468d5ff51))
+
+## [8.40.2](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-17)
+
+
+### Features
+
+* add unwrapDialogState function to handle nested currentState in NATS responses ([a6fcafc](https://github.com/memori-ai/memori-react/commit/a6fcafc7f000946baac6bb12e5f37972a956e828))
+
+
+### Bug Fixes
+
+* reset clickedStart state in multiple scenarios within MemoriWidget ([a34ed85](https://github.com/memori-ai/memori-react/commit/a34ed853504a107b1096c8e82be64b97cdb30ede))
+
+
+### Changes
+
+* improve error logging and clean up debug statements in MemoriWidget ([372b09a](https://github.com/memori-ai/memori-react/commit/372b09ac584aab552f5f1a7cde6258fef2a5493c))
+
+
+### Maintenance
+
+* release v8.40.2 ([f38b973](https://github.com/memori-ai/memori-react/commit/f38b9733077ebb0579ffb4d01cb44c87f39b5e19))
+
+## [8.40.1](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-17)
+
+
+### Features
+
+* add session management improvements in MemoriWidget ([a055776](https://github.com/memori-ai/memori-react/commit/a05577666d53c5ee8becf51954f6abdf9f2bd864))
+
+
+### Maintenance
+
+* release v8.40.1 ([a8b7e50](https://github.com/memori-ai/memori-react/commit/a8b7e50c448ca31d6290fddd13665a739e511e2d))
+
+## [8.40.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-17)
+
+
+### Features
+
+* enhance user identification for credit verification by adding ownerUserName ([540e50a](https://github.com/memori-ai/memori-react/commit/540e50aa7b913122e09d988a21701635342c1fe3))
+* integrate NATS support for real-time event handling in MemoriWidget ([2fc0a8d](https://github.com/memori-ai/memori-react/commit/2fc0a8dcec8d6a04d89a7b014ca353fd478e847d))
+
+
+### Maintenance
+
+*  refactor MemoriWidget for improved NATS event handling ([7d18afa](https://github.com/memori-ai/memori-react/commit/7d18afa28d4f6cc24b3907d34bd34732e2a720c1))
+* release v8.40.0 ([1924348](https://github.com/memori-ai/memori-react/commit/1924348eb672b3033c20dc95dd274dc5da57caff))
+
+## [8.39.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-12)
+
+
+### Features
+
+* implement credit verification and UI updates ([50fd797](https://github.com/memori-ai/memori-react/commit/50fd7976d24a67067f92087f499f5d46d6db70de))
+
+
+### Maintenance
+
+* release v8.39.0 ([cb961f6](https://github.com/memori-ai/memori-react/commit/cb961f61aaacb64bb4c93424f5af4929c1caced5))
+
+## [8.38.8](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-10)
+
+
+### Features
+
+* add support for DOTX file format in file preview and media components ([4179c11](https://github.com/memori-ai/memori-react/commit/4179c11516dae755a1cd2d756c63dedb12174031))
+
+
+### Maintenance
+
+* release v8.38.8 ([632336c](https://github.com/memori-ai/memori-react/commit/632336cf43fec07384d0d340f2d9774dd6941486))
+
+## [8.38.7](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-08)
+
+
+### Bug Fixes
+
+* upload docx media type card opens up a link instead of a modal ([475b440](https://github.com/memori-ai/memori-react/commit/475b440aaa188abc7a3a637626e550f2fcd2318b))
+
+
+### Maintenance
+
+* release v8.38.7 ([a6eee46](https://github.com/memori-ai/memori-react/commit/a6eee46535961cc088ae4d2a3e11962340163b08))
+
+## [8.38.6](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-06-08)
+
+
+### Features
+
+* add support for Office native file formats in file upload and preview components ([c3129ee](https://github.com/memori-ai/memori-react/commit/c3129ee401829090e7576003861f6727770449a7))
+
+
+### Changes
+
+* replace file extension extraction with document badge labels ([ac35e54](https://github.com/memori-ai/memori-react/commit/ac35e540d857e6d44080b9e0d0a08eb7056855df))
+
+
+### Maintenance
+
+* release v8.38.6 ([027ecb7](https://github.com/memori-ai/memori-react/commit/027ecb7a56187dee2086cfaa64fb6f8f6c95b944))
+
 ## [9.0.0-alpha.10](https://github.com/memori-ai/memori-react/compare/v8.38.5...v9.0.0-alpha.10) (2026-08-19)
 
 
