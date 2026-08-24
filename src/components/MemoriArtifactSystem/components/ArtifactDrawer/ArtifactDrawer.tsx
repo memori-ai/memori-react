@@ -422,8 +422,6 @@ const ArtifactDrawer: React.FC<{
         )}
       </div>
 
-      <div className="memori-artifact-panel--header"></div>
-
       {/* Content */}
       <div className="memori-artifact-panel--content">
         <div className="memori-artifact-panel--main">

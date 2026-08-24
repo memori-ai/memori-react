@@ -200,12 +200,12 @@
 }
 
 /*
- * Keep in sync with ArtifactDrawer split width (46% / --memori-modal-size-md override).
- * Same pairing as HiddenChat's `.memori-sidebar-toggle-artifact` → `right: 46%`.
+ * Keep in sync with ArtifactDrawer split width (55% / --memori-modal-size-md override).
+ * Same pairing as HiddenChat's `.memori-sidebar-toggle-artifact` → `right: 55%`.
  */
 .memori-widget.memori-layout-website_assistant
     .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
-    right: 46%;
+    right: 55%;
 }
 
 /* Tablet */
@@ -220,7 +220,7 @@
 
     .memori-widget.memori-layout-website_assistant
         .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
-        right: 46%;
+        right: 55%;
     }
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
@@ -238,7 +238,7 @@
 
     .memori-widget.memori-layout-website_assistant
         .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
-        right: 46%;
+        right: 55%;
     }
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {

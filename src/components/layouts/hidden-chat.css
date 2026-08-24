@@ -311,9 +311,9 @@
     right: 0;
 }
 
-/* Keep in sync with ArtifactDrawer split width (46% / --memori-modal-size-md override) */
+/* Keep in sync with ArtifactDrawer split width (55% / --memori-modal-size-md override) */
 .memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar {
-    right: 46%;
+    right: 55%;
 }
 
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-open-label {

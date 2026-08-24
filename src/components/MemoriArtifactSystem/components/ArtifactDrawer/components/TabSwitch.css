@@ -10,6 +10,10 @@
     gap: var(--memori-spacing-xs);
 }
 
+.memori-tabs[data-memori-variant='segmented'] .memori-tabs__list--horizontal {
+    background-color: transparent;
+}
+
 .memori-tab-switch__tab {
     min-width: 70px;
 }

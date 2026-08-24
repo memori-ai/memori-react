@@ -357,7 +357,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         </aside>
       </div>
 
-      {/* Artifact drawer — fixed overlay that pairs with the sidebar shift (right: 46%) */}
+      {/* Artifact drawer — fixed overlay that pairs with the sidebar shift (right: 55%) */}
       {useSideArtifactChrome && <ArtifactDrawer />}
     </>
   );

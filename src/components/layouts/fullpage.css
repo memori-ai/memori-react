@@ -325,7 +325,7 @@
 }
 
 .memori-widget.memori-layout-fullpage .memori--grid-column-artifact--open {
-    width: 600px;
+    width: 700px;
     border-left: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 10%, transparent);
     background: var(--memori-secondary-background);
 }

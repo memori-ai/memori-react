@@ -182,7 +182,7 @@ const DrawerModeDemo: React.FC = () => (
         message={htmlArtifactMessage}
       />
     </div>
-    <div style={{ width: '46%', minWidth: 360 }}>
+    <div style={{ width: '55%', minWidth: 360 }}>
       <ArtifactDrawer isLayoutColumn />
     </div>
   </div>

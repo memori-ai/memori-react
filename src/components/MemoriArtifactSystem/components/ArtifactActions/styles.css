@@ -59,7 +59,6 @@
 
 .memori-copy-button:active:not(:disabled) {
     border-color: color-mix(in oklch, var(--memori-primary) 40%, var(--memori-border-color));
-    background: var(--memori-copy-surface-pressed);
 }
 
 .memori-copy-button--success {

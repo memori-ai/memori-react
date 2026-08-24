@@ -326,7 +326,7 @@
 }
 
 .memori-chat-layout .memori--grid-column-artifact--open {
-    width: 480px;
+    width: 620px;
     border-left: 1px solid var(--memori-border-color);
     background: var(--memori-secondary-background);
 }
@@ -484,6 +484,7 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori--start-panel,
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     min-width: 0;
+    margin-top: var(--memori-spacing-lg);
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
