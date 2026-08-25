@@ -29,6 +29,31 @@
     max-width: 100vw;
 }
 
+@media (max-width: 1260px) {
+    .memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer,
+    .memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
+        --memori-modal-size-md: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100dvh !important;
+        border-radius: 0;
+        border-left: none;
+        box-shadow: none;
+    }
+
+    .memori-artifact-panel-drawer .memori-drawer__body,
+    .memori-artifact-panel-drawer-fullscreen .memori-drawer__body {
+        display: flex;
+        overflow: hidden;
+        height: 100%;
+        min-height: 0;
+        flex: 1 1 auto;
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
 .memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
     --memori-modal-size-md: 100%;
     width: 100% !important;
@@ -326,13 +351,6 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     border-radius: var(--memori-radius-box);
     background: rgba(0, 123, 255, 0.08);
     gap: var(--memori-spacing-sm);
-}
-
-.memori-artifact-panel-drawer-fullscreen > div > div > div {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-shadow: none !important;
-    transform: translateX(0) !important;
 }
 
 .memori-artifact-drawer--header-actions {
@@ -678,24 +696,26 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 }
 
 .memori-artifact-drawer--close-desktop {
-    width: 48px;
-    min-width: 48px;
-    height: 48px;
-    min-height: 48px;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px;
     padding: 0;
-    border: var(--memori-border) solid var(--memori-border-color);
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
     margin: 0;
     margin-left: 0 !important;
 }
 
 .memori-artifact-drawer--close-desktop:hover {
-    color: #fff !important;
+    border-color: color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 8%, transparent);
+    color: inherit !important;
 }
 
 .memori-artifact-drawer--close-desktop:hover .memori-artifact-panel--close-icon,
 .memori-artifact-drawer--close:hover .memori-artifact-panel--close-icon {
-    color: #fff !important;
-    stroke: #fff;
+    color: inherit !important;
+    stroke: currentColor;
 }
 
 /* Mobile Drawer Panel */
@@ -744,48 +764,108 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
         display: none;
     }
 
-    /* Mobile header: full-width bar with tabs on left, actions on right */
+    /* Mobile header: full-width toolbar — tabs left, more+close right */
     .memori-artifact-drawer-top-right {
+        display: flex;
+        overflow: visible;
         width: 100%;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        align-items: center;
         justify-content: space-between;
         padding: var(--memori-spacing-sm) var(--memori-spacing-md);
         border-bottom: 1px solid var(--memori-border-color);
-        margin-bottom: var(--memori-spacing-xs);
+        margin: 0;
+        background: var(--memori-secondary-background);
+        gap: var(--memori-spacing-sm);
     }
 
-    /* Make mobile action buttons match the tab switch height */
-    .memori-artifact-drawer-top-right .memori-button--more-options,
-    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
-        display: flex;
-        width: 40px;
-        min-width: 40px;
-        height: 40px;
-        min-height: 40px;
+    .memori-artifact-drawer-top-right-actions {
+        display: inline-flex;
+        flex-shrink: 0;
         align-items: center;
-        justify-content: center;
-        padding: 0;
-        border: 1px solid var(--memori-border-color);
-        border-radius: var(--memori-radius-box);
+        margin-left: auto;
+        gap: var(--memori-spacing-sm);
     }
 
-    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+    .memori-artifact-drawer-top-right .memori-mobile-actions-menu {
         margin-left: 0;
     }
 
-    /* Solid opaque dropdown popover on mobile */
-    .memori-artifact-drawer-top-right .memori-mobile-dropdown {
-        z-index: 1100;
-        border: 1px solid var(--memori-border-color);
-        backdrop-filter: none;
-        background: var(--memori-main-background, #fff);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    /* Tabs.Root from @memori.ai/ui defaults to width:100% — that pushes actions off-screen */
+    .memori-artifact-drawer-top-right .memori-tab-switch,
+    .memori-artifact-drawer-top-right .memori-tabs {
+        width: auto;
+        max-width: fit-content;
+        flex: 0 0 auto;
+        justify-content: flex-start;
     }
 
-    /* Dropdown icon visibility */
-    .memori-artifact-drawer-top-right .memori-mobile-dropdown .memori-artifact-action-icon {
-        width: 18px;
-        height: 18px;
-        color: var(--memori-text-color);
+    .memori-artifact-drawer-top-right .memori-tab-switch__tab {
+        min-width: 40px;
+        flex: 0 0 auto;
+    }
+
+    /* Make mobile action buttons match header toolbar buttons */
+    .memori-artifact-drawer-top-right .memori-button--more-options,
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+        display: flex;
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
+        border-radius: var(--memori-radius-box);
+        margin-left: 0;
+    }
+
+    .memori-artifact-drawer-top-right .memori-button--more-options:hover,
+    .memori-artifact-drawer-top-right .memori-artifact-drawer--close:hover {
+        border-color: color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
+        background: color-mix(in srgb, var(--memori-text-color, #111827) 8%, transparent);
+    }
+
+    /* Content fills remaining viewport under the toolbar (no floating card) */
+    .memori-artifact-panel-drawer .memori-artifact-panel--content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--content {
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        flex: 1 1 auto;
+        gap: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-panel--main,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--main {
+        overflow: hidden;
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-preview,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview,
+    .memori-artifact-panel-drawer .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer .memori-artifact-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-content {
+        border-radius: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-tab-content--active {
+        padding: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview-content {
+        background: transparent;
     }
 }
 
@@ -954,36 +1034,76 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     z-index: 1001;
     display: flex;
     align-items: center;
-    padding: 0rem 1rem;
     gap: var(--memori-spacing-sm);
 }
 
-/* Mobile Actions Dropdown */
+/* Mobile Actions Dropdown — portaled popup (not under .top-right) */
 .memori-mobile-actions-menu {
     position: relative;
     display: inline-block;
-    margin-left: auto;
 }
 
 .memori-mobile-actions-trigger {
     display: inline-block;
 }
 
+.memori-dropdown__popup.memori-mobile-dropdown,
 .memori-mobile-dropdown {
-    position: absolute;
-    z-index: 1000;
-    top: 100%;
-    right: 0;
+    z-index: 1100;
     min-width: 200px;
-    border: 1px solid var(--artifact-drawer-border);
-    border-radius: var(--artifact-drawer-radius);
-    margin-top: var(--memori-spacing-sm);
-    backdrop-filter: blur(10px);
-    background: var(--artifact-drawer-bg);
-    box-shadow: var(--artifact-drawer-shadow);
+    max-width: min(280px, calc(100vw - 1.5rem));
+    padding: var(--memori-spacing-xs);
+    border: 1px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
+    /* Soft contrast vs canvas — not pure white / not heavy fill */
+    background: color-mix(
+        in srgb,
+        var(--memori-text-color) 6%,
+        var(--memori-secondary-background)
+    ) !important;
+    box-shadow: var(--memori-shadow-lg);
+    color: var(--memori-text-color);
 }
 
-/* Mobile-specific dropdown positioning */
+.memori-mobile-dropdown .memori-artifact-action-btn,
+.memori-mobile-dropdown .memori-dropdown__item,
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item {
+    display: flex;
+    width: 100%;
+    min-height: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--memori-radius-box);
+    background: transparent;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
+    text-align: left;
+}
+
+.memori-mobile-dropdown .memori-artifact-action-btn:hover,
+.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item[data-highlighted]:not([data-disabled]) {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--memori-text-color) 10%, transparent) !important;
+    color: var(--memori-text-color);
+}
+
+.memori-mobile-dropdown .memori-artifact-action-icon,
+.memori-mobile-dropdown .memori-dropdown__item-icon,
+.memori-mobile-dropdown .memori-dropdown__item-icon svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: inherit;
+    fill: none !important;
+    stroke: currentColor;
+}
+
 @media (max-width: 1260px) {
     .memori-artifact-drawer--close {
         margin-left: 0;
@@ -993,100 +1113,11 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
         margin-bottom: var(--memori-spacing-sm);
     }
 
+    .memori-dropdown__popup.memori-mobile-dropdown,
     .memori-mobile-dropdown {
-        right: 0;
-        left: auto;
         min-width: 180px;
-        max-width: calc(100vw - 2rem);
+        max-width: calc(100vw - 1.5rem);
     }
-
-    .memori-mobile-dropdown-list {
-        padding: 0.25rem;
-        gap: var(--memori-spacing-xs);
-    }
-
-    .memori-mobile-dropdown .memori-artifact-action-btn {
-        min-height: 44px; /* Ensure touch-friendly size */
-        padding: 0.625rem 0.75rem;
-        font-size: var(--memori-text-size-small);
-    }
-
-    .memori-mobile-dropdown .memori-artifact-action-text {
-        color: var(--artifact-drawer-text);
-        font-size: 0.8125rem;
-        font-weight: var(--memori-text-weight-semibold);
-    }
-
-    .memori-mobile-dropdown .memori-artifact-action-icon {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-    }
-}
-
-.memori-mobile-dropdown-list {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: var(--memori-spacing-xs);
-}
-
-.memori-mobile-dropdown .memori-artifact-action-btn {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: flex-start;
-    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
-    border: 1px solid transparent;
-    border-radius: var(--artifact-drawer-radius);
-    background: transparent;
-    color: var(--artifact-drawer-text);
-    text-align: left;
-    transition: all 0.2s ease;
-}
-
-.memori-mobile-dropdown .memori-artifact-action-btn:hover {
-    border-color: var(--memori-primary);
-    background: var(--memori-primary-subtle);
-    color: var(--memori-primary);
-}
-
-.memori-mobile-dropdown .memori-artifact-action-text {
-    overflow: visible;
-    margin-left: var(--memori-spacing-sm);
-    color: inherit;
-    font-size: var(--memori-text-size-small);
-    font-weight: var(--memori-text-weight-medium);
-    white-space: nowrap;
-}
-
-/* Mobile Dropdown Animations */
-.memori-mobile-dropdown-enter {
-    transition: all 0.2s ease-out;
-}
-
-.memori-mobile-dropdown-enter-from {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-}
-
-.memori-mobile-dropdown-enter-to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.memori-mobile-dropdown-leave {
-    transition: all 0.15s ease-in;
-}
-
-.memori-mobile-dropdown-leave-from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.memori-mobile-dropdown-leave-to {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
 }
 
 /* Focus and Accessibility */

@@ -231,6 +231,7 @@
    Fixed width — do not set left+right together (that stretches full-bleed). */
 .memori-alert-viewport.memori-alert-viewport--top-end {
     top: 4.75rem !important;
+    right: 1.5rem !important;
     left: auto !important;
     width: 300px !important;
     max-width: calc(100vw - 2 * var(--memori-spacing-sm));
@@ -254,10 +255,6 @@ body:has([data-theme='dark'] .memori-widget) .memori-alert__close {
 
 @media (max-width: 768px) {
     .memori-alert-viewport.memori-alert-viewport--top-end {
-        top: auto !important;
-        right: var(--memori-spacing-sm) !important;
-        bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
-        left: auto !important;
-        width: min(300px, calc(100vw - 2 * var(--memori-spacing-sm))) !important;
+        display: none !important;
     }
 }

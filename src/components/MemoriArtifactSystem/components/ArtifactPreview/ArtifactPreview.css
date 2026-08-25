@@ -127,6 +127,7 @@
     min-height: 0;
     flex: 1;
     padding: 1rem;
+    background: color-mix(in srgb, var(--memori-text-color) 4%, var(--memori-secondary-background));
     color: var(--memori-text-color);
     font-family: var(--memori-font-family);
     line-height: 1.6;

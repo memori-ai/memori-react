@@ -54,8 +54,8 @@
    actions and the divider stay aligned with the card edges at any width. */
 .memori-widget.memori-layout-fullpage .memori-fullpage-header-row {
     max-width: var(--memori-layout-max-width);
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: var(--memori-spacing-md);
+    padding-left: var(--memori-spacing-md);
     margin-right: auto;
     margin-left: auto;
 }
@@ -216,7 +216,7 @@
     flex: 1 1 0%;
     align-items: stretch;
     justify-content: center;
-    padding: var(--memori-spacing-md) 0;
+    padding: var(--memori-spacing-md);
     border: none;
     margin: 0 auto;
     background: var(--memori-secondary-background);
@@ -439,7 +439,7 @@
     }
 
     .memori-widget.memori-layout-fullpage .memori--grid {
-        padding: var(--memori-spacing-sm) 0;
+        padding: var(--memori-spacing-sm);
         gap: var(--memori-spacing-sm);
     }
 
@@ -462,7 +462,7 @@
     }
 
     .memori-widget.memori-layout-fullpage .memori--grid {
-        padding: var(--memori-spacing-xs) 0;
+        padding: var(--memori-spacing-xs) var(--memori-spacing-sm);
     }
 
     .memori-widget.memori-layout-fullpage .memori-fullpage-header-row,

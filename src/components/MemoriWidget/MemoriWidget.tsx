@@ -2693,7 +2693,11 @@ const MemoriWidget = ({
   }
   if (integrationConfig?.blurBackground) {
     integrationStylesheetParts.push(
-      '.memori-widget .memori-chat--history--has-global-background::before { filter: blur(5px); }'
+      `.memori-widget .memori-chat--history--has-global-background::before,
+  .memori-widget .memori-chat-layout--main--has-background::before {
+    filter: blur(5px);
+    transform: scale(1.06);
+  }`
     );
   }
   const integrationStylesheet = `@layer integration {

@@ -278,6 +278,15 @@
     color: inherit;
 }
 
+/* Light hover surface (#f2eef5) — keep the icon black in dark mode for contrast */
+.memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover svg,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover .memori-button,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover svg {
+    color: #000 !important;
+}
+
 /* Send button — solid brand fill, high-contrast icon (all layouts) */
 .memori-chat-inputs--send-btn,
 .memori-chat-inputs--send-btn.memori-button {
@@ -360,41 +369,52 @@
 }
 
 .memori-chat-inputs--ai-note {
-    max-width: var(--memori-conversation-max-width, 48rem);
+    max-width: 100%;
     margin: 0;
     background: transparent;
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
     font-size: 0.75rem;
     line-height: 1.3;
+    overflow-wrap: anywhere;
     text-align: left;
+    word-break: break-word;
 }
 
 .memori-conversation-footer {
+    position: relative;
     display: flex;
     width: 100%;
+    max-width: var(--memori-conversation-max-width, 48rem);
     box-sizing: border-box;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
     padding: var(--memori-spacing-sm) 0 0;
     border-top: 1px solid var(--memori-border-color);
     margin-top: var(--memori-spacing-sm);
+    margin-right: auto;
+    margin-left: auto;
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
     gap: var(--memori-spacing-md);
 }
 
 .memori-conversation-footer .memori-chat-inputs--ai-note {
+    overflow: hidden;
     min-width: 0;
     flex: 1 1 auto;
     margin: 0;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-conversation-footer .memori--powered-by {
-    position: static;
+    position: static !important;
     z-index: auto;
     bottom: auto;
     left: auto;
-    display: inline-flex;
+    display: inline-flex !important;
     flex-shrink: 0;
     padding: 0;
     border-radius: 0;
@@ -402,6 +422,7 @@
     background: transparent;
     color: inherit;
     transform: none;
+    white-space: nowrap;
 }
 
 .memori-conversation-footer .memori--powered-by-icon {
@@ -499,6 +520,59 @@
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--ai-note {
     max-width: 100%;
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
+}
+
+/* Keep disclaimer + brand on the same axis as the input pill */
+.memori-widget.memori-layout-fullpage .memori-conversation-footer,
+.memori-widget.memori-layout-zoomed_full_body .memori-conversation-footer {
+    max-width: 100%;
+}
+
+/* FULLPAGE + ZOOMED: border-top only after chat has started (under ChatInputs).
+   Start-panel footer is a direct child of the conversation column. */
+.memori-widget.memori-layout-fullpage
+    .memori-conversation-column
+    > .memori-conversation-footer,
+.memori-widget.memori-layout-zoomed_full_body
+    .memori-conversation-column
+    > .memori-conversation-footer {
+    border-top: none;
+}
+
+.memori-widget.memori-layout-fullpage
+    .memori-chat-inputs-wrapper
+    > .memori-conversation-footer,
+.memori-widget.memori-layout-zoomed_full_body
+    .memori-chat-inputs-wrapper
+    > .memori-conversation-footer {
+    border-top: 1px solid var(--memori-border-color);
+}
+
+@media (max-width: 768px) {
+    .memori-conversation-footer,
+    .memori-widget.memori-layout-fullpage
+        .memori-chat-inputs-wrapper
+        > .memori-conversation-footer,
+    .memori-widget.memori-layout-zoomed_full_body
+        .memori-chat-inputs-wrapper
+        > .memori-conversation-footer {
+        justify-content: center;
+        border-top: none;
+        gap: 0;
+    }
+
+    .memori-conversation-footer .memori--powered-by,
+    .memori-widget.memori-layout-chat .memori-conversation-footer > .memori--powered-by {
+        display: none !important;
+    }
+
+    .memori-conversation-footer .memori-chat-inputs--ai-note {
+        overflow: visible;
+        flex: 0 1 auto;
+        text-align: center;
+        text-overflow: unset;
+        white-space: normal;
+    }
 }
 
 /* =============================================================================

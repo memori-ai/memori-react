@@ -16,6 +16,7 @@ import {
   Download,
   Link as LinkIcon,
   Printer,
+  Copy,
 } from 'lucide-react';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import { useArtifact } from '../../context/ArtifactContext';
@@ -152,7 +153,7 @@ const ArtifactDrawer: React.FC<{
             anchor="right"
             size="md"
             className={
-              state.isFullscreen
+              state.isFullscreen || isMobile
                 ? 'memori-artifact-panel-drawer-fullscreen'
                 : 'memori-artifact-panel-drawer'
             }
@@ -295,43 +296,45 @@ const ArtifactDrawer: React.FC<{
                 hasPreview={hasPreview}
               />
             )}
-            <Dropdown className="memori-mobile-actions-menu">
-              <Dropdown.Trigger
-                showChevron={false}
-                className="memori-mobile-actions-trigger"
-                render={(
-                  props: React.ButtonHTMLAttributes<HTMLButtonElement>
-                ) => (
-                  <Button
-                    {...props}
-                    className={cx(
-                      'memori-button',
-                      'memori-button--more-options',
-                      'memori-button--icon-only'
-                    )}
-                    variant="ghost"
-                    title={t('artifact.actions') || 'Actions'}
-                  >
-                    <MoreVertical className="memori-artifact-action-icon" />
-                  </Button>
-                )}
-              />
-              <Dropdown.Menu className="memori-mobile-dropdown">
-                <div className="memori-mobile-dropdown-list">
-                  <Button
-                    onClick={handleCopy}
-                    disabled={false}
+            <div className="memori-artifact-drawer-top-right-actions">
+              <Dropdown className="memori-mobile-actions-menu">
+                <Dropdown.Trigger
+                  showChevron={false}
+                  className="memori-mobile-actions-trigger"
+                  render={(
+                    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+                  ) => (
+                    <Button
+                      {...props}
+                      className={cx(
+                        'memori-button',
+                        'memori-button--more-options',
+                        'memori-button--icon-only'
+                      )}
+                      variant="ghost"
+                      title={t('artifact.actions') || 'Actions'}
+                    >
+                      <MoreVertical className="memori-artifact-action-icon" />
+                    </Button>
+                  )}
+                />
+                <Dropdown.Menu
+                  className="memori-mobile-dropdown"
+                  placement="bottom"
+                  align="end"
+                  sideOffset={8}
+                  container={surfaceEl ?? undefined}
+                >
+                  <Dropdown.Item
                     className="memori-artifact-action-btn"
-                    variant="ghost"
-                    title={t('artifact.copy') || 'Copy'}
+                    onClick={handleCopy}
+                    icon={<Copy className="memori-artifact-action-icon" />}
+                    label={t('artifact.copy') || 'Copy'}
                   >
-                    <span className="memori-artifact-action-text">
-                      {t('artifact.copy') || 'Copy'}
-                    </span>
-                  </Button>
+                    {t('artifact.copy') || 'Copy'}
+                  </Dropdown.Item>
 
                   {formats.map(format => {
-                    // Get appropriate icon based on action type
                     const getIcon = () => {
                       switch (format.action) {
                         case 'copy':
@@ -355,27 +358,24 @@ const ArtifactDrawer: React.FC<{
                     };
 
                     return (
-                      <Button
+                      <Dropdown.Item
                         key={format.id}
+                        className="memori-artifact-action-btn"
                         onClick={() => handleCopyFormat(format)}
                         disabled={
                           copyState.loading &&
                           copyState.activeFormat === format.id
                         }
-                        className="memori-artifact-action-btn"
-                        variant="ghost"
                         icon={getIcon()}
-                        title={format.label}
+                        label={format.label}
                       >
-                        <span className="memori-artifact-action-text">
-                          {format.label}
-                        </span>
-                      </Button>
+                        {format.label}
+                      </Dropdown.Item>
                     );
                   })}
 
-                  {/* External open action (not from hook) */}
-                  <Button
+                  <Dropdown.Item
+                    className="memori-artifact-action-btn"
                     onClick={() =>
                       handleOpenExternal(
                         state.currentArtifact ?? {
@@ -388,37 +388,28 @@ const ArtifactDrawer: React.FC<{
                         }
                       )
                     }
-                    disabled={false}
-                    className="memori-artifact-action-btn"
-                    variant="ghost"
                     icon={<LinkIcon className="memori-artifact-action-icon" />}
-                    title={t('artifact.external') || 'External'}
+                    label={t('artifact.external') || 'External'}
                   >
-                    <span className="memori-artifact-action-text">
-                      {t('artifact.external') || 'External'}
-                    </span>
-                  </Button>
-                </div>
-              </Dropdown.Menu>
-            </Dropdown>
+                    {t('artifact.external') || 'External'}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button
+                onClick={closeArtifact}
+                className={cx(
+                  'memori-artifact-drawer--close',
+                  'memori-button--icon-only'
+                )}
+                variant="ghost"
+                aria-label={t('artifact.close') || 'Close'}
+                title={t('artifact.close') || 'Close'}
+                icon={
+                  <X className="memori-artifact-panel--close-icon" aria-hidden />
+                }
+              />
+            </div>
           </>
-        )}
-
-        {/* Close Button */}
-        {isMobile && (
-          <Button
-            onClick={closeArtifact}
-            className={cx(
-              'memori-artifact-drawer--close',
-              'memori-button--icon-only'
-            )}
-            variant="ghost"
-            aria-label={t('artifact.close') || 'Close'}
-            title={t('artifact.close') || 'Close'}
-            icon={
-              <X className="memori-artifact-panel--close-icon" aria-hidden />
-            }
-          />
         )}
       </div>
 

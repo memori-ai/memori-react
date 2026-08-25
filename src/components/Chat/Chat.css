@@ -67,6 +67,25 @@
     /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
     overflow-y: auto;
     scroll-behavior: smooth;
+    scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
+    scrollbar-width: thin;
+}
+
+.memori-chat--content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.memori-chat--content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.memori-chat--content::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 45%, transparent);
+}
+
+.memori-chat--content::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 60%, transparent);
 }
 
 /* Conversation-column overrides sit between base and layout-scoped rules. */

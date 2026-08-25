@@ -102,9 +102,10 @@ textarea.memori-chat-textarea--input {
     font-size: 14.5px;
     line-height: var(--memori-text-line-normal);
     outline: none;
+    -ms-overflow-style: none; /* IE/Edge */
     overflow-y: auto;
     resize: none;
-    scrollbar-width: thin;
+    scrollbar-width: none; /* Firefox */
     transition: height 0.2s ease-in-out;
 }
 
@@ -114,22 +115,10 @@ textarea.memori-chat-textarea--input::placeholder {
     opacity: 1;
 }
 
-/* Scrollbar styling */
+/* Hide vertical scrollbar (scroll still works) */
 textarea.memori-chat-textarea--input::-webkit-scrollbar {
-    width: 6px;
-}
-
-textarea.memori-chat-textarea--input::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {
-    border-radius: var(--memori-radius-box);
-    background: rgba(0, 0, 0, 0.2);
-}
-
-textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    width: 0;
 }
 
 /* Responsive adjustments for textarea input */
@@ -195,7 +184,6 @@ button.memori-chat-textarea--expand-button:focus {
 
 [data-theme='dark'] textarea.memori-chat-textarea--input {
     color: var(--memori-text-color, rgba(255, 255, 255, 0.92));
-    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
 [data-theme='dark'] textarea.memori-chat-textarea--input::placeholder {
@@ -220,14 +208,6 @@ button.memori-chat-textarea--expand-button:focus {
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder {
     color: #7d7a86;
-}
-
-[data-theme='dark'] textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-[data-theme='dark'] textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.4);
 }
 
 [data-theme='dark'] button.memori-chat-textarea--expand-button {

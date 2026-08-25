@@ -1,12 +1,16 @@
 .memori-tab-switch {
     display: flex;
+    width: auto;
     max-width: fit-content;
+    flex: 0 0 auto;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .memori-tab-switch__list {
     display: flex;
+    width: auto;
+    flex: 0 0 auto;
     gap: var(--memori-spacing-xs);
 }
 
@@ -15,7 +19,8 @@
 }
 
 .memori-tab-switch__tab {
-    min-width: 70px;
+    min-width: 40px;
+    flex: 0 0 auto;
 }
 
 .memori-tab-switch__icon {

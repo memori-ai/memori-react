@@ -192,3 +192,25 @@
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic .lucide-mic {
     color: inherit;
 }
+
+/* Light hover surface (#f2eef5) — keep the icon black in dark mode for contrast */
+.memori-widget[data-theme='dark'] .memori-chat-inputs--mic:hover,
+.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs--mic:hover,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic:hover,
+.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-chat-inputs--mic:hover,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic:hover,
+.memori-widget.memori-layout-website_assistant[data-theme='dark'] .memori-chat-inputs--mic:hover,
+[data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic:hover,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover {
+    color: #000 !important;
+}
+
+.memori-widget[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
+.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic:hover .lucide-mic,
+.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic:hover .lucide-mic,
+.memori-widget.memori-layout-website_assistant[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
+[data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic:hover .lucide-mic {
+    color: #000 !important;
+}

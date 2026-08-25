@@ -170,13 +170,13 @@
 
 /* Powered-by lives in the conversation footer row under the input */
 .memori-widget.memori-layout-chat .memori-conversation-footer > .memori--powered-by {
-    position: relative;
+    position: relative !important;
     z-index: 5;
     top: auto;
     right: auto;
     bottom: auto;
     left: auto;
-    display: flex;
+    display: inline-flex !important;
     width: auto;
     flex-shrink: 0;
     justify-content: flex-end;
@@ -185,6 +185,25 @@
     margin: 0;
     background: transparent;
     transform: none;
+}
+
+@media (max-width: 768px) {
+    .memori-widget.memori-layout-chat .memori-conversation-footer {
+        justify-content: center;
+        gap: 0;
+    }
+
+    .memori-widget.memori-layout-chat .memori-conversation-footer > .memori--powered-by {
+        display: none !important;
+    }
+
+    .memori-widget.memori-layout-chat .memori-conversation-footer .memori-chat-inputs--ai-note {
+        overflow: visible;
+        flex: 0 1 auto;
+        text-align: center;
+        text-overflow: unset;
+        white-space: normal;
+    }
 }
 
 .memori-chat-layout--controls .memori-chat--wrapper {
@@ -341,6 +360,7 @@
    it is painted on the layout row instead of the conversation column, so it also
    covers the side gutters, while header and input bar stay solid strips. */
 .memori-chat-layout--main--has-background {
+    position: relative;
     isolation: isolate;
 }
 

@@ -23,10 +23,13 @@
 .memori-artifact-action-icon-fullscreen {
     width: 16px;
     height: 16px;
+    color: inherit;
+    fill: none;
+    stroke: currentColor;
 }
 
 .memori-artifact-action-icon {
-    fill: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-action-btn:disabled {
@@ -122,7 +125,9 @@
 /* Remove unused styles */
 
 .memori-artifact-action-icon-fullscreen {
-    fill: #fff;
+    color: #fff;
+    fill: none;
+    stroke: currentColor;
 }
 
 /* Animation for Copy Feedback */
