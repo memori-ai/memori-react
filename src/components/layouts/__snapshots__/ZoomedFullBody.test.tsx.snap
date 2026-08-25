@@ -9,6 +9,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
     data-memori-integration="cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1"
     data-memori-name="Memori"
     data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
+    data-theme="light"
     style="height: 100vh;"
   >
     <div
@@ -17,6 +18,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
       aria-live="polite"
       aria-relevant="additions text"
       class="memori-alert-viewport memori-alert-viewport--top-end"
+      data-theme="light"
       role="region"
       style="z-index: 10002;"
       tabindex="-1"

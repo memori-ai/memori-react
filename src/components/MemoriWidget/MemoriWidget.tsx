@@ -647,23 +647,6 @@ const MemoriWidget = ({
   const [widgetSurfaceEl, setWidgetSurfaceEl] = useState<HTMLDivElement | null>(
     null
   );
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  useEffect(() => {
-    if (!widgetRootEl) return;
-    const check = () => {
-      setIsDarkTheme(!!widgetRootEl.closest('[data-theme="dark"]'));
-    };
-    check();
-    const observer = new MutationObserver(check);
-    const parent = widgetRootEl.parentElement ?? document.body;
-    observer.observe(parent, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-      subtree: true,
-    });
-    return () => observer.disconnect();
-  }, [widgetRootEl]);
-
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
   );
@@ -3703,13 +3686,11 @@ const MemoriWidget = ({
 
   // Resolve the widget theme once so both `data-theme` on the root and the
   // `MemoriUIProvider` (which stamps portaled popups) stay in sync.
-  // Prefer integration config; fall back to host dark mode when unset.
-  const widgetTheme: 'light' | 'dark' | undefined =
+  // Prefer integration config; default to light when unset.
+  const widgetTheme: 'light' | 'dark' =
     integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
       ? integrationConfig.theme
-      : isDarkTheme
-      ? 'dark'
-      : undefined;
+      : 'light';
 
   return (
     <div

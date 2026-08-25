@@ -51,7 +51,7 @@ const integrationStylesheet =
 const dataTheme =
   integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
     ? integrationConfig.theme
-    : undefined;
+    : 'light';
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
