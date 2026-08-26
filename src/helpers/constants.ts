@@ -52,6 +52,30 @@ export const officeNativeExtensions = [
   '.potx',
 ] as const;
 
+export const documentConversionExtensions = [
+  '.pdf',
+  '.docm',
+  '.xlsx',
+  '.xlsm',
+  '.xls',
+  '.ods',
+  '.pptx',
+  '.pptm',
+  '.html',
+  '.htm',
+  '.xhtml',
+  '.csv',
+  '.tsv',
+  '.txt',
+  '.md',
+  '.markdown',
+  '.json',
+  '.xml',
+  '.log',
+  '.yml',
+  '.yaml',
+] as const;
+
 export const allowedMediaTypes = [
   'image/jpeg',
   'image/png',
