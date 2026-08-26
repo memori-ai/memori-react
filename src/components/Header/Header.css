@@ -713,7 +713,7 @@
     margin-left: 0;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    gap: 0.5rem;
+    gap: 0.75rem;
     text-align: right;
 }
 
@@ -732,21 +732,14 @@
 
 .memori-header--fullpage-secondary {
     justify-content: flex-end;
-    /* margin-left: auto; */
 }
 
 .memori-header--fullpage-divider {
     width: 1px;
     min-height: 28px;
     align-self: stretch;
-    margin: 0 0.125rem;
+    margin: 0;
     background: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
-    /* margin-left: auto; */
-}
-
-/* Tighter spacing before Profile / login (divider sits in secondary row) */
-.memori-header--fullpage-secondary > .memori-header--fullpage-divider {
-    margin-right: calc(0.125rem - 5px);
 }
 
 .memori-header--fullpage .memori-dropdown--user-trigger--fullpage {

@@ -380,7 +380,7 @@ const Header: React.FC<Props> = ({
   };
 
   const isFullPageChrome = layout === 'FULLPAGE' || layout === 'CHAT';
-  const showFullpageChromeDividers = layout !== 'CHAT' && showFullpageDividers;
+  const showFullpageChromeDividers = showFullpageDividers;
   const fullpageGuestChrome = layout === 'FULLPAGE' && !loginToken;
 
   // Sticky header solid background when the conversation list scrolls.
@@ -458,8 +458,7 @@ const Header: React.FC<Props> = ({
     });
   }, [isFullPageChrome, memori, tenant, baseUrl]);
 
-  const fullpagePrimaryHasContent =
-    (showChatHistory && !!loginToken) || showLogin;
+  const fullpagePrimaryHasContent = showChatHistory && !!loginToken;
 
   const fullpageSecondaryHasContent =
     !!memori.needsPosition ||
@@ -476,6 +475,25 @@ const Header: React.FC<Props> = ({
     enableAudio ||
     !!(showSettings && hasSettingsContent(layout, additionalSettings)) ||
     showShare;
+
+  const loggedInSecondaryHasActions =
+    (isConversationStarted && showFullpageDividers) ||
+    (showFullscreen && fullScreenAvailable) ||
+    enableAudio ||
+    !!memori.needsPosition ||
+    showShare;
+
+  const showHistoryDivider =
+    showFullpageChromeDividers &&
+    fullpagePrimaryHasContent &&
+    (isAuthenticated
+      ? loggedInSecondaryHasActions || !!showLogin
+      : fullpageSecondaryHasContent || !!showLogin);
+
+  const showLoginDivider =
+    showFullpageChromeDividers &&
+    !!showLogin &&
+    (isAuthenticated ? loggedInSecondaryHasActions : fullpageSecondaryHasContent);
 
   const chatHistoryNode = showChatHistory && !!loginToken && (
     <Tooltip
@@ -1399,56 +1417,51 @@ const Header: React.FC<Props> = ({
               {chatHistoryNode}
             </div>
           )}
-          {fullpagePrimaryHasContent &&
-            showFullpageChromeDividers &&
-            !fullpageGuestChrome && (
-              <div
-                className="memori-header--fullpage-divider"
-                aria-hidden="true"
-              />
-            )}
-          <div className="memori-header--fullpage-secondary">
-            {loggedInFullpageRightControls}
-            {showFullpageChromeDividers && (
-              <div
-                className="memori-header--fullpage-divider"
-                aria-hidden="true"
-              />
-            )}
-            {loginNode}
-          </div>
+          {showHistoryDivider && (
+            <div
+              className="memori-header--fullpage-divider"
+              aria-hidden="true"
+            />
+          )}
+          {loggedInSecondaryHasActions && (
+            <div className="memori-header--fullpage-secondary">
+              {loggedInFullpageRightControls}
+            </div>
+          )}
+          {showLoginDivider && (
+            <div
+              className="memori-header--fullpage-divider"
+              aria-hidden="true"
+            />
+          )}
+          {loginNode}
         </>
       ) : isFullPageChrome ? (
         <>
           {fullpagePrimaryHasContent && (
             <div className="memori-header--fullpage-primary">
               {chatHistoryNode}
-              {/* {loginNode} */}
             </div>
           )}
-
-          {fullpagePrimaryHasContent &&
-            fullpageSecondaryHasContent &&
-            showFullpageChromeDividers &&
-            !fullpageGuestChrome && (
-              <div
-                className="memori-header--fullpage-divider"
-                aria-hidden="true"
-              />
-            )}
-          <div className="memori-header--fullpage-secondary">
-            {headerActionsBeforeChatHistory}
-            {headerActionsAfterChatHistory}
-            {fullpagePrimaryHasContent &&
-              fullpageSecondaryHasContent &&
-              showFullpageChromeDividers && (
-                <div
-                  className="memori-header--fullpage-divider"
-                  aria-hidden="true"
-                />
-              )}
-            {loginNode}
-          </div>
+          {showHistoryDivider && (
+            <div
+              className="memori-header--fullpage-divider"
+              aria-hidden="true"
+            />
+          )}
+          {fullpageSecondaryHasContent && (
+            <div className="memori-header--fullpage-secondary">
+              {headerActionsBeforeChatHistory}
+              {headerActionsAfterChatHistory}
+            </div>
+          )}
+          {showLoginDivider && (
+            <div
+              className="memori-header--fullpage-divider"
+              aria-hidden="true"
+            />
+          )}
+          {loginNode}
         </>
       ) : (
         <>

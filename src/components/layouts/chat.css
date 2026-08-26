@@ -55,25 +55,32 @@
     }
 }
 
+/* Column fills the chat pane so the input strip can go edge-to-edge;
+   message reading width is applied on --body / the input field itself. */
 .memori-widget.memori-layout-chat .memori-chat-layout--controls > .memori-conversation-column {
     display: flex;
     width: 100%;
+    max-width: none;
     min-height: 0;
     flex: 1 1 auto;
     flex-direction: column;
-    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
+    margin-inline: 0;
+    padding-inline: 0;
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body {
     display: flex;
     overflow: hidden;
     width: 100%;
+    max-width: var(--memori-conversation-max-width, 48rem);
     min-height: 0;
+    box-sizing: border-box;
     flex: 1;
     flex-direction: column;
     align-items: stretch;
-    margin: 0 auto;
     background: var(--memori-secondary-background);
+    margin-inline: auto;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
 }
 
 /* When a global background is on chat content, keep the body strip neutral. */
@@ -99,19 +106,30 @@
     justify-content: center;
 }
 
-/* Input bar is a flex sibling of body inside the shared conversation column */
+/* Full-bleed input strip across the chat column; field stays on the conversation axis */
 .memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper {
     overflow: hidden;
     width: 100%;
+    max-width: none;
+    box-sizing: border-box;
     flex-shrink: 0;
     border-top: none;
     background: var(--memori-secondary-background);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    margin-inline: 0;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
 }
 
 .memori-widget.memori-layout-chat .memori-chat-inputs {
     background: transparent;
+}
+
+.memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper .memori-chat-inputs,
+.memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper .memori-conversation-footer {
+    width: 100%;
+    max-width: var(--memori-conversation-max-width, 48rem);
+    margin-inline: auto;
 }
 
 .memori-chat-layout--header-with-artifact {
@@ -425,33 +443,13 @@
     background: var(--memori-secondary-background);
 }
 
-/* The input bar stays a solid strip, so the image ends where the messages end.
-   It breaks out of the conversation column to span the whole chat column width; the
-   surrounding `overflow: clip` on --main clips it to the chat column (not under the artifact). */
+/* Input strip is already full-bleed (see rules above); keep its solid surface over the image. */
 .memori-widget.memori-layout-chat
     .memori-chat-layout--main--has-background
     .memori-conversation-column
     > .memori-chat-inputs-wrapper {
-    width: 100%;
-    max-width: none;
     margin-bottom: 0;
     background: var(--memori-secondary-background);
-    margin-inline: 0;
-    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
-}
-
-.memori-widget.memori-layout-chat
-    .memori-chat-layout--main--has-background
-    .memori-conversation-column
-    > .memori-chat-inputs-wrapper
-    .memori-chat-inputs,
-.memori-widget.memori-layout-chat
-    .memori-chat-layout--main--has-background
-    .memori-conversation-column
-    > .memori-chat-inputs-wrapper
-    .memori-conversation-footer {
-    max-width: var(--memori-conversation-max-width, 48rem);
-    margin-inline: auto;
 }
 
 /* The column-scoped image would otherwise paint a second, narrower copy. */
