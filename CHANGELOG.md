@@ -1,5 +1,12 @@
 
 
+## [9.0.0-alpha.16](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.14...v9.0.0-alpha.16) (2026-08-26)
+
+
+### Changes
+
+* simplify theme handling in MemoriWidget and related components ([bdd4315](https://github.com/memori-ai/memori-react/commit/bdd43159c849cd3915181ff8a05da3906cd0cfd8))
+
 ## [9.0.0-alpha.14](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.13...v9.0.0-alpha.14) (2026-08-25)
 
 ## [9.0.0-alpha.13](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.12...v9.0.0-alpha.13) (2026-08-25)
