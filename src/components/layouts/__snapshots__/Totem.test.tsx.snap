@@ -65,11 +65,6 @@ exports[`renders Totem layout unchanged 1`] = `
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
   }
-  .memori-widget .memori-chat--history--has-global-background::before,
-  .memori-widget .memori-chat-layout--main--has-background::before {
-    filter: blur(5px);
-    transform: scale(1.06);
-  }
 }
 
       </style>

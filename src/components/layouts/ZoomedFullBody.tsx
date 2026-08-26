@@ -58,7 +58,9 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   const tenant = headerProps?.tenant;
   const baseUrl = headerProps?.baseUrl;
   const loggedUser =
-    headerProps?.loginToken && headerProps?.user ? headerProps.user : undefined;
+    headerProps?.loginToken && headerProps?.user?.userID
+      ? headerProps.user
+      : undefined;
   const enrichedUser = loggedUser as
     | (typeof loggedUser & {
         name?: string;
@@ -189,6 +191,9 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       isMobile &&
       !!headerProps.loginToken &&
       headerProps.showChatHistory !== false;
+    const showFullscreenInPanel = headerProps.showFullscreen !== false;
+    const showShareInPanel = headerProps.showShare !== false;
+    const showLocationInPanel = !!headerProps.memori?.needsPosition;
     const historyBlock = showChatHistoryInPanel
       ? [
           {
@@ -207,39 +212,55 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       : [];
     return [
       ...historyBlock,
-      {
-        key: 'fullscreen',
-        icon: <Expand size={18} />,
-        title: t('fullscreenEnter') || 'Full screen',
-        subtitle: t('widget.expandToImmersive') || 'Expand to immersive view',
-        onClick: () => {
-          handleMobileFullscreen();
-          setMobileSheetOpen(false);
-        },
-      },
-      {
-        key: 'share',
-        icon: <Share2 size={18} />,
-        title: t('widget.share') || 'Share chat',
-        subtitle:
-          t('widget.mobileSession.copyLinkOrDownload') ||
-          'Copy link or download',
-        view: 'share' as const,
-      },
-      {
-        key: 'location',
-        icon: <MapPin size={18} />,
-        title:
-          t('widget.mobileSession.locationTracking') || 'Location tracking',
-        subtitle:
-          headerProps.position?.placeName ||
-          t('widget.mobileSession.currentlyOff') ||
-          'Currently off',
-        view: 'location' as const,
-        trailing: (
-          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
-        ),
-      },
+      ...(showFullscreenInPanel
+        ? [
+            {
+              key: 'fullscreen',
+              icon: <Expand size={18} />,
+              title: t('fullscreenEnter') || 'Full screen',
+              subtitle:
+                t('widget.expandToImmersive') || 'Expand to immersive view',
+              onClick: () => {
+                handleMobileFullscreen();
+                setMobileSheetOpen(false);
+              },
+            },
+          ]
+        : []),
+      ...(showShareInPanel
+        ? [
+            {
+              key: 'share',
+              icon: <Share2 size={18} />,
+              title: t('widget.share') || 'Share chat',
+              subtitle:
+                t('widget.mobileSession.copyLinkOrDownload') ||
+                'Copy link or download',
+              view: 'share' as const,
+            },
+          ]
+        : []),
+      ...(showLocationInPanel
+        ? [
+            {
+              key: 'location',
+              icon: <MapPin size={18} />,
+              title:
+                t('widget.mobileSession.locationTracking') ||
+                'Location tracking',
+              subtitle:
+                headerProps.position?.placeName ||
+                t('widget.mobileSession.currentlyOff') ||
+                'Currently off',
+              view: 'location' as const,
+              trailing: (
+                <span className="memori-mobile-session-panel--chevron">
+                  {'>'}
+                </span>
+              ),
+            },
+          ]
+        : []),
     ];
   }, [headerProps, isMobile, isSessionStarted, t, handleMobileFullscreen]);
   return (
@@ -341,6 +362,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             showSessionInfo={isSessionStarted}
             history={headerProps.history ?? []}
             isLoggedIn={!!loggedUser}
+            showLogin={!!headerProps.showLogin}
             loginLabel={t('login.login') || 'Log in'}
             onLogin={() => {
               headerProps.setShowLoginDrawer(true);

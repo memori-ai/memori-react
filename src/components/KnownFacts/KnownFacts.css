@@ -14,22 +14,31 @@
     }
 }
 
-.memori-known-facts-table-wrapper {
-    .memori-table-scroll {
-        height: 100%;
-    }
-    .memori-table-pagination__range {
-        display: none;
-    }
-}
-
-/* Table wrapper: scroll + spacing (@memori.ai/ui Table root) */
+/* Table wrapper: flex column so pagination footer stays visible below the scroll body */
 .memori-known-facts-table-wrapper.memori-table-wrapper {
+    display: flex;
     overflow: hidden;
     min-height: 0;
     flex: 1 1 auto;
+    flex-direction: column;
     border: 1px solid var(--memori-color-border, #e2e8f0);
     border-radius: 8px;
+}
+
+.memori-known-facts-table-wrapper {
+    .memori-table-scroll {
+        min-height: 0;
+        max-height: none;
+        flex: 1 1 auto;
+    }
+
+    .memori-table-footer {
+        flex-shrink: 0;
+    }
+
+    .memori-table-pagination__range {
+        display: none;
+    }
 }
 
 .memori-known-facts-text-cell {

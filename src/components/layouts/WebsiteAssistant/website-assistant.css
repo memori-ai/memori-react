@@ -293,23 +293,30 @@
     background: none;
 }
 
-/* Powered-by sits as a static footer under the input on --memori-secondary-background */
-.memori-website_assistant-layout .memori--powered-by {
-    position: relative;
-    z-index: 5;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    flex-shrink: 0;
+/* Powered-by is not shown in WEBSITE_ASSISTANT; AI disclaimer wraps under the input. */
+.memori-website_assistant-layout .memori--powered-by,
+.memori-widget.memori-layout-website_assistant .memori--powered-by {
+    display: none !important;
+}
+
+/* Never show chat history control in this layout */
+.memori-widget.memori-layout-website_assistant .memori-header--chat-history-button {
+    display: none !important;
+}
+
+.memori-widget.memori-layout-website_assistant .memori-conversation-footer {
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 0.5rem 1rem 0.75rem;
-    border-radius: 0;
-    margin: 0;
-    background: var(--memori-secondary-background);
+}
+
+.memori-widget.memori-layout-website_assistant
+    .memori-conversation-footer
+    .memori-chat-inputs--ai-note {
+    overflow: visible;
+    flex: 1 1 100%;
     text-align: center;
-    transform: none;
+    text-overflow: unset;
+    white-space: normal;
 }
 
 /* ============================================

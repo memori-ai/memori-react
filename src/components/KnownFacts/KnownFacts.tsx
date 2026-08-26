@@ -10,7 +10,6 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import {
   Button,
   Drawer,
-  Spin,
   Modal,
   Table,
   useAlertManager,
@@ -118,7 +117,9 @@ const KnownFacts = ({
 
   const [bulkDeleteModalVisible, setBulkDeleteModalVisible] = useState(false);
   const [bulkDeleteIds, setBulkDeleteIds] = useState<string[]>([]);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
   const [deleteModalVisibleFor, setDeleteModalVisibleFor] = useState<string>();
+  const [singleDeleting, setSingleDeleting] = useState(false);
   const selectedRowsLabel = useMemo(
     () =>
       t('knownFacts.selectedRows', {
@@ -222,7 +223,10 @@ const KnownFacts = ({
               </Button>
               <Button
                 variant="danger"
+                loading={bulkDeleting}
+                disabled={bulkDeleting}
                 onClick={async () => {
+                  setBulkDeleting(true);
                   try {
                     const mutations = bulkDeleteIds.map(knownFactID =>
                       deleteKnownFact(sessionID, knownFactID)
@@ -261,6 +265,8 @@ const KnownFacts = ({
                         severity: 'error',
                       })
                     );
+                  } finally {
+                    setBulkDeleting(false);
                   }
                 }}
               >
@@ -277,7 +283,7 @@ const KnownFacts = ({
           getRowId={row => row.knownFactID}
           isLoading={loading}
           rowActionsVariant='inline'
-          maxBodyHeight="75vh"
+          maxBodyHeight={false}
           bulkActions={[
             {
               label: t('delete'),
@@ -345,9 +351,12 @@ const KnownFacts = ({
               </Button>
               <Button
                 variant="danger"
+                loading={singleDeleting}
+                disabled={singleDeleting}
                 onClick={async () => {
                   if (!deleteModalVisibleFor) return;
                   const kfId = deleteModalVisibleFor;
+                  setSingleDeleting(true);
                   try {
                     const response = await deleteKnownFact(sessionID, kfId);
                     if (response.resultCode === 0) {
@@ -378,6 +387,8 @@ const KnownFacts = ({
                         severity: 'error',
                       })
                     );
+                  } finally {
+                    setSingleDeleting(false);
                   }
                 }}
               >

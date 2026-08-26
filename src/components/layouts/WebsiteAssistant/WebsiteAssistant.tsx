@@ -21,7 +21,6 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   sessionId,
   hasUserActivatedSpeak,
   loading = false,
-  poweredBy,
   avatar3dHidden,
 }) => {
   const { t } = useTranslation();
@@ -127,6 +126,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                       {...headerProps}
                       showSettings={false}
                       showReload={false}
+                      showChatHistory={false}
                     />
                   )}
                   <button
@@ -176,10 +176,10 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   <StartPanel
                     {...startPanelProps}
                     showFullDescriptionOnMobile={true}
+                    showChatHistory={false}
                   />
                 ) : null}
               </div>
-              {poweredBy}
             </Spin>
           </>
         )}

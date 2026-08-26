@@ -58,6 +58,8 @@ export interface Props {
   setVenue: (venue?: Venue) => void;
   positionPopoverOpen: boolean;
   setPositionPopoverOpen: (open: boolean) => void;
+  /** Start geolocation automatically when the position popover opens (StartPanel CTA). */
+  autoStartPositionGeolocation?: boolean;
   setShowSettingsDrawer: (show: boolean) => void;
   setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
@@ -98,6 +100,7 @@ const Header: React.FC<Props> = ({
   setVenue,
   positionPopoverOpen,
   setPositionPopoverOpen,
+  autoStartPositionGeolocation = false,
   setShowSettingsDrawer,
   setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
@@ -419,7 +422,7 @@ const Header: React.FC<Props> = ({
   const fullscreenLabel = fullScreen
     ? t('fullscreenExit') || 'Exit fullscreen'
     : t('fullscreenEnter') || 'Full screen';
-  const isAuthenticated = !!loginToken && !!user;
+  const isAuthenticated = !!loginToken && !!user?.userID;
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
 
   const brandTitle = memori?.name?.trim() || '';
@@ -495,7 +498,7 @@ const Header: React.FC<Props> = ({
 
   const loginNode = showLogin && (
     <>
-      {loginToken && user ? (
+      {loginToken && user?.userID ? (
         <Popover
           className="memori-header--dropdown"
           open={userPopoverOpen}
@@ -661,6 +664,7 @@ const Header: React.FC<Props> = ({
                 venue={position}
                 setVenue={setVenue}
                 open={positionPopoverOpen}
+                autoStartGeolocation={autoStartPositionGeolocation}
                 onOpenChange={open => {
                   setPositionPopoverOpen(open);
                   if (open) {
@@ -1103,6 +1107,7 @@ const Header: React.FC<Props> = ({
               venue={position}
               setVenue={setVenue}
               open={positionPopoverOpen}
+              autoStartGeolocation={autoStartPositionGeolocation}
               onOpenChange={open => {
                 setPositionPopoverOpen(open);
                 if (open) {
@@ -1274,7 +1279,7 @@ const Header: React.FC<Props> = ({
           }}
           content={
             <div className="memori-totem-rail--menu-content">
-              {isAuthenticated && (
+              {showLogin && isAuthenticated && (
                 <div className="memori-totem-rail--menu-identity">
                   <span className="memori-totem-rail--menu-identity-name">
                     {user?.userName || t('login.welcomeUser')}
@@ -1334,23 +1339,23 @@ const Header: React.FC<Props> = ({
                   {totemKnownFactsLabel}
                 </Button>
               )}
-              {isAuthenticated ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="memori-totem-rail--menu-item memori-totem-rail--menu-item--logout"
-                  icon={<LogOut size={18} aria-hidden />}
-                  title={t('login.logout') || 'Logout'}
-                  aria-label={t('login.logout') || 'Logout'}
-                  onClick={() => {
-                    setUserPopoverOpen(false);
-                    onLogout?.();
-                  }}
-                >
-                  {t('login.logout') || 'Logout'}
-                </Button>
-              ) : (
-                showLogin && (
+              {showLogin &&
+                (isAuthenticated ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="memori-totem-rail--menu-item memori-totem-rail--menu-item--logout"
+                    icon={<LogOut size={18} aria-hidden />}
+                    title={t('login.logout') || 'Logout'}
+                    aria-label={t('login.logout') || 'Logout'}
+                    onClick={() => {
+                      setUserPopoverOpen(false);
+                      onLogout?.();
+                    }}
+                  >
+                    {t('login.logout') || 'Logout'}
+                  </Button>
+                ) : (
                   <Button
                     type="button"
                     variant="ghost"
@@ -1365,8 +1370,7 @@ const Header: React.FC<Props> = ({
                   >
                     {t('login.login') || 'Login'}
                   </Button>
-                )
-              )}
+                ))}
             </div>
           }
         >

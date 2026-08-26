@@ -61,8 +61,7 @@
     margin-left: auto;
     background: transparent;
     gap: var(--memori-spacing-md);
-    transition: background-color var(--memori-motion-duration-fast, 0.15s)
-        var(--memori-motion-ease, ease);
+    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-header-row.memori-header--scrolled,
@@ -313,7 +312,9 @@
 }
 
 /* Hide avatar column when artifact drawer is open */
-.memori-widget.memori-layout-zoomed_full_body .memori-fullpage-content-row:has(.memori--grid-column-artifact--open) .memori--grid-column-left {
+.memori-widget.memori-layout-zoomed_full_body
+    .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
+    .memori--grid-column-left {
     display: none;
 }
 

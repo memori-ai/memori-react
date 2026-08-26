@@ -389,10 +389,8 @@
     flex-shrink: 0;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: var(--memori-spacing-sm) 0 0;
-    border-top: 1px solid var(--memori-border-color);
-    margin-top: var(--memori-spacing-sm);
     margin-right: auto;
     margin-left: auto;
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
@@ -404,7 +402,7 @@
     min-width: 0;
     flex: 1 1 auto;
     margin: 0;
-    text-align: left;
+    text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -528,26 +526,6 @@
     max-width: 100%;
 }
 
-/* FULLPAGE + ZOOMED: border-top only after chat has started (under ChatInputs).
-   Start-panel footer is a direct child of the conversation column. */
-.memori-widget.memori-layout-fullpage
-    .memori-conversation-column
-    > .memori-conversation-footer,
-.memori-widget.memori-layout-zoomed_full_body
-    .memori-conversation-column
-    > .memori-conversation-footer {
-    border-top: none;
-}
-
-.memori-widget.memori-layout-fullpage
-    .memori-chat-inputs-wrapper
-    > .memori-conversation-footer,
-.memori-widget.memori-layout-zoomed_full_body
-    .memori-chat-inputs-wrapper
-    > .memori-conversation-footer {
-    border-top: 1px solid var(--memori-border-color);
-}
-
 @media (max-width: 768px) {
     .memori-conversation-footer,
     .memori-widget.memori-layout-fullpage
@@ -557,7 +535,6 @@
         .memori-chat-inputs-wrapper
         > .memori-conversation-footer {
         justify-content: center;
-        border-top: none;
         gap: 0;
     }
 

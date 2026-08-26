@@ -27,7 +27,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   autoStart,
   StartPanel,
   onSidebarToggle,
-  poweredBy,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -283,14 +282,15 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         fullScreenHandler={handleFullscreenToggle}
                       />
                     )}
-                    <label
-                      htmlFor="memori-sidebar-toggle"
-                      className="memori-sidebar-toggle-label memori-close-label memori-hidden-chat-layout--header-close"
+                    <button
+                      type="button"
+                      className="memori-website_assistant--close-button memori-hidden-chat-layout--header-close"
+                      onClick={handleSidebarToggle}
                       aria-label={t('collapse') || 'Close'}
                       title={t('collapse') || 'Close'}
                     >
                       <X className="memori-icon-close" aria-hidden />
-                    </label>
+                    </button>
                   </div>
                 </div>
               )}
@@ -352,7 +352,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               )}
               <div id="extension" />
             </div>
-            {poweredBy}
           </div>
         </aside>
       </div>

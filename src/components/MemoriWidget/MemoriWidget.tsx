@@ -867,6 +867,8 @@ const MemoriWidget = ({
     useState(false);
   const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
   const [positionPopoverOpen, setPositionPopoverOpenState] = useState(false);
+  const [autoStartPositionGeolocation, setAutoStartPositionGeolocation] =
+    useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
@@ -2674,12 +2676,12 @@ const MemoriWidget = ({
   }`
     );
   }
-  if (integrationConfig?.blurBackground) {
+  if (integrationConfig?.blurBackground === false) {
     integrationStylesheetParts.push(
       `.memori-widget .memori-chat--history--has-global-background::before,
   .memori-widget .memori-chat-layout--main--has-background::before {
-    filter: blur(5px);
-    transform: scale(1.06);
+    filter: none;
+    transform: none;
   }`
     );
   }
@@ -3272,6 +3274,11 @@ const MemoriWidget = ({
             onClickStart();
           });
         }
+        if (!open) {
+          queueMicrotask(() => {
+            setAutoStartPositionGeolocation(false);
+          });
+        }
         return open;
       });
     },
@@ -3480,6 +3487,7 @@ const MemoriWidget = ({
     setVenue: setPosition,
     positionPopoverOpen,
     setPositionPopoverOpen,
+    autoStartPositionGeolocation,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
@@ -3491,7 +3499,9 @@ const MemoriWidget = ({
     setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
     showChatHistory:
-      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+      selectedLayout === 'WEBSITE_ASSISTANT'
+        ? false
+        : showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     showMessageConsumption: enableMessageConsumption,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
@@ -3547,7 +3557,10 @@ const MemoriWidget = ({
     apiUrl: client.constants.BACKEND_URL,
     position: position,
     setVenue: setPosition,
-    openPositionPopover: () => setPositionPopoverOpen(true),
+    openPositionPopover: () => {
+      setAutoStartPositionGeolocation(true);
+      setPositionPopoverOpen(true);
+    },
     integrationConfig: integrationConfig,
     instruct: instruct,
     sessionId: sessionId,
@@ -3560,7 +3573,9 @@ const MemoriWidget = ({
     showLogin: canShowLoginButton,
     setShowLoginDrawer,
     showChatHistory:
-      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+      selectedLayout === 'WEBSITE_ASSISTANT'
+        ? false
+        : showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     setShowChatHistoryDrawer,
     user,
   };
@@ -3655,7 +3670,7 @@ const MemoriWidget = ({
   const integrationStyle =
     integration &&
     (Object.keys(integrationProperties).length > 0 ||
-      integrationConfig?.blurBackground) ? (
+      integrationConfig?.blurBackground === false) ? (
       <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
     ) : null;
 

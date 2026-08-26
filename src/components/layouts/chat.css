@@ -61,6 +61,7 @@
     min-height: 0;
     flex: 1 1 auto;
     flex-direction: column;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body {
@@ -377,7 +378,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     content: '';
+    filter: blur(5px);
     pointer-events: none;
+    transform: scale(1.06);
 }
 
 .memori-chat-layout--main--has-background .memori--grid-column-artifact {

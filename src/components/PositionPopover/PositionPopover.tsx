@@ -31,16 +31,21 @@ export interface PositionPopoverProps {
   triggerButtonVariant?: React.ComponentProps<typeof Button>['variant'];
   triggerAriaLabel: string;
   positionerClassName?: string;
+  /** When true, start browser geolocation as soon as the popover opens. */
+  autoStartGeolocation?: boolean;
 }
 
 export interface PositionPopoverContentProps {
   venue?: Venue;
   setVenue: (venue?: Venue) => void;
+  /** When true, start browser geolocation as soon as the panel mounts (e.g. StartPanel CTA). */
+  autoStartGeolocation?: boolean;
 }
 
 export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
   venue,
   setVenue,
+  autoStartGeolocation = false,
 }) => {
   const { t } = useTranslation();
   const { add } = useAlertManager();
@@ -55,6 +60,7 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
   const [suggestions, setSuggestions] = useState<NominatimItem[]>([]);
   const geoGenRef = useRef(0);
   const autocompleteInputRef = useRef<HTMLInputElement>(null);
+  const autoStartedRef = useRef(false);
 
   const sharingActive = geolocationLoading || hasShareableCoords(venue);
 
@@ -201,6 +207,17 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
   }, [geolocationLoading, setVenue, sharingActive, startGeolocation]);
 
   useEffect(() => {
+    if (!autoStartGeolocation) {
+      autoStartedRef.current = false;
+      return;
+    }
+    if (autoStartedRef.current) return;
+    if (hasShareableCoords(venue) || geolocationLoading) return;
+    autoStartedRef.current = true;
+    startGeolocation();
+  }, [autoStartGeolocation, geolocationLoading, startGeolocation, venue]);
+
+  useEffect(() => {
     if (!editingLocation) return;
     const id = requestAnimationFrame(() => {
       autocompleteInputRef.current?.focus();
@@ -316,6 +333,7 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
   triggerButtonVariant = 'primary',
   triggerAriaLabel,
   positionerClassName,
+  autoStartGeolocation = false,
 }) => {
   const sharingActive = hasShareableCoords(venue);
 
@@ -357,7 +375,13 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
           ),
         },
       }}
-      content={<PositionPopoverContent venue={venue} setVenue={setVenue} />}
+      content={
+        <PositionPopoverContent
+          venue={venue}
+          setVenue={setVenue}
+          autoStartGeolocation={open && autoStartGeolocation}
+        />
+      }
     >
       {null}
     </Popover>

@@ -79,6 +79,8 @@ export interface MobileSessionPanelProps {
   history?: Message[];
   aiUsageTitle?: string;
   isLoggedIn?: boolean;
+  /** When false, hide profile / login / logout controls (authToken alone must not surface them). */
+  showLogin?: boolean;
   loginLabel?: string;
   onLogin?: () => void;
 }
@@ -179,11 +181,14 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   history = [],
   aiUsageTitle,
   isLoggedIn = false,
+  showLogin = false,
   loginLabel = 'Log in',
   onLogin,
   venue,
   setVenue,
 }) => {
+  const showAuthControls = showLogin;
+  const showProfileControls = showAuthControls && isLoggedIn;
   const panelRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const panelTitleId = 'mobile-session-panel-title';
@@ -465,7 +470,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
         {!isPopover && <div className="memori-mobile-session-panel--handle" />}
         {activeView === 'session' ? (
           <>
-            {isLoggedIn && (
+            {showProfileControls && (
               <div className="memori-mobile-session-panel--user">
                 <div className="memori-dropdown--avatar-wrap">
                   {avatarURL ? (
@@ -671,7 +676,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 </li>
               ))}
             </ul>
-            {isLoggedIn && (
+            {showProfileControls && (
               <Button
                 variant="toolbar"
                 size="sm"
@@ -687,7 +692,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 </span>
               </Button>
             )}
-            {!isLoggedIn && (
+            {showAuthControls && !isLoggedIn && (
               <div className="memori-mobile-session-panel--login-cta-wrap">
                 <Button
                   variant="toolbar"
