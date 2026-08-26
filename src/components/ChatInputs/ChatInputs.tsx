@@ -35,6 +35,7 @@ export interface Props {
   isTyping?: boolean;
   sessionID?: string;
   memoriID?: string;
+  baseUrl?: string;
   client?: ReturnType<typeof memoriApiClient>;
   onTextareaExpanded?: (expanded: boolean) => void;
   /** Override total document payload limit (character count). */
@@ -70,6 +71,7 @@ const ChatInputs: React.FC<Props> = ({
   sessionID,
   authToken,
   memoriID,
+  baseUrl,
   client,
   onTextareaExpanded,
   maxTotalMessagePayload,
@@ -367,6 +369,7 @@ ${text}
                   authToken={authToken}
                   client={client}
                   sessionID={sessionID}
+                  baseUrl={baseUrl}
                   isMediaAccepted={dialogState?.acceptsMedia || false}
                   setDocumentPreviewFiles={setDocumentPreviewFiles}
                   documentPreviewFiles={documentPreviewFiles}

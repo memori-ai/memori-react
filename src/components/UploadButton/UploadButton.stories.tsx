@@ -121,7 +121,7 @@ A unified upload button that supports both images and documents with the followi
 ## Limits
 
 - **Images**: Maximum 5 images, 15MB per file, formats: .jpg, .jpeg, .png
-- **Documents**: Maximum 5 documents, 15MB per file, formats: .pdf, .txt, .json, .xlsx, .csv, .md
+- **Documents**: Maximum 5 documents, 25MB per file; PDF, Office, OpenDocument, HTML, structured text, and plain-text formats
 - **Content**: Document content is limited to 300,000 characters per document (truncated if exceeded)
         `,
       },
@@ -206,7 +206,7 @@ const Template: Story<UploadButtonProps> = (args) => {
             <li>Drag and drop files anywhere in this area</li>
             <li>Press <kbd style={{ padding: '2px 6px', backgroundColor: '#f0f0f0', borderRadius: '3px' }}>Cmd+V</kbd> / <kbd style={{ padding: '2px 6px', backgroundColor: '#f0f0f0', borderRadius: '3px' }}>Ctrl+V</kbd> to open file chooser</li>
             <li>Paste files from clipboard using <kbd style={{ padding: '2px 6px', backgroundColor: '#f0f0f0', borderRadius: '3px' }}>Cmd+V</kbd> / <kbd style={{ padding: '2px 6px', backgroundColor: '#f0f0f0', borderRadius: '3px' }}>Ctrl+V</kbd></li>
-            <li>Upload both images (.jpg, .jpeg, .png) and documents (.pdf, .txt, .json, .xlsx, .csv, .md)</li>
+            <li>Upload images and supported PDF, Office, OpenDocument, HTML, or text documents</li>
           </ul>
         </div>
       </div>
