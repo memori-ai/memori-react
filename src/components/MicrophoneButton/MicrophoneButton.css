@@ -46,7 +46,10 @@
 
 .memori-chat-inputs--mic:hover {
     background-color: #f2eef5 !important;
+    box-shadow: none !important;
     color: #555 !important;
+    opacity: 1;
+    transform: none;
 }
 
 .memori-chat-inputs--mic:active,
@@ -59,22 +62,11 @@
     color: #555 !important;
 }
 
-/* Layout-scoped mic colors (FULL_PAGE / HIDDEN_CHAT / WEBSITE_ASSISTANT) */
+/* Layout-scoped mic resting color (FULL_PAGE / HIDDEN_CHAT / WEBSITE_ASSISTANT) */
 .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic,
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic,
 .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic {
     color: #9c98a4;
-}
-
-.memori-widget.memori-layout-fullpage .memori-chat-inputs--mic:hover {
-    background-color: #332f3a !important;
-    color: #d8d6de !important;
-}
-
-.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic:hover,
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic:hover {
-    background-color: transparent !important;
-    color: #d8d6de !important;
 }
 
 /* Enhanced touch feedback for mobile */

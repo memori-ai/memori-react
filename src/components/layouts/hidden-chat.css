@@ -122,6 +122,12 @@
     white-space: normal;
 }
 
+.memori-widget.memori--active.memori-layout-hidden_chat
+    .memori-conversation-footer
+    .memori-chat-inputs--ai-note {
+    text-align: left;
+}
+
 .memori-sidebar {
     position: fixed;
     z-index: 1000;

@@ -144,8 +144,10 @@
 
 .memori-chat-inputs--upload-wrapper .memori-button:hover {
     background: #f2eef5 !important;
+    box-shadow: none !important;
     color: #555 !important;
     opacity: 1;
+    transform: none;
 }
 
 .memori-chat-inputs--upload-wrapper .memori-button:disabled {
@@ -191,7 +193,10 @@
 
 .memori-chat-inputs--mic-btn:hover {
     background: #f2eef5;
+    box-shadow: none;
     color: #555;
+    opacity: 1;
+    transform: none;
 }
 
 .memori-chat-inputs--mic-btn:disabled {
@@ -268,7 +273,10 @@
 .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover,
 .memori-chat-inputs--trailing .memori-chat-inputs--mic .memori-button:hover {
     background: #f2eef5 !important;
+    box-shadow: none !important;
     color: #555 !important;
+    opacity: 1;
+    transform: none;
 }
 
 .memori-chat-inputs--trailing .memori-chat-inputs--mic svg {
@@ -279,6 +287,8 @@
 }
 
 /* Light hover surface (#f2eef5) — keep the icon black in dark mode for contrast */
+.memori-widget[data-theme='dark'] .memori-chat-inputs--upload-wrapper .memori-button:hover,
+.memori-widget[data-theme='dark'] .memori-chat-inputs--upload-wrapper .memori-button:hover svg,
 .memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover,
 .memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover svg,
 .memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover,
@@ -407,6 +417,11 @@
     white-space: nowrap;
 }
 
+/* Conversation started (`memori--active`): keep the AI note flush left under the input */
+.memori-widget.memori--active .memori-conversation-footer .memori-chat-inputs--ai-note {
+    text-align: left;
+}
+
 .memori-conversation-footer .memori--powered-by {
     position: static !important;
     z-index: auto;
@@ -461,7 +476,7 @@
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs-wrapper {
     position: relative;
     width: 100%;
-    padding: 14px 18px;
+    padding: 14px 0px;
     border-top: none;
     background: var(--memori-secondary-background);
 }
@@ -528,12 +543,8 @@
 
 @media (max-width: 768px) {
     .memori-conversation-footer,
-    .memori-widget.memori-layout-fullpage
-        .memori-chat-inputs-wrapper
-        > .memori-conversation-footer,
-    .memori-widget.memori-layout-zoomed_full_body
-        .memori-chat-inputs-wrapper
-        > .memori-conversation-footer {
+    .memori-widget.memori-layout-fullpage .memori-chat-inputs-wrapper > .memori-conversation-footer,
+    .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs-wrapper > .memori-conversation-footer {
         justify-content: center;
         gap: 0;
     }
@@ -549,6 +560,15 @@
         text-align: center;
         text-overflow: unset;
         white-space: normal;
+    }
+
+    .memori-widget.memori--active .memori-conversation-footer {
+        justify-content: flex-start;
+    }
+
+    .memori-widget.memori--active .memori-conversation-footer .memori-chat-inputs--ai-note {
+        flex: 1 1 auto;
+        text-align: left;
     }
 }
 

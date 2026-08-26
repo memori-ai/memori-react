@@ -1,6 +1,9 @@
 .memori-widget.memori-layout-chat {
     overflow: hidden;
     height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh;
+    max-height: 100dvh;
     padding: 0;
 }
 
@@ -26,9 +29,6 @@
 }
 
 @media (max-width: 600px) {
-    .memori-widget.memori-layout-chat .memori-chat-inputs-wrapper {
-        margin-bottom: var(--memori-spacing-md);
-    }
     .memori-widget.memori-layout-chat .memori--start-description {
         display: none;
     }
@@ -205,6 +205,15 @@
         text-overflow: unset;
         white-space: normal;
     }
+
+    .memori-widget.memori--active.memori-layout-chat .memori-conversation-footer {
+        justify-content: flex-start;
+    }
+
+    .memori-widget.memori--active.memori-layout-chat .memori-conversation-footer .memori-chat-inputs--ai-note {
+        flex: 1 1 auto;
+        text-align: left;
+    }
 }
 
 .memori-chat-layout--controls .memori-chat--wrapper {
@@ -304,9 +313,12 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
+    min-height: 0;
     flex: 1;
     flex-direction: row;
-    align-items: center;
+    /* Stretch — never center the column vertically or an overflowing
+       controls pane gets clipped at the top (header) and leaves a gap below. */
+    align-items: stretch;
     justify-content: center;
     /* max-width: 1200px; */
     transition: all 0.05s ease-in-out;
@@ -320,6 +332,7 @@
     min-width: 0;
     height: 100%;
     max-height: 100%;
+    min-height: 0;
     flex: 1;
     flex-direction: column;
     transition: all 0.05s ease-in-out;
@@ -334,6 +347,10 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--controls {
     border-radius: 0;
     background: var(--memori-secondary-background);
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--header {
+    flex-shrink: 0;
 }
 
 /* Artifact drawer column inside the Chat layout's flex row */
@@ -507,7 +524,7 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori--start-panel,
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     min-width: 0;
-    margin-top: var(--memori-spacing-lg);
+    min-height: 0;
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {

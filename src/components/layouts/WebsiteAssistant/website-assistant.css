@@ -319,6 +319,12 @@
     white-space: normal;
 }
 
+.memori-widget.memori--active.memori-layout-website_assistant
+    .memori-conversation-footer
+    .memori-chat-inputs--ai-note {
+    text-align: left;
+}
+
 /* ============================================
    HEADER
    ============================================ */
