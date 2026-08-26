@@ -6,6 +6,7 @@ import { Button, Tooltip } from '@memori.ai/ui';
 import { useAlertManager } from '@memori.ai/ui';
 import { Send, Mic } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
+import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
@@ -416,11 +417,10 @@ ${text}
           <div className="memori-chat-inputs--trailing">
             <div className="memori-chat-inputs--trailing-inner">
               {showMicrophone && microphoneMode === 'CONTINUOUS' && (
-                <button
+                <IconButton
                   type="button"
-                  className={cx('memori-chat-inputs--mic-btn', {
-                    'memori-chat-inputs--mic-btn--listening': listening,
-                  })}
+                  className="memori-chat-inputs--mic-btn"
+                  recording={!!listening}
                   title={
                     listening
                       ? t('write_and_speak.micButtonPopoverListening') ||
@@ -445,9 +445,9 @@ ${text}
                       : t('write_and_speak.micButtonPopover') ||
                         'Start listening'
                   }
-                >
-                  <Mic className="icon" aria-hidden />
-                </button>
+                  aria-pressed={!!listening}
+                  icon={<Mic className="icon" aria-hidden />}
+                />
               )}
               {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
                 <MicrophoneButton

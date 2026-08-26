@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
 import { Mic } from 'lucide-react';
-import { Button, Tooltip } from '@memori.ai/ui';
+import { Tooltip } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {
@@ -112,10 +113,10 @@ const MicrophoneButton = ({
       }}
     >
       <div onContextMenu={handleContextMenu}>
-        <Button
-          variant="ghost"
+        <IconButton
           size="sm"
-          className={`memori-chat-inputs--mic${listening ? ' memori-chat-inputs--mic--listening' : ''}`}
+          className="memori-chat-inputs--mic"
+          recording={!!listening}
           aria-label={listening ? listeningHint : idleHint}
           aria-pressed={!!listening}
           disabled={disabled}
@@ -124,7 +125,6 @@ const MicrophoneButton = ({
           onMouseUp={stopHold}
           onTouchEnd={handleTouchEnd}
           onMouseLeave={stopHold}
-          // shape="circle"
           icon={<Mic />}
         />
       </div>

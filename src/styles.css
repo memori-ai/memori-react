@@ -31,6 +31,7 @@
 @import url('./components/ExpertsDrawer/ExpertsDrawer.css');
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
+@import url('./components/IconButton/IconButton.css');
 @import url('./components/Header/Header.css');
 @import url('./components/PositionPopover/PositionPopover.css');
 @import url('./components/MediaWidget/MediaItemWidget.css');

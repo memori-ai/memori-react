@@ -1,9 +1,9 @@
-/* Hold-to-talk: tooltip uses align=topLeft so the bubble stays in view (mic sits on the trailing edge). */
+/* Hold-to-talk: tooltip chrome only — button look owned by IconButton */
+
 .memori-chat-inputs--mic-tooltip.memori-tooltip {
     vertical-align: middle;
 }
 
-/* Library default is overflow: hidden auto + max-height — avoid scrollbars on short hint text */
 .memori-chat-inputs--mic-tooltip .memori-tooltip--content {
     overflow: visible;
     max-height: none;
@@ -11,138 +11,13 @@
 
 .memori-chat-inputs--mic {
     z-index: 1;
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
-    box-sizing: border-box;
     flex-shrink: 0;
-    padding: 0;
-    border: none;
-    border-radius: 10px;
     margin-left: 0;
-    background: transparent;
-    color: #888;
-    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-touch-callout: none;
-    transition: background 0.15s ease, color 0.15s ease;
     -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    -webkit-user-select: none;
     user-select: none;
-}
-
-.memori-chat-inputs--mic svg {
-    width: 18px;
-    height: 18px;
-    color: inherit;
-    font-size: 1em;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.memori-chat-inputs--mic:hover {
-    background-color: #f2eef5 !important;
-    box-shadow: none !important;
-    color: #555 !important;
-    opacity: 1;
-    transform: none;
-}
-
-.memori-chat-inputs--mic:active,
-.memori-chat-inputs--mic:focus {
-    box-shadow: none !important;
-}
-
-.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active,
-.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):focus {
-    color: #555 !important;
-}
-
-/* Layout-scoped mic resting color (FULL_PAGE / HIDDEN_CHAT / WEBSITE_ASSISTANT) */
-.memori-widget.memori-layout-fullpage .memori-chat-inputs--mic,
-.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic,
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic {
-    color: #9c98a4;
-}
-
-/* Enhanced touch feedback for mobile */
-@media (hover: none) and (pointer: coarse) {
-    .memori-chat-inputs--mic:active {
-        transform: scale(0.95);
-        transition: transform 0.1s ease;
-    }
-
-    .memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active {
-        background-color: #f2eef5;
-    }
-}
-
-@keyframes micBtnActivePulse {
-    0% {
-        transform: scale(1.25);
-    }
-
-    25% {
-        transform: scale(1.4);
-    }
-
-    50% {
-        transform: scale(1.3);
-    }
-
-    75% {
-        transform: scale(1.4);
-    }
-
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
-    position: relative;
-    color: red !important;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    -webkit-touch-callout: none;
-    transform: scale(1.5);
-}
-
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::before,
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    animation: micBtnActivePulse 2s infinite;
-    background: var(--memori-primary);
-    content: '';
-    opacity: 0.2;
-}
-
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
-    animation-delay: 0.3s;
-    opacity: 0.3;
-}
-
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:active,
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:focus {
-    border-color: red !important;
-}
-
-.memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
-    color: red !important;
 }
 
 .memori-chat-inputs--mic-tooltip.memori-tooltip--align-topLeft .memori-tooltip--content {
@@ -156,53 +31,5 @@
     font-size: 0.85em;
     opacity: 0;
     text-align: center;
-    /* left: 0; */
     transform: translateY(-100%);
-}
-
-/* Mobile-specific improvements for listening state */
-@media (hover: none) and (pointer: coarse) {
-    .memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
-        transform: scale(1.3);
-    }
-
-    .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::before,
-    .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
-        animation-duration: 1.5s;
-    }
-}
-
-[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic {
-    color: #fff;
-}
-
-.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic .lucide-mic,
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic .lucide-mic,
-.memori-widget.memori-layout-website_assistant[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic .lucide-mic {
-    color: inherit;
-}
-
-/* Light hover surface (#f2eef5) — keep the icon black in dark mode for contrast */
-.memori-widget[data-theme='dark'] .memori-chat-inputs--mic:hover,
-.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs--mic:hover,
-[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic:hover,
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-chat-inputs--mic:hover,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic:hover,
-.memori-widget.memori-layout-website_assistant[data-theme='dark'] .memori-chat-inputs--mic:hover,
-[data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic:hover,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover {
-    color: #000 !important;
-}
-
-.memori-widget[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
-.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs--mic:hover .lucide-mic,
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--mic:hover .lucide-mic,
-.memori-widget.memori-layout-website_assistant[data-theme='dark'] .memori-chat-inputs--mic:hover .lucide-mic,
-[data-theme='dark'] .memori-widget.memori-layout-website_assistant .memori-chat-inputs--mic:hover .lucide-mic {
-    color: #000 !important;
 }

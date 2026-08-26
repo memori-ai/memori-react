@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Spin } from '@memori.ai/ui';
+import { Spin } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import { useTranslation } from 'react-i18next';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import {
@@ -281,11 +282,9 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                     buttonVariant="outline"
                     extraActions={
                       isMobile ? (
-                        <Button
-                          variant="outline"
-                          className={`memori-chat-layout--overflow-trigger ${
-                            mobileSheetOpen ? 'memori-button--active' : ''
-                          }`}
+                        <IconButton
+                          className="memori-chat-layout--overflow-trigger"
+                          active={mobileSheetOpen}
                           aria-label={t('widget.moreActions') || 'More actions'}
                           icon={<EllipsisVertical />}
                           onClick={() =>

@@ -107,7 +107,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                         >
                           <button
                             aria-label="widget.sound"
-                            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+                            class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
                             tabindex="0"
                             title="widget.sound"
                             type="button"
@@ -116,15 +116,16 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                               class="memori-button__icon"
                             >
                               <svg
+                                aria-hidden="true"
                                 class="lucide lucide-volume2"
                                 fill="none"
-                                height="24"
+                                height="20"
                                 stroke="currentColor"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
                                 viewBox="0 0 24 24"
-                                width="24"
+                                width="20"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path

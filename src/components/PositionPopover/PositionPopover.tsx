@@ -5,6 +5,7 @@ import {
   useAlertManager,
   createAlertOptions,
 } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import { MapPin, Pencil } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -330,7 +331,7 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
   open,
   onOpenChange,
   triggerClassName,
-  triggerButtonVariant = 'primary',
+  triggerButtonVariant = 'toolbar',
   triggerAriaLabel,
   positionerClassName,
   autoStartGeolocation = false,
@@ -351,15 +352,16 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
           className: triggerClassName,
           render: (props: React.ComponentProps<typeof Button>) => {
             return (
-              <Button
+              <IconButton
                 {...props}
                 type="button"
                 variant={triggerButtonVariant}
+                active={open}
                 className={cx(
                   'memori-header--button',
                   'memori-header--button--position',
                   sharingActive && 'memori-header--button--position--active',
-                  open && 'memori-button--active'
+                  triggerClassName
                 )}
                 aria-label={triggerAriaLabel}
                 aria-expanded={open}

@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import GasStation from '../icons/GasStation';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
 
@@ -281,13 +282,13 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   const renderDefaultTrigger = (
     triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => (
-    <Button
+    <IconButton
       {...triggerButtonProps}
       variant={triggerVariant}
       shape="default"
+      active={open}
       className={cx(
         'memori-header--button memori-header--button--sustainability',
-        open && 'memori-button--active',
         triggerButtonProps.className
       )}
       aria-label={triggerLabel}

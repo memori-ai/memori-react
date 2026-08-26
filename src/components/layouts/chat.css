@@ -310,17 +310,20 @@
 .memori-chat-layout--main {
     position: relative;
     display: flex;
-    overflow: hidden;
+    /* clip (not hidden): the blurred/scaled global-background ::before expands
+       scrollable overflow; overflow:hidden still creates a scrollport, so
+       Chat's scrollIntoView can shift the whole chrome upward and clip the header. */
+    overflow: clip;
     width: 100%;
+    min-width: 0;
     height: 100%;
     min-height: 0;
-    flex: 1;
+    flex: 1 1 0%;
     flex-direction: row;
     /* Stretch — never center the column vertically or an overflowing
        controls pane gets clipped at the top (header) and leaves a gap below. */
     align-items: stretch;
-    justify-content: center;
-    /* max-width: 1200px; */
+    justify-content: flex-start;
     transition: all 0.05s ease-in-out;
 }
 
@@ -331,8 +334,8 @@
     overflow: hidden;
     min-width: 0;
     height: 100%;
-    max-height: 100%;
     min-height: 0;
+    max-height: 100%;
     flex: 1;
     flex-direction: column;
     transition: all 0.05s ease-in-out;
@@ -349,27 +352,34 @@
     background: var(--memori-secondary-background);
 }
 
+/* Header sits above the content row (FULLPAGE pattern) so opening the
+   artifact only redistributes the chat/artifact columns. */
 .memori-widget.memori-layout-chat .memori-chat-layout--header {
+    position: relative;
+    z-index: 6;
+    width: 100%;
     flex-shrink: 0;
 }
 
-/* Artifact drawer column inside the Chat layout's flex row */
-.memori-chat-layout .memori--grid-column-artifact {
+/* Artifact drawer column — flex sibling of chat controls inside --main */
+.memori-widget.memori-layout-chat .memori--grid-column-artifact {
     overflow: hidden;
     width: 0;
     min-width: 0;
+    height: 100%;
+    min-height: 0;
     flex-shrink: 0;
     transition: width 0.25s ease;
 }
 
-.memori-chat-layout .memori--grid-column-artifact--open {
-    width: 620px;
+.memori-widget.memori-layout-chat .memori--grid-column-artifact--open {
+    width: min(620px, 55%);
     border-left: 1px solid var(--memori-border-color);
     background: var(--memori-secondary-background);
 }
 
 @media (max-width: 1260px) {
-    .memori-chat-layout .memori--grid-column-artifact {
+    .memori-widget.memori-layout-chat .memori--grid-column-artifact {
         display: none;
     }
 }
@@ -400,7 +410,7 @@
     transform: scale(1.06);
 }
 
-.memori-chat-layout--main--has-background .memori--grid-column-artifact {
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori--grid-column-artifact {
     position: relative;
     z-index: 5;
 }
@@ -410,23 +420,23 @@
     background: transparent;
 }
 
-/* The header is a solid strip, so the image starts below it. */
-.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--header {
+/* Header is outside --main; keep it a solid strip above the backgrounded content. */
+.memori-widget.memori-layout-chat:has(.memori-chat-layout--main--has-background) .memori-chat-layout--header {
     background: var(--memori-secondary-background);
 }
 
 /* The input bar stays a solid strip, so the image ends where the messages end.
-   It breaks out of the conversation column to span the whole width; the
-   surrounding `overflow: hidden` on the controls clips it to the chat column. */
+   It breaks out of the conversation column to span the whole chat column width; the
+   surrounding `overflow: clip` on --main clips it to the chat column (not under the artifact). */
 .memori-widget.memori-layout-chat
     .memori-chat-layout--main--has-background
     .memori-conversation-column
     > .memori-chat-inputs-wrapper {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: none;
     margin-bottom: 0;
     background: var(--memori-secondary-background);
-    margin-inline: calc(50% - 50vw);
+    margin-inline: 0;
     padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
 }
 

@@ -240,8 +240,17 @@ const Chat: React.FC<Props> = ({
   const scrollToBottom = useCallback(() => {
     if (isHistoryView) return;
     setTimeout(() => {
-      let userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
-      userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
+      const userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
+      const last = userMsgs[userMsgs.length - 1] as HTMLElement | undefined;
+      if (!last) return;
+      // Scroll only the history pane — never scrollIntoView on ancestors
+      // (layout chrome with overflow can shift and clip the header).
+      const history = last.closest('.memori-chat--history') as HTMLElement | null;
+      if (history) {
+        history.scrollTop = history.scrollHeight;
+        return;
+      }
+      last.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
     }, 200);
   }, [isHistoryView]);
 

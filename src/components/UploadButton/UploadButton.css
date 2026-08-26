@@ -64,29 +64,11 @@
     display: inline-flex;
 }
 
-/* Main Upload Button */
-.memori--unified-upload-button {
+/* Main Upload Button — chrome from IconButton */
+.memori--unified-upload-button.memori-icon-button {
     position: relative;
-    display: flex;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e0e0e0;
-    border-radius: 50%;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
 
-.memori--unified-upload-button:hover {
-    background-color: #efefef;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
-}
-
-/* Document Button */
 .memori--document-upload-button {
     position: relative;
     display: flex;

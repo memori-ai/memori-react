@@ -44,6 +44,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
 import ChatConsumptionDropdown from './ChatConsumptionDropdown';
+import IconButton from '../IconButton/IconButton';
 import { imgMimeTypes } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 
@@ -482,7 +483,7 @@ const Header: React.FC<Props> = ({
       placement="bottom"
     >
       <span style={{ display: 'inline-flex' }}>
-        <Button
+        <IconButton
           variant={buttonVariant}
           className="memori-header--chat-history-button"
           disabled={!loginToken}
@@ -490,8 +491,12 @@ const Header: React.FC<Props> = ({
           icon={<MessageCircle />}
           onClick={() => setShowChatHistoryDrawer(true)}
         >
-          {chatHistoryButtonLabel}
-        </Button>
+          {chatHistoryButtonLabel ? (
+            <span className="memori-header--action-label">
+              {chatHistoryButtonLabel}
+            </span>
+          ) : null}
+        </IconButton>
       </span>
     </Tooltip>
   );
@@ -522,13 +527,11 @@ const Header: React.FC<Props> = ({
               render: (props: React.ComponentProps<typeof Button>) => (
                 <Tooltip title={t('login.user') || 'User'} placement="bottom">
                   <span style={{ display: 'inline-flex' }}>
-                    <Button
+                    <IconButton
                       {...props}
+                      active={userPopoverOpen}
                       variant={buttonVariant}
-                      className={cx(
-                        'memori-dropdown--user-trigger-button',
-                        userPopoverOpen && 'memori-button--active'
-                      )}
+                      className="memori-dropdown--user-trigger-button"
                       aria-label={t('login.user') || 'User'}
                       icon={<UserIcon />}
                     />
@@ -618,15 +621,17 @@ const Header: React.FC<Props> = ({
                 </div>
               </div>
               <div className="memori-dropdown--separator" />
-              <Button
+              <IconButton
                 type="button"
                 variant={buttonVariant}
                 onClick={onLogout}
                 className="memori-dropdown--action-button memori-dropdown--action-button--logout"
                 icon={<LogOut size={18} strokeWidth={2} aria-hidden />}
               >
-                {t('login.logout') || 'Logout'}
-              </Button>
+                <span className="memori-header--action-label">
+                  {t('login.logout') || 'Logout'}
+                </span>
+              </IconButton>
             </div>
           }
         >
@@ -687,7 +692,7 @@ const Header: React.FC<Props> = ({
       {showReload && (
         <Tooltip title={t('reload') || 'Reload'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               aria-label={t('reload') || 'Reload'}
               icon={<RefreshCw />}
@@ -701,7 +706,7 @@ const Header: React.FC<Props> = ({
       {showClear && (
         <Tooltip title={t('clearHistory') || 'Clear chat'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               aria-label={t('clearHistory') || 'Clear chat'}
               icon={<Trash2 />}
@@ -732,7 +737,7 @@ const Header: React.FC<Props> = ({
       {showFullscreen && fullScreenAvailable && (
         <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               title={fullscreenLabel}
               aria-label={fullscreenLabel}
@@ -811,7 +816,7 @@ const Header: React.FC<Props> = ({
             placement="bottom"
           >
             <span style={{ display: 'inline-flex' }}>
-              <Button
+              <IconButton
                 variant={buttonVariant}
                 icon={<Brain />}
                 aria-label={t('knownFacts.title') || 'Known facts'}
@@ -826,7 +831,7 @@ const Header: React.FC<Props> = ({
           placement="bottom"
         >
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               icon={<Users />}
               disabled={!hasUserActivatedSpeak || !sessionID}
@@ -841,9 +846,9 @@ const Header: React.FC<Props> = ({
       {enableAudio && (
         <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
-              icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+              icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
               title={soundLabel}
               aria-label={soundLabel}
               onClick={() => setSpeakerMuted(!speakerMuted)}
@@ -860,7 +865,7 @@ const Header: React.FC<Props> = ({
       {showSettings && hasSettingsContent(layout, additionalSettings) && (
         <Tooltip title={t('widget.settings') || 'Settings'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               icon={<Settings />}
               aria-label={t('widget.settings') || 'Settings'}
@@ -919,13 +924,11 @@ const Header: React.FC<Props> = ({
               render: (props: React.ComponentProps<typeof Button>) => (
                 <Tooltip title="Info sessione" placement="bottom">
                   <span style={{ display: 'inline-flex' }}>
-                    <Button
+                    <IconButton
                       {...props}
+                      active={infoPopoverOpen}
                       variant={buttonVariant}
-                      className={cx(
-                        'memori-header--auth-icon-button',
-                        infoPopoverOpen && 'memori-button--active'
-                      )}
+                      className="memori-header--auth-icon-button"
                       aria-label="Info sessione"
                       icon={<MoreVertical />}
                     />
@@ -1021,7 +1024,7 @@ const Header: React.FC<Props> = ({
       {showFullscreen && fullScreenAvailable && (
         <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               className="memori-header--auth-icon-button"
               title={fullscreenLabel}
@@ -1089,12 +1092,12 @@ const Header: React.FC<Props> = ({
       {enableAudio && (
         <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
-            <Button
+            <IconButton
               variant={buttonVariant}
               className="memori-header--auth-icon-button"
               title={soundLabel}
               aria-label={soundLabel}
-              icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+              icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
               onClick={() => setSpeakerMuted(!speakerMuted)}
             />
           </span>
@@ -1195,10 +1198,10 @@ const Header: React.FC<Props> = ({
         {enableAudio && (
           <Tooltip title={soundLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
-              <Button
+              <IconButton
                 variant={buttonVariant}
                 className="memori-totem-rail--button"
-                icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+                icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
                 title={soundLabel}
                 aria-label={soundLabel}
                 aria-pressed={speakerMuted}
@@ -1210,7 +1213,7 @@ const Header: React.FC<Props> = ({
         {showFullscreen && fullScreenAvailable && (
           <Tooltip title={fullscreenLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
-              <Button
+              <IconButton
                 variant={buttonVariant}
                 className="memori-totem-rail--button"
                 icon={fullScreen ? <Minimize /> : <Maximize />}
@@ -1260,13 +1263,13 @@ const Header: React.FC<Props> = ({
               render: (props: React.ComponentProps<typeof Button>) => (
                 <Tooltip title={totemAccountLabel} placement="left">
                   <span style={{ display: 'inline-flex' }}>
-                    <Button
+                    <IconButton
                       {...props}
+                      active={userPopoverOpen}
                       variant={buttonVariant}
                       className={cx(
                         'memori-totem-rail--button',
-                        'memori-totem-rail--account-trigger',
-                        userPopoverOpen && 'memori-button--active'
+                        'memori-totem-rail--account-trigger'
                       )}
                       title={totemAccountLabel}
                       aria-label={totemAccountLabel}

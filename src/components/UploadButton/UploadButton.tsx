@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { Upload as UploadIcon } from 'lucide-react';
 import { Spin, Tooltip, useAlertManager } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -590,13 +591,10 @@ ${file.textAssetUrl || ''}
   const isUploadDisabled = disabled || isLoading || hasReachedMediaLimit;
 
   const uploadButton = (
-    <button
+    <IconButton
       ref={buttonRef}
       type="button"
       className={cx(
-        'memori-button',
-        'memori-button--circle',
-        'memori-button--icon-only',
         'memori-share-button--button',
         'memori--conversation-button',
         'memori--unified-upload-button'
@@ -611,7 +609,7 @@ ${file.textAssetUrl || ''}
       ) : (
         <UploadIcon className="memori--upload-icon" />
       )}
-    </button>
+    </IconButton>
   );
 
   return (

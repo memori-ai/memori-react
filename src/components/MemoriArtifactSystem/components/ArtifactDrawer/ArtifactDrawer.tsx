@@ -25,6 +25,7 @@ import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import cx from 'classnames';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
+import IconButton from '../../../IconButton/IconButton';
 
 const ArtifactDrawer: React.FC<{
   isChatLogPanel?: boolean;
@@ -261,19 +262,14 @@ const ArtifactDrawer: React.FC<{
               isMobile={isMobile}
             />
             {!isChatLogPanel && (
-              <Button
+              <IconButton
                 onClick={closeArtifact}
-                variant="outline"
                 aria-label={t('artifact.close') || 'Close'}
-                className="memori-artifact-drawer--close-desktop"
-                icon={
-                  <X
-                    className="memori-artifact-panel--close-icon"
-                    aria-hidden
-                  />
-                }
                 title={t('artifact.close') || 'Close'}
-              />
+                className="memori-artifact-drawer--close"
+              >
+                <X className="memori-icon-close" aria-hidden />
+              </IconButton>
             )}
           </>
         )}
@@ -395,19 +391,14 @@ const ArtifactDrawer: React.FC<{
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Button
+              <IconButton
                 onClick={closeArtifact}
-                className={cx(
-                  'memori-artifact-drawer--close',
-                  'memori-button--icon-only'
-                )}
-                variant="ghost"
                 aria-label={t('artifact.close') || 'Close'}
                 title={t('artifact.close') || 'Close'}
-                icon={
-                  <X className="memori-artifact-panel--close-icon" aria-hidden />
-                }
-              />
+                className="memori-artifact-drawer--close"
+              >
+                <X className="memori-icon-close" aria-hidden />
+              </IconButton>
             </div>
           </>
         )}

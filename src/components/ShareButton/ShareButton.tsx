@@ -16,6 +16,7 @@ import {
   createAlertOptions,
   Tooltip,
 } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
 import {
   Tenant,
@@ -549,28 +550,26 @@ const ShareButton: React.FC<Props> = ({
           showChevron={false}
           className="memori-share-button--trigger"
           render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-            <Button
+            <IconButton
               {...props}
               variant={triggerVariant}
+              active={isShareMenuOpen}
               title={String(triggerLabel || t('widget.share') || 'Share')}
               aria-label={String(
                 triggerLabel || t('widget.share') || 'Share'
               )}
               icon={<Share2 aria-hidden />}
-              className={cx(
-                {
-                  'memori-share-button--trigger-menu-item':
-                    triggerMode === 'menu-item',
-                },
-                isShareMenuOpen && 'memori-button--active'
-              )}
+              className={cx({
+                'memori-share-button--trigger-menu-item':
+                  triggerMode === 'menu-item',
+              })}
             >
               {triggerMode === 'menu-item' || triggerLabel ? (
                 <span className="memori-header--action-label">
                   {triggerLabel || t('widget.share')}
                 </span>
               ) : undefined}
-            </Button>
+            </IconButton>
           )}
         />
       </Tooltip>

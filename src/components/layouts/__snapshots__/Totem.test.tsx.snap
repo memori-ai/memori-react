@@ -44,6 +44,8 @@ exports[`renders Totem layout unchanged 1`] = `
     --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
+    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
   }
   [data-theme="dark"] .memori-widget,
   .memori-widget[data-theme="dark"],
@@ -64,6 +66,8 @@ exports[`renders Totem layout unchanged 1`] = `
     --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
+    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
   }
 }
 
@@ -237,7 +241,7 @@ exports[`renders Totem layout unchanged 1`] = `
                     <button
                       aria-label="widget.sound"
                       aria-pressed="false"
-                      class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-totem-rail--button"
+                      class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-totem-rail--button"
                       tabindex="0"
                       title="widget.sound"
                       type="button"
@@ -246,15 +250,16 @@ exports[`renders Totem layout unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-volume2"
                           fill="none"
-                          height="24"
+                          height="20"
                           stroke="currentColor"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="2"
                           viewBox="0 0 24 24"
-                          width="24"
+                          width="20"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
@@ -286,7 +291,7 @@ exports[`renders Totem layout unchanged 1`] = `
                       aria-expanded="false"
                       aria-haspopup="menu"
                       aria-label="widget.share"
-                      class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+                      class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
                       id="base-ui-:r8:"
                       tabindex="0"
                       title="widget.share"
@@ -366,7 +371,7 @@ exports[`renders Totem layout unchanged 1`] = `
                         aria-expanded="false"
                         aria-haspopup="dialog"
                         aria-label="login.user"
-                        class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-totem-rail--button memori-totem-rail--account-trigger"
+                        class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-totem-rail--button memori-totem-rail--account-trigger"
                         data-base-ui-click-trigger=""
                         id="base-ui-:rc:"
                         tabindex="0"

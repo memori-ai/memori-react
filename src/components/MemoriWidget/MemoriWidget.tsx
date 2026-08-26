@@ -549,6 +549,11 @@ export function getChatStyles(
       'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%)',
     '--memori-skeleton-highlight':
       'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%)',
+    /* Soft fills for secondary IconButton active / recording (never solid CTA) */
+    '--memori-icon-active-bg':
+      'color-mix(in oklch, var(--memori-primary) 12%, transparent)',
+    '--memori-icon-recording-bg':
+      'color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent)',
   } as CSSProperties;
 }
 

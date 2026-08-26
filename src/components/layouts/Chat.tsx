@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, Spin } from '@memori.ai/ui';
+import { Spin } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useTranslation } from 'react-i18next';
 import {
@@ -251,6 +252,118 @@ const ChatLayout: React.FC<LayoutProps> = ({
       <Spin spinning={loading} className="memori-chat-layout">
         <div id="extension" />
 
+        {/* Header stays full-width above the content split — same pattern as FULLPAGE */}
+        <div className="memori-chat-layout--header">
+          {Header && headerProps && mobileHeaderProps && (
+            <div className="memori-fullpage-header-row">
+              <Header
+                {...mobileHeaderProps}
+                buttonVariant="outline"
+                extraActions={
+                  isMobile ? (
+                    <IconButton
+                      className="memori-chat-layout--overflow-trigger"
+                      active={mobileSheetOpen}
+                      aria-label={t('widget.moreActions') || 'More actions'}
+                      icon={<EllipsisVertical />}
+                      onClick={() =>
+                        setMobileSheetOpen(currentOpen => !currentOpen)
+                      }
+                    />
+                  ) : undefined
+                }
+              />
+            </div>
+          )}
+        </div>
+
+        {headerProps && (
+          <MobileSessionPanel
+            open={mobileSheetOpen}
+            presentation="popover"
+            onClose={() => setMobileSheetOpen(false)}
+            title={t('widget.mobileSession.session') || 'Session'}
+            loginToken={headerProps.loginToken}
+            user={headerProps.user}
+            apiClient={headerProps.apiClient}
+            userName={loggedUserDisplayName}
+            userEmail={loggedUser?.eMail}
+            userInitial={loggedUserInitial}
+            avatarURL={loggedUser?.avatarURL}
+            birthDate={loggedUser?.birthDate}
+            actions={mobileSessionActions}
+            knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
+            sharePageTitle={t('widget.share') || 'Share'}
+            locationPageTitle={
+              t('widget.mobileSession.locationTracking') || 'Location tracking'
+            }
+            backLabel={t('back') || 'Back'}
+            locationStatusLabel={
+              t('widget.mobileSession.locationStatus') || 'Status'
+            }
+            locationPlace={headerProps.position?.placeName}
+            locationUnknownLabel={
+              t('write_and_speak.unknownPosition') || 'Unknown position'
+            }
+            locationEnableLabel={t('widget.shareLocation') || 'Share location'}
+            locationDisableLabel={
+              t('widget.mobileSession.disableLocationSharing') ||
+              'Disable location sharing'
+            }
+            knownFactsDescription={
+              t('knownFacts.description', {
+                memoriName: memori?.name || '',
+              }) || ''
+            }
+            knownFactsCtaLabel={
+              t('widget.mobileSession.openKnownFacts') ||
+              'Open full known facts'
+            }
+            knownFactsCountLabel={
+              (t('widget.mobileSession.knownFactsMessages', {
+                count: headerProps.history?.length || 0,
+              }) as string) || ''
+            }
+            shareContent={
+              <ShareButton
+                tenant={headerProps?.tenant}
+                memori={headerProps?.memori}
+                sessionID={headerProps?.sessionID}
+                title={headerProps?.memori?.name}
+                baseUrl={headerProps?.baseUrl}
+                align="left"
+                history={headerProps?.history}
+                renderMode="inline"
+              />
+            }
+            knownFactsDisabled={!isSessionStarted}
+            showSessionInfo={isSessionStarted}
+            history={headerProps.history ?? []}
+            isLoggedIn={!!loggedUser}
+            showLogin={!!headerProps.showLogin}
+            loginLabel={t('login.login') || 'Log in'}
+            onLogin={() => {
+              headerProps.setShowLoginDrawer(true);
+              setMobileSheetOpen(false);
+            }}
+            onKnownFactsOpen={() => {
+              if (!isSessionStarted) return;
+              headerProps.setShowKnownFactsDrawer(true);
+              setMobileSheetOpen(false);
+            }}
+            onLocationEnable={handleEnableLocation}
+            onLocationDisable={handleDisableLocation}
+            venue={headerProps.position}
+            setVenue={headerProps.setVenue}
+            logoutLabel={t('login.logout') || 'Log out'}
+            onLogout={() => {
+              handleMobileLogout();
+              setMobileSheetOpen(false);
+            }}
+          />
+        )}
+
+        {/* Content row: chat + artifact as full-height siblings (FULLPAGE pattern) */}
         <div
           className={`memori-chat-layout--main${
             globalBackground ? ' memori-chat-layout--main--has-background' : ''
@@ -263,7 +376,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
               : undefined
           }
         >
-          {/* Chat column — flex:1, shrinks when artifact column grows */}
           <div
             className={
               state.isFullscreen
@@ -271,190 +383,72 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 : `memori-chat-layout--controls`
             }
           >
-            <div className="memori-chat-layout--header">
-              {Header && headerProps && mobileHeaderProps && (
-                <div className="memori-fullpage-header-row">
-                    <Header
-                      {...mobileHeaderProps}
-                      buttonVariant="outline"
-                      extraActions={
-                        isMobile ? (
-                          <Button
-                            variant="outline"
-                            className={`memori-chat-layout--overflow-trigger ${
-                              mobileSheetOpen ? 'memori-button--active' : ''
-                            }`}
-                            aria-label={
-                              t('widget.moreActions') || 'More actions'
-                            }
-                            icon={<EllipsisVertical />}
-                            onClick={() =>
-                              setMobileSheetOpen(currentOpen => !currentOpen)
-                            }
-                          />
-                        ) : undefined
-                      }
-                    />
-                </div>
-              )}
-            </div>
-
-            {headerProps && (
-              <MobileSessionPanel
-                open={mobileSheetOpen}
-                presentation="popover"
-                onClose={() => setMobileSheetOpen(false)}
-                title={t('widget.mobileSession.session') || 'Session'}
-                loginToken={headerProps.loginToken}
-                user={headerProps.user}
-                apiClient={headerProps.apiClient}
-                userName={loggedUserDisplayName}
-                userEmail={loggedUser?.eMail}
-                userInitial={loggedUserInitial}
-                avatarURL={loggedUser?.avatarURL}
-                birthDate={loggedUser?.birthDate}
-                actions={mobileSessionActions}
-                knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
-                sharePageTitle={t('widget.share') || 'Share'}
-                locationPageTitle={
-                  t('widget.mobileSession.locationTracking') ||
-                  'Location tracking'
-                }
-                backLabel={t('back') || 'Back'}
-                locationStatusLabel={
-                  t('widget.mobileSession.locationStatus') || 'Status'
-                }
-                locationPlace={headerProps.position?.placeName}
-                locationUnknownLabel={
-                  t('write_and_speak.unknownPosition') || 'Unknown position'
-                }
-                locationEnableLabel={
-                  t('widget.shareLocation') || 'Share location'
-                }
-                locationDisableLabel={
-                  t('widget.mobileSession.disableLocationSharing') ||
-                  'Disable location sharing'
-                }
-                knownFactsDescription={
-                  t('knownFacts.description', {
-                    memoriName: memori?.name || '',
-                  }) || ''
-                }
-                knownFactsCtaLabel={
-                  t('widget.mobileSession.openKnownFacts') ||
-                  'Open full known facts'
-                }
-                knownFactsCountLabel={
-                  (t('widget.mobileSession.knownFactsMessages', {
-                    count: headerProps.history?.length || 0,
-                  }) as string) || ''
-                }
-                shareContent={
-                  <ShareButton
-                    tenant={headerProps?.tenant}
-                    memori={headerProps?.memori}
-                    sessionID={headerProps?.sessionID}
-                    title={headerProps?.memori?.name}
-                    baseUrl={headerProps?.baseUrl}
-                    align="left"
-                    history={headerProps?.history}
-                    renderMode="inline"
-                  />
-                }
-                knownFactsDisabled={!isSessionStarted}
-                showSessionInfo={isSessionStarted}
-                history={headerProps.history ?? []}
-                isLoggedIn={!!loggedUser}
-                showLogin={!!headerProps.showLogin}
-                loginLabel={t('login.login') || 'Log in'}
-                onLogin={() => {
-                  headerProps.setShowLoginDrawer(true);
-                  setMobileSheetOpen(false);
-                }}
-                onKnownFactsOpen={() => {
-                  if (!isSessionStarted) return;
-                  headerProps.setShowKnownFactsDrawer(true);
-                  setMobileSheetOpen(false);
-                }}
-                onLocationEnable={handleEnableLocation}
-                onLocationDisable={handleDisableLocation}
-                venue={headerProps.position}
-                setVenue={headerProps.setVenue}
-                logoutLabel={t('login.logout') || 'Log out'}
-                onLogout={() => {
-                  handleMobileLogout();
-                  setMobileSheetOpen(false);
-                }}
-              />
-            )}
             <div className="memori-conversation-column">
-            <div className="memori-chat-layout--body">
-              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-                <Chat {...chatProps} showInputs={false} />
-              ) : startPanelProps ? (
-                <div
-                  className="memori-chat-layout--start-shell"
-                  id="chat-wrapper"
-                >
-                  <div className="memori-chat-layout--start-panel-wrap">
-                    <StartPanel {...startPanelProps} />
+              <div className="memori-chat-layout--body">
+                {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                  <Chat {...chatProps} showInputs={false} />
+                ) : startPanelProps ? (
+                  <div
+                    className="memori-chat-layout--start-shell"
+                    id="chat-wrapper"
+                  >
+                    <div className="memori-chat-layout--start-panel-wrap">
+                      <StartPanel {...startPanelProps} />
+                    </div>
                   </div>
-                </div>
-              ) : null}
-            </div>
+                ) : null}
+              </div>
 
-            {/* Input bar sits outside body so it spans the shared column below the scroll area */}
-            {Chat && chatProps && chatProps.showInputs !== false && (
-              <ChatInputs
-                userMessage={chatProps.userMessage}
-                onChangeUserMessage={chatProps.onChangeUserMessage}
-                dialogState={chatProps.dialogState}
-                instruct={chatProps.instruct}
-                authToken={chatProps.authToken}
-                sendMessage={chatProps.sendMessage}
-                isTyping={chatProps.memoriTyping}
-                microphoneMode={chatProps.microphoneMode}
-                sendOnEnter={chatProps.sendOnEnter}
-                setSendOnEnter={chatProps.setSendOnEnter}
-                client={chatProps.client}
-                sessionID={chatProps.sessionID}
-                showUpload={chatProps.showUpload}
-                attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
-                setAttachmentsMenuOpen={chatProps.setAttachmentsMenuOpen}
-                onTextareaFocus={() => {
-                  chatProps.stopListening?.();
-                }}
-                onTextareaBlur={() => {}}
-                onTextareaExpanded={() => {}}
-                startListening={chatProps.startListening}
-                stopListening={chatProps.stopListening}
-                stopAudio={chatProps.stopAudio}
-                listening={chatProps.listening}
-                isPlayingAudio={chatProps.isPlayingAudio}
-                showMicrophone={chatProps.showMicrophone}
-                memoriID={chatProps.memori?.memoriID}
-                maxTextareaCharacters={chatProps.maxTextareaCharacters}
-                maxTotalMessagePayload={chatProps.maxTotalMessagePayload}
-                maxDocumentsPerMessage={maxDocumentsPerMessage}
-                maxDocumentContentLength={maxDocumentContentLength}
-                pasteAsCardLineThreshold={pasteAsCardLineThreshold}
-                pasteAsCardCharThreshold={pasteAsCardCharThreshold}
-                showAiGeneratedNote={isSessionStarted}
-                footerBrand={poweredBy}
-              />
-            )}
+              {/* Input bar sits outside body so it spans the shared column below the scroll area */}
+              {Chat && chatProps && chatProps.showInputs !== false && (
+                <ChatInputs
+                  userMessage={chatProps.userMessage}
+                  onChangeUserMessage={chatProps.onChangeUserMessage}
+                  dialogState={chatProps.dialogState}
+                  instruct={chatProps.instruct}
+                  authToken={chatProps.authToken}
+                  sendMessage={chatProps.sendMessage}
+                  isTyping={chatProps.memoriTyping}
+                  microphoneMode={chatProps.microphoneMode}
+                  sendOnEnter={chatProps.sendOnEnter}
+                  setSendOnEnter={chatProps.setSendOnEnter}
+                  client={chatProps.client}
+                  sessionID={chatProps.sessionID}
+                  showUpload={chatProps.showUpload}
+                  attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
+                  setAttachmentsMenuOpen={chatProps.setAttachmentsMenuOpen}
+                  onTextareaFocus={() => {
+                    chatProps.stopListening?.();
+                  }}
+                  onTextareaBlur={() => {}}
+                  onTextareaExpanded={() => {}}
+                  startListening={chatProps.startListening}
+                  stopListening={chatProps.stopListening}
+                  stopAudio={chatProps.stopAudio}
+                  listening={chatProps.listening}
+                  isPlayingAudio={chatProps.isPlayingAudio}
+                  showMicrophone={chatProps.showMicrophone}
+                  memoriID={chatProps.memori?.memoriID}
+                  maxTextareaCharacters={chatProps.maxTextareaCharacters}
+                  maxTotalMessagePayload={chatProps.maxTotalMessagePayload}
+                  maxDocumentsPerMessage={maxDocumentsPerMessage}
+                  maxDocumentContentLength={maxDocumentContentLength}
+                  pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+                  pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                  showAiGeneratedNote={isSessionStarted}
+                  footerBrand={poweredBy}
+                />
+              )}
             </div>
           </div>
 
-          {/* Artifact column — width 0→480px with CSS transition */}
+          {/* Artifact column — shrinks chat column only; outer layout stays put */}
           <div
             className={`memori--grid-column-artifact${
               useSideArtifactChrome ? ' memori--grid-column-artifact--open' : ''
             }`}
           >
-            {useSideArtifactChrome && (
-              <ArtifactDrawer isLayoutColumn />
-            )}
+            {useSideArtifactChrome && <ArtifactDrawer isLayoutColumn />}
           </div>
         </div>
       </Spin>

@@ -114,7 +114,7 @@
     gap: 6px;
 }
 
-/* Plus / upload button styling */
+/* Plus / upload — chrome owned by IconButton (borderless in the input bar) */
 .memori-chat-inputs--upload-wrapper {
     display: flex;
     align-items: center;
@@ -125,31 +125,32 @@
     align-items: center;
 }
 
-.memori-chat-inputs--upload-wrapper .memori-button {
-    display: flex;
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 10px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    color: #888 !important;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
+.memori-chat-inputs--upload-wrapper .memori-icon-button {
+    flex-shrink: 0;
 }
 
-.memori-chat-inputs--upload-wrapper .memori-button:hover {
-    background: #f2eef5 !important;
-    box-shadow: none !important;
-    color: #555 !important;
-    opacity: 1;
-    transform: none;
+.memori-widget .memori-chat-inputs--upload-wrapper .memori-icon-button.memori-button,
+.memori-widget .memori-chat-inputs--mic-btn.memori-icon-button.memori-button,
+.memori-widget .memori-chat-inputs--mic.memori-icon-button.memori-button {
+    border-color: transparent;
+    background: transparent;
 }
 
+.memori-widget
+    .memori-chat-inputs--upload-wrapper
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget
+    .memori-chat-inputs--mic-btn.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget
+    .memori-chat-inputs--mic.memori-icon-button.memori-button:hover:not(
+        :disabled,
+        .memori-button--disabled,
+        .memori-icon-button--recording
+    ) {
+    border-color: transparent;
+}
+
+/* Recording mic keeps soft-error border from IconButton.css */
 .memori-chat-inputs--upload-wrapper .memori-button:disabled {
     cursor: not-allowed;
     opacity: 0.3;
@@ -160,7 +161,6 @@
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-    fill: currentColor;
 }
 
 .memori-chat-inputs--disclaimer-text {
@@ -174,34 +174,9 @@
     text-align: center;
 }
 
-/* Microphone button styling (CONTINUOUS mode) */
+/* Microphone button styling (CONTINUOUS mode) — chrome owned by IconButton */
 .memori-chat-inputs--mic-btn {
-    display: flex;
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: none;
-    border-radius: 10px;
-    background: transparent;
-    color: #888;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.memori-chat-inputs--mic-btn:hover {
-    background: #f2eef5;
-    box-shadow: none;
-    color: #555;
-    opacity: 1;
-    transform: none;
-}
-
-.memori-chat-inputs--mic-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
+    flex-shrink: 0;
 }
 
 .memori-chat-inputs--mic-btn svg,
@@ -209,11 +184,6 @@
     width: 18px;
     height: 18px;
     color: inherit;
-    fill: currentColor;
-}
-
-.memori-chat-inputs--leading .icon {
-    fill: currentColor;
 }
 
 .memori-chat-inputs--send-btn svg,
@@ -230,71 +200,15 @@
     width: 18px;
     height: 18px;
     color: inherit;
-    fill: currentColor;
-    stroke: currentColor;
-}
-
-.memori-chat-inputs--trailing .memori-chat-inputs--mic-btn .icon {
-    fill: currentColor;
-}
-
-.memori-chat-inputs--mic-btn--listening {
-    color: #c0392b;
 }
 
 .memori-chat-inputs--mic {
     font-size: 100%;
 }
 
-/* Style MicrophoneButton (HOLD_TO_TALK) when used in trailing area */
+/* HOLD_TO_TALK mic in trailing — size owned by IconButton */
 .memori-chat-inputs--trailing .memori-chat-inputs--mic {
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
-    padding: 0;
-    border: none;
-    border-radius: 10px;
     margin-left: 0;
-    background: transparent;
-    color: #888;
-}
-
-.memori-chat-inputs--trailing .memori-chat-inputs--mic .memori-button {
-    width: 34px;
-    min-width: 34px;
-    height: 34px;
-    padding: 0;
-    border: none;
-    border-radius: 10px;
-    background: transparent;
-    color: #888;
-}
-
-.memori-chat-inputs--trailing .memori-chat-inputs--mic:hover,
-.memori-chat-inputs--trailing .memori-chat-inputs--mic .memori-button:hover {
-    background: #f2eef5 !important;
-    box-shadow: none !important;
-    color: #555 !important;
-    opacity: 1;
-    transform: none;
-}
-
-.memori-chat-inputs--trailing .memori-chat-inputs--mic svg {
-    width: 18px;
-    height: 18px;
-    margin-right: 0;
-    color: inherit;
-}
-
-/* Light hover surface (#f2eef5) — keep the icon black in dark mode for contrast */
-.memori-widget[data-theme='dark'] .memori-chat-inputs--upload-wrapper .memori-button:hover,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--upload-wrapper .memori-button:hover svg,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--mic-btn:hover svg,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover .memori-button,
-.memori-widget[data-theme='dark'] .memori-chat-inputs--trailing .memori-chat-inputs--mic:hover svg {
-    color: #000 !important;
 }
 
 /* Send button — solid brand fill, high-contrast icon (all layouts) */
@@ -417,6 +331,16 @@
     white-space: nowrap;
 }
 
+/* Layout-scoped note color (before memori--active so specificity order is ascending) */
+.memori-widget.memori-layout-fullpage .memori-chat-inputs--ai-note,
+.memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--ai-note,
+.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--ai-note,
+.memori-widget.memori-layout-website_assistant .memori-chat-inputs--ai-note,
+.memori-widget.memori-layout-chat .memori-chat-inputs--ai-note {
+    max-width: 100%;
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
+}
+
 /* Conversation started (`memori--active`): keep the AI note flush left under the input */
 .memori-widget.memori--active .memori-conversation-footer .memori-chat-inputs--ai-note {
     text-align: left;
@@ -529,12 +453,6 @@
     box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
 
-.memori-widget.memori-layout-fullpage .memori-chat-inputs--ai-note,
-.memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--ai-note {
-    max-width: 100%;
-    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
-}
-
 /* Keep disclaimer + brand on the same axis as the input pill */
 .memori-widget.memori-layout-fullpage .memori-conversation-footer,
 .memori-widget.memori-layout-zoomed_full_body .memori-conversation-footer {
@@ -542,7 +460,15 @@
 }
 
 @media (max-width: 768px) {
-    .memori-conversation-footer,
+    .memori-conversation-footer {
+        justify-content: center;
+        gap: 0;
+    }
+
+    .memori-widget.memori--active .memori-conversation-footer {
+        justify-content: flex-start;
+    }
+
     .memori-widget.memori-layout-fullpage .memori-chat-inputs-wrapper > .memori-conversation-footer,
     .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs-wrapper > .memori-conversation-footer {
         justify-content: center;
@@ -560,10 +486,6 @@
         text-align: center;
         text-overflow: unset;
         white-space: normal;
-    }
-
-    .memori-widget.memori--active .memori-conversation-footer {
-        justify-content: flex-start;
     }
 
     .memori-widget.memori--active .memori-conversation-footer .memori-chat-inputs--ai-note {
@@ -602,11 +524,4 @@
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--primary,
 .memori-widget.memori-layout-website_assistant .memori-chat-inputs--primary {
     min-width: 0;
-}
-
-.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--ai-note,
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs--ai-note,
-.memori-widget.memori-layout-chat .memori-chat-inputs--ai-note {
-    max-width: 100%;
-    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
 }

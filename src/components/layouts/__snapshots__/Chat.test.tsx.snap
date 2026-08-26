@@ -44,6 +44,8 @@ exports[`renders Chat layout unchanged 1`] = `
     --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
+    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
   }
   [data-theme="dark"] .memori-widget,
   .memori-widget[data-theme="dark"],
@@ -64,6 +66,8 @@ exports[`renders Chat layout unchanged 1`] = `
     --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
+    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
   }
 }
 
@@ -78,174 +82,175 @@ exports[`renders Chat layout unchanged 1`] = `
           id="extension"
         />
         <div
+          class="memori-chat-layout--header"
+        >
+          <div
+            class="memori-fullpage-header-row"
+          >
+            <div
+              class="memori-fullpage-header-brand"
+            >
+              <img
+                alt=""
+                class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
+                role="presentation"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+              <div
+                class="memori-fullpage-header-brand-text"
+              >
+                <span
+                  class="memori-fullpage-header-brand-name"
+                  title="Memori"
+                >
+                  Memori
+                </span>
+                <span
+                  class="memori-fullpage-header-brand-role"
+                  title="Lorem ipsum."
+                >
+                  Lorem ipsum.
+                </span>
+              </div>
+            </div>
+            <div
+              class="memori-fullpage-header-actions"
+            >
+              <div
+                class="memori-header memori-header--fullpage"
+              >
+                <div
+                  class="memori-header--fullpage-secondary"
+                >
+                  <span
+                    class="memori-tooltip"
+                  >
+                    <span
+                      class="memori-tooltip__trigger"
+                      id="base-ui-:r1:"
+                    >
+                      <span
+                        style="display: inline-flex;"
+                      >
+                        <button
+                          aria-label="widget.sound"
+                          class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
+                          tabindex="0"
+                          title="widget.sound"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__icon"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="lucide lucide-volume2"
+                              fill="none"
+                              height="20"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                              />
+                              <path
+                                d="M16 9a5 5 0 0 1 0 6"
+                              />
+                              <path
+                                d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </span>
+                  <div
+                    class="memori-dropdown memori-share-button memori-share-button--align-left"
+                  >
+                    <span
+                      class="memori-tooltip"
+                    >
+                      <span
+                        class="memori-tooltip__trigger"
+                        id="base-ui-:r7:"
+                      >
+                        <button
+                          aria-expanded="false"
+                          aria-haspopup="menu"
+                          aria-label="widget.share"
+                          class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
+                          id="base-ui-:r8:"
+                          tabindex="0"
+                          title="widget.share"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__icon"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="lucide lucide-share2"
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="18"
+                                cy="5"
+                                r="3"
+                              />
+                              <circle
+                                cx="6"
+                                cy="12"
+                                r="3"
+                              />
+                              <circle
+                                cx="18"
+                                cy="19"
+                                r="3"
+                              />
+                              <line
+                                x1="8.59"
+                                x2="15.42"
+                                y1="13.51"
+                                y2="17.49"
+                              />
+                              <line
+                                x1="15.41"
+                                x2="8.59"
+                                y1="6.51"
+                                y2="10.49"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="memori-chat-layout--main memori-chat-layout--main--has-background"
           style="--memori-chat-global-background: url(https://assets.memori.ai/api/v2/asset/364e498c-11da-42d5-9e32-19e5d137d4b8.jpeg);"
         >
           <div
             class="memori-chat-layout--controls"
           >
-            <div
-              class="memori-chat-layout--header"
-            >
-              <div
-                class="memori-fullpage-header-row"
-              >
-                <div
-                  class="memori-fullpage-header-brand"
-                >
-                  <img
-                    alt=""
-                    class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
-                    role="presentation"
-                    src="https://aisuru.com/images/aisuru/square_logo.png"
-                  />
-                  <div
-                    class="memori-fullpage-header-brand-text"
-                  >
-                    <span
-                      class="memori-fullpage-header-brand-name"
-                      title="Memori"
-                    >
-                      Memori
-                    </span>
-                    <span
-                      class="memori-fullpage-header-brand-role"
-                      title="Lorem ipsum."
-                    >
-                      Lorem ipsum.
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="memori-fullpage-header-actions"
-                >
-                  <div
-                    class="memori-header memori-header--fullpage"
-                  >
-                    <div
-                      class="memori-header--fullpage-secondary"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:r1:"
-                        >
-                          <span
-                            style="display: inline-flex;"
-                          >
-                            <button
-                              aria-label="widget.sound"
-                              class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
-                              tabindex="0"
-                              title="widget.sound"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  class="lucide lucide-volume2"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-                                  />
-                                  <path
-                                    d="M16 9a5 5 0 0 1 0 6"
-                                  />
-                                  <path
-                                    d="M19.364 18.364a9 9 0 0 0 0-12.728"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                      <div
-                        class="memori-dropdown memori-share-button memori-share-button--align-left"
-                      >
-                        <span
-                          class="memori-tooltip"
-                        >
-                          <span
-                            class="memori-tooltip__trigger"
-                            id="base-ui-:r7:"
-                          >
-                            <button
-                              aria-expanded="false"
-                              aria-haspopup="menu"
-                              aria-label="widget.share"
-                              class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
-                              id="base-ui-:r8:"
-                              tabindex="0"
-                              title="widget.share"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-share2"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <circle
-                                    cx="18"
-                                    cy="5"
-                                    r="3"
-                                  />
-                                  <circle
-                                    cx="6"
-                                    cy="12"
-                                    r="3"
-                                  />
-                                  <circle
-                                    cx="18"
-                                    cy="19"
-                                    r="3"
-                                  />
-                                  <line
-                                    x1="8.59"
-                                    x2="15.42"
-                                    y1="13.51"
-                                    y2="17.49"
-                                  />
-                                  <line
-                                    x1="15.41"
-                                    x2="8.59"
-                                    y1="6.51"
-                                    y2="10.49"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div
               class="memori-conversation-column"
             >

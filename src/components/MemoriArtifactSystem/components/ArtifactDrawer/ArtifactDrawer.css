@@ -69,13 +69,14 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     display: none !important;
 }
 
-/* Inline layout column — renders inside the flex grid, not as a fixed overlay */
+/* Inline layout column — fills the layout flex slot, not a fixed overlay.
+   min-height: 0 (not 100vh) so opening the artifact cannot expand the page. */
 .memori-artifact-layout-column {
     display: flex;
     overflow: hidden;
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    min-height: 0;
     flex-direction: column;
 }
 
@@ -695,26 +696,25 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     background: var(--memori-primary-subtle);
 }
 
-.memori-artifact-drawer--close-desktop {
-    width: 38px;
-    min-width: 38px;
-    height: 38px;
-    min-height: 38px;
-    padding: 0;
-    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-    margin: 0;
-    margin-left: 0 !important;
+/* Match website_assistant / hidden_chat sidebar close — never outline primary fill */
+.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button,
+.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:active:not(:disabled, .memori-button--disabled) {
+    border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+    background: transparent;
+    box-shadow: none;
+    color: var(--memori-text-color, #111827);
+    transform: none;
 }
 
-.memori-artifact-drawer--close-desktop:hover {
-    border-color: color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-    background: color-mix(in srgb, var(--memori-text-color, #111827) 8%, transparent);
-    color: inherit !important;
+.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled) {
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
 }
 
-.memori-artifact-drawer--close-desktop:hover .memori-artifact-panel--close-icon,
-.memori-artifact-drawer--close:hover .memori-artifact-panel--close-icon {
-    color: inherit !important;
+.memori-widget .memori-artifact-drawer--close .memori-icon-close {
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: none;
     stroke: currentColor;
 }
 
@@ -736,15 +736,6 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
     box-shadow: none;
     font-family: var(--memori-font-family);
-}
-
-.memori-artifact-drawer--close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--memori-radius-box);
-    /* background: var(--artifact-drawer-bg); */
-    margin-left: auto;
 }
 
 .memori-artifact-actions {
@@ -806,26 +797,24 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
         flex: 0 0 auto;
     }
 
-    /* Make mobile action buttons match header toolbar buttons */
-    .memori-artifact-drawer-top-right .memori-button--more-options,
-    .memori-artifact-drawer-top-right .memori-artifact-drawer--close {
+    /* Make mobile more-options match header toolbar buttons */
+    .memori-artifact-drawer-top-right .memori-button--more-options {
         display: flex;
-        width: 38px;
-        min-width: 38px;
-        height: 38px;
-        min-height: 38px;
+        width: 2.5rem;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        min-height: 2.5rem;
         align-items: center;
         justify-content: center;
         padding: 0;
-        border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-        border-radius: var(--memori-radius-box);
+        border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+        border-radius: var(--memori-radius-box, 0.5rem);
         margin-left: 0;
     }
 
-    .memori-artifact-drawer-top-right .memori-button--more-options:hover,
-    .memori-artifact-drawer-top-right .memori-artifact-drawer--close:hover {
-        border-color: color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-        background: color-mix(in srgb, var(--memori-text-color, #111827) 8%, transparent);
+    .memori-artifact-drawer-top-right .memori-button--more-options:hover {
+        border-color: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+        background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
     }
 
     /* Content fills remaining viewport under the toolbar (no floating card) */
@@ -1105,10 +1094,6 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 }
 
 @media (max-width: 1260px) {
-    .memori-artifact-drawer--close {
-        margin-left: 0;
-    }
-
     .memori-artifact-panel--header {
         margin-bottom: var(--memori-spacing-sm);
     }
