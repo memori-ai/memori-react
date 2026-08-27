@@ -505,8 +505,8 @@
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-header.memori-header--fullpage {
         min-width: max-content;
-        flex-wrap: nowrap;
         flex-shrink: 0;
+        flex-wrap: nowrap;
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-icon-button,

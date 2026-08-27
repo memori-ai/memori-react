@@ -3270,9 +3270,15 @@ const MemoriWidget = ({
 
   const setPositionPopoverOpen = useCallback(
     (open: boolean) => {
+      const sessionAlreadyStarted = !!(sessionId && hasUserActivatedSpeak);
       setPositionPopoverOpenState(wasOpen => {
         if (
-          shouldRestartSessionOnPositionPopoverClose(wasOpen, open, autoStart)
+          shouldRestartSessionOnPositionPopoverClose(
+            wasOpen,
+            open,
+            autoStart,
+            sessionAlreadyStarted
+          )
         ) {
           // Defer: React setState updaters must stay pure.
           queueMicrotask(() => {
@@ -3287,7 +3293,7 @@ const MemoriWidget = ({
         return open;
       });
     },
-    [autoStart, onClickStart]
+    [autoStart, onClickStart, sessionId, hasUserActivatedSpeak]
   );
 
   useEffect(() => {

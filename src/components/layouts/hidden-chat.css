@@ -76,13 +76,13 @@
     .memori-sidebar
     .memori-hidden-chat-layout--header-close.memori-website_assistant--close-button {
     position: relative;
+    z-index: 2;
     top: auto;
     right: auto;
-    z-index: 2;
     flex-shrink: 0;
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
+    visibility: visible;
 }
 
 .memori-button--icon > svg {
@@ -308,9 +308,9 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--header {
-    box-sizing: border-box;
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
     flex-shrink: 0;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--memori-border-color);
@@ -323,8 +323,8 @@
     display: flex;
     overflow: hidden;
     width: 100%;
-    max-width: 100%;
     min-width: 0;
+    max-width: 100%;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
@@ -332,8 +332,8 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-actions {
     display: inline-flex;
-    max-width: 100%;
     min-width: 0;
+    max-width: 100%;
     flex: 0 1 auto;
     flex-shrink: 0;
     align-items: center;

@@ -82,6 +82,7 @@
     color: var(--memori-text-color);
     font-size: 14px;
     line-height: 1.4;
+    transition: box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     white-space: pre-wrap;
 }
 
@@ -110,17 +111,6 @@
 .memori-chat--bubble-shell--from-user {
     max-width: min(70%, 42rem);
     align-items: flex-end;
-}
-
-.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
-    min-width: fit-content;
-}
-
-/* fit-content outranks the bubble max-width, so a wide markdown code block or table
-   would stretch the bubble past the messages viewport and make the whole chat scroll
-   sideways. Those blocks are kept scrollable on their own instead. */
-.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table) {
-    min-width: 0;
 }
 
 .memori-chat--bubble-avatar svg {
@@ -229,11 +219,6 @@
 }
 
 @media (max-width: 600px) {
-    .memori-chat--bubble p {
-        font-size: 12px;
-        line-height: 1.25;
-    }
-
     .memori-chat--bubble-shell {
         gap: 4px;
     }
@@ -289,30 +274,68 @@
     object-fit: cover;
 }
 
+/* Shared elevation for the floating addon and the highlighted message bubble. */
+.memori-chat--bubble-container.memori-chat--with-addon {
+    --memori-chat-addon-elevation:
+        0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
+        0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
+}
+
 /* The addon row sits outside the bubble, directly over the chat background, which
    can be a dark image or colour: it carries its own surface so the icons and the
    timestamp keep contrast whatever is painted behind them. */
 .memori-chat--bubble-addon {
+    position: absolute;
+    z-index: 2147483647;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
     display: flex;
+    width: max-content;
+    max-width: 100%;
     flex-wrap: wrap;
     align-items: center;
-    align-self: flex-start;
     justify-content: flex-start;
     padding: calc(var(--memori-spacing-xs) * 0.5) var(--memori-spacing-xs);
     border-radius: 999px;
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     background: color-mix(in srgb, var(--memori-main-background) 92%, transparent);
+    box-shadow: var(--memori-chat-addon-elevation);
     color: var(--memori-text-color);
     gap: calc(var(--memori-spacing-xs) * 0.5);
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-4px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translate3d(0, calc(100% - 2px), 0) scale(0.98);
+    transition:
+        opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.memori-chat--bubble-addon:has(.memori-chat--bubble-timestamp-container) {
+    padding-left: var(--memori-spacing-sm);
+}
+
+/* Stack the addon on the bubble cell so it sits just under the message
+   (not under artifacts/media further down the shell). */
+.memori-chat--bubble-shell--has-addon {
+    display: grid;
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .memori-chat--bubble-shell--from-user .memori-chat--bubble-addon {
-    align-self: flex-end;
+    right: 0;
+    left: auto;
+    justify-self: end;
+}
+
+.memori-chat--bubble-shell--has-addon > .memori-chat--bubble,
+.memori-chat--bubble-shell--has-addon > .memori-chat--bubble-addon {
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .memori-chat--artifact-block {
@@ -325,11 +348,62 @@
 }
 
 .memori-chat--bubble-shell--has-addon:focus-within .memori-chat--bubble-addon,
-.memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble-addon,
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble-addon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+}
+
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
+    min-width: fit-content;
+}
+
+.memori-chat--bubble-shell--has-addon:focus-within .memori-chat--bubble,
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+/* fit-content outranks the bubble max-width, so a wide markdown code block or table
+   would stretch the bubble past the messages viewport and make the whole chat scroll
+   sideways. Those blocks are kept scrollable on their own instead. */
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table) {
+    min-width: 0;
+}
+
 .memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble-addon {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(-10px);
+    transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble-addon {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+    }
+}
+
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble.memori-chat--user-bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+.memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+.memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble.memori-chat--user-bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble {
+        box-shadow: var(--memori-chat-addon-elevation);
+    }
+
+    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble.memori-chat--user-bubble {
+        box-shadow: var(--memori-chat-addon-elevation);
+    }
 }
 
 .memori-chat--bubble-addon-tooltip-trigger {

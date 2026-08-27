@@ -146,6 +146,22 @@ const ChatBubble: React.FC<Props> = ({
     raw: null,
     functionCache: null,
   });
+  const [addonOpen, setAddonOpen] = useState(false);
+  const bubbleContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!addonOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (target && bubbleContainerRef.current?.contains(target)) return;
+      setAddonOpen(false);
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [addonOpen]);
+
   // Initialize MathJax on component mount
   useEffect(() => {
     if (typeof window !== 'undefined' && !window.MathJax) {
@@ -444,6 +460,26 @@ const ChatBubble: React.FC<Props> = ({
       apiUrl &&
       showWhyThisAnswer);
 
+  const handleBubbleContainerClick = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    if (!shouldShowBubbleAddon) return;
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    ) {
+      return;
+    }
+    if (
+      (event.target as Element | null)?.closest?.(
+        '.memori-chat--bubble-addon, button, a, input, textarea, [role="button"]'
+      )
+    ) {
+      return;
+    }
+    setAddonOpen(open => !open);
+  };
+
   const topMediaWidgetLinks = (message?.media
     ?.filter(m => !m.properties?.functionSignature)
     ?.filter(m => m.mimeType === 'text/html' && !!m.url) || []) as Medium[];
@@ -496,10 +532,13 @@ const ChatBubble: React.FC<Props> = ({
     <>
       {showInitialDivider && <div className="memori-chat--bubble-initial" />}
       <div
+        ref={bubbleContainerRef}
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon': shouldShowBubbleAddon,
+          'memori-chat--addon-open': shouldShowBubbleAddon && addonOpen,
         })}
+        onClick={handleBubbleContainerClick}
       >
         <MediaWidget
           simulateUserPrompt={simulateUserPrompt}
