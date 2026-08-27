@@ -43,6 +43,7 @@
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions {
         min-width: 0;
+        flex: 1 1 auto;
         flex-wrap: nowrap;
         -webkit-overflow-scrolling: touch;
         overflow-x: auto;
@@ -50,8 +51,14 @@
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-header.memori-header--fullpage {
-        min-width: 0;
+        min-width: max-content;
         flex-wrap: nowrap;
+        flex-shrink: 0;
+    }
+
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-icon-button,
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-button {
+        flex-shrink: 0;
     }
 }
 

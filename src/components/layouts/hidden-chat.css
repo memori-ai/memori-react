@@ -78,8 +78,10 @@
     position: relative;
     top: auto;
     right: auto;
+    z-index: 2;
     flex-shrink: 0;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 }
 
@@ -306,7 +308,9 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--header {
+    box-sizing: border-box;
     width: 100%;
+    max-width: 100%;
     flex-shrink: 0;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--memori-border-color);
@@ -317,7 +321,10 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--header-row {
     display: flex;
+    overflow: hidden;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
@@ -325,7 +332,10 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-actions {
     display: inline-flex;
-    flex: 0 0 auto;
+    max-width: 100%;
+    min-width: 0;
+    flex: 0 1 auto;
+    flex-shrink: 0;
     align-items: center;
     margin-left: auto;
     gap: 0.35rem;
@@ -416,6 +426,7 @@
     display: flex;
     overflow: hidden;
     min-width: 0;
+    max-width: calc(100% - 7.5rem);
     flex: 1 1 auto;
     align-items: center;
     gap: 0.75rem;

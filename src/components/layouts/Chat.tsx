@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Spin } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useTranslation } from 'react-i18next';
 import {
-  Expand,
   MapPin,
   Share2,
   EllipsisVertical,
@@ -21,17 +20,6 @@ import {
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
-
-function isFullscreenAllowedOnDevice(): boolean {
-  if (typeof document === 'undefined') return false;
-
-  if (document.fullscreenEnabled === true) return true;
-
-  const fullscreenMeta = document.querySelector(
-    'meta[name="memori-fullscreen-enabled"], meta[name="fullscreen-enabled"]'
-  );
-  return fullscreenMeta?.getAttribute('content') === 'true';
-}
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -88,16 +76,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
     'User';
   const loggedUserInitial = loggedUserDisplayName.charAt(0).toUpperCase();
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
-
-  const handleMobileFullscreen = useCallback(() => {
-    if (!isFullscreenAllowedOnDevice()) return;
-
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-      return;
-    }
-    document.exitFullscreen().catch(() => {});
-  }, []);
 
   const handleMobileLogout = () => {
     if (!headerProps) return;
@@ -169,7 +147,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
       isMobile &&
       !!headerProps.loginToken &&
       headerProps.showChatHistory !== false;
-    const showFullscreenInPanel = headerProps.showFullscreen !== false;
     const showShareInPanel = headerProps.showShare !== false;
     const showLocationInPanel = !!headerProps.memori?.needsPosition;
 
@@ -192,21 +169,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
     return [
       ...historyBlock,
-      ...(showFullscreenInPanel
-        ? [
-            {
-              key: 'fullscreen',
-              icon: <Expand size={18} />,
-              title: t('fullscreenEnter') || 'Full screen',
-              subtitle:
-                t('widget.expandToImmersive') || 'Expand to immersive view',
-              onClick: () => {
-                handleMobileFullscreen();
-                setMobileSheetOpen(false);
-              },
-            },
-          ]
-        : []),
       ...(showShareInPanel
         ? [
             {
@@ -242,7 +204,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
           ]
         : []),
     ];
-  }, [headerProps, isMobile, isSessionStarted, t, handleMobileFullscreen]);
+  }, [headerProps, isMobile, t]);
 
   return (
     <>
