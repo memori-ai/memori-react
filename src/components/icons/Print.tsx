@@ -1,5 +1,9 @@
 import * as React from 'react';
-const PrintIcon: React.FC<{ className?: string, title?: string }> = ({ className, title }) => (
+
+const PrintIcon: React.FC<{ className?: string; title?: string }> = ({
+  className,
+  title,
+}) => (
   <svg
     {...(!title ? { 'aria-hidden': 'true' } : {})}
     aria-label={title}
@@ -14,7 +18,7 @@ const PrintIcon: React.FC<{ className?: string, title?: string }> = ({ className
     <g
       id="Page-1"
       stroke="none"
-      stroke-width="1"
+      strokeWidth="1"
       fill="none"
       fill-rule="evenodd"
     >

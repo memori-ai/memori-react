@@ -23,7 +23,6 @@ const meta: Meta = {
 
 type Props = {
   onUpload: (text: string) => void;
-  convertapiToken: string;
 };
 
 export default meta;
@@ -55,12 +54,10 @@ const Template: Story<Props> = args => {
 export const Default = Template.bind({});
 Default.args = {
   onUpload: () => {},
-  convertapiToken: '',
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   onUpload: () => {},
-  convertapiToken: '',
   disabled: true,
 };
