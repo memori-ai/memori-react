@@ -1,10 +1,16 @@
 import { shouldRestartSessionOnPositionPopoverClose } from './positionPopover';
 
 describe('shouldRestartSessionOnPositionPopoverClose', () => {
-  it('restarts only when closing an open popover with autoStart', () => {
-    expect(shouldRestartSessionOnPositionPopoverClose(true, false, true)).toBe(
-      true
-    );
+  it('restarts only when closing an open popover with autoStart and no session', () => {
+    expect(
+      shouldRestartSessionOnPositionPopoverClose(true, false, true, false)
+    ).toBe(true);
+  });
+
+  it('does not restart when a session is already started', () => {
+    expect(
+      shouldRestartSessionOnPositionPopoverClose(true, false, true, true)
+    ).toBe(false);
   });
 
   it('does not restart when already closed (user/info popover dismiss)', () => {

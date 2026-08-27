@@ -587,9 +587,6 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                           {resolvedKnownFactsHint}
                         </span>
                       </span>
-                      <span className="memori-mobile-session-panel--action-trailing">
-                        <ChevronRight size={16} />
-                      </span>
                     </Button>
                   </li>
                 )}

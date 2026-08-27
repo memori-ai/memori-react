@@ -393,7 +393,7 @@
     color: var(--memori-primary);
 }
 
-/* Dark: keep white at rest, but still use primary on hover for icon tools */
+/* Dark: keep white at rest and on hover for icon tools */
 .memori-widget[data-theme='dark']
     .memori-header
     .memori-icon-button.memori-button:hover:not(
@@ -437,7 +437,7 @@
         :disabled,
         .memori-button--disabled
     ) {
-    color: var(--memori-primary);
+    color: #fff;
 }
 
 .memori-widget[data-theme='dark']
@@ -489,7 +489,7 @@
         .memori-button--disabled
     )
     svg {
-    color: var(--memori-primary);
+    color: #fff;
 }
 
 .memori-dropdown--avatar-input {
@@ -702,11 +702,11 @@
 /* Full-page layout: labeled primary actions, utility cluster, shared control chrome */
 .memori-header.memori-header--fullpage {
     width: auto;
-    min-width: 100%;
+    min-width: 0;
     max-width: 100%;
     height: auto;
     min-height: 40px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -736,8 +736,10 @@
 
 .memori-header--fullpage-divider {
     width: 1px;
+    height: 28px;
     min-height: 28px;
-    align-self: stretch;
+    flex-shrink: 0;
+    align-self: center;
     margin: 0;
     background: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
 }

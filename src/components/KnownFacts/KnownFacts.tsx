@@ -321,7 +321,6 @@ const KnownFacts = ({
                   );
                 },
                 initialPageSize: 10,
-                pageSizeOptions: [10,25,50,100],
               }
             : { enablePagination: false })}
         />

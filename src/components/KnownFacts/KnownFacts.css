@@ -39,6 +39,10 @@
     .memori-table-pagination__range {
         display: none;
     }
+
+    .memori-table-pagination__page-size {
+        display: none;
+    }
 }
 
 .memori-known-facts-text-cell {

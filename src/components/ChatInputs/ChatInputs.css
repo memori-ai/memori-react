@@ -218,17 +218,30 @@
     width: 36px;
     min-width: 36px;
     height: 36px;
+    min-height: 36px;
+    box-sizing: border-box;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     padding: 0 !important;
     border: none !important;
     border-radius: 8px !important;
+    aspect-ratio: 1 / 1;
     background: var(--memori-primary) !important;
     box-shadow: none !important;
     color: var(--memori-primary-content, #fff) !important;
     cursor: pointer;
     transition: background 0.15s ease;
+}
+
+@media (max-width: 768px) {
+    .memori-chat-inputs--send-btn,
+    .memori-chat-inputs--send-btn.memori-button {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+    }
 }
 
 .memori-chat-inputs--send-btn:disabled,
