@@ -83,6 +83,8 @@
     opacity: 1;
     pointer-events: auto;
     visibility: visible;
+    color: var(--memori-text-color, #111827);
+    border-color: color-mix(in srgb, var(--memori-text-color, #111827) 28%, transparent);
 }
 
 .memori-button--icon > svg {
@@ -321,7 +323,7 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--header-row {
     display: flex;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     min-width: 0;
     max-width: 100%;
@@ -332,9 +334,7 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-actions {
     display: inline-flex;
-    min-width: 0;
-    max-width: 100%;
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     flex-shrink: 0;
     align-items: center;
     margin-left: auto;
@@ -352,10 +352,13 @@
 }
 
 @media (max-width: 480px) {
-    .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand {
-        min-width: 0;
-        max-width: calc(100% - 6.5rem);
-        flex: 1 1 auto;
+    .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand-name {
+        font-size: 0.9375rem;
     }
 }
 
@@ -411,11 +414,18 @@
     font-weight: 600;
 }
 
-/* .memori-header defaults to width:100%; in a narrow sidebar that steals space from the brand row. */
-.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--header-row > .memori-header {
+/* `.memori-header` defaults to width:100%; inside header-actions that pushes the close
+   button off-screen — constrain it to its icon row only. */
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-hidden-chat-layout--header-actions
+    .memori-header {
     width: auto;
     min-width: 0;
-    flex: 0 1 auto;
+    flex: 0 0 auto;
+    height: auto;
+    margin-left: 0;
+    padding-inline: 0;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-header--position .memori-header--position-placeName {
@@ -426,8 +436,7 @@
     display: flex;
     overflow: hidden;
     min-width: 0;
-    max-width: calc(100% - 7.5rem);
-    flex: 1 1 auto;
+    flex: 1 1 0;
     align-items: center;
     gap: 0.75rem;
 }
@@ -530,6 +539,10 @@
         display: none;
     } */
 
+    .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-close {
+        z-index: 3;
+    }
+
     .memori-sidebar {
         right: -100%;
         width: 100%;
@@ -608,5 +621,14 @@
 .memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover,
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-header .memori-dropdown--user-trigger:hover {
     border: var(--memori-border) solid #fff;
+    color: #fff;
+}
+
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-hidden-chat-layout--header-close.memori-website_assistant--close-button,
+[data-theme='dark']
+    .memori-widget.memori-layout-hidden_chat
+    .memori-hidden-chat-layout--header-close.memori-website_assistant--close-button {
+    border-color: #fff;
     color: #fff;
 }

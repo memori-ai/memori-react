@@ -192,7 +192,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       isMobile &&
       !!headerProps.loginToken &&
       headerProps.showChatHistory !== false;
-    const showFullscreenInPanel = headerProps.showFullscreen !== false;
+    const showFullscreenInPanel =
+      !isMobile && headerProps.showFullscreen !== false;
     const showShareInPanel = headerProps.showShare !== false;
     const showLocationInPanel = !!headerProps.memori?.needsPosition;
     const historyBlock = showChatHistoryInPanel
