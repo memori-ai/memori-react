@@ -446,7 +446,15 @@ const ChatBubble: React.FC<Props> = ({
   }
 
   const shouldShowTimestampInAddon =
-    !!formattedTimestamp && (!message.fromUser || isChatlogPanel);
+    !!formattedTimestamp && !message.fromUser && !isChatlogPanel;
+  const bubbleAddonTooltipProps = {
+    container: surfaceEl ?? undefined,
+    slotProps: {
+      positioner: {
+        className: 'memori-chat--bubble-addon-tooltip-positioner',
+      },
+    },
+  } as const;
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
@@ -558,7 +566,12 @@ const ChatBubble: React.FC<Props> = ({
           <div
             className={cx('memori-chat--bubble-shell', {
               'memori-chat--bubble-shell--from-user': !!message.fromUser,
-              'memori-chat--bubble-shell--has-addon': shouldShowBubbleAddon,
+            })}
+          >
+          <div
+            className={cx('memori-chat--bubble-anchor', {
+              'memori-chat--bubble-anchor--from-user': !!message.fromUser,
+              'memori-chat--bubble-anchor--has-addon': shouldShowBubbleAddon,
             })}
           >
           <div
@@ -597,30 +610,6 @@ const ChatBubble: React.FC<Props> = ({
             )}
           </div>
 
-          {!message.fromUser && (
-            <div
-              className={cx('memori-chat--artifact-block', {
-                'memori-chat--artifact-block--chatlog': isChatlogPanel,
-              })}
-            >
-              <ArtifactHandler
-                isChatlogPanel={isChatlogPanel}
-                message={message}
-              />
-            </div>
-          )}
-
-          <MediaWidget
-            simulateUserPrompt={simulateUserPrompt}
-            media={codeMediaWidgetMedia}
-            sessionID={sessionID}
-            baseUrl={baseUrl}
-            apiUrl={apiUrl}
-            translateTo={translateTo}
-            customMediaRenderer={customMediaRenderer}
-            fromUser={message.fromUser}
-          />
-
           {shouldShowBubbleAddon && (
             <div className="memori-chat--bubble-addon">
               {shouldShowTimestampInAddon && (
@@ -637,6 +626,7 @@ const ChatBubble: React.FC<Props> = ({
               )}
               {shouldShowCopyButtons && (
                 <Tooltip
+                  {...bubbleAddonTooltipProps}
                   placement="bottom"
                   content={
                     copyStatus.plain === 'success'
@@ -690,6 +680,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {shouldShowCopyRawButton && (
                 <Tooltip
+                  {...bubbleAddonTooltipProps}
                   placement="bottom"
                   content={
                     copyStatus.raw === 'success'
@@ -749,6 +740,7 @@ const ChatBubble: React.FC<Props> = ({
                     m.properties?.functionCache === 'true'
                 ) && (
                   <Tooltip
+                    {...bubbleAddonTooltipProps}
                     placement="bottom"
                     content={t('functionCache') || 'Function cache'}
                     className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
@@ -782,6 +774,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {message.generatedByAI && showAIicon && (
                 <Tooltip
+                  {...bubbleAddonTooltipProps}
                   placement="bottom"
                   content={t('generatedByAI')}
                   className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
@@ -805,6 +798,7 @@ const ChatBubble: React.FC<Props> = ({
                 message.translatedText &&
                 message.translatedText !== message.text && (
                   <Tooltip
+                    {...bubbleAddonTooltipProps}
                     placement="bottom"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
@@ -831,6 +825,7 @@ const ChatBubble: React.FC<Props> = ({
                 apiUrl &&
                 showWhyThisAnswer && (
                   <Tooltip
+                    {...bubbleAddonTooltipProps}
                     placement="bottom"
                     content={t('whyThisAnswer') || 'Why this answer?'}
                   >
@@ -849,6 +844,31 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
+          </div>
+
+          {!message.fromUser && (
+            <div
+              className={cx('memori-chat--artifact-block', {
+                'memori-chat--artifact-block--chatlog': isChatlogPanel,
+              })}
+            >
+              <ArtifactHandler
+                isChatlogPanel={isChatlogPanel}
+                message={message}
+              />
+            </div>
+          )}
+
+          <MediaWidget
+            simulateUserPrompt={simulateUserPrompt}
+            media={codeMediaWidgetMedia}
+            sessionID={sessionID}
+            baseUrl={baseUrl}
+            apiUrl={apiUrl}
+            translateTo={translateTo}
+            customMediaRenderer={customMediaRenderer}
+            fromUser={message.fromUser}
+          />
           </div>
 
           {message.fromUser && renderUserAvatar()}

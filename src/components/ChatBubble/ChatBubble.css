@@ -287,9 +287,9 @@
 .memori-chat--bubble-addon {
     position: absolute;
     z-index: 2147483647;
-    top: auto;
+    top: 100%;
     right: auto;
-    bottom: 0;
+    bottom: auto;
     left: 0;
     display: flex;
     width: max-content;
@@ -307,7 +307,7 @@
     gap: calc(var(--memori-spacing-xs) * 0.5);
     opacity: 0;
     pointer-events: none;
-    transform: translate3d(0, calc(100% - 2px), 0) scale(0.98);
+    transform: translate3d(0, -6px, 0) scale(0.98);
     transition:
         opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -318,24 +318,28 @@
     padding-left: var(--memori-spacing-sm);
 }
 
-/* Stack the addon on the bubble cell so it sits just under the message
-   (not under artifacts/media further down the shell). */
-.memori-chat--bubble-shell--has-addon {
-    display: grid;
-    align-items: start;
-    grid-template-columns: minmax(0, 1fr);
+/* Anchor bubble + addon so the action row sits directly under the message,
+   not under artifacts/media rendered below in the shell. */
+.memori-chat--bubble-anchor {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.memori-chat--bubble-shell--from-user .memori-chat--bubble-addon {
+.memori-chat--bubble-anchor--from-user {
+    align-items: flex-end;
+}
+
+.memori-chat--bubble-anchor--has-addon {
+    /* Keep the translated addon inside the hover hit area on desktop. */
+    padding-bottom: calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
+}
+
+.memori-chat--bubble-anchor--from-user .memori-chat--bubble-addon {
     right: 0;
     left: auto;
-    justify-self: end;
-}
-
-.memori-chat--bubble-shell--has-addon > .memori-chat--bubble,
-.memori-chat--bubble-shell--has-addon > .memori-chat--bubble-addon {
-    grid-column: 1;
-    grid-row: 1;
 }
 
 .memori-chat--artifact-block {
@@ -347,18 +351,18 @@
     max-width: 100%;
 }
 
-.memori-chat--bubble-shell--has-addon:focus-within .memori-chat--bubble-addon,
+.memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble-addon,
 .memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble-addon {
     opacity: 1;
     pointer-events: auto;
-    transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+    transform: translate3d(0, -8px, 0) scale(1);
 }
 
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: fit-content;
 }
 
-.memori-chat--bubble-shell--has-addon:focus-within .memori-chat--bubble,
+.memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble,
 .memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble {
     box-shadow: var(--memori-chat-addon-elevation);
 }
@@ -373,14 +377,14 @@
 .memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble-addon {
     opacity: 1;
     pointer-events: auto;
-    transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+    transform: translate3d(0, -8px, 0) scale(1);
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble-addon {
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble-addon {
         opacity: 1;
         pointer-events: auto;
-        transform: translate3d(0, calc(100% + 4px), 0) scale(1);
+        transform: translate3d(0, -8px, 0) scale(1);
     }
 }
 
@@ -397,17 +401,22 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble {
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble {
         box-shadow: var(--memori-chat-addon-elevation);
     }
 
-    .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble.memori-chat--user-bubble {
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble.memori-chat--user-bubble {
         box-shadow: var(--memori-chat-addon-elevation);
     }
 }
 
 .memori-chat--bubble-addon-tooltip-trigger {
     display: inline-flex;
+}
+
+/* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform. */
+.memori-chat--bubble-addon-tooltip-positioner {
+    z-index: 2147483647;
 }
 
 .memori-chat--bubble-addon button {
