@@ -315,6 +315,13 @@
     gap: 0.35rem;
 }
 
+.memori-mobile-session-panel--page:has(.memori-mobile-session-panel--back) {
+    padding-top: 0;
+    padding-bottom: 0.65rem;
+    border-bottom: 0.5px solid var(--memori-border-color, #e5e7eb);
+    margin-bottom: 0.75rem;
+}
+
 /* User details typography */
 .memori-dropdown--user-details {
     display: flex;
