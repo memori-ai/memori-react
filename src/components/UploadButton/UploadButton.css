@@ -232,7 +232,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    fill: var(--memori-primary, #4dabf7);
+    fill: #fff;
 }
 
 /* Preview Thumbnail */

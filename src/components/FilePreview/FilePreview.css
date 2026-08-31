@@ -164,7 +164,7 @@
     height: 20px;
     flex-shrink: 0;
     color: var(--memori-text-color);
-    fill: #868e96;
+    fill: #fff;
 }
 
 .memori--preview-thumbnail {
