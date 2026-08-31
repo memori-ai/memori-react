@@ -95,6 +95,7 @@ export interface Props {
   showReasoning?: boolean;
   usageHtml?: string;
   isChatlogPanel?: boolean;
+  showDates?: boolean;
   codeMimeTypes?: string[];
   translateTo?: string;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
@@ -122,6 +123,7 @@ const ChatBubble: React.FC<Props> = ({
   showReasoning = false,
   usageHtml = '',
   isChatlogPanel = false,
+  showDates = false,
   codeMimeTypes = [],
   translateTo,
   customMediaRenderer,
@@ -195,31 +197,23 @@ const ChatBubble: React.FC<Props> = ({
     )
   );
   const copiedLabel = t('copied') || 'Copied';
-  const formattedTimestamp = message.timestamp
-    ? (() => {
-        const date = new Date(
-          message.timestamp.endsWith('Z')
-            ? message.timestamp
-            : `${message.timestamp}Z`
-        );
-        const now = new Date();
-        const isToday =
-          date.getFullYear() === now.getFullYear() &&
-          date.getMonth() === now.getMonth() &&
-          date.getDate() === now.getDate();
-        return new Intl.DateTimeFormat(i18n.language || 'it', {
-          ...(isToday
-            ? {}
-            : {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-              }),
-          hour: '2-digit',
-          minute: '2-digit',
-        }).format(date);
-      })()
-    : null;
+  const formattedTimestamp =
+    showDates && message.timestamp
+      ? (() => {
+          const date = new Date(
+            message.timestamp.endsWith('Z')
+              ? message.timestamp
+              : `${message.timestamp}Z`
+          );
+          return new Intl.DateTimeFormat(i18n.language || 'it', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }).format(date);
+        })()
+      : null;
 
   // Format function cache content
   const functionCacheData = message.media?.filter(
@@ -446,7 +440,7 @@ const ChatBubble: React.FC<Props> = ({
   }
 
   const shouldShowTimestampInAddon =
-    !!formattedTimestamp && !message.fromUser && !isChatlogPanel;
+    showDates && !!formattedTimestamp && !message.fromUser && !isChatlogPanel;
   const bubbleAddonTooltipProps = {
     container: surfaceEl ?? undefined,
     slotProps: {

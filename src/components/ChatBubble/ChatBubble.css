@@ -88,8 +88,10 @@
 
 .memori-chat--bubble-timestamp-container {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
 .memori-chat--bubble-timestamp-separator {
@@ -266,6 +268,7 @@
     font-size: 0.8em;
     font-weight: var(--memori-text-weight-medium);
     line-height: 1;
+    white-space: nowrap;
 }
 
 .memori-chat--bubble-avatar-img {
@@ -293,8 +296,8 @@
     left: 0;
     display: flex;
     width: max-content;
-    max-width: 100%;
-    flex-wrap: wrap;
+    max-width: none;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: flex-start;
     padding: calc(var(--memori-spacing-xs) * 0.5) var(--memori-spacing-xs);
@@ -311,6 +314,7 @@
     transition:
         opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    white-space: nowrap;
     will-change: opacity, transform;
 }
 
@@ -412,6 +416,7 @@
 
 .memori-chat--bubble-addon-tooltip-trigger {
     display: inline-flex;
+    flex-shrink: 0;
 }
 
 /* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform. */
@@ -420,6 +425,7 @@
 }
 
 .memori-chat--bubble-addon button {
+    flex-shrink: 0;
     transition: all 0.3s ease-in-out;
 }
 
@@ -476,6 +482,7 @@
 
 .memori-chat--bubble-addon .memori-chat--feedback {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     padding: 0;
     margin: 0;

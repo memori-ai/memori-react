@@ -522,27 +522,8 @@ const Chat: React.FC<Props> = ({
                   showReasoning={showReasoning}
                   usageHtml={usageHtmlByIndex[index]}
                   isChatlogPanel={isChatlogPanel}
+                  showDates={showDates}
                 />
-
-                {showDates && !!message.timestamp && !message.fromUser && (
-                  <small
-                    className={`memori-chat--timestamp ${
-                      message.fromUser ? 'text-right' : 'text-left'
-                    }`}
-                  >
-                    {new Intl.DateTimeFormat('it', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      second: '2-digit',
-                    }).format(
-                      new Date(
-                        message.timestamp.endsWith('Z')
-                          ? message.timestamp
-                          : `${message.timestamp}Z`
-                      )
-                    )}
-                  </small>
-                )}
 
                 {showContextPerLine &&
                   !!Object.keys(message.contextVars ?? {}).length && (

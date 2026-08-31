@@ -63,20 +63,6 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -304,20 +290,6 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -584,20 +556,6 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -825,20 +783,6 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -1079,20 +1023,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -1320,20 +1250,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -1600,20 +1516,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -1856,20 +1758,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -2125,20 +2013,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -2348,20 +2222,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -2610,20 +2470,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -2833,20 +2679,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -3087,20 +2919,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -3312,20 +3130,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -3576,20 +3380,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -3801,20 +3591,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -4129,11 +3905,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
             </div>
-            <small
-              class="memori-chat--timestamp text-left"
-            >
-              13:00:00
-            </small>
           </div>
           <div
             style="margin-bottom: 0px;"
@@ -4375,11 +4146,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
             </div>
-            <small
-              class="memori-chat--timestamp text-left"
-            >
-              13:00:00
-            </small>
           </div>
           <div
             style="margin-bottom: 0px;"
@@ -4660,11 +4426,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
             </div>
-            <small
-              class="memori-chat--timestamp text-left"
-            >
-              13:00:00
-            </small>
           </div>
           <div
             style="margin-bottom: 0px;"
@@ -4906,11 +4667,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
             </div>
-            <small
-              class="memori-chat--timestamp text-left"
-            >
-              13:00:00
-            </small>
           </div>
           <div
             id="end-messages-ref"
@@ -5091,20 +4847,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -5332,20 +5074,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -5612,20 +5340,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -5853,20 +5567,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -6141,20 +5841,6 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -6382,20 +6068,6 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -6875,20 +6547,6 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -7116,20 +6774,6 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -7370,20 +7014,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -7611,20 +7241,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -7891,20 +7507,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -8132,20 +7734,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -8409,20 +7997,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -8650,20 +8224,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -8930,20 +8490,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -9171,20 +8717,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -9338,20 +8870,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          11:30 AM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -9592,20 +9110,6 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -9817,20 +9321,6 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -10081,20 +9571,6 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
@@ -10306,20 +9782,6 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          03/01/2021, 01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >

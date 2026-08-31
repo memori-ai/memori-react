@@ -508,3 +508,43 @@ it('uses the adjacent attachment link for document media', () => {
     container.querySelector(`a[href="${attachmentUrl}"]`)
   ).toBeInTheDocument();
 });
+
+it('hides date and time in the bubble addon by default', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: 'Hello from the agent.',
+        timestamp: '2021-03-01T12:00:00.000Z',
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-chat--bubble-timestamp')
+  ).not.toBeInTheDocument();
+});
+
+it('shows formatted date and time in the bubble addon when showDates is true', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showDates
+      message={{
+        fromUser: false,
+        text: 'Hello from the agent.',
+        timestamp: '2021-03-01T12:00:00.000Z',
+      }}
+    />
+  );
+
+  const timestamp = container.querySelector('.memori-chat--bubble-timestamp');
+  expect(timestamp).toBeInTheDocument();
+  expect(timestamp?.textContent).toMatch(/\d{2}\/\d{2}\/\d{4}/);
+  expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
+});
