@@ -481,6 +481,7 @@
     "underage": "You must be at least {{age}} years old to sign up.",
     "optional": "Optional",
     "birthDate": "Birth date",
+    "birthDatePlaceholder": "DD/MM/YYYY",
     "birthDateHelper": "We ask for your birth date only to enable or disable functionalities that have age restrictions",
     "missingData": "Missing informations",
     "missingDataHelper": "We know that this is a bit annoying, but we need some more informations to complete your registration.",

@@ -494,6 +494,7 @@
     "underage": "Devi avere almeno {{age}} anni per registrarti.",
     "optional": "opzionale",
     "birthDate": "Data di nascita",
+    "birthDatePlaceholder": "GG/MM/AAAA",
     "birthDateHelper": "Ti chiediamo la data di nascita esclusivamente per abilitare o disabilitare le funzionalità che hanno restrizioni in base all'età",
     "missingData": "Informazioni mancanti",
     "missingDataHelper": "Sappiamo che questo è un po' fastidioso, ma abbiamo bisogno di alcune informazioni in più per completare la tua registrazione.",

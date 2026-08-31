@@ -453,6 +453,7 @@
     "underage": "Vous devez être au moins {{age}} ans pour s'inscrire.",
     "optional": "Facultatif",
     "birthDate": "Date de naissance",
+    "birthDatePlaceholder": "JJ/MM/AAAA",
     "birthDateHelper": "Nous demandons votre date de naissance uniquement pour activer ou désactiver les fonctionnalités qui ont des restrictions d'âge",
     "missingData": "Informations manquantes",
     "missingDataHelper": "Nous savons que c'est un peu ennuyeux, mais nous avons besoin de plus d'informations pour finaliser votre inscription.",

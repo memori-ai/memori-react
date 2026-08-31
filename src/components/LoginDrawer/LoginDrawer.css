@@ -12,6 +12,10 @@
 
 .memori--login-drawer--missing-data {
     display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     flex-direction: column;
     padding: var(--memori-spacing-2xl);
 }
@@ -49,6 +53,10 @@
 /* ===== FORM STYLES ===== */
 form.memori--login-drawer--form {
     display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     flex-direction: column;
     padding: var(--memori-spacing-lg) var(--memori-spacing-md);
     gap: var(--memori-spacing-xs);
@@ -56,6 +64,10 @@ form.memori--login-drawer--form {
 
 .memori--login-drawer--form label:not(.memori-checkbox) {
     display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     flex-direction: column;
     margin: var(--memori-spacing-sm) 0;
     gap: var(--memori-spacing-sm);
@@ -71,6 +83,10 @@ form.memori--login-drawer--form {
 }
 
 .memori--login-drawer--form input {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     flex: 1 1 auto;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
     border: 2px solid var(--memori-border-color);
@@ -81,6 +97,27 @@ form.memori--login-drawer--form {
     font-size: var(--memori-text-size-base);
     line-height: var(--memori-text-line-normal);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori--login-drawer--form input[type='date']::-webkit-datetime-edit,
+.memori--login-drawer--form input[type='date']::-webkit-datetime-edit-fields-wrapper {
+    display: inline-flex;
+    min-height: 1.375em;
+    align-items: center;
+    padding: 0;
+}
+
+.memori--login-drawer--form input[type='date']::-webkit-date-and-time-value {
+    min-height: 1.375em;
+    text-align: left;
+}
+
+.memori--login-drawer--form input[type='date']::-webkit-calendar-picker-indicator {
+    width: 1.25em;
+    height: 1.25em;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
 .memori--login-drawer--form input:focus {
@@ -917,6 +954,10 @@ p.memori--login-drawer--inline-error {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
+    .memori--login-drawer--missing-data {
+        padding: var(--memori-spacing-lg) var(--memori-spacing-md);
+    }
+
     .memori--login-drawer .memori-drawer--panel {
         --memori-drawer--width: 100%;
         border-radius: 20px 20px 0 0;

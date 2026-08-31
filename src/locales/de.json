@@ -427,6 +427,7 @@
     "underage": "Das müssen Sie mindestens sein {{age}} Jahre alt, um sich anzumelden.",
     "optional": "Optional",
     "birthDate": "Geburtsdatum",
+    "birthDatePlaceholder": "TT.MM.JJJJ",
     "birthDateHelper": "Wir fragen nur nach Ihrem Geburtsdatum, um Funktionen zu aktivieren oder zu deaktivieren, für die Altersbeschränkungen gelten",
     "missingData": "Fehlende Informationen",
     "missingDataHelper": "Wir wissen, dass dies etwas nervig ist, benötigen jedoch noch einige weitere Informationen, um Ihre Registrierung abzuschließen.",
