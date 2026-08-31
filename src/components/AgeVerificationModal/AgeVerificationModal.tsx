@@ -83,7 +83,9 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       backdropClassName="age-verification-modal-backdrop"
       closable={false}
     >
-      <p className="age-verification-text">{t('ageVerificationText', { minAge })}</p>
+      <p className="age-verification-text">
+        {t('ageVerificationText', { minAge })}
+      </p>
 
       <Form
         name="ageVerification"

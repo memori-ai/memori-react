@@ -665,12 +665,6 @@ const StartPanel: React.FC<Props> = ({
                   )} */}
               </div>
 
-              <p className="memori--start-description">
-                {instruct
-                  ? t('write_and_speak.pageInstructExplanation')
-                  : t('write_and_speak.pageTryMeExplanation')}
-              </p>
-
               {(memori.blockedUntil || notEnoughCredits) && (
                 <BlockedMemoriBadge
                   memoriName={memori.name}

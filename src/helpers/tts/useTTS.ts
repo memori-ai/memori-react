@@ -392,7 +392,7 @@ export function useTTS(
                   audioWrapperRef.current as unknown as IAudioContext
                 );
               }
-              
+
               await audioRef.current?.play();
             }
           } catch (e) {
@@ -560,7 +560,7 @@ export function useTTS(
   const toggleMute = useCallback(
     (mute?: boolean) => {
       const newMuteState = mute !== undefined ? mute : !speakerMuted;
-      
+
       setSpeakerMuted(newMuteState);
 
       // Update local config for persistence
@@ -569,7 +569,7 @@ export function useTTS(
       if (newMuteState && isPlaying) {
         stop();
       }
-      
+
       // Always clean up viseme state when toggling mute
       // This ensures fresh start when unmuting
       // if (newMuteState) {

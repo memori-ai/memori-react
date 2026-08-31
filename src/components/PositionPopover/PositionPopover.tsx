@@ -1,10 +1,5 @@
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import {
-  Button,
-  Popover,
-  useAlertManager,
-  createAlertOptions,
-} from '@memori.ai/ui';
+import { Button, Popover } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import { MapPin, Pencil } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -49,7 +44,6 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
   autoStartGeolocation = false,
 }) => {
   const { t } = useTranslation();
-  const { add } = useAlertManager();
   const [geolocationLoading, setGeolocationLoading] = useState(false);
   const [editingLocation, setEditingLocation] = useState(false);
   const [permissionDeniedMessage, setPermissionDeniedMessage] = useState<
@@ -150,14 +144,6 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
         } finally {
           if (gen === geoGenRef.current) {
             setGeolocationLoading(false);
-            add(
-              createAlertOptions({
-                description:
-                  t('widget.positionSharingEnabled') ||
-                  'Position sharing has been enabled.',
-                severity: 'success',
-              })
-            );
           }
         }
       },
@@ -177,7 +163,7 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     );
-  }, [setVenue, t, add]);
+  }, [setVenue, t]);
 
   const toggleSharing = useCallback(() => {
     setPermissionDeniedMessage(null);

@@ -76,8 +76,10 @@ export interface MobileSessionPanelProps {
   knownFactsDisabled?: boolean;
   knownFactsHint?: string;
   showSessionInfo?: boolean;
+  showKnownFacts?: boolean;
   history?: Message[];
   aiUsageTitle?: string;
+  showMessageConsumption?: boolean;
   isLoggedIn?: boolean;
   /** When false, hide profile / login / logout controls (authToken alone must not surface them). */
   showLogin?: boolean;
@@ -178,8 +180,10 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   knownFactsDisabled = false,
   knownFactsHint,
   showSessionInfo = false,
+  showKnownFacts = false,
   history = [],
   aiUsageTitle,
+  showMessageConsumption = false,
   isLoggedIn = false,
   showLogin = false,
   loginLabel = 'Log in',
@@ -562,9 +566,9 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             >
               {title}
             </h2>
-            {showSessionInfo && (
+            {showSessionInfo && (showKnownFacts || showMessageConsumption) && (
               <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
-                {isLoggedIn && (
+                {isLoggedIn && showKnownFacts && (
                   <li>
                     <Button
                       variant="toolbar"
@@ -590,6 +594,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                     </Button>
                   </li>
                 )}
+                {showMessageConsumption && (
                 <li>
                   <Button
                     variant="toolbar"
@@ -617,6 +622,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                     </span>
                   </Button>
                 </li>
+                )}
               </ul>
             )}
             <ul className="memori-mobile-session-panel--actions">

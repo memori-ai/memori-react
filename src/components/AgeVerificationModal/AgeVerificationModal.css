@@ -80,7 +80,7 @@
 }
 
 button.age-verification-submit {
-   position: relative;
+    position: relative;
     overflow: hidden;
     width: 100%;
     min-width: 220px;
@@ -113,12 +113,11 @@ button.age-verification-submit:hover::before {
     left: 100%;
 }
 
-
 button.age-verification-submit:active {
     transform: translateY(0);
 }
 
-.age-verification-text{
+.age-verification-text {
     margin-top: 0;
     margin-bottom: var(--memori-spacing-lg);
 }

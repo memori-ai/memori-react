@@ -257,11 +257,6 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -472,11 +467,6 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageInstructExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -687,11 +677,6 @@ exports[`renders StartPanel unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -897,11 +882,6 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -1112,11 +1092,6 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -1437,11 +1412,6 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -1749,11 +1719,6 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -2061,11 +2026,6 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -2276,11 +2236,6 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -2491,11 +2446,6 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -2896,11 +2846,6 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
       </div>
     </div>
   </div>
@@ -3113,11 +3058,6 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
             </span>
           </button>
         </div>
-        <p
-          class="memori--start-description"
-        >
-          write_and_speak.pageTryMeExplanation
-        </p>
         <span
           class="memori-tooltip blocked-memori-badge--tooltip"
         >
