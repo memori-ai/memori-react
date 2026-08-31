@@ -80,6 +80,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       widthMd="600px"
       title={t('ageVerification')}
       className="age-verification-modal"
+      backdropClassName="age-verification-modal-backdrop"
       closable={false}
     >
       <p className="age-verification-text">{t('ageVerificationText', { minAge })}</p>
