@@ -618,6 +618,7 @@ const Chat: React.FC<Props> = ({
           setSendOnEnter={setSendOnEnter}
           client={client}
           sessionID={sessionID}
+          baseUrl={baseUrl}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}

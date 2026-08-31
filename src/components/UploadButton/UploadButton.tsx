@@ -13,12 +13,16 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { officeNativeExtensions } from '../../helpers/constants';
+import {
+  documentConversionExtensions,
+  officeNativeExtensions,
+} from '../../helpers/constants';
 // Props interface
 interface UploadManagerProps {
   authToken?: string;
   client?: ReturnType<typeof memoriApiClient>;
   sessionID?: string;
+  baseUrl?: string;
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
   documentPreviewFiles: {
@@ -45,6 +49,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   authToken = '',
   client,
   sessionID = '',
+  baseUrl = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
   documentPreviewFiles,
@@ -109,14 +114,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Check if file is a document
   const isDocumentFile = (file: File): boolean => {
-    const documentExtensions = [
-      '.pdf',
-      '.txt',
-      '.json',
-      '.xlsx',
-      '.csv',
-      '.md',
-      '.html',
+    const documentExtensions: readonly string[] = [
+      ...documentConversionExtensions,
       ...officeNativeExtensions,
     ];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
@@ -466,17 +465,11 @@ ${file.textAssetUrl || ''}
   // Document validation and error handling
   const validateDocumentFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = [
-      '.pdf',
-      '.txt',
-      '.json',
-      '.xlsx',
-      '.csv',
-      '.md',
-      '.html',
+    const ALLOWED_FILE_TYPES: readonly string[] = [
+      ...documentConversionExtensions,
       ...officeNativeExtensions,
     ];
-    const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
+    const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
@@ -624,7 +617,13 @@ ${file.textAssetUrl || ''}
       <input
         ref={unifiedInputRef}
         type="file"
-        accept={`.jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html,${officeNativeExtensions.join(',')}`}
+        accept={[
+          '.jpg',
+          '.jpeg',
+          '.png',
+          ...documentConversionExtensions,
+          ...officeNativeExtensions,
+        ].join(',')}
         multiple
         className="memori--upload-file-input"
         onChange={handleFileInputChange}
@@ -671,6 +670,7 @@ ${file.textAssetUrl || ''}
           authToken={authToken}
           client={client}
           sessionID={sessionID}
+          baseUrl={baseUrl}
           memoriID={memoriID}
           maxDocuments={maxDocumentsPerMessage}
           documentPreviewFiles={documentPreviewFiles}
