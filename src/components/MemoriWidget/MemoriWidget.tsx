@@ -85,6 +85,10 @@ import {
 } from '../../helpers/utils';
 import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
 import {
+  getMuteSpeakerFallback,
+  shouldPlayTtsAudio,
+} from '../../helpers/tts/muteSpeaker';
+import {
   allowedMediaTypes,
   anonTag,
   uiLanguages,
@@ -2132,6 +2136,9 @@ const MemoriWidget = ({
     [ttsProvider, userLang]
   );
 
+  const resolvedDefaultSpeakerActive =
+    defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true;
+
   // Initialize TTS hook with basic options first
   const {
     speak: ttsSpeak,
@@ -2150,24 +2157,27 @@ const MemoriWidget = ({
     },
     autoStart,
     defaultEnableAudio,
-    defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true
+    resolvedDefaultSpeakerActive
+  );
+
+  const muteSpeakerFallback = getMuteSpeakerFallback(
+    defaultEnableAudio,
+    resolvedDefaultSpeakerActive,
+    autoStart
   );
 
   // Helper function to check if audio should be played.
-  // When defaultEnableAudio is false, default to muted so we never play before the sync effect runs (avoids audio on first conversation start when audio is disabled).
-  const shouldPlayAudio = (text?: string) => {
-    const currentSpeakerMuted = getLocalConfig(
-      'muteSpeaker',
-      !defaultEnableAudio
-    );
-    return (
-      text &&
-      text.trim() &&
-      !preview &&
-      !currentSpeakerMuted &&
-      defaultEnableAudio
-    );
-  };
+  // Align mute fallback with UI state so autostart + muted speaker never speaks.
+  const shouldPlayAudio = (text?: string) =>
+    shouldPlayTtsAudio({
+      text,
+      preview,
+      defaultEnableAudio,
+      defaultSpeakerActive: resolvedDefaultSpeakerActive,
+      autoStart,
+      speakerMuted,
+      storedMute: getLocalConfig('muteSpeaker', muteSpeakerFallback),
+    });
 
   // Create a single, centralized function to process and send messages
   const processSpeechAndSendMessage = (text: string) => {
