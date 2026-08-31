@@ -300,6 +300,12 @@ const ChatLayout: React.FC<LayoutProps> = ({
             }
             knownFactsDisabled={!isSessionStarted}
             showSessionInfo={isSessionStarted}
+            showKnownFacts={
+              !!headerProps.memori?.enableDeepThought &&
+              !!headerProps.loginToken &&
+              !!headerProps.user?.pAndCUAccepted
+            }
+            showMessageConsumption={!!headerProps.showMessageConsumption}
             history={headerProps.history ?? []}
             isLoggedIn={!!loggedUser}
             showLogin={!!headerProps.showLogin}

@@ -190,10 +190,6 @@
     flex-shrink: 0;
 }
 
-.memori-widget.memori-layout-hidden_chat .memori--start-description {
-    margin-top: auto;
-}
-
 /* Fullscreen styles */
 .memori-sidebar-fullscreen {
     right: 0 !important;
@@ -528,10 +524,11 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--body .memori--title-container {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
     padding-top: 1rem;
-    text-align: center;
+    text-align: left;
 }
 
 @media (max-width: 768px) {

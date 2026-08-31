@@ -425,6 +425,14 @@ const Header: React.FC<Props> = ({
     : t('fullscreenEnter') || 'Full screen';
   const isAuthenticated = !!loginToken && !!user?.userID;
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
+  const showKnownFacts =
+    !!memori.enableDeepThought &&
+    !!loginToken &&
+    !!user?.pAndCUAccepted;
+  const showSessionInfoMenu =
+    isConversationStarted &&
+    showFullpageDividers &&
+    (showKnownFacts || showMessageConsumption);
 
   const brandTitle = memori?.name?.trim() || '';
   const brandRole = useMemo(() => {
@@ -466,18 +474,14 @@ const Header: React.FC<Props> = ({
     showClear ||
     showMessageConsumption ||
     (showFullscreen && fullScreenAvailable) ||
-    (memori.enableDeepThought &&
-      !!loginToken &&
-      !!user?.pAndCUAccepted &&
-      hasUserActivatedSpeak &&
-      !!sessionID) ||
+    (showKnownFacts && isConversationStarted) ||
     !!memori.enableBoardOfExperts ||
     enableAudio ||
     !!(showSettings && hasSettingsContent(layout, additionalSettings)) ||
     showShare;
 
   const loggedInSecondaryHasActions =
-    (isConversationStarted && showFullpageDividers) ||
+    showSessionInfoMenu ||
     (showFullscreen && fullScreenAvailable) ||
     enableAudio ||
     !!memori.needsPosition ||
@@ -824,11 +828,7 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {memori.enableDeepThought &&
-        !!loginToken &&
-        user?.pAndCUAccepted &&
-        hasUserActivatedSpeak &&
-        !!sessionID && (
+      {showKnownFacts && isConversationStarted && (
           <Tooltip
             title={t('knownFacts.title') || 'Known facts'}
             placement="bottom"
@@ -922,7 +922,7 @@ const Header: React.FC<Props> = ({
 
   const loggedInFullpageRightControls = (
     <div className="memori-header--auth-icon-controls">
-      {isConversationStarted && showFullpageDividers && (
+      {showSessionInfoMenu && (
         <Popover
           className="memori-header--dropdown"
           open={infoPopoverOpen}
@@ -957,28 +957,31 @@ const Header: React.FC<Props> = ({
           }}
           content={
             <div className="memori-dropdown--auth-content">
-              <button
-                type="button"
-                className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
-                onClick={() => {
-                  setShowKnownFactsDrawer(true);
-                  setInfoPopoverOpen(false);
-                }}
-              >
-                <span className="memori-dropdown--auth-icon-wrap">
-                  <Brain size={16} />
-                </span>
-                <span className="memori-dropdown--auth-copy">
-                  <span className="memori-dropdown--auth-title">
-                    {t('knownFacts.title') || 'Known facts'}
+              {showKnownFacts && (
+                <button
+                  type="button"
+                  className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
+                  onClick={() => {
+                    setShowKnownFactsDrawer(true);
+                    setInfoPopoverOpen(false);
+                  }}
+                >
+                  <span className="memori-dropdown--auth-icon-wrap">
+                    <Brain size={16} />
                   </span>
-                  <span className="memori-dropdown--auth-subtitle">
-                    {t('widget.knownFactsHint') || 'What I remember about you'}
+                  <span className="memori-dropdown--auth-copy">
+                    <span className="memori-dropdown--auth-title">
+                      {t('knownFacts.title') || 'Known facts'}
+                    </span>
+                    <span className="memori-dropdown--auth-subtitle">
+                      {t('widget.knownFactsHint') || 'What I remember about you'}
+                    </span>
                   </span>
-                </span>
-                {/* <ChevronRight size={16} aria-hidden /> */}
-              </button>
-              {hasChatConsumptionData ? (
+                  {/* <ChevronRight size={16} aria-hidden /> */}
+                </button>
+              )}
+              {showMessageConsumption &&
+                (hasChatConsumptionData ? (
                 <ChatConsumptionDropdown
                   history={history}
                   triggerVariant={buttonVariant}
@@ -1032,7 +1035,7 @@ const Header: React.FC<Props> = ({
                   </span>
                   <ChevronUp size={16} aria-hidden />
                 </button>
-              )}
+              ))}
             </div>
           }
         >
@@ -1193,12 +1196,7 @@ const Header: React.FC<Props> = ({
   const totemKnownFactsLabel = t('knownFacts.title') || 'Known facts';
   const totemShowSettings =
     showSettings && hasSettingsContent(layout, additionalSettings);
-  const totemShowKnownFacts =
-    !!memori.enableDeepThought &&
-    !!loginToken &&
-    !!user?.pAndCUAccepted &&
-    hasUserActivatedSpeak &&
-    !!sessionID;
+  const totemShowKnownFacts = showKnownFacts && isConversationStarted;
 
   // TOTEM rail: two-tier grouping inside one bordered container (section 5).
   // Tier 1 (visible): session utilities — audio, fullscreen, share.
@@ -1485,7 +1483,7 @@ const Header: React.FC<Props> = ({
 
   return (
     <>
-      {memori && (
+      {isConversationStarted && memori && (
         <div className="memori-fullpage-header-brand">
           {brandAvatarSrc ? (
             <img

@@ -88,32 +88,6 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
               class="memori-fullpage-header-row"
             >
               <div
-                class="memori-fullpage-header-brand"
-              >
-                <img
-                  alt=""
-                  class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
-                  role="presentation"
-                  src="https://aisuru.com/images/aisuru/square_logo.png"
-                />
-                <div
-                  class="memori-fullpage-header-brand-text"
-                >
-                  <span
-                    class="memori-fullpage-header-brand-name"
-                    title="Memori"
-                  >
-                    Memori
-                  </span>
-                  <span
-                    class="memori-fullpage-header-brand-role"
-                    title="Lorem ipsum."
-                  >
-                    Lorem ipsum.
-                  </span>
-                </div>
-              </div>
-              <div
                 class="memori-fullpage-header-actions"
               >
                 <div
@@ -607,11 +581,6 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                             </span>
                           </button>
                         </div>
-                        <p
-                          class="memori--start-description"
-                        >
-                          write_and_speak.pageTryMeExplanation
-                        </p>
                       </div>
                     </div>
                   </div>

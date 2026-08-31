@@ -1,8 +1,34 @@
 import React from 'react';
-import { render } from '../../testUtils';
+import { render, screen } from '../../testUtils';
 import { memori, history, user } from '../../mocks/data';
 import Header from './Header';
 import memoriApiClient from '@memori.ai/memori-api-client';
+
+const loggedInFullpageProps = {
+  memori,
+  history,
+  setVenue: jest.fn(),
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: jest.fn(),
+  setShowSettingsDrawer: jest.fn(),
+  setShowKnownFactsDrawer: jest.fn(),
+  setShowExpertsDrawer: jest.fn(),
+  speakerMuted: false,
+  setSpeakerMuted: jest.fn(),
+  hasUserActivatedSpeak: true,
+  showShare: false,
+  showSettings: false,
+  showFullscreen: false,
+  enableAudio: false,
+  clearHistory: jest.fn(),
+  sessionID: '1234',
+  loginToken: 'abcd',
+  user,
+  layout: 'FULLPAGE' as const,
+  setShowLoginDrawer: jest.fn(),
+  setShowChatHistoryDrawer: jest.fn(),
+  apiClient: memoriApiClient(),
+};
 
 it('renders Header unchanged', () => {
   const { container } = render(
@@ -396,4 +422,32 @@ it('renders Header for board of experts with session open unchanged', () => {
     />
   );
   expect(container).toMatchSnapshot();
+});
+
+it('hides the session menu when deep thought and AI consumption are off', () => {
+  render(<Header {...loggedInFullpageProps} />);
+
+  expect(screen.queryByLabelText('Info sessione')).toBeNull();
+  expect(screen.queryByText('knownFacts.title')).toBeNull();
+  expect(screen.queryByText('widget.aiConsumption')).toBeNull();
+});
+
+it('shows the session menu when deep thought is enabled', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+    />
+  );
+
+  expect(screen.getByLabelText('Info sessione')).toBeTruthy();
+});
+
+it('shows the session menu when AI consumption is enabled', () => {
+  render(<Header {...loggedInFullpageProps} showMessageConsumption />);
+
+  expect(screen.getByLabelText('Info sessione')).toBeTruthy();
 });

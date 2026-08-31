@@ -446,11 +446,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             </span>
                           </button>
                         </div>
-                        <p
-                          class="memori--start-description"
-                        >
-                          write_and_speak.pageTryMeExplanation
-                        </p>
                       </div>
                     </div>
                   </div>
