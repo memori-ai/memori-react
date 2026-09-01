@@ -825,7 +825,8 @@ const MemoriWidget = ({
     new Map()
   );
 
-  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  // Layout: from prop (string only) or integrationConfig; when neither is set, default to FULLPAGE.
+  // PII detection is only from integrationConfig (customData.layout as object with piiDetection).
   const layoutName =
     typeof layout === 'string'
       ? layout
@@ -853,7 +854,7 @@ const MemoriWidget = ({
       return layoutName as LayoutName;
     }
     if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
-    return 'DEFAULT';
+    return 'FULLPAGE';
   })();
   // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
   const piiDetection: PiiDetectionConfig | undefined =

@@ -29,7 +29,7 @@ const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
 
 const SettingsDrawer = ({
   open,
-  layout = 'DEFAULT',
+  layout = 'FULLPAGE',
   onClose,
   // microphoneMode = 'HOLD_TO_TALK',
   // continuousSpeechTimeout,
