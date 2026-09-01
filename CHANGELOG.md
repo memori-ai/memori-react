@@ -1,5 +1,23 @@
 
 
+## [8.43.0](https://github.com/memori-ai/memori-react/compare/v8.42.0...v8.43.0) (2026-09-01)
+
+
+### Features
+
+* enhance artifact preview by sanitizing content and adding iframe sandboxing ([353ec87](https://github.com/memori-ai/memori-react/commit/353ec87e60634cd8797af728e18257a719931524))
+* file conversion migrated over new internal api ([3991f99](https://github.com/memori-ai/memori-react/commit/3991f99123bece3833be63660351e3705e75bef2))
+
+
+### Bug Fixes
+
+* print icon jsx attributes ([cb04fdb](https://github.com/memori-ai/memori-react/commit/cb04fdb23061cdc97cafae88e786dafcbf6b1d67))
+
+
+### Maintenance
+
+* update dompurify to version 3.4.13 and remove iframe sandbox attribute in ArtifactPreview ([1f719b9](https://github.com/memori-ai/memori-react/commit/1f719b9bc51da7f1f488426d6f70bbb4d22328df))
+
 ## [8.42.0](https://github.com/memori-ai/memori-react/compare/v8.41.6...v8.42.0) (2026-08-03)
 
 
