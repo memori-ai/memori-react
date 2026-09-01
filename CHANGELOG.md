@@ -1,5 +1,19 @@
 
 
+## [9.0.0-alpha.20](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.19...v9.0.0-alpha.20) (2026-09-01)
+
+
+### Features
+
+* file conversion migrated over new internal api ([3991f99](https://github.com/memori-ai/memori-react/commit/3991f99123bece3833be63660351e3705e75bef2))
+* implement mute speaker functionality with TTS audio control ([adc4bf5](https://github.com/memori-ai/memori-react/commit/adc4bf5f5fe044923eb21b203b65c7b3c92dcb25))
+
+
+### Bug Fixes
+
+* print icon jsx attributes ([cb04fdb](https://github.com/memori-ai/memori-react/commit/cb04fdb23061cdc97cafae88e786dafcbf6b1d67))
+* update default layout value to FULLPAGE in MemoriWidget and SettingsDrawer components ([a6e4e85](https://github.com/memori-ai/memori-react/commit/a6e4e850fdaf2eefb68f684154dc4b06945128a4))
+
 ## [9.0.0-alpha.19](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.18...v9.0.0-alpha.19) (2026-08-28)
 
 ## [9.0.0-alpha.18](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.17...v9.0.0-alpha.18) (2026-08-27)
