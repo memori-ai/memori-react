@@ -4,16 +4,12 @@
  * Following the project's component patterns and design system
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import cx from 'classnames';
 import { Button, Dropdown } from '@memori.ai/ui';
 import { ArtifactData } from '../../types/artifact.types';
 import {
-  Download,
   Link as LinkIcon,
-  Maximize,
-  Minimize,
   Printer,
   MoreVertical,
 } from 'lucide-react';
@@ -186,7 +182,7 @@ const ArtifactActions: React.FC<{
           loading={loading}
           className="memori-artifact-action-btn"
         />
-       {isMobile && (
+        {isMobile && (
           <Dropdown className="memori-copy-menu-wrapper">
             <Dropdown.Trigger
               showChevron={false}
@@ -202,33 +198,23 @@ const ArtifactActions: React.FC<{
                 </Button>
               )}
             />
-            <Dropdown.Menu className="memori-copy-dropdown" style={{ minWidth: '200px' }}>
-              <div className="memori-copy-dropdown-list">
-                <Button
-                  onClick={handlePrint}
-                  disabled={loading}
-                  className="memori-artifact-action-btn memori-artifact-action-btn--print"
-                  variant="ghost"
-                  icon={<Printer className="memori-artifact-action-icon" />}
-                  title={t('artifact.print') || 'Print'}
-                >
-                  <span className="memori-artifact-action-text">
-                    {t('artifact.print') || 'Print'}
-                  </span>
-                </Button>
-                <Button
-                  onClick={handleOpenExternal}
-                  disabled={loading}
-                  className="memori-artifact-action-btn memori-artifact-action-btn--external"
-                  variant="ghost"
-                  icon={<LinkIcon className="memori-artifact-action-icon" />}
-                  title={t('artifact.external') || 'External'}
-                >
-                  <span className="memori-artifact-action-text">
-                    {t('artifact.external') || 'External'}
-                  </span>
-                </Button>
-              </div>
+            <Dropdown.Menu placement="bottom" align="end" sideOffset={8}>
+              <Dropdown.Item
+                onClick={handlePrint}
+                disabled={loading}
+                icon={<Printer />}
+                label={t('artifact.print') || 'Print'}
+              >
+                {t('artifact.print') || 'Print'}
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={handleOpenExternal}
+                disabled={loading}
+                icon={<LinkIcon />}
+                label={t('artifact.external') || 'External'}
+              >
+                {t('artifact.external') || 'External'}
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         )}

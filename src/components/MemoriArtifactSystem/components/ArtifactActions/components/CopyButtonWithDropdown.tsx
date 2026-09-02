@@ -1,14 +1,13 @@
 /**
  * CopyButtonWithDropdown - Main component with dropdown menu
- * Similar to Claude's copy system with format-specific options using headless-ui
+ * Similar to Claude's copy system with format-specific options
  */
 /* eslint-disable react/prop-types -- props validated by CopyButtonWithDropdownProps (TypeScript) */
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import cx from 'classnames';
 import { CopyButtonWithDropdownProps, CopyFormat } from '../types';
 import { useCopyArtifact } from '../hooks/useCopyArtifact';
-import CopyMenuItem from './CopyMenuItem';
 import { Button, Dropdown } from '@memori.ai/ui';
 import {
   Copy,
@@ -22,8 +21,20 @@ import {
 import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { ArtifactData } from '../../../types/artifact.types';
 
+const getCopyActionIcon = (action: CopyFormat['action']) => {
+  switch (action) {
+    case 'pdf':
+    case 'download':
+      return <Download />;
+    case 'print':
+      return <Printer />;
+    case 'link':
+      return <LinkIcon />;
+    default:
+      return <Copy />;
+  }
+};
 
 const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   artifact,
@@ -412,47 +423,35 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
                 </Button>
               )}
             />
-            <Dropdown.Menu className="memori-copy-dropdown">
-              <div className="memori-copy-dropdown-content">
-                <div className="memori-copy-dropdown-list">
-                  {formats.map(format => (
-                    <Dropdown.Item key={format.id}>
-                      <CopyMenuItem
-                        format={format}
-                        onClick={handleFormatSelect}
-                        loading={copyState.loading}
-                        active={false}
-                      />
-                    </Dropdown.Item>
-                  ))}
-                  <Dropdown.Item>
-                    <CopyMenuItem
-                      format={{
-                        id: 'external',
-                        label: t('artifact.external') || 'External',
-                        action: 'link',
-                        mimeType: artifact.mimeType,
-                      }}
-                      onClick={handleOpenExternal}
-                      loading={copyState.loading}
-                      active={false}
-                    />
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <CopyMenuItem
-                      format={{
-                        id: 'print',
-                        label: t('artifact.print') || 'Print',
-                        action: 'print',
-                        mimeType: artifact.mimeType,
-                      }}
-                      onClick={handlePrint}
-                      loading={copyState.loading}
-                      active={false}
-                    />
-                  </Dropdown.Item>
-                </div>
-              </div>
+            <Dropdown.Menu placement="bottom" align="end" sideOffset={8}>
+              {formats.map(format => (
+                <Dropdown.Item
+                  key={format.id}
+                  onClick={() => handleFormatSelect(format)}
+                  disabled={copyState.loading}
+                  icon={getCopyActionIcon(format.action)}
+                  label={format.label}
+                >
+                  {format.label}
+                </Dropdown.Item>
+              ))}
+              <Dropdown.Separator />
+              <Dropdown.Item
+                onClick={handleOpenExternal}
+                disabled={copyState.loading}
+                icon={getCopyActionIcon('link')}
+                label={t('artifact.external') || 'External'}
+              >
+                {t('artifact.external') || 'External'}
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={handlePrint}
+                disabled={copyState.loading}
+                icon={getCopyActionIcon('print')}
+                label={t('artifact.print') || 'Print'}
+              >
+                {t('artifact.print') || 'Print'}
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         )}

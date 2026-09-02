@@ -634,7 +634,6 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     align-items: center;
     padding: 0 var(--memori-spacing-md);
     padding-bottom: var(--memori-spacing-sm);
-    border-bottom: 1px solid color-mix(in oklch, var(--memori-border-color) 75%, transparent);
     margin-top: var(--memori-spacing-lg);
     /* justify-content: space-between; */
     gap: var(--memori-spacing-sm);
@@ -698,8 +697,10 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 
 /* Match website_assistant / hidden_chat sidebar close — never outline primary fill */
 .memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button,
-.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
-.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:active:not(:disabled, .memori-button--disabled) {
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:active:not(:disabled, .memori-button--disabled) {
     border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
     background: transparent;
     box-shadow: none;
@@ -707,7 +708,8 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     transform: none;
 }
 
-.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled) {
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled) {
     background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
 }
 
@@ -790,6 +792,7 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
         max-width: fit-content;
         flex: 0 0 auto;
         justify-content: flex-start;
+        /* border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent); */
     }
 
     .memori-artifact-drawer-top-right .memori-tab-switch__tab {
@@ -1045,11 +1048,7 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     border: 1px solid var(--memori-border-color);
     border-radius: var(--memori-radius-box);
     /* Soft contrast vs canvas — not pure white / not heavy fill */
-    background: color-mix(
-        in srgb,
-        var(--memori-text-color) 6%,
-        var(--memori-secondary-background)
-    ) !important;
+    background: color-mix(in srgb, var(--memori-text-color) 6%, var(--memori-secondary-background)) !important;
     box-shadow: var(--memori-shadow-lg);
     color: var(--memori-text-color);
 }
