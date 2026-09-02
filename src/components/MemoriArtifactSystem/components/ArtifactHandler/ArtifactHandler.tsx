@@ -1,6 +1,13 @@
-import React, { useEffect, useMemo, useCallback, memo } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  memo,
+  useRef,
+} from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
-import { ArtifactData } from '../../types/artifact.types';
+import { ArtifactData, ArtifactEdit } from '../../types/artifact.types';
 import {
   ChevronRight,
   ChevronDown,
@@ -18,8 +25,9 @@ import MarkdownIcon from '../../../../icons/artifacts/MarkdownIcon';
 import PythonIcon from '../../../../icons/artifacts/PythonIcon';
 import SvgIcon from '../../../../icons/artifacts/SvgIcon';
 import XmlIcon from '../../../../icons/artifacts/XmlIcon';
+import { parseEdits } from '../../utils/applyEdits';
+import { useTranslation } from 'react-i18next';
 
-// Event type for artifact creation
 type ArtifactCreatedEvent = CustomEvent<{
   artifact: ArtifactData;
   message: Message;
@@ -28,6 +36,16 @@ type ArtifactCreatedEvent = CustomEvent<{
 interface ArtifactHandlerProps {
   isChatlogPanel?: boolean;
   message: Message;
+}
+
+interface DetectedUpdate {
+  artifactId: string;
+  edits: ArtifactEdit[];
+}
+
+interface FailedUpdate {
+  artifactId: string;
+  reason: 'not-found' | 'no-match' | 'invalid';
 }
 
 // ---------------------------------------------------------------------------
@@ -42,48 +60,72 @@ const formatBytes = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
-/**
- * Lightweight deterministic hash of the first 200 chars of a string.
- * Used to produce stable artifact IDs that survive re-renders.
- */
-const hashContent = (str: string): string => {
-  let hash = 0;
-  const len = Math.min(str.length, 200);
-  for (let i = 0; i < len; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0; // Convert to 32-bit int
-  }
-  return Math.abs(hash).toString(36);
-};
-
-/**
- * Returns true when the `class` attribute value of an opening tag contains
- * the word "memori-artifact" as a whole word (handles multiple classes).
- *
- * Examples that match:
- *   class="memori-artifact"
- *   class="memori-artifact extra-class"
- *   class="foo memori-artifact"
- *   class='memori-artifact'
- *   class = "memori-artifact extra"
- */
 const CLASS_ATTR_RE = /class\s*=\s*["']([^"']*)["']/i;
-const hasMemoriArtifactClass = (openingTag: string): boolean => {
+const DATA_ACTION_RE = /data-action\s*=\s*["']([^"']+)["']/i;
+
+const getClassList = (openingTag: string): string[] => {
   const m = openingTag.match(CLASS_ATTR_RE);
-  if (!m) return false;
-  // \b word-boundary ensures we don't match "foo-memori-artifact-bar"
-  return /\bmemori-artifact\b/.test(m[1]);
+  if (!m) return [];
+  return m[1].split(/\s+/).filter(Boolean);
+};
+
+const getDataAction = (openingTag: string): string | null => {
+  const m = openingTag.match(DATA_ACTION_RE);
+  return m?.[1]?.trim().toLowerCase() || null;
+};
+
+/** True for create tags: class memori-artifact, action create/absent (not update). */
+const isCreateArtifactTag = (openingTag: string): boolean => {
+  const classes = getClassList(openingTag);
+  if (classes.includes('memori-artifact-update')) return false;
+  if (!classes.includes('memori-artifact')) return false;
+  const action = getDataAction(openingTag);
+  return action === null || action === 'create';
 };
 
 /**
- * Parser-style artifact detector.
- *
- * Replaces the previous single-regex approach with a depth-tracking loop so
- * that:
- *  - Multiple CSS classes are handled correctly  (e.g. class="memori-artifact foo")
- *  - Nested / self-contained <output> tags inside the content don't truncate it
- *  - Unclosed tags are gracefully skipped
- *  - IDs are stable across re-renders (derived from message + content hash)
+ * True for update tags:
+ * - preferred: class="memori-artifact" data-action="update"
+ * - legacy: class="memori-artifact-update"
+ */
+const isUpdateArtifactTag = (openingTag: string): boolean => {
+  const classes = getClassList(openingTag);
+  if (classes.includes('memori-artifact-update')) return true;
+  if (!classes.includes('memori-artifact')) return false;
+  return getDataAction(openingTag) === 'update';
+};
+
+const findMatchingOutputClose = (cleaned: string, openEnd: number): number => {
+  let depth = 1;
+  let pos = openEnd;
+  let closeStart = -1;
+
+  while (pos < cleaned.length && depth > 0) {
+    const nextOpen = cleaned.indexOf('<output', pos);
+    const nextClose = cleaned.indexOf('</output>', pos);
+
+    if (nextClose === -1) {
+      return cleaned.length;
+    }
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      pos = nextOpen + '<output'.length;
+    } else {
+      depth--;
+      if (depth === 0) {
+        closeStart = nextClose;
+      } else {
+        pos = nextClose + '</output>'.length;
+      }
+    }
+  }
+
+  return closeStart;
+};
+
+/**
+ * Detect create artifacts (class="memori-artifact", data-action create/absent).
  */
 const detectArtifacts = (
   text: string,
@@ -97,66 +139,29 @@ const detectArtifacts = (
   let searchFrom = 0;
   let artifactNum = 0;
 
-  // Regex that matches any <output …> opening tag (capturing the full tag)
   const OPEN_TAG_RE = /<output\b([^>]*)>/gi;
 
   while (searchFrom < cleaned.length) {
-    // Find the next <output …> opening tag from the current position
     OPEN_TAG_RE.lastIndex = searchFrom;
     const openMatch = OPEN_TAG_RE.exec(cleaned);
     if (!openMatch) break;
 
-    const fullOpenTag = openMatch[0]; // e.g. <output class="memori-artifact" data-mimetype="text/html">
-    const openStart = openMatch.index;
-    const openEnd = openStart + fullOpenTag.length;
+    const fullOpenTag = openMatch[0];
+    const openEnd = openMatch.index + fullOpenTag.length;
 
-    // Only process tags that carry the required class
-    if (!hasMemoriArtifactClass(fullOpenTag)) {
+    if (!isCreateArtifactTag(fullOpenTag)) {
       searchFrom = openEnd;
       continue;
     }
 
-    // Depth-tracking scan to find the matching </output>
-    let depth = 1;
-    let pos = openEnd;
-    let closeStart = -1;
-
-    while (pos < cleaned.length && depth > 0) {
-      const nextOpen = cleaned.indexOf('<output', pos);
-      const nextClose = cleaned.indexOf('</output>', pos);
-
-      if (nextClose === -1) {
-        // No closing tag found — treat everything until EOF as content
-        // (handles streaming / partial messages)
-        closeStart = cleaned.length;
-        depth = 0;
-        break;
-      }
-
-      if (nextOpen !== -1 && nextOpen < nextClose) {
-        // There's another opening tag before the next closing tag → go deeper
-        depth++;
-        pos = nextOpen + '<output'.length;
-      } else {
-        // Found a closing tag
-        depth--;
-        if (depth === 0) {
-          closeStart = nextClose;
-        } else {
-          pos = nextClose + '</output>'.length;
-        }
-      }
-    }
-
+    const closeStart = findMatchingOutputClose(cleaned, openEnd);
     if (closeStart === -1) {
-      // Malformed — skip past this opening tag and continue
       searchFrom = openEnd;
       continue;
     }
 
     const content = cleaned.slice(openEnd, closeStart).trim();
 
-    // Extract metadata from the opening tag
     const mimeTypeMatch = fullOpenTag.match(
       /data-mimetype\s*=\s*["']([^"']+)["']/i
     );
@@ -173,13 +178,16 @@ const detectArtifacts = (
 
     artifactNum++;
 
-    // Stable ID: does not change across re-renders for the same content
-    const stableId = `artifact-${messageKey}-${artifactNum}-${hashContent(
-      content
-    )}`;
+    const dataArtifactIdMatch = fullOpenTag.match(
+      /data-artifact-id\s*=\s*["']([^"']+)["']/i
+    );
+    const artifactId =
+      dataArtifactIdMatch?.[1]?.trim() ||
+      `artifact-${messageKey}-${artifactNum}`;
 
     artifacts.push({
-      id: stableId,
+      id: `artifact-ui-${artifactId}`,
+      artifactId,
       content,
       mimeType,
       title,
@@ -187,7 +195,6 @@ const detectArtifacts = (
       size: content.length,
     });
 
-    // Advance past the closing tag (or EOF)
     searchFrom =
       closeStart === cleaned.length
         ? cleaned.length
@@ -195,6 +202,55 @@ const detectArtifacts = (
   }
 
   return artifacts;
+};
+
+/**
+ * Detect update tags and parse their JSON edit bodies.
+ */
+const detectUpdates = (text: string, isFromUser: boolean): DetectedUpdate[] => {
+  if (!text || isFromUser) return [];
+
+  const cleaned = stripReasoningTags(text);
+  const updates: DetectedUpdate[] = [];
+  let searchFrom = 0;
+
+  const OPEN_TAG_RE = /<output\b([^>]*)>/gi;
+
+  while (searchFrom < cleaned.length) {
+    OPEN_TAG_RE.lastIndex = searchFrom;
+    const openMatch = OPEN_TAG_RE.exec(cleaned);
+    if (!openMatch) break;
+
+    const fullOpenTag = openMatch[0];
+    const openEnd = openMatch.index + fullOpenTag.length;
+
+    if (!isUpdateArtifactTag(fullOpenTag)) {
+      searchFrom = openEnd;
+      continue;
+    }
+
+    const closeStart = cleaned.indexOf('</output>', openEnd);
+    const bodyEnd = closeStart === -1 ? cleaned.length : closeStart;
+    const body = cleaned.slice(openEnd, bodyEnd).trim();
+
+    const idMatch = fullOpenTag.match(
+      /data-artifact-id\s*=\s*["']([^"']+)["']/i
+    );
+    const artifactId = idMatch?.[1]?.trim();
+    const edits = parseEdits(body);
+
+    if (artifactId && edits) {
+      updates.push({ artifactId, edits });
+    } else if (artifactId) {
+      // Invalid body — still surface as a failed update for UI feedback
+      updates.push({ artifactId, edits: [] });
+    }
+
+    searchFrom =
+      closeStart === -1 ? cleaned.length : closeStart + '</output>'.length;
+  }
+
+  return updates;
 };
 
 // ---------------------------------------------------------------------------
@@ -205,22 +261,21 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   isChatlogPanel = false,
   message,
 }) => {
-  const { openArtifact, state, closeArtifact } = useArtifact();
+  const {
+    openArtifact,
+    state,
+    closeArtifact,
+    registerArtifact,
+    applyArtifactUpdate,
+  } = useArtifact();
+  const { t } = useTranslation();
 
-  /**
-   * Use raw text for artifact detection.
-   * translatedText may lose <output> tags — keep it as fallback only.
-   */
   const messageText = useMemo(() => message.text || '', [message.text]);
   const translatedMessageText = useMemo(
     () => message.translatedText || '',
     [message.translatedText]
   );
 
-  /**
-   * Stable key that identifies this specific message.
-   * Used both for effect gating and for stable artifact ID generation.
-   */
   const messageKey = useMemo(
     () => `${message.timestamp}-${message.fromUser ? '1' : '0'}`,
     [message.timestamp, message.fromUser]
@@ -240,11 +295,6 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     [message]
   );
 
-  /**
-   * Memoised artifact list.
-   * Falls back to translatedText only when the primary text yields nothing.
-   * Both branches use the same messageKey so IDs remain stable.
-   */
   const artifacts = useMemo<ArtifactData[]>(() => {
     const fromUser = message.fromUser || false;
     const primary = detectArtifacts(messageText, fromUser, messageKey);
@@ -252,29 +302,95 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     return detectArtifacts(translatedMessageText, fromUser, messageKey);
   }, [messageText, translatedMessageText, message.fromUser, messageKey]);
 
-  /**
-   * Auto-open the first artifact when a new message arrives.
-   *
-   * FIX: messageText is now included in the dependency array so the effect
-   * re-fires correctly if the text changes without the messageKey changing
-   * (e.g. streaming updates).
-   */
+  const detectedUpdates = useMemo<DetectedUpdate[]>(() => {
+    const fromUser = message.fromUser || false;
+    const primary = detectUpdates(messageText, fromUser);
+    if (primary.length > 0) return primary;
+    return detectUpdates(translatedMessageText, fromUser);
+  }, [messageText, translatedMessageText, message.fromUser]);
+
+  const [updateResultMap, setUpdateResultMap] = useState<
+    Record<number, ArtifactData>
+  >({});
+  const [failedUpdates, setFailedUpdates] = useState<FailedUpdate[]>([]);
+
+  const processedUpdatesRef = useRef<string>('');
+  const hasAutoOpenedRef = useRef<string>('');
+
   useEffect(() => {
-    if (!messageText || artifacts.length === 0) return;
+    if (!messageText && !translatedMessageText) return;
 
-    artifacts.forEach(artifact => dispatchArtifactCreatedEvent(artifact));
+    artifacts.forEach(artifact => {
+      registerArtifact(artifact);
+      dispatchArtifactCreatedEvent(artifact);
+    });
 
-    if (!isChatlogPanel) {
-      const timer = setTimeout(
-        () => openArtifact(artifacts[0], { isChatLogPanel: false }),
-        100
-      );
-      return () => clearTimeout(timer);
+    const updatesSignature = `${messageKey}:${detectedUpdates
+      .map(u => `${u.artifactId}:${JSON.stringify(u.edits)}`)
+      .join('|')}`;
+
+    let lastUpdated: ArtifactData | null = null;
+
+    if (
+      detectedUpdates.length > 0 &&
+      processedUpdatesRef.current !== updatesSignature
+    ) {
+      processedUpdatesRef.current = updatesSignature;
+      const nextMap: Record<number, ArtifactData> = {};
+      const nextFailed: FailedUpdate[] = [];
+
+      detectedUpdates.forEach((update, idx) => {
+        if (!update.edits.length) {
+          nextFailed.push({
+            artifactId: update.artifactId,
+            reason: 'invalid',
+          });
+          return;
+        }
+
+        const result = applyArtifactUpdate(update.artifactId, update.edits);
+        if (result.updatedArtifact) {
+          nextMap[idx] = result.updatedArtifact;
+          lastUpdated = result.updatedArtifact;
+          dispatchArtifactCreatedEvent(result.updatedArtifact);
+        } else {
+          nextFailed.push({
+            artifactId: update.artifactId,
+            reason: result.failureReason ?? 'no-match',
+          });
+        }
+      });
+
+      setUpdateResultMap(nextMap);
+      setFailedUpdates(nextFailed);
     }
+
+    if (isChatlogPanel) return;
+
+    const openTarget =
+      lastUpdated ??
+      (Object.keys(updateResultMap).length === 0 && artifacts.length > 0
+        ? artifacts[0]
+        : null);
+    if (!openTarget) return;
+
+    if (hasAutoOpenedRef.current === messageKey) return;
+    hasAutoOpenedRef.current = messageKey;
+
+    const timer = setTimeout(
+      () => openArtifact(openTarget, { isChatLogPanel: false }),
+      100
+    );
+    return () => clearTimeout(timer);
   }, [
     messageKey,
     messageText,
+    translatedMessageText,
     artifacts,
+    detectedUpdates,
+    updateResultMap,
+    registerArtifact,
+    applyArtifactUpdate,
     dispatchArtifactCreatedEvent,
     isChatlogPanel,
     openArtifact,
@@ -288,25 +404,66 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
         openArtifact(artifact, { isChatLogPanel: isChatlogPanel });
       }
     },
-    [state.isDrawerOpen, state.currentArtifact?.id, closeArtifact, openArtifact]
+    [
+      state.isDrawerOpen,
+      state.currentArtifact?.id,
+      closeArtifact,
+      openArtifact,
+      isChatlogPanel,
+    ]
   );
 
-  const getIconForMimeType = useCallback((mimeType: string): React.ReactElement => {
-    const m = mimeType.toLowerCase();
-    const iconProps = { 'aria-hidden': true as const };
-    if (m.includes('html')) return <HtmlIcon {...iconProps} />;
-    if (m.includes('markdown')) return <MarkdownIcon {...iconProps} />;
-    if (m.includes('javascript') || m.includes('typescript'))
-      return <JavascriptIcon {...iconProps} />;
-    if (m.includes('python')) return <PythonIcon {...iconProps} />;
-    if (m.includes('json')) return <DocumentIcon {...iconProps} />;
-    if (m.includes('css')) return <CssIcon {...iconProps} />;
-    if (m.includes('xml')) return <XmlIcon {...iconProps} />;
-    if (m.includes('svg')) return <SvgIcon {...iconProps} />;
-    return <DocumentIcon {...iconProps} />;
-  }, []);
+  const getIconForMimeType = useCallback(
+    (mimeType: string): React.ReactElement => {
+      const m = mimeType.toLowerCase();
+      const iconProps = { 'aria-hidden': true as const };
+      if (m.includes('html')) return <HtmlIcon {...iconProps} />;
+      if (m.includes('markdown')) return <MarkdownIcon {...iconProps} />;
+      if (m.includes('javascript') || m.includes('typescript'))
+        return <JavascriptIcon {...iconProps} />;
+      if (m.includes('python')) return <PythonIcon {...iconProps} />;
+      if (m.includes('json')) return <DocumentIcon {...iconProps} />;
+      if (m.includes('css')) return <CssIcon {...iconProps} />;
+      if (m.includes('xml')) return <XmlIcon {...iconProps} />;
+      if (m.includes('svg')) return <SvgIcon {...iconProps} />;
+      return <DocumentIcon {...iconProps} />;
+    },
+    []
+  );
 
-  if (artifacts.length === 0) return null;
+  const updatedLabel = t('artifact.updated') || 'updated';
+  const updateFailedLabel =
+    t('artifact.updateFailed') || 'Update could not be applied';
+  const updateFailedHint =
+    t('artifact.updateFailedHint') ||
+    'The patch did not match the current content. Ask to rewrite the artifact.';
+
+  const updateEntries = Object.entries(updateResultMap);
+  const hasCreates = artifacts.length > 0;
+  const hasUpdates = updateEntries.length > 0;
+  const hasFailed = failedUpdates.length > 0;
+
+  if (!hasCreates && !hasUpdates && !hasFailed) return null;
+
+  const renderChevron = (isSelected: boolean) => {
+    if (isChatlogPanel) {
+      return isSelected ? (
+        <ChevronUp className="memori-artifact-handler-action-icon" />
+      ) : (
+        <ChevronDown className="memori-artifact-handler-action-icon" />
+      );
+    }
+    return isSelected ? (
+      <ChevronLeft className="memori-artifact-handler-action-icon" />
+    ) : (
+      <ChevronRight className="memori-artifact-handler-action-icon" />
+    );
+  };
+
+  const renderInlineDrawer = (isSelected: boolean) =>
+    isChatlogPanel && isSelected ? (
+      <ArtifactDrawer isChatLogPanel={true} />
+    ) : null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -345,34 +502,86 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                 </div>
               </div>
               <div className="memori-artifact-handler-action">
-                {isChatlogPanel ? (
-                  state.isDrawerOpen &&
-                  state.currentArtifact?.id === artifact.id ? (
-                    <ChevronUp className="memori-artifact-handler-action-icon" />
-                  ) : (
-                    <ChevronDown className="memori-artifact-handler-action-icon" />
-                  )
-                ) : state.isDrawerOpen &&
-                  state.currentArtifact?.id === artifact.id ? (
-                  <ChevronLeft className="memori-artifact-handler-action-icon" />
-                ) : (
-                  <ChevronRight className="memori-artifact-handler-action-icon" />
-                )}
+                {renderChevron(isSelected)}
               </div>
             </button>
 
             {/* Render inline drawer only for chatlog-panel mode.
                 In layout-column mode the drawer is mounted by the page layout. */}
-            {isChatlogPanel && state.isDrawerOpen &&
-              state.currentArtifact?.id === artifact.id && (
-                <ArtifactDrawer isChatLogPanel={true} />
-              )}
+            {renderInlineDrawer(isSelected)}
           </React.Fragment>
         );
       })}
+
+      {updateEntries.map(([, artifact]) => {
+        const isSelected =
+          state.isDrawerOpen && state.currentArtifact?.id === artifact.id;
+
+        return (
+          <React.Fragment key={artifact.id}>
+            <button
+              type="button"
+              className={`memori-artifact-handler${
+                isSelected ? ' memori-artifact-handler--selected' : ''
+              }`}
+              onClick={() => handleArtifactClick(artifact)}
+              aria-pressed={isSelected}
+              aria-label={`${artifact.title} — ${updatedLabel}`}
+              style={
+                isSelected
+                  ? {
+                      border: '2px solid var(--memori-border-primary)',
+                    }
+                  : undefined
+              }
+            >
+              <div className="memori-artifact-handler-icon">
+                {getIconForMimeType(artifact.mimeType)}
+              </div>
+              <div className="memori-artifact-handler-info">
+                <div className="memori-artifact-handler-title">
+                  {artifact.title} — {updatedLabel}
+                </div>
+                <div className="memori-artifact-handler-meta">
+                  {artifact.mimeType} • {formatBytes(artifact.size || 0)}
+                </div>
+              </div>
+              <div className="memori-artifact-handler-action">
+                {renderChevron(isSelected)}
+              </div>
+            </button>
+
+            {renderInlineDrawer(isSelected)}
+          </React.Fragment>
+        );
+      })}
+
+      {failedUpdates.map((failed, idx) => (
+        <div
+          key={`failed-${failed.artifactId}-${idx}`}
+          className="memori-artifact-handler memori-artifact-handler--failed"
+          style={{
+            opacity: 0.85,
+            border: '1px dashed var(--memori-danger, #ef4444)',
+            cursor: 'default',
+          }}
+          role="status"
+        >
+          <div className="memori-artifact-handler-icon">⚠️</div>
+          <div className="memori-artifact-handler-info">
+            <div className="memori-artifact-handler-title">
+              {updateFailedLabel}
+            </div>
+            <div className="memori-artifact-handler-meta">
+              {failed.artifactId} • {updateFailedHint}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
+
 // ---------------------------------------------------------------------------
 // Memoised export
 // ---------------------------------------------------------------------------

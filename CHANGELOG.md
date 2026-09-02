@@ -1,5 +1,4 @@
 
-
 ## [9.0.0-alpha.20](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.19...v9.0.0-alpha.20) (2026-09-01)
 
 
@@ -13,6 +12,48 @@
 
 * print icon jsx attributes ([cb04fdb](https://github.com/memori-ai/memori-react/commit/cb04fdb23061cdc97cafae88e786dafcbf6b1d67))
 * update default layout value to FULLPAGE in MemoriWidget and SettingsDrawer components ([a6e4e85](https://github.com/memori-ai/memori-react/commit/a6e4e850fdaf2eefb68f684154dc4b06945128a4))
+
+## [8.44.0](https://github.com/memori-ai/memori-react/compare/v8.43.0...v8.44.0) (2026-09-02)
+
+
+### Features
+
+* enhance artifact handling with improved update detection ([e4bf613](https://github.com/memori-ai/memori-react/commit/e4bf61357d4905312f17a0bedfa7498ea225d8b8))
+* enhance artifact preview by sanitizing content and adding iframe sandboxing ([d7c5f9f](https://github.com/memori-ai/memori-react/commit/d7c5f9ff5b6a5dc6fd53f218c23da759ece5f735))
+* enhance resource URL handling by appending session ID for specific asset paths ([8c2f3dc](https://github.com/memori-ai/memori-react/commit/8c2f3dcf27a7fb3148914f8ec63a115d492b32f3))
+* file conversion migrated over new internal api ([4efeef0](https://github.com/memori-ai/memori-react/commit/4efeef0990537a4cc93dcfd06e31507b6fde33a2))
+* implement artifact update ([90886fe](https://github.com/memori-ai/memori-react/commit/90886feddf8fab88c4bef3ad4ad63acdbd94c435))
+
+
+### Bug Fixes
+
+* prevent XSS vulnerability among sanification ([6d2eb29](https://github.com/memori-ai/memori-react/commit/6d2eb2980542bd5c992452a115a9c5920a70f42e))
+* print icon jsx attributes ([75aeecb](https://github.com/memori-ai/memori-react/commit/75aeecb2123ec7c62ae3dc3cf12802863e34807e))
+* update Anthropic status URL to use status.claude.com ([3ebf0aa](https://github.com/memori-ai/memori-react/commit/3ebf0aa1a9de9a231bda070bcba4bd2e808e653b))
+
+
+### Changes
+
+* clean up media URL handling ([d98986d](https://github.com/memori-ai/memori-react/commit/d98986d5b334fe36622a05de804ade6969c9d3ef))
+* improve date handling in AgeVerificationModal ([0e4a54d](https://github.com/memori-ai/memori-react/commit/0e4a54d45b8a0fd149fc9f046f8904c219e49d25))
+
+
+### Maintenance
+
+* release v8.41.5 ([4576a98](https://github.com/memori-ai/memori-react/commit/4576a985a20d6cf8e305df5aedfaa407dfd2068a))
+* release v8.41.6 ([ba775a9](https://github.com/memori-ai/memori-react/commit/ba775a96dcf56dfa05024d948dcbf1b65d375288))
+* release v8.42.0 ([abdeeb6](https://github.com/memori-ai/memori-react/commit/abdeeb6d1beaf49df5524fdbec6f67b928f5deb3))
+* release v8.43.0 ([5f0d9d0](https://github.com/memori-ai/memori-react/commit/5f0d9d049d3abb8ac38481acca5c7ceeb391ebbc))
+* update dompurify ([18bb60e](https://github.com/memori-ai/memori-react/commit/18bb60e1d9660712475e86c3aabf0e344616f658))
+* update dompurify to version 3.4.13 and remove iframe sandbox attribute in ArtifactPreview ([793925b](https://github.com/memori-ai/memori-react/commit/793925bfa6bf8f6786eb5e4a14bf9d2ee9de0ba9))
+
+## [8.43.0](https://github.com/memori-ai/memori-react/compare/v8.42.0...v8.43.0) (2026-09-01)
+
+
+### Features
+
+* enhance artifact preview by sanitizing content and adding iframe sandboxing ([353ec87](https://github.com/memori-ai/memori-react/commit/353ec87e60634cd8797af728e18257a719931524))
+* file conversion migrated over new internal api ([3991f99](https://github.com/memori-ai/memori-react/commit/3991f99123bece3833be63660351e3705e75bef2))
 
 ## [9.0.0-alpha.19](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.18...v9.0.0-alpha.19) (2026-08-28)
 
@@ -56,7 +97,7 @@
 
 * remove AlertViewport from index.tsx and add it to MemoriWidget for improved alert theming ([0869c2a](https://github.com/memori-ai/memori-react/commit/0869c2aa465415f4efcc431a7a135ca0b0357b7a))
 
-## [8.42.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.10...v9.0.0-alpha.11) (2026-08-03)
+## [8.42.0](https://github.com/memori-ai/memori-react/compare/v8.41.6...v8.42.0) (2026-08-03)
 
 
 ### Features

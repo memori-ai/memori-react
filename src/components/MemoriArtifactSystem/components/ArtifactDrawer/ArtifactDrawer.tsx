@@ -207,28 +207,31 @@ const ArtifactDrawer: React.FC<{
   /**
    * Handle external open action
    */
-  const handleOpenExternal = useCallback((artifact: ArtifactData) => {
-    try {
-      const mimeType = getMimeTypeString(artifact.mimeType);
-      const blob = new Blob([artifact.content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
+  const handleOpenExternal = useCallback(
+    (artifact: ArtifactData) => {
+      try {
+        const mimeType = getMimeTypeString(artifact.mimeType);
+        const blob = new Blob([artifact.content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
 
-      const externalWindow = window.open(url, '_blank');
-      if (!externalWindow) {
-        alert(
-          'Popup blocked! Please enable popups to open the artifact in a new window.'
-        );
-        return;
+        const externalWindow = window.open(url, '_blank');
+        if (!externalWindow) {
+          alert(
+            'Popup blocked! Please enable popups to open the artifact in a new window.'
+          );
+          return;
+        }
+
+        // Cleanup URL after a delay
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 60000);
+      } catch (error) {
+        console.error('External open failed:', error);
       }
-
-      // Cleanup URL after a delay
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 60000);
-    } catch (error) {
-      console.error('External open failed:', error);
-    }
-  }, [getMimeTypeString]);
+    },
+    [getMimeTypeString]
+  );
 
   if (!state.currentArtifact) {
     return null;
@@ -381,6 +384,7 @@ const ArtifactDrawer: React.FC<{
                           timestamp: new Date(),
                           size: 0,
                           id: '',
+                          artifactId: '',
                         }
                       )
                     }
