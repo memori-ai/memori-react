@@ -84,6 +84,26 @@ Default.args = {
   onClickStart: () => {},
 };
 
+export const WithLongDescription = Template.bind({});
+WithLongDescription.args = {
+  memori: {
+    ...memori,
+    enableCompletions: false,
+    description:
+      'Un agente conversazionale pensato per accogliere visitatori, rispondere alle domande più frequenti e accompagnare le persone nella scoperta di contenuti, servizi e storie. La descrizione è volutamente lunga così da verificare il troncamento a tre righe, l’ellipsis e il toggle Espandi/Riduci.',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'it',
+  setUserLang: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const WithExistingSession = Template.bind({});
 WithExistingSession.args = {
   memori: {

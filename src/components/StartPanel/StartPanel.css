@@ -473,6 +473,12 @@
         text-align: left;
     }
 
+    .memori--description-text--expand-symbol,
+    .memori--description-text--collapse-symbol {
+        width: 100%;
+        justify-content: space-between;
+    }
+
     .memori--description-text > button svg,
     .memori--description-text .memori-expandable__button svg {
         margin-left: auto;
@@ -525,6 +531,16 @@
     text-align: left;
 }
 
+.memori--title-container__content
+    .memori--description-text--collapsible:has(.memori--description-text--expand-symbol)
+    .memori-expandable__inner {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+}
+
 .memori--description-text--expand-symbol,
 .memori--description-text--collapse-symbol {
     display: inline-flex;
@@ -532,7 +548,19 @@
     color: var(--memori-primary);
     font-size: 0.8rem;
     font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-xs);
     line-height: 1.2;
+}
+
+.memori--description-text--toggle-chevron {
+    width: 0.85rem;
+    height: 0.85rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.memori--description-text--toggle-chevron--up {
+    transform: rotate(180deg);
 }
 
 /* The Expandable toggle is a memori-button ghost, which inherits a global
