@@ -25,6 +25,7 @@
     line-height: 1.2;
     overflow-x: hidden;
     overflow-y: auto;
+    padding-inline-end: 8px;
     text-align: left;
 }
 
@@ -105,6 +106,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-inline-end: 6px;
 }
 
 /* Full-bleed input strip across the chat column; field stays on the conversation axis */
