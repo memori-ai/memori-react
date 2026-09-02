@@ -11,6 +11,8 @@ import {
 } from '../../helpers/utils';
 import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
+import { maxDocumentsPerMessage as defaultMaxDocumentsPerMessage } from '../../helpers/constants';
 
 type FilePreviewProps = {
   previewFiles: any;
@@ -18,6 +20,7 @@ type FilePreviewProps = {
   allowRemove?: boolean;
   showAnonymousRetentionNotice?: boolean;
   uploadingCount?: number;
+  maxDocumentsPerMessage?: number;
 };
 
 const FilePreview = ({
@@ -26,6 +29,7 @@ const FilePreview = ({
   allowRemove = true,
   showAnonymousRetentionNotice = false,
   uploadingCount = 0,
+  maxDocumentsPerMessage = defaultMaxDocumentsPerMessage,
 }: FilePreviewProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<{
@@ -152,6 +156,16 @@ const FilePreview = ({
     <>
       {(previewFiles.length > 0 || uploadingCount > 0) && (
         <div className="memori--preview-container">
+          {previewFiles.length > 0 && (
+            <div
+              className={cx('memori--document-count', {
+                'memori--document-count-full':
+                  previewFiles.length >= maxDocumentsPerMessage,
+              })}
+            >
+              {previewFiles.length}/{maxDocumentsPerMessage}
+            </div>
+          )}
           {showAnonymousRetentionNotice && (
             <small
               style={{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
 import { Button } from '@memori.ai/ui';
-import { Copy } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
@@ -127,15 +127,14 @@ const Snippet = ({
 
         {showCopyButton && (
           <div className="memori-snippet--copy-wrapper">
-            {copied && (
-              <span className="memori-snippet--copied-text">{t('copied') || 'Copied!'}</span>
-            )}
             <Button
               variant="ghost"
               shape="circle"
-              className="memori-snippet--copy-button"
-              title={t('copy') || 'Copy'}
-              icon={<Copy />}
+              className={cx('memori-snippet--copy-button', {
+                'memori-snippet--copy-button--copied': copied,
+              })}
+              title={copied ? t('copied') || 'Copied' : t('copy') || 'Copy'}
+              icon={copied ? <Check /> : <Copy />}
               onMouseDown={handleCopy}
             />
           </div>

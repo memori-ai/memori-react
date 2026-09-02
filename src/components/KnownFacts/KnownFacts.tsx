@@ -213,7 +213,6 @@ const KnownFacts = ({
             <>
               <Button
                 variant="ghost"
-                danger
                 onClick={() => {
                   setBulkDeleteModalVisible(false);
                   setBulkDeleteIds([]);
@@ -341,7 +340,6 @@ const KnownFacts = ({
             <>
               <Button
                 variant="ghost"
-                danger
                 onClick={() => {
                   setDeleteModalVisibleFor(undefined);
                 }}

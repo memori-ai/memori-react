@@ -212,6 +212,7 @@
 /* Avatar column: its own rounded panel, wider than the chat sidebar it replaced. */
 .memori-widget.memori-layout-zoomed_full_body .memori--grid-column-left {
     position: relative;
+    z-index: 10;
     display: flex;
     overflow: hidden;
     width: clamp(240px, 34%, 420px);

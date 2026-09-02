@@ -435,25 +435,6 @@
     background-color: #fa5252;
 }
 
-/* Document count indicator */
-.memori--document-count {
-    position: absolute;
-    z-index: 5;
-    top: -20px;
-    right: -10px;
-    padding: calc(var(--memori-spacing-xs) / 4) calc(var(--memori-spacing-xs) + 2px);
-    border-radius: var(--memori-radius-box);
-    background-color: #51cf66;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: var(--memori-text-color);
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.memori--document-count-full {
-    background-color: #fa5252;
-}
-
 /* Styled upload slots info */
 .memori--upload-slots-info {
     margin-left: var(--memori-spacing-xs);

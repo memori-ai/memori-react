@@ -105,36 +105,22 @@ pre[class*='language-'] {
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-    border-radius: var(--memori-radius-box);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.05);
-    background-color: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     gap: var(--memori-spacing-sm);
 }
 
 button.memori-snippet--copy-button {
-    width: 32px !important;
-    height: 32px !important;
+    /* width: 32px !important;
+    height: 32px !important; */
     padding: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem !important;
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--memori-secondary-background);
     transition: all 0.2s ease;
 }
 
-button.memori-snippet--copy-button:hover,
-button.memori-snippet--copy-button:focus {
-    border-color: rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-}
-
 button.memori-snippet--copy-button:active {
-    background: rgba(0, 0, 0, 0.15);
+    /* background: rgba(0, 0, 0, 0.15); */
     transform: scale(0.95);
 }
 
@@ -144,24 +130,8 @@ button.memori-snippet--copy-button svg {
     color: var(--memori-text-color);
 }
 
-.memori-snippet--copied-text {
-    animation: fadeInOut 0.3s ease;
-    color: var(--memori-text-color);
-    font-size: 0.75rem;
-    font-weight: var(--memori-text-weight-semibold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateX(-4px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.memori-snippet button.memori-snippet--copy-button--copied svg {
+    color: var(--memori-success-color, #22c55e);
 }
 
 .memori-snippet--caption {

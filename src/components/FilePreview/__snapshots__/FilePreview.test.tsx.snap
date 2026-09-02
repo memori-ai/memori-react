@@ -8,6 +8,13 @@ exports[`renders FilePreview with one file 1`] = `
     class="memori--preview-container"
   >
     <div
+      class="memori--document-count"
+    >
+      1
+      /
+      10
+    </div>
+    <div
       class="memori--preview-list"
     >
       <div
@@ -95,6 +102,13 @@ exports[`renders FilePreview with two files 1`] = `
   <div
     class="memori--preview-container"
   >
+    <div
+      class="memori--document-count"
+    >
+      2
+      /
+      10
+    </div>
     <div
       class="memori--preview-list"
     >

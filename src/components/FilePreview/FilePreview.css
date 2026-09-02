@@ -1,6 +1,7 @@
 /* Updated FilePreview Styles */
 
 .memori--preview-container {
+    position: relative;
     z-index: 10;
     overflow: hidden;
     width: 100%;
@@ -10,6 +11,26 @@
     animation: slide-in 0.3s ease;
     background: var(--memori-main-background);
     transition: all 0.3s ease;
+}
+
+.memori--document-count {
+    position: absolute;
+    z-index: 5;
+    top: 8px;
+    right: 8px;
+    padding: calc(var(--memori-spacing-xs) / 4) calc(var(--memori-spacing-xs) + 2px);
+    border-radius: var(--memori-radius-box);
+    color: var(--memori-text-color);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.memori--document-count-full {
+    background-color: #fa5252;
+}
+
+.memori--preview-container:has(.memori--document-count) .memori--preview-list {
+    padding-right: 2.75rem;
 }
 
 .memori--preview-container.slide-down {

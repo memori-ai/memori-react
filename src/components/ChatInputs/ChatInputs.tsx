@@ -374,6 +374,7 @@ ${text}
               removeFile={removeFile}
               showAnonymousRetentionNotice={!authToken}
               uploadingCount={uploadingCount}
+              maxDocumentsPerMessage={maxDocumentsPerMessage}
             />
           </div>
         )}

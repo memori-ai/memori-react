@@ -652,17 +652,6 @@ ${file.textAssetUrl || ''}
         )}
       </Tooltip>
 
-      {/* Media count indicator */}
-      {currentMediaCount > 0 && (
-        <div
-          className={cx('memori--document-count', {
-            'memori--document-count-full': hasReachedMediaLimit,
-          })}
-        >
-          {currentMediaCount}/{maxDocumentsPerMessage}
-        </div>
-      )}
-
       {/* Hidden components */}
       <div className="memori--hidden-uploader" ref={documentRef} aria-hidden>
         <UploadDocuments
