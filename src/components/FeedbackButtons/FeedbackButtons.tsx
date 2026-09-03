@@ -94,6 +94,7 @@ const FeedbackButtons = ({
                     variant="ghost"
                     aria-label={feedbackLabel}
                     disabled={!!clicked}
+                    size="sm"
                     icon={
                       <MessageSquare
                         className={
@@ -161,6 +162,7 @@ const FeedbackButtons = ({
               }
             }}
             variant="ghost"
+            size="sm"
             shape="circle"
             icon={
               <MessageSquare

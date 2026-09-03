@@ -15,7 +15,9 @@ exports[`renders LoginDrawer closed unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer logged in unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -29,7 +31,9 @@ exports[`renders LoginDrawer logged in unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer logged with missing data unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -43,7 +47,9 @@ exports[`renders LoginDrawer logged with missing data unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer on change password unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -57,7 +63,9 @@ exports[`renders LoginDrawer on change password unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer on signup unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -71,7 +79,9 @@ exports[`renders LoginDrawer on signup unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer on signup waiting for otp unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -85,7 +95,9 @@ exports[`renders LoginDrawer on signup waiting for otp unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer open unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -99,7 +111,9 @@ exports[`renders LoginDrawer open unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer unlogged unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -113,7 +127,9 @@ exports[`renders LoginDrawer unlogged unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer with OTP form and error unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -127,7 +143,9 @@ exports[`renders LoginDrawer with OTP form and error unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer with OTP form and timer unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -141,7 +159,9 @@ exports[`renders LoginDrawer with OTP form and timer unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer with OTP form loading unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -155,7 +175,9 @@ exports[`renders LoginDrawer with OTP form loading unchanged 1`] = `
 `;
 
 exports[`renders LoginDrawer with OTP form unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"

@@ -51,7 +51,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -157,7 +157,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -265,7 +265,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -376,7 +376,7 @@ exports[`renders ChatBubble unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -2965,7 +2965,7 @@ M834 80h400000v40h-400000z"
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -3014,7 +3014,7 @@ M834 80h400000v40h-400000z"
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -3160,7 +3160,7 @@ Il valore della resistenza dei materiali
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.10764em;"
+                              style="margin-right:0.1076em;"
                             >
                               f
                             </span>
@@ -3346,7 +3346,7 @@ Il valore della resistenza dei materiali
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.10764em;"
+                              style="margin-right:0.1076em;"
                             >
                               f
                             </span>
@@ -3474,9 +3474,15 @@ Il valore della resistenza dei materiali
                                         >
                                           <span
                                             class="mord mathnormal"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.1389em;"
                                           >
-                                            FC
+                                            F
+                                          </span>
+                                          <span
+                                            class="mord mathnormal"
+                                            style="margin-right:0.0715em;"
+                                          >
+                                            C
                                           </span>
                                           <span
                                             class="mspace newline"
@@ -3506,7 +3512,7 @@ Il valore della resistenza dei materiali
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.05556em;"
+                                              style="margin-right:0.0556em;"
                                             >
                                               γ
                                             </span>
@@ -3535,7 +3541,7 @@ Il valore della resistenza dei materiali
                                                       >
                                                         <span
                                                           class="mord mathnormal mtight"
-                                                          style="margin-right:0.10903em;"
+                                                          style="margin-right:0.109em;"
                                                         >
                                                           M
                                                         </span>
@@ -3590,7 +3596,7 @@ Il valore della resistenza dei materiali
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.10764em;"
+                                              style="margin-right:0.1076em;"
                                             >
                                               f
                                             </span>
@@ -3709,9 +3715,15 @@ Il valore della resistenza dei materiali
                                         >
                                           <span
                                             class="mord mathnormal"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.1389em;"
                                           >
-                                            FC
+                                            F
+                                          </span>
+                                          <span
+                                            class="mord mathnormal"
+                                            style="margin-right:0.0715em;"
+                                          >
+                                            C
                                           </span>
                                         </span>
                                       </span>
@@ -3742,7 +3754,7 @@ Il valore della resistenza dei materiali
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.10764em;"
+                                              style="margin-right:0.1076em;"
                                             >
                                               f
                                             </span>
@@ -3771,7 +3783,7 @@ Il valore della resistenza dei materiali
                                                       >
                                                         <span
                                                           class="mord mathnormal mtight"
-                                                          style="margin-right:0.03148em;"
+                                                          style="margin-right:0.0315em;"
                                                         >
                                                           k
                                                         </span>
@@ -3886,7 +3898,7 @@ Il valore della resistenza dei materiali
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10764em;"
+                                style="margin-right:0.1076em;"
                               >
                                 f
                               </span>
@@ -3986,7 +3998,7 @@ Il valore della resistenza dei materiali
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10764em;"
+                                style="margin-right:0.1076em;"
                               >
                                 f
                               </span>
@@ -4015,7 +4027,7 @@ Il valore della resistenza dei materiali
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.03148em;"
+                                            style="margin-right:0.0315em;"
                                           >
                                             k
                                           </span>
@@ -4082,9 +4094,15 @@ Il valore della resistenza dei materiali
                             />
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.07153em;"
+                              style="margin-right:0.1389em;"
                             >
-                              FC
+                              F
+                            </span>
+                            <span
+                              class="mord mathnormal"
+                              style="margin-right:0.0715em;"
+                            >
+                              C
                             </span>
                           </span>
                         </span>
@@ -4132,7 +4150,7 @@ Il valore della resistenza dei materiali
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.05556em;"
+                                style="margin-right:0.0556em;"
                               >
                                 γ
                               </span>
@@ -4161,7 +4179,7 @@ Il valore della resistenza dei materiali
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.10903em;"
+                                            style="margin-right:0.109em;"
                                           >
                                             M
                                           </span>
@@ -4262,7 +4280,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -4311,7 +4329,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -4507,7 +4525,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10903em;"
+                                style="margin-right:0.109em;"
                               >
                                 M
                               </span>
@@ -4761,7 +4779,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.00773em;"
+                                            style="margin-right:0.0077em;"
                                           >
                                             R
                                           </span>
@@ -4841,7 +4859,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.0715em;"
                                           >
                                             C
                                           </span>
@@ -4977,7 +4995,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.05017em;"
+                                            style="margin-right:0.0502em;"
                                           >
                                             B
                                           </span>
@@ -5073,7 +5091,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.0715em;"
                                           >
                                             C
                                           </span>
@@ -5169,7 +5187,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.00773em;"
+                                            style="margin-right:0.0077em;"
                                           >
                                             R
                                           </span>
@@ -5293,7 +5311,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -5342,7 +5360,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -5524,7 +5542,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.05764em;"
+                              style="margin-right:0.0576em;"
                             >
                               E
                             </span>
@@ -5553,7 +5571,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                                       >
                                         <span
                                           class="mord mathnormal mtight"
-                                          style="margin-right:0.03148em;"
+                                          style="margin-right:0.0315em;"
                                         >
                                           k
                                         </span>
@@ -5650,7 +5668,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           />
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.03588em;"
+                            style="margin-right:0.0359em;"
                           >
                             v
                           </span>
@@ -5701,7 +5719,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           />
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.13889em;"
+                            style="margin-right:0.1389em;"
                           >
                             F
                           </span>
@@ -5753,7 +5771,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           </span>
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.03588em;"
+                            style="margin-right:0.0359em;"
                           >
                             v
                           </span>
@@ -5863,7 +5881,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -5912,7 +5930,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -6099,13 +6117,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6404,13 +6422,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6549,13 +6567,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6618,13 +6636,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6695,7 +6713,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -6744,7 +6762,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7005,7 +7023,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7054,7 +7072,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7245,7 +7263,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7293,7 +7311,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
                   class="memori-chat--bubble-addon-tooltip-trigger"
                 >
                   <button
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
                     tabindex="0"
                     type="button"
                   >
@@ -7474,7 +7492,7 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7615,7 +7633,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7664,7 +7682,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7774,7 +7792,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7823,7 +7841,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -7991,7 +8009,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8040,7 +8058,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8371,7 +8389,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8420,7 +8438,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8517,7 +8535,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8692,7 +8710,7 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8887,7 +8905,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -8936,7 +8954,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9072,7 +9090,7 @@ end
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9121,7 +9139,7 @@ end
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9228,7 +9246,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9277,7 +9295,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9377,7 +9395,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9426,7 +9444,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9526,7 +9544,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9575,7 +9593,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
                 >
                   <button
                     aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9619,7 +9637,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
                 >
                   <button
                     aria-label="Original text"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
                     tabindex="0"
                     type="button"
                   >
@@ -9728,7 +9746,7 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
@@ -9852,7 +9870,7 @@ exports[`shows copy button for user messages 1`] = `
                 >
                   <button
                     aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                     tabindex="0"
                     type="button"
                   >
