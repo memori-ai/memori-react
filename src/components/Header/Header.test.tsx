@@ -1,8 +1,34 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '../../testUtils';
 import { memori, history, user } from '../../mocks/data';
 import Header from './Header';
 import memoriApiClient from '@memori.ai/memori-api-client';
+
+const loggedInFullpageProps = {
+  memori,
+  history,
+  setVenue: jest.fn(),
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: jest.fn(),
+  setShowSettingsDrawer: jest.fn(),
+  setShowKnownFactsDrawer: jest.fn(),
+  setShowExpertsDrawer: jest.fn(),
+  speakerMuted: false,
+  setSpeakerMuted: jest.fn(),
+  hasUserActivatedSpeak: true,
+  showShare: false,
+  showSettings: false,
+  showFullscreen: false,
+  enableAudio: false,
+  clearHistory: jest.fn(),
+  sessionID: '1234',
+  loginToken: 'abcd',
+  user,
+  layout: 'FULLPAGE' as const,
+  setShowLoginDrawer: jest.fn(),
+  setShowChatHistoryDrawer: jest.fn(),
+  apiClient: memoriApiClient(),
+};
 
 it('renders Header unchanged', () => {
   const { container } = render(
@@ -10,7 +36,9 @@ it('renders Header unchanged', () => {
       memori={memori}
       history={history}
       setShowChatHistoryDrawer={jest.fn()}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -41,7 +69,9 @@ it('renders Header with position unchanged', () => {
       }}
       history={history}
       setShowChatHistoryDrawer={jest.fn()}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -63,7 +93,9 @@ it('renders Header with speaker muted unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -86,7 +118,9 @@ it('renders Header with audio disabled unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -110,7 +144,9 @@ it('renders Header with share button unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -133,7 +169,9 @@ it('renders Header with settings button unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -156,7 +194,9 @@ it('renders Header with clear button unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -180,7 +220,9 @@ it('renders Header with user activated speak unchanged', () => {
     <Header
       memori={memori}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -206,7 +248,9 @@ it('renders Header with deep thought unlogged unchanged', () => {
         enableDeepThought: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -233,7 +277,9 @@ it('renders Header with deep thought logged but without permission flag unchange
         enableDeepThought: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -264,7 +310,9 @@ it('renders Header with deep thought logged with permission flag unchanged', () 
         enableDeepThought: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -295,7 +343,9 @@ it('renders Header with deep thought and session open unchanged', () => {
         enableDeepThought: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -323,7 +373,9 @@ it('renders Header for board of experts unchanged', () => {
         enableBoardOfExperts: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -350,7 +402,9 @@ it('renders Header for board of experts with session open unchanged', () => {
         enableBoardOfExperts: true,
       }}
       history={history}
-      setShowPositionDrawer={jest.fn()}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
       setShowExpertsDrawer={jest.fn()}
@@ -368,4 +422,32 @@ it('renders Header for board of experts with session open unchanged', () => {
     />
   );
   expect(container).toMatchSnapshot();
+});
+
+it('hides the session menu when deep thought and AI consumption are off', () => {
+  render(<Header {...loggedInFullpageProps} />);
+
+  expect(screen.queryByLabelText('Info sessione')).toBeNull();
+  expect(screen.queryByText('knownFacts.title')).toBeNull();
+  expect(screen.queryByText('widget.aiConsumption')).toBeNull();
+});
+
+it('shows the session menu when deep thought is enabled', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+    />
+  );
+
+  expect(screen.getByLabelText('Info sessione')).toBeTruthy();
+});
+
+it('shows the session menu when AI consumption is enabled', () => {
+  render(<Header {...loggedInFullpageProps} showMessageConsumption />);
+
+  expect(screen.getByLabelText('Info sessione')).toBeTruthy();
 });

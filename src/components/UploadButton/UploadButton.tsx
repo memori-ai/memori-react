@@ -1,9 +1,13 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { DocumentIcon } from '../icons/Document';
-import { ImageIcon } from '../icons/Image';
-import { UploadIcon } from '../icons/Upload';
-import Spin from '../ui/Spin';
-import Alert from '../ui/Alert';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
+import { Upload as UploadIcon } from 'lucide-react';
+import { Spin, Tooltip, useAlertManager } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -13,7 +17,6 @@ import {
   documentConversionExtensions,
   officeNativeExtensions,
 } from '../../helpers/constants';
-import Tooltip from '../ui/Tooltip';
 // Props interface
 interface UploadManagerProps {
   authToken?: string;
@@ -38,6 +41,8 @@ interface UploadManagerProps {
   maxDocumentContentLength?: number;
   /** Called when the upload loading state changes. */
   onUploadLoadingChange?: (loading: boolean, fileCount?: number) => void;
+  /** When true, the control does not open the file picker and ignores paste/drop for uploads. */
+  disabled?: boolean;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -53,6 +58,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   maxDocumentsPerMessage = 10,
   maxDocumentContentLength = 300000,
   onUploadLoadingChange,
+  disabled = false,
 }) => {
   // Per-document character limit for the inlined `<document_attachment>`
   // content. Does NOT affect the full text uploaded as an asset.
@@ -65,11 +71,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const [docUploadingCount, setDocUploadingCount] = useState(0);
   const [imgUploadingCount, setImgUploadingCount] = useState(0);
   const uploadingFileCount = docUploadingCount + imgUploadingCount;
-  const [errors, setErrors] = useState<
-    { message: string; severity: 'error' | 'warning' | 'info' }[]
-  >([]);
   const [isDragging, setIsDragging] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const alertManager = useAlertManager();
 
   // Refs
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -83,18 +87,22 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const remainingSlots = maxDocumentsPerMessage - currentMediaCount;
   const hasReachedMediaLimit = remainingSlots <= 0;
 
-  // Error handling
-  const removeError = (errorMessage: string) => {
-    setErrors(prev => prev.filter(e => e.message !== errorMessage));
-  };
-
-  const addError = (error: {
-    message: string;
-    severity: 'error' | 'warning' | 'info';
-  }) => {
-    setErrors(prev => [...prev, error]);
-    setTimeout(() => removeError(error.message), 5000);
-  };
+  // Error handling - show alerts via toast manager
+  const addError = useCallback(
+    (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+      alertManager.add({
+        id: `upload-notification-${Date.now()}`,
+        title: 'Upload notification',
+        description: error.message,
+        data: {
+          severity: error.severity,
+          closable: true,
+          style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' },
+        },
+      });
+    },
+    [alertManager]
+  );
 
   // Check if file is an image
   const isImageFile = (file: File): boolean => {
@@ -247,6 +255,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Handle button click - open file chooser directly
   const handleButtonClick = () => {
+    if (disabled) return;
     if (unifiedInputRef.current) {
       unifiedInputRef.current.click();
     }
@@ -267,6 +276,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   // Paste handler for files
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
+      if (disabled) return;
       const clipboardData = e.clipboardData;
       if (!clipboardData) {
         return;
@@ -321,7 +331,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     return () => {
       document.removeEventListener('paste', handlePaste);
     };
-  }, [handleUnifiedFileSelection]);
+  }, [handleUnifiedFileSelection, disabled]);
 
   // Drag and drop handlers
   useEffect(() => {
@@ -330,6 +340,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     const handleDragEnter = (e: DragEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      if (disabled) return;
       dragCounter++;
       if (dragCounter === 1) {
         setIsDragging(true);
@@ -356,6 +367,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       dragCounter = 0;
       setIsDragging(false);
 
+      if (disabled) return;
+
       const files = e.dataTransfer?.files;
       if (files && files.length > 0) {
         handleUnifiedFileSelection(files);
@@ -374,7 +387,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       document.removeEventListener('dragover', handleDragOver);
       document.removeEventListener('drop', handleDrop);
     };
-  }, [handleUnifiedFileSelection]);
+  }, [handleUnifiedFileSelection, disabled]);
 
   // Handler for document files - now supports multiple documents
   const handleDocumentFiles = (
@@ -560,10 +573,43 @@ ${file.textAssetUrl || ''}
     onUploadLoadingChange?.(isLoading, isLoading ? uploadingFileCount : 0);
   }, [isLoading, uploadingFileCount, onUploadLoadingChange]);
 
+  const uploadTooltipTitle = useMemo(() => {
+    if (hasReachedMediaLimit) {
+      return t('upload.maxReached') ?? 'Max limit reached';
+    }
+
+    return t('upload.uploadFilesOrImages') ?? 'Upload files or images';
+  }, [hasReachedMediaLimit, t]);
+
+  const isUploadDisabled = disabled || isLoading || hasReachedMediaLimit;
+
+  const uploadButton = (
+    <IconButton
+      ref={buttonRef}
+      type="button"
+      className={cx(
+        'memori-share-button--button',
+        'memori--conversation-button',
+        'memori--unified-upload-button'
+      )}
+      onClick={handleButtonClick}
+      disabled={isUploadDisabled}
+      tabIndex={isUploadDisabled ? -1 : undefined}
+      aria-label={uploadTooltipTitle}
+    >
+      {isLoading ? (
+        <Spin spinning className="memori--upload-icon" />
+      ) : (
+        <UploadIcon className="memori--upload-icon" />
+      )}
+    </IconButton>
+  );
+
   return (
     <div
       className={cx('memori--unified-upload-wrapper', {
-        'memori--dragging': isDragging,
+        'memori--dragging': isDragging && !disabled,
+        'memori--upload-disabled': disabled,
       })}
       ref={wrapperRef}
     >
@@ -584,50 +630,30 @@ ${file.textAssetUrl || ''}
         style={{ display: 'none' }}
       />
 
-      {/* Main upload button */}
-      <button
-        ref={buttonRef}
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          'memori--conversation-button',
-          'memori--unified-upload-button',
-          { 'memori--error': errors.length > 0 }
-        )}
-        onClick={handleButtonClick}
-        disabled={isLoading || hasReachedMediaLimit}
-        title={
-          t('upload.uploadFiles', {
-            shortcut:
-              /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
-              navigator.userAgent.includes('Mac')
-                ? 'Cmd'
-                : 'Ctrl',
-          }) ?? 'Upload files (drag & drop)'
-        }
-      >
-        {isLoading ? (
-          <Spin spinning className="memori--upload-icon" />
+      {/* Main upload button — direct child of Tooltip so Tab reaches the button (no extra span wrapper) */}
+      <Tooltip placement="top" title={uploadTooltipTitle}>
+        {isUploadDisabled ? (
+          <span
+            className="memori--unified-upload-button-tooltip-trigger"
+            tabIndex={0}
+            role="button"
+            aria-disabled="true"
+            aria-label={uploadTooltipTitle}
+            onKeyDown={event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+              }
+            }}
+          >
+            {uploadButton}
+          </span>
         ) : (
-          <UploadIcon className="memori--upload-icon" />
+          uploadButton
         )}
-      </button>
-
-      {/* Media count indicator */}
-      {currentMediaCount > 0 && (
-        <div
-          className={cx('memori--document-count', {
-            'memori--document-count-full': hasReachedMediaLimit,
-          })}
-        >
-          {currentMediaCount}/{maxDocumentsPerMessage}
-        </div>
-      )}
+      </Tooltip>
 
       {/* Hidden components */}
-      <div className="memori--hidden-uploader" ref={documentRef}>
+      <div className="memori--hidden-uploader" ref={documentRef} aria-hidden>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
           authToken={authToken}
@@ -644,7 +670,7 @@ ${file.textAssetUrl || ''}
         />
       </div>
 
-      <div className="memori--hidden-uploader" ref={imageRef}>
+      <div className="memori--hidden-uploader" ref={imageRef} aria-hidden>
         <UploadImages
           authToken={authToken}
           client={client}
@@ -658,24 +684,6 @@ ${file.textAssetUrl || ''}
           onImageError={handleImageError}
           onValidateImageFile={validateImageFile}
         />
-      </div>
-
-      {/* Error messages container */}
-      <div className="memori--error-message-container">
-        {errors.map((error, index) => (
-          <Alert
-            className="memori--error-message-alert"
-            key={`${error.message}-${index}`}
-            open={true}
-            type={error.severity}
-            title={t('upload.uploadNotification', {
-              defaultValue: 'Upload notification',
-            })}
-            description={error.message}
-            onClose={() => removeError(error.message)}
-            width="350px"
-          />
-        ))}
       </div>
     </div>
   );

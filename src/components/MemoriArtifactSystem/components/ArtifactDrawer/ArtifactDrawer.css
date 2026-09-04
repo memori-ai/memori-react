@@ -4,37 +4,89 @@
  * Handles both mobile drawer and web split panel layouts
  */
 
-/* CSS Custom Properties for consistent theming */
+/* CSS Custom Properties – use library design tokens */
 :root {
-    --artifact-drawer-bg: var(--memori-chat-bubble-bg, #ffffff);
-    --artifact-drawer-border: var(--memori-button-border-color, #e9ecef);
-    --artifact-drawer-text: var(--memori-text-color, #333333);
-    --artifact-drawer-text-muted: var(--memori-text-color, #666666);
-    --artifact-drawer-accent: var(--memori-primary, #007bff);
-    --artifact-drawer-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    --artifact-drawer-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
-    --artifact-drawer-radius: var(--memori-border-radius, 8px);
-    --artifact-drawer-radius-lg: 12px;
+    --artifact-drawer-bg: var(--memori-main-background);
+    --artifact-drawer-border: var(--memori-border-color);
+    --artifact-drawer-text: var(--memori-text-color);
+    --artifact-drawer-text-muted: color-mix(in oklch, var(--memori-text-color) 70%, transparent);
+    --artifact-drawer-accent: var(--memori-primary);
+    --artifact-drawer-shadow: var(--memori-shadow-lg);
+    --artifact-drawer-shadow-lg: var(--memori-shadow-2xl);
+    --artifact-drawer-radius: var(--memori-radius-box);
+    --artifact-drawer-radius-lg: var(--memori-radius-box);
 }
 
-/* Override drawer width for ArtifactDrawer */
-.memori-artifact-panel-drawer {
-    --memori-drawer--width-lg: 46%;
-    /* Ensure drawer doesn't block left side chat interaction */
-    pointer-events: none;
+/*
+ * Split-panel width for ArtifactDrawer.
+ * Must stay in sync with HiddenChat's sidebar shift (`right: 55%`).
+ * @memori.ai/ui Drawer uses `--memori-modal-size-*` (not the legacy
+ * size="md" maps to `--memori-modal-size-md`.
+ */
+.memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer {
+    --memori-modal-size-md: 55%;
+    width: 55%;
+    max-width: 100vw;
+}
+
+@media (max-width: 1260px) {
+    .memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer,
+    .memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
+        --memori-modal-size-md: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100dvh !important;
+        border-radius: 0;
+        border-left: none;
+        box-shadow: none;
+    }
+
+    .memori-artifact-panel-drawer .memori-drawer__body,
+    .memori-artifact-panel-drawer-fullscreen .memori-drawer__body {
+        display: flex;
+        overflow: hidden;
+        height: 100%;
+        min-height: 0;
+        flex: 1 1 auto;
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
+.memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
+    --memori-modal-size-md: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Hide the Drawer backdrop so the chat remains fully visible on the left
+   (applies to the mobile/legacy Drawer-overlay path) */
+body:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
+body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
+.memori-widget:has(.memori-artifact-panel-drawer) .memori-drawer__backdrop,
+.memori-widget:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop {
+    display: none !important;
+}
+
+/* Inline layout column — fills the layout flex slot, not a fixed overlay.
+   min-height: 0 (not 100vh) so opening the artifact cannot expand the page. */
+.memori-artifact-layout-column {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
 }
 
 /* Main Drawer Container (Mobile Only) */
 .memori-artifact-drawer {
     position: relative;
     z-index: 1001;
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
 }
 
-.memori-artifact-panel-drawer > div > div > div {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    pointer-events: auto;
-}
 /* Web Split Panel Container */
 .memori-artifact-panel {
     position: relative;
@@ -42,10 +94,10 @@
     overflow: visible;
     height: 100%;
     flex-direction: column;
-    border-left: 1px solid var(--artifact-drawer-border);
+    /* border-left: 1px solid var(--artifact-drawer-border); */
     backdrop-filter: blur(10px);
-    box-shadow: var(--artifact-drawer-shadow);
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    /* box-shadow: var(--artifact-drawer-shadow); */
+    font-family: var(--memori-font-family);
 }
 
 .memori-artifact-panel::before {
@@ -54,7 +106,7 @@
     right: 0;
     left: 0;
     height: 1px;
-    background: white;
+    /* background: white; */
     content: '';
     opacity: 0.6;
 }
@@ -68,10 +120,8 @@
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
-    padding-top: 1rem;
+    padding: 1rem var(--memori-spacing-md) 0;
 }
-
-
 
 .memori-artifact-panel--header-content {
     min-width: 0;
@@ -80,38 +130,34 @@
 
 .memori-artifact-panel--title {
     overflow: hidden;
-    /* max-width: 90%; */
+    max-width: 100%;
     margin: 0 0 0.75rem;
-    background: white;
-    background-clip: text;
     color: var(--artifact-drawer-text);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-bold);
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: var(--memori-text-line-tight);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 
 .memori-artifact-panel--subtitle {
     margin: 0 0 1rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;
     opacity: 0.9;
 }
 
-
 .memori-artifact-panel--meta {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
-    font-weight: 500;
-    gap: 0.5rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-panel--meta-item {
@@ -121,13 +167,10 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(0, 123, 255, 0.15);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     background: rgba(0, 123, 255, 0.08);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
-
-
-
 
 .memori-artifact-panel--header-actions {
     position: absolute;
@@ -142,22 +185,21 @@
     /* margin-top: 1rem; */
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-panel--close {
     position: absolute;
     z-index: 10;
     top: 1.5rem;
     right: 1.5rem;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
-    color: #000 !important;
+    color: var(--memori-text-color) !important;
 }
 
 /* Web Split Panel Content */
@@ -165,11 +207,12 @@
     position: relative;
     display: flex;
     overflow: visible;
-    height: 88vh;
+    height: 87vh;
     min-height: 0;
+    max-height: 87vh;
     flex: 1;
     /* padding: 1.5rem 1.5rem; */
-    gap: 1.5rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-panel--main {
@@ -182,13 +225,7 @@
 }
 
 .memori-artifact-panel--main::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 1px;
-    background: white;
-    content: '';
+    display: none;
 }
 
 .memori-artifact-drawer--backdrop {
@@ -229,10 +266,9 @@
     border-left: 1px solid rgba(255, 255, 255, 0.2);
     background: white;
     box-shadow: var(--artifact-drawer-shadow-lg);
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
     transform: opacity(0);
 }
-
 
 .memori-artifact-drawer--panel-left {
     right: auto;
@@ -257,15 +293,14 @@
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: var(--memori-spacing-lg);
     border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
     border-bottom: 1px solid var(--artifact-drawer-border);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--memori-spacing-lg);
     backdrop-filter: blur(20px);
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
-
 
 .memori-artifact-drawer--header-content {
     min-width: 0;
@@ -278,23 +313,21 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: var(--artifact-drawer-text);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-bold);
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: var(--memori-text-line-tight);
     -webkit-text-fill-color: transparent;
 }
-
 
 .memori-artifact-drawer--subtitle {
     margin: 0 0 1rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;
     opacity: 0.9;
 }
-
 
 .memori-artifact-drawer--meta {
     display: flex;
@@ -303,8 +336,8 @@
     margin-top: 0.5rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
-    font-weight: 500;
-    gap: 1rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-drawer--meta-item {
@@ -316,43 +349,32 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(0, 123, 255, 0.15);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     background: rgba(0, 123, 255, 0.08);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
-
-.memori-artifact-panel-drawer-fullscreen > div > div > div {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-shadow: none !important;
-    transform: translateX(0) !important;
-}
-
-
 
 .memori-artifact-drawer--header-actions {
     z-index: 100;
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    padding: 0.5rem;
+    padding: var(--memori-spacing-sm);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--artifact-drawer-radius);
-    margin-top: 1rem;
+    margin-top: var(--memori-spacing-lg);
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-drawer--history-toggle {
-    margin-right: 0.5rem;
+    margin-right: var(--memori-spacing-sm);
 }
-
 
 .memori-artifact-drawer-fullscreen {
     display: flex;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 /* New Header Actions Layout */
@@ -372,7 +394,7 @@
     overflow: hidden;
     align-items: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
 }
 
@@ -382,7 +404,7 @@
     height: 36px;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text-muted);
@@ -416,7 +438,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text-muted);
     transition: all 0.2s ease;
@@ -434,21 +456,21 @@
     overflow: hidden;
     align-items: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
 }
 
 .memori-artifact-copy-button {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: none;
     border-right: 1px solid var(--artifact-drawer-border);
     background: transparent;
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
     transition: all 0.2s ease;
 }
 
@@ -459,12 +481,12 @@
 
 .memori-artifact-copy-button--success {
     background: #f0fdf4;
-    color: #15803d;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--error {
     background: #fef2f2;
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--loading {
@@ -472,8 +494,8 @@
 }
 
 .memori-artifact-copy-text {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 .memori-artifact-copy-dropdown-wrapper {
@@ -490,7 +512,7 @@
     height: 36px;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text-muted);
@@ -516,26 +538,26 @@
     right: 0;
     min-width: 200px;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
-    margin-top: 4px;
+    border-radius: var(--memori-radius-box);
+    margin-top: var(--memori-spacing-xs);
     background: var(--artifact-drawer-bg);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .memori-artifact-copy-dropdown-list {
-    padding: 4px 0;
+    padding: var(--memori-spacing-xs) 0;
 }
 
 .memori-artifact-copy-dropdown-item {
     display: flex;
     width: 100%;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: none;
     background: transparent;
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--memori-text-size-small);
     text-align: left;
     transition: all 0.2s ease;
 }
@@ -547,36 +569,36 @@
 }
 
 .memori-artifact-copy-dropdown-text {
-    margin-left: 8px;
-    font-size: 14px;
-    font-weight: 500;
+    margin-left: var(--memori-spacing-sm);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 /* Share Button */
 .memori-artifact-share-button {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text);
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    gap: 8px;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
     transition: all 0.2s ease;
 }
 
 .memori-artifact-share-button:hover {
     border-color: var(--artifact-drawer-accent);
     background: var(--artifact-drawer-accent);
-    color: white;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-share-text {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
 }
 
 /* Close Button */
@@ -587,7 +609,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--artifact-drawer-border);
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: var(--artifact-drawer-bg);
     color: var(--artifact-drawer-text-muted);
     cursor: pointer;
@@ -597,7 +619,7 @@
 .memori-artifact-close-button:hover {
     border-color: #ef4444;
     background: #fef2f2;
-    color: #ef4444;
+    color: var(--memori-text-color);
 }
 
 /* Mobile Actions */
@@ -606,20 +628,21 @@
 }
 
 /* Legacy container for backward compatibility */
-.memori-artifact-drawer-container-actions{
+.memori-artifact-drawer-container-actions {
     display: flex;
     flex-flow: row;
     align-items: center;
-    margin-top: 1rem;
+    padding: 0 var(--memori-spacing-md);
+    padding-bottom: var(--memori-spacing-sm);
+    margin-top: var(--memori-spacing-lg);
     /* justify-content: space-between; */
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-drawer--close-icon {
     width: 18px;
     height: 18px;
 }
-
 
 /* Content */
 .memori-artifact-drawer--content {
@@ -629,7 +652,7 @@
     min-height: 0;
     flex: 1;
     padding: 0 0 1.5rem;
-    gap: 1.5rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-artifact-drawer--main {
@@ -656,16 +679,10 @@
     content: '';
 }
 
-.memori-button--more-options{
-    padding: 8px 16px;
-    border: 1px solid #e1e5e9;
-  border-radius: 6px;
-    border-top-color: rgb(225, 229, 233);
-    border-right-color: rgb(225, 229, 233);
-    border-bottom-color: rgb(225, 229, 233);
-    border-left-color: rgb(225, 229, 233);
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
+.memori-button--more-options {
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: 1px solid var(--memori-border-color, #e1e5e9);
+    border-radius: var(--memori-radius-box);
 }
 
 .memori-artifact-drawer--sidebar {
@@ -673,9 +690,34 @@
     flex-shrink: 0;
     padding: 1rem;
     padding-left: 1rem;
-    border-radius: var(--memori-border-radius, 6px);
-    border-left: 1px solid var(--memori-button-border-color, #e9ecef);
-    background: var(--memori-inner-bg, #f8f9fa);
+    border-radius: var(--memori-radius-box);
+    border-left: var(--memori-border) solid var(--memori-primary);
+    background: var(--memori-primary-subtle);
+}
+
+/* Match website_assistant / hidden_chat sidebar close — never outline primary fill */
+.memori-widget .memori-artifact-drawer--close.memori-icon-button.memori-button,
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:active:not(:disabled, .memori-button--disabled) {
+    border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+    background: transparent;
+    box-shadow: none;
+    color: var(--memori-text-color, #111827);
+    transform: none;
+}
+
+.memori-widget
+    .memori-artifact-drawer--close.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled) {
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
+}
+
+.memori-widget .memori-artifact-drawer--close .memori-icon-close {
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: none;
+    stroke: currentColor;
 }
 
 /* Mobile Drawer Panel */
@@ -695,35 +737,131 @@
     backdrop-filter: blur(20px);
     background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
     box-shadow: none;
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--memori-font-family);
 }
 
-.memori-artifact-drawer--close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    /* background: var(--artifact-drawer-bg); */
-    margin-left: auto;
+.memori-artifact-actions {
+    flex: 1;
 }
 
 @media (max-width: 1024px) {
-    .memori-artifact-panel-drawer > div > div > div {
-        z-index: 0;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-shadow: none !important;
-    }
-
     .memori-artifact-drawer-fullscreen {
         display: none;
     }
 }
 
-
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1260px) {
+    /* Hide the empty desktop-only action bar on mobile — all actions live in top-right */
+    .memori-artifact-drawer-container-actions {
+        display: none;
+    }
 
+    /* Mobile header: full-width toolbar — tabs left, more+close right */
+    .memori-artifact-drawer-top-right {
+        display: flex;
+        overflow: visible;
+        width: 100%;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+        border-bottom: 1px solid var(--memori-border-color);
+        margin: 0;
+        background: var(--memori-secondary-background);
+        gap: var(--memori-spacing-sm);
+    }
+
+    .memori-artifact-drawer-top-right-actions {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        margin-left: auto;
+        gap: var(--memori-spacing-sm);
+    }
+
+    .memori-artifact-drawer-top-right .memori-mobile-actions-menu {
+        margin-left: 0;
+    }
+
+    /* Tabs.Root from @memori.ai/ui defaults to width:100% — that pushes actions off-screen */
+    .memori-artifact-drawer-top-right .memori-tab-switch,
+    .memori-artifact-drawer-top-right .memori-tabs {
+        width: auto;
+        max-width: fit-content;
+        flex: 0 0 auto;
+        justify-content: flex-start;
+        /* border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent); */
+    }
+
+    .memori-artifact-drawer-top-right .memori-tab-switch__tab {
+        min-width: 40px;
+        flex: 0 0 auto;
+    }
+
+    /* Make mobile more-options match header toolbar buttons */
+    .memori-artifact-drawer-top-right .memori-button--more-options {
+        display: flex;
+        width: 2.5rem;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        min-height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+        border-radius: var(--memori-radius-box, 0.5rem);
+        margin-left: 0;
+    }
+
+    .memori-artifact-drawer-top-right .memori-button--more-options:hover {
+        border-color: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+        background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
+    }
+
+    /* Content fills remaining viewport under the toolbar (no floating card) */
+    .memori-artifact-panel-drawer .memori-artifact-panel--content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--content {
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        flex: 1 1 auto;
+        gap: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-panel--main,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--main {
+        overflow: hidden;
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-preview,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview,
+    .memori-artifact-panel-drawer .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer .memori-artifact-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-content {
+        border-radius: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-tab-content--active,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-tab-content--active {
+        padding: 0;
+    }
+
+    .memori-artifact-panel-drawer .memori-artifact-preview-content,
+    .memori-artifact-panel-drawer-fullscreen .memori-artifact-preview-content {
+        background: transparent;
+    }
+}
+
+@media (max-width: 1260px) {
     /* Mobile header actions */
     .memori-artifact-drawer-header-actions {
         display: none;
@@ -765,16 +903,12 @@
         border-radius: 0;
         margin-bottom: 1rem;
         backdrop-filter: blur(20px) !important;
-        background: linear-gradient(
-            135deg,
-            var(--memori-inner-bg, #f8f9fa) 0%,
-            rgba(255, 255, 255, 0.9) 100%
-        ) !important;
-        gap: 1.5rem;
+        background: linear-gradient(135deg, var(--memori-primary-subtle) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+        gap: var(--memori-spacing-lg);
     }
 
-    .memori-artifact-drawer--header-content{
-      width: 100%;
+    .memori-artifact-drawer--header-content {
+        width: 100%;
     }
 
     .memori-artifact-drawer--header-actions {
@@ -815,7 +949,7 @@
 
     .memori-artifact-drawer--meta {
         width: 100%;
-        gap: 0.75rem;
+        gap: var(--memori-spacing-sm);
     }
 
     .memori-artifact-drawer--meta-item {
@@ -831,8 +965,8 @@
     }
 }
 
-@media (min-width: 769px) {
-    /* Hide mobile drawer on desktop */
+@media (min-width: 1261px) {
+    /* Hide mobile drawer on desktop — inline column layout takes over */
     .memori-artifact-drawer {
         display: none !important;
     }
@@ -841,21 +975,6 @@
     .memori-artifact-panel {
         display: flex !important;
     }
-}
-
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .memori-artifact-drawer--panel {
-        width: 70%;
-    }
-
-}
-
-@media (min-width: 1025px) {
-    .memori-artifact-drawer--panel {
-        width: 50%;
-    }
-
 }
 
 /* Fullscreen Mode */
@@ -894,10 +1013,6 @@
     justify-content: flex-end;
 }
 
-.memori-artifact-drawer--close-desktop {
-    margin-left: 0 !important;
-}
-
 .memori-artifact-drawer-container-actions--chatlog {
     padding: 0rem 1rem;
 }
@@ -911,140 +1026,82 @@
     z-index: 1001;
     display: flex;
     align-items: center;
-    padding: 0rem 1rem;
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
-/* Mobile Actions Dropdown */
+/* Mobile Actions Dropdown — portaled popup (not under .top-right) */
 .memori-mobile-actions-menu {
     position: relative;
     display: inline-block;
-    margin-left: auto;
 }
 
 .memori-mobile-actions-trigger {
     display: inline-block;
 }
 
+.memori-dropdown__popup.memori-mobile-dropdown,
 .memori-mobile-dropdown {
-    position: absolute;
-    z-index: 1000;
-    top: 100%;
-    right: 0;
+    z-index: 1100;
     min-width: 200px;
-    border: 1px solid var(--artifact-drawer-border);
-    border-radius: var(--artifact-drawer-radius);
-    margin-top: 0.5rem;
-    backdrop-filter: blur(10px);
-    background: var(--artifact-drawer-bg);
-    box-shadow: var(--artifact-drawer-shadow);
+    max-width: min(280px, calc(100vw - 1.5rem));
+    padding: var(--memori-spacing-xs);
+    border: 1px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
+    /* Soft contrast vs canvas — not pure white / not heavy fill */
+    background: color-mix(in srgb, var(--memori-text-color) 6%, var(--memori-secondary-background)) !important;
+    box-shadow: var(--memori-shadow-lg);
+    color: var(--memori-text-color);
 }
 
-/* Mobile-specific dropdown positioning */
-@media (max-width: 768px) {
-
-    .memori-artifact-drawer--close{
-        margin-left: 0;
-    }
-
-    .memori-artifact-panel--header{
-        margin-bottom: 0.5rem;
-    }
-    
-    .memori-mobile-dropdown {
-        right: 0;
-        left: auto;
-        min-width: 180px;
-        max-width: calc(100vw - 2rem);
-    }
-    
-    .memori-mobile-dropdown-list {
-        padding: 0.25rem;
-        gap: 0.125rem;
-    }
-    
-    .memori-mobile-dropdown .memori-artifact-action-btn {
-        min-height: 44px; /* Ensure touch-friendly size */
-        padding: 0.625rem 0.75rem;
-        font-size: 0.875rem;
-    }
-    
-    .memori-mobile-dropdown .memori-artifact-action-text {
-        color: var(--artifact-drawer-text);
-        font-size: 0.8125rem;
-        font-weight: 600;
-    }
-    
-    .memori-mobile-dropdown .memori-artifact-action-icon {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-    }
-}
-
-.memori-mobile-dropdown-list {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: 0.25rem;
-}
-
-.memori-mobile-dropdown .memori-artifact-action-btn {
+.memori-mobile-dropdown .memori-artifact-action-btn,
+.memori-mobile-dropdown .memori-dropdown__item,
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item {
     display: flex;
     width: 100%;
+    min-height: 40px;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid transparent;
-    border-radius: var(--artifact-drawer-radius);
+    border-radius: var(--memori-radius-box);
     background: transparent;
-    color: var(--artifact-drawer-text);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
     text-align: left;
-    transition: all 0.2s ease;
 }
 
-.memori-mobile-dropdown .memori-artifact-action-btn:hover {
-    border-color: var(--memori-primary);
-    background: var(--memori-button-hover-bg, rgba(0, 123, 255, 0.1));
-    color: var(--memori-primary);
+.memori-mobile-dropdown .memori-artifact-action-btn:hover,
+.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
+.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item[data-highlighted]:not([data-disabled]) {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--memori-text-color) 10%, transparent) !important;
+    color: var(--memori-text-color);
 }
 
-.memori-mobile-dropdown .memori-artifact-action-text {
-    overflow: visible;
-    margin-left: 0.5rem;
+.memori-mobile-dropdown .memori-artifact-action-icon,
+.memori-mobile-dropdown .memori-dropdown__item-icon,
+.memori-mobile-dropdown .memori-dropdown__item-icon svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
     color: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
+    fill: none !important;
+    stroke: currentColor;
 }
 
-/* Mobile Dropdown Animations */
-.memori-mobile-dropdown-enter {
-    transition: all 0.2s ease-out;
-}
+@media (max-width: 1260px) {
+    .memori-artifact-panel--header {
+        margin-bottom: var(--memori-spacing-sm);
+    }
 
-.memori-mobile-dropdown-enter-from {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-}
-
-.memori-mobile-dropdown-enter-to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.memori-mobile-dropdown-leave {
-    transition: all 0.15s ease-in;
-}
-
-.memori-mobile-dropdown-leave-from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.memori-mobile-dropdown-leave-to {
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
+    .memori-dropdown__popup.memori-mobile-dropdown,
+    .memori-mobile-dropdown {
+        min-width: 180px;
+        max-width: calc(100vw - 1.5rem);
+    }
 }
 
 /* Focus and Accessibility */
@@ -1056,4 +1113,3 @@
     outline: 2px solid var(--memori-primary);
     outline-offset: 2px;
 }
-

@@ -1,7 +1,7 @@
 .memori-widget {
     position: relative;
     width: 100%;
-    padding: 1em;
+    padding: var(--memori-spacing-md);
 }
 
 .memori-widget,
@@ -9,7 +9,8 @@
     box-sizing: border-box;
 }
 
-.memori-widget > .memori-spin {
+.memori-widget > .memori-spin,
+.memori-widget > .memori-widget__surface > .memori-spin {
     height: calc(100vh - 50px);
 }
 
@@ -17,7 +18,8 @@
     .memori-widget {
         overflow-y: hidden;
     }
-    .memori-widget > .memori-spin {
+    .memori-widget > .memori-spin,
+    .memori-widget > .memori-widget__surface > .memori-spin {
         height: calc(100vh - 100px);
     }
 }
@@ -56,7 +58,7 @@
 .memori--grid-column-left {
     position: relative;
     width: 50%;
-    margin-right: 1rem;
+    margin-right: var(--memori-spacing-lg);
 }
 
 @media (max-width: 870px) {
@@ -66,13 +68,13 @@
         height: auto;
         max-height: 200px;
         margin-right: 0;
-        margin-bottom: 1rem;
+        margin-bottom: var(--memori-spacing-lg);
     }
 }
 
 .memori--grid-column-right {
     width: 50%;
-    margin-left: 1rem;
+    margin-left: var(--memori-spacing-lg);
 }
 
 @media (max-width: 870px) {
@@ -90,13 +92,14 @@
 }
 
 .memori--select {
-    margin-top: 1rem;
+    margin-top: var(--memori-spacing-lg);
 }
 
 .memori--select label {
-    margin: 0.5rem 0 0.25rem;
-    color: var(--dark-gray);
-    font-size: 0.8em;
+    margin: var(--memori-spacing-sm) 0 var(--memori-spacing-xs);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-normal);
 }
 
 .memori--select select {
@@ -109,7 +112,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
+    height: 100vh;
+    height: 100dvh;
     min-height: 100vh;
     background-position: center center;
     background-repeat: no-repeat;
@@ -122,64 +126,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    height: 100svh;
+    min-height: 100vh;
+    min-height: 100dvh;
     background-color: #eee;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: blur(var(--memori-blur-background, 0));
+    filter: blur(0);
 }
 
 @media (max-width: 870px) {
     .memori--global-background-image {
         min-height: 100vh;
     }
-}
-
-.memori--powered-by {
-    position: absolute;
-    z-index: 1000;
-    bottom: 0;
-    left: 0;
-    display: inline-flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    padding: 0.25rem 1rem;
-    border-radius: 10px;
-    background-color: var(--memori-inner-bg, transparent);
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
-    font-size: 0.7em;
-    white-space: nowrap;
-}
-
-@media (max-width: 870px) {
-    .memori--powered-by {
-        top: 3rem;
-        bottom: auto;
-    }
-}
-
-.memori--powered-by a {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
-    text-decoration: underline;
-}
-
-.memori--powered-by a:hover,
-.memori--powered-by a:focus {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
-    opacity: 0.8;
-    text-decoration: underline;
-}
-
-.memori--powered-by img {
-    max-width: 2rem;
-    max-height: 2rem;
-    margin-right: 0.25rem;
-}
-
-.memori--powered-by p {
-    margin-bottom: 0;
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
 }
 
 .memori--conversation-button {
@@ -189,32 +148,78 @@
 .memori--conversation-button svg {
     width: 1rem;
     height: 1rem;
-    font-size: 1rem;
+    font-size: var(--memori-text-size-base);
 }
 
 .memori--conversation-button + .memori--conversation-button {
-    margin-left: 0.33rem;
-}
-
-.memori--conversation-button:hover,
-.memori--conversation-button:active,
-.memori--conversation-button:focus {
-    border-color: var(--memori-primary) !important;
-}
-
-.memori--conversation-button:active,
-.memori--conversation-button:focus {
-    /* box-shadow: 0 0.2rem 0.33rem #b5b6c4 !important; */
-    color: var(--memori-primary) !important;
+    margin-left: var(--memori-spacing-xs);
 }
 
 .memori.memori-widget.chat-focused .memori--powered-by,
-.memori.memori-widget.chat-focused
-    .memori-website_assistant--close-button-wrapper
-    button.memori-website_assistant--close-button {
+.memori.memori-widget.memori-layout-website_assistant.chat-focused
+    .memori-website_assistant--close-button {
     display: none;
 }
 
 .memori.memori--auto-start .memori--start-panel {
     display: none;
+}
+
+/* Close buttons (modals, drawers, popovers) — same square bordered chrome
+   as header / website-assistant / artifact-drawer IconButton.
+   @memori.ai/ui defaults these to borderless / circular. */
+.memori-modal__close,
+.memori-drawer__close,
+.memori-popover__close {
+    display: inline-flex;
+    width: var(--memori-icon-button-size, 40px);
+    min-width: var(--memori-icon-button-size, 40px);
+    height: var(--memori-icon-button-size, 40px);
+    min-height: var(--memori-icon-button-size, 40px);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: var(--memori-border, 1px) solid color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+    border-radius: var(--memori-radius-box);
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--memori-icon-button-icon, color-mix(in oklch, var(--memori-text-color, #111827) 72%, transparent));
+    transform: none;
+}
+
+.memori-popover__close {
+    block-size: var(--memori-icon-button-size, 40px);
+    inline-size: var(--memori-icon-button-size, 40px);
+}
+
+.memori-modal__close:hover,
+.memori-drawer__close:hover,
+.memori-popover__close:hover {
+    border-color: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 6%, transparent);
+    box-shadow: none;
+    color: var(--memori-text-color, #111827);
+}
+
+.memori-modal__close:focus-visible,
+.memori-drawer__close:focus-visible,
+.memori-popover__close:focus-visible {
+    border-color: var(--memori-primary);
+    box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
+    outline: 2px solid var(--memori-primary);
+    outline-offset: var(--memori-focus-ring-offset, 2px);
+}
+
+.memori-modal__close svg,
+.memori-drawer__close svg,
+.memori-popover__close svg {
+    width: var(--memori-icon-button-icon-size, 20px);
+    height: var(--memori-icon-button-icon-size, 20px);
+}
+
+.memori-drawer__header {
+    align-items: center;
 }

@@ -1,32 +1,54 @@
 .memori-widget.memori-layout-totem {
-    height: 95vh !important;
+    /* Shared content axis for avatar + panel + status indicator (section 3).
+       Overridable per-integration via the `totemContentMaxWidth` prop, which
+       sets this custom property inline (e.g. wider for vertical kiosks). */
+    --memori-totem-max-width: 600px;
+    height: 100vh !important;
+    height: 100dvh !important;
 }
 
 .memori-widget.memori-layout-totem .memori--global-background.no-background-image {
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget>.memori-spin.memori-totem-layout {
+.memori-widget > .memori-spin.memori-totem-layout,
+.memori-widget > .memori-widget__surface > .memori-spin.memori-totem-layout {
+    position: relative;
     display: flex;
     height: 100%;
     flex-direction: column;
 }
 
+/* Rail/header is an overlay so it does not consume vertical flow: the 3D
+   scene height equals 100vh minus the panel height, per spec. */
 .memori-totem-layout--header {
+    position: absolute;
+    z-index: 101;
+    top: var(--memori-spacing-md);
+    right: var(--memori-spacing-md);
     text-align: right;
 }
 
+/* Avatar fills the flex space above the panel: height = 100vh - panel. */
 .memori-totem-layout--avatar {
-    flex: 1;
+    position: relative;
+    min-height: 0;
+    flex: 1 1 auto;
 }
 
+/* Avatar shares the same centered axis and max-width as the panel below it,
+   so on wide desktop the face is not lost in empty space (section 3). */
 .memori-totem-layout--avatar .memori--avatar-wrapper {
-    position: fixed;
+    position: absolute;
     z-index: 0;
     top: 0;
-    left: 0;
+    bottom: 0;
+    left: 50%;
     overflow: hidden;
     width: 100%;
+    max-width: var(--memori-totem-max-width, 600px);
+    height: 100%;
+    transform: translateX(-50%);
 }
 
 .memori-totem-layout--avatar .memori--blob-container {
@@ -45,40 +67,74 @@
     }
 }
 
-.memori-totem-layout .memori-header {
-    position: relative;
-    z-index: 101;
+/* ==========================================================================
+   SECTION 4–5 — Side rail: one visible container, two tiers, flat surface.
+   Solid surface (no blur) so text/icon contrast never depends on the 3D
+   frame behind it.
+   ========================================================================== */
+.memori-totem-rail {
     display: inline-flex;
-    width: auto;
-    height: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    padding: var(--memori-spacing-xs);
+    border: 1px solid var(--memori-border-color);
+    border-radius: 12px;
+    background: var(--memori-secondary-background);
+    gap: var(--memori-spacing-xs);
 }
 
-.memori-totem-layout .memori-header .memori-header--button,
-.memori-totem-layout .memori-header .memori-header--button button {
-    width: 38px;
-    height: 38px;
+.memori-totem-rail--group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-totem-rail--divider {
+    width: 24px;
+    height: 1px;
+    flex-shrink: 0;
+    background: var(--memori-border-color);
+}
+
+.memori-totem-rail--button,
+.memori-totem-rail--button button {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
     aspect-ratio: 1;
 }
 
-.memori-totem-layout .memori-header .memori-header--button--position,
-.memori-totem-layout .memori-header .memori-header--button-login,
-.memori-totem-layout .memori-header .memori-share-button,
-.memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
-    margin-top: 0.25rem;
-    margin-right: 0;
-    margin-left: 0;
+.memori-totem-rail--menu-content {
+    display: flex;
+    min-width: 220px;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.memori-totem-layout .memori-header .memori-header--button--position {
-    margin-bottom: 0.25rem;
+.memori-totem-rail--menu-identity {
+    display: flex;
+    flex-direction: column;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-sm) var(--memori-spacing-xs);
+    border-bottom: 1px solid var(--memori-border-color);
+    margin-bottom: var(--memori-spacing-xs);
+    gap: 2px;
 }
 
-.memori-totem-layout .memori-header--position .memori-header--position-placeName {
-    display: none;
+.memori-totem-rail--menu-identity-name {
+    color: var(--memori-text-color);
+    font-weight: var(--memori-text-weight-bold);
+}
+
+.memori-totem-rail--menu-identity-email {
+    color: color-mix(in srgb, var(--memori-text-color) 70%, transparent);
+    font-size: 0.8rem;
+}
+
+.memori-totem-rail--menu-item,
+.memori-totem-rail--menu-item button {
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .memori-totem-layout .memori-chat--cover {
@@ -90,16 +146,18 @@
     background: none;
 }
 
-.memori-totem-layout .memori--powered-by {
-    top: 0;
-    bottom: auto;
+.memori-widget.memori-layout-totem .memori-totem-layout > .memori--powered-by {
+    top: auto;
+    right: auto;
+    bottom: 1rem;
+    left: 1rem;
 }
 
 /* .memori-totem-layout--avatar .memori--avatar-wrapper>div {
     overflow: visible !important; */
-    /* width: 100% !important;
+/* width: 100% !important;
     height: 100% !important; */
-    /* width: auto !important;
+/* width: auto !important;
     height: 90vh !important;
     max-height: 90vh;
     border-radius: 0;
@@ -118,47 +176,128 @@
     z-index: 5;
 } */
 
-.memori-totem-layout--controls .memori--start-panel,
-.memori-totem-layout--controls .memori-chat--history,
-.memori-totem-layout--controls .memori-chat--content {
+/* Panel sits below the avatar and never grows into it: capped height with
+   internal scroll instead of pushing the scene up. */
+.memori-totem-layout--controls {
     z-index: 100;
+    display: flex;
+    width: 100%;
+    min-height: 0;
+    max-height: 48vh;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   SECTION 2–3 — Single unified panel + shared alignment axis
+   One container (surface + 1px border + 12px radius). Inner sections have
+   NO border/shadow/width of their own, only 1px dividers between them.
+   A definite height (not just max-height) is required so nested overflow-y
+   auto actually scrolls instead of clipping.
+   ========================================================================== */
+.memori-totem-layout--controls .memori-chat--wrapper,
+.memori-totem-layout--controls .memori--start-panel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: var(--memori-totem-max-width, 600px);
+    height: 48vh;
+    min-height: 0;
+    max-height: 48vh;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid var(--memori-border-color);
+    border-radius: 12px;
+    margin: 0 auto;
+    background: var(--memori-secondary-background);
+}
+
+/* Nested conversation column must not add its own axis/padding/surface. */
+.memori-totem-layout--controls .memori-conversation-column {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+/* Messages section: remaining panel height; children must not size to content. */
+.memori-totem-layout--controls .memori-chat--history,
+.memori-totem-layout--controls .memori-chat--history.memori-chat--history-touch {
+    display: flex;
+    overflow: hidden;
+    height: auto !important;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+    border: none;
+    border-radius: 0;
+    margin: 0;
     background: transparent;
 }
 
-.memori-totem-layout--controls .memori-chat--history .memori-chat--content {
-    max-height: 400px;
+.memori-totem-layout--controls .memori-chat--content,
+.memori-totem-layout--controls .memori-chat--content.memori-chat--content-touch {
+    height: 0;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    padding: var(--memori-spacing-md);
+    background: transparent;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
-.memori-totem-layout--controls {
-    z-index: 100;
+.memori-totem-layout--controls .memori-chat--content > * {
+    flex-shrink: 0;
 }
 
-.memori-totem-layout--controls .memori--start-panel,
-.memori-totem-layout--controls .memori-chat--wrapper {
-    width: 80vw;
-    max-width: 800px;
-    padding: 1rem;
-    margin: 0 auto;
+/* Input section: 1px divider above, no own surface. */
+.memori-totem-layout--controls .memori-chat-inputs-wrapper {
+    flex-shrink: 0;
+    padding: var(--memori-spacing-md);
+    border-top: 1px solid var(--memori-border-color);
+    background: transparent;
+}
+
+.memori-totem-layout--controls .memori-chat-inputs--container {
+    border-width: 1px;
+    border-radius: 8px;
+}
+
+.memori-totem-layout--controls .memori-chat--bubble,
+.memori-totem-layout--controls .memori-chat--bubble.memori-chat--user-bubble {
+    font-size: 1.125rem;
+}
+
+/* Start-panel body scrolls internally instead of stretching the panel. */
+.memori-totem-layout--controls .memori--start-panel__body {
+    min-height: 0;
+    flex: 1 1 0%;
+    overflow-y: auto;
 }
 
 @media (max-width: 870px) {
-
-    .memori-totem-layout--controls .memori--start-panel,
-    .memori-totem-layout--controls .memori-chat--wrapper {
-        width: 100%;
-    }
-
-    .memori-totem-layout--controls .memori-chat--wrapper {
-        padding: 0;
+    .memori-totem-layout--controls .memori-chat--wrapper,
+    .memori-totem-layout--controls .memori--start-panel {
+        max-width: 100%;
     }
 }
 
 @media (max-width: 480px) {
-    .memori-totem-layou .memori-send-on-enter-menu {
+    .memori-totem-layout .memori-send-on-enter-menu {
         display: none;
     }
 
-    .memori-totem-layou .memori-header--button-settings {
+    .memori-totem-layout .memori-header--button-settings {
         display: none;
     }
 }
@@ -187,8 +326,12 @@
     }
 }
 
-.memori-widget.memori-layout-totem.memori--hide-emissions .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
-.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
+.memori-widget.memori-layout-totem.memori--hide-emissions
+    .memori-totem-layout--controls
+    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
+.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey
+    .memori-totem-layout--controls
+    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
     display: none;
 }
 
@@ -196,7 +339,7 @@
     z-index: 2;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper>div canvas+div {
+.memori-totem-layout--avatar .memori--avatar-wrapper > div canvas + div {
     position: absolute !important;
     width: 100%;
     height: 100%;

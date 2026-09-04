@@ -6,7 +6,7 @@ import FilePreview from './FilePreview';
 import './FilePreview.css';
 
 const meta: Meta = {
-  title: 'Widget/File Preview',
+  title: 'Compositions/File Preview',
   component: FilePreview,
   argTypes: {
     disabled: {

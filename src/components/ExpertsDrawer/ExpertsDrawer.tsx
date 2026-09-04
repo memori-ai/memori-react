@@ -2,7 +2,8 @@ import {
   ExpertReference,
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
-import Drawer from '../ui/Drawer';
+import { Drawer } from '@memori.ai/ui';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import { useTranslation } from 'react-i18next';
 import { getResourceUrl } from '../../helpers/media';
 
@@ -24,9 +25,11 @@ const ExpertsDrawer = ({
   onClose,
 }: Props) => {
   const { t } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       open={open}
       onClose={onClose}
       className="memori--experts-drawer"

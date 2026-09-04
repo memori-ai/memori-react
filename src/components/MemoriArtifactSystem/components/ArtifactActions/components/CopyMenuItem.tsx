@@ -6,10 +6,12 @@
 import React from 'react';
 import cx from 'classnames';
 import { CopyMenuItemProps } from '../types';
-import Copy from '../../../../icons/Copy';
-import Download from '../../../../icons/Download';
-import PrintIcon from '../../../../icons/Print';
-import Link from '../../../../icons/Link';
+import {
+  Copy,
+  Download,
+  Printer,
+  Link as LinkIcon,
+} from 'lucide-react';
 
 const CopyMenuItem: React.FC<CopyMenuItemProps & { active?: boolean }> = ({
   format,
@@ -37,9 +39,9 @@ const CopyMenuItem: React.FC<CopyMenuItemProps & { active?: boolean }> = ({
       case 'pdf':
         return <Download className="memori-copy-menu-item-icon" />;
       case 'print':
-        return <PrintIcon className="memori-copy-menu-item-icon" />;
+        return <Printer className="memori-copy-menu-item-icon" />;
       case 'link':
-        return <Link className="memori-copy-menu-item-icon" />;
+        return <LinkIcon className="memori-copy-menu-item-icon" />;
       default:
         return <Copy className="memori-copy-menu-item-icon" />;
     }

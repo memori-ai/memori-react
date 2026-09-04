@@ -4,7 +4,7 @@ import ModelViewer, { Props } from './ModelViewer';
 import './ModelViewer.css';
 
 const meta: Meta = {
-  title: 'Custom GLB Avatar',
+  title: 'Internals/Custom GLB Avatar',
   component: ModelViewer,
   argTypes: {
     src: {

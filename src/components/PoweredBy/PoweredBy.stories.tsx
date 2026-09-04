@@ -4,7 +4,7 @@ import PoweredBy, { Props } from './PoweredBy';
 import './PoweredBy.css';
 
 const meta: Meta = {
-  title: 'Powered by',
+  title: 'Internals/Powered by',
   component: PoweredBy,
   argTypes: {},
   parameters: {

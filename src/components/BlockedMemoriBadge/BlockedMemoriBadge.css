@@ -7,8 +7,8 @@
 
 .blocked-memori-badge {
     display: flex;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
     align-items: center;
     justify-content: center;
     border: 1.5px solid #ffe58f;
@@ -17,16 +17,17 @@
 }
 
 .blocked-memori-badge.margin-left {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .blocked-memori-badge--icon {
-    width: 1rem;
-    height: 1rem;
+    width: 0.75rem;
+    height: 0.75rem;
     color: #d48806;
     cursor: pointer;
-    fill: currentColor;
-    font-size: 1rem;
+    fill: none;
+    font-size: var(--memori-text-size-base);
+    stroke: currentColor;
 }
 
 .blocked-memori-badge--tooltip {
@@ -36,5 +37,5 @@
 }
 
 .blocked-memori-badge--title {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }

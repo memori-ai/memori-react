@@ -1,40 +1,328 @@
 .memori-widget.memori-layout-chat {
+    overflow: hidden;
     height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh;
+    max-height: 100dvh;
+    padding: 0;
 }
 
 .memori-widget.memori-layout-chat .memori--global-background.no-background-image {
     background: none;
 }
 
-.memori-widget > .memori-spin.memori-chat-layout {
+.memori-widget > .memori-spin.memori-chat-layout,
+.memori-widget > .memori-widget__surface > .memori-spin.memori-chat-layout {
     display: flex;
+    overflow: hidden;
     height: 100%;
+    min-height: 0;
     flex-direction: column;
 }
 
-.memori-chat-layout--header {
-    margin-bottom: 12px;
-    text-align: right;
-    transition: all 0.05s ease-in-out;
+.memori--description-text {
+    max-height: 180px;
+    line-height: 1.2;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-inline-end: 8px;
+    text-align: left;
 }
 
-.memori-chat-layout--header .memori-header {
-    display: inline-flex;
-    width: calc(50% - 1rem);
-    max-width: 100%;
-    flex-wrap: wrap;
+/* Mobile CHAT header: single row (brand + actions); horizontal scroll if needed */
+@media (max-width: 768px) {
+    .memori-widget.memori-layout-chat .memori-fullpage-header-row {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions {
+        min-width: 0;
+        flex: 1 1 auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-header.memori-header--fullpage {
+        min-width: max-content;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
+    }
+
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-icon-button,
+    .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-button {
+        flex-shrink: 0;
+    }
+}
+
+/* Column fills the chat pane so the input strip can go edge-to-edge;
+   message reading width is applied on --body / the input field itself. */
+.memori-widget.memori-layout-chat .memori-chat-layout--controls > .memori-conversation-column {
+    display: flex;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    margin-inline: 0;
+    padding-inline: 0;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: var(--memori-conversation-max-width, 48rem);
+    min-height: 0;
+    box-sizing: border-box;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--memori-secondary-background);
+    margin-inline: auto;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
+}
+
+/* When a global background is on chat content, keep the body strip neutral. */
+.memori-widget.memori-layout-chat:has(.memori-chat--content--has-global-background) .memori-chat-layout--body {
+    background: transparent;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--start-shell {
+    display: flex;
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--start-panel-wrap {
+    display: flex;
+    overflow: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    gap: 0.2rem;
+    justify-content: center;
+    padding-inline-end: 6px;
+}
+
+/* Full-bleed input strip across the chat column; field stays on the conversation axis */
+.memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper {
+    overflow: hidden;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-top: none;
+    background: var(--memori-secondary-background);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-inline: 0;
+    padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
+}
+
+.memori-widget.memori-layout-chat .memori-chat-inputs {
+    background: transparent;
+}
+
+.memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper .memori-chat-inputs,
+.memori-widget.memori-layout-chat .memori-conversation-column > .memori-chat-inputs-wrapper .memori-conversation-footer {
+    width: 100%;
+    max-width: var(--memori-conversation-max-width, 48rem);
+    margin-inline: auto;
 }
 
 .memori-chat-layout--header-with-artifact {
     display: none;
 }
 
-.memori-chat-layout .memori-header {
-    display: inline-block;
+.memori-chat-layout .memori-header:not(.memori-header--fullpage) {
+    display: inline-flex;
     width: auto;
+    height: auto;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+    border-radius: 0;
+    margin-left: auto;
+    backdrop-filter: none;
+    background: transparent;
+    gap: 0.35rem;
+}
+
+/* .memori-chat-layout .memori-header .memori-button {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: transparent;
+    box-shadow: none;
+    color: #000;
+} */
+
+/* .memori-chat-layout .memori-header .memori-button:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.03);
+} */
+
+.memori-chat-layout .memori--avatar {
+    top: 0;
+}
+
+.memori-chat-layout .memori--title {
+    position: relative;
+    color: var(--memori-text-color);
+}
+
+.memori-chat-layout .memori--description,
+.memori-chat-layout .memori--needsPosition {
+    color: var(--memori-text-color);
+}
+
+.memori-chat-layout .memori-chat--cover {
+    display: none;
+}
+
+.memori-chat-layout .memori--cover {
+    top: 10px;
+    padding: 0;
+    background-image: none !important;
+}
+
+/* Powered-by lives in the conversation footer row under the input */
+.memori-widget.memori-layout-chat .memori-conversation-footer > .memori--powered-by {
+    position: relative !important;
+    z-index: 5;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    display: inline-flex !important;
+    width: auto;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .memori-widget.memori-layout-chat .memori-conversation-footer {
+        justify-content: center;
+        gap: 0;
+    }
+
+    .memori-widget.memori-layout-chat .memori-conversation-footer > .memori--powered-by {
+        display: none !important;
+    }
+
+    .memori-widget.memori-layout-chat .memori-conversation-footer .memori-chat-inputs--ai-note {
+        overflow: visible;
+        flex: 0 1 auto;
+        text-align: center;
+        text-overflow: unset;
+        white-space: normal;
+    }
+
+    .memori-widget.memori--active.memori-layout-chat .memori-conversation-footer {
+        justify-content: flex-start;
+    }
+
+    .memori-widget.memori--active.memori-layout-chat .memori-conversation-footer .memori-chat-inputs--ai-note {
+        flex: 1 1 auto;
+        text-align: left;
+    }
+}
+
+.memori-chat-layout--controls .memori-chat--wrapper {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    border-radius: 12px;
+}
+
+/* Solo layout CHAT: start panel compatto e conversazione centrata */
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--cover {
+    display: none;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    border: none;
+    border-radius: 16px;
+    background: var(--memori-secondary-background);
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel__body {
+    padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
+    padding-top: 0;
+    background: var(--memori-main-background);
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    padding-top: 1rem;
+    text-align: left;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container .memori--avatar {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: var(--memori-radius-box);
+    margin-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+    margin-bottom: 0;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container .memori--avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container__content {
+    min-width: 0;
+    max-width: 100%;
+    align-items: flex-start;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container .memori--title {
+    overflow: hidden;
+    min-width: 0;
+    font-size: 1.05rem;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel .memori--title {
+    margin-bottom: 0.5rem;
+    color: var(--memori-text-color, #111) !important;
+    font-size: var(--memori-text-size-heading-large);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel .memori--description-text,
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel .memori--description {
+    font-size: 0.8125rem;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--body .memori-chat--wrapper {
+    width: 100%;
+    border-radius: 0;
+    margin: 0 auto;
+    background: transparent;
 }
 
 .memori-chat-layout-controls-hide {
@@ -50,43 +338,135 @@
 .memori-chat-layout--main {
     position: relative;
     display: flex;
-    overflow: hidden;
+    /* clip (not hidden): the blurred/scaled global-background ::before expands
+       scrollable overflow; overflow:hidden still creates a scrollport, so
+       Chat's scrollIntoView can shift the whole chrome upward and clip the header. */
+    overflow: clip;
     width: 100%;
+    min-width: 0;
     height: 100%;
-    flex: 1;
+    min-height: 0;
+    flex: 1 1 0%;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    /* max-width: 1200px; */
+    /* Stretch — never center the column vertically or an overflowing
+       controls pane gets clipped at the top (header) and leaves a gap below. */
+    align-items: stretch;
+    justify-content: flex-start;
     transition: all 0.05s ease-in-out;
-}
-
-.memori-chat-layout--main-with-artifact {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    /* padding: 1rem; */
-    gap: 1rem;
 }
 
 .memori-chat-layout--controls {
     position: relative;
     z-index: 5;
+    display: flex;
     overflow: hidden;
     min-width: 0;
     height: 100%;
+    min-height: 0;
     max-height: 100%;
     flex: 1;
-    /* padding-bottom: 1.5rem; */
+    flex-direction: column;
     transition: all 0.05s ease-in-out;
 }
 
-.memori-chat-layout--controls-with-artifact {
-    max-height: 100%;
-    flex: 0 0 49%;
-    /* padding-bottom: 2.5rem; */
-    margin: 0;
+/* Focus states for accessibility */
+.memori-chat-layout--controls:focus-within {
+    border-radius: var(--memori-radius-box);
+    outline-offset: 2px;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--controls {
+    border-radius: 0;
+    background: var(--memori-secondary-background);
+}
+
+/* Header sits above the content row (FULLPAGE pattern) so opening the
+   artifact only redistributes the chat/artifact columns. */
+.memori-widget.memori-layout-chat .memori-chat-layout--header {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Artifact drawer column — flex sibling of chat controls inside --main */
+.memori-widget.memori-layout-chat .memori--grid-column-artifact {
+    overflow: hidden;
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    min-height: 0;
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
+
+.memori-widget.memori-layout-chat .memori--grid-column-artifact--open {
+    width: min(620px, 55%);
+    border-left: 1px solid var(--memori-border-color);
+    background: var(--memori-secondary-background);
+}
+
+@media (max-width: 1260px) {
+    .memori-widget.memori-layout-chat .memori--grid-column-artifact {
+        display: none;
+    }
+}
+
+/* Custom background image fills the messages area across the whole page width:
+   it is painted on the layout row instead of the conversation column, so it also
+   covers the side gutters, while header and input bar stay solid strips. */
+.memori-chat-layout--main--has-background {
+    position: relative;
+    isolation: isolate;
+}
+
+.memori-chat-layout--main--has-background::before {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #eee;
+    background-image: var(--memori-chat-global-background);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    filter: blur(5px);
+    pointer-events: none;
+    transform: scale(1.06);
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori--grid-column-artifact {
+    position: relative;
+    z-index: 5;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--controls,
+.memori-widget.memori-layout-chat .memori-chat-layout--main--has-background .memori-chat-layout--body {
+    background: transparent;
+}
+
+/* Header is outside --main; keep it a solid strip above the backgrounded content. */
+.memori-widget.memori-layout-chat:has(.memori-chat-layout--main--has-background) .memori-chat-layout--header {
+    background: var(--memori-secondary-background);
+}
+
+/* Input strip is already full-bleed (see rules above); keep its solid surface over the image. */
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-conversation-column
+    > .memori-chat-inputs-wrapper {
+    margin-bottom: 0;
+    background: var(--memori-secondary-background);
+}
+
+/* The column-scoped image would otherwise paint a second, narrower copy. */
+.memori-widget.memori-layout-chat
+    .memori-chat-layout--main--has-background
+    .memori-chat--history--has-global-background::before {
+    display: none;
 }
 
 .memori-chat-layout--artifact-panel {
@@ -99,7 +479,7 @@
     flex: 0 0 50%;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(20px);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -125,86 +505,84 @@
     }
 }
 
-.memori-chat-layout .memori--avatar {
-    top: 0;
-}
-
-.memori-chat-layout .memori--title {
-    position: relative;
-    top: 10px;
-}
-
-.memori-chat-layout .memori-chat--cover {
-    display: none;
-}
-
-.memori-chat-layout .memori--cover {
-    top: 10px;
-    padding: 0;
-    background-image: none !important;
-}
-
-.memori-chat-layout .memori--powered-by {
-    top: 0;
-    bottom: auto;
-}
-
-.memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(100% - 1rem);
-}
-
 @media (max-width: 870px) {
-    .memori-chat-layout--header .memori-header {
+    .memori-widget.memori-layout-chat {
+        overflow: hidden;
+    }
+    /* 
+    .memori-widget.memori-layout-chat > .memori-spin.memori-chat-layout {
+        height: calc(100vh - 100px);
+        height: calc(100dvh - 100px);
+    } */
+
+    .memori-widget.memori-layout-chat .memori-chat-layout--main,
+    .memori-widget.memori-layout-chat .memori-chat-layout--controls,
+    .memori-widget.memori-layout-chat .memori-chat-layout--body,
+    .memori-widget.memori-layout-chat .memori-chat--wrapper {
+        min-height: 0;
+        padding-bottom: 0;
+    }
+
+    .memori-widget.memori-layout-chat .memori-chat--history.memori-chat--history-touch {
+        height: auto !important;
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .memori-chat-layout--header .memori-header:not(.memori-header--fullpage) {
         width: 100%;
     }
-
-    .memori-chat-layout .memori--powered-by {
-        top: 3.5rem;
-        bottom: auto;
-    }
 }
 
-.memori-chat-layout--controls .memori--start-panel,
-.memori-chat-layout--controls .memori-chat--wrapper {
-    max-width: 1200px;
+.memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori--start-panel,
+.memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori-chat--wrapper {
     height: 100%;
-    margin: 0 auto;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--controls .memori--start-panel,
+.memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
+    min-width: 0;
+    min-height: 0;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
+    max-width: none;
+    padding: 0;
+    margin: 0;
 }
 
 .memori-chat-layout .memori-chat--content {
-    padding: 0;
-}
-
-@media (max-width: 1200px) {
-    .memori-chat-layout--controls .memori--start-panel,
-    .memori-chat-layout--controls .memori-chat--wrapper {
-        max-width: 1000px;
-    }
+    padding-block: var(--memori-spacing-xl);
+    padding-inline: 0;
 }
 
 @media (max-width: 991px) {
-    .memori-chat-layout--controls .memori--start-panel,
-    .memori-chat-layout--controls .memori-chat--wrapper {
+    .memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori-chat--wrapper {
         max-width: 800px;
     }
 }
 
 @media (max-width: 870px) {
-    .memori-chat-layout--controls .memori--start-panel,
-    .memori-chat-layout--controls .memori-chat--wrapper {
+    .memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori--start-panel,
+    .memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori-chat--wrapper {
         width: 100%;
     }
 
-    .memori-chat-layout--controls .memori-chat--wrapper {
+    .memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori-chat--wrapper {
         padding: 0;
-    }
-
-    .memori--powered-by {
-        display: none;
     }
 }
 
 @media (max-width: 480px) {
+    .memori-widget.memori-layout-chat .memori-chat-layout--start-shell {
+        padding: 1rem;
+    }
+
+    /* 
+    .memori-widget.memori-layout-chat .memori-fullpage-header-row {
+        padding: 1rem;
+    } */
+
     .memori-chat-layout .memori-send-on-enter-menu {
         display: none;
     }
@@ -218,12 +596,6 @@
     display: none;
     width: 100%;
     justify-content: center;
-}
-
-.memori-chat-layout .memori--title,
-.memori-chat-layout .memori--description,
-.memori-chat-layout .memori--needsPosition {
-    color: var(--memori-text-color);
 }
 
 .memori-chat-layout .memori--global-background-image {
@@ -316,12 +688,6 @@
     75% {
         transform: translateX(4px);
     }
-}
-
-/* Focus states for accessibility */
-.memori-chat-layout--controls:focus-within {
-    border-radius: 12px;
-    outline-offset: 2px;
 }
 
 /* High contrast mode support */
@@ -431,21 +797,4 @@
         opacity: 0;
         transform: translateX(100%);
     }
-}
-
-/* Adjust chat layout when drawer is open */
-.memori-chat-layout:has(.memori-chat-layout--artifact-drawer .memori-artifact-drawer[data-headlessui-state~='open'])
-    .memori-chat-layout--controls {
-    margin-right: 50%;
-    filter: blur(1px);
-    opacity: 0.8;
-    transform: scale(0.98);
-    transition: all 0.05s ease-in-out;
-}
-
-.memori-chat-layout:has(.memori-chat-layout--artifact-drawer .memori-artifact-drawer[data-headlessui-state~='open'])
-    .memori-chat-layout--main {
-    backdrop-filter: blur(5px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(248, 250, 252, 0.02) 100%);
-    transition: all 0.05s ease-in-out;
 }

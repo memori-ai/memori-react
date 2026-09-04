@@ -11,7 +11,9 @@ exports[`renders ChatTextArea unchanged 1`] = `
       style="height: 36px;"
     >
       <textarea
+        aria-label="placeholder"
         class="memori-chat-textarea--input"
+        id="memori-chat-message"
         maxlength="100000"
         placeholder="placeholder"
         style="height: 36px;"
@@ -32,7 +34,9 @@ exports[`renders ChatTextArea with long text unchanged 1`] = `
       style="height: 36px;"
     >
       <textarea
+        aria-label="placeholder"
         class="memori-chat-textarea--input"
+        id="memori-chat-message"
         maxlength="100000"
         placeholder="placeholder"
         style="height: 36px;"
@@ -55,7 +59,9 @@ exports[`renders ChatTextArea with value unchanged 1`] = `
       style="height: 36px;"
     >
       <textarea
+        aria-label="placeholder"
         class="memori-chat-textarea--input"
+        id="memori-chat-message"
         maxlength="100000"
         placeholder="placeholder"
         style="height: 36px;"

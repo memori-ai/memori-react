@@ -1,19 +1,16 @@
-@import url('./components/ui/Button.css');
-@import url('./components/ui/Card.css');
-@import url('./components/ui/Checkbox.css');
-@import url('./components/ui/ConfirmDialog.css');
-@import url('./components/ui/Drawer.css');
-@import url('./components/ui/Modal.css');
-@import url('./components/ui/Spin.css');
-@import url('./components/ui/Tooltip.css');
-@import url('./components/ui/Select.css');
-@import url('./components/ui/Table.css');
-@import url('./components/ui/Details.css');
-@import url('./components/ui/Expandable.css');
-@import url('./components/ui/Slider.css');
-@import url('./components/ui/Alert.css');
-@import url('./components/ui/Dropdown.css');
+/* ==========================================================================
+   MEMORI REACT – FOGLIO DI STILE GLOBALE
+   ========================================================================== */
+/* Layer order matches @memori.ai/ui: theme < components < host overrides */
+@layer memori.theme, memori.components, memori.overrides;
 
+/* --- 1. Design system esterno (variabili, reset, token) ---
+   NOTE: the bundler-style specifier below is intentional for dev/Storybook.
+   Published `dist/styles.css` and `esm/styles.css` are bundled by PostCSS
+   (`postcss-import`) so this import is inlined before publishing. */
+@import url('@memori.ai/ui/dist/memori-ai-ui.css');
+
+/* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
 @import url('./components/Auth/Auth.css');
@@ -30,11 +27,13 @@
 @import url('./components/CustomGLBModelViewer/ModelViewer.css');
 @import url('./components/SettingsDrawer/SettingsDrawer.css');
 @import url('./components/ChatHistoryDrawer/ChatHistory.css');
+@import url('./components/ChatHistoryDrawer/ChatResumeDrawer.css');
 @import url('./components/ExpertsDrawer/ExpertsDrawer.css');
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
+@import url('./components/IconButton/IconButton.css');
 @import url('./components/Header/Header.css');
-@import url('./components/icons/loading.css');
+@import url('./components/PositionPopover/PositionPopover.css');
 @import url('./components/MediaWidget/MediaItemWidget.css');
 @import url('./components/MediaWidget/MediaWidget.css');
 @import url('./components/SendOnEnterMenu/SendOnEnterMenu.css');
@@ -42,9 +41,11 @@
 @import url('./components/Snippet/Snippet.css');
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/DateSelector/DateSelector.css');
+@import url('./components/DrawerFooter/DrawerFooter.css');
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');
+@import url('./components/MobileSessionPanel/MobileSessionPanel.css');
 @import url('./components/VenueWidget/VenueWidget.css');
 @import url('./components/WhyThisAnswer/WhyThisAnswer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
@@ -58,16 +59,18 @@
 @import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/components/TabSwitch.css');
 @import url('./components/ContentPreviewModal/ContentPreviewModal.css');
 
-
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');
-@import url('./components/layouts/website-assistant.css');
+@import url('./components/layouts/WebsiteAssistant/website-assistant.css');
 @import url('./components/layouts/chat.css');
+@import url('./components/layouts/fullpage.css');
 @import url('./components/layouts/zoomed-full-body.css');
 
+/* --- 3. Risorse esterne: font e KaTeX (formule matematiche) --- */
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
 
+/* --- 4. Utility: testo visibile solo agli screen reader (accessibilità) --- */
 .sr-only {
     position: absolute;
     overflow: hidden;
@@ -79,48 +82,166 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
 }
-
-memori-client,
-memori-client #root,
-#headlessui-portal-root,
-body.sb-show-main #root,
-#storybook-root,
-#storybook-docs,
-.memori-widget {
-    --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
-    --memori-primary-rgb: 130, 70, 175;
-    --memori-primary: rgb(var(--memori-primary-rgb));
-    --memori-primary-text: #fff;
-    --memori-inner-content-pad: 1rem;
-    --memori-inner-bg: transparent;
-    --memori-chat-bubble-bg: #fff;
-    --memori-chat-user-bubble-bg: var(--memori-primary);
-    --memori-text-color: #000;
-    --memori-border-radius: 8px;
-    --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-    --memori-button-bg: #fff;
-    --memori-button-text: #000;
-    --memori-button-padding: 0.5rem 1.5rem;
-    --memori-button-border-color: #d9d9d9;
-    --memori-button-radius: var(--memori-border-radius);
-    --memori-button-box-shadow: var(--memori-box-shadow);
-    --memori-button-disabled-bg: #ccc;
-    --memori-button-disabled-color: #000;
-    --memori-blur-background: 0px;
-    --memori-drawer--width: 80%;
-    --memori-drawer--width--md: 80%;
-    --memori-drawer--width--lg: 60%;
-    --memori-modal--width: 80%;
-    --memori-modal--width--md: 80%;
-    --memori-error-color: #ff4d4f;
-    --memori-warning-color: #faad14;
-
-    font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
-    font-size: 16px;
+.memori.memori-widget.memori-layout-chat,
+.memori.memori-widget.memori-layout-fullpage,
+.memori.memori-widget.memori-layout-zoomed_full_body {
+    /* Portal root for Floating UI menus — do NOT set contain here.
+       Use 100dvh (not height:100% alone): Storybook’s root often has no
+       definite height, and % / flex children do not resolve against min-height. */
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    flex-direction: column;
 }
 
+/*
+ * Layout containment lives on the inner surface so fixed Drawers/Modals stay
+ * clipped to the chat widget, while Select/Popover menus can portal to the
+ * outer .memori-widget (MemoriUIProvider container) without the left-offset bug.
+ */
+.memori-widget__surface {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+}
+
+/*
+ * Nested dialogs: use Modal stacking="stacked" from @memori.ai/ui (z-index 1600).
+ * Do not reintroduce max int z-index overrides here.
+ */
+
+.memori.memori-widget.memori-layout-chat > .memori-widget__surface,
+.memori.memori-widget.memori-layout-fullpage > .memori-widget__surface,
+.memori.memori-widget.memori-layout-zoomed_full_body > .memori-widget__surface {
+    contain: layout;
+}
+
+/* After inserting .memori-widget__surface, Spin is no longer a direct child of
+   .memori-widget — keep it a stretching flex column so fullpage/chat fill the viewport. */
+.memori-widget > .memori-widget__surface > .memori-spin {
+    position: relative;
+    display: flex !important;
+    overflow: hidden;
+    width: 100%;
+    height: 100% !important;
+    min-height: 0;
+    flex: 1 1 0% !important;
+    flex-direction: column !important;
+}
+
+.memori-widget > .memori-widget__surface > .memori-spin > .memori-fullpage-content-row,
+.memori-widget > .memori-widget__surface > .memori-spin.memori-chat-layout > .memori-chat-layout--main {
+    height: 100% !important;
+    min-height: 0;
+    flex: 1 1 0% !important;
+}
+
+.memori-widget > .memori-widget__surface > .memori-spin > .memori-fullpage-top-header {
+    flex-shrink: 0;
+}
+
+/* --- 6. Base: brand e tema di default (in layer così overrides possono sovrascrivere --memori-primary) --- */
+@layer memori.overrides {
+    :root,
+    body,
+    memori-client,
+    .memori-widget,
+    #headlessui-portal-root,
+    #storybook-root,
+    #storybook-docs,
+    memori-client #root,
+    body.sb-show-main #root {
+        --memori-primary-color: rgb(var(--memori-primary-rgb, 130 70 175));
+        --memori-primary: var(--memori-primary-color);
+        --memori-layout-max-width: 1280px;
+        /* Shared conversation axis (message list, empty state, input) */
+        --memori-conversation-max-width: 48rem; /* 768px */
+        --memori-conversation-inline-padding: var(--memori-spacing-md);
+        font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
+        font-size: var(--memori-text-size-base);
+    }
+}
+
+/* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
+.memori-widget {
+    /* --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color)); */
+    /* max-width: var(--memori-layout-max-width); */
+    margin: 0 auto;
+    background-color: var(--memori-secondary-background);
+}
+
+/* --- 8. Dark mode: surface contrast only — keep --memori-primary on the brand hook --- */
+@layer memori.overrides {
+    [data-theme='dark'] memori-client,
+    [data-theme='dark'] memori-client #root,
+    [data-theme='dark'] #headlessui-portal-root,
+    [data-theme='dark'] .memori-widget,
+    memori-client[data-theme='dark'],
+    .memori-widget[data-theme='dark'] {
+        /* Align with @memori.ai/ui: contrast = ink, inverse = surface */
+        --memori-surface-contrast: #fff;
+        --memori-surface-contrast-inverse: #000;
+    }
+}
+
+/* --- 9. Colore testo custom in dark (blend per contrasto) --- */
+/* [data-theme='dark'] .memori-widget,
+.memori-widget[data-theme='dark'],
+[data-theme='dark'] memori-client .memori-widget,
+[data-theme='dark'] memori-client #root .memori-widget {
+    /* Dark: 60% tema + 40% custom così un textColor da light resta leggibile su sfondo scuro */
+/* --memori-text-color: color-mix(
+        in oklch,
+        var(--memori-integration-text-color, var(--memori-text-color)) 40%,
+        var(--memori-text-color) 60%
+    );
+} */
+
+/* Tooltip width/wrap is fixed in @memori.ai/ui 1.17 — no consumer patch. */
+
+/* --- 11. Utility responsive --- */
 @media (max-width: 768px) {
     .mobile-hidden {
         display: none;
+    }
+}
+
+/* Keep toast feedback below the header actions area.
+   Fixed width — do not set left+right together (that stretches full-bleed). */
+.memori-alert-viewport.memori-alert-viewport--top-end {
+    top: 4.75rem !important;
+    right: 1.5rem !important;
+    left: auto !important;
+    width: 300px !important;
+    max-width: calc(100vw - 2 * var(--memori-spacing-sm));
+}
+
+/* Dark theme: alert copy must stay light (viewport may sit outside themed tokens). */
+.memori-widget[data-theme='dark'] .memori-alert__title,
+.memori-widget[data-theme='dark'] .memori-alert__description,
+.memori-widget[data-theme='dark'] .memori-alert__close,
+[data-theme='dark'] .memori-widget .memori-alert__title,
+[data-theme='dark'] .memori-widget .memori-alert__description,
+[data-theme='dark'] .memori-widget .memori-alert__close,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__title,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__description,
+body:has(.memori-widget[data-theme='dark']) .memori-alert__close,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__title,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__description,
+body:has([data-theme='dark'] .memori-widget) .memori-alert__close {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .memori-alert-viewport.memori-alert-viewport--top-end {
+        display: none !important;
     }
 }

@@ -69,11 +69,11 @@
     } */
 
     .memori--avatar-wrapper model-viewer {
-        margin-top: 2rem;
+        margin-top: var(--memori-spacing-2xl);
     }
 
     .memori--avatar-wrapper div {
-        top: 1rem;
+        top: var(--memori-spacing-lg);
     }
 }
 

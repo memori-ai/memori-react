@@ -9,7 +9,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 import { VisemeProvider } from '../../context/visemeContext';
 
 const meta: Meta = {
-  title: 'Widget/Avatar',
+  title: 'Compositions/Avatar',
   component: Avatar,
   argTypes: {
     avatar3dVisible: {

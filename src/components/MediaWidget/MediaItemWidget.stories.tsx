@@ -6,7 +6,7 @@ import MediaItemWidget, { Props } from './MediaItemWidget';
 import './MediaItemWidget.css';
 
 const meta: Meta = {
-  title: 'Media Widget/Media',
+  title: 'Internals/Media',
   component: MediaItemWidget,
   argTypes: {
     translateTo: {

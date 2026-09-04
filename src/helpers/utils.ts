@@ -584,3 +584,5 @@ export const safeParseJSON = (jsonString: string, fallbackString = false) => {
     return fallbackString ? jsonString : null;
   }
 };
+
+export const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];

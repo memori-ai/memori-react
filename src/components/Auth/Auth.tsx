@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
-import Modal from '../ui/Modal';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import Plus from '../icons/Plus';
+import { Button, Input, Modal } from '@memori.ai/ui';
+import { Plus } from 'lucide-react';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
@@ -15,7 +14,7 @@ export interface Props {
   openModal?: boolean;
 }
 
-type AuthInputs = {
+export type AuthInputs = {
   password?: string;
   tokens?: string[];
 };
@@ -33,58 +32,54 @@ export const AuthWidget = ({
   openModal = false,
   withModal = false,
 }: Props) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<AuthInputs>();
   const [numTokens, setNumTokens] = useState(1);
-
+  const [passwordValue, setPasswordValue] = useState('');
+  const [tokenValues, setTokenValues] = useState<string[]>(['']);
   const [showModal, setShowModal] = useState(!!pwdOrTokens);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [tokensError, setTokensError] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<AuthInputs> = data => {
-    const missingPassword = pwdOrTokens === 'password' && !data.password?.length;
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const missingPassword = pwdOrTokens === 'password' && !passwordValue.length;
+    const filledTokens = tokenValues.slice(0, numTokens);
     const invalidTokens =
       pwdOrTokens === 'tokens' &&
-      ((data?.tokens?.length || 0) < minimumNumberOfRecoveryTokens ||
-        !data?.tokens?.every(t => t.length));
+      (filledTokens.length < minimumNumberOfRecoveryTokens ||
+        !filledTokens.every(tok => tok.length));
 
     if (missingPassword) {
-      setError('password', {
-        type: 'required',
-        message: t('auth.passwordRequired') || 'Password required',
-      });
+      setPasswordError(t('auth.passwordRequired') || 'Password required');
       return;
     }
 
     if (invalidTokens) {
-      setError('tokens', {
-        type: 'minLength',
-        message: t('auth.tokens') || 'Tokens',
-      });
+      setTokensError(
+        `${t('auth.atLeast') || 'At least'} ${minimumNumberOfRecoveryTokens}`
+      );
       return;
     }
 
     if (onFinish) {
       setIsSubmitting(true);
-      onFinish(data)
+      setPasswordError(null);
+      setTokensError(null);
+      onFinish({
+        password: passwordValue,
+        tokens: pwdOrTokens === 'tokens' ? filledTokens : undefined,
+      })
         .then(() => {
           setShowModal(false);
         })
         .catch(() => {
+          const message = t('auth.invalidCredentials') || 'Invalid credentials';
           if (pwdOrTokens === 'password') {
-            setError('password', {
-              type: 'auth',
-              message: t('auth.invalidCredentials') || 'Invalid credentials',
-            });
+            setPasswordError(message);
           } else if (pwdOrTokens === 'tokens') {
-            setError('tokens', {
-              type: 'auth',
-              message: t('auth.invalidCredentials') || 'Invalid credentials',
-            });
+            setTokensError(message);
           }
         })
         .finally(() => {
@@ -95,26 +90,37 @@ export const AuthWidget = ({
 
   const form = (
     <form
-      name="memoriAuth"
-      onSubmit={handleSubmit(onSubmit)}
+      name="auth"
+      onSubmit={onSubmit}
       className="memori-auth-widget--form"
+      noValidate
     >
       {(pwdOrTokens === 'password' || !showTokens) && (
         <fieldset className="memori-auth-widget--password-fieldset">
-          <label>
+          <label htmlFor="auth-password">
             Password:{' '}
-            <input
+            <Input
+              id="auth-password"
+              name="password"
               className="memori-auth-widget--input"
-              required
               type="password"
               placeholder="Password"
-              {...register('password', { required: true })}
+              autoComplete="current-password"
+              value={passwordValue}
+              onChange={e => {
+                setPasswordValue(e.target.value);
+                if (passwordError) setPasswordError(null);
+              }}
             />
           </label>
           {showTokens && (
             <>
               <hr />
-              <Button outlined onClick={() => setPwdOrTokens('tokens')}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setPwdOrTokens('tokens')}
+              >
                 {t('auth.useRecoveryTokens') || 'Recovery tokens'}
               </Button>
             </>
@@ -127,22 +133,45 @@ export const AuthWidget = ({
           {createArrayWithNumbers(numTokens).map(idx => {
             return (
               <label className="memori-auth-widget--token" key={idx}>
-                <input
+                <span className="sr-only">
+                  {t('auth.tokenNumber', {
+                    defaultValue: 'Recovery token {{number}}',
+                    number: idx + 1,
+                  })}
+                </span>
+                <Input
                   type="password"
                   className="memori-auth-widget--input"
                   placeholder="Recovery token"
-                  required
                   autoComplete="off"
-                  {...register(`tokens.${idx}`, {
-                    required: true,
-                  })}
+                  name={`tokens.${idx}`}
+                  aria-label={String(
+                    t('auth.tokenNumber', {
+                      defaultValue: 'Recovery token {{number}}',
+                      number: idx + 1,
+                    })
+                  )}
+                  value={tokenValues[idx] ?? ''}
+                  onChange={e => {
+                    const value = e.target.value;
+                    setTokenValues(prev => {
+                      const next = [...prev];
+                      next[idx] = value;
+                      return next;
+                    });
+                    if (tokensError) setTokensError(null);
+                  }}
                 />
               </label>
             );
           })}
 
           <Button
-            onClick={() => setNumTokens(t => t + 1)}
+            type="button"
+            onClick={() => {
+              setNumTokens(n => n + 1);
+              setTokenValues(prev => [...prev, '']);
+            }}
             className="memori-auth-widget--token-add"
             icon={<Plus />}
           >
@@ -150,32 +179,30 @@ export const AuthWidget = ({
           </Button>
 
           <hr />
-          <Button outlined onClick={() => setPwdOrTokens('password')}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setPwdOrTokens('password')}
+          >
             {t('auth.usePassword') || 'Password'}
           </Button>
         </fieldset>
       )}
 
-      {errors.tokens?.type === 'minLength' && (
-        <div className="memori-auth-widget--error">
-          {t('auth.atLeast') || 'At least'} {minimumNumberOfRecoveryTokens}
+      {passwordError && (
+        <div role="alert" className="memori-auth-widget--error">
+          {passwordError}
         </div>
       )}
-
-      {errors.password?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
-          {errors.password.message}
-        </div>
-      )}
-      {errors.tokens?.type === 'auth' && (
-        <div className="memori-auth-widget--error">
-          {errors.tokens.message}
+      {tokensError && (
+        <div role="alert" className="memori-auth-widget--error">
+          {tokensError}
         </div>
       )}
 
       <Button
-        htmlType="submit"
-        primary
+        type="submit"
+        variant="primary"
         className="memori-auth-widget--submit"
         loading={isSubmitting}
       >
@@ -186,10 +213,13 @@ export const AuthWidget = ({
 
   return withModal ? (
     <Modal
+      container={surfaceEl ?? undefined}
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
-      onClose={() => setPwdOrTokens(null)}
-      closable={false}
+      closable={true}
+      onOpenChange={open => {
+        if (!open) setPwdOrTokens(null);
+      }}
     >
       {form}
     </Modal>

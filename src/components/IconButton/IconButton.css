@@ -1,0 +1,144 @@
+/* Shared secondary icon-button chrome (header + chat input bar).
+   CTA primary (Accedi / send) must NOT use this class. */
+
+.memori-widget {
+    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-button-size: 40px;
+    --memori-icon-button-icon-size: 20px;
+    --memori-icon-button-icon: color-mix(in oklch, var(--memori-text-color, #111827) 72%, transparent);
+}
+
+.memori-widget .memori-icon-button.memori-button {
+    display: inline-flex;
+    width: var(--memori-icon-button-size);
+    min-width: var(--memori-icon-button-size);
+    height: var(--memori-icon-button-size);
+    min-height: var(--memori-icon-button-size);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--memori-border-color, #ddd);
+    border-radius: var(--memori-radius-box);
+    background: transparent;
+    box-shadow: none;
+    color: var(--memori-icon-button-icon);
+    transform: none;
+}
+
+/* Icon + text (Cronologia, Esci, Share con label, …) — grow past the square */
+.memori-widget .memori-icon-button.memori-icon-button--labeled.memori-button,
+.memori-widget .memori-icon-button.memori-button:has(.memori-header--action-label),
+.memori-widget .memori-icon-button.memori-button:has(.memori-button__content) {
+    overflow: visible;
+    width: auto;
+    min-width: var(--memori-icon-button-size);
+    max-width: none;
+    height: var(--memori-icon-button-size);
+    min-height: var(--memori-icon-button-size);
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 0 12px;
+    gap: 0.4rem;
+    white-space: nowrap;
+}
+
+.memori-widget .memori-icon-button.memori-icon-button--labeled.memori-button .memori-button__content,
+.memori-widget .memori-icon-button.memori-button:has(.memori-button__content) .memori-button__content,
+.memori-widget .memori-icon-button.memori-button .memori-header--action-label {
+    display: inline-flex;
+    overflow: visible;
+    align-items: center;
+    font-size: var(--memori-text-size-sm, 0.8125rem);
+    font-weight: var(--memori-text-weight-medium, 500);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.memori-widget .memori-icon-button.memori-button svg,
+.memori-widget .memori-icon-button.memori-button .icon {
+    width: var(--memori-icon-button-icon-size, 20px);
+    height: var(--memori-icon-button-icon-size, 20px);
+    flex-shrink: 0;
+    /* Keep lucide / custom icons as authored — only size them */
+    color: inherit;
+}
+
+/* Mute (VolumeX): slightly larger glyph + heavier stroke so the X reads clearly */
+.memori-widget .memori-icon-button.memori-button svg.lucide-volume-x {
+    width: calc(var(--memori-icon-button-icon-size, 20px) + 1px);
+    height: calc(var(--memori-icon-button-icon-size, 20px) + 1px);
+    stroke-width: 2.35;
+}
+
+.memori-widget .memori-icon-button.memori-button:disabled,
+.memori-widget .memori-icon-button.memori-button.memori-button--disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.memori-widget .memori-icon-button.memori-button:focus {
+    outline: none;
+}
+
+.memori-widget .memori-icon-button.memori-button:focus-visible {
+    border-color: var(--memori-primary);
+    box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
+    outline: 2px solid var(--memori-primary);
+    outline-offset: var(--memori-focus-ring-offset, 2px);
+}
+
+.memori-widget .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled) {
+    border-color: color-mix(in oklch, var(--memori-text-color, #111827) 28%, transparent);
+    background: color-mix(in oklch, var(--memori-text-color, #111827) 6%, transparent);
+    box-shadow: none;
+    color: var(--memori-text-color, #111827);
+    transform: none;
+}
+
+/* Active / popover open — soft primary, never solid CTA fill */
+.memori-widget .memori-icon-button.memori-button.memori-icon-button--active,
+.memori-widget .memori-icon-button.memori-button.memori-button--active,
+.memori-widget
+    .memori-icon-button.memori-button--outline.memori-button--active:not(:disabled, .memori-button--disabled),
+.memori-widget
+    .memori-icon-button.memori-button--toolbar.memori-button--active:not(:disabled, .memori-button--disabled),
+.memori-widget .memori-icon-button.memori-button--ghost.memori-button--active:not(:disabled, .memori-button--disabled) {
+    border-color: var(--memori-primary);
+    background: var(--memori-icon-active-bg);
+    box-shadow: none;
+    color: var(--memori-primary);
+}
+
+.memori-widget
+    .memori-icon-button.memori-button.memori-icon-button--active:hover:not(:disabled, .memori-button--disabled),
+.memori-widget .memori-icon-button.memori-button.memori-button--active:hover:not(:disabled, .memori-button--disabled) {
+    border-color: var(--memori-primary);
+    background: color-mix(in oklch, var(--memori-primary) 18%, transparent);
+    color: var(--memori-primary);
+}
+
+/* Mic recording — soft error, not primary */
+.memori-widget .memori-icon-button.memori-button.memori-icon-button--recording {
+    border-color: var(--memori-error, #dc2626);
+    background: var(--memori-icon-recording-bg);
+    box-shadow: none;
+    color: var(--memori-error, #dc2626);
+    transform: none;
+}
+
+.memori-widget .memori-icon-button.memori-button.memori-icon-button--recording:focus-visible {
+    border-color: var(--memori-error, #dc2626);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--memori-error, #dc2626) 22%, transparent);
+    outline-color: var(--memori-error, #dc2626);
+}
+
+.memori-widget
+    .memori-icon-button.memori-button.memori-icon-button--recording:hover:not(:disabled, .memori-button--disabled) {
+    border-color: var(--memori-error, #dc2626);
+    background: var(--memori-icon-recording-bg);
+    box-shadow: none;
+    color: var(--memori-error, #dc2626);
+    transform: none;
+}

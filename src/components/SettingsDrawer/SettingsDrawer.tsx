@@ -1,14 +1,9 @@
-import Drawer from '../ui/Drawer';
+import { Drawer, Checkbox, Button, Slider, Tooltip } from '@memori.ai/ui';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import { useTranslation } from 'react-i18next';
-import Checkbox from '../ui/Checkbox';
-import Select from '../ui/Select';
 import { setLocalConfig } from '../../helpers/configuration';
-import { RadioGroup, Switch } from '@headlessui/react';
-import Button from '../ui/Button';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { useState } from 'react';
-import Slider from '../ui/Slider';
-import Tooltip from '../ui/Tooltip';
 export interface Props {
   open: boolean;
   layout?: WidgetProps['layout'];
@@ -34,7 +29,7 @@ const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
 
 const SettingsDrawer = ({
   open,
-  layout = 'DEFAULT',
+  layout = 'FULLPAGE',
   onClose,
   // microphoneMode = 'HOLD_TO_TALK',
   // continuousSpeechTimeout,
@@ -52,9 +47,11 @@ const SettingsDrawer = ({
   isAvatar3d,
 }: Props) => {
   const { t } = useTranslation();
+  const surfaceEl = useWidgetSurfaceEl();
 
   return (
     <Drawer
+      container={surfaceEl ?? undefined}
       className="memori-settings-drawer"
       open={open}
       onClose={onClose}
@@ -84,7 +81,7 @@ const SettingsDrawer = ({
             className="memori-settings-drawer--microphoneMode-radio-button"
           >
             {({ checked }) => (
-              <Button primary={checked} outlined={!checked}>
+              <Button variant={checked ? 'primary' : 'outline'}>
                 {t('write_and_speak.holdToSpeak') || 'Hold to speak'}
               </Button>
             )}
@@ -100,8 +97,7 @@ const SettingsDrawer = ({
             >
               {({ checked }) => (
                 <Button
-                  primary={checked}
-                  outlined={!checked}
+                  variant={checked ? 'primary' : 'outline'}
                   disabled={true}
                 >
                   {t('write_and_speak.continuousSpeechLabel') ||
@@ -134,38 +130,36 @@ const SettingsDrawer = ({
             <label htmlFor="#controlsPosition">
               {t('write_and_speak.controlsPosition') || 'Controls'}:
             </label>
-            <RadioGroup
+            <div
               id="controlsPosition"
-              name="controlsPosition"
-              value={controlsPosition}
-              defaultValue={controlsPosition}
               className="memori-settings-drawer--controlsposition-radio"
-              onChange={(value: any) => {
-                setControlsPosition(value);
-                setLocalConfig('controlsPosition', value);
-              }}
+              role="radiogroup"
             >
-              <RadioGroup.Option
-                value="center"
+              <Button
+                role="radio"
+                aria-checked={controlsPosition === 'center'}
+                variant={controlsPosition === 'center' ? 'primary' : 'outline'}
                 className="memori-settings-drawer--controlsposition-radio-button"
+                onClick={() => {
+                  setControlsPosition('center');
+                  setLocalConfig('controlsPosition', 'center');
+                }}
               >
-                {({ checked }) => (
-                  <Button primary={checked} outlined={!checked}>
-                    {t('center') || 'Center'}
-                  </Button>
-                )}
-              </RadioGroup.Option>
-              <RadioGroup.Option
-                value="bottom"
+                {t('center') || 'Center'}
+              </Button>
+              <Button
+                role="radio"
+                aria-checked={controlsPosition === 'bottom'}
+                variant={controlsPosition === 'bottom' ? 'primary' : 'outline'}
                 className="memori-settings-drawer--controlsposition-radio-button"
+                onClick={() => {
+                  setControlsPosition('bottom');
+                  setLocalConfig('controlsPosition', 'bottom');
+                }}
               >
-                {({ checked }) => (
-                  <Button primary={checked} outlined={!checked}>
-                    {t('bottom') || 'Bottom'}
-                  </Button>
-                )}
-              </RadioGroup.Option>
-            </RadioGroup>
+                {t('bottom') || 'Bottom'}
+              </Button>
+            </div>
           </div>
 
           {isAvatar3d && (
@@ -177,38 +171,36 @@ const SettingsDrawer = ({
                 >
                   {t('write_and_speak.avatarType') || 'Avatar type'}:
                 </label>
-                <RadioGroup
+                <div
                   id="avatarType"
-                  name="avatarType"
-                  value={avatarType}
-                  defaultValue={avatarType}
                   className="memori-settings-drawer--avatarType-radio"
-                  onChange={(value: any) => {
-                    setAvatarType && setAvatarType(value);
-                    setLocalConfig('avatarType', value);
-                  }}
+                  role="radiogroup"
                 >
-                  <RadioGroup.Option
-                    value="blob"
+                  <Button
+                    role="radio"
+                    aria-checked={avatarType === 'blob'}
+                    variant={avatarType === 'blob' ? 'primary' : 'outline'}
                     className="memori-settings-drawer--avatarType-radio-button"
+                    onClick={() => {
+                      setAvatarType?.('blob');
+                      setLocalConfig('avatarType', 'blob');
+                    }}
                   >
-                    {({ checked }) => (
-                      <Button primary={checked} outlined={!checked}>
-                        {t('write_and_speak.blob') || 'Blob'}
-                      </Button>
-                    )}
-                  </RadioGroup.Option>
-                  <RadioGroup.Option
-                    value="avatar3d"
+                    {t('write_and_speak.blob') || 'Blob'}
+                  </Button>
+                  <Button
+                    role="radio"
+                    aria-checked={avatarType === 'avatar3d'}
+                    variant={avatarType === 'avatar3d' ? 'primary' : 'outline'}
                     className="memori-settings-drawer--avatarType-radio-button"
+                    onClick={() => {
+                      setAvatarType?.('avatar3d');
+                      setLocalConfig('avatarType', 'avatar3d');
+                    }}
                   >
-                    {({ checked }) => (
-                      <Button primary={checked} outlined={!checked}>
-                        {t('write_and_speak.avatar3d') || 'Avatar 3D'}
-                      </Button>
-                    )}
-                  </RadioGroup.Option>
-                </RadioGroup>
+                    {t('write_and_speak.avatar3d') || 'Avatar 3D'}
+                  </Button>
+                </div>
               </div>
 
               <div className="memori-settings-drawer--field">
@@ -219,8 +211,8 @@ const SettingsDrawer = ({
                   }
                   name="enablePositionControls"
                   checked={enablePositionControls}
-                  onChange={e => {
-                    setEnablePositionControls(e.target.checked);
+                  onChange={checked => {
+                    setEnablePositionControls(checked);
                   }}
                 />
               </div>
@@ -234,9 +226,9 @@ const SettingsDrawer = ({
               }
               name="hideControls"
               checked={hideEmissions}
-              onChange={e => {
-                setHideEmissions(e.target.checked);
-                setLocalConfig('hideEmissions', e.target.checked);
+              onChange={checked => {
+                setHideEmissions(checked);
+                setLocalConfig('hideEmissions', checked);
               }}
             />
           </div>

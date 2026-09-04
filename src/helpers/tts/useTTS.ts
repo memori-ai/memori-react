@@ -5,6 +5,10 @@ import { getLocalConfig, setLocalConfig } from '../configuration';
 import { useViseme } from '../../context/visemeContext';
 import { IAudioContext } from 'standardized-audio-context';
 import { isAndroid } from '../utils';
+import {
+  getMuteSpeakerFallback,
+  shouldPlayTtsAudio,
+} from './muteSpeaker';
 
 /**
  * Configurazione per il TTS
@@ -51,13 +55,18 @@ export function useTTS(
   defaultEnableAudio: boolean = true,
   defaultSpeakerActive: boolean = true
 ) {
+  const muteSpeakerFallback = getMuteSpeakerFallback(
+    defaultEnableAudio,
+    defaultSpeakerActive,
+    autoStart
+  );
+
   // Stato locale
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speakerMuted, setSpeakerMuted] = useState(
-    getLocalConfig(
-      'muteSpeaker',
-      !defaultEnableAudio || !defaultSpeakerActive || autoStart
-    )
+  const [speakerMuted, setSpeakerMuted] = useState(() =>
+    !defaultEnableAudio
+      ? true
+      : getLocalConfig('muteSpeaker', muteSpeakerFallback)
   );
 
   // Get viseme methods from your context
@@ -66,20 +75,17 @@ export function useTTS(
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
 
   // Helper function to check if audio should be played.
-  // When defaultEnableAudio is false, default to muted so we never play before the sync effect runs.
-  const shouldPlayAudio = (text?: string) => {
-    const currentSpeakerMuted = getLocalConfig(
-      'muteSpeaker',
-      !defaultEnableAudio
-    );
-    return (
-      text &&
-      text.trim() &&
-      !options.preview &&
-      !currentSpeakerMuted &&
-      defaultEnableAudio
-    );
-  };
+  // Align mute fallback with UI state so autostart + muted speaker never speaks.
+  const shouldPlayAudio = (text?: string) =>
+    shouldPlayTtsAudio({
+      text,
+      preview: options.preview,
+      defaultEnableAudio,
+      defaultSpeakerActive,
+      autoStart,
+      speakerMuted,
+      storedMute: getLocalConfig('muteSpeaker', muteSpeakerFallback),
+    });
 
   // Riferimenti
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -386,7 +392,7 @@ export function useTTS(
                   audioWrapperRef.current as unknown as IAudioContext
                 );
               }
-              
+
               await audioRef.current?.play();
             }
           } catch (e) {
@@ -434,6 +440,8 @@ export function useTTS(
       isMountedRef,
       speakerMuted,
       defaultEnableAudio,
+      defaultSpeakerActive,
+      autoStart,
     ]
   );
 
@@ -542,6 +550,8 @@ export function useTTS(
       emitEndSpeakEvent,
       isPlaying,
       defaultEnableAudio,
+      defaultSpeakerActive,
+      autoStart,
     ]
   );
   /**
@@ -550,7 +560,7 @@ export function useTTS(
   const toggleMute = useCallback(
     (mute?: boolean) => {
       const newMuteState = mute !== undefined ? mute : !speakerMuted;
-      
+
       setSpeakerMuted(newMuteState);
 
       // Update local config for persistence
@@ -559,7 +569,7 @@ export function useTTS(
       if (newMuteState && isPlaying) {
         stop();
       }
-      
+
       // Always clean up viseme state when toggling mute
       // This ensures fresh start when unmuting
       // if (newMuteState) {

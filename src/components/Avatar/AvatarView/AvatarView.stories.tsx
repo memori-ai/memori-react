@@ -5,7 +5,7 @@ import AvatarView, { Props } from './index';
 import { VisemeProvider } from '../../../context/visemeContext';
 
 const meta: Meta = {
-  title: 'RPM 3D Avatar',
+  title: 'Internals/RPM 3D Avatar',
   component: AvatarView,
   argTypes: {
     url: {

@@ -1,4 +1,5 @@
 import { Tenant } from '@memori.ai/memori-api-client/dist/types';
+import MemoriIcon from '../../icons/MemoriIcon';
 
 export interface Props {
   tenant?: Tenant;
@@ -8,32 +9,23 @@ export interface Props {
 }
 
 const PoweredBy = ({
-  tenant,
+  tenant: _tenant,
   userLang = 'en',
   integrationID,
   memoriHash,
 }: Props) => {
-  const tenantId =
-    tenant?.theme === 'memorytwin'
-      ? 'memorytwin'
-      : tenant?.theme === 'twincreator'
-      ? 'twincreator'
-      : 'aisuru';
+  const href = `https://memori.ai/${
+    userLang?.toLowerCase() === 'it' ? 'it' : 'en'
+  }${integrationID ? `?integrationID=${integrationID}` : ''}${
+    memoriHash ? `${integrationID ? '&' : '?'}memori=${memoriHash}` : ''
+  }`;
 
   return (
     <div className="memori--powered-by">
-      <img src={`https://aisuru.com/images/${tenantId}/logo.png`} alt="" />
-      <p>
-        <span className="sr-only">Powered by</span>
-        <a
-          href={`https://memori.ai/${
-            userLang?.toLowerCase() === 'it' ? 'it' : 'en'
-          }${integrationID ? `?integrationID=${integrationID}` : ''}${
-            memoriHash ? `${integrationID ? '&' : '?'}memori=${memoriHash}` : ''
-          }`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      <MemoriIcon className="memori--powered-by-icon" aria-hidden />
+      <p className="memori--powered-by-label">
+        <span>Powered by </span>
+        <a href={href} target="_blank" rel="noopener noreferrer">
           Memori.AI
         </a>
       </p>

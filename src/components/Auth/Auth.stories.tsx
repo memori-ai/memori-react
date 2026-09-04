@@ -6,7 +6,7 @@ import AuthWidget, { Props } from './Auth';
 import './Auth.css';
 
 const meta: Meta = {
-  title: 'Auth Widget',
+  title: 'Compositions/Auth Widget',
   component: AuthWidget,
   argTypes: {
     pwdOrTokens: {

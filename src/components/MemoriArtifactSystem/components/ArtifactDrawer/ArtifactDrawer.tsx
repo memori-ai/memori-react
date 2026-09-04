@@ -6,29 +6,36 @@
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dialog, Transition, Menu } from '@headlessui/react';
-import Button from '../../../ui/Button';
-import Close from '../../../icons/Close';
+import { Button, Dropdown, Drawer } from '@memori.ai/ui';
+import { useWidgetSurfaceEl } from '../../../../context/widgetSurfaceContext';
+import {
+  X,
+  Maximize,
+  Minimize,
+  MoreVertical,
+  Download,
+  Link as LinkIcon,
+  Printer,
+  Copy,
+} from 'lucide-react';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import cx from 'classnames';
-import Drawer from '../../../ui/Drawer';
-import Fullscreen from '../../../icons/Fullscreen';
-import FullscreenExit from '../../../icons/FullscreenExit';
-import MenuVertical from '../../../icons/MenuVertical';
-import Download from '../../../icons/Download';
-import Link from '../../../icons/Link';
-import PrintIcon from '../../../icons/Print';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
+import IconButton from '../../../IconButton/IconButton';
 
-const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
-  isChatLogPanel = false,
-}) => {
-  const { state, closeArtifact, toggleFullscreen } =
-    useArtifact();
+const ArtifactDrawer: React.FC<{
+  isChatLogPanel?: boolean;
+  /** Render as a plain flex column (no Drawer overlay). Used when the drawer
+   *  is mounted as a proper flex sibling in the page layout. On mobile the
+   *  component falls back to the Drawer overlay regardless of this flag. */
+  isLayoutColumn?: boolean;
+}> = ({ isChatLogPanel = false, isLayoutColumn = false }) => {
+  const surfaceEl = useWidgetSurfaceEl();
+  const { state, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -60,7 +67,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1260);
     };
 
     checkMobile();
@@ -113,66 +120,65 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
     closeArtifact();
   }, [closeArtifact]);
 
-  if (!state.currentArtifact) {
-    return null;
-  }
-
   const hasPreview =
-    state.currentArtifact.mimeType === 'html' ||
-    state.currentArtifact.mimeType === 'markdown';
+    state.currentArtifact?.mimeType === 'html' ||
+    state.currentArtifact?.mimeType === 'markdown';
 
   const ContentContainer = useCallback(
     ({ children }: { children: React.ReactNode }) => {
       if (isChatLogPanel) {
         return (
           <div
-            style={{ minHeight: '75vh', maxHeight: '75vh' }}
+            style={{
+              minHeight: '75vh',
+              maxHeight: '75vh',
+              background: 'var(--memori-secondary-background)',
+              marginTop: '-24px',
+              border: '2px solid var(--memori-border-primary)',
+            }}
             className="memori-artifact-panel"
           >
             {children}
           </div>
         );
+      } else if (isLayoutColumn && !isMobile) {
+        // Desktop inline column — rendered as a normal flex child by the layout
+        return <div className="memori-artifact-layout-column">{children}</div>;
       } else {
+        // Mobile or legacy: floating Drawer overlay
         return (
           <Drawer
+            container={surfaceEl ?? undefined}
             open={state.isDrawerOpen}
             onClose={handleClose}
-            placement="right"
-            width="50%"
+            anchor="right"
+            size="md"
             className={
-              state.isFullscreen
+              state.isFullscreen || isMobile
                 ? 'memori-artifact-panel-drawer-fullscreen'
                 : 'memori-artifact-panel-drawer'
             }
-            widthMd="100%"
-            widthLg="50%"
             closable={false}
-            animated={true}
-            enterDuration={isMobile ? 'duration-500' : 'duration-300'}
-            leaveDuration={isMobile ? 'duration-400' : 'duration-200'}
-            showBackdrop={false}
-            preventBackdropClose={true}
-            confirmDialogTitle={
-              t('artifact.confirmDialogTitle') ||
-              'Are you sure you want to close this artifact?'
-            }
-            confirmDialogMessage={
-              t('artifact.confirmDialogMessage') ||
-              'This action cannot be undone.'
-            }
-          // className="memori-artifact-panel"
           >
             {children}
           </Drawer>
         );
       }
     },
-    [isChatLogPanel, handleClose, state.isDrawerOpen, state.isFullscreen, isMobile]
+    [
+      isChatLogPanel,
+      isLayoutColumn,
+      handleClose,
+      state.isDrawerOpen,
+      state.isFullscreen,
+      isMobile,
+      surfaceEl,
+    ]
   );
 
   /**
- * Get MIME type string for downloads
- */
+   * Get MIME type string for downloads
+   */
   const getMimeTypeString = useCallback((mimeType: string): string => {
     const mimeTypes: Record<string, string> = {
       html: 'text/html',
@@ -201,29 +207,35 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   /**
    * Handle external open action
    */
-  const handleOpenExternal = useCallback((artifact: ArtifactData) => {
-    try {
-      const mimeType = getMimeTypeString(artifact.mimeType);
-      const blob = new Blob([artifact.content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
+  const handleOpenExternal = useCallback(
+    (artifact: ArtifactData) => {
+      try {
+        const mimeType = getMimeTypeString(artifact.mimeType);
+        const blob = new Blob([artifact.content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
 
-      const externalWindow = window.open(url, '_blank');
-      if (!externalWindow) {
-        alert(
-          'Popup blocked! Please enable popups to open the artifact in a new window.'
-        );
-        return;
+        const externalWindow = window.open(url, '_blank');
+        if (!externalWindow) {
+          alert(
+            'Popup blocked! Please enable popups to open the artifact in a new window.'
+          );
+          return;
+        }
+
+        // Cleanup URL after a delay
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 60000);
+      } catch (error) {
+        console.error('External open failed:', error);
       }
+    },
+    [getMimeTypeString]
+  );
 
-      // Cleanup URL after a delay
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 60000);
-
-    } catch (error) {
-      console.error('External open failed:', error);
-    }
-  }, []);
+  if (!state.currentArtifact) {
+    return null;
+  }
 
   // Render web split panel
   return (
@@ -252,20 +264,16 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               loading={false}
               isMobile={isMobile}
             />
-            <Button
-              onClick={closeArtifact}
-              className={cx(
-                'memori-artifact-drawer--close',
-                'memori-button--icon-only',
-                {
-                  'memori-artifact-drawer--close-desktop': !hasPreview,
-                }
-              )}
-              ghost
-              title={t('artifact.close') || 'Close'}
-            >
-              <Close className="memori-artifact-panel--close-icon" />
-            </Button>
+            {!isChatLogPanel && (
+              <IconButton
+                onClick={closeArtifact}
+                aria-label={t('artifact.close') || 'Close'}
+                title={t('artifact.close') || 'Close'}
+                className="memori-artifact-drawer--close"
+              >
+                <X className="memori-icon-close" aria-hidden />
+              </IconButton>
+            )}
           </>
         )}
       </div>
@@ -287,133 +295,118 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                 hasPreview={hasPreview}
               />
             )}
-            <Menu as="div" className="memori-mobile-actions-menu">
-              <Menu.Button as="div" className="memori-mobile-actions-trigger">
-                <Button
-                  className={cx(
-                    'memori-button',
-                    'memori-button--more-options',
-                    'memori-button--icon-only'
+            <div className="memori-artifact-drawer-top-right-actions">
+              <Dropdown className="memori-mobile-actions-menu">
+                <Dropdown.Trigger
+                  showChevron={false}
+                  className="memori-mobile-actions-trigger"
+                  render={(
+                    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+                  ) => (
+                    <Button
+                      {...props}
+                      className={cx(
+                        'memori-button',
+                        'memori-button--more-options',
+                        'memori-button--icon-only'
+                      )}
+                      variant="ghost"
+                      title={t('artifact.actions') || 'Actions'}
+                    >
+                      <MoreVertical className="memori-artifact-action-icon" />
+                    </Button>
                   )}
-                  ghost
-                  title={t('artifact.actions') || 'Actions'}
+                />
+                <Dropdown.Menu
+                  className="memori-mobile-dropdown"
+                  placement="bottom"
+                  align="end"
+                  sideOffset={8}
+                  container={surfaceEl ?? undefined}
                 >
-                  <MenuVertical className="memori-artifact-action-icon" />
-                </Button>
-              </Menu.Button>
+                  <Dropdown.Item
+                    className="memori-artifact-action-btn"
+                    onClick={handleCopy}
+                    icon={<Copy className="memori-artifact-action-icon" />}
+                    label={t('artifact.copy') || 'Copy'}
+                  >
+                    {t('artifact.copy') || 'Copy'}
+                  </Dropdown.Item>
 
-              <Transition
-                as={React.Fragment}
-                enter="memori-mobile-dropdown-enter"
-                enterFrom="memori-mobile-dropdown-enter-from"
-                enterTo="memori-mobile-dropdown-enter-to"
-                leave="memori-mobile-dropdown-leave"
-                leaveFrom="memori-mobile-dropdown-leave-from"
-                leaveTo="memori-mobile-dropdown-leave-to"
-              >
-                <Menu.Items className="memori-mobile-dropdown">
-                  <div className="memori-mobile-dropdown-list">
-                    <Button
-                      onClick={handleCopy}
-                      disabled={false}
-                      className="memori-artifact-action-btn"
-                      ghost
-                      title={t('artifact.copy') || 'Copy'}
-                    >
-                      <span className="memori-artifact-action-text">
-                        {t('artifact.copy') || 'Copy'}
-                      </span>
-                    </Button>
+                  {formats.map(format => {
+                    const getIcon = () => {
+                      switch (format.action) {
+                        case 'copy':
+                          return (
+                            <LinkIcon className="memori-artifact-action-icon" />
+                          );
+                        case 'download':
+                          return (
+                            <Download className="memori-artifact-action-icon" />
+                          );
+                        case 'print':
+                        case 'pdf':
+                          return (
+                            <Printer className="memori-artifact-action-icon" />
+                          );
+                        default:
+                          return (
+                            <LinkIcon className="memori-artifact-action-icon" />
+                          );
+                      }
+                    };
 
-                    {formats.map(format => {
-                      // Get appropriate icon based on action type
-                      const getIcon = () => {
-                        switch (format.action) {
-                          case 'copy':
-                            return (
-                              <Link className="memori-artifact-action-icon" />
-                            );
-                          case 'download':
-                            return (
-                              <Download className="memori-artifact-action-icon" />
-                            );
-                          case 'print':
-                          case 'pdf':
-                            return (
-                              <PrintIcon className="memori-artifact-action-icon" />
-                            );
-                          default:
-                            return (
-                              <Link className="memori-artifact-action-icon" />
-                            );
+                    return (
+                      <Dropdown.Item
+                        key={format.id}
+                        className="memori-artifact-action-btn"
+                        onClick={() => handleCopyFormat(format)}
+                        disabled={
+                          copyState.loading &&
+                          copyState.activeFormat === format.id
                         }
-                      };
+                        icon={getIcon()}
+                        label={format.label}
+                      >
+                        {format.label}
+                      </Dropdown.Item>
+                    );
+                  })}
 
-                      return (
-                        <Button
-                          key={format.id}
-                          onClick={() => handleCopyFormat(format)}
-                          disabled={
-                            copyState.loading &&
-                            copyState.activeFormat === format.id
-                          }
-                          className="memori-artifact-action-btn"
-                          ghost
-                          icon={getIcon()}
-                          title={format.label}
-                        >
-                          <span className="memori-artifact-action-text">
-                            {format.label}
-                          </span>
-                        </Button>
-                      );
-                    })}
-
-                    {/* External open action (not from hook) */}
-                    <Button
-                      onClick={() => handleOpenExternal(state.currentArtifact ?? {
-                        content: '',
-                        mimeType: '',
-                        title: '',
-                        timestamp: new Date(),
-                        size: 0,
-                        id: '',
-                        artifactId: '',
-                      })}
-                      disabled={false}
-                      className="memori-artifact-action-btn"
-                      ghost
-                      icon={<Link className="memori-artifact-action-icon" />}
-                      title={t('artifact.external') || 'External'}
-                    >
-                      <span className="memori-artifact-action-text">
-                        {t('artifact.external') || 'External'}
-                      </span>
-                    </Button>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+                  <Dropdown.Item
+                    className="memori-artifact-action-btn"
+                    onClick={() =>
+                      handleOpenExternal(
+                        state.currentArtifact ?? {
+                          content: '',
+                          mimeType: '',
+                          title: '',
+                          timestamp: new Date(),
+                          size: 0,
+                          id: '',
+                          artifactId: '',
+                        }
+                      )
+                    }
+                    icon={<LinkIcon className="memori-artifact-action-icon" />}
+                    label={t('artifact.external') || 'External'}
+                  >
+                    {t('artifact.external') || 'External'}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <IconButton
+                onClick={closeArtifact}
+                aria-label={t('artifact.close') || 'Close'}
+                title={t('artifact.close') || 'Close'}
+                className="memori-artifact-drawer--close"
+              >
+                <X className="memori-icon-close" aria-hidden />
+              </IconButton>
+            </div>
           </>
         )}
-
-        {/* Close Button */}
-        {isMobile && (
-          <Button
-            onClick={closeArtifact}
-            className={cx(
-              'memori-artifact-drawer--close',
-              'memori-button--icon-only'
-            )}
-            ghost
-            title={t('artifact.close') || 'Close'}
-          >
-            <Close className="memori-artifact-panel--close-icon" />
-          </Button>
-        )}
       </div>
-
-      <div className="memori-artifact-panel--header"></div>
 
       {/* Content */}
       <div className="memori-artifact-panel--content">
