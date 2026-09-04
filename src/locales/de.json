@@ -411,6 +411,7 @@
     "otpTimer": "Code läuft in {{seconds}} Sekunden ab",
     "otpInvalidFormat": "Bitte geben Sie einen gültigen 4-stelligen Code ein",
     "otpInvalid": "Ungültiger Bestätigungscode",
+    "otpExpired": "Der Bestätigungscode ist abgelaufen",
     "otpError": "Fehler bei der Code-Validierung. Bitte versuchen Sie es erneut.",
     "otpSuccess": "Anmeldung erfolgreich!",
     "password": "Passwort",

@@ -113,6 +113,16 @@
     flex-direction: column;
 }
 
+/*
+ * Nested dialogs: @memori.ai/ui Modal is z-index 40/50; Drawer is 1001;
+ * MobileSessionPanel is 2100. Raise stacked modals so they aren't trapped
+ * under those hosts (consumption, debug/function-cache, known-facts confirm).
+ */
+.memori-modal__backdrop.memori-modal--stacked,
+.memori-modal--stacked.memori-modal__viewport {
+    z-index: 2147483647;
+}
+
 .memori.memori-widget.memori-layout-chat > .memori-widget__surface,
 .memori.memori-widget.memori-layout-fullpage > .memori-widget__surface,
 .memori.memori-widget.memori-layout-zoomed_full_body > .memori-widget__surface {
@@ -122,6 +132,7 @@
 /* After inserting .memori-widget__surface, Spin is no longer a direct child of
    .memori-widget — keep it a stretching flex column so fullpage/chat fill the viewport. */
 .memori-widget > .memori-widget__surface > .memori-spin {
+    position: relative;
     display: flex !important;
     overflow: hidden;
     width: 100%;

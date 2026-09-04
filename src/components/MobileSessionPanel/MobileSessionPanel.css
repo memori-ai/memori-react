@@ -1,5 +1,5 @@
 .memori-mobile-session-panel--overlay {
-    position: fixed;
+    position: absolute;
     z-index: 2100;
     top: 0;
     right: 0;

@@ -289,7 +289,18 @@ const StartPanel: React.FC<Props> = ({
             />
           </picture>
           <div className="memori--title-container__content">
-            <h2 className="memori--title">{memori.name}</h2>
+            <div className="memori--title-row">
+              <h2 className="memori--title">{memori.name}</h2>
+              {(memori.blockedUntil || notEnoughCredits) && (
+                <BlockedMemoriBadge
+                  memoriName={memori.name}
+                  blockedUntil={memori.blockedUntil}
+                  notEnoughCredits={notEnoughCredits}
+                  showGiverInfo={memori.isGiver}
+                  showTitle
+                />
+              )}
+            </div>
             <>
               {isMobile && showFullDescriptionOnMobile ? (
                 <p className="memori--description-text memori--description-text--full">
@@ -672,17 +683,6 @@ const StartPanel: React.FC<Props> = ({
                     </Tooltip>
                   )} */}
               </div>
-
-              {(memori.blockedUntil || notEnoughCredits) && (
-                <BlockedMemoriBadge
-                  memoriName={memori.name}
-                  blockedUntil={memori.blockedUntil}
-                  notEnoughCredits={notEnoughCredits}
-                  showGiverInfo={memori.isGiver}
-                  showTitle
-                  marginLeft
-                />
-              )}
             </div>
           )}
       </div>

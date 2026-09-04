@@ -81,11 +81,15 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -291,11 +295,15 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -501,11 +509,15 @@ exports[`renders StartPanel unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -711,11 +723,15 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -916,11 +932,15 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -1126,11 +1146,15 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -1446,11 +1470,15 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -1753,11 +1781,15 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2060,11 +2092,15 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2270,11 +2306,15 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2480,11 +2520,15 @@ exports[`renders StartPanel with login required unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2609,11 +2653,15 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2880,11 +2928,59 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+            <span
+              class="memori-tooltip blocked-memori-badge--tooltip"
+            >
+              <span
+                class="memori-tooltip__trigger"
+                id="base-ui-:r35:"
+              >
+                <div
+                  class="blocked-memori-badge--wrapper"
+                >
+                  <div
+                    class="blocked-memori-badge "
+                  >
+                    <svg
+                      class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+                      />
+                      <path
+                        d="M12 9v4"
+                      />
+                      <path
+                        d="M12 17h.01"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    class="blocked-memori-badge--title"
+                  >
+                    memoriBlockedTitle
+                  </span>
+                </div>
+              </span>
+            </span>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
@@ -2997,7 +3093,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r35:"
+                    id="base-ui-:r37:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -3058,50 +3154,6 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
             </span>
           </button>
         </div>
-        <span
-          class="memori-tooltip blocked-memori-badge--tooltip"
-        >
-          <span
-            class="memori-tooltip__trigger"
-            id="base-ui-:r37:"
-          >
-            <div
-              class="blocked-memori-badge--wrapper"
-            >
-              <div
-                class="blocked-memori-badge  margin-left"
-              >
-                <svg
-                  class="lucide lucide-triangle-alert blocked-memori-badge--icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
-                  />
-                  <path
-                    d="M12 9v4"
-                  />
-                  <path
-                    d="M12 17h.01"
-                  />
-                </svg>
-              </div>
-              <span
-                class="blocked-memori-badge--title"
-              >
-                memoriBlockedTitle
-              </span>
-            </div>
-          </span>
-        </span>
       </div>
     </div>
   </div>
@@ -3136,11 +3188,15 @@ exports[`renders StartPanel with position required unchanged 1`] = `
         <div
           class="memori--title-container__content"
         >
-          <h2
-            class="memori--title"
+          <div
+            class="memori--title-row"
           >
-            Memori
-          </h2>
+            <h2
+              class="memori--title"
+            >
+              Memori
+            </h2>
+          </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
           >

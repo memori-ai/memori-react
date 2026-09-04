@@ -185,7 +185,8 @@ const KnownFacts = ({
         <div className="memori-known-facts-body">
           <Modal
           container={surfaceEl ?? undefined}
-          className="memori-known-facts-modal"
+          className="memori-known-facts-modal memori-modal--stacked"
+          backdropClassName="memori-modal--stacked"
           open={bulkDeleteModalVisible}
           closable
           title={
@@ -326,7 +327,8 @@ const KnownFacts = ({
 
         <Modal
           container={surfaceEl ?? undefined}
-          className="memori-known-facts-modal"
+          className="memori-known-facts-modal memori-modal--stacked"
+          backdropClassName="memori-modal--stacked"
           open={deleteModalVisibleFor !== undefined}
           closable
           title={t('knownFacts.deleteConfirmTitle')}

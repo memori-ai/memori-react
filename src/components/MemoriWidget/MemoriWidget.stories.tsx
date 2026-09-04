@@ -74,6 +74,17 @@ WithPosition.args = {
   layout: 'FULLPAGE',
 };
 
+export const WithAutoStartAndRequiredPosition = Template.bind({});
+WithAutoStartAndRequiredPosition.args = {
+  memori: {
+    ...memori,
+    needsPosition: true,
+  },
+  tenant,
+  autoStart: true,
+  layout: 'FULLPAGE',
+};
+
 export const WithLoginRequired = Template.bind({});
 WithLoginRequired.args = {
   memori: {

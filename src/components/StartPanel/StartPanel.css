@@ -151,6 +151,23 @@
     white-space: nowrap;
 }
 
+.memori--title-row {
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+    align-items: center;
+    margin-bottom: var(--memori-spacing-sm);
+    gap: var(--memori-spacing-sm);
+}
+
+.memori--title-row .memori--title {
+    margin-bottom: 0;
+}
+
+.memori--title-row .blocked-memori-badge--wrapper {
+    flex-shrink: 0;
+}
+
 .memori--description,
 .memori--needsLogin,
 .memori--needsPosition {

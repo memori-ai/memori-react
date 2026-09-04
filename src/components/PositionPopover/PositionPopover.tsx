@@ -1,5 +1,5 @@
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { Button, Popover } from '@memori.ai/ui';
+import { Button, Popover, Tooltip } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import { MapPin, Pencil } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -13,6 +13,8 @@ import {
   type NominatimItem,
 } from '../VenueWidget/VenueWidget';
 import cx from 'classnames';
+
+const GEOCODE_TIMEOUT_MS = 8000;
 
 function hasShareableCoords(v?: Venue): boolean {
   return !!(v?.latitude && v?.longitude);
@@ -113,39 +115,56 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
     const gen = ++geoGenRef.current;
     setPermissionDeniedMessage(null);
     setGeocodingError(null);
+
+    if (!navigator.geolocation) {
+      setGeolocationLoading(false);
+      setPermissionDeniedMessage(String(t('widget.positionUnavailableManual')));
+      setEditingLocation(true);
+      return;
+    }
+
     setGeolocationLoading(true);
 
     navigator.geolocation.getCurrentPosition(
-      async pos => {
+      pos => {
         if (gen !== geoGenRef.current) return;
-        let next: Venue = {
+        const next: Venue = {
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
           placeName: '',
           uncertainty: pos.coords.accuracy / 1000,
         };
-        try {
-          const result = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=jsonv2&addressdetails=1`
-          );
-          const response = (await result.json()) as NominatimItem;
-          const placeName = getPlaceName(response);
-          next = {
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude,
-            placeName,
-            uncertainty: pos.coords.accuracy / 1000,
-          };
-          setVenue(next);
-        } catch (e) {
-          console.error('[PositionPopover] reverse geocode failed', e);
-          setGeocodingError(String(t('widget.geocodingFailed')));
-          setVenue(next);
-        } finally {
-          if (gen === geoGenRef.current) {
-            setGeolocationLoading(false);
+        setVenue(next);
+        setGeolocationLoading(false);
+
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(
+          () => controller.abort(),
+          GEOCODE_TIMEOUT_MS
+        );
+
+        void (async () => {
+          try {
+            const result = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=jsonv2&addressdetails=1`,
+              { signal: controller.signal }
+            );
+            if (gen !== geoGenRef.current) return;
+            const response = (await result.json()) as NominatimItem;
+            const placeName = getPlaceName(response);
+            setVenue({
+              ...next,
+              placeName,
+            });
+          } catch (e) {
+            if (gen !== geoGenRef.current) return;
+            if ((e as { name?: string }).name === 'AbortError') return;
+            console.error('[PositionPopover] reverse geocode failed', e);
+            setGeocodingError(String(t('widget.geocodingFailed')));
+          } finally {
+            window.clearTimeout(timeoutId);
           }
-        }
+        })();
       },
       err => {
         if (gen !== geoGenRef.current) return;
@@ -213,6 +232,8 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
   }, [editingLocation]);
 
   const inlineError = permissionDeniedMessage || geocodingError;
+  const shareLocationHint =
+    t('widget.shareLocationHint') || 'Get answers tailored to where you are';
 
   return (
     <>
@@ -231,10 +252,11 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
             <span className="memori-dropdown--auth-title">
               {t('widget.shareLocation') || 'Share my location'}
             </span>
-            <span className="memori-dropdown--auth-subtitle">
-              {t('widget.shareLocationHint') ||
-                'Get answers tailored to where you are'}
-            </span>
+            <Tooltip title={shareLocationHint} placement="top">
+              <span className="memori-dropdown--auth-subtitle">
+                {shareLocationHint}
+              </span>
+            </Tooltip>
           </span>
           <span
             className={cx(

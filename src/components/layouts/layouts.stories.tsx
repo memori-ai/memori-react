@@ -45,6 +45,7 @@ DefaultLayout.args = {
   spokenLang: 'IT',
   integrationID: '32922e14-24d6-4f5f-a06b-d963da14a658',
   showSettings: true,
+  autoStart: true,
 };
 
 export const Default = Template.bind({});

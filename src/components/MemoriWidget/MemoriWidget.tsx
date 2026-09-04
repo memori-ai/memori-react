@@ -24,7 +24,10 @@ import type {
   PiiDetectionConfig,
 } from '../../types/layout';
 import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
-import { shouldRestartSessionOnPositionPopoverClose } from '../../helpers/positionPopover';
+import {
+  shouldHoldAutoStartForPosition,
+  shouldRestartSessionOnPositionPopoverClose,
+} from '../../helpers/positionPopover';
 
 // Libraries
 import React, {
@@ -1536,8 +1539,10 @@ const MemoriWidget = ({
     // Check if authentication is needed for private Memori
     if (
       memori.privacyType !== 'PUBLIC' &&
+      !params.password &&
       !memori.secretToken &&
       !memoriPwd &&
+      !params.recoveryTokens?.length &&
       !memoriTokens
     ) {
       setAuthModalState('password');
@@ -1700,6 +1705,7 @@ const MemoriWidget = ({
       // Show age verification if required and birth date not provided
       if (!userBirthDate && !!minAge) {
         setShowAgeVerification(true);
+        setLoading(false);
         return;
       }
 
@@ -1709,10 +1715,11 @@ const MemoriWidget = ({
         !password &&
         !memori.secretToken &&
         !memoriPwd &&
-        !recoveryTokens &&
+        !recoveryTokens?.length &&
         !memoriTokens
       ) {
         setAuthModalState('password');
+        setLoading(false);
         return;
       }
 
@@ -2613,20 +2620,26 @@ const MemoriWidget = ({
   }, []);
 
   useEffect(() => {
-    // if memori is speaking, don't start listening
+    // if memori is speaking or generating a reply, don't start listening
     if (
       !isPlayingAudio &&
+      !memoriTyping &&
       continuousSpeech &&
       (hasUserActivatedListening || !requestedListening) &&
       sessionId &&
       !hasUserTypedMessage // Don't start recording if user has typed a message
     ) {
       startRecording();
-    } else if (isPlayingAudio && isListening) {
+    } else if ((isPlayingAudio || memoriTyping) && isListening) {
       stopRecording();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlayingAudio, hasUserActivatedListening, hasUserTypedMessage]);
+  }, [
+    isPlayingAudio,
+    hasUserActivatedListening,
+    hasUserTypedMessage,
+    memoriTyping,
+  ]);
 
   useEffect(() => {
     stopRecording();
@@ -2874,9 +2887,15 @@ const MemoriWidget = ({
         'position',
         undefined
       );
-      // Only check for position requirement if memori.needsPosition is true
-      if (autoStart && !localPosition && memori.needsPosition) {
-        setPositionPopoverOpenState(true);
+      // Wait on the start panel for location share/skip; do not open the header popover.
+      if (
+        autoStart &&
+        shouldHoldAutoStartForPosition(
+          !!memori.needsPosition,
+          Boolean(position || localPosition)
+        )
+      ) {
+        setClickedStart(false);
         return;
       }
 
@@ -3282,13 +3301,17 @@ const MemoriWidget = ({
   const setPositionPopoverOpen = useCallback(
     (open: boolean) => {
       const sessionAlreadyStarted = !!(sessionId && hasUserActivatedSpeak);
+      const hasPosition = Boolean(
+        position || getLocalConfig<Venue | undefined>('position', undefined)
+      );
       setPositionPopoverOpenState(wasOpen => {
         if (
           shouldRestartSessionOnPositionPopoverClose(
             wasOpen,
             open,
             autoStart,
-            sessionAlreadyStarted
+            sessionAlreadyStarted,
+            hasPosition
           )
         ) {
           // Defer: React setState updaters must stay pure.
@@ -3304,17 +3327,23 @@ const MemoriWidget = ({
         return open;
       });
     },
-    [autoStart, onClickStart, sessionId, hasUserActivatedSpeak]
+    [autoStart, onClickStart, sessionId, hasUserActivatedSpeak, position]
   );
 
   useEffect(() => {
+    const storedPosition = getLocalConfig<Venue | undefined>(
+      'position',
+      undefined
+    );
+    const hasPosition = Boolean(position || storedPosition);
     if (
       !clickedStart &&
       !sessionStartingRef.current &&
       !sessionId &&
       autoStart &&
       selectedLayout !== 'HIDDEN_CHAT' &&
-      (!needsCredits || hasEnoughCredits)
+      (!needsCredits || hasEnoughCredits) &&
+      !shouldHoldAutoStartForPosition(!!memori.needsPosition, hasPosition)
     ) {
       onClickStart();
     }
@@ -3325,6 +3354,8 @@ const MemoriWidget = ({
     sessionId,
     needsCredits,
     hasEnoughCredits,
+    position,
+    memori.needsPosition,
   ]);
 
   useEffect(() => {
@@ -3488,7 +3519,7 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? selectedLayout !== 'TOTEM' && selectedLayout !== 'WEBSITE_ASSISTANT'
+      ? selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
   const canShowLoginButton =
     !tenant?.ssoLogin &&
@@ -3964,6 +3995,8 @@ const MemoriWidget = ({
                 language={language}
                 userLang={userLang}
                 isMultilanguageEnabled={isMultilanguageEnabled}
+                showFunctionCache={showFunctionCache}
+                showMessageConsumption={enableMessageConsumption}
               />
             )}
 
