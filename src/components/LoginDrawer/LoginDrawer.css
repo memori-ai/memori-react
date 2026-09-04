@@ -1,6 +1,6 @@
 /* ===== LOGIN DRAWER BASE STYLES ===== */
 .memori--login-drawer {
-    z-index: 10000;
+    z-index: 1400;
 }
 
 .memori--login-drawer .memori-drawer__body {
@@ -28,19 +28,10 @@
 }
 
 .memori--login-drawer .memori-drawer--panel {
-    --memori-drawer--width: 100%;
-    --memori-drawer--width--md: 60%;
-    --memori-drawer--width--lg: 40%;
     height: 100vh;
     border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
-}
-
-.memori--login-drawer.memori--login-drawer--logged .memori-drawer--panel {
-    --memori-drawer--width: 100%;
-    --memori-drawer--width--md: 40%;
-    --memori-drawer--width--lg: 30%;
 }
 
 .memori--login-drawer--title {
@@ -971,7 +962,6 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer .memori-drawer--panel {
-        --memori-drawer--width: 100%;
         border-radius: 20px 20px 0 0;
     }
 

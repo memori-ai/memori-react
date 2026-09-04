@@ -1,10 +1,4 @@
 
-.memori--experts-drawer .memori-drawer--panel {
-    --memori-drawer--width: 100%;
-    --memori-drawer--width--md: 60%;
-    --memori-drawer--width--lg: 40%;
-}
-
 h2.memori--experts-drawer--title {
     margin: 0;
     font-size: inherit;

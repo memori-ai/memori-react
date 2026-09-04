@@ -12,7 +12,7 @@ const MemoriIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <defs>
       <style>
         {
-          "\n      .cls-1 {\n        fill: url(#Sfumatura_senza_nome_6);\n      }\n\n      .cls-1,\n      .cls-2 {\n        stroke-width: 0px;\n      }\n\n      .cls-2 {\n        fill: var(--memori-logo-text-color, '#744c99');\n      }\n    "
+          "\n      .cls-1 {\n        fill: url(#Sfumatura_senza_nome_6);\n      }\n\n      .cls-1,\n      .cls-2 {\n        stroke-width: 0px;\n      }\n\n      .cls-2 {\n        fill: var(--memori-text-color, '#744c99');\n      }\n    "
         }
       </style>
       <linearGradient

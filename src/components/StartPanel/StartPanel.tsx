@@ -30,15 +30,6 @@ import { Expandable } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
 import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
-/**
- * Sentinel values used as non-selectable section headers in the language
- * Combobox. We render a flat list with disabled "header" items instead of
- * the Combobox.Group API because @memori.ai/ui's grouped mode renders the
- * group's original items and bypasses the built-in search filter.
- */
-const LANG_COMBO_GROUP_POPULAR = '__memori_lang_group_popular__';
-const LANG_COMBO_GROUP_ALL = '__memori_lang_group_all__';
-
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
 }
@@ -121,23 +112,19 @@ const StartPanel: React.FC<Props> = ({
     const { popular, all } = getGroupedChatLanguages();
     return [
       {
-        value: LANG_COMBO_GROUP_POPULAR,
-        label: String(t('popularLanguages') || 'Popular'),
-        disabled: true,
+        groupLabel: String(t('popularLanguages') || 'Popular'),
+        options: popular.map(lang => ({
+          label: lang.label,
+          value: lang.value,
+        })),
       },
-      ...popular.map(lang => ({
-        label: lang.label,
-        value: lang.value,
-      })),
       {
-        value: LANG_COMBO_GROUP_ALL,
-        label: String(t('allLanguages') || 'All Languages'),
-        disabled: true,
+        groupLabel: String(t('allLanguages') || 'All Languages'),
+        options: all.map(lang => ({
+          label: lang.label,
+          value: lang.value,
+        })),
       },
-      ...all.map(lang => ({
-        label: lang.label,
-        value: lang.value,
-      })),
     ];
   }, [t]);
 

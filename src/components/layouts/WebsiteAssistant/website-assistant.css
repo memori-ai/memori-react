@@ -152,13 +152,13 @@
 }
 
 /*
- * Login and Position drawers are portaled to body by Headless UI.
- * When layout is WEBSITE_ASSISTANT we pass drawerClassName so they sit above the fixed panel.
+ * Drawers portal into the widget surface (containment). Host-page float for the
+ * trigger stays high; do not inflate Drawer z-index here.
  */
 .memori-drawer.memori-drawer--above-website-assistant,
 .memori-drawer.memori-drawer--above-website-assistant .memori-drawer--backdrop,
 .memori-drawer.memori-drawer--above-website-assistant .memori-drawer--container {
-    z-index: 2147483000;
+    z-index: 1400;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,

@@ -27,7 +27,7 @@ exports[`renders PoweredBy unchanged 1`] = `
       }
 
       .cls-2 {
-        fill: var(--memori-logo-text-color, '#744c99');
+        fill: var(--memori-text-color, '#744c99');
       }
     
         </style>
@@ -170,7 +170,7 @@ exports[`renders PoweredBy with data unchanged 1`] = `
       }
 
       .cls-2 {
-        fill: var(--memori-logo-text-color, '#744c99');
+        fill: var(--memori-text-color, '#744c99');
       }
     
         </style>

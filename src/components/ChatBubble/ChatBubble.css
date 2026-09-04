@@ -289,7 +289,7 @@
    timestamp keep contrast whatever is painted behind them. */
 .memori-chat--bubble-addon {
     position: absolute;
-    z-index: 2147483647;
+    z-index: 5;
     top: 100%;
     right: auto;
     bottom: auto;
@@ -423,14 +423,14 @@
    Hide during enter/exit so the popup never flashes at 0,0 (top of the page) when
    Floating UI hasn't applied coordinates yet, or when the trigger loses focus. */
 .memori-chat--bubble-addon-tooltip-positioner {
-    z-index: 2147483647;
+    z-index: 1300;
 }
 
 .memori-chat--bubble-addon-tooltip-positioner[data-starting-style],
 .memori-chat--bubble-addon-tooltip-positioner[data-ending-style] {
-    visibility: hidden;
     opacity: 0 !important;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .memori-chat--bubble-ai-icon {
@@ -445,6 +445,7 @@
     pointer-events: auto;
 }
 
+/* stylelint-disable-next-line no-descending-specificity -- icon size scoped after action-icon rules */
 .memori-chat--bubble-ai-icon svg {
     width: 1rem;
     height: 1rem;

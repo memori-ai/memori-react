@@ -1,10 +1,4 @@
-/* Above website assistant and other fixed UI (same max z-index so modal stacks on top by DOM order) */
-.memori-modal__backdrop.age-verification-modal-backdrop,
-.age-verification-modal.memori-modal__viewport,
-.age-verification-modal {
-    z-index: 2147483647;
-}
-
+/* Age verification uses Modal stacking="stacked"; keep backdrop tint only. */
 .memori-modal__backdrop.age-verification-modal-backdrop {
     background: color-mix(in srgb, #000 45%, transparent);
 }

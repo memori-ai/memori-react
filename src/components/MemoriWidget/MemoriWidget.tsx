@@ -514,9 +514,8 @@ type ChatStylesConfig = {
 
 /**
  * Returns CSS custom properties for the chat container when a brand primary is set.
- * Maps buttonBgColor → --memori-primary-color / --memori-primary and injects derived
- * tokens (hover, active, borders, etc.) in the same scope.
- * If buttonBgColor is missing, returns {} so global CSS defaults are used.
+ * Sets the UI brand hook (`--memori-primary-color`); hover/active/subtle derive from
+ * `@memori.ai/ui` theme tokens. Widget-only icon soft fills stay here.
  */
 export function getChatStyles(
   config: ChatStylesConfig | null | undefined
@@ -526,41 +525,14 @@ export function getChatStyles(
 
   const primaryContent = config?.buttonTextColor ?? '#ffffff';
 
-  // Match @memori.ai/ui token semantics:
-  // --memori-surface-contrast = ink (#000 light / #fff dark)
-  // --memori-surface-contrast-inverse = surface (#fff light / #000 dark)
   return {
     '--memori-primary-color': primary,
-    '--memori-primary': primary,
     '--memori-primary-content': primaryContent,
-    '--memori-primary-hover':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%)',
-    '--memori-primary-active':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%)',
-    '--memori-primary-disabled':
-      'color-mix(in oklch, var(--memori-primary), transparent 60%)',
-    '--memori-primary-subtle':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%)',
-    '--memori-primary-subtle-hover':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%)',
-    '--memori-border-primary':
-      'color-mix(in oklch, var(--memori-primary), transparent 70%)',
-    '--memori-border-primary-hover':
-      'color-mix(in oklch, var(--memori-primary), transparent 50%)',
-    '--memori-focus-ring-color':
-      'color-mix(in oklch, var(--memori-primary), transparent 80%)',
-    '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
-    '--memori-shadow-primary':
-      '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
-    '--memori-skeleton-base':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%)',
-    '--memori-skeleton-highlight':
-      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%)',
     /* Soft fills for secondary IconButton active / recording (never solid CTA) */
     '--memori-icon-active-bg':
       'color-mix(in oklch, var(--memori-primary) 12%, transparent)',
     '--memori-icon-recording-bg':
-      'color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent)',
+      'color-mix(in oklch, var(--memori-error) 12%, transparent)',
   } as CSSProperties;
 }
 
@@ -2714,7 +2686,7 @@ const MemoriWidget = ({
   }`
     );
   }
-  const integrationStylesheet = `@layer integration {
+  const integrationStylesheet = `@layer memori.overrides {
   ${integrationStylesheetParts.join('\n  ')}
 }
 `;

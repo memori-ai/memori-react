@@ -27,47 +27,21 @@ exports[`renders Totem layout unchanged 1`] = `
       class="memori-widget__surface"
     >
       <style>
-        @layer integration {
+        @layer memori.overrides {
   body, .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
   [data-theme="dark"] .memori-widget,
   .memori-widget[data-theme="dark"],
   [data-theme="dark"] memori-client .memori-widget,
   memori-client[data-theme="dark"] .memori-widget {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
 }
 
@@ -103,7 +77,7 @@ exports[`renders Totem layout unchanged 1`] = `
       }
 
       .cls-2 {
-        fill: var(--memori-logo-text-color, '#744c99');
+        fill: var(--memori-text-color, '#744c99');
       }
     
               </style>
@@ -346,6 +320,102 @@ exports[`renders Totem layout unchanged 1`] = `
                   </span>
                 </span>
               </div>
+              <span
+                class="memori-tooltip"
+              >
+                <span
+                  class="memori-tooltip__trigger"
+                  id="base-ui-:rb:"
+                >
+                  <span
+                    style="display: inline-flex;"
+                  >
+                    <button
+                      aria-label="reload"
+                      class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-totem-rail--button"
+                      tabindex="0"
+                      title="reload"
+                      type="button"
+                    >
+                      <span
+                        class="memori-button__icon"
+                      >
+                        <svg
+                          class="lucide lucide-refresh-cw"
+                          fill="none"
+                          height="24"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+                          />
+                          <path
+                            d="M21 3v5h-5"
+                          />
+                          <path
+                            d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+                          />
+                          <path
+                            d="M8 16H3v5"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </span>
+              <span
+                class="memori-tooltip"
+              >
+                <span
+                  class="memori-tooltip__trigger"
+                  id="base-ui-:rd:"
+                >
+                  <span
+                    style="display: inline-flex;"
+                  >
+                    <button
+                      aria-label="widget.settings"
+                      class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-totem-rail--button"
+                      tabindex="0"
+                      title="widget.settings"
+                      type="button"
+                    >
+                      <span
+                        class="memori-button__icon"
+                      >
+                        <svg
+                          class="lucide lucide-settings"
+                          fill="none"
+                          height="24"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                          />
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="3"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </span>
             </div>
             <div
               aria-hidden="true"
@@ -362,7 +432,7 @@ exports[`renders Totem layout unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:re:"
+                    id="base-ui-:ri:"
                   >
                     <span
                       style="display: inline-flex;"
@@ -373,7 +443,7 @@ exports[`renders Totem layout unchanged 1`] = `
                         aria-label="login.user"
                         class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-totem-rail--button memori-totem-rail--account-trigger"
                         data-base-ui-click-trigger=""
-                        id="base-ui-:rc:"
+                        id="base-ui-:rg:"
                         tabindex="0"
                         title="login.user"
                         type="button"
@@ -524,11 +594,15 @@ exports[`renders Totem layout unchanged 1`] = `
                 <div
                   class="memori--title-container__content"
                 >
-                  <h2
-                    class="memori--title"
+                  <div
+                    class="memori--title-row"
                   >
-                    Memori
-                  </h2>
+                    <h2
+                      class="memori--title"
+                    >
+                      Memori
+                    </h2>
+                  </div>
                   <div
                     class="memori-expandable memori--description-text memori--description-text--collapsible"
                   >
@@ -588,17 +662,17 @@ exports[`renders Totem layout unchanged 1`] = `
                   >
                     <label
                       class="memori-combobox__label"
-                      for=":rf:"
-                      id=":rf:-label"
+                      for="memori-combobox-1"
+                      id="memori-combobox-1-label"
                     >
                       write_and_speak.chatLanguageLabel
                     </label>
                     <button
                       aria-expanded="false"
                       aria-haspopup="dialog"
-                      aria-labelledby=":rf:-label"
+                      aria-labelledby="memori-combobox-1-label"
                       class="memori-combobox__trigger"
-                      id=":rf:"
+                      id="memori-combobox-1"
                       role="combobox"
                       tabindex="0"
                       type="button"
@@ -633,7 +707,7 @@ exports[`renders Totem layout unchanged 1`] = `
                     </button>
                     <input
                       aria-hidden="true"
-                      id="base-ui-:rg:"
+                      id="base-ui-:rj:"
                       name="user-lang-pref"
                       style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                       tabindex="-1"
@@ -702,7 +776,7 @@ exports[`renders Totem layout unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:rj:"
+                            id="base-ui-:rm:"
                           >
                             <button
                               aria-label="privacyPolicy"

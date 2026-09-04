@@ -27,47 +27,21 @@ exports[`renders FullPage layout unchanged 1`] = `
       class="memori-widget__surface"
     >
       <style>
-        @layer integration {
+        @layer memori.overrides {
   body, .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
   [data-theme="dark"] .memori-widget,
   .memori-widget[data-theme="dark"],
   [data-theme="dark"] memori-client .memori-widget,
   memori-client[data-theme="dark"] .memori-widget {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
 }
 
@@ -344,11 +318,15 @@ exports[`renders FullPage layout unchanged 1`] = `
                         <div
                           class="memori--title-container__content"
                         >
-                          <h2
-                            class="memori--title"
+                          <div
+                            class="memori--title-row"
                           >
-                            Memori
-                          </h2>
+                            <h2
+                              class="memori--title"
+                            >
+                              Memori
+                            </h2>
+                          </div>
                           <div
                             class="memori-expandable memori--description-text memori--description-text--collapsible"
                           >
@@ -408,17 +386,17 @@ exports[`renders FullPage layout unchanged 1`] = `
                           >
                             <label
                               class="memori-combobox__label"
-                              for=":ra:"
-                              id=":ra:-label"
+                              for="memori-combobox-1"
+                              id="memori-combobox-1-label"
                             >
                               write_and_speak.chatLanguageLabel
                             </label>
                             <button
                               aria-expanded="false"
                               aria-haspopup="dialog"
-                              aria-labelledby=":ra:-label"
+                              aria-labelledby="memori-combobox-1-label"
                               class="memori-combobox__trigger"
-                              id=":ra:"
+                              id="memori-combobox-1"
                               role="combobox"
                               tabindex="0"
                               type="button"
@@ -453,7 +431,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:rb:"
+                              id="base-ui-:ra:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -522,7 +500,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:re:"
+                                    id="base-ui-:rd:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"
@@ -615,7 +593,7 @@ exports[`renders FullPage layout unchanged 1`] = `
       }
 
       .cls-2 {
-        fill: var(--memori-logo-text-color, '#744c99');
+        fill: var(--memori-text-color, '#744c99');
       }
     
                           </style>
@@ -784,47 +762,21 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
       class="memori-widget__surface"
     >
       <style>
-        @layer integration {
+        @layer memori.overrides {
   :root, body, .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
   [data-theme="dark"] .memori-widget,
   .memori-widget[data-theme="dark"],
   [data-theme="dark"] memori-client .memori-widget,
   memori-client[data-theme="dark"] .memori-widget {
     --memori-primary-color: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-content: #ffffff;
-    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 15%);
-    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, black) 25%);
-    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
-    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 60%);
-    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 50%);
-    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
-    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
-    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
-    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
-    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 85%);
-    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, white) 75%);
     --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
+    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error) 12%, transparent);
   }
 }
 
@@ -858,7 +810,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                     >
                       <span
                         class="memori-tooltip__trigger"
-                        id="base-ui-:r19:"
+                        id="base-ui-:rp:"
                       >
                         <span
                           style="display: inline-flex;"
@@ -909,14 +861,14 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r1f:"
+                          id="base-ui-:rv:"
                         >
                           <button
                             aria-expanded="false"
                             aria-haspopup="menu"
                             aria-label="widget.share"
                             class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                            id="base-ui-:r1g:"
+                            id="base-ui-:r10:"
                             tabindex="0"
                             title="widget.share"
                             type="button"
@@ -1101,11 +1053,15 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                         <div
                           class="memori--title-container__content"
                         >
-                          <h2
-                            class="memori--title"
+                          <div
+                            class="memori--title-row"
                           >
-                            Memori
-                          </h2>
+                            <h2
+                              class="memori--title"
+                            >
+                              Memori
+                            </h2>
+                          </div>
                           <div
                             class="memori-expandable memori--description-text memori--description-text--collapsible"
                           >
@@ -1165,17 +1121,17 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                           >
                             <label
                               class="memori-combobox__label"
-                              for=":r1i:"
-                              id=":r1i:-label"
+                              for="memori-combobox-17"
+                              id="memori-combobox-17-label"
                             >
                               write_and_speak.chatLanguageLabel
                             </label>
                             <button
                               aria-expanded="false"
                               aria-haspopup="dialog"
-                              aria-labelledby=":r1i:-label"
+                              aria-labelledby="memori-combobox-17-label"
                               class="memori-combobox__trigger"
-                              id=":r1i:"
+                              id="memori-combobox-17"
                               role="combobox"
                               tabindex="0"
                               type="button"
@@ -1210,7 +1166,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:r1j:"
+                              id="base-ui-:r12:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -1279,7 +1235,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:r1m:"
+                                    id="base-ui-:r15:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"
@@ -1372,7 +1328,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
       }
 
       .cls-2 {
-        fill: var(--memori-logo-text-color, '#744c99');
+        fill: var(--memori-text-color, '#744c99');
       }
     
                           </style>

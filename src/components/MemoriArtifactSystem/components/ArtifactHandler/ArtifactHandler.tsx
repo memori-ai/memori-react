@@ -562,7 +562,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
           className="memori-artifact-handler memori-artifact-handler--failed"
           style={{
             opacity: 0.85,
-            border: '1px dashed var(--memori-danger, #ef4444)',
+            border: '1px dashed var(--memori-error, #ef4444)',
             cursor: 'default',
           }}
           role="status"

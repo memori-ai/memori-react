@@ -131,7 +131,7 @@ button.memori-snippet--copy-button svg {
 }
 
 .memori-snippet button.memori-snippet--copy-button--copied svg {
-    color: var(--memori-success-color, #22c55e);
+    color: var(--memori-success, #22c55e);
 }
 
 .memori-snippet--caption {

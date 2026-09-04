@@ -877,8 +877,8 @@ const ChatBubble: React.FC<Props> = ({
       <Modal
         container={surfaceEl ?? undefined}
         open={openFunctionCache}
-        className="memori-chat--function-cache-modal memori-modal--stacked"
-        backdropClassName="memori-modal--stacked"
+        className="memori-chat--function-cache-modal"
+        stacking="stacked"
         title={t('functionCache') || 'Function Cache'}
         closable={true}
         onOpenChange={setOpenFunctionCache}

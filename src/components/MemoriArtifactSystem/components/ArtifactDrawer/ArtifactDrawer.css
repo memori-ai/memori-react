@@ -21,7 +21,7 @@
  * Split-panel width for ArtifactDrawer.
  * Must stay in sync with HiddenChat's sidebar shift (`right: 55%`).
  * @memori.ai/ui Drawer uses `--memori-modal-size-*` (not the legacy
- * `--memori-drawer--width-*` tokens), and size="md" maps to `--memori-modal-size-md`.
+ * size="md" maps to `--memori-modal-size-md`.
  */
 .memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer {
     --memori-modal-size-md: 55%;

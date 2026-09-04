@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Button } from '@memori.ai/ui';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { Button, Drawer } from '@memori.ai/ui';
 import {
   Message,
   Memori,
@@ -7,6 +7,7 @@ import {
 import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { stripHTML } from '../../helpers/utils';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import Chat from '../Chat/Chat';
 
 export interface ResumeDrawerMessage {
@@ -29,6 +30,10 @@ export interface ChatResumeDrawerProps {
   onClose: () => void;
   onBack?: () => void;
   onExportChat: () => void;
+  /**
+   * When true, render panel content only (nested inside ChatHistory Drawer).
+   * When false, open as a library Drawer on the widget surface.
+   */
   embedded?: boolean;
   session: {
     title: string;
@@ -43,7 +48,6 @@ export interface ChatResumeDrawerProps {
   showMessageConsumption?: boolean;
 }
 
-const ANIMATION_DURATION_MS = 280;
 const EMPTY_MEMORI = {
   memoriID: 'chat-resume-drawer',
   name: 'AI',
@@ -77,72 +81,14 @@ const ChatResumeDrawer = ({
   showMessageConsumption = false,
 }: ChatResumeDrawerProps) => {
   const { t } = useTranslation();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const surfaceEl = useWidgetSurfaceEl();
   const backButtonRef = useRef<HTMLButtonElement>(null);
   const titleId = 'chat-resume-drawer-title';
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [isVisible, setIsVisible] = useState(isOpen);
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-      requestAnimationFrame(() => setIsVisible(true));
-      return;
-    }
-
-    setIsVisible(false);
-    const timeout = window.setTimeout(() => {
-      setShouldRender(false);
-    }, ANIMATION_DURATION_MS);
-
-    return () => window.clearTimeout(timeout);
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
     backButtonRef.current?.focus();
   }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen || embedded) return;
-
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const root = dialogRef.current;
-    if (!root) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-        return;
-      }
-
-      if (event.key !== 'Tab') return;
-
-      const focusableElements = root.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusableElements.length) return;
-
-      const first = focusableElements[0];
-      const last = focusableElements[focusableElements.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-
-      if (event.shiftKey && active === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && active === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      previouslyFocused?.focus();
-    };
-  }, [embedded, isOpen, onClose]);
 
   const safeTitle = useMemo(() => {
     const cleaned = stripMarkdownChars(stripHTML(session.title || ''));
@@ -174,15 +120,11 @@ const ChatResumeDrawer = ({
     [session.messages]
   );
 
-  if (!embedded && !shouldRender) return null;
-
   const content = (
     <div
-      ref={panelRef}
       className={`memori-chat-resume-drawer--panel ${
         embedded ? 'memori-chat-resume-drawer--panel-embedded' : ''
       }`}
-      onClick={event => event.stopPropagation()}
     >
       <header className="memori-chat-resume-drawer--header">
         <Button
@@ -272,29 +214,24 @@ const ChatResumeDrawer = ({
   );
 
   if (embedded) {
+    if (!isOpen) return null;
     return (
       <div className="memori-chat-resume-drawer--embedded-shell">{content}</div>
     );
   }
 
   return (
-    <div
-      ref={dialogRef}
-      className={`memori-chat-resume-drawer ${
-        isVisible ? 'memori-chat-resume-drawer--open' : ''
-      }`}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={titleId}
+    <Drawer
+      container={surfaceEl ?? undefined}
+      open={isOpen}
+      onClose={onClose}
+      className="memori-chat-resume-drawer"
+      anchor="right"
+      size="md"
+      showCloseButton={false}
     >
-      <Button
-        className="memori-chat-resume-drawer--backdrop"
-        type="button"
-        aria-label={String(t('close', { defaultValue: 'Close' }))}
-        onClick={onClose}
-      />
       {content}
-    </div>
+    </Drawer>
   );
 };
 

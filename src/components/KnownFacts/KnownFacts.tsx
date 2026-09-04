@@ -14,12 +14,9 @@ import {
   Table,
   useAlertManager,
   createAlertOptions,
+  type ColumnDef,
 } from '@memori.ai/ui';
-import type {
-  ColumnDef,
-  PaginationState,
-  Updater,
-} from '@tanstack/react-table';
+import type { PaginationState, Updater } from '@tanstack/react-table';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
@@ -185,8 +182,8 @@ const KnownFacts = ({
         <div className="memori-known-facts-body">
           <Modal
           container={surfaceEl ?? undefined}
-          className="memori-known-facts-modal memori-modal--stacked"
-          backdropClassName="memori-modal--stacked"
+          className="memori-known-facts-modal"
+          stacking="stacked"
           open={bulkDeleteModalVisible}
           closable
           title={
@@ -327,8 +324,8 @@ const KnownFacts = ({
 
         <Modal
           container={surfaceEl ?? undefined}
-          className="memori-known-facts-modal memori-modal--stacked"
-          backdropClassName="memori-modal--stacked"
+          className="memori-known-facts-modal"
+          stacking="stacked"
           open={deleteModalVisibleFor !== undefined}
           closable
           title={t('knownFacts.deleteConfirmTitle')}

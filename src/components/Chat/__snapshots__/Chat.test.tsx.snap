@@ -169,7 +169,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8:"
+                          id="base-ui-:r5:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -295,7 +295,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rf:"
+                          id="base-ui-:r9:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -396,7 +396,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rm:"
+                          id="base-ui-:rd:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -561,7 +561,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rt:"
+                          id="base-ui-:rh:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -662,7 +662,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r14:"
+                          id="base-ui-:rl:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -788,7 +788,7 @@ exports[`renders Chat unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r1b:"
+                          id="base-ui-:rp:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -895,7 +895,7 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1i:"
+                    id="base-ui-:rt:"
                   >
                     <button
                       aria-label="send"
@@ -1028,7 +1028,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8p:"
+                          id="base-ui-:r51:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1129,7 +1129,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r90:"
+                          id="base-ui-:r55:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1255,7 +1255,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r97:"
+                          id="base-ui-:r59:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1356,7 +1356,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9e:"
+                          id="base-ui-:r5d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1430,6 +1430,960 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       r="4"
                     />
                   </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              >
+                <div
+                  class="memori-media-items"
+                >
+                  <div
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+                  >
+                    <div
+                      class="memori-media-item"
+                    >
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
+                      >
+                        <div
+                          class="memori-media-item--document"
+                        >
+                          <div
+                            class="memori-media-item--document-header"
+                          >
+                            <div
+                              class="memori-media-item--document-title"
+                            >
+                              Link
+                            </div>
+                          </div>
+                          <span
+                            class="memori-media-item--document-badge"
+                          >
+                            Link
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <picture
+                  class="memori-chat--bubble-avatar"
+                  title="Memori"
+                >
+                  <img
+                    alt="Memori"
+                    class="memori-chat--bubble-avatar-img"
+                    src="https://aisuru.com/images/aisuru/square_logo.png"
+                  />
+                </picture>
+                <div
+                  class="memori-chat--bubble-shell"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-chat--bubble-content"
+                        dir="auto"
+                      >
+                        <p>
+                          Ecco qui come.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r5h:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-chat--artifact-block"
+                  />
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--context-vars"
+            >
+              <div
+                class="memori-chat--context-tag"
+              >
+                <span
+                  class="memori-chat--context-tag-text"
+                >
+                  TEST
+                  : 
+                  test
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <div
+                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-expandable memori-chat--bubble-content"
+                      >
+                        <div
+                          class="memori-expandable__inner"
+                          style="max-height: 9999px;"
+                        >
+                          <div
+                            class="memori-chat--bubble-content"
+                            dir="auto"
+                          >
+                            Ah, grazie! Ciao!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r5l:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+                <div
+                  class="memori-chat--bubble-avatar"
+                >
+                  <svg
+                    class="lucide lucide-user"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                    />
+                    <circle
+                      cx="12"
+                      cy="7"
+                      r="4"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 24px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <picture
+                  class="memori-chat--bubble-avatar"
+                  title="Memori"
+                >
+                  <img
+                    alt="Memori"
+                    class="memori-chat--bubble-avatar-img"
+                    src="https://aisuru.com/images/aisuru/square_logo.png"
+                  />
+                </picture>
+                <div
+                  class="memori-chat--bubble-shell"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-chat--bubble-content"
+                        dir="auto"
+                      >
+                        <p>
+                          Arrivederci.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r5p:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-chat--artifact-block"
+                  />
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--context-vars"
+            >
+              <div
+                class="memori-chat--context-tag"
+              >
+                <span
+                  class="memori-chat--context-tag-text"
+                >
+                  TEST
+                  : 
+                  test
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            id="end-messages-ref"
+          />
+        </div>
+      </div>
+      <div
+        class="memori-chat-inputs-wrapper"
+      >
+        <fieldset
+          class="memori-chat-inputs"
+          id="chat-fieldset"
+        >
+          <div
+            class="memori-chat-inputs--container"
+          >
+            <div
+              class="memori-chat-inputs--leading"
+            />
+            <div
+              class="memori-chat-inputs--primary"
+            >
+              <div
+                class="memori-chat-textarea"
+                data-testid="chat-textarea"
+              >
+                <div
+                  class="memori-chat-textarea--inner"
+                  style="height: 36px;"
+                >
+                  <textarea
+                    aria-label="placeholder"
+                    class="memori-chat-textarea--input"
+                    id="memori-chat-message"
+                    maxlength="100000"
+                    placeholder="placeholder"
+                    style="height: 36px;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat-inputs--trailing"
+            >
+              <div
+                class="memori-chat-inputs--trailing-inner"
+              >
+                <span
+                  class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
+                >
+                  <span
+                    class="memori-tooltip__trigger"
+                    id="base-ui-:r5t:"
+                  >
+                    <button
+                      aria-label="send"
+                      class="memori-button memori-button--primary memori-button--sm memori-button--disabled memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                      data-disabled=""
+                      disabled=""
+                      tabindex="0"
+                      title="send"
+                      type="button"
+                    >
+                      <span
+                        class="memori-button__content"
+                      >
+                        <svg
+                          class="lucide lucide-send icon"
+                          fill="none"
+                          height="24"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+                          />
+                          <path
+                            d="m21.854 2.147-10.94 10.939"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div
+          class="memori-conversation-footer"
+        >
+          <p
+            class="memori-chat-inputs--ai-note"
+          >
+            aiGeneratedNote
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--wrapper"
+    data-memori-lang="IT"
+    id="chat-wrapper"
+  >
+    <div
+      class="memori-conversation-column"
+    >
+      <div
+        class="memori-chat--history"
+      >
+        <div
+          class="memori-chat--content"
+          style="padding-bottom: 0px;"
+        >
+          <div
+            class="memori-chat--cover"
+          />
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <picture
+                  class="memori-chat--bubble-avatar"
+                  title="Memori"
+                >
+                  <img
+                    alt="Memori"
+                    class="memori-chat--bubble-avatar-img"
+                    src="https://aisuru.com/images/aisuru/square_logo.png"
+                  />
+                </picture>
+                <div
+                  class="memori-chat--bubble-shell"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-chat--bubble-content"
+                        dir="auto"
+                      >
+                        <p>
+                          Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r95:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-chat--artifact-block"
+                  />
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <div
+                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-expandable memori-chat--bubble-content"
+                      >
+                        <div
+                          class="memori-expandable__inner"
+                          style="max-height: 9999px;"
+                        >
+                          <div
+                            class="memori-chat--bubble-content"
+                            dir="auto"
+                          >
+                            Prova
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r99:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+                <div
+                  class="memori-chat--bubble-avatar"
+                >
+                  <span>
+                    USER
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <picture
+                  class="memori-chat--bubble-avatar"
+                  title="Memori"
+                >
+                  <img
+                    alt="Memori"
+                    class="memori-chat--bubble-avatar-img"
+                    src="https://aisuru.com/images/aisuru/square_logo.png"
+                  />
+                </picture>
+                <div
+                  class="memori-chat--bubble-shell"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-chat--bubble-content"
+                        dir="auto"
+                      >
+                        <p>
+                          Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r9d:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-chat--artifact-block"
+                  />
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="margin-bottom: 0px;"
+          >
+            <div
+              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
+            >
+              <div
+                class="memori-media-widget"
+              />
+              <div
+                class="memori-chat--bubble-message-row"
+              >
+                <div
+                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
+                >
+                  <div
+                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
+                  >
+                    <div
+                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
+                    >
+                      <div
+                        class="memori-expandable memori-chat--bubble-content"
+                      >
+                        <div
+                          class="memori-expandable__inner"
+                          style="max-height: 9999px;"
+                        >
+                          <div
+                            class="memori-chat--bubble-content"
+                            dir="auto"
+                          >
+                            Come faccio a fare delle cose con questa cosa?
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-chat--bubble-addon"
+                    >
+                      <span
+                        class="memori-tooltip"
+                      >
+                        <span
+                          class="memori-tooltip__trigger"
+                          id="base-ui-:r9h:"
+                        >
+                          <span
+                            class="memori-chat--bubble-addon-tooltip-trigger"
+                          >
+                            <button
+                              aria-label="copy"
+                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="memori-button__icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="lucide lucide-copy memori-share-button--copy-icon"
+                                  fill="none"
+                                  height="24"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  viewBox="0 0 24 24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="memori-media-widget"
+                  />
+                </div>
+                <div
+                  class="memori-chat--bubble-avatar"
+                >
+                  <span>
+                    USER
+                  </span>
                 </div>
               </div>
             </div>
@@ -1576,21 +2530,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="memori-chat--context-vars"
-            >
-              <div
-                class="memori-chat--context-tag"
-              >
-                <span
-                  class="memori-chat--context-tag-text"
-                >
-                  TEST
-                  : 
-                  test
-                </span>
-              </div>
-            </div>
           </div>
           <div
             style="margin-bottom: 0px;"
@@ -1637,946 +2576,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9s:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-                <div
-                  class="memori-chat--bubble-avatar"
-                >
-                  <svg
-                    class="lucide lucide-user"
-                    fill="none"
-                    height="24"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                    />
-                    <circle
-                      cx="12"
-                      cy="7"
-                      r="4"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 24px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <picture
-                  class="memori-chat--bubble-avatar"
-                  title="Memori"
-                >
-                  <img
-                    alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
-                    src="https://aisuru.com/images/aisuru/square_logo.png"
-                  />
-                </picture>
-                <div
-                  class="memori-chat--bubble-shell"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-chat--bubble-content"
-                        dir="auto"
-                      >
-                        <p>
-                          Arrivederci.
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:ra3:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="memori-chat--context-vars"
-            >
-              <div
-                class="memori-chat--context-tag"
-              >
-                <span
-                  class="memori-chat--context-tag-text"
-                >
-                  TEST
-                  : 
-                  test
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            id="end-messages-ref"
-          />
-        </div>
-      </div>
-      <div
-        class="memori-chat-inputs-wrapper"
-      >
-        <fieldset
-          class="memori-chat-inputs"
-          id="chat-fieldset"
-        >
-          <div
-            class="memori-chat-inputs--container"
-          >
-            <div
-              class="memori-chat-inputs--leading"
-            />
-            <div
-              class="memori-chat-inputs--primary"
-            >
-              <div
-                class="memori-chat-textarea"
-                data-testid="chat-textarea"
-              >
-                <div
-                  class="memori-chat-textarea--inner"
-                  style="height: 36px;"
-                >
-                  <textarea
-                    aria-label="placeholder"
-                    class="memori-chat-textarea--input"
-                    id="memori-chat-message"
-                    maxlength="100000"
-                    placeholder="placeholder"
-                    style="height: 36px;"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="memori-chat-inputs--trailing"
-            >
-              <div
-                class="memori-chat-inputs--trailing-inner"
-              >
-                <span
-                  class="memori-tooltip memori-chat-inputs--send-btn-tooltip"
-                >
-                  <span
-                    class="memori-tooltip__trigger"
-                    id="base-ui-:raa:"
-                  >
-                    <button
-                      aria-label="send"
-                      class="memori-button memori-button--primary memori-button--sm memori-button--disabled memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
-                      data-disabled=""
-                      disabled=""
-                      tabindex="0"
-                      title="send"
-                      type="button"
-                    >
-                      <span
-                        class="memori-button__content"
-                      >
-                        <svg
-                          class="lucide lucide-send icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
-                          />
-                          <path
-                            d="m21.854 2.147-10.94 10.939"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <div
-          class="memori-conversation-footer"
-        >
-          <p
-            class="memori-chat-inputs--ai-note"
-          >
-            aiGeneratedNote
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    tabindex="-1"
-  />
-</div>
-`;
-
-exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
-<div>
-  <div
-    class="memori-chat--wrapper"
-    data-memori-lang="IT"
-    id="chat-wrapper"
-  >
-    <div
-      class="memori-conversation-column"
-    >
-      <div
-        class="memori-chat--history"
-      >
-        <div
-          class="memori-chat--content"
-          style="padding-bottom: 0px;"
-        >
-          <div
-            class="memori-chat--cover"
-          />
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <picture
-                  class="memori-chat--bubble-avatar"
-                  title="Memori"
-                >
-                  <img
-                    alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
-                    src="https://aisuru.com/images/aisuru/square_logo.png"
-                  />
-                </picture>
-                <div
-                  class="memori-chat--bubble-shell"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-chat--bubble-content"
-                        dir="auto"
-                      >
-                        <p>
-                          Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rg0:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <div
-                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-expandable memori-chat--bubble-content"
-                      >
-                        <div
-                          class="memori-expandable__inner"
-                          style="max-height: 9999px;"
-                        >
-                          <div
-                            class="memori-chat--bubble-content"
-                            dir="auto"
-                          >
-                            Prova
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rg7:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-                <div
-                  class="memori-chat--bubble-avatar"
-                >
-                  <span>
-                    USER
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <picture
-                  class="memori-chat--bubble-avatar"
-                  title="Memori"
-                >
-                  <img
-                    alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
-                    src="https://aisuru.com/images/aisuru/square_logo.png"
-                  />
-                </picture>
-                <div
-                  class="memori-chat--bubble-shell"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-chat--bubble-content"
-                        dir="auto"
-                      >
-                        <p>
-                          Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rge:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <div
-                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-expandable memori-chat--bubble-content"
-                      >
-                        <div
-                          class="memori-expandable__inner"
-                          style="max-height: 9999px;"
-                        >
-                          <div
-                            class="memori-chat--bubble-content"
-                            dir="auto"
-                          >
-                            Come faccio a fare delle cose con questa cosa?
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rgl:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-                <div
-                  class="memori-chat--bubble-avatar"
-                >
-                  <span>
-                    USER
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <picture
-                  class="memori-chat--bubble-avatar"
-                  title="Memori"
-                >
-                  <img
-                    alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
-                    src="https://aisuru.com/images/aisuru/square_logo.png"
-                  />
-                </picture>
-                <div
-                  class="memori-chat--bubble-shell"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-chat--bubble-content"
-                        dir="auto"
-                      >
-                        <p>
-                          Ecco qui come.
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rgs:"
-                        >
-                          <span
-                            class="memori-chat--bubble-addon-tooltip-trigger"
-                          >
-                            <button
-                              aria-label="copy"
-                              class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="memori-button__icon"
-                              >
-                                <svg
-                                  aria-hidden="true"
-                                  class="lucide lucide-copy memori-share-button--copy-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style="margin-bottom: 0px;"
-          >
-            <div
-              class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
-            >
-              <div
-                class="memori-media-widget"
-              />
-              <div
-                class="memori-chat--bubble-message-row"
-              >
-                <div
-                  class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user"
-                >
-                  <div
-                    class="memori-chat--bubble-anchor memori-chat--bubble-anchor--from-user memori-chat--bubble-anchor--has-addon"
-                  >
-                    <div
-                      class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
-                    >
-                      <div
-                        class="memori-expandable memori-chat--bubble-content"
-                      >
-                        <div
-                          class="memori-expandable__inner"
-                          style="max-height: 9999px;"
-                        >
-                          <div
-                            class="memori-chat--bubble-content"
-                            dir="auto"
-                          >
-                            Ah, grazie! Ciao!
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-chat--bubble-addon"
-                    >
-                      <span
-                        class="memori-tooltip"
-                      >
-                        <span
-                          class="memori-tooltip__trigger"
-                          id="base-ui-:rh3:"
+                          id="base-ui-:r9p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2684,7 +2684,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rha:"
+                          id="base-ui-:r9t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2791,7 +2791,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rhh:"
+                    id="base-ui-:ra1:"
                   >
                     <button
                       aria-label="send"
@@ -2924,7 +2924,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:re8:"
+                          id="base-ui-:r85:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3025,7 +3025,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:ref:"
+                          id="base-ui-:r89:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3135,7 +3135,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rem:"
+                          id="base-ui-:r8d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3236,7 +3236,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:ret:"
+                          id="base-ui-:r8h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3385,7 +3385,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rf4:"
+                          id="base-ui-:r8l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3486,7 +3486,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rfb:"
+                          id="base-ui-:r8p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3596,7 +3596,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rfi:"
+                          id="base-ui-:r8t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3703,7 +3703,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rfp:"
+                    id="base-ui-:r91:"
                   >
                     <button
                       aria-label="send"
@@ -3850,7 +3850,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r71:"
+                          id="base-ui-:r41:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3951,7 +3951,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r78:"
+                          id="base-ui-:r45:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4091,7 +4091,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7f:"
+                          id="base-ui-:r49:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4192,7 +4192,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7m:"
+                          id="base-ui-:r4d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4371,7 +4371,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7t:"
+                          id="base-ui-:r4h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4472,7 +4472,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r84:"
+                          id="base-ui-:r4l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4612,7 +4612,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8b:"
+                          id="base-ui-:r4p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4719,7 +4719,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r8i:"
+                    id="base-ui-:r4t:"
                   >
                     <button
                       aria-label="send"
@@ -4852,7 +4852,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r3h:"
+                          id="base-ui-:r21:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4953,7 +4953,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r3o:"
+                          id="base-ui-:r25:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5079,7 +5079,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r3v:"
+                          id="base-ui-:r29:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5180,7 +5180,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r46:"
+                          id="base-ui-:r2d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5345,7 +5345,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r4d:"
+                          id="base-ui-:r2h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5446,7 +5446,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r4k:"
+                          id="base-ui-:r2l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5572,7 +5572,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r4r:"
+                          id="base-ui-:r2p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5713,7 +5713,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r52:"
+                    id="base-ui-:r2t:"
                   >
                     <button
                       aria-label="send"
@@ -5846,7 +5846,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r59:"
+                          id="base-ui-:r31:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5947,7 +5947,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5g:"
+                          id="base-ui-:r35:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6073,7 +6073,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5n:"
+                          id="base-ui-:r39:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6174,7 +6174,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5u:"
+                          id="base-ui-:r3d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6552,7 +6552,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r65:"
+                          id="base-ui-:r3h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6653,7 +6653,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r6c:"
+                          id="base-ui-:r3l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6779,7 +6779,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r6j:"
+                          id="base-ui-:r3p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6886,7 +6886,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r6q:"
+                    id="base-ui-:r3t:"
                   >
                     <button
                       aria-label="send"
@@ -7019,7 +7019,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r1p:"
+                          id="base-ui-:r11:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7120,7 +7120,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r20:"
+                          id="base-ui-:r15:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7246,7 +7246,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r27:"
+                          id="base-ui-:r19:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7347,7 +7347,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r2e:"
+                          id="base-ui-:r1d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7512,7 +7512,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r2l:"
+                          id="base-ui-:r1h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7613,7 +7613,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r2s:"
+                          id="base-ui-:r1l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7739,7 +7739,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r33:"
+                          id="base-ui-:r1p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7885,7 +7885,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r3a:"
+                    id="base-ui-:r1t:"
                   >
                     <button
                       aria-label="send"
@@ -8002,7 +8002,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rah:"
+                          id="base-ui-:r61:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8103,7 +8103,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rao:"
+                          id="base-ui-:r65:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8229,7 +8229,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rav:"
+                          id="base-ui-:r69:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8330,7 +8330,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rb6:"
+                          id="base-ui-:r6d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8495,7 +8495,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rbd:"
+                          id="base-ui-:r6h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8596,7 +8596,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rbk:"
+                          id="base-ui-:r6l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8722,7 +8722,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rbr:"
+                          id="base-ui-:r6p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8875,7 +8875,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rc2:"
+                          id="base-ui-:r6t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8982,7 +8982,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rc9:"
+                    id="base-ui-:r71:"
                   >
                     <button
                       aria-label="send"
@@ -9115,7 +9115,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rcg:"
+                          id="base-ui-:r75:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9216,7 +9216,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rcn:"
+                          id="base-ui-:r79:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9326,7 +9326,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rcu:"
+                          id="base-ui-:r7d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9427,7 +9427,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rd5:"
+                          id="base-ui-:r7h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9576,7 +9576,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rdc:"
+                          id="base-ui-:r7l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9677,7 +9677,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rdj:"
+                          id="base-ui-:r7p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9787,7 +9787,7 @@ exports[`renders Chat with user unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rdq:"
+                          id="base-ui-:r7t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9894,7 +9894,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:re1:"
+                    id="base-ui-:r81:"
                   >
                     <button
                       aria-label="send"

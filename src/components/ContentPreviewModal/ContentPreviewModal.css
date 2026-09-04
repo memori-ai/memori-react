@@ -1,14 +1,5 @@
 /* ContentPreviewModal – modern preview modal for files and media */
-
-/*
- * @memori.ai/ui Modal uses memori-modal__backdrop (z-index 40) and memori-modal__viewport (z-index 50);
- * drawers use z-index 1001. className is applied to the viewport; raise both layers so previews
- * stack above chat history and artifact drawers.
- */
-.memori-modal__backdrop.memori-content-preview-modal-backdrop,
-.memori-content-preview-modal.memori-modal__viewport {
-    z-index: 2147483647 !important;
-}
+/* Stacking above drawers: Modal stacking="stacked" (library z-index 1600). */
 
 .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
     overflow: hidden;

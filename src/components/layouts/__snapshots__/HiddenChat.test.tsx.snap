@@ -209,11 +209,15 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                         <div
                           class="memori--title-container__content"
                         >
-                          <h2
-                            class="memori--title"
+                          <div
+                            class="memori--title-row"
                           >
-                            Memori
-                          </h2>
+                            <h2
+                              class="memori--title"
+                            >
+                              Memori
+                            </h2>
+                          </div>
                           <div
                             class="memori-expandable memori--description-text memori--description-text--collapsible"
                           >
@@ -273,17 +277,17 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           >
                             <label
                               class="memori-combobox__label"
-                              for=":r2:"
-                              id=":r2:-label"
+                              for="memori-combobox-1"
+                              id="memori-combobox-1-label"
                             >
                               write_and_speak.chatLanguageLabel
                             </label>
                             <button
                               aria-expanded="false"
                               aria-haspopup="dialog"
-                              aria-labelledby=":r2:-label"
+                              aria-labelledby="memori-combobox-1-label"
                               class="memori-combobox__trigger"
-                              id=":r2:"
+                              id="memori-combobox-1"
                               role="combobox"
                               tabindex="0"
                               type="button"
@@ -318,7 +322,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:r3:"
+                              id="base-ui-:r2:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -387,7 +391,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:r6:"
+                                    id="base-ui-:r5:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"
@@ -500,7 +504,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             >
                               <span
                                 class="memori-tooltip__trigger"
-                                id="base-ui-:rd:"
+                                id="base-ui-:r9:"
                               >
                                 <button
                                   aria-label="send"

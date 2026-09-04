@@ -187,7 +187,7 @@ button.memori-chat-textarea--expand-button:focus {
 }
 
 [data-theme='dark'] textarea.memori-chat-textarea--input::placeholder {
-    color: var(--memori-text-color-muted, rgba(255, 255, 255, 0.5));
+    color: var(--memori-neutral, rgba(255, 255, 255, 0.5));
 }
 
 /* Layout-scoped dark pills: keep exact text/placeholder colors */

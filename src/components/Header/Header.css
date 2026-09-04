@@ -24,7 +24,7 @@
     padding: var(--memori-spacing-md);
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 14px;
-    background: var(--memori-background, #fff);
+    background: var(--memori-secondary-background, #fff);
     box-shadow: var(--memori-shadow-lg);
 }
 
@@ -161,7 +161,7 @@
 .memori-dropdown--user-email {
     overflow: hidden;
     margin: 0;
-    color: var(--memori-text-muted, #666);
+    color: var(--memori-neutral, #666);
     font-size: 0.875rem;
     line-height: 1.35;
     text-overflow: ellipsis;
@@ -316,7 +316,7 @@
     height: 0.5rem;
     border-radius: 50%;
     background: #22c55e;
-    box-shadow: 0 0 0 2px var(--memori-secondary-background, var(--memori-background, #fff));
+    box-shadow: 0 0 0 2px var(--memori-secondary-background, var(--memori-secondary-background, #fff));
     content: '';
     pointer-events: none;
 }

@@ -38,7 +38,7 @@ const integrationProperties = getChatStyles(integrationConfig);
 
 const integrationStylesheet =
   Object.keys(integrationProperties).length > 0
-    ? `@layer integration {
+    ? `@layer memori.overrides {
   #root, .memori-widget {
     ${Object.entries(integrationProperties)
       .map(([key, value]) => `${key}: ${value};`)

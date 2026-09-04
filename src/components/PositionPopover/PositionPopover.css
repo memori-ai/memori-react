@@ -37,7 +37,7 @@
 
 .memori-position-popover__switch-icon {
     flex-shrink: 0;
-    color: var(--memori-text-color-secondary, rgba(255, 255, 255, 0.75));
+    color: var(--memori-neutral, rgba(255, 255, 255, 0.75));
 }
 
 .memori-position-popover__switch-label {
@@ -55,7 +55,7 @@
 }
 
 .memori-position-popover__switch-label-subtitle {
-    color: var(--memori-text-color-secondary, rgba(255, 255, 255, 0.65));
+    color: var(--memori-neutral, rgba(255, 255, 255, 0.65));
     font-size: 0.75rem;
     line-height: 1.2;
 }
@@ -181,7 +181,7 @@
 
 .memori-position-popover__error {
     margin: 0 0 var(--memori-spacing-sm);
-    color: var(--memori-danger, #c53030);
+    color: var(--memori-error, #c53030);
     font-size: 0.875rem;
     line-height: var(--memori-text-line-normal);
 }

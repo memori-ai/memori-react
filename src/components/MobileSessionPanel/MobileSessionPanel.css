@@ -343,7 +343,7 @@
 .memori-dropdown--user-email {
     overflow: hidden;
     margin: 0;
-    color: var(--memori-text-muted, #666);
+    color: var(--memori-neutral, #666);
     font-size: 0.875rem;
     line-height: 1.35;
     text-overflow: ellipsis;

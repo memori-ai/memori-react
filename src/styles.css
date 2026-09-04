@@ -1,8 +1,8 @@
 /* ==========================================================================
    MEMORI REACT – FOGLIO DI STILE GLOBALE
    ========================================================================== */
-/* Layer order: theme (defaults) < integration (integrationConfig overrides) */
-@layer theme, integration;
+/* Layer order matches @memori.ai/ui: theme < components < host overrides */
+@layer memori.theme, memori.components, memori.overrides;
 
 /* --- 1. Design system esterno (variabili, reset, token) ---
    NOTE: the bundler-style specifier below is intentional for dev/Storybook.
@@ -114,14 +114,9 @@
 }
 
 /*
- * Nested dialogs: @memori.ai/ui Modal is z-index 40/50; Drawer is 1001;
- * MobileSessionPanel is 2100. Raise stacked modals so they aren't trapped
- * under those hosts (consumption, debug/function-cache, known-facts confirm).
+ * Nested dialogs: use Modal stacking="stacked" from @memori.ai/ui (z-index 1600).
+ * Do not reintroduce max int z-index overrides here.
  */
-.memori-modal__backdrop.memori-modal--stacked,
-.memori-modal--stacked.memori-modal__viewport {
-    z-index: 2147483647;
-}
 
 .memori.memori-widget.memori-layout-chat > .memori-widget__surface,
 .memori.memori-widget.memori-layout-fullpage > .memori-widget__surface,
@@ -153,8 +148,8 @@
     flex-shrink: 0;
 }
 
-/* --- 6. Base: brand e tema di default (in layer così integration può sovrascrivere --memori-primary) --- */
-@layer theme {
+/* --- 6. Base: brand e tema di default (in layer così overrides possono sovrascrivere --memori-primary) --- */
+@layer memori.overrides {
     :root,
     body,
     memori-client,
@@ -183,15 +178,14 @@
     background-color: var(--memori-secondary-background);
 }
 
-/* --- 8. Dark mode: override quando c’è data-theme="dark" (in layer theme) --- */
-@layer theme {
+/* --- 8. Dark mode: surface contrast only — keep --memori-primary on the brand hook --- */
+@layer memori.overrides {
     [data-theme='dark'] memori-client,
     [data-theme='dark'] memori-client #root,
     [data-theme='dark'] #headlessui-portal-root,
     [data-theme='dark'] .memori-widget,
     memori-client[data-theme='dark'],
     .memori-widget[data-theme='dark'] {
-        --memori-primary: var(--memori-primary-hover);
         /* Align with @memori.ai/ui: contrast = ink, inverse = surface */
         --memori-surface-contrast: #fff;
         --memori-surface-contrast-inverse: #000;
@@ -211,26 +205,7 @@
     );
 } */
 
-/* --- 10. HIDDEN_CHAT / WEBSITE_ASSISTANT tooltip labels ---
- * Both layouts park their UI in position:fixed children, so .memori-widget
- * (MemoriUIProvider portal root) often collapses to a near-zero in-flow box.
- * Base UI tooltips position with position:absolute inside that root, so the
- * popup shrink-to-fits to a tiny width and overflow-wrap:anywhere (from
- * @memori.ai/ui) stacks each letter vertically. Force content-sized popups. */
-.memori-widget.memori-layout-hidden_chat .memori-tooltip__popup,
-.memori-widget.memori-layout-website_assistant .memori-tooltip__popup {
-    width: max-content;
-    max-width: min(20rem, calc(100vw - 2rem));
-    overflow-wrap: break-word;
-    text-orientation: mixed;
-    word-break: normal;
-    writing-mode: horizontal-tb;
-}
-
-.memori-widget.memori-layout-hidden_chat .memori-tooltip__surface,
-.memori-widget.memori-layout-website_assistant .memori-tooltip__surface {
-    max-width: none;
-}
+/* Tooltip width/wrap is fixed in @memori.ai/ui 1.17 — no consumer patch. */
 
 /* --- 11. Utility responsive --- */
 @media (max-width: 768px) {

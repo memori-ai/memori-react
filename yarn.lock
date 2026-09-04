@@ -3311,7 +3311,7 @@ __metadata:
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
     "@memori.ai/memori-api-client": 6.24.1
-    "@memori.ai/ui": ^1.16.1
+    "@memori.ai/ui": ^1.17.0
     "@nats-io/jetstream": ^3.4.0
     "@nats-io/nats-core": ^3.4.0
     "@react-three/drei": 8.20.2
@@ -3324,6 +3324,7 @@ __metadata:
     "@storybook/addons": 7.4.0
     "@storybook/react": 7.4.0
     "@storybook/react-webpack5": 7.4.0
+    "@tanstack/react-table": ^8.21.0
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 13.4.0
     "@types/jest": 29.2.4
@@ -3398,9 +3399,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@memori.ai/ui@npm:^1.16.1":
-  version: 1.16.1
-  resolution: "@memori.ai/ui@npm:1.16.1"
+"@memori.ai/ui@npm:^1.17.0":
+  version: 1.17.0
+  resolution: "@memori.ai/ui@npm:1.17.0"
   dependencies:
     "@base-ui/react": ^1.0.0
     "@tanstack/react-table": ^8.21.0
@@ -3420,9 +3421,13 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
+    i18next:
+      optional: true
+    react-i18next:
+      optional: true
     typescript:
       optional: true
-  checksum: 552e3d139de595f0a2a2f9150276970ad15240ae18ee2321011bd40caa93d5c4b2429333f5ddeae4c56c90d781b88e20b355ebbc4a7a503be3d2b381e51c2386
+  checksum: e024a33cac465f915b3537449447f166a8f693a667b02c2af445b3a1f607a60ff86db0523213bb838a8734af4515c9a824b4af8fade5a31ad00dfb1864919192
   languageName: node
   linkType: hard
 

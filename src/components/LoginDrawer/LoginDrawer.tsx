@@ -9,6 +9,7 @@ import {
   createAlertOptions,
   Card,
   Form,
+  Field,
 } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
@@ -467,34 +468,34 @@ const LoginDrawer = ({
             onSubmit={updateMissingData}
           >
             {needsMissingData.birthDate && (
-              <>
-                <label htmlFor="#birthDate">
+              <Field.Root className="memori--login-drawer--field">
+                <Field.Label htmlFor="birthDate">
                   {t('login.birthDate')}
-                  <Input
-                    id="birthDate"
-                    name="birthDate"
-                    type={
-                      isMobileViewport && !birthDate && !isBirthDateFocused
-                        ? 'text'
-                        : 'date'
-                    }
-                    required
-                    onChange={e => setBirthDate(e.target.value)}
-                    value={birthDate}
-                    placeholder={
-                      isMobileViewport
-                        ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY'
-                        : undefined
-                    }
-                    onFocus={() => setIsBirthDateFocused(true)}
-                    onBlur={() => setIsBirthDateFocused(false)}
-                    autoComplete="bday"
-                  />
-                </label>
-                <p>
-                  <small>{t('login.birthDateHelper')}</small>
-                </p>
-              </>
+                </Field.Label>
+                <Input
+                  id="birthDate"
+                  name="birthDate"
+                  type={
+                    isMobileViewport && !birthDate && !isBirthDateFocused
+                      ? 'text'
+                      : 'date'
+                  }
+                  required
+                  onChange={e => setBirthDate(e.target.value)}
+                  value={birthDate}
+                  placeholder={
+                    isMobileViewport
+                      ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY'
+                      : undefined
+                  }
+                  onFocus={() => setIsBirthDateFocused(true)}
+                  onBlur={() => setIsBirthDateFocused(false)}
+                  autoComplete="bday"
+                />
+                <Field.Description>
+                  {t('login.birthDateHelper')}
+                </Field.Description>
+              </Field.Root>
             )}
 
             {needsMissingData?.tnCAndPPAccepted && (
@@ -714,13 +715,15 @@ const LoginDrawer = ({
               {t('login.otpEmailDescription')}
             </p>
             <div className={cx('memori--login-drawer--otp-form', { loading })}>
-              <label
-                htmlFor="otp-email"
-                className="memori--login-drawer--otp-label"
-              >
-                <span className="memori--login-drawer--otp-label-text">
-                  {t('login.email')}
-                </span>
+              <Field.Root className="memori--login-drawer--otp-field">
+                <Field.Label
+                  htmlFor="otp-email"
+                  className="memori--login-drawer--otp-label"
+                >
+                  <span className="memori--login-drawer--otp-label-text">
+                    {t('login.email')}
+                  </span>
+                </Field.Label>
                 <div className="memori--login-drawer--otp-input-container">
                   <Input
                     id="otp-email"
@@ -751,7 +754,8 @@ const LoginDrawer = ({
                     </div>
                   )}
                 </div>
-              </label>
+                {otpError ? <Field.Error>{otpError}</Field.Error> : null}
+              </Field.Root>
             </div>
 
             <div className="memori--login-drawer--otp-actions memori--login-drawer--otp-actions-primary">

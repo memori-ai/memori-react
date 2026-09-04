@@ -78,6 +78,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       open={visible}
       width="600px"
       widthMd="600px"
+      stacking="stacked"
       title={t('ageVerification')}
       className="age-verification-modal"
       backdropClassName="age-verification-modal-backdrop"

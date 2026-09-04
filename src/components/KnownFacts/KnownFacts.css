@@ -21,7 +21,7 @@
     min-height: 0;
     flex: 1 1 auto;
     flex-direction: column;
-    border: 1px solid var(--memori-color-border, #e2e8f0);
+    border: 1px solid var(--memori-border-color, #e2e8f0);
     border-radius: 8px;
 }
 

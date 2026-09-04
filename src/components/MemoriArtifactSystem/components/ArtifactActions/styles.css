@@ -68,14 +68,14 @@
 }
 
 .memori-copy-button--success {
-    border-color: var(--memori-success-color);
-    background: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-success-color) 18%);
+    border-color: var(--memori-success);
+    background: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-success) 18%);
     color: var(--memori-text-color);
 }
 
 .memori-copy-button--error {
-    border-color: var(--memori-error-color);
-    background: color-mix(in oklch, var(--memori-main-background) 84%, var(--memori-error-color) 16%);
+    border-color: var(--memori-error);
+    background: color-mix(in oklch, var(--memori-main-background) 84%, var(--memori-error) 16%);
     color: var(--memori-text-color);
 }
 

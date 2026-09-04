@@ -655,8 +655,8 @@ const Chat: React.FC<Props> = ({
               }`
             : undefined
         }
-        className="memori-chat--usage-modal memori-modal--stacked"
-        backdropClassName="memori-modal--stacked"
+        className="memori-chat--usage-modal"
+        stacking="stacked"
       >
         {activeUsageBadge?.type === 'llm' && (
           <dl className="memori-chat--usage-details">

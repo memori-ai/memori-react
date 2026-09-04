@@ -961,11 +961,10 @@
     outline-offset: var(--memori-focus-ring-offset);
 }
 
-/* Portal renders on document.body; website-assistant layout uses z-index up to 2^31-1 for the
-   fixed panel/trigger — without this, the popover stays underneath and looks “missing”. */
+/* Portal on widget root; tooltip/popover library z-index is 1300. */
 .memori--privacy-popover-positioner,
 .memori--deep-thought-helper-tooltip-positioner {
-    z-index: 2147483647;
+    z-index: 1300;
 }
 
 .memori--privacy-popover-popup {
