@@ -41,6 +41,8 @@ export interface Props {
   language: string;
   userLang: string;
   isMultilanguageEnabled?: boolean;
+  showFunctionCache?: boolean;
+  showMessageConsumption?: boolean;
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -453,6 +455,8 @@ const ChatHistoryDrawer = ({
   language,
   userLang,
   isMultilanguageEnabled = false,
+  showFunctionCache = false,
+  showMessageConsumption = false,
 }: Props) => {
   const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
@@ -1187,6 +1191,8 @@ const ChatHistoryDrawer = ({
             onBack={handleCloseResumeDrawer}
             onClose={handleCloseResumeDrawer}
             onExportChat={handleExportSelectedChat}
+            showFunctionCache={showFunctionCache}
+            showMessageConsumption={showMessageConsumption}
           />
         </div>
       ) : (

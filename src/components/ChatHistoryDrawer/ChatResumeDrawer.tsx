@@ -39,6 +39,8 @@ export interface ChatResumeDrawerProps {
   };
   onResume: (prompt?: string) => void;
   isLoading?: boolean;
+  showFunctionCache?: boolean;
+  showMessageConsumption?: boolean;
 }
 
 const ANIMATION_DURATION_MS = 280;
@@ -71,6 +73,8 @@ const ChatResumeDrawer = ({
   onResume,
   isLoading = false,
   onExportChat,
+  showFunctionCache = false,
+  showMessageConsumption = false,
 }: ChatResumeDrawerProps) => {
   const { t } = useTranslation();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -247,6 +251,8 @@ const ChatResumeDrawer = ({
               showCopyButton={true}
               isHistoryView={true}
               isChatlogPanel={true}
+              showFunctionCache={showFunctionCache}
+              showMessageConsumption={showMessageConsumption}
             />
           </div>
         )}

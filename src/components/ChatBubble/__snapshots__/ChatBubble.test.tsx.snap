@@ -44,7 +44,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2o:"
+                id="base-ui-:r31:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -150,7 +150,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2a:"
+                id="base-ui-:r2j:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -258,7 +258,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2h:"
+                id="base-ui-:r2q:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2958,7 +2958,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r57:"
+                id="base-ui-:r5g:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3007,7 +3007,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r59:"
+                id="base-ui-:r5i:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4255,7 +4255,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r5g:"
+                id="base-ui-:r5p:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4304,7 +4304,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r5i:"
+                id="base-ui-:r5r:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5286,7 +5286,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r5p:"
+                id="base-ui-:r62:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5335,7 +5335,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r5r:"
+                id="base-ui-:r64:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5856,7 +5856,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r62:"
+                id="base-ui-:r6b:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5905,7 +5905,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r64:"
+                id="base-ui-:r6d:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6688,7 +6688,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r6b:"
+                id="base-ui-:r6k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6737,7 +6737,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r6d:"
+                id="base-ui-:r6m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6998,7 +6998,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4u:"
+                id="base-ui-:r57:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7047,7 +7047,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r50:"
+                id="base-ui-:r59:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7238,7 +7238,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1v:"
+                id="base-ui-:r28:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7287,7 +7287,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r21:"
+                id="base-ui-:r2a:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7357,58 +7357,49 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r23:"
+                id="base-ui-:r2c:"
               >
                 <span
-                  class="memori-chat--bubble-addon-tooltip-trigger"
+                  aria-label="generatedByAI"
+                  class="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+                  role="img"
                 >
-                  <button
-                    aria-label="generatedByAI"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                    tabindex="0"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <span
-                      class="memori-button__icon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="lucide lucide-bot"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 8V4H8"
-                        />
-                        <rect
-                          height="12"
-                          rx="2"
-                          width="16"
-                          x="4"
-                          y="8"
-                        />
-                        <path
-                          d="M2 14h2"
-                        />
-                        <path
-                          d="M20 14h2"
-                        />
-                        <path
-                          d="M15 13v2"
-                        />
-                        <path
-                          d="M9 13v2"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
                 </span>
               </span>
             </span>
@@ -7617,7 +7608,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r43:"
+                id="base-ui-:r4c:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7666,7 +7657,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r45:"
+                id="base-ui-:r4e:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7776,7 +7767,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4c:"
+                id="base-ui-:r4l:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7825,7 +7816,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4e:"
+                id="base-ui-:r4n:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7993,7 +7984,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4l:"
+                id="base-ui-:r4u:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8042,7 +8033,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4n:"
+                id="base-ui-:r50:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8373,7 +8364,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3q:"
+                id="base-ui-:r43:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8422,7 +8413,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3s:"
+                id="base-ui-:r45:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8519,7 +8510,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1m:"
+                id="base-ui-:r1v:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8568,58 +8559,49 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1o:"
+                id="base-ui-:r21:"
               >
                 <span
-                  class="memori-chat--bubble-addon-tooltip-trigger"
+                  aria-label="generatedByAI"
+                  class="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+                  role="img"
                 >
-                  <button
-                    aria-label="generatedByAI"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                    tabindex="0"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <span
-                      class="memori-button__icon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="lucide lucide-bot"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 8V4H8"
-                        />
-                        <rect
-                          height="12"
-                          rx="2"
-                          width="16"
-                          x="4"
-                          y="8"
-                        />
-                        <path
-                          d="M2 14h2"
-                        />
-                        <path
-                          d="M20 14h2"
-                        />
-                        <path
-                          d="M15 13v2"
-                        />
-                        <path
-                          d="M9 13v2"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
                 </span>
               </span>
             </span>
@@ -8755,55 +8737,46 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
                 id="base-ui-:r14:"
               >
                 <span
-                  class="memori-chat--bubble-addon-tooltip-trigger"
+                  aria-label="generatedByAI"
+                  class="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+                  role="img"
                 >
-                  <button
-                    aria-label="generatedByAI"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                    tabindex="0"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <span
-                      class="memori-button__icon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="lucide lucide-bot"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 8V4H8"
-                        />
-                        <rect
-                          height="12"
-                          rx="2"
-                          width="16"
-                          x="4"
-                          y="8"
-                        />
-                        <path
-                          d="M2 14h2"
-                        />
-                        <path
-                          d="M20 14h2"
-                        />
-                        <path
-                          d="M15 13v2"
-                        />
-                        <path
-                          d="M9 13v2"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
                 </span>
               </span>
             </span>
@@ -8907,7 +8880,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2v:"
+                id="base-ui-:r38:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8956,7 +8929,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r31:"
+                id="base-ui-:r3a:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9092,7 +9065,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r6k:"
+                id="base-ui-:r6t:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9141,7 +9114,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r6m:"
+                id="base-ui-:r6v:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9238,6 +9211,155 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
               </details>
               
 Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            </div>
+          </div>
+          <div
+            class="memori-chat--bubble-addon"
+          >
+            <span
+              class="memori-tooltip"
+            >
+              <span
+                class="memori-tooltip__trigger"
+                id="base-ui-:r3q:"
+              >
+                <span
+                  class="memori-chat--bubble-addon-tooltip-trigger"
+                >
+                  <button
+                    aria-label="copy"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-copy memori-share-button--copy-icon"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          height="14"
+                          rx="2"
+                          ry="2"
+                          width="14"
+                          x="8"
+                          y="8"
+                        />
+                        <path
+                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </span>
+            <span
+              class="memori-tooltip"
+            >
+              <span
+                class="memori-tooltip__trigger"
+                id="base-ui-:r3s:"
+              >
+                <span
+                  class="memori-chat--bubble-addon-tooltip-trigger"
+                >
+                  <button
+                    aria-label="copyRawCode"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-code memori-share-button--copy-icon"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline
+                          points="16 18 22 12 16 6"
+                        />
+                        <polyline
+                          points="8 6 2 12 8 18"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="memori-chat--artifact-block"
+        />
+        <div
+          class="memori-media-widget"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with reasoning unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+  >
+    <div
+      class="memori-media-widget"
+    />
+    <div
+      class="memori-chat--bubble-message-row"
+    >
+      <picture
+        class="memori-chat--bubble-avatar"
+        title="Memori"
+      >
+        <img
+          alt="Memori"
+          class="memori-chat--bubble-avatar-img"
+          src="https://aisuru.com/images/aisuru/square_logo.png"
+        />
+      </picture>
+      <div
+        class="memori-chat--bubble-shell"
+      >
+        <div
+          class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--with-addon"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+              </p>
             </div>
           </div>
           <div
@@ -9350,155 +9472,6 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
 </div>
 `;
 
-exports[`renders ChatBubble with reasoning unchanged 1`] = `
-<div>
-  <div
-    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
-  >
-    <div
-      class="memori-media-widget"
-    />
-    <div
-      class="memori-chat--bubble-message-row"
-    >
-      <picture
-        class="memori-chat--bubble-avatar"
-        title="Memori"
-      >
-        <img
-          alt="Memori"
-          class="memori-chat--bubble-avatar-img"
-          src="https://aisuru.com/images/aisuru/square_logo.png"
-        />
-      </picture>
-      <div
-        class="memori-chat--bubble-shell"
-      >
-        <div
-          class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
-        >
-          <div
-            class="memori-chat--bubble memori-chat--with-addon"
-          >
-            <div
-              class="memori-chat--bubble-content"
-              dir="auto"
-            >
-              <p>
-                Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-              </p>
-            </div>
-          </div>
-          <div
-            class="memori-chat--bubble-addon"
-          >
-            <span
-              class="memori-tooltip"
-            >
-              <span
-                class="memori-tooltip__trigger"
-                id="base-ui-:r38:"
-              >
-                <span
-                  class="memori-chat--bubble-addon-tooltip-trigger"
-                >
-                  <button
-                    aria-label="copy"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="memori-button__icon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="lucide lucide-copy memori-share-button--copy-icon"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          height="14"
-                          rx="2"
-                          ry="2"
-                          width="14"
-                          x="8"
-                          y="8"
-                        />
-                        <path
-                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </span>
-            <span
-              class="memori-tooltip"
-            >
-              <span
-                class="memori-tooltip__trigger"
-                id="base-ui-:r3a:"
-              >
-                <span
-                  class="memori-chat--bubble-addon-tooltip-trigger"
-                >
-                  <button
-                    aria-label="copyRawCode"
-                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="memori-button__icon"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="lucide lucide-code memori-share-button--copy-icon"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polyline
-                          points="16 18 22 12 16 6"
-                        />
-                        <polyline
-                          points="8 6 2 12 8 18"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`renders ChatBubble with translation and original unchanged 1`] = `
 <div>
   <div
@@ -9546,7 +9519,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1b:"
+                id="base-ui-:r1k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9595,7 +9568,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1d:"
+                id="base-ui-:r1m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9639,7 +9612,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1f:"
+                id="base-ui-:r1o:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"

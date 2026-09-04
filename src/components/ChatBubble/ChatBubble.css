@@ -419,9 +419,35 @@
     flex-shrink: 0;
 }
 
-/* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform. */
+/* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform.
+   Hide during enter/exit so the popup never flashes at 0,0 (top of the page) when
+   Floating UI hasn't applied coordinates yet, or when the trigger loses focus. */
 .memori-chat--bubble-addon-tooltip-positioner {
     z-index: 2147483647;
+}
+
+.memori-chat--bubble-addon-tooltip-positioner[data-starting-style],
+.memori-chat--bubble-addon-tooltip-positioner[data-ending-style] {
+    visibility: hidden;
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.memori-chat--bubble-ai-icon {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--memori-text-color);
+    cursor: default;
+    pointer-events: auto;
+}
+
+.memori-chat--bubble-ai-icon svg {
+    width: 1rem;
+    height: 1rem;
 }
 
 .memori-chat--bubble-addon button {
@@ -642,13 +668,13 @@
     font-weight: var(--memori-text-weight-medium);
 }
 
+.memori-chat--function-cache-modal.memori-modal__viewport .memori-modal__popup,
 .memori-chat--function-cache-modal .memori-modal--panel {
     width: 80%;
     height: 100%;
-    /* padding: 20px; */
     max-height: 80vh;
     border-radius: var(--memori-radius-box);
-    background-color: #fff;
+    background-color: var(--memori-main-background, #fff);
     overflow-y: auto;
 }
 

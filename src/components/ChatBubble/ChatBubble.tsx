@@ -39,7 +39,6 @@ import {
 } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { usePressTooltip } from '../../helpers/usePressTooltip';
 import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
 
@@ -131,7 +130,6 @@ const ChatBubble: React.FC<Props> = ({
   const { t, i18n } = useTranslation();
   const surfaceEl = useWidgetSurfaceEl();
   const lang = i18n.language || 'en';
-  const generatedByAiTooltip = usePressTooltip();
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
   const [copyStatus, setCopyStatus] = useState<{
@@ -772,18 +770,13 @@ const ChatBubble: React.FC<Props> = ({
                   placement="bottom"
                   content={t('generatedByAI')}
                   className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-                  {...generatedByAiTooltip.tooltipProps}
                 >
-                  <span className="memori-chat--bubble-addon-tooltip-trigger">
-                    <Button
-                      variant="ghost"
-                      shape="circle"
-                      type="button"
-                      className="memori-chat--bubble-action-button"
-                      aria-label={String(t('generatedByAI'))}
-                      icon={<Bot aria-hidden />}
-                      {...generatedByAiTooltip.pressTriggerProps}
-                    />
+                  <span
+                    className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+                    role="img"
+                    aria-label={String(t('generatedByAI'))}
+                  >
+                    <Bot aria-hidden />
                   </span>
                 </Tooltip>
               )}
@@ -884,7 +877,8 @@ const ChatBubble: React.FC<Props> = ({
       <Modal
         container={surfaceEl ?? undefined}
         open={openFunctionCache}
-        className="memori-chat--function-cache-modal"
+        className="memori-chat--function-cache-modal memori-modal--stacked"
+        backdropClassName="memori-modal--stacked"
         title={t('functionCache') || 'Function Cache'}
         closable={true}
         onOpenChange={setOpenFunctionCache}
