@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
@@ -353,7 +353,17 @@ ${text}
     !hasActiveSession ||
     ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(dialogState?.state || '');
   const microphoneDisabled =
-    isDisabled || textareaDisabled || !hasActiveSession || !hasChatStarted;
+    isDisabled ||
+    textareaDisabled ||
+    !hasActiveSession ||
+    !hasChatStarted ||
+    isTyping;
+
+  useEffect(() => {
+    if (isTyping && listening) {
+      stopListening();
+    }
+  }, [isTyping, listening, stopListening]);
 
   return (
     <div className="memori-chat-inputs-wrapper">
