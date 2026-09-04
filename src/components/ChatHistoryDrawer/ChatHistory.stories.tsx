@@ -188,7 +188,7 @@ const mockParams = {
 
 // Create a meta object for the component
 const meta: Meta<typeof ChatHistory> = {
-  title: 'Widget/Chat History Drawer',
+  title: 'Surfaces/Chat History Drawer',
   component: ChatHistory,
   decorators: [
     Story => (

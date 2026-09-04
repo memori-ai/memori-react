@@ -8,7 +8,7 @@ import './ShareButton.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Share Button',
+  title: 'Compositions/Share Button',
   component: ShareButton,
   argTypes: {
     url: {

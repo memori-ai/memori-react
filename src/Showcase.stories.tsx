@@ -90,7 +90,7 @@ const titleStyle: React.CSSProperties = {
 
 
 const meta: Meta = {
-  title: 'Showcase/All Components',
+  title: 'Internals/Showcase',
   parameters: {
     layout: 'fullscreen',
     controls: { expanded: false },

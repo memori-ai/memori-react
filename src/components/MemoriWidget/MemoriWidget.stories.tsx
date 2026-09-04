@@ -10,7 +10,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Default',
+  title: 'Compositions/MemoriWidget',
   component: MemoriWidget,
   argTypes: {
     AZURE_COGNITIVE_SERVICES_TTS_KEY: {

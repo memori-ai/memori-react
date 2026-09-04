@@ -8,7 +8,7 @@ import './LoginDrawer.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/LoginDrawer',
+  title: 'Surfaces/LoginDrawer',
   component: LoginDrawer,
   argTypes: {
     open: {

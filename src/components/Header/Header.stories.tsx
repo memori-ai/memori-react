@@ -11,7 +11,7 @@ import './Header.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Header',
+  title: 'Compositions/Header',
   component: Header,
   argTypes: {
     showShare: {

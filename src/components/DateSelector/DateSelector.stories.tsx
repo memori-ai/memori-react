@@ -6,7 +6,7 @@ import DateSelector, { Props } from './DateSelector';
 import './DateSelector.css';
 
 const meta: Meta = {
-  title: 'DateSelector',
+  title: 'Internals/DateSelector',
   component: DateSelector,
   parameters: {
     controls: { expanded: true },

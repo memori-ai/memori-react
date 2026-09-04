@@ -103,7 +103,7 @@ interface UploadButtonProps {
 }
 
 const meta: Meta<UploadButtonProps> = {
-  title: 'Widget/Upload Button',
+  title: 'Compositions/Upload Button',
   component: UploadButton as React.ComponentType<UploadButtonProps>,
   argTypes: {
     isMediaAccepted: {

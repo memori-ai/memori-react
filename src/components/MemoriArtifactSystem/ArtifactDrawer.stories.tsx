@@ -222,7 +222,7 @@ const ChatLogModeDemo: React.FC = () => {
 };
 
 const meta: Meta = {
-  title: 'Artifact System/ArtifactDrawer',
+  title: 'Surfaces/ArtifactDrawer',
   parameters: {
     layout: 'fullscreen',
   },

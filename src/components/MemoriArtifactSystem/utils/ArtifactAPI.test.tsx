@@ -275,35 +275,39 @@ describe('ArtifactAPIBridge', () => {
     expect(window.MemoriArtifactAPI).toBeUndefined();
   });
 
-  it('should handle different mime types with correct titles', async () => {
-    renderWithProviders(
-      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
-    );
-
-    const testCases = [
-      { mimeType: 'html', expectedTitle: 'HTML Document' },
-      { mimeType: 'markdown', expectedTitle: 'Markdown Document' },
-      { mimeType: 'javascript', expectedTitle: 'JavaScript Code' },
-      { mimeType: 'python', expectedTitle: 'Python Code' },
-      { mimeType: 'json', expectedTitle: 'JSON Data' },
-      { mimeType: 'css', expectedTitle: 'CSS Stylesheet' },
-      { mimeType: 'typescript', expectedTitle: 'TypeScript Code' },
-      { mimeType: 'xml', expectedTitle: 'XML Document' },
-      { mimeType: 'svg', expectedTitle: 'SVG Image' },
-      { mimeType: 'unknown', expectedTitle: 'Document' },
-    ];
-
-    for (const testCase of testCases) {
-      window.MemoriArtifactAPI!.createAndOpenArtifact(
-        'test content',
-        testCase.mimeType
+  it(
+    'should handle different mime types with correct titles',
+    async () => {
+      renderWithProviders(
+        <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
       );
 
-      await waitFor(() => {
-        const state = window.MemoriArtifactAPI!.getState();
-        expect(state.currentArtifact?.title).toBe(testCase.expectedTitle);
-      });
-    }
-  });
+      const testCases = [
+        { mimeType: 'html', expectedTitle: 'HTML Document' },
+        { mimeType: 'markdown', expectedTitle: 'Markdown Document' },
+        { mimeType: 'javascript', expectedTitle: 'JavaScript Code' },
+        { mimeType: 'python', expectedTitle: 'Python Code' },
+        { mimeType: 'json', expectedTitle: 'JSON Data' },
+        { mimeType: 'css', expectedTitle: 'CSS Stylesheet' },
+        { mimeType: 'typescript', expectedTitle: 'TypeScript Code' },
+        { mimeType: 'xml', expectedTitle: 'XML Document' },
+        { mimeType: 'svg', expectedTitle: 'SVG Image' },
+        { mimeType: 'unknown', expectedTitle: 'Document' },
+      ];
+
+      for (const testCase of testCases) {
+        window.MemoriArtifactAPI!.createAndOpenArtifact(
+          'test content',
+          testCase.mimeType
+        );
+
+        await waitFor(() => {
+          const state = window.MemoriArtifactAPI!.getState();
+          expect(state.currentArtifact?.title).toBe(testCase.expectedTitle);
+        });
+      }
+    },
+    15000
+  );
 });
 

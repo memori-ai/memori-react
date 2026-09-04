@@ -8,7 +8,7 @@ import './ChatInputs.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat inputs (footer)',
+  title: 'Compositions/Chat inputs',
   component: ChatInputs,
   argTypes: {
     disabled: {

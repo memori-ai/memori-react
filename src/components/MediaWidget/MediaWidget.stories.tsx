@@ -10,7 +10,7 @@ import {
 import './MediaWidget.css';
 
 const meta: Meta = {
-  title: 'Media Widget/Wrapper',
+  title: 'Internals/Media Wrapper',
   component: MediaWidget,
   argTypes: {
     hints: {

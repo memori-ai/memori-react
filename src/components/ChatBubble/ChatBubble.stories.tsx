@@ -11,7 +11,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat bubble',
+  title: 'Internals/Chat bubble',
   component: ChatBubble,
   argTypes: {
     fromUser: {

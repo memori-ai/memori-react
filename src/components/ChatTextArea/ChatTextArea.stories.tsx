@@ -5,7 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import './ChatTextArea.css';
 
 const meta: Meta = {
-  title: 'Widget/Chat textarea',
+  title: 'Internals/Chat textarea',
   component: ChatTextArea,
   argTypes: {
     disabled: {

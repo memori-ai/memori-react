@@ -1,14 +1,13 @@
 import React from 'react';
 import '../src/styles.css';
-
 import '@memori.ai/ui/dist/memori-ai-ui.css';
+import { withI18n } from './decorators';
 
 const THEME_BG = {
   light: '#FFFFFF',
   dark: '#191919',
 };
 
-// Decorator: apply theme from the "Theme" toolbar (theme + canvas background)
 /** @type { import('@storybook/react').Decorator } */
 const withTheme = (Story, context) => {
   const themeRaw = context.globals?.theme ?? 'light';
@@ -27,6 +26,11 @@ const withTheme = (Story, context) => {
     body.style.backgroundColor = THEME_BG.dark;
   } else {
     body.style.backgroundColor = THEME_BG.light;
+  }
+
+  // Keep Storybook backgrounds addon in sync with the theme toolbar
+  if (context.globals) {
+    context.globals.backgrounds = { value: isDark ? 'dark' : 'light' };
   }
 
   return React.createElement(Story);
@@ -116,17 +120,23 @@ const preview = {
     },
   },
   parameters: {
-    // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
     actions: { argTypesRegex: '^on.*' },
     options: {
       storySort: {
-        order: ['General', 'Widget', ['Default', '*'], 'ui', '*', 'WIP'],
+        order: [
+          'Layouts',
+          'Compositions',
+          'Surfaces',
+          'Internals',
+          'Live',
+          '*',
+        ],
       },
     },
     backgrounds: {
       options: {
-        dark: { name: 'Dark', value: '#333' },
-        light: { name: 'Light', value: '#F7F9F2' },
+        dark: { name: 'Dark', value: THEME_BG.dark },
+        light: { name: 'Light', value: THEME_BG.light },
       },
       default: 'light',
     },
@@ -137,10 +147,11 @@ const preview = {
       },
     },
     a11y: {
+      // Widget stories are mostly live/demo; keep soft until compositions are cleaned.
       test: 'todo',
     },
   },
-  decorators: [withTheme],
+  decorators: [withTheme, withI18n],
 };
 
 export default preview;

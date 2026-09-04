@@ -7,7 +7,7 @@ import './VenueWidget.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/VenueWidget',
+  title: 'Compositions/VenueWidget',
   component: VenueWidget,
   parameters: {
     controls: { expanded: true },

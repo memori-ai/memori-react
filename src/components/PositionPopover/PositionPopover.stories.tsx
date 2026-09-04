@@ -6,7 +6,7 @@ import { memori, venue } from '../../mocks/data';
 import PositionPopover from './PositionPopover';
 
 const meta: Meta = {
-  title: 'Widget/PositionPopover',
+  title: 'Surfaces/PositionPopover',
   component: PositionPopover,
 };
 

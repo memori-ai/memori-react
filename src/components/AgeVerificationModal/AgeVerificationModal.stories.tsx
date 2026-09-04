@@ -7,7 +7,7 @@ import './AgeVerificationModal.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'AgeVerificationModal',
+  title: 'Surfaces/AgeVerificationModal',
   component: AgeVerificationModal,
   parameters: {
     controls: { expanded: true },

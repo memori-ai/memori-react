@@ -6,7 +6,7 @@ import ChangeMode, { Props } from './ChangeMode';
 import './ChangeMode.css';
 
 const meta: Meta = {
-  title: 'Widget/Change Mode',
+  title: 'Internals/Change Mode',
   component: ChangeMode,
   argTypes: {
     instruct: {

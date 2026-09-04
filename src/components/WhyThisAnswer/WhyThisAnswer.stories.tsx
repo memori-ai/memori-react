@@ -10,7 +10,7 @@ import './WhyThisAnswer.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Why This Answer',
+  title: 'Surfaces/Why This Answer',
   component: WhyThisAnswer,
   argTypes: {
     visible: {

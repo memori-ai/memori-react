@@ -20,7 +20,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat',
+  title: 'Compositions/Chat',
   component: Chat,
   argTypes: {},
   parameters: {

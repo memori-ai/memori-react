@@ -8,7 +8,7 @@ import './FeedbackButtons.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Feedback Buttons',
+  title: 'Internals/Feedback Buttons',
   component: FeedbackButtons,
   argTypes: {},
   parameters: {

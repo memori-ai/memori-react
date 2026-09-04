@@ -9,7 +9,7 @@ import '../../i18n';
 import './StartPanel.css';
 
 const meta: Meta = {
-  title: 'Widget/Start panel',
+  title: 'Compositions/Start panel',
   component: StartPanel,
   argTypes: {
     showShare: {

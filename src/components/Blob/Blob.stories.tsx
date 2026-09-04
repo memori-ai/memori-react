@@ -5,7 +5,7 @@ import Blob, { Props } from './Blob';
 import './Blob.css';
 
 const meta: Meta = {
-  title: 'Blob',
+  title: 'Internals/Blob',
   component: Blob,
   argTypes: {
     avatar: {
