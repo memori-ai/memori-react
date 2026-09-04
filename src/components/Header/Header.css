@@ -513,6 +513,11 @@
     margin-left: -10px;
 }
 
+/* Nested inside the session Popover (z-index 1300); default Dropdown is 1001. */
+.memori-dropdown__positioner:has(.memori-dropdown--sustainability-menu) {
+    z-index: 1400;
+}
+
 .memori-dropdown--sustainability-title {
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(15, 23, 42, 0.08);

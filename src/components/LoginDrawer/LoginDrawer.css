@@ -632,7 +632,12 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-digit-input.error {
     border-color: #ef4444;
-    background: #fff;
+    background: color-mix(in srgb, #ef4444 10%, var(--memori-main-background, #fff));
+}
+
+[data-theme='dark'] .memori--login-drawer--otp-digit-input.error,
+.memori-widget[data-theme='dark'] .memori--login-drawer--otp-digit-input.error {
+    background: color-mix(in srgb, #ef4444 18%, var(--memori-main-background, #1f2937));
 }
 
 .memori--login-drawer--otp-email-input {
@@ -866,11 +871,18 @@ p.memori--login-drawer--inline-error {
     border-radius: var(--memori-radius-box);
     margin: var(--memori-spacing-lg) 0;
     animation: errorSlide 0.3s ease-out;
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: var(--memori-text-color);
+    background: #fee2e2;
+    color: #991b1b;
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
+}
+
+[data-theme='dark'] .memori--login-drawer--otp-error,
+.memori-widget[data-theme='dark'] .memori--login-drawer--otp-error {
+    border-color: #f87171;
+    background: color-mix(in srgb, #ef4444 18%, var(--memori-main-background, #1f2937));
+    color: #fecaca;
 }
 
 @keyframes errorSlide {

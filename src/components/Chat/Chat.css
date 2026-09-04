@@ -367,6 +367,7 @@
     font-weight: 600;
 }
 
+.memori-chat--usage-modal.memori-modal__viewport .memori-modal__popup,
 .memori-chat--usage-modal .memori-modal--panel {
     min-width: 20rem;
     max-width: 30rem;

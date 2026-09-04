@@ -107,15 +107,23 @@ const LoginDrawer = ({
   // OTP timer effect
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (otpTimer && otpTimer > 0) {
+    if (otpTimer != null && otpTimer > 0) {
       interval = setInterval(() => {
-        setOtpTimer(prev => (prev && prev > 0 ? prev - 1 : 0));
+        setOtpTimer(prev => (prev != null && prev > 0 ? prev - 1 : 0));
       }, 1000);
     }
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [otpTimer]);
+
+  useEffect(() => {
+    if (otpTimer !== 0) return;
+    setOtpTimer(null);
+    if (!otpSuccess) {
+      setOtpError(t('login.otpExpired'));
+    }
+  }, [otpTimer, otpSuccess, t]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -638,7 +646,7 @@ const LoginDrawer = ({
               </div>
             )}
 
-            {otpTimer && otpTimer > 0 && !otpSuccess && (
+            {otpTimer != null && otpTimer > 0 && !otpSuccess && (
               <div className="memori--login-drawer--otp-timer">
                 {/* <span className="memori--login-drawer--otp-timer-icon">⏱️</span> */}
                 <span>{t('login.otpTimer', { seconds: otpTimer })}</span>
@@ -666,7 +674,7 @@ const LoginDrawer = ({
                   disabled={
                     loading ||
                     isResending ||
-                    (otpTimer && otpTimer > 0) ||
+                    (otpTimer != null && otpTimer > 0) ||
                     !otpEmail
                   }
                   loading={isResending}

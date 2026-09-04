@@ -426,9 +426,7 @@ const Header: React.FC<Props> = ({
   const isAuthenticated = !!loginToken && !!user?.userID;
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
   const showKnownFacts =
-    !!memori.enableDeepThought &&
-    !!loginToken &&
-    !!user?.pAndCUAccepted;
+    !!memori.enableDeepThought && !!loginToken && !!user?.pAndCUAccepted;
   const showSessionInfoMenu =
     isConversationStarted &&
     showFullpageDividers &&
@@ -441,8 +439,7 @@ const Header: React.FC<Props> = ({
     return raw
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 140);
+      .trim();
   }, [memori?.description]);
 
   const brandAvatarSrc = useMemo(() => {
@@ -497,7 +494,9 @@ const Header: React.FC<Props> = ({
   const showLoginDivider =
     showFullpageChromeDividers &&
     !!showLogin &&
-    (isAuthenticated ? loggedInSecondaryHasActions : fullpageSecondaryHasContent);
+    (isAuthenticated
+      ? loggedInSecondaryHasActions
+      : fullpageSecondaryHasContent);
 
   const chatHistoryNode = showChatHistory && !!loginToken && (
     <Tooltip
@@ -829,20 +828,20 @@ const Header: React.FC<Props> = ({
         </Tooltip>
       )}
       {showKnownFacts && isConversationStarted && (
-          <Tooltip
-            title={t('knownFacts.title') || 'Known facts'}
-            placement="bottom"
-          >
-            <span style={{ display: 'inline-flex' }}>
-              <IconButton
-                variant={buttonVariant}
-                icon={<Brain />}
-                aria-label={t('knownFacts.title') || 'Known facts'}
-                onClick={() => setShowKnownFactsDrawer(true)}
-              />
-            </span>
-          </Tooltip>
-        )}
+        <Tooltip
+          title={t('knownFacts.title') || 'Known facts'}
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <IconButton
+              variant={buttonVariant}
+              icon={<Brain />}
+              aria-label={t('knownFacts.title') || 'Known facts'}
+              onClick={() => setShowKnownFactsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
+      )}
       {memori.enableBoardOfExperts && (
         <Tooltip
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -866,7 +865,13 @@ const Header: React.FC<Props> = ({
           <span style={{ display: 'inline-flex' }}>
             <IconButton
               variant={buttonVariant}
-              icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
+              icon={
+                speakerMuted ? (
+                  <VolumeX size={20} strokeWidth={2.35} aria-hidden />
+                ) : (
+                  <Volume2 size={20} strokeWidth={2} aria-hidden />
+                )
+              }
               title={soundLabel}
               aria-label={soundLabel}
               onClick={() => setSpeakerMuted(!speakerMuted)}
@@ -974,7 +979,8 @@ const Header: React.FC<Props> = ({
                       {t('knownFacts.title') || 'Known facts'}
                     </span>
                     <span className="memori-dropdown--auth-subtitle">
-                      {t('widget.knownFactsHint') || 'What I remember about you'}
+                      {t('widget.knownFactsHint') ||
+                        'What I remember about you'}
                     </span>
                   </span>
                   {/* <ChevronRight size={16} aria-hidden /> */}
@@ -982,60 +988,60 @@ const Header: React.FC<Props> = ({
               )}
               {showMessageConsumption &&
                 (hasChatConsumptionData ? (
-                <ChatConsumptionDropdown
-                  history={history}
-                  triggerVariant={buttonVariant}
-                  menuAlign="start"
-                  trigger={(triggerProps, { open }) => (
-                    <button
-                      {...triggerProps}
-                      type="button"
-                      className={cx(
-                        'memori-dropdown--auth-row',
-                        'memori-dropdown--auth-row--navigable',
-                        open && 'memori-dropdown--auth-row--active',
-                        triggerProps.className
-                      )}
-                    >
-                      <span className="memori-dropdown--auth-icon-wrap">
-                        <GasStation />
-                      </span>
-                      <span className="memori-dropdown--auth-copy">
-                        <span className="memori-dropdown--auth-title">
-                          {t('widget.aiConsumption') || 'AI usage'}
+                  <ChatConsumptionDropdown
+                    history={history}
+                    triggerVariant={buttonVariant}
+                    menuAlign="start"
+                    trigger={(triggerProps, { open }) => (
+                      <button
+                        {...triggerProps}
+                        type="button"
+                        className={cx(
+                          'memori-dropdown--auth-row',
+                          'memori-dropdown--auth-row--navigable',
+                          open && 'memori-dropdown--auth-row--active',
+                          triggerProps.className
+                        )}
+                      >
+                        <span className="memori-dropdown--auth-icon-wrap">
+                          <GasStation />
                         </span>
-                        <span className="memori-dropdown--auth-subtitle">
-                          {sessionInfoConsumptionSubtitle}
+                        <span className="memori-dropdown--auth-copy">
+                          <span className="memori-dropdown--auth-title">
+                            {t('widget.aiConsumption') || 'AI usage'}
+                          </span>
+                          <span className="memori-dropdown--auth-subtitle">
+                            {sessionInfoConsumptionSubtitle}
+                          </span>
                         </span>
+                        {open ? (
+                          <ChevronDown size={16} aria-hidden />
+                        ) : (
+                          <ChevronUp size={16} aria-hidden />
+                        )}
+                      </button>
+                    )}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable memori-dropdown--auth-row--disabled"
+                  >
+                    <span className="memori-dropdown--auth-icon-wrap">
+                      <GasStation />
+                    </span>
+                    <span className="memori-dropdown--auth-copy">
+                      <span className="memori-dropdown--auth-title">
+                        {t('widget.aiConsumption') || 'AI usage'}
                       </span>
-                      {open ? (
-                        <ChevronDown size={16} aria-hidden />
-                      ) : (
-                        <ChevronUp size={16} aria-hidden />
-                      )}
-                    </button>
-                  )}
-                />
-              ) : (
-                <button
-                  type="button"
-                  disabled
-                  className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable memori-dropdown--auth-row--disabled"
-                >
-                  <span className="memori-dropdown--auth-icon-wrap">
-                    <GasStation />
-                  </span>
-                  <span className="memori-dropdown--auth-copy">
-                    <span className="memori-dropdown--auth-title">
-                      {t('widget.aiConsumption') || 'AI usage'}
+                      <span className="memori-dropdown--auth-subtitle">
+                        {sessionInfoConsumptionSubtitle}
+                      </span>
                     </span>
-                    <span className="memori-dropdown--auth-subtitle">
-                      {sessionInfoConsumptionSubtitle}
-                    </span>
-                  </span>
-                  <ChevronUp size={16} aria-hidden />
-                </button>
-              ))}
+                    <ChevronUp size={16} aria-hidden />
+                  </button>
+                ))}
             </div>
           }
         >
@@ -1118,7 +1124,13 @@ const Header: React.FC<Props> = ({
               className="memori-header--auth-icon-button"
               title={soundLabel}
               aria-label={soundLabel}
-              icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
+              icon={
+                speakerMuted ? (
+                  <VolumeX size={20} strokeWidth={2.35} aria-hidden />
+                ) : (
+                  <Volume2 size={20} strokeWidth={2} aria-hidden />
+                )
+              }
               onClick={() => setSpeakerMuted(!speakerMuted)}
             />
           </span>
@@ -1170,9 +1182,7 @@ const Header: React.FC<Props> = ({
     </div>
   );
 
-  const handleTotemFullscreen = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleTotemFullscreen = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (fullScreenHandler) {
       fullScreenHandler(e);
       return;
@@ -1194,13 +1204,15 @@ const Header: React.FC<Props> = ({
   const totemResetLabel = t('reload') || 'Restart conversation';
   const totemSettingsLabel = t('widget.settings') || 'Settings';
   const totemKnownFactsLabel = t('knownFacts.title') || 'Known facts';
+  const totemChatHistoryLabel =
+    t('write_and_speak.chatHistory') || 'Chat history';
   const totemShowSettings =
     showSettings && hasSettingsContent(layout, additionalSettings);
   const totemShowKnownFacts = showKnownFacts && isConversationStarted;
 
   // TOTEM rail: two-tier grouping inside one bordered container (section 5).
-  // Tier 1 (visible): session utilities — audio, fullscreen, share.
-  // Tier 2 (profile menu): account items — reset, settings, user data, logout.
+  // Tier 1 (visible): session utilities — audio, fullscreen, share, reload, settings, history.
+  // Tier 2 (profile menu): account items — user data, logout.
   const totemRail = (
     <div
       className={cx('memori-totem-rail', className)}
@@ -1217,7 +1229,13 @@ const Header: React.FC<Props> = ({
               <IconButton
                 variant={buttonVariant}
                 className="memori-totem-rail--button"
-                icon={speakerMuted ? <VolumeX size={20} strokeWidth={2.35} aria-hidden /> : <Volume2 size={20} strokeWidth={2} aria-hidden />}
+                icon={
+                  speakerMuted ? (
+                    <VolumeX size={20} strokeWidth={2.35} aria-hidden />
+                  ) : (
+                    <Volume2 size={20} strokeWidth={2} aria-hidden />
+                  )
+                }
                 title={soundLabel}
                 aria-label={soundLabel}
                 aria-pressed={speakerMuted}
@@ -1254,6 +1272,50 @@ const Header: React.FC<Props> = ({
             triggerVariant={buttonVariant}
             className="memori-totem-rail--button"
           />
+        )}
+        {showReload && (
+          <Tooltip title={totemResetLabel} placement="left">
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={buttonVariant}
+                className="memori-totem-rail--button"
+                icon={<RefreshCw />}
+                title={totemResetLabel}
+                aria-label={totemResetLabel}
+                onClick={() => {
+                  window.location.reload();
+                }}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {totemShowSettings && (
+          <Tooltip title={totemSettingsLabel} placement="left">
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={buttonVariant}
+                className="memori-totem-rail--button"
+                icon={<Settings />}
+                title={totemSettingsLabel}
+                aria-label={totemSettingsLabel}
+                onClick={() => setShowSettingsDrawer(true)}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {showChatHistory && !!loginToken && (
+          <Tooltip title={totemChatHistoryLabel} placement="left">
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={buttonVariant}
+                className="memori-totem-rail--button"
+                icon={<MessageCircle />}
+                title={totemChatHistoryLabel}
+                aria-label={totemChatHistoryLabel}
+                onClick={() => setShowChatHistoryDrawer(true)}
+              />
+            </span>
+          </Tooltip>
         )}
       </div>
 
@@ -1309,38 +1371,6 @@ const Header: React.FC<Props> = ({
                     </span>
                   )}
                 </div>
-              )}
-              {showReload && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="memori-totem-rail--menu-item"
-                  icon={<RefreshCw size={18} aria-hidden />}
-                  title={totemResetLabel}
-                  aria-label={totemResetLabel}
-                  onClick={() => {
-                    setUserPopoverOpen(false);
-                    window.location.reload();
-                  }}
-                >
-                  {totemResetLabel}
-                </Button>
-              )}
-              {totemShowSettings && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="memori-totem-rail--menu-item"
-                  icon={<Settings size={18} aria-hidden />}
-                  title={totemSettingsLabel}
-                  aria-label={totemSettingsLabel}
-                  onClick={() => {
-                    setUserPopoverOpen(false);
-                    setShowSettingsDrawer(true);
-                  }}
-                >
-                  {totemSettingsLabel}
-                </Button>
               )}
               {totemShowKnownFacts && (
                 <Button
@@ -1506,12 +1536,11 @@ const Header: React.FC<Props> = ({
                 </span>
               ) : null}
               {brandRole ? (
-                <span
-                  className="memori-fullpage-header-brand-role"
-                  title={brandRole}
-                >
-                  {brandRole}
-                </span>
+                <Tooltip title={brandRole} placement="bottom">
+                  <span className="memori-fullpage-header-brand-role">
+                    {brandRole}
+                  </span>
+                </Tooltip>
               ) : null}
             </div>
           )}
