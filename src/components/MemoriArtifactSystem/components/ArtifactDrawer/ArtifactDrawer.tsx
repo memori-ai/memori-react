@@ -270,9 +270,8 @@ const ArtifactDrawer: React.FC<{
                 aria-label={t('artifact.close') || 'Close'}
                 title={t('artifact.close') || 'Close'}
                 className="memori-artifact-drawer--close"
-              >
-                <X className="memori-icon-close" aria-hidden />
-              </IconButton>
+                icon={<X className="memori-icon-close" aria-hidden />}
+              />
             )}
           </>
         )}
@@ -400,9 +399,8 @@ const ArtifactDrawer: React.FC<{
                 aria-label={t('artifact.close') || 'Close'}
                 title={t('artifact.close') || 'Close'}
                 className="memori-artifact-drawer--close"
-              >
-                <X className="memori-icon-close" aria-hidden />
-              </IconButton>
+                icon={<X className="memori-icon-close" aria-hidden />}
+              />
             </div>
           </>
         )}

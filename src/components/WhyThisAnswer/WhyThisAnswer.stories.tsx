@@ -26,26 +26,28 @@ const meta: Meta = {
 
 export default meta;
 
+const defaultMessage = {
+  questionAnswered: 'Test message',
+  text: 'This is a test content',
+  date: '2021-01-01',
+  placeName: 'Test Place',
+  placeLatitude: 0,
+  placeLongitude: 0,
+  placeUncertaintyKm: 0,
+  contextVars: {
+    KEY: 'value',
+  },
+};
+
 const Template: Story<Props> = args => (
   <I18nWrapper>
     <AlertProvider defaultDuration={5000}>
       <WhyThisAnswer
-        {...args}
         client={memoriApiClient()}
         sessionID={sessionID}
-        message={{
-          questionAnswered: 'Test message',
-          text: 'This is a test content',
-          date: '2021-01-01',
-          placeName: 'Test Place',
-          placeLatitude: 0,
-          placeLongitude: 0,
-          placeUncertaintyKm: 0,
-          contextVars: {
-            KEY: 'value',
-          },
-        }}
         closeDrawer={() => {}}
+        {...args}
+        message={args.message ?? defaultMessage}
       />
     </AlertProvider>
   </I18nWrapper>
@@ -67,6 +69,12 @@ Loading.args = {
 export const WithDocumentTagsInQuestion = Template.bind({});
 WithDocumentTagsInQuestion.args = {
   visible: true,
+  message: {
+    questionAnswered:
+      '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
+    text: 'Answer text',
+    date: '2021-01-01',
+  },
   initialMatches: [
     {
       confidence: 0.9,
@@ -80,36 +88,6 @@ WithDocumentTagsInQuestion.args = {
     } as SearchMatches,
   ],
 };
-WithDocumentTagsInQuestion.decorators = [
-  (Story: any) => (
-    <I18nWrapper>
-      <WhyThisAnswer
-        visible
-        client={memoriApiClient()}
-        sessionID={sessionID}
-        message={{
-          questionAnswered:
-            '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
-          text: 'Answer text',
-          date: '2021-01-01',
-        }}
-        closeDrawer={() => {}}
-        initialMatches={[
-          {
-            confidence: 0.9,
-            confidenceLevel: 'HIGH',
-            memory: {
-              memoryID: 'tag-1',
-              memoryType: 'Question',
-              title: 'Question with tags',
-              answers: [{ text: 'Clean answer' }],
-            },
-          } as SearchMatches,
-        ]}
-      />
-    </I18nWrapper>
-  ),
-];
 WithDocumentTagsInQuestion.parameters = {
   docs: {
     description: {

@@ -16,7 +16,11 @@ import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
 
 import './Chat.css';
-import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import {
+  ArtifactProvider,
+  useArtifact,
+} from '../MemoriArtifactSystem/context/ArtifactContext';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
@@ -25,6 +29,7 @@ const meta: Meta = {
   argTypes: {},
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
 };
 
@@ -35,6 +40,53 @@ const dialogState = {
   hints: [],
 };
 
+/**
+ * Layouts normally mount ArtifactDrawer as a side column. Chat stories render
+ * Chat on its own, so non-chatlog artifacts would open into a missing drawer.
+ */
+const ChatStoryLayout: React.FC<{
+  isChatlogPanel?: boolean;
+  children: React.ReactNode;
+}> = ({ isChatlogPanel, children }) => {
+  const { state } = useArtifact();
+  const showSideDrawer =
+    !isChatlogPanel &&
+    state.isDrawerOpen &&
+    !state.isChatLogPanelPresentation;
+
+  return (
+    <div
+      className="memori-chat-story-layout"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        minHeight: 0,
+        flex: 1,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          minWidth: 0,
+          minHeight: 0,
+          height: '100%',
+          flexDirection: 'column',
+        }}
+      >
+        {children}
+      </div>
+      {/* Overlay drawer: layouts normally mount a side column, which Chat
+          stories do not have. Avoid a height:100% sibling or the chat
+          column collapses to 0 in Storybook's column flex canvas. */}
+      {showSideDrawer && <ArtifactDrawer />}
+    </div>
+  );
+};
+
 const Template: Story<Props> = args => {
   const [userMessage, setUserMessage] = useState(args.userMessage);
 
@@ -42,11 +94,13 @@ const Template: Story<Props> = args => {
     <I18nWrapper>
       <AlertProvider defaultDuration={5000}>
         <ArtifactProvider>
-          <Chat
-            {...args}
-            userMessage={userMessage}
-            onChangeUserMessage={setUserMessage}
-          />
+          <ChatStoryLayout isChatlogPanel={args.isChatlogPanel}>
+            <Chat
+              {...args}
+              userMessage={userMessage}
+              onChangeUserMessage={setUserMessage}
+            />
+          </ChatStoryLayout>
         </ArtifactProvider>
       </AlertProvider>
     </I18nWrapper>

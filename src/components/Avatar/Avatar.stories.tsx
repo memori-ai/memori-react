@@ -99,23 +99,6 @@ AvatarInBlob.args = {
   },
 };
 
-export const CustomGLBModel = Template.bind({});
-CustomGLBModel.args = {
-  memori,
-  tenant,
-  instruct: false,
-  avatar3dVisible: true,
-  setAvatar3dVisible: () => {},
-  hasUserActivatedSpeak: false,
-  isPlayingAudio: false,
-  integrationConfig: {
-    ...integrationConfig,
-    avatar: 'customglb',
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/7383f05a-0788-49b0-b9b9-3bfc402c7ddf.glb#1669136149862',
-  },
-};
-
 export const ReadyPlayerMeAvatar = Template.bind({});
 ReadyPlayerMeAvatar.args = {
   memori,

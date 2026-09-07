@@ -16,7 +16,6 @@ import {
   dialogState,
   knownFact,
   expertReference,
-  venue,
 } from './mocks/data';
 
 // Components
@@ -36,14 +35,11 @@ import Blob from './components/Blob/Blob';
 import MicrophoneButton from './components/MicrophoneButton/MicrophoneButton';
 import Typing from './components/Typing/Typing';
 import ChangeMode from './components/ChangeMode/ChangeMode';
-import DateSelector from './components/DateSelector/DateSelector';
 import AgeVerificationModal from './components/AgeVerificationModal/AgeVerificationModal';
-import VenueWidget from './components/VenueWidget/VenueWidget';
 import SendOnEnterMenu from './components/SendOnEnterMenu/SendOnEnterMenu';
 import ExpertsDrawer from './components/ExpertsDrawer/ExpertsDrawer';
 import SettingsDrawer from './components/SettingsDrawer/SettingsDrawer';
 import LoginDrawer from './components/LoginDrawer/LoginDrawer';
-import FilePreview from './components/FilePreview/FilePreview';
 import MediaWidget from './components/MediaWidget/MediaWidget';
 import MediaItemWidget from './components/MediaWidget/MediaItemWidget';
 
@@ -63,13 +59,10 @@ import './components/WhyThisAnswer/WhyThisAnswer.css';
 import './components/Blob/Blob.css';
 import './components/MicrophoneButton/MicrophoneButton.css';
 import './components/ChangeMode/ChangeMode.css';
-import './components/DateSelector/DateSelector.css';
-import './components/VenueWidget/VenueWidget.css';
 import './components/SendOnEnterMenu/SendOnEnterMenu.css';
 import './components/ExpertsDrawer/ExpertsDrawer.css';
 import './components/SettingsDrawer/SettingsDrawer.css';
 import './components/LoginDrawer/LoginDrawer.css';
-import './components/FilePreview/FilePreview.css';
 import './components/MediaWidget/MediaWidget.css';
 import './components/MediaWidget/MediaItemWidget.css';
 
@@ -110,14 +103,10 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
   const [sendOnEnter, setSendOnEnter] = useState<'keypress' | 'click'>(
     'keypress'
   );
-  const [venueState, setVenueState] = useState(venue);
   const [listening, setListening] = useState(false);
   const [userMessage, setUserMessage] = useState(
     'Sample message with all features enabled'
   );
-  const [previewFiles, setPreviewFiles] = useState<
-    { name: string; id: string; content: string }[]
-  >([]);
   const [showAgeVerificationModal, setShowAgeVerificationModal] = useState(false);
 
   const integrationConfig = integration?.customData
@@ -468,9 +457,9 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
               />
             </section>
 
-            {/* DateSelector */}
+            {/* AgeVerificationModal */}
             <section style={sectionStyle}>
-              <h2 style={titleStyle}>DateSelector</h2>
+              <h2 style={titleStyle}>AgeVerificationModal</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div>
                   <Button

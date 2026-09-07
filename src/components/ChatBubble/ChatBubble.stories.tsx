@@ -53,7 +53,18 @@ const Template: Story<Props> = args => {
       <ArtifactProvider>
         <I18nWrapper>
           <AlertProvider defaultDuration={5000}>
-            <ChatBubble {...args} />
+            {/* Addons (copy, feedback, …) are hover-only in product UI.
+                Keep them visible here so Storybook can document them. */}
+            <div className="memori-storybook-chat-bubble">
+              <style>{`
+                .memori-storybook-chat-bubble .memori-chat--bubble-addon {
+                  opacity: 1;
+                  pointer-events: auto;
+                  transform: none;
+                }
+              `}</style>
+              <ChatBubble {...args} />
+            </div>
           </AlertProvider>
         </I18nWrapper>
       </ArtifactProvider>

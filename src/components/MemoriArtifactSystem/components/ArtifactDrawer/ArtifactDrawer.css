@@ -640,8 +640,31 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 }
 
 .memori-artifact-drawer--close-icon {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Keep close control the same size as other artifact header icons,
+   including Chat stories that do not wrap in .memori-widget. */
+.memori-artifact-drawer--close.memori-icon-button.memori-button {
+    display: inline-flex;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    min-height: 2.5rem;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.memori-artifact-drawer--close .memori-icon-close,
+.memori-artifact-drawer--close svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
 }
 
 /* Content */
@@ -714,8 +737,8 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 }
 
 .memori-widget .memori-artifact-drawer--close .memori-icon-close {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 16px;
+    height: 16px;
     fill: none;
     stroke: currentColor;
 }

@@ -192,44 +192,6 @@ Disabled.args = {
   showMicrophone: true,
 };
 
-export const ContinuousSpeech = Template.bind({});
-ContinuousSpeech.args = {
-  dialogState,
-  userMessage: 'Suspendisse sit amet volutpat velit.',
-  sendMessage: (msg: string) => console.log(msg),
-  onTextareaBlur: () => {},
-  onTextareaFocus: () => {},
-  onTextareaPressEnter: () => {},
-  setAttachmentsMenuOpen: () => {},
-  setSendOnEnter: () => {},
-  listening: false,
-  isPlayingAudio: false,
-  stopAudio: () => {},
-  startListening: () => {},
-  stopListening: () => {},
-  showMicrophone: true,
-  microphoneMode: 'CONTINUOUS',
-};
-
-export const ContinuousSpeechListening = Template.bind({});
-ContinuousSpeechListening.args = {
-  dialogState,
-  userMessage: 'Suspendisse sit amet volutpat velit.',
-  sendMessage: (msg: string) => console.log(msg),
-  onTextareaBlur: () => {},
-  onTextareaFocus: () => {},
-  onTextareaPressEnter: () => {},
-  setAttachmentsMenuOpen: () => {},
-  setSendOnEnter: () => {},
-  listening: true,
-  isPlayingAudio: false,
-  stopAudio: () => {},
-  startListening: () => {},
-  stopListening: () => {},
-  showMicrophone: true,
-  microphoneMode: 'CONTINUOUS',
-};
-
 export const WithUploadButton = Template.bind({});
 WithUploadButton.args = {
   showUpload: true,
