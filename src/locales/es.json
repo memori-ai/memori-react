@@ -116,7 +116,9 @@
     "deleteConfirmTitle": "Eliminar hecho conocido",
     "deleteConfirmMessage": "¿Está seguro de que desea eliminar este hecho conocido?",
     "deleteSelectedConfirmTitle": "Eliminar hechos conocidos seleccionados",
-    "deleteSelectedConfirmMessage": "¿Está seguro de que desea eliminar los hechos conocidos seleccionados?"
+    "deleteSelectedConfirmMessage": "¿Está seguro de que desea eliminar los hechos conocidos seleccionados?",
+    "selectedRows_one": "{{count}} fila seleccionada",
+    "selectedRows_other": "{{count}} filas seleccionadas"
   },
   "auth": {
     "title": "Autenticación",

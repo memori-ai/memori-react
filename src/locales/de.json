@@ -116,7 +116,9 @@
     "deleteConfirmTitle": "Bekannte Tatsache löschen",
     "deleteConfirmMessage": "Sind Sie sicher, dass Sie diese bekannte Tatsache löschen möchten?",
     "deleteSelectedConfirmTitle": "Ausgewählte bekannte Fakten löschen",
-    "deleteSelectedConfirmMessage": "Sind Sie sicher, dass Sie die ausgewählten bekannten Fakten löschen möchten?"
+    "deleteSelectedConfirmMessage": "Sind Sie sicher, dass Sie die ausgewählten bekannten Fakten löschen möchten?",
+    "selectedRows_one": "{{count}} Zeile ausgewählt",
+    "selectedRows_other": "{{count}} Zeilen ausgewählt"
   },
   "auth": {
     "title": "Authentifizierung",

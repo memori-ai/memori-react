@@ -119,7 +119,9 @@
     "deleteConfirmTitle": "Elimina il fatto noto",
     "deleteConfirmMessage": "Confermi di voler eliminare questo fatto noto?",
     "deleteSelectedConfirmTitle": "Elimina i fatti noti selezionati",
-    "deleteSelectedConfirmMessage": "Confermi di voler eliminare i fatti noti selezionati?"
+    "deleteSelectedConfirmMessage": "Confermi di voler eliminare i fatti noti selezionati?",
+    "selectedRows_one": "{{count}} riga selezionata",
+    "selectedRows_other": "{{count}} righe selezionate"
   },
   "auth": {
     "title": "Autenticazione",

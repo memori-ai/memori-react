@@ -121,10 +121,6 @@ const KnownFacts = ({
     () =>
       t('knownFacts.selectedRows', {
         count: bulkDeleteIds.length,
-        defaultValue:
-          bulkDeleteIds.length === 1
-            ? '{{count}} row selected'
-            : '{{count}} rows selected',
       }),
     [bulkDeleteIds.length, t]
   );

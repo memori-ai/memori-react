@@ -115,7 +115,9 @@
     "deleteConfirmTitle": "Supprimer un fait connu",
     "deleteConfirmMessage": "Êtes-vous sûr de vouloir supprimer ce fait connu ?",
     "deleteSelectedConfirmTitle": "Supprimer les faits connus sélectionnés",
-    "deleteSelectedConfirmMessage": "Etes-vous sûr de vouloir supprimer les faits connus sélectionnés ?"
+    "deleteSelectedConfirmMessage": "Etes-vous sûr de vouloir supprimer les faits connus sélectionnés ?",
+    "selectedRows_one": "{{count}} ligne sélectionnée",
+    "selectedRows_other": "{{count}} lignes sélectionnées"
   },
   "auth": {
     "title": "Authentification",

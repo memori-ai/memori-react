@@ -118,7 +118,9 @@
     "deleteConfirmTitle": "Delete known fact",
     "deleteConfirmMessage": "Are you sure you want to delete this known fact?",
     "deleteSelectedConfirmTitle": "Delete selected known facts",
-    "deleteSelectedConfirmMessage": "Are you sure you want to delete the selected known facts?"
+    "deleteSelectedConfirmMessage": "Are you sure you want to delete the selected known facts?",
+    "selectedRows_one": "{{count}} row selected",
+    "selectedRows_other": "{{count}} rows selected"
   },
   "auth": {
     "title": "Authentication",
