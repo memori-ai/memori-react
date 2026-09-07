@@ -1,5 +1,23 @@
 
 
+## [9.0.0-alpha.22](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.21...v9.0.0-alpha.22) (2026-09-07)
+
+
+### Features
+
+* align widget with [@memori](https://github.com/memori).ai/ui 1.17 overlay and token contract ([84b623b](https://github.com/memori-ai/memori-react/commit/84b623b81096efec4b56be5c6d454ec1829aae69))
+* enhance Auth component with error handling and styling improvements ([a7449bf](https://github.com/memori-ai/memori-react/commit/a7449bfab3a83d4dfb8f2332a42095bc5bbf1182))
+
+
+### Maintenance
+
+* reorganize Storybook around layouts and live demos ([a1973d0](https://github.com/memori-ai/memori-react/commit/a1973d0bc31be13beccdd351edbaa29881b09c66))
+
+
+### Changes
+
+* remove unused story components and clean up Storybook files ([a0a983d](https://github.com/memori-ai/memori-react/commit/a0a983d000c897cdbeb036a151041fbf0ce16d4b))
+
 ## [9.0.0-alpha.21](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.20...v9.0.0-alpha.21) (2026-09-02)
 
 
