@@ -583,7 +583,10 @@ const ChatBubble: React.FC<Props> = ({
                       dir="auto"
                       className="memori-chat--bubble-content"
                       dangerouslySetInnerHTML={{
-                        __html: sanitizeMsg(cleanText),
+                        __html: sanitizeMsg(cleanText).replaceAll(
+                          '\n',
+                          '<br/>'
+                        ),
                       }}
                     />
                   </Expandable>

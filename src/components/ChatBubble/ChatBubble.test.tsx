@@ -62,6 +62,22 @@ it('renders ChatBubble with user msg unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders ChatBubble with user msg with newlines unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: true,
+        text: 'Proin libero ante, dignissim sit amet.\nTurpis a, pretium condimentum dolor.\n\n[Vedi altro](https://memori.ai)',
+        initial: false,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('shows copy button for user messages', () => {
   const { container } = render(
     <ChatBubble
