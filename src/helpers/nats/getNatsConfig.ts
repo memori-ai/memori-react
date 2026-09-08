@@ -7,7 +7,10 @@
 export interface NatsConfig {
   /** WebSocket URL of the NATS server (e.g. wss://nats.hz.slnode.net:8080). */
   url: string;
-  /** Bearer token used to authenticate the WebSocket connection. */
+  /**
+   * Per-session NATS user JWT. Presented with `jwtAuthenticator` (bearer:
+   * no nkey seed on the client).
+   */
   token: string;
   /**
    * JetStream stream that stores session events. When set, the client consumes
@@ -104,7 +107,7 @@ export function parseNatsConfig(raw: Record<string, unknown>): NatsConfig {
  * @param signal Optional AbortSignal to cancel the request.
  */
 export async function getNatsConfig(
-  baseUrl: string,
+  _baseUrl: string,
   sessionId: string,
   signal?: AbortSignal
 ): Promise<NatsConfig> {
@@ -113,7 +116,9 @@ export async function getNatsConfig(
   }
 
   const response = await fetch(
-    `${baseUrl}/api/nats?sessionId=${encodeURIComponent(sessionId)}`,
+    `${'http://localhost:3000'}/api/nats?sessionId=${encodeURIComponent(
+      sessionId
+    )}`,
     { signal }
   );
 

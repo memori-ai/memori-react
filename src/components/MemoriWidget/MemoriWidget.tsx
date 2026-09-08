@@ -159,6 +159,22 @@ function readCorrelationID(response: {
   return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
+/** Stable engine-owned fields used to tell whether a pending turn completed. */
+export function dialogStateFingerprint(state: DialogState | undefined): string {
+  if (!state) return '';
+  return JSON.stringify({
+    state: state.state,
+    previousState: state.previousState,
+    emission: state.emission,
+    emitter: state.emitter,
+    lastMatchedMemoryID: state.lastMatchedMemoryID,
+    currentDate: state.currentDate,
+    currentMemoryID: state.currentMemoryID,
+    contextVars: state.contextVars,
+    emittedMedia: state.emittedMedia,
+  });
+}
+
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
   waitForPrevious?: boolean;
@@ -724,6 +740,7 @@ const MemoriWidget = ({
 
   type PendingEnterText = EnterTextRetryParams & {
     msg?: string;
+    stateBeforeRequest?: string;
     waitForResponse?: {
       resolve: (event: NatsDialogResponseEvent) => void;
       reject: (error: Error) => void;
@@ -1073,6 +1090,7 @@ const MemoriWidget = ({
       if (response.resultCode === 0 && correlationID) {
         registerPendingEnterText(correlationID, {
           msg,
+          stateBeforeRequest: dialogStateFingerprint(currentDialogState),
           text,
           media,
           translate,
@@ -2363,6 +2381,7 @@ const MemoriWidget = ({
         }, timeoutMs);
 
         registerPendingEnterText(correlationID, {
+          stateBeforeRequest: dialogStateFingerprint(currentDialogState),
           waitForResponse: {
             resolve: event => {
               clearTimeout(timeoutId);
@@ -2376,8 +2395,52 @@ const MemoriWidget = ({
           },
         });
       }),
-    [registerPendingEnterText, clearEnterTextPending]
+    [registerPendingEnterText, clearEnterTextPending, currentDialogState]
   );
+
+  const catchUpPendingEnterText = useCallback(async () => {
+    if (!sessionId || pendingEnterTextRef.current.size === 0) return;
+
+    // Async turns are registered in send order. The current session state can
+    // only represent the latest completed turn, so reconcile the latest one.
+    const latest = Array.from(pendingEnterTextRef.current.entries()).pop();
+    if (!latest) return;
+    const [correlationID, pending] = latest;
+
+    try {
+      const { currentState, resultCode, resultMessage, requestID } =
+        await getSession(sessionId);
+
+      if (resultCode !== 0 || !currentState) {
+        deliverEnterTextNatsResponse(correlationID, {
+          eventType: 'dialog_text_entered_response',
+          correlationID,
+          requestID,
+          resultCode,
+          resultMessage,
+          currentState,
+        });
+        return;
+      }
+
+      if (dialogStateFingerprint(currentState) === pending.stateBeforeRequest) {
+        console.info('[NATS] catch-up: pending turn has not completed yet');
+        return;
+      }
+
+      console.info('[NATS] catch-up: applying current engine session state');
+      deliverEnterTextNatsResponse(correlationID, {
+        eventType: 'dialog_text_entered_response',
+        correlationID,
+        requestID,
+        resultCode,
+        resultMessage,
+        currentState,
+      });
+    } catch (error) {
+      logWidgetError('NATS catch-up failed', error);
+    }
+  }, [sessionId, deliverEnterTextNatsResponse]);
 
   // NATS subscription: receives progress updates and the async enter-text response.
   useNats({
@@ -2403,6 +2466,7 @@ const MemoriWidget = ({
       [deliverEnterTextNatsResponse]
     ),
     onError: deliverEnterTextNatsError,
+    onCatchUp: catchUpPendingEnterText,
   });
 
   const focusChatInput = () => {
