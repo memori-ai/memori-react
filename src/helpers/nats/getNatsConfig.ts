@@ -107,7 +107,7 @@ export function parseNatsConfig(raw: Record<string, unknown>): NatsConfig {
  * @param signal Optional AbortSignal to cancel the request.
  */
 export async function getNatsConfig(
-  _baseUrl: string,
+  baseUrl: string,
   sessionId: string,
   signal?: AbortSignal
 ): Promise<NatsConfig> {
@@ -116,9 +116,7 @@ export async function getNatsConfig(
   }
 
   const response = await fetch(
-    `${'http://localhost:3000'}/api/nats?sessionId=${encodeURIComponent(
-      sessionId
-    )}`,
+    `${baseUrl}/api/nats?sessionId=${encodeURIComponent(sessionId)}`,
     { signal }
   );
 
