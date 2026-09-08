@@ -1,5 +1,12 @@
 
 
+## [8.45.1](https://github.com/memori-ai/memori-react/compare/v8.45.0...v8.45.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **nats:** fix baseUrl in get nats config ([8833c0f](https://github.com/memori-ai/memori-react/commit/8833c0fc0cddafb0a74520f6f7ea2174b6058fc1))
+
 ## [8.45.0](https://github.com/memori-ai/memori-react/compare/v8.44.0...v8.45.0) (2026-09-08)
 
 
