@@ -1,0 +1,1 @@
+{"version":3,"file":"I18nWrapper.js","sourceRoot":"","sources":["../src/I18nWrapper.tsx"],"names":[],"mappings":";;;;AACA,iDAAgD;AAChD,0DAA0B;AAM1B,MAAM,WAAW,GAAG,CAAC,EAAE,QAAQ,EAAS,EAAE,EAAE;IAC1C,OAAO,uBAAC,+BAAe,IAAC,IAAI,EAAE,cAAI,YAAG,QAAQ,GAAmB,CAAC;AACnE,CAAC,CAAC;AAEF,kBAAe,WAAW,CAAC"}

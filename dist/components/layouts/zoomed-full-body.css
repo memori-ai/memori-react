@@ -1,0 +1,18 @@
+
+
+.memori--powered-by-custom {
+    position: absolute;
+    z-index: 1000;
+    bottom: 35px;
+    display: inline-flex;
+    min-width: 150px;
+    flex-wrap: wrap;
+}
+
+.memori--grid-column--zoomed-full-body {
+    max-height: calc(100% - 130px) !important;
+}
+
+.memori.memori-widget.memori-layout-zoomed_full_body .memori--grid {
+    height: calc(100% - 25px);
+}

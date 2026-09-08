@@ -1,0 +1,11 @@
+model-viewer {
+    max-width: 100%;
+    height: 400px;
+    --poster-color: transparent;
+}
+
+@media (max-width: 800px) {
+    model-viewer {
+        height: 300px;
+    }
+}

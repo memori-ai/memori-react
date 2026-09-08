@@ -1,0 +1,1 @@
+{"version":3,"file":"widgetSurfaceContext.js","sourceRoot":"","sources":["../../src/context/widgetSurfaceContext.tsx"],"names":[],"mappings":";;;AAWA,gDAEC;AAbD,iCAAyD;AAOzD,MAAM,oBAAoB,GAAG,IAAA,qBAAa,EAAqB,IAAI,CAAC,CAAC;AAExD,QAAA,qBAAqB,GAAG,oBAAoB,CAAC,QAAQ,CAAC;AAEnE,SAAgB,kBAAkB;IAChC,OAAO,IAAA,kBAAU,EAAC,oBAAoB,CAAC,CAAC;AAC1C,CAAC"}

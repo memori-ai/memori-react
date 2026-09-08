@@ -1,0 +1,150 @@
+/**
+ * TabSwitch CSS Styles
+ * Modern animated switch component with smooth transitions
+ */
+
+.memori-tab-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-tab-switch__container {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    background: #f8f9fa;
+    box-shadow: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori-tab-switch__track {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.memori-tab-switch__indicator {
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    width: calc((100% - 4px) / var(--tab-count, 2));
+    border-radius: 6px;
+    animation: tab-switch-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    transform: translateX(calc(var(--active-index, 0) * 100%));
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori-tab-switch__indicator::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
+    content: '';
+    pointer-events: none;
+}
+
+.memori-tab-switch__button {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-width: 70px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.memori-tab-switch__button:hover {
+    color: #374151;
+    transform: none;
+}
+
+.memori-tab-switch__button--active {
+    /* color: #1´ç11827; */
+    font-weight: 600;
+}
+
+.memori-tab-switch__button:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    outline: none;
+}
+
+.memori-tab-switch__button:active {
+    transform: none;
+}
+
+.memori-tab-switch__icon {
+    width: 18px;
+    height: 18px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori-tab-switch__button--active .memori-tab-switch__icon {
+    filter: none;
+}
+
+.memori-tab-switch__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects for the entire switch */
+.memori-tab-switch__container:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.memori-tab-switch__container:hover .memori-tab-switch__indicator {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Animation for tab switching */
+@keyframes tab-switch-slide {
+    from {
+        transform: translateX(calc((var(--active-index, 0) - 1) * 100%));
+    }
+    to {
+        transform: translateX(calc(var(--active-index, 0) * 100%));
+    }
+}
+
+/* Responsive design */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .memori-tab-switch__container {
+        border-width: 2px;
+    }
+
+    .memori-tab-switch__indicator {
+        box-shadow: 0 0 0 2px white, 0 2px 8px var(--memori-primary);
+    }
+
+    .memori-tab-switch__button:focus {
+        box-shadow: 0 0 0 4px var(--memori-primary);
+    }
+}

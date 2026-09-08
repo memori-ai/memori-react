@@ -1,0 +1,36 @@
+.memori--completion-provider-status--icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .memori--completion-provider-status--loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .memori--completion-provider-status--icon-error {
+    color: #f5222d;
+  }
+  
+  .memori--completion-provider-status--icon-warning {
+    color: #faad14;
+  }
+  
+  .memori--completion-provider-status--icon-info {
+    color: #1890ff;
+  }
+  
+  .memori--completion-provider-status--tooltip {
+    max-width: 300px;
+  }
+  
+  .memori--completion-provider-status--tooltip p {
+    margin-bottom: 8px;
+  }
+  
+  .memori--completion-provider-status--tooltip p:last-child {
+    margin-bottom: 0;
+  }

@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const jsx_runtime_1 = require("react/jsx-runtime");
+const Spin_1 = tslib_1.__importDefault(require("../ui/Spin"));
+const TotemLayout = ({ Header, headerProps, Avatar, avatarProps, Chat, chatProps, StartPanel, startPanelProps, integrationStyle, integrationBackground, sessionId, hasUserActivatedSpeak, loading = false, poweredBy, }) => ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [integrationStyle, integrationBackground, (0, jsx_runtime_1.jsxs)(Spin_1.default, { spinning: loading, className: "memori-totem-layout", children: [poweredBy, (0, jsx_runtime_1.jsx)("div", { className: "memori-totem-layout--header", children: Header && headerProps && (0, jsx_runtime_1.jsx)(Header, { ...headerProps }) }), (0, jsx_runtime_1.jsx)("div", { className: "memori-totem-layout--avatar", children: Avatar && avatarProps && (0, jsx_runtime_1.jsx)(Avatar, { chatProps: chatProps, ...avatarProps, isTotem: true }) }), (0, jsx_runtime_1.jsx)("div", { id: "extension" }), (0, jsx_runtime_1.jsx)("div", { className: "memori-totem-layout--controls", children: sessionId && hasUserActivatedSpeak && Chat && chatProps ? ((0, jsx_runtime_1.jsx)(Chat, { ...chatProps })) : startPanelProps ? ((0, jsx_runtime_1.jsx)(StartPanel, { ...startPanelProps })) : null })] })] }));
+exports.default = TotemLayout;
+//# sourceMappingURL=Totem.js.map

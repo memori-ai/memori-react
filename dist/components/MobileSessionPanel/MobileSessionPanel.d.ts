@@ -1,0 +1,65 @@
+import React from 'react';
+import { Message, User, Venue } from '@memori.ai/memori-api-client/dist/types';
+type SessionAction = {
+    key: string;
+    icon: React.ReactNode;
+    title: string;
+    subtitle?: string;
+    onClick?: () => void;
+    trailing?: React.ReactNode;
+    view?: 'location' | 'knownFacts' | 'share';
+    disabled?: boolean;
+};
+export interface MobileSessionPanelProps {
+    open: boolean;
+    onClose: () => void;
+    presentation?: 'sheet' | 'popover';
+    title: string;
+    loginToken?: string;
+    userName: string;
+    userInitial?: string;
+    user?: User;
+    apiClient?: {
+        backend?: {
+            uploadAsset?: (name: string, payload: string, token: string) => Promise<any>;
+            pwlUpdateUser?: (token: string, userID: string, user: Partial<User>) => Promise<any>;
+        };
+    };
+    userEmail?: string;
+    birthDate?: string;
+    avatarURL?: string;
+    actions: SessionAction[];
+    logoutLabel?: string;
+    onLogout?: () => void;
+    onKnownFactsOpen?: () => void;
+    onLocationEnable?: () => void;
+    onLocationDisable?: () => void;
+    knownFactsPageTitle?: string;
+    sharePageTitle?: string;
+    locationPageTitle?: string;
+    backLabel?: string;
+    locationStatusLabel?: string;
+    locationPlace?: string;
+    locationUnknownLabel?: string;
+    locationEnableLabel?: string;
+    locationDisableLabel?: string;
+    venue?: Venue;
+    setVenue?: (venue?: Venue) => void;
+    knownFactsDescription?: string;
+    knownFactsCtaLabel?: string;
+    knownFactsCountLabel?: string;
+    shareContent?: React.ReactNode;
+    knownFactsDisabled?: boolean;
+    knownFactsHint?: string;
+    showSessionInfo?: boolean;
+    showKnownFacts?: boolean;
+    history?: Message[];
+    aiUsageTitle?: string;
+    showMessageConsumption?: boolean;
+    isLoggedIn?: boolean;
+    showLogin?: boolean;
+    loginLabel?: string;
+    onLogin?: () => void;
+}
+declare const MobileSessionPanel: React.FC<MobileSessionPanelProps>;
+export default MobileSessionPanel;

@@ -1,0 +1,142 @@
+.memori-snippet {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+}
+
+.memori-snippet--content {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.memori-snippet pre {
+    min-width: 0;
+    padding: 1rem;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+    font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+pre[class*="language-"] {
+    margin: 0 !important;
+}
+/* Preview mode: full content with max height and scroll */
+.memori-snippet--preview .memori-snippet--content {
+    display: flex;
+    overflow: hidden;
+    max-height: 200px;
+    flex-direction: column;
+}
+
+.memori-snippet--preview .memori-snippet--content pre {
+    min-height: 0;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+.memori-snippet code {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #374151;
+    font-family: inherit;
+}
+
+.memori-snippet--copy-wrapper {
+    position: absolute;
+    z-index: 10;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    border-radius: 6px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.05);
+    background-color: #f8fafc;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    gap: 0.5rem;
+}
+
+button.memori-snippet--copy-button {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+button.memori-snippet--copy-button:hover,
+button.memori-snippet--copy-button:focus {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+button.memori-snippet--copy-button:active {
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(0.95);
+}
+
+button.memori-snippet--copy-button svg {
+    width: 14px;
+    height: 14px;
+    color: #6b7280;
+}
+
+.memori-snippet--copied-text {
+    animation: fadeInOut 0.3s ease;
+    color: #10b981;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.memori-snippet--caption {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 0;
+    background: rgba(0, 0, 0, 0.02);
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+}
+

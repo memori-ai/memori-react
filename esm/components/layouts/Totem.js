@@ -1,0 +1,5 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import Spin from '../ui/Spin';
+const TotemLayout = ({ Header, headerProps, Avatar, avatarProps, Chat, chatProps, StartPanel, startPanelProps, integrationStyle, integrationBackground, sessionId, hasUserActivatedSpeak, loading = false, poweredBy, }) => (_jsxs(_Fragment, { children: [integrationStyle, integrationBackground, _jsxs(Spin, { spinning: loading, className: "memori-totem-layout", children: [poweredBy, _jsx("div", { className: "memori-totem-layout--header", children: Header && headerProps && _jsx(Header, { ...headerProps }) }), _jsx("div", { className: "memori-totem-layout--avatar", children: Avatar && avatarProps && _jsx(Avatar, { chatProps: chatProps, ...avatarProps, isTotem: true }) }), _jsx("div", { id: "extension" }), _jsx("div", { className: "memori-totem-layout--controls", children: sessionId && hasUserActivatedSpeak && Chat && chatProps ? (_jsx(Chat, { ...chatProps })) : startPanelProps ? (_jsx(StartPanel, { ...startPanelProps })) : null })] })] }));
+export default TotemLayout;
+//# sourceMappingURL=Totem.js.map

@@ -1,0 +1,41 @@
+import React from 'react';
+import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
+import memoriApiClient from '@memori.ai/memori-api-client';
+export interface Props {
+    dialogState?: DialogState;
+    instruct?: boolean;
+    sendOnEnter?: 'keypress' | 'click';
+    setSendOnEnter: (sendOnEnter: 'keypress' | 'click') => void;
+    attachmentsMenuOpen?: 'link' | 'media';
+    setAttachmentsMenuOpen: (attachmentsMenuOpen: 'link' | 'media') => void;
+    userMessage?: string;
+    onChangeUserMessage: (userMessage: string) => void;
+    sendMessage: (msg: string, media?: (Medium & {
+        type: string;
+    })[]) => void;
+    onTextareaFocus: () => void;
+    onTextareaBlur: () => void;
+    listening?: boolean;
+    isPlayingAudio?: boolean;
+    stopAudio: () => void;
+    startListening: () => void;
+    stopListening: () => void;
+    showMicrophone?: boolean;
+    microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
+    authToken?: string;
+    showUpload?: boolean;
+    isTyping?: boolean;
+    sessionID?: string;
+    memoriID?: string;
+    baseUrl?: string;
+    client?: ReturnType<typeof memoriApiClient>;
+    onTextareaExpanded?: (expanded: boolean) => void;
+    maxTotalMessagePayload?: number;
+    maxTextareaCharacters?: number;
+    maxDocumentsPerMessage?: number;
+    maxDocumentContentLength?: number;
+    pasteAsCardLineThreshold?: number;
+    pasteAsCardCharThreshold?: number;
+}
+declare const ChatInputs: React.FC<Props>;
+export default ChatInputs;

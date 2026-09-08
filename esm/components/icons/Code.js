@@ -1,0 +1,4 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+const Code = ({ className, title }) => (_jsxs("svg", { ...(!title ? { 'aria-hidden': 'true' } : {}), xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", focusable: "false", role: "img", className: className, "aria-label": title, children: [_jsx("path", { d: "M10 9.5 8 12l2 2.5" }), _jsx("path", { d: "m14 9.5 2 2.5-2 2.5" }), _jsx("rect", { width: "18", height: "18", x: "3", y: "3", rx: "2" })] }));
+export default Code;
+//# sourceMappingURL=Code.js.map

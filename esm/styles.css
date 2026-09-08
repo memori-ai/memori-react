@@ -1,0 +1,126 @@
+@import url('./components/ui/Button.css');
+@import url('./components/ui/Card.css');
+@import url('./components/ui/Checkbox.css');
+@import url('./components/ui/ConfirmDialog.css');
+@import url('./components/ui/Drawer.css');
+@import url('./components/ui/Modal.css');
+@import url('./components/ui/Spin.css');
+@import url('./components/ui/Tooltip.css');
+@import url('./components/ui/Select.css');
+@import url('./components/ui/Table.css');
+@import url('./components/ui/Details.css');
+@import url('./components/ui/Expandable.css');
+@import url('./components/ui/Slider.css');
+@import url('./components/ui/Alert.css');
+@import url('./components/ui/Dropdown.css');
+
+@import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
+@import url('./components/PoweredBy/PoweredBy.css');
+@import url('./components/Auth/Auth.css');
+@import url('./components/Avatar/Avatar.css');
+@import url('./components/Avatar/AvatarView/AvatarComponent/positionControls/positionControls.css');
+@import url('./components/Blob/Blob.css');
+@import url('./components/BlockedMemoriBadge/BlockedMemoriBadge.css');
+@import url('./components/ChangeMode/ChangeMode.css');
+@import url('./components/Chat/Chat.css');
+@import url('./components/ChatBubble/ChatBubble.css');
+@import url('./components/ChatInputs/ChatInputs.css');
+@import url('./components/MicrophoneButton/MicrophoneButton.css');
+@import url('./components/ChatTextArea/ChatTextArea.css');
+@import url('./components/CustomGLBModelViewer/ModelViewer.css');
+@import url('./components/SettingsDrawer/SettingsDrawer.css');
+@import url('./components/ChatHistoryDrawer/ChatHistory.css');
+@import url('./components/ExpertsDrawer/ExpertsDrawer.css');
+@import url('./components/ExportHistoryButton/ExportHistoryButton.css');
+@import url('./components/FeedbackButtons/FeedbackButtons.css');
+@import url('./components/Header/Header.css');
+@import url('./components/icons/loading.css');
+@import url('./components/MediaWidget/MediaItemWidget.css');
+@import url('./components/MediaWidget/MediaWidget.css');
+@import url('./components/SendOnEnterMenu/SendOnEnterMenu.css');
+@import url('./components/ShareButton/ShareButton.css');
+@import url('./components/Snippet/Snippet.css');
+@import url('./components/StartPanel/StartPanel.css');
+@import url('./components/DateSelector/DateSelector.css');
+@import url('./components/AgeVerificationModal/AgeVerificationModal.css');
+@import url('./components/KnownFacts/KnownFacts.css');
+@import url('./components/LoginDrawer/LoginDrawer.css');
+@import url('./components/VenueWidget/VenueWidget.css');
+@import url('./components/WhyThisAnswer/WhyThisAnswer.css');
+@import url('./components/MemoriWidget/MemoriWidget.css');
+@import url('./components/UploadButton/UploadButton.css');
+@import url('./components/FilePreview/FilePreview.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactActions/ArtifactActions.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactPreview/ArtifactPreview.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactActions/styles.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/components/TabSwitch.css');
+@import url('./components/ContentPreviewModal/ContentPreviewModal.css');
+
+
+@import url('./components/layouts/hidden-chat.css');
+@import url('./components/layouts/totem.css');
+@import url('./components/layouts/website-assistant.css');
+@import url('./components/layouts/chat.css');
+@import url('./components/layouts/zoomed-full-body.css');
+
+@import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
+@import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
+
+.sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border-width: 0;
+    margin: -1px;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+memori-client,
+memori-client #root,
+#headlessui-portal-root,
+body.sb-show-main #root,
+#storybook-root,
+#storybook-docs,
+.memori-widget {
+    --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
+    --memori-primary-rgb: 130, 70, 175;
+    --memori-primary: rgb(var(--memori-primary-rgb));
+    --memori-primary-text: #fff;
+    --memori-inner-content-pad: 1rem;
+    --memori-inner-bg: transparent;
+    --memori-chat-bubble-bg: #fff;
+    --memori-chat-user-bubble-bg: var(--memori-primary);
+    --memori-text-color: #000;
+    --memori-border-radius: 8px;
+    --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    --memori-button-bg: #fff;
+    --memori-button-text: #000;
+    --memori-button-padding: 0.5rem 1.5rem;
+    --memori-button-border-color: #d9d9d9;
+    --memori-button-radius: var(--memori-border-radius);
+    --memori-button-box-shadow: var(--memori-box-shadow);
+    --memori-button-disabled-bg: #ccc;
+    --memori-button-disabled-color: #000;
+    --memori-blur-background: 0px;
+    --memori-drawer--width: 80%;
+    --memori-drawer--width--md: 80%;
+    --memori-drawer--width--lg: 60%;
+    --memori-modal--width: 80%;
+    --memori-modal--width--md: 80%;
+    --memori-error-color: #ff4d4f;
+    --memori-warning-color: #faad14;
+
+    font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
