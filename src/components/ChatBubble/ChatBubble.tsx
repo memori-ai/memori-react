@@ -496,19 +496,17 @@ const ChatBubble: React.FC<Props> = ({
       ) || []),
     ...parseDocumentAttachmentsFromMessage(
       message.translatedText || message.text
-    ).map(
-      (attachment, attachmentIndex): Medium & { type?: string } => ({
-        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-          .toString(36)
-          .substr(2, 9)}`,
-        url: attachment.url,
-        mimeType: attachment.type,
-        title: attachment.filename,
-        content: attachment.content,
-        properties: { isDocumentAttachment: true },
-        type: 'document',
-      })
-    ),
+    ).map((attachment, attachmentIndex): Medium & { type?: string } => ({
+      mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+        .toString(36)
+        .substr(2, 9)}`,
+      url: attachment.url,
+      mimeType: attachment.type,
+      title: attachment.filename,
+      content: attachment.content,
+      properties: { isDocumentAttachment: true },
+      type: 'document',
+    })),
   ];
 
   const codeMediaWidgetMedia =
@@ -560,302 +558,319 @@ const ChatBubble: React.FC<Props> = ({
               'memori-chat--bubble-shell--from-user': !!message.fromUser,
             })}
           >
-          <div
-            className={cx('memori-chat--bubble-anchor', {
-              'memori-chat--bubble-anchor--from-user': !!message.fromUser,
-              'memori-chat--bubble-anchor--has-addon': shouldShowBubbleAddon,
-            })}
-          >
-          <div
-            className={cx('memori-chat--bubble', {
-              'memori-chat--user-bubble': !!message.fromUser,
-              'memori-chat--with-addon':
-                shouldShowCopyButtons || (showFeedback && simulateUserPrompt),
-              'memori-chat--ai-generated': message.generatedByAI,
-              'memori-chat--with-feedback': showFeedback,
-            })}
-          >
-            {message.fromUser ? (
-              <Expandable
-                className="memori-chat--bubble-content"
-                mode="characters"
-              >
-                <div
-                  dir="auto"
-                  className="memori-chat--bubble-content"
-                  dangerouslySetInnerHTML={{ __html: sanitizeMsg(cleanText) }}
-                />
-              </Expandable>
-            ) : (
-              <div
-                dir="auto"
-                className="memori-chat--bubble-content"
-                dangerouslySetInnerHTML={{ __html: renderedText }}
-              />
-            )}
-
-            {!!usageHtml && (
-              <div
-                className="memori-chat--usage-inside-bubble"
-                dangerouslySetInnerHTML={{ __html: usageHtml }}
-              />
-            )}
-          </div>
-
-          {shouldShowBubbleAddon && (
-            <div className="memori-chat--bubble-addon">
-              {shouldShowTimestampInAddon && (
-                <div className="memori-chat--bubble-timestamp-container">
-                  <p className="memori-chat--bubble-timestamp">
-                    {formattedTimestamp}
-                  </p>
-                  {hasAddonAfterTimestamp && (
-                    <span className="memori-chat--bubble-timestamp-separator">
-                      •
-                    </span>
-                  )}
-                </div>
-              )}
-              {shouldShowCopyButtons && (
-                <Tooltip
-                  {...bubbleAddonTooltipProps}
-                  placement="bottom"
-                  content={
-                    copyStatus.plain === 'success'
-                      ? copiedLabel
-                      : copyStatus.plain === 'error'
-                      ? t('copyFailed')
-                      : t('copy') || 'Copy'
-                  }
-                >
-                  <span className="memori-chat--bubble-addon-tooltip-trigger">
-                    <Button
-                      variant="ghost"
-                      shape="circle"
-                      type="button"
-                      aria-label={
-                        copyStatus.plain === 'success'
-                          ? String(copiedLabel)
-                          : copyStatus.plain === 'error'
-                          ? String(t('copyFailed'))
-                          : String(t('copy') || 'Copy')
-                      }
-                      className={cx(
-                        'memori-chat--bubble-action-button',
-                        'memori-share-button--copy-item',
-                        {
-                          'memori-share-button--copy-item--success':
-                            copyStatus.plain === 'success',
-                          'memori-share-button--copy-item--error':
-                            copyStatus.plain === 'error',
-                        }
-                      )}
-                      icon={
-                        copyStatus.plain === 'success' ? (
-                          <Check
-                            className="memori-share-button--copy-icon"
-                            aria-hidden
-                            strokeWidth={2.5}
-                          />
-                        ) : (
-                          <Copy
-                            className="memori-share-button--copy-icon"
-                            aria-hidden
-                          />
-                        )
-                      }
-                      onClick={() => handleCopyClick('plain', copyText)}
-                    />
-                  </span>
-                </Tooltip>
-              )}
-
-              {shouldShowCopyRawButton && (
-                <Tooltip
-                  {...bubbleAddonTooltipProps}
-                  placement="bottom"
-                  content={
-                    copyStatus.raw === 'success'
-                      ? copiedLabel
-                      : copyStatus.raw === 'error'
-                      ? t('copyFailed')
-                      : t('copyRawCode') || 'Copy raw code'
-                  }
-                >
-                  <span className="memori-chat--bubble-addon-tooltip-trigger">
-                    <Button
-                      variant="ghost"
-                      shape="circle"
-                      type="button"
-                      aria-label={
-                        copyStatus.raw === 'success'
-                          ? String(copiedLabel)
-                          : copyStatus.raw === 'error'
-                          ? String(t('copyFailed'))
-                          : String(t('copyRawCode') || 'Copy raw code')
-                      }
-                      className={cx(
-                        'memori-chat--bubble-action-button',
-                        'memori-share-button--copy-item',
-                        {
-                          'memori-share-button--copy-item--success':
-                            copyStatus.raw === 'success',
-                          'memori-share-button--copy-item--error':
-                            copyStatus.raw === 'error',
-                        }
-                      )}
-                      icon={
-                        copyStatus.raw === 'success' ? (
-                          <Check
-                            className="memori-share-button--copy-icon"
-                            aria-hidden
-                            strokeWidth={2.5}
-                          />
-                        ) : (
-                          <Code
-                            className="memori-share-button--copy-icon"
-                            aria-hidden
-                          />
-                        )
-                      }
-                      onClick={() => handleCopyClick('raw', rawMessageText)}
-                    />
-                  </span>
-                </Tooltip>
-              )}
-
-              {!message.fromUser &&
-                showFunctionCache &&
-                message.media?.some(
-                  m =>
-                    Boolean(m.properties?.functionCache) ||
-                    m.properties?.functionCache === 'true'
-                ) && (
-                  <Tooltip
-                    {...bubbleAddonTooltipProps}
-                    placement="bottom"
-                    content={t('functionCache') || 'Function cache'}
-                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
-                  >
-                    <span className="memori-chat--bubble-addon-tooltip-trigger">
-                      <Button
-                        variant="ghost"
-                        shape="circle"
-                        className="memori-chat--bubble-action-button"
-                        icon={
-                          <Bug
-                            aria-label={t('functionCache') || 'Function cache'}
-                          />
-                        }
-                        onClick={() => setOpenFunctionCache(true)}
-                      />
-                    </span>
-                  </Tooltip>
-                )}
-
-              {showFeedback && !!simulateUserPrompt && (
-                <FeedbackButtons
-                  memori={memori}
-                  className="memori-chat--bubble-feedback"
-                  dropdown
-                  onNegativeClick={msg => {
-                    if (msg) simulateUserPrompt(msg);
-                  }}
-                />
-              )}
-
-              {message.generatedByAI && showAIicon && (
-                <Tooltip
-                  {...bubbleAddonTooltipProps}
-                  placement="bottom"
-                  content={t('generatedByAI')}
-                  className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-                >
-                  <span
-                    className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
-                    role="img"
-                    aria-label={String(t('generatedByAI'))}
-                  >
-                    <Bot aria-hidden />
-                  </span>
-                </Tooltip>
-              )}
-
-              {showTranslationOriginal &&
-                message.translatedText &&
-                message.translatedText !== message.text && (
-                  <Tooltip
-                    {...bubbleAddonTooltipProps}
-                    placement="bottom"
-                    content={`${
-                      lang === 'it' ? 'Testo originale' : 'Original text'
-                    }: ${stripAllInternalTags(message.text)}`}
-                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-                  >
-                    <span className="memori-chat--bubble-addon-tooltip-trigger">
-                      <Button
-                        variant="ghost"
-                        shape="circle"
-                        type="button"
-                        className="memori-chat--bubble-action-button"
-                        aria-label={
-                          lang === 'it' ? 'Testo originale' : 'Original text'
-                        }
-                        icon={<Languages aria-hidden />}
-                      />
-                    </span>
-                  </Tooltip>
-                )}
-
-              {!message.fromUser &&
-                message.questionAnswered &&
-                apiUrl &&
-                showWhyThisAnswer && (
-                  <Tooltip
-                    {...bubbleAddonTooltipProps}
-                    placement="bottom"
-                    content={t('whyThisAnswer') || 'Why this answer?'}
-                  >
-                    <span className="memori-chat--bubble-addon-tooltip-trigger">
-                      <Button
-                        variant="ghost"
-                        shape="circle"
-                        className="memori-chat--bubble-action-button"
-                        onClick={() => setShowingWhyThisAnswer(true)}
-                        disabled={showingWhyThisAnswer}
-                        aria-label={t('whyThisAnswer') || 'Why this answer?'}
-                        icon={<HelpCircle aria-hidden />}
-                      />
-                    </span>
-                  </Tooltip>
-                )}
-            </div>
-          )}
-          </div>
-
-          {!message.fromUser && (
             <div
-              className={cx('memori-chat--artifact-block', {
-                'memori-chat--artifact-block--chatlog': isChatlogPanel,
+              className={cx('memori-chat--bubble-anchor', {
+                'memori-chat--bubble-anchor--from-user': !!message.fromUser,
+                'memori-chat--bubble-anchor--has-addon': shouldShowBubbleAddon,
               })}
             >
-              <ArtifactHandler
-                isChatlogPanel={isChatlogPanel}
-                message={message}
-              />
-            </div>
-          )}
+              <div
+                className={cx('memori-chat--bubble', {
+                  'memori-chat--user-bubble': !!message.fromUser,
+                  'memori-chat--with-addon':
+                    shouldShowCopyButtons ||
+                    (showFeedback && simulateUserPrompt),
+                  'memori-chat--ai-generated': message.generatedByAI,
+                  'memori-chat--with-feedback': showFeedback,
+                })}
+              >
+                {message.fromUser ? (
+                  <Expandable
+                    className="memori-chat--bubble-content"
+                    mode="characters"
+                  >
+                    <div
+                      dir="auto"
+                      className="memori-chat--bubble-content"
+                      dangerouslySetInnerHTML={{
+                        __html: sanitizeMsg(cleanText).replaceAll(
+                          '\n',
+                          '<br/>'
+                        ),
+                      }}
+                    />
+                  </Expandable>
+                ) : (
+                  <div
+                    dir="auto"
+                    className="memori-chat--bubble-content"
+                    dangerouslySetInnerHTML={{ __html: renderedText }}
+                  />
+                )}
 
-          <MediaWidget
-            simulateUserPrompt={simulateUserPrompt}
-            media={codeMediaWidgetMedia}
-            sessionID={sessionID}
-            baseUrl={baseUrl}
-            apiUrl={apiUrl}
-            translateTo={translateTo}
-            customMediaRenderer={customMediaRenderer}
-            fromUser={message.fromUser}
-          />
+                {!!usageHtml && (
+                  <div
+                    className="memori-chat--usage-inside-bubble"
+                    dangerouslySetInnerHTML={{ __html: usageHtml }}
+                  />
+                )}
+              </div>
+
+              {shouldShowBubbleAddon && (
+                <div className="memori-chat--bubble-addon">
+                  {shouldShowTimestampInAddon && (
+                    <div className="memori-chat--bubble-timestamp-container">
+                      <p className="memori-chat--bubble-timestamp">
+                        {formattedTimestamp}
+                      </p>
+                      {hasAddonAfterTimestamp && (
+                        <span className="memori-chat--bubble-timestamp-separator">
+                          •
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {shouldShowCopyButtons && (
+                    <Tooltip
+                      {...bubbleAddonTooltipProps}
+                      placement="bottom"
+                      content={
+                        copyStatus.plain === 'success'
+                          ? copiedLabel
+                          : copyStatus.plain === 'error'
+                          ? t('copyFailed')
+                          : t('copy') || 'Copy'
+                      }
+                    >
+                      <span className="memori-chat--bubble-addon-tooltip-trigger">
+                        <Button
+                          variant="ghost"
+                          shape="circle"
+                          type="button"
+                          size="sm"
+                          aria-label={
+                            copyStatus.plain === 'success'
+                              ? String(copiedLabel)
+                              : copyStatus.plain === 'error'
+                              ? String(t('copyFailed'))
+                              : String(t('copy') || 'Copy')
+                          }
+                          className={cx(
+                            'memori-chat--bubble-action-button',
+                            'memori-share-button--copy-item',
+                            {
+                              'memori-share-button--copy-item--success':
+                                copyStatus.plain === 'success',
+                              'memori-share-button--copy-item--error':
+                                copyStatus.plain === 'error',
+                            }
+                          )}
+                          icon={
+                            copyStatus.plain === 'success' ? (
+                              <Check
+                                className="memori-share-button--copy-icon"
+                                aria-hidden
+                                strokeWidth={2.5}
+                              />
+                            ) : (
+                              <Copy
+                                className="memori-share-button--copy-icon"
+                                aria-hidden
+                              />
+                            )
+                          }
+                          onClick={() => handleCopyClick('plain', copyText)}
+                        />
+                      </span>
+                    </Tooltip>
+                  )}
+
+                  {shouldShowCopyRawButton && (
+                    <Tooltip
+                      {...bubbleAddonTooltipProps}
+                      placement="bottom"
+                      content={
+                        copyStatus.raw === 'success'
+                          ? copiedLabel
+                          : copyStatus.raw === 'error'
+                          ? t('copyFailed')
+                          : t('copyRawCode') || 'Copy raw code'
+                      }
+                    >
+                      <span className="memori-chat--bubble-addon-tooltip-trigger">
+                        <Button
+                          variant="ghost"
+                          shape="circle"
+                          type="button"
+                          size="sm"
+                          aria-label={
+                            copyStatus.raw === 'success'
+                              ? String(copiedLabel)
+                              : copyStatus.raw === 'error'
+                              ? String(t('copyFailed'))
+                              : String(t('copyRawCode') || 'Copy raw code')
+                          }
+                          className={cx(
+                            'memori-chat--bubble-action-button',
+                            'memori-share-button--copy-item',
+                            {
+                              'memori-share-button--copy-item--success':
+                                copyStatus.raw === 'success',
+                              'memori-share-button--copy-item--error':
+                                copyStatus.raw === 'error',
+                            }
+                          )}
+                          icon={
+                            copyStatus.raw === 'success' ? (
+                              <Check
+                                className="memori-share-button--copy-icon"
+                                aria-hidden
+                                strokeWidth={2.5}
+                              />
+                            ) : (
+                              <Code
+                                className="memori-share-button--copy-icon"
+                                aria-hidden
+                              />
+                            )
+                          }
+                          onClick={() => handleCopyClick('raw', rawMessageText)}
+                        />
+                      </span>
+                    </Tooltip>
+                  )}
+
+                  {!message.fromUser &&
+                    showFunctionCache &&
+                    message.media?.some(
+                      m =>
+                        Boolean(m.properties?.functionCache) ||
+                        m.properties?.functionCache === 'true'
+                    ) && (
+                      <Tooltip
+                        {...bubbleAddonTooltipProps}
+                        placement="bottom"
+                        content={t('functionCache') || 'Function cache'}
+                        className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+                      >
+                        <span className="memori-chat--bubble-addon-tooltip-trigger">
+                          <Button
+                            variant="ghost"
+                            shape="circle"
+                            size="sm"
+                            className="memori-chat--bubble-action-button"
+                            icon={
+                              <Bug
+                                aria-label={
+                                  t('functionCache') || 'Function cache'
+                                }
+                              />
+                            }
+                            onClick={() => setOpenFunctionCache(true)}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+
+                  {showFeedback && !!simulateUserPrompt && (
+                    <FeedbackButtons
+                      memori={memori}
+                      className="memori-chat--bubble-feedback"
+                      dropdown
+                      onNegativeClick={msg => {
+                        if (msg) simulateUserPrompt(msg);
+                      }}
+                    />
+                  )}
+
+                  {message.generatedByAI && showAIicon && (
+                    <Tooltip
+                      {...bubbleAddonTooltipProps}
+                      placement="bottom"
+                      content={t('generatedByAI')}
+                      className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+                    >
+                      <span
+                        className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+                        role="img"
+                        aria-label={String(t('generatedByAI'))}
+                      >
+                        <Bot aria-hidden />
+                      </span>
+                    </Tooltip>
+                  )}
+
+                  {showTranslationOriginal &&
+                    message.translatedText &&
+                    message.translatedText !== message.text && (
+                      <Tooltip
+                        {...bubbleAddonTooltipProps}
+                        placement="bottom"
+                        content={`${
+                          lang === 'it' ? 'Testo originale' : 'Original text'
+                        }: ${stripAllInternalTags(message.text)}`}
+                        className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+                      >
+                        <span className="memori-chat--bubble-addon-tooltip-trigger">
+                          <Button
+                            variant="ghost"
+                            shape="circle"
+                            type="button"
+                            size="sm"
+                            className="memori-chat--bubble-action-button"
+                            aria-label={
+                              lang === 'it'
+                                ? 'Testo originale'
+                                : 'Original text'
+                            }
+                            icon={<Languages aria-hidden />}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+
+                  {!message.fromUser &&
+                    message.questionAnswered &&
+                    apiUrl &&
+                    showWhyThisAnswer && (
+                      <Tooltip
+                        {...bubbleAddonTooltipProps}
+                        placement="bottom"
+                        content={t('whyThisAnswer') || 'Why this answer?'}
+                      >
+                        <span className="memori-chat--bubble-addon-tooltip-trigger">
+                          <Button
+                            variant="ghost"
+                            shape="circle"
+                            size="sm"
+                            className="memori-chat--bubble-action-button"
+                            onClick={() => setShowingWhyThisAnswer(true)}
+                            disabled={showingWhyThisAnswer}
+                            aria-label={
+                              t('whyThisAnswer') || 'Why this answer?'
+                            }
+                            icon={<HelpCircle aria-hidden />}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+                </div>
+              )}
+            </div>
+
+            {!message.fromUser && (
+              <div
+                className={cx('memori-chat--artifact-block', {
+                  'memori-chat--artifact-block--chatlog': isChatlogPanel,
+                })}
+              >
+                <ArtifactHandler
+                  isChatlogPanel={isChatlogPanel}
+                  message={message}
+                />
+              </div>
+            )}
+
+            <MediaWidget
+              simulateUserPrompt={simulateUserPrompt}
+              media={codeMediaWidgetMedia}
+              sessionID={sessionID}
+              baseUrl={baseUrl}
+              apiUrl={apiUrl}
+              translateTo={translateTo}
+              customMediaRenderer={customMediaRenderer}
+              fromUser={message.fromUser}
+            />
           </div>
 
           {message.fromUser && renderUserAvatar()}

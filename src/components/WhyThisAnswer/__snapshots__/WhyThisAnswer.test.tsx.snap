@@ -15,7 +15,9 @@ exports[`renders WhyThisAnswer hidden unchanged 1`] = `
 `;
 
 exports[`renders WhyThisAnswer loading unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -29,7 +31,9 @@ exports[`renders WhyThisAnswer loading unchanged 1`] = `
 `;
 
 exports[`renders WhyThisAnswer visible unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -43,7 +47,9 @@ exports[`renders WhyThisAnswer visible unchanged 1`] = `
 `;
 
 exports[`renders WhyThisAnswer with data unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"

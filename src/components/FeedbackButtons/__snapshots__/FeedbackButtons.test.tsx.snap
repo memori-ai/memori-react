@@ -14,7 +14,7 @@ exports[`renders FeedbackButtons unchanged 1`] = `
       >
         <button
           aria-label="feedback"
-          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+          class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only"
           tabindex="0"
           type="button"
         >
