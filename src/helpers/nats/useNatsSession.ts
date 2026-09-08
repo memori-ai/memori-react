@@ -14,7 +14,9 @@ import { useEffect, useRef, useState, type MutableRefObject } from 'react';
 import {
   wsconnect,
   jwtAuthenticator,
+  AuthorizationError,
   NatsConnection,
+  UserAuthenticationExpiredError,
 } from '@nats-io/nats-core';
 import {
   jetstream,
@@ -70,6 +72,24 @@ export type NatsSessionEvent =
 
 type JetStreamConsumeMode = 'live' | 'catch-up';
 
+export interface NatsSessionLifecycle {
+  /** Called after the live subscription is installed. */
+  onConnected?: () => void;
+  /** Called once when this connection is rejected because its JWT expired. */
+  onAuthError?: (error: Error) => void;
+}
+
+export function isNatsAuthError(error: unknown): error is Error {
+  return (
+    error instanceof AuthorizationError ||
+    error instanceof UserAuthenticationExpiredError ||
+    (error instanceof Error &&
+      /authorization violation|authentication expired|user authentication expired/i.test(
+        error.message
+      ))
+  );
+}
+
 function readString(
   raw: Record<string, unknown>,
   camelKey: string,
@@ -111,7 +131,9 @@ function unwrapDialogState(value: unknown): unknown {
 /**
  * Normalizes raw NATS payloads (snake_case or camelCase) into typed events.
  */
-export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEvent {
+export function normalizeNatsEvent(
+  raw: Record<string, unknown>
+): NatsSessionEvent {
   const eventType = (readString(raw, 'eventType', 'event_type') ??
     'unknown') as NatsSessionEvent['eventType'];
 
@@ -134,8 +156,7 @@ export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEve
   if (eventType === 'dialog_text_entered_response') {
     return {
       eventType: 'dialog_text_entered_response',
-      requestID:
-        typeof raw.requestID === 'string' ? raw.requestID : undefined,
+      requestID: typeof raw.requestID === 'string' ? raw.requestID : undefined,
       resultCode:
         typeof raw.resultCode === 'number' ? raw.resultCode : undefined,
       resultMessage:
@@ -148,7 +169,10 @@ export function normalizeNatsEvent(raw: Record<string, unknown>): NatsSessionEve
   if (eventType === 'error') {
     return {
       eventType: 'error',
-      errorCode: (raw.errorCode ?? raw.error_code) as string | number | undefined,
+      errorCode: (raw.errorCode ?? raw.error_code) as
+        | string
+        | number
+        | undefined,
       errorMessage: readString(raw, 'errorMessage', 'error_message'),
       backtrace: typeof raw.backtrace === 'string' ? raw.backtrace : undefined,
       correlationID,
@@ -178,10 +202,12 @@ function decodeMessage(
 async function consumeCoreSubscription(
   nc: NatsConnection,
   subject: string,
-  onMessage: (event: NatsSessionEvent) => void
+  onMessage: (event: NatsSessionEvent) => void,
+  onReady: () => void
 ) {
   const sub = nc.subscribe(subject);
   console.info('[NATS] subscribed to subject', subject);
+  onReady();
   let received = 0;
   for await (const msg of sub) {
     received += 1;
@@ -207,7 +233,8 @@ async function consumeJetStream(
   subject: string,
   mode: JetStreamConsumeMode,
   onMessage: (event: NatsSessionEvent) => void,
-  setConsumerMessages: (messages: ConsumerMessages) => void
+  setConsumerMessages: (messages: ConsumerMessages) => void,
+  onReady: () => void
 ) {
   const js = jetstream(nc);
   const consumer = config.consumer
@@ -229,6 +256,7 @@ async function consumeJetStream(
 
   const messages = await consumer.consume();
   setConsumerMessages(messages);
+  onReady();
   let received = 0;
   for await (const msg of messages) {
     received += 1;
@@ -268,11 +296,13 @@ function closeNatsSession(
 export function useNatsSession(
   sessionId: string | undefined,
   config: NatsConfig | undefined,
-  onMessage: (event: NatsSessionEvent) => void
+  onMessage: (event: NatsSessionEvent) => void,
+  lifecycle: NatsSessionLifecycle = {}
 ) {
   const connRef = useRef<NatsConnection | null>(null);
   const consumerMessagesRef = useRef<ConsumerMessages | null>(null);
   const onMessageRef = useRef(onMessage);
+  const lifecycleRef = useRef(lifecycle);
   const wasHiddenRef = useRef(false);
   const [resumeGeneration, setResumeGeneration] = useState(0);
 
@@ -280,6 +310,10 @@ export function useNatsSession(
   useEffect(() => {
     onMessageRef.current = onMessage;
   }, [onMessage]);
+
+  useEffect(() => {
+    lifecycleRef.current = lifecycle;
+  }, [lifecycle]);
 
   // Reconnect when the tab returns from background or the network comes back.
   useEffect(() => {
@@ -367,6 +401,28 @@ export function useNatsSession(
       const dispatch = (event: NatsSessionEvent) => {
         onMessageRef.current(event);
       };
+      const ready = () => lifecycleRef.current.onConnected?.();
+      let authRefreshRequested = false;
+      const requestAuthRefresh = (error: Error) => {
+        if (closed || authRefreshRequested) return;
+        authRefreshRequested = true;
+        lifecycleRef.current.onAuthError?.(error);
+      };
+
+      void (async () => {
+        for await (const status of nc.status()) {
+          if (status.type === 'error' && isNatsAuthError(status.error)) {
+            requestAuthRefresh(status.error);
+            return;
+          }
+        }
+      })();
+
+      void nc.closed().then(error => {
+        if (error && isNatsAuthError(error)) {
+          requestAuthRefresh(error);
+        }
+      });
 
       if (useJetStream) {
         await consumeJetStream(
@@ -377,12 +433,18 @@ export function useNatsSession(
           dispatch,
           messages => {
             consumerMessagesRef.current = messages;
-          }
+          },
+          ready
         );
       } else {
-        await consumeCoreSubscription(nc, subject, dispatch);
+        await consumeCoreSubscription(nc, subject, dispatch, ready);
       }
-    })().catch(err => console.error('[NATS] connection error', err));
+    })().catch(err => {
+      console.error('[NATS] connection error', err);
+      if (!closed && isNatsAuthError(err)) {
+        lifecycleRef.current.onAuthError?.(err);
+      }
+    });
 
     return () => {
       console.info('[NATS] cleanup: closing connection for subject', subject);
