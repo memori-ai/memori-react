@@ -11,7 +11,11 @@
 // The cleanup (`consumerMessages.stop()` + `nc.close()`) is essential: without
 // it, every `sessionId` change would leave orphan connections / iterators.
 import { useEffect, useRef, useState, type MutableRefObject } from 'react';
-import { wsconnect, NatsConnection } from '@nats-io/nats-core';
+import {
+  wsconnect,
+  jwtAuthenticator,
+  NatsConnection,
+} from '@nats-io/nats-core';
 import {
   jetstream,
   DeliverPolicy,
@@ -258,7 +262,7 @@ function closeNatsSession(
  * change.
  *
  * @param sessionId Current session UUID (subscription is skipped when falsy).
- * @param config Connection config from `/api/nats` (url + token required).
+ * @param config Connection config from `/api/nats` (url + per-session JWT).
  * @param onMessage Callback invoked for each decoded event.
  */
 export function useNatsSession(
@@ -348,7 +352,7 @@ export function useNatsSession(
       );
       const nc = await wsconnect({
         servers: [config.url],
-        token: config.token,
+        authenticator: jwtAuthenticator(config.token),
       });
       if (closed) {
         console.debug(
