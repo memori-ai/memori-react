@@ -3847,7 +3847,7 @@ __metadata:
     lucide-react: ^0.460.0
     luxon: ^3.5.0
     marked: ^15.0.2
-    marked-katex-extension: ^5.1.3
+    marked-katex-extension: 5.1.10
     marked-linkify-it: ^3.1.12
     postcss: 8.4.19
     postcss-cli: ^11.0.1
@@ -15018,13 +15018,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked-katex-extension@npm:^5.1.3":
-  version: 5.1.5
-  resolution: "marked-katex-extension@npm:5.1.5"
+"marked-katex-extension@npm:5.1.10":
+  version: 5.1.10
+  resolution: "marked-katex-extension@npm:5.1.10"
   peerDependencies:
-    katex: ">=0.16 <0.17"
-    marked: ">=4 <17"
-  checksum: 800be676c622d657e14958b503fb20a33cb6d24372226f6ba7d605f2370394567d5834ccb0d6048b24d513ab5b8b84a8e19c507564733453154e81dbfc70e688
+    katex: ">=0.16 <0.18"
+    marked: ">=4 <19"
+  checksum: f8d92061c149d73d574515b771017bb1407898ba988be5a6faf0795505140a7c8e05642be112afc8cf9d3fa5f7cc11939439089bed6b921876e91919849d169e
   languageName: node
   linkType: hard
 
