@@ -1,5 +1,25 @@
 
 
+## [8.45.1](https://github.com/memori-ai/memori-react/compare/v8.45.0...v8.45.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **nats:** fix baseUrl in get nats config ([8833c0f](https://github.com/memori-ai/memori-react/commit/8833c0fc0cddafb0a74520f6f7ea2174b6058fc1))
+
+## [8.45.0](https://github.com/memori-ai/memori-react/compare/v8.44.0...v8.45.0) (2026-09-08)
+
+
+### Features
+
+* **nats:** implement catch-up mechanism for pending turns and enhance NATS session lifecycle management ([25090a5](https://github.com/memori-ai/memori-react/commit/25090a5e45633ee36652544e6ccb7dfd96d8db65))
+
+
+### Changes
+
+* **nats:** update NATS configuration to use per-session JWT and improve connection handling ([efc054b](https://github.com/memori-ai/memori-react/commit/efc054ba007839bc2eb6654f58d585b058a20653))
+
+
 ## [9.0.0-alpha.22](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.21...v9.0.0-alpha.22) (2026-09-07)
 
 
