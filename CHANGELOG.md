@@ -1,5 +1,12 @@
 
 
+## [8.45.2](https://github.com/memori-ai/memori-react/compare/v8.45.1...v8.45.2) (2026-09-10)
+
+
+### Bug Fixes
+
+* upload document skip native file parsing for non-text formats ([8db4328](https://github.com/memori-ai/memori-react/commit/8db432874473bbe83d0b60a0fef5764c745ae632))
+
 ## [8.45.1](https://github.com/memori-ai/memori-react/compare/v8.45.0...v8.45.1) (2026-09-08)
 
 
