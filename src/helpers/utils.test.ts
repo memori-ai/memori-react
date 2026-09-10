@@ -8,6 +8,7 @@ import {
   extractAttachmentLinks,
   extractAttachmentLink,
   isAssetOnlyDocumentAttachment,
+  isLocalTextFilename,
   isOfficeNativeFilename,
   parseDocumentAttachmentsFromMessage,
 } from './utils';
@@ -176,13 +177,22 @@ describe('utils/attachment helpers', () => {
   });
 
   it('detects office native filenames', () => {
-    expect(isOfficeNativeFilename('report.doc')).toBe(true);
-    expect(isOfficeNativeFilename('report.docx')).toBe(true);
+    expect(isOfficeNativeFilename('report.doc')).toBe(false);
+    expect(isOfficeNativeFilename('report.docx')).toBe(false);
     expect(isOfficeNativeFilename('budget.xls')).toBe(false);
-    expect(isOfficeNativeFilename('template.XLTX')).toBe(true);
-    expect(isOfficeNativeFilename('slides.potx')).toBe(true);
+    expect(isOfficeNativeFilename('template.XLTX')).toBe(false);
+    expect(isOfficeNativeFilename('slides.potx')).toBe(false);
     expect(isOfficeNativeFilename('notes.pdf')).toBe(false);
     expect(isOfficeNativeFilename('data.xlsx')).toBe(false);
+  });
+
+  it('detects filenames read locally instead of converted', () => {
+    expect(isLocalTextFilename('notes.txt')).toBe(true);
+    expect(isLocalTextFilename('export.CSV')).toBe(true);
+    expect(isLocalTextFilename('readme.md')).toBe(true);
+    expect(isLocalTextFilename('readme.markdown')).toBe(false);
+    expect(isLocalTextFilename('report.docx')).toBe(false);
+    expect(isLocalTextFilename('notes.pdf')).toBe(false);
   });
 
   it('detects asset-only document attachments', () => {

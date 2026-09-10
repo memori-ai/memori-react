@@ -7,9 +7,13 @@ import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import {
   documentConversionExtensions,
+  localTextExtensions,
   officeNativeExtensions,
 } from '../../../helpers/constants';
-import { isOfficeNativeFilename } from '../../../helpers/utils';
+import {
+  isLocalTextFilename,
+  isOfficeNativeFilename,
+} from '../../../helpers/utils';
 import { convertDocument } from '../../../helpers/convertDocument';
 // Types
 type PreviewFile = {
@@ -125,7 +129,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }
 
     try {
-      const text = await convertDocument(file, sessionID, baseUrl);
+      const text = isLocalTextFilename(file.name)
+        ? await fileToText(file)
+        : await convertDocument(file, sessionID, baseUrl);
       return { text };
     } catch (error) {
       console.error('Document processing failed:', error);
@@ -136,6 +142,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       );
     }
   };
+
+  const fileToText = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => resolve((e.target?.result as string) || '');
+      reader.onerror = () => reject(new Error('File reading failed'));
+      reader.readAsText(file, 'UTF-8');
+    });
 
   const fileToDataUrl = (file: File): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -340,9 +354,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       <input
         ref={documentInputRef}
         type="file"
-        accept={[...documentConversionExtensions, ...officeNativeExtensions].join(
-          ','
-        )}
+        accept={[
+          ...documentConversionExtensions,
+          ...localTextExtensions,
+          ...officeNativeExtensions,
+        ].join(',')}
         multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
