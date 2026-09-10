@@ -179,49 +179,6 @@
       ]
     }
   },
-  "release-it": {
-    "hooks": {
-      "after:bump": "yarn update-version && yarn build"
-    },
-    "git": {
-      "tagName": "v${version}",
-      "commitMessage": "chore: release v${version}",
-      "addUntrackedFiles": true
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true,
-      "releaseName": "${version}"
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "infile": "CHANGELOG.md",
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "Features"
-            },
-            {
-              "type": "fix",
-              "section": "Bug Fixes"
-            },
-            {
-              "type": "refactor",
-              "section": "Changes"
-            },
-            {
-              "type": "chore",
-              "section": "Maintenance"
-            }
-          ]
-        }
-      }
-    }
-  },
   "size-limit": [
     {
       "path": "dist/memori-react.cjs.production.min.js",
