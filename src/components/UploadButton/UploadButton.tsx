@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import {
   documentConversionExtensions,
+  localTextExtensions,
   officeNativeExtensions,
 } from '../../helpers/constants';
 // Props interface
@@ -116,6 +117,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const isDocumentFile = (file: File): boolean => {
     const documentExtensions: readonly string[] = [
       ...documentConversionExtensions,
+      ...localTextExtensions,
       ...officeNativeExtensions,
     ];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
@@ -467,6 +469,7 @@ ${file.textAssetUrl || ''}
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     const ALLOWED_FILE_TYPES: readonly string[] = [
       ...documentConversionExtensions,
+      ...localTextExtensions,
       ...officeNativeExtensions,
     ];
     const MAX_FILE_SIZE = 25 * 1024 * 1024;
@@ -622,6 +625,7 @@ ${file.textAssetUrl || ''}
           '.jpeg',
           '.png',
           ...documentConversionExtensions,
+          ...localTextExtensions,
           ...officeNativeExtensions,
         ].join(',')}
         multiple
