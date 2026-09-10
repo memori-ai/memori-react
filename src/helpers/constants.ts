@@ -44,36 +44,37 @@ export const getGroupedChatLanguages = () => {
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
 
 /** Extensions uploaded as original Office binaries (no text extraction) */
-export const officeNativeExtensions = [
-  '.doc',
-  '.docx',
-  '.dotx',
-  '.xltx',
-  '.potx',
+export const officeNativeExtensions = [] as const;
+
+/** Extensions read as UTF-8 in the browser, without calling the conversion API */
+export const localTextExtensions = [
+  '.txt',
+  '.csv',
+  '.tsv',
+  '.html',
+  '.xhtml',
+  '.htm',
+  '.xml',
+  '.json',
+  '.md',
+  '.log',
+  '.yml',
+  '.yaml',
 ] as const;
 
 export const documentConversionExtensions = [
   '.pdf',
+  '.docx',
   '.docm',
+  '.dotx',
   '.xlsx',
   '.xlsm',
   '.xls',
+  '.xltx',
   '.ods',
   '.pptx',
   '.pptm',
-  '.html',
-  '.htm',
-  '.xhtml',
-  '.csv',
-  '.tsv',
-  '.txt',
-  '.md',
-  '.markdown',
-  '.json',
-  '.xml',
-  '.log',
-  '.yml',
-  '.yaml',
+  '.potx',
 ] as const;
 
 export const allowedMediaTypes = [
