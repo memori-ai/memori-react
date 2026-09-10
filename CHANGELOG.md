@@ -386,6 +386,13 @@
 * update dompurify dependency to version 3.4.11 ([da25688](https://github.com/memori-ai/memori-react/commit/da256880de277d939a2ca41293300a184f8e53e7))
 * update mocks and PDF export helper ([ef74575](https://github.com/memori-ai/memori-react/commit/ef7457578144ce680618682e33c404b2c4606daa))
 
+## [8.45.2](https://github.com/memori-ai/memori-react/compare/v8.45.1...v8.45.2) (2026-09-10)
+
+
+### Bug Fixes
+
+* upload document skip native file parsing for non-text formats ([8db4328](https://github.com/memori-ai/memori-react/commit/8db432874473bbe83d0b60a0fef5764c745ae632))
+
 ## [8.45.1](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.22...v9.0.0-alpha.23) (2026-09-08)
 
 
@@ -414,13 +421,6 @@
 ### Maintenance
 
 * release v8.45.0 ([c59fdd1](https://github.com/memori-ai/memori-react/commit/c59fdd1e171a27e1299dd6584c197a45c368e8ac))
-
-## [8.45.2](https://github.com/memori-ai/memori-react/compare/v8.45.1...v8.45.2) (2026-09-10)
-
-
-### Bug Fixes
-
-* upload document skip native file parsing for non-text formats ([8db4328](https://github.com/memori-ai/memori-react/commit/8db432874473bbe83d0b60a0fef5764c745ae632))
 
 ## [8.45.1](https://github.com/memori-ai/memori-react/compare/v8.45.0...v8.45.1) (2026-09-08)
 
