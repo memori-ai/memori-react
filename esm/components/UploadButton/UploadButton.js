@@ -7,7 +7,7 @@ import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
-import { documentConversionExtensions, officeNativeExtensions, } from '../../helpers/constants';
+import { documentConversionExtensions, localTextExtensions, officeNativeExtensions, } from '../../helpers/constants';
 const UploadButton = ({ authToken = '', client, sessionID = '', baseUrl = '', isMediaAccepted = false, setDocumentPreviewFiles, documentPreviewFiles, memoriID = '', maxTotalMessagePayload, maxDocumentsPerMessage = 10, maxDocumentContentLength = 300000, onUploadLoadingChange, }) => {
     var _a, _b;
     const effectivePerDocumentLimit = (_a = maxTotalMessagePayload !== null && maxTotalMessagePayload !== void 0 ? maxTotalMessagePayload : maxDocumentContentLength) !== null && _a !== void 0 ? _a : 300000;
@@ -46,6 +46,7 @@ const UploadButton = ({ authToken = '', client, sessionID = '', baseUrl = '', is
         var _a;
         const documentExtensions = [
             ...documentConversionExtensions,
+            ...localTextExtensions,
             ...officeNativeExtensions,
         ];
         const fileExt = `.${(_a = file.name.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()}`;
@@ -315,6 +316,7 @@ ${file.textAssetUrl || ''}
         const fileExt = `.${(_a = file.name.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()}`;
         const ALLOWED_FILE_TYPES = [
             ...documentConversionExtensions,
+            ...localTextExtensions,
             ...officeNativeExtensions,
         ];
         const MAX_FILE_SIZE = 25 * 1024 * 1024;
@@ -383,6 +385,7 @@ ${file.textAssetUrl || ''}
                     '.jpeg',
                     '.png',
                     ...documentConversionExtensions,
+                    ...localTextExtensions,
                     ...officeNativeExtensions,
                 ].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleFileInputChange, style: { display: 'none' } }), _jsx("button", { ref: buttonRef, className: cx('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--unified-upload-button', { 'memori--error': errors.length > 0 }), onClick: handleButtonClick, disabled: isLoading || hasReachedMediaLimit, title: (_b = t('upload.uploadFiles', {
                     shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||

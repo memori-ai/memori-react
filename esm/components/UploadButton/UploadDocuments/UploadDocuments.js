@@ -5,8 +5,8 @@ import Spin from '../../ui/Spin';
 import { DocumentIcon } from '../../icons/Document';
 import Modal from '../../ui/Modal';
 import { useTranslation } from 'react-i18next';
-import { documentConversionExtensions, officeNativeExtensions, } from '../../../helpers/constants';
-import { isOfficeNativeFilename } from '../../../helpers/utils';
+import { documentConversionExtensions, localTextExtensions, officeNativeExtensions, } from '../../../helpers/constants';
+import { isLocalTextFilename, isOfficeNativeFilename, } from '../../../helpers/utils';
 import { convertDocument } from '../../../helpers/convertDocument';
 const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sessionID = '', baseUrl = '', memoriID = '', maxDocuments, documentPreviewFiles, onLoadingChange, onDocumentError, onValidateFile, onValidatePayloadSize, }) => {
     const { t } = useTranslation();
@@ -41,7 +41,9 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             return { text: null, uploadAsOriginal: true };
         }
         try {
-            const text = await convertDocument(file, sessionID, baseUrl);
+            const text = isLocalTextFilename(file.name)
+                ? await fileToText(file)
+                : await convertDocument(file, sessionID, baseUrl);
             return { text };
         }
         catch (error) {
@@ -49,6 +51,12 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             throw new Error(`Failed to process "${file.name}": ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     };
+    const fileToText = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => { var _a; return resolve(((_a = e.target) === null || _a === void 0 ? void 0 : _a.result) || ''); };
+        reader.onerror = () => reject(new Error('File reading failed'));
+        reader.readAsText(file, 'UTF-8');
+    });
     const fileToDataUrl = (file) => new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => { var _a; return resolve(((_a = e.target) === null || _a === void 0 ? void 0 : _a.result) || ''); };
@@ -207,7 +215,11 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             }
         }
     };
-    return (_jsxs("div", { className: "memori--document-upload-wrapper", children: [_jsx("input", { ref: documentInputRef, type: "file", accept: [...documentConversionExtensions, ...officeNativeExtensions].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleDocumentUpload }), _jsx("button", { className: cx('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--document-upload-button', { 'memori--error': false }), onClick: () => { var _a; return (_a = documentInputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, disabled: isLoading ||
+    return (_jsxs("div", { className: "memori--document-upload-wrapper", children: [_jsx("input", { ref: documentInputRef, type: "file", accept: [
+                    ...documentConversionExtensions,
+                    ...localTextExtensions,
+                    ...officeNativeExtensions,
+                ].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleDocumentUpload }), _jsx("button", { className: cx('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--document-upload-button', { 'memori--error': false }), onClick: () => { var _a; return (_a = documentInputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, disabled: isLoading ||
                     (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
                     false, title: "Upload documents", children: isLoading ? (_jsx(Spin, { spinning: true, className: "memori--upload-icon" })) : (_jsx(React.Fragment, { children: _jsx(DocumentIcon, { className: "memori--upload-icon" }) })) }), _jsx(Modal, { width: "80%", widthMd: "80%", open: !!selectedFile, className: "memori--modal-preview-file", onClose: () => setSelectedFile(null), closable: true, title: selectedFile === null || selectedFile === void 0 ? void 0 : selectedFile.name, children: _jsx("div", { className: "memori--preview-content", style: {
                         maxHeight: '70vh',

@@ -37,35 +37,34 @@ export const getGroupedChatLanguages = () => {
     };
 };
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
-export const officeNativeExtensions = [
-    '.doc',
-    '.docx',
-    '.dotx',
-    '.xltx',
-    '.potx',
-];
-export const documentConversionExtensions = [
-    '.pdf',
-    '.docm',
-    '.xlsx',
-    '.xlsm',
-    '.xls',
-    '.ods',
-    '.pptx',
-    '.pptm',
-    '.html',
-    '.htm',
-    '.xhtml',
+export const officeNativeExtensions = [];
+export const localTextExtensions = [
+    '.txt',
     '.csv',
     '.tsv',
-    '.txt',
-    '.md',
-    '.markdown',
-    '.json',
+    '.html',
+    '.xhtml',
+    '.htm',
     '.xml',
+    '.json',
+    '.md',
     '.log',
     '.yml',
     '.yaml',
+];
+export const documentConversionExtensions = [
+    '.pdf',
+    '.docx',
+    '.docm',
+    '.dotx',
+    '.xlsx',
+    '.xlsm',
+    '.xls',
+    '.xltx',
+    '.ods',
+    '.pptx',
+    '.pptm',
+    '.potx',
 ];
 export const allowedMediaTypes = [
     'image/jpeg',

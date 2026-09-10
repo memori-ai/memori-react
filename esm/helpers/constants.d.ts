@@ -14,8 +14,9 @@ export declare const getGroupedChatLanguages: () => {
     }[];
 };
 export declare const uiLanguages: string[];
-export declare const officeNativeExtensions: readonly [".doc", ".docx", ".dotx", ".xltx", ".potx"];
-export declare const documentConversionExtensions: readonly [".pdf", ".docm", ".xlsx", ".xlsm", ".xls", ".ods", ".pptx", ".pptm", ".html", ".htm", ".xhtml", ".csv", ".tsv", ".txt", ".md", ".markdown", ".json", ".xml", ".log", ".yml", ".yaml"];
+export declare const officeNativeExtensions: readonly [];
+export declare const localTextExtensions: readonly [".txt", ".csv", ".tsv", ".html", ".xhtml", ".htm", ".xml", ".json", ".md", ".log", ".yml", ".yaml"];
+export declare const documentConversionExtensions: readonly [".pdf", ".docx", ".docm", ".dotx", ".xlsx", ".xlsm", ".xls", ".xltx", ".ods", ".pptx", ".pptm", ".potx"];
 export declare const allowedMediaTypes: string[];
 export declare const officeMimeShortLabels: Record<string, string>;
 export declare const officeExtensionShortLabels: Record<string, string>;

@@ -15,8 +15,9 @@ export declare function useDebounceFn<T extends (...args: any) => any>(fn: T, de
 export declare const stripDuplicates: (text: string) => string;
 export declare const stripEmojis: (text: string) => string;
 export declare const stripMarkdown: (text: string) => string;
-export declare const OFFICE_NATIVE_EXTENSIONS: readonly [".doc", ".docx", ".dotx", ".xltx", ".potx"];
+export declare const OFFICE_NATIVE_EXTENSIONS: readonly [];
 export declare const isOfficeNativeFilename: (filename: string) => boolean;
+export declare const isLocalTextFilename: (filename: string) => boolean;
 export type ParsedDocumentAttachment = {
     filename: string;
     type: string;

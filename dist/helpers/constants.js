@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pasteAsCardCharThreshold = exports.pasteAsCardLineThreshold = exports.maxDocumentContentLength = exports.maxDocumentsPerMessage = exports.MAX_MSG_WORDS = exports.MAX_MSG_CHARS = exports.boardOfExpertsLoadingSentences = exports.prismSyntaxLangs = exports.anonTag = exports.officeExtensionShortLabels = exports.officeMimeShortLabels = exports.allowedMediaTypes = exports.documentConversionExtensions = exports.officeNativeExtensions = exports.uiLanguages = exports.getGroupedChatLanguages = exports.popularLanguageCodes = exports.chatLanguages = void 0;
+exports.pasteAsCardCharThreshold = exports.pasteAsCardLineThreshold = exports.maxDocumentContentLength = exports.maxDocumentsPerMessage = exports.MAX_MSG_WORDS = exports.MAX_MSG_CHARS = exports.boardOfExpertsLoadingSentences = exports.prismSyntaxLangs = exports.anonTag = exports.officeExtensionShortLabels = exports.officeMimeShortLabels = exports.allowedMediaTypes = exports.documentConversionExtensions = exports.localTextExtensions = exports.officeNativeExtensions = exports.uiLanguages = exports.getGroupedChatLanguages = exports.popularLanguageCodes = exports.chatLanguages = void 0;
 exports.chatLanguages = [
     { value: 'AR', label: 'العربية' },
     { value: 'BG', label: 'български' },
@@ -41,35 +41,34 @@ const getGroupedChatLanguages = () => {
 };
 exports.getGroupedChatLanguages = getGroupedChatLanguages;
 exports.uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
-exports.officeNativeExtensions = [
-    '.doc',
-    '.docx',
-    '.dotx',
-    '.xltx',
-    '.potx',
-];
-exports.documentConversionExtensions = [
-    '.pdf',
-    '.docm',
-    '.xlsx',
-    '.xlsm',
-    '.xls',
-    '.ods',
-    '.pptx',
-    '.pptm',
-    '.html',
-    '.htm',
-    '.xhtml',
+exports.officeNativeExtensions = [];
+exports.localTextExtensions = [
+    '.txt',
     '.csv',
     '.tsv',
-    '.txt',
-    '.md',
-    '.markdown',
-    '.json',
+    '.html',
+    '.xhtml',
+    '.htm',
     '.xml',
+    '.json',
+    '.md',
     '.log',
     '.yml',
     '.yaml',
+];
+exports.documentConversionExtensions = [
+    '.pdf',
+    '.docx',
+    '.docm',
+    '.dotx',
+    '.xlsx',
+    '.xlsm',
+    '.xls',
+    '.xltx',
+    '.ods',
+    '.pptx',
+    '.pptm',
+    '.potx',
 ];
 exports.allowedMediaTypes = [
     'image/jpeg',

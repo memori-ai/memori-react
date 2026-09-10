@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { MeshStandardMaterial } from 'three';
 import * as THREE from 'three';
-import { officeNativeExtensions } from './constants';
+import { localTextExtensions, officeNativeExtensions } from './constants';
 export const hasTouchscreen = () => {
     let hasTouchScreen = false;
     if (typeof window === 'undefined' || typeof navigator === 'undefined') {
@@ -174,6 +174,11 @@ export const isOfficeNativeFilename = (filename) => {
     var _a;
     const ext = `.${((_a = filename.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || ''}`;
     return officeNativeExtensions.includes(ext);
+};
+export const isLocalTextFilename = (filename) => {
+    var _a;
+    const ext = `.${((_a = filename.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || ''}`;
+    return localTextExtensions.includes(ext);
 };
 const DOCUMENT_ATTACHMENT_REGEX = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
 const ATTACHMENT_LINK_AFTER_REGEX = /<attachment_link>\s*([\s\S]*?)\s*<\/attachment_link>/;

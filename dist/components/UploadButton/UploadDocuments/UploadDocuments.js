@@ -44,7 +44,9 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             return { text: null, uploadAsOriginal: true };
         }
         try {
-            const text = await (0, convertDocument_1.convertDocument)(file, sessionID, baseUrl);
+            const text = (0, utils_1.isLocalTextFilename)(file.name)
+                ? await fileToText(file)
+                : await (0, convertDocument_1.convertDocument)(file, sessionID, baseUrl);
             return { text };
         }
         catch (error) {
@@ -52,6 +54,12 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             throw new Error(`Failed to process "${file.name}": ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     };
+    const fileToText = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => { var _a; return resolve(((_a = e.target) === null || _a === void 0 ? void 0 : _a.result) || ''); };
+        reader.onerror = () => reject(new Error('File reading failed'));
+        reader.readAsText(file, 'UTF-8');
+    });
     const fileToDataUrl = (file) => new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => { var _a; return resolve(((_a = e.target) === null || _a === void 0 ? void 0 : _a.result) || ''); };
@@ -210,7 +218,11 @@ const UploadDocuments = ({ setDocumentPreviewFiles, authToken = '', client, sess
             }
         }
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "memori--document-upload-wrapper", children: [(0, jsx_runtime_1.jsx)("input", { ref: documentInputRef, type: "file", accept: [...constants_1.documentConversionExtensions, ...constants_1.officeNativeExtensions].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleDocumentUpload }), (0, jsx_runtime_1.jsx)("button", { className: (0, classnames_1.default)('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--document-upload-button', { 'memori--error': false }), onClick: () => { var _a; return (_a = documentInputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, disabled: isLoading ||
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "memori--document-upload-wrapper", children: [(0, jsx_runtime_1.jsx)("input", { ref: documentInputRef, type: "file", accept: [
+                    ...constants_1.documentConversionExtensions,
+                    ...constants_1.localTextExtensions,
+                    ...constants_1.officeNativeExtensions,
+                ].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleDocumentUpload }), (0, jsx_runtime_1.jsx)("button", { className: (0, classnames_1.default)('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--document-upload-button', { 'memori--error': false }), onClick: () => { var _a; return (_a = documentInputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, disabled: isLoading ||
                     (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
                     false, title: "Upload documents", children: isLoading ? ((0, jsx_runtime_1.jsx)(Spin_1.default, { spinning: true, className: "memori--upload-icon" })) : ((0, jsx_runtime_1.jsx)(react_1.default.Fragment, { children: (0, jsx_runtime_1.jsx)(Document_1.DocumentIcon, { className: "memori--upload-icon" }) })) }), (0, jsx_runtime_1.jsx)(Modal_1.default, { width: "80%", widthMd: "80%", open: !!selectedFile, className: "memori--modal-preview-file", onClose: () => setSelectedFile(null), closable: true, title: selectedFile === null || selectedFile === void 0 ? void 0 : selectedFile.name, children: (0, jsx_runtime_1.jsx)("div", { className: "memori--preview-content", style: {
                         maxHeight: '70vh',

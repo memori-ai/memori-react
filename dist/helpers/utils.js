@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.safeParseJSON = exports.disposeObject = exports.isSkinnedMesh = exports.correctMaterials = exports.installMathJax = exports.installMathJaxScript = exports.mathJaxConfig = exports.cleanUrl = exports.difference = exports.stripObjNulls = exports.truncateMessage = exports.getFieldFromCustomData = exports.escapeHTML = exports.withLinksOpenInNewTab = exports.stripHTML = exports.stripReasoningTags = exports.stripOutputTags = exports.isAssetOnlyDocumentAttachment = exports.getDocumentAttachmentAssetUrl = exports.stripDocumentAttachmentTags = exports.extractAttachmentLink = exports.extractAttachmentLinks = exports.parseDocumentAttachmentsFromMessage = exports.isOfficeNativeFilename = exports.OFFICE_NATIVE_EXTENSIONS = exports.stripMarkdown = exports.stripEmojis = exports.stripDuplicates = exports.useDebounceFn = exports.useDebounce = exports.isValidUrl = exports.validURLRegEx = exports.usernameRegEx = exports.mailRegEx = exports.pwdRegEx = exports.isSafariIOS = exports.isSafari = exports.isAndroid = exports.isiOS = exports.isMobileOrTablet = exports.hasTouchscreen = void 0;
+exports.safeParseJSON = exports.disposeObject = exports.isSkinnedMesh = exports.correctMaterials = exports.installMathJax = exports.installMathJaxScript = exports.mathJaxConfig = exports.cleanUrl = exports.difference = exports.stripObjNulls = exports.truncateMessage = exports.getFieldFromCustomData = exports.escapeHTML = exports.withLinksOpenInNewTab = exports.stripHTML = exports.stripReasoningTags = exports.stripOutputTags = exports.isAssetOnlyDocumentAttachment = exports.getDocumentAttachmentAssetUrl = exports.stripDocumentAttachmentTags = exports.extractAttachmentLink = exports.extractAttachmentLinks = exports.parseDocumentAttachmentsFromMessage = exports.isLocalTextFilename = exports.isOfficeNativeFilename = exports.OFFICE_NATIVE_EXTENSIONS = exports.stripMarkdown = exports.stripEmojis = exports.stripDuplicates = exports.useDebounceFn = exports.useDebounce = exports.isValidUrl = exports.validURLRegEx = exports.usernameRegEx = exports.mailRegEx = exports.pwdRegEx = exports.isSafariIOS = exports.isSafari = exports.isAndroid = exports.isiOS = exports.isMobileOrTablet = exports.hasTouchscreen = void 0;
 const tslib_1 = require("tslib");
 const react_1 = require("react");
 const three_1 = require("three");
@@ -192,6 +192,12 @@ const isOfficeNativeFilename = (filename) => {
     return constants_1.officeNativeExtensions.includes(ext);
 };
 exports.isOfficeNativeFilename = isOfficeNativeFilename;
+const isLocalTextFilename = (filename) => {
+    var _a;
+    const ext = `.${((_a = filename.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || ''}`;
+    return constants_1.localTextExtensions.includes(ext);
+};
+exports.isLocalTextFilename = isLocalTextFilename;
 const DOCUMENT_ATTACHMENT_REGEX = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
 const ATTACHMENT_LINK_AFTER_REGEX = /<attachment_link>\s*([\s\S]*?)\s*<\/attachment_link>/;
 const parseDocumentAttachmentsFromMessage = (text) => {

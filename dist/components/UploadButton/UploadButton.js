@@ -49,6 +49,7 @@ const UploadButton = ({ authToken = '', client, sessionID = '', baseUrl = '', is
         var _a;
         const documentExtensions = [
             ...constants_1.documentConversionExtensions,
+            ...constants_1.localTextExtensions,
             ...constants_1.officeNativeExtensions,
         ];
         const fileExt = `.${(_a = file.name.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()}`;
@@ -318,6 +319,7 @@ ${file.textAssetUrl || ''}
         const fileExt = `.${(_a = file.name.split('.').pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()}`;
         const ALLOWED_FILE_TYPES = [
             ...constants_1.documentConversionExtensions,
+            ...constants_1.localTextExtensions,
             ...constants_1.officeNativeExtensions,
         ];
         const MAX_FILE_SIZE = 25 * 1024 * 1024;
@@ -386,6 +388,7 @@ ${file.textAssetUrl || ''}
                     '.jpeg',
                     '.png',
                     ...constants_1.documentConversionExtensions,
+                    ...constants_1.localTextExtensions,
                     ...constants_1.officeNativeExtensions,
                 ].join(','), multiple: true, className: "memori--upload-file-input", onChange: handleFileInputChange, style: { display: 'none' } }), (0, jsx_runtime_1.jsx)("button", { ref: buttonRef, className: (0, classnames_1.default)('memori-button', 'memori-button--circle', 'memori-button--icon-only', 'memori-share-button--button', 'memori--conversation-button', 'memori--unified-upload-button', { 'memori--error': errors.length > 0 }), onClick: handleButtonClick, disabled: isLoading || hasReachedMediaLimit, title: (_b = t('upload.uploadFiles', {
                     shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
