@@ -1,5 +1,23 @@
 # Changelog
 
+## [9.0.0-alpha.24](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.23...v9.0.0-alpha.24) (2026-09-10)
+
+
+### Features
+
+* add release-it configuration for automated versioning and changelog generation ([6a4eee6](https://github.com/memori-ai/memori-react/commit/6a4eee674a9b034f4b8a131d3bdbd5c929596ecc))
+
+
+### Bug Fixes
+
+* upload document skip native file parsing for non-text formats ([8db4328](https://github.com/memori-ai/memori-react/commit/8db432874473bbe83d0b60a0fef5764c745ae632))
+
+
+### Maintenance
+
+* release v8.45.2 ([73fc1bf](https://github.com/memori-ai/memori-react/commit/73fc1bf06bff091a58bf60ea0cd40272e96a8103))
+* update marked-katex-extension to version 5.1.10 and adjust peer dependencies ([934d15c](https://github.com/memori-ai/memori-react/commit/934d15cc3d5a71a0064d942a8ebed68048ca925d))
+
 ## [8.45.2](https://github.com/memori-ai/memori-react/compare/v8.45.1...v8.45.2) (2026-09-10)
 
 
