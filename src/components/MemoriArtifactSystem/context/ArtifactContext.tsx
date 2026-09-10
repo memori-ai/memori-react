@@ -15,9 +15,14 @@ import {
 } from '../types/artifact.types';
 import { applyEdits } from '../utils/applyEdits';
 
+export type OpenArtifactOptions = {
+  /** Inline expansion in chat; layouts should not hide avatar / use side-drawer chrome. */
+  isChatLogPanel?: boolean;
+};
+
 interface ArtifactContextType {
   state: ArtifactSystemState;
-  openArtifact: (artifact: ArtifactData) => void;
+  openArtifact: (artifact: ArtifactData, options?: OpenArtifactOptions) => void;
   closeArtifact: () => void;
   toggleFullscreen: () => void;
   registerArtifact: (artifact: ArtifactData) => void;
@@ -34,6 +39,7 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
     currentArtifact: null,
     isDrawerOpen: false,
     isFullscreen: false,
+    isChatLogPanelPresentation: false,
   });
 
   // Synchronous registry keyed by stable artifactId → latest version.
@@ -41,21 +47,30 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
   // right after a create in the same render cycle.
   const registryRef = useRef<Record<string, ArtifactData>>({});
 
-  const openArtifact = useCallback((artifact: ArtifactData) => {
-    setState(() => ({
-      currentArtifact: artifact,
-      isDrawerOpen: true,
-      isFullscreen: false,
-    }));
-  }, []);
+  const openArtifact = useCallback(
+    (artifact: ArtifactData, options?: OpenArtifactOptions) => {
+      setState(() => {
+        return {
+          currentArtifact: artifact,
+          isDrawerOpen: true,
+          isFullscreen: false,
+          isChatLogPanelPresentation: options?.isChatLogPanel ?? false,
+        };
+      });
+    },
+    []
+  );
 
   const closeArtifact = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      currentArtifact: null,
-      isDrawerOpen: false,
-      isFullscreen: false,
-    }));
+    setState(prev => {
+      return {
+        ...prev,
+        currentArtifact: null,
+        isDrawerOpen: false,
+        isFullscreen: false,
+        isChatLogPanelPresentation: false,
+      };
+    });
   }, []);
 
   const toggleFullscreen = useCallback(() => {

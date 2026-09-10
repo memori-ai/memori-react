@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import Modal from '../ui/Modal';
+import { Modal } from '@memori.ai/ui';
 import cx from 'classnames';
+import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 export interface ContentPreviewModalProps {
   open: boolean;
@@ -21,18 +22,21 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
   title,
   isImage = false,
   imageSrc,
-  imageAlt = '',
+  imageAlt,
   children,
   className,
 }) => {
+  const surfaceEl = useWidgetSurfaceEl();
   const width = 'min(90vw, 800px)';
 
   return (
     <Modal
+      container={surfaceEl ?? undefined}
       open={open}
       onClose={() => onClose()}
       width={width}
       widthMd={width}
+      stacking="stacked"
       className={cx('memori-content-preview-modal', className, {
         'memori-content-preview-modal--image': isImage,
       })}
@@ -50,7 +54,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
           <div className="memori-content-preview-modal--image-wrap">
             <img
               src={imageSrc}
-              alt={imageAlt}
+              alt={imageAlt ?? title ?? 'Preview'}
               className="memori-content-preview-modal--image"
             />
           </div>

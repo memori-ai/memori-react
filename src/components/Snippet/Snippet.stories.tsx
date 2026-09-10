@@ -51,7 +51,7 @@ export default Snippet;
 `;
 
 const meta: Meta = {
-  title: 'Snippet',
+  title: 'Internals/Snippet',
   component: Snippet,
   argTypes: {
     mimeType: {

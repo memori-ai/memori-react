@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import File from '../icons/File';
-import CloseIcon from '../icons/Close';
-import Button from '../ui/Button';
+import { File, X } from 'lucide-react';
+import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import {
@@ -12,6 +11,8 @@ import {
 } from '../../helpers/utils';
 import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
+import { maxDocumentsPerMessage as defaultMaxDocumentsPerMessage } from '../../helpers/constants';
 
 type FilePreviewProps = {
   previewFiles: any;
@@ -19,6 +20,7 @@ type FilePreviewProps = {
   allowRemove?: boolean;
   showAnonymousRetentionNotice?: boolean;
   uploadingCount?: number;
+  maxDocumentsPerMessage?: number;
 };
 
 const FilePreview = ({
@@ -27,6 +29,7 @@ const FilePreview = ({
   allowRemove = true,
   showAnonymousRetentionNotice = false,
   uploadingCount = 0,
+  maxDocumentsPerMessage = defaultMaxDocumentsPerMessage,
 }: FilePreviewProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<{
@@ -153,13 +156,23 @@ const FilePreview = ({
     <>
       {(previewFiles.length > 0 || uploadingCount > 0) && (
         <div className="memori--preview-container">
+          {previewFiles.length > 0 && (
+            <div
+              className={cx('memori--document-count', {
+                'memori--document-count-full':
+                  previewFiles.length >= maxDocumentsPerMessage,
+              })}
+            >
+              {previewFiles.length}/{maxDocumentsPerMessage}
+            </div>
+          )}
           {showAnonymousRetentionNotice && (
             <small
               style={{
                 color: 'rgb(138, 138, 138)',
                 display: 'block',
-                marginTop: '6px',
-                marginBottom: '6px',
+                marginTop: '8px',
+                marginLeft: '8px',
                 fontSize: '0.7rem',
               }}
             >
@@ -178,44 +191,53 @@ const FilePreview = ({
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-                onClick={() => {
-                  if (isOfficeNativeFilename(file.name || '')) {
-                    const url = getDocumentAttachmentAssetUrl(file);
-                    if (url) {
-                      window.open(url, '_blank', 'noopener,noreferrer');
-                    }
-                  } else {
-                    setSelectedFile(file);
-                  }
-                }}
               >
-                {isImageContent(file.content, file.type) ? (
-                  <div className="memori--preview-thumbnail">
-                    <img src={file.content} alt={file.name} />
-                  </div>
-                ) : (
-                  <File className="memori--preview-icon" />
-                )}
+                <button
+                  type="button"
+                  className="memori--preview-item-trigger"
+                  onClick={() => {
+                    if (isOfficeNativeFilename(file.name || '')) {
+                      const url = getDocumentAttachmentAssetUrl(file);
+                      if (url) {
+                        window.open(url, '_blank', 'noopener,noreferrer');
+                      }
+                    } else {
+                      setSelectedFile(file);
+                    }
+                  }}
+                  aria-label={file.name}
+                >
+                  {isImageContent(file.content, file.type) ? (
+                    <div className="memori--preview-thumbnail">
+                      <img src={file.content} alt="" />
+                    </div>
+                  ) : (
+                    <File className="memori--preview-icon" aria-hidden />
+                  )}
 
-                <div className="memori--preview-file-info">
-                  <span className="memori--preview-filename">{file.name}</span>
-                  <span className="memori--preview-filetype">
-                    {file.mimeType
-                      ? getDocumentBadgeLabel(file.mimeType, file.name)
-                      : getFileType(file.name, file.type)}
-                  </span>
-                </div>
+                  <div className="memori--preview-file-info">
+                    <span className="memori--preview-filename">{file.name}</span>
+                    <span className="memori--preview-filetype">
+                      {file.mimeType
+                        ? getDocumentBadgeLabel(file.mimeType, file.name)
+                        : getFileType(file.name, file.type)}
+                    </span>
+                  </div>
+                </button>
 
                 {allowRemove && (
                   <Button
-                    shape="rounded"
-                    icon={<CloseIcon />}
+                    shape="circle"
+                    icon={<X aria-hidden />}
                     danger
                     className="memori--remove-button"
-                    onClick={e => {
-                      e.stopPropagation();
-                      removeFile(file.id, file?.mediumID);
-                    }}
+                    aria-label={String(
+                      t('upload.removeFile', {
+                        defaultValue: 'Remove {{name}}',
+                        name: file.name,
+                      })
+                    )}
+                    onClick={() => removeFile(file.id, file?.mediumID)}
                   />
                 )}
               </div>
@@ -242,6 +264,7 @@ const FilePreview = ({
         open={!!selectedFile}
         onClose={() => setSelectedFile(null)}
         title={selectedFile?.name}
+        className="memori-file-preview-modal"
         isImage={
           !!selectedFile &&
           isImageContent(selectedFile.content, selectedFile.type)

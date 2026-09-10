@@ -6,7 +6,7 @@ import MicrophoneButton, { Props } from './MicrophoneButton';
 import './MicrophoneButton.css';
 
 const meta: Meta = {
-  title: 'Widget/Microphone Button',
+  title: 'Internals/Microphone Button',
   component: MicrophoneButton,
   argTypes: {
     disabled: {

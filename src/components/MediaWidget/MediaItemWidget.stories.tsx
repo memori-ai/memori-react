@@ -6,7 +6,7 @@ import MediaItemWidget, { Props } from './MediaItemWidget';
 import './MediaItemWidget.css';
 
 const meta: Meta = {
-  title: 'Media Widget/Media',
+  title: 'Internals/Media',
   component: MediaItemWidget,
   argTypes: {
     translateTo: {
@@ -54,20 +54,6 @@ Default.args = {
       url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    },
-    {
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5974',
-      mimeType: 'video/mp4',
-      title: 'Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      content: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    {
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5975',
-      mimeType: 'audio/mpeg',
-      title: 'Audio',
-      url: 'https://www.w3schools.com/html/horse.mp3',
-      content: 'https://www.w3schools.com/html/horse.mp3',
     },
     {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5976',

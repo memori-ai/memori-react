@@ -4,19 +4,16 @@
  * Following the project's component patterns and design system
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import cx from 'classnames';
-import Button from '../../../ui/Button';
+import { Button, Dropdown } from '@memori.ai/ui';
 import { ArtifactData } from '../../types/artifact.types';
-import Download from '../../../icons/Download';
-import Link from '../../../icons/Link';
-import Fullscreen from '../../../icons/Fullscreen';
-import FullscreenExit from '../../../icons/FullscreenExit';
-import PrintIcon from '../../../icons/Print';
+import {
+  Link as LinkIcon,
+  Printer,
+  MoreVertical,
+} from 'lucide-react';
 import { CopyButtonWithDropdown } from './';
-import { Menu, Transition } from '@headlessui/react';
-import MenuVertical from '../../../icons/MenuVertical';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -185,63 +182,42 @@ const ArtifactActions: React.FC<{
           loading={loading}
           className="memori-artifact-action-btn"
         />
-       {isMobile && <Menu as="div" className="memori-copy-menu-wrapper">
-          <Menu.Button as="div" className="memori-copy-button-trigger">
-            <Button
-              disabled={loading}
-              className={cx(
-                'memori-button',
-                'memori-button--more-options',
-                'memori-button--icon-only'
+        {isMobile && (
+          <Dropdown className="memori-copy-menu-wrapper">
+            <Dropdown.Trigger
+              showChevron={false}
+              className="memori-copy-button-trigger"
+              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                <Button
+                  {...props}
+                  disabled={loading}
+                  variant="ghost"
+                  title="More copy options"
+                >
+                  <MoreVertical className="memori-artifact-action-icon" />
+                </Button>
               )}
-              ghost
-              title="More copy options"
-            >
-              <MenuVertical className="memori-artifact-action-icon" />
-            </Button>
-          </Menu.Button>
-
-          <Transition
-            as={React.Fragment}
-            enter="memori-copy-dropdown-enter"
-            enterFrom="memori-copy-dropdown-enter-from"
-            enterTo="memori-copy-dropdown-enter-to"
-            leave="memori-copy-dropdown-leave"
-            leaveFrom="memori-copy-dropdown-leave-from"
-            leaveTo="memori-copy-dropdown-leave-to"
-          >
-            <Menu.Items className="memori-copy-dropdown" style={{minWidth: '200px'}}>
-              <div className="memori-copy-dropdown-list">
-                <Button
-                  onClick={handlePrint}
-                  disabled={loading}
-                  className="memori-artifact-action-btn memori-artifact-action-btn--print"
-                  ghost
-                  icon={<PrintIcon className="memori-artifact-action-icon" />}
-                  title={t('artifact.print') || 'Print'}
-                >
-                  <span className="memori-artifact-action-text">
-                    {t('artifact.print') || 'Print'}
-                  </span>
-                </Button>
-
-                <Button
-                  onClick={handleOpenExternal}
-                  disabled={loading}
-                  className="memori-artifact-action-btn memori-artifact-action-btn--external"
-                  ghost
-                  icon={<Link className="memori-artifact-action-icon" />}
-                  title={t('artifact.external') || 'External'}
-                >
-                  <span className="memori-artifact-action-text">
-                    {t('artifact.external') || 'External'}
-                  </span>
-                </Button>
-
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>}
+            />
+            <Dropdown.Menu placement="bottom" align="end" sideOffset={8}>
+              <Dropdown.Item
+                onClick={handlePrint}
+                disabled={loading}
+                icon={<Printer />}
+                label={t('artifact.print') || 'Print'}
+              >
+                {t('artifact.print') || 'Print'}
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={handleOpenExternal}
+                disabled={loading}
+                icon={<LinkIcon />}
+                label={t('artifact.external') || 'External'}
+              >
+                {t('artifact.external') || 'External'}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
       </div>
     </div>
   );

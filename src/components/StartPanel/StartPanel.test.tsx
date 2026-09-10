@@ -12,7 +12,8 @@ it('renders StartPanel unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -32,7 +33,8 @@ it('renders StartPanel with existing sessionunchanged', () => {
       userLang="en"
       hasInitialSession
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -54,7 +56,8 @@ it('renders StartPanel with completions enabled unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -76,7 +79,8 @@ it('renders StartPanel for board of experts unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -98,7 +102,8 @@ it('renders StartPanel with deep thought enabled unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -125,7 +130,8 @@ it('renders StartPanel with deep thought but unlogged unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -148,7 +154,8 @@ it('renders StartPanel with deep thought enabled but without permission flag unc
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -172,7 +179,8 @@ it('renders StartPanel on instruct unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -194,7 +202,8 @@ it('renders StartPanel with position required unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -216,7 +225,8 @@ it('renders StartPanel with login required unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={true}
       sessionId={sessionID}
       clickedStart={false}
@@ -236,7 +246,8 @@ it('renders StartPanel with integrationConfig unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -256,7 +267,8 @@ it('renders StartPanel with multilangual unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -283,7 +295,8 @@ it('renders StartPanel with completion provider down unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       sessionId={sessionID}
       clickedStart={false}
@@ -303,7 +316,8 @@ it('renders StartPanel with not enough credits unchanged', () => {
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       clickedStart={false}
       onClickStart={() => {}}
@@ -326,7 +340,8 @@ it('blocks start and shows credits badge when owner has not enough credits', () 
       language="it"
       userLang="en"
       setUserLang={() => {}}
-      openPositionDrawer={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
       instruct={false}
       clickedStart={false}
       onClickStart={onClickStart}
@@ -336,7 +351,7 @@ it('blocks start and shows credits badge when owner has not enough credits', () 
   );
 
   const startButton = container.querySelector(
-    '.memori--start-button'
+    '.memori--start-actions__start'
   ) as HTMLButtonElement;
   expect(startButton).toBeInTheDocument();
   expect(startButton).toBeDisabled();
@@ -348,13 +363,9 @@ it('blocks start and shows credits badge when owner has not enough credits', () 
   // No password field is ever rendered for a public agent.
   expect(queryByPlaceholderText('Password')).not.toBeInTheDocument();
 
-  // The credits badge is rendered and surfaces the proper message on hover.
+  // The credits badge is rendered (tooltip content is portaled on hover by
+  // @memori.ai/ui and is covered by BlockedMemoriBadge unit tests).
   const badge = container.querySelector('.blocked-memori-badge--wrapper');
   expect(badge).toBeInTheDocument();
-
-  const tooltipTrigger = container.querySelector(
-    '.blocked-memori-badge--tooltip'
-  ) as HTMLElement;
-  fireEvent.mouseEnter(tooltipTrigger);
-  expect(getByText('notEnoughCredits')).toBeInTheDocument();
+  expect(getByText('memoriBlockedTitle')).toBeInTheDocument();
 });

@@ -19,7 +19,7 @@ const DynamicShadow = ({
       scale: 10,
       far: 5,
       resolution: 1024,
-      color: '#000000',
+      color: 'var(--memori-text-color)',
     };
 
     if (!animator) {

@@ -10,7 +10,7 @@ import CopyButtonTest from './test/CopyButtonTest';
 
 
 const meta: Meta<typeof CopyButtonTest> = {
-  title: 'Artifact System/CopyButtonTest',
+  title: 'Internals/CopyButtonTest',
   component: CopyButtonTest,
   parameters: {
     layout: 'fullscreen',

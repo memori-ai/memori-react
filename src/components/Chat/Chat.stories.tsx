@@ -16,14 +16,20 @@ import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
 
 import './Chat.css';
-import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import {
+  ArtifactProvider,
+  useArtifact,
+} from '../MemoriArtifactSystem/context/ArtifactContext';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat',
+  title: 'Compositions/Chat',
   component: Chat,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
 };
 
@@ -34,18 +40,69 @@ const dialogState = {
   hints: [],
 };
 
+/**
+ * Layouts normally mount ArtifactDrawer as a side column. Chat stories render
+ * Chat on its own, so non-chatlog artifacts would open into a missing drawer.
+ */
+const ChatStoryLayout: React.FC<{
+  isChatlogPanel?: boolean;
+  children: React.ReactNode;
+}> = ({ isChatlogPanel, children }) => {
+  const { state } = useArtifact();
+  const showSideDrawer =
+    !isChatlogPanel &&
+    state.isDrawerOpen &&
+    !state.isChatLogPanelPresentation;
+
+  return (
+    <div
+      className="memori-chat-story-layout"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '100%',
+        minHeight: 0,
+        flex: 1,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          minWidth: 0,
+          minHeight: 0,
+          height: '100%',
+          flexDirection: 'column',
+        }}
+      >
+        {children}
+      </div>
+      {/* Overlay drawer: layouts normally mount a side column, which Chat
+          stories do not have. Avoid a height:100% sibling or the chat
+          column collapses to 0 in Storybook's column flex canvas. */}
+      {showSideDrawer && <ArtifactDrawer />}
+    </div>
+  );
+};
+
 const Template: Story<Props> = args => {
   const [userMessage, setUserMessage] = useState(args.userMessage);
 
   return (
     <I18nWrapper>
-      <ArtifactProvider>
-        <Chat
-          {...args}
-          userMessage={userMessage}
-          onChangeUserMessage={setUserMessage}
-        />
-      </ArtifactProvider>
+      <AlertProvider defaultDuration={5000}>
+        <ArtifactProvider>
+          <ChatStoryLayout isChatlogPanel={args.isChatlogPanel}>
+            <Chat
+              {...args}
+              userMessage={userMessage}
+              onChangeUserMessage={setUserMessage}
+            />
+          </ChatStoryLayout>
+        </ArtifactProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };
@@ -766,7 +823,7 @@ body {
   padding: 15px 40px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: .5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -790,7 +847,7 @@ body {
   text-align: center;
   padding: 30px;
   background: white;
-  border-radius: 10px;
+  border-radius: .5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
 }
@@ -956,7 +1013,7 @@ export const Button: React.FC<ButtonProps> = ({
   font-size: 16px;
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: .5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
@@ -1468,13 +1525,13 @@ if __name__ == "__main__":
   gap: 1rem;
   padding: 1rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
+  border-radius: .5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .media-item {
   background: white;
-  border-radius: 6px;
+  border-radius: .5rem;
   overflow: hidden;
   transition: transform 0.2s ease;
 }

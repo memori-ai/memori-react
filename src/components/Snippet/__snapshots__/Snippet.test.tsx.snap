@@ -25,22 +25,24 @@ exports[`renders SnippetUpload with css code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -86,22 +88,24 @@ exports[`renders SnippetUpload with html code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -147,22 +151,24 @@ exports[`renders SnippetUpload with js code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -232,22 +238,24 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -337,22 +345,24 @@ export default Snippet;
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -442,22 +452,24 @@ export default Snippet;
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -503,22 +515,24 @@ exports[`renders SnippetUpload with text 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect
@@ -564,22 +578,24 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-copy"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect

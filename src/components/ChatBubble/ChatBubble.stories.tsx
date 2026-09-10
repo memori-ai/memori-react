@@ -6,9 +6,12 @@ import ChatBubble, { Props } from './ChatBubble';
 import { installMathJax } from '../../helpers/utils';
 
 import './ChatBubble.css';
+import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat bubble',
+  title: 'Internals/Chat bubble',
   component: ChatBubble,
   argTypes: {
     fromUser: {
@@ -46,25 +49,27 @@ const Template: Story<Props> = args => {
   }, [args.useMathFormatting]);
 
   return (
-    <I18nWrapper>
-      <ChatBubble {...args} />
-    </I18nWrapper>
+    <VisemeProvider>
+      <ArtifactProvider>
+        <I18nWrapper>
+          <AlertProvider defaultDuration={5000}>
+            {/* Addons (copy, feedback, …) are hover-only in product UI.
+                Keep them visible here so Storybook can document them. */}
+            <div className="memori-storybook-chat-bubble">
+              <style>{`
+                .memori-storybook-chat-bubble .memori-chat--bubble-addon {
+                  opacity: 1;
+                  pointer-events: auto;
+                  transform: none;
+                }
+              `}</style>
+              <ChatBubble {...args} />
+            </div>
+          </AlertProvider>
+        </I18nWrapper>
+      </ArtifactProvider>
+    </VisemeProvider>
   );
-};
-
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
-Default.args = {
-  memori,
-  tenant,
-  message: {
-    fromUser: false,
-    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
-    initial: false,
-    translatedText:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
-  },
 };
 
 export const Test = Template.bind({});
@@ -102,6 +107,17 @@ FromUser.args = {
     initial: false,
     translatedText:
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const FromUserWithNewlines = Template.bind({});
+FromUserWithNewlines.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet.\nTurpis a, pretium condimentum dolor.\n\n[Vedi altro](https://memori.ai)',
+    initial: false,
   },
 };
 
@@ -203,8 +219,7 @@ WithAllAddonsContents.args = {
     fromUser: false,
     text: 'Proin libero ante.',
     initial: false,
-    translatedText:
-      'Proin libero ter.',
+    translatedText: 'Proin libero ter.',
     generatedByAI: true,
   },
   showFeedback: true,

@@ -4,7 +4,7 @@ import I18nWrapper from '../../I18nWrapper';
 import Typing, { Props } from './Typing';
 
 const meta: Meta = {
-  title: 'Widget/Typing',
+  title: 'Internals/Typing',
   component: Typing,
   argTypes: {
     useDefaultSentences: {

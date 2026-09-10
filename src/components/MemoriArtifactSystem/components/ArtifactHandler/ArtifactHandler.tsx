@@ -8,13 +8,23 @@ import React, {
 } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData, ArtifactEdit } from '../../types/artifact.types';
-import ChevronRight from '../../../icons/ChevronRight';
+import {
+  ChevronRight,
+  ChevronDown,
+  ChevronLeft,
+  ChevronUp,
+} from 'lucide-react';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
-import ChevronDown from '../../../icons/ChevronDown';
-import ChevronLeft from '../../../icons/ChevronLeft';
-import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { stripReasoningTags } from '../../../../helpers/utils';
+import CssIcon from '../../../../icons/artifacts/cssIcon';
+import DocumentIcon from '../../../../icons/artifacts/DocumentIcon';
+import HtmlIcon from '../../../../icons/artifacts/HtmlIcon';
+import JavascriptIcon from '../../../../icons/artifacts/JavascriptIcon';
+import MarkdownIcon from '../../../../icons/artifacts/MarkdownIcon';
+import PythonIcon from '../../../../icons/artifacts/PythonIcon';
+import SvgIcon from '../../../../icons/artifacts/SvgIcon';
+import XmlIcon from '../../../../icons/artifacts/XmlIcon';
 import { parseEdits } from '../../utils/applyEdits';
 import { useTranslation } from 'react-i18next';
 
@@ -85,10 +95,7 @@ const isUpdateArtifactTag = (openingTag: string): boolean => {
   return getDataAction(openingTag) === 'update';
 };
 
-const findMatchingOutputClose = (
-  cleaned: string,
-  openEnd: number
-): number => {
+const findMatchingOutputClose = (cleaned: string, openEnd: number): number => {
   let depth = 1;
   let pos = openEnd;
   let closeStart = -1;
@@ -200,10 +207,7 @@ const detectArtifacts = (
 /**
  * Detect update tags and parse their JSON edit bodies.
  */
-const detectUpdates = (
-  text: string,
-  isFromUser: boolean
-): DetectedUpdate[] => {
+const detectUpdates = (text: string, isFromUser: boolean): DetectedUpdate[] => {
   if (!text || isFromUser) return [];
 
   const cleaned = stripReasoningTags(text);
@@ -277,10 +281,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     [message.timestamp, message.fromUser]
   );
 
+  // Function to dispatch artifact created event
   const dispatchArtifactCreatedEvent = useCallback(
     (artifact: ArtifactData) => {
       const event: ArtifactCreatedEvent = new CustomEvent('artifactCreated', {
-        detail: { artifact, message },
+        detail: {
+          artifact,
+          message,
+        },
       });
       document.dispatchEvent(event);
     },
@@ -369,7 +377,10 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     if (hasAutoOpenedRef.current === messageKey) return;
     hasAutoOpenedRef.current = messageKey;
 
-    const timer = setTimeout(() => openArtifact(openTarget), 100);
+    const timer = setTimeout(
+      () => openArtifact(openTarget, { isChatLogPanel: false }),
+      100
+    );
     return () => clearTimeout(timer);
   }, [
     messageKey,
@@ -390,24 +401,35 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       if (state.isDrawerOpen && state.currentArtifact?.id === artifact.id) {
         closeArtifact();
       } else {
-        openArtifact(artifact);
+        openArtifact(artifact, { isChatLogPanel: isChatlogPanel });
       }
     },
-    [state.isDrawerOpen, state.currentArtifact?.id, closeArtifact, openArtifact]
+    [
+      state.isDrawerOpen,
+      state.currentArtifact?.id,
+      closeArtifact,
+      openArtifact,
+      isChatlogPanel,
+    ]
   );
 
-  const getIconForMimeType = useCallback((mimeType: string): string => {
-    if (mimeType.includes('html')) return '🌐';
-    if (mimeType.includes('markdown')) return '📝';
-    if (mimeType.includes('javascript') || mimeType.includes('typescript'))
-      return '📜';
-    if (mimeType.includes('python')) return '🐍';
-    if (mimeType.includes('json')) return '📊';
-    if (mimeType.includes('css')) return '🎨';
-    if (mimeType.includes('xml')) return '📋';
-    if (mimeType.includes('svg')) return '🖼️';
-    return '📄';
-  }, []);
+  const getIconForMimeType = useCallback(
+    (mimeType: string): React.ReactElement => {
+      const m = mimeType.toLowerCase();
+      const iconProps = { 'aria-hidden': true as const };
+      if (m.includes('html')) return <HtmlIcon {...iconProps} />;
+      if (m.includes('markdown')) return <MarkdownIcon {...iconProps} />;
+      if (m.includes('javascript') || m.includes('typescript'))
+        return <JavascriptIcon {...iconProps} />;
+      if (m.includes('python')) return <PythonIcon {...iconProps} />;
+      if (m.includes('json')) return <DocumentIcon {...iconProps} />;
+      if (m.includes('css')) return <CssIcon {...iconProps} />;
+      if (m.includes('xml')) return <XmlIcon {...iconProps} />;
+      if (m.includes('svg')) return <SvgIcon {...iconProps} />;
+      return <DocumentIcon {...iconProps} />;
+    },
+    []
+  );
 
   const updatedLabel = t('artifact.updated') || 'updated';
   const updateFailedLabel =
@@ -438,6 +460,11 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     );
   };
 
+  const renderInlineDrawer = (isSelected: boolean) =>
+    isChatlogPanel && isSelected ? (
+      <ArtifactDrawer isChatLogPanel={true} />
+    ) : null;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       {artifacts.map(artifact => {
@@ -446,16 +473,19 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
         return (
           <React.Fragment key={artifact.id}>
-            <div
+            <button
+              type="button"
               className={`memori-artifact-handler${
                 isSelected ? ' memori-artifact-handler--selected' : ''
               }`}
               onClick={() => handleArtifactClick(artifact)}
+              aria-pressed={isSelected}
+              aria-label={artifact.title}
               style={
                 isSelected
                   ? {
-                      border: '2px solid var(--memori-primary, #3b82f6)',
-                      boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
+                      border: '2px solid var(--memori-border-primary)',
+                      // boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
                     }
                   : undefined
               }
@@ -474,9 +504,11 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               <div className="memori-artifact-handler-action">
                 {renderChevron(isSelected)}
               </div>
-            </div>
+            </button>
 
-            {isSelected && <ArtifactDrawer isChatLogPanel={isChatlogPanel} />}
+            {/* Render inline drawer only for chatlog-panel mode.
+                In layout-column mode the drawer is mounted by the page layout. */}
+            {renderInlineDrawer(isSelected)}
           </React.Fragment>
         );
       })}
@@ -487,21 +519,25 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
         return (
           <React.Fragment key={artifact.id}>
-            <div
+            <button
+              type="button"
               className={`memori-artifact-handler${
                 isSelected ? ' memori-artifact-handler--selected' : ''
               }`}
               onClick={() => handleArtifactClick(artifact)}
+              aria-pressed={isSelected}
+              aria-label={`${artifact.title} — ${updatedLabel}`}
               style={
                 isSelected
                   ? {
-                      border: '2px solid var(--memori-primary, #3b82f6)',
-                      boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
+                      border: '2px solid var(--memori-border-primary)',
                     }
                   : undefined
               }
             >
-              <div className="memori-artifact-handler-icon">✏️</div>
+              <div className="memori-artifact-handler-icon">
+                {getIconForMimeType(artifact.mimeType)}
+              </div>
               <div className="memori-artifact-handler-info">
                 <div className="memori-artifact-handler-title">
                   {artifact.title} — {updatedLabel}
@@ -513,9 +549,9 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               <div className="memori-artifact-handler-action">
                 {renderChevron(isSelected)}
               </div>
-            </div>
+            </button>
 
-            {isSelected && <ArtifactDrawer isChatLogPanel={isChatlogPanel} />}
+            {renderInlineDrawer(isSelected)}
           </React.Fragment>
         );
       })}
@@ -526,7 +562,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
           className="memori-artifact-handler memori-artifact-handler--failed"
           style={{
             opacity: 0.85,
-            border: '1px dashed var(--memori-danger, #ef4444)',
+            border: '1px dashed var(--memori-error, #ef4444)',
             cursor: 'default',
           }}
           role="status"
@@ -546,6 +582,15 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   );
 };
 
+// ---------------------------------------------------------------------------
+// Memoised export
+// ---------------------------------------------------------------------------
+
+/**
+ * FIX: comparison now uses the same field priority as detectArtifacts
+ * (message.text first, translatedText as fallback) to avoid asymmetric
+ * re-render skipping.
+ */
 const MemoizedArtifactHandler = memo(ArtifactHandler, (prev, next) => {
   const prevText = prev.message.text || prev.message.translatedText || '';
   const nextText = next.message.text || next.message.translatedText || '';
