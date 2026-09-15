@@ -148,7 +148,11 @@
     flex-shrink: 0;
 }
 
-/* --- 6. Base: brand e tema di default (in layer così overrides possono sovrascrivere --memori-primary) --- */
+/* --- 6. Base: brand e tema di default (in layer così overrides possono sovrascrivere --memori-primary) ---
+ * Rebind primary-derived tokens on host scopes (not only :root). Embeds set
+ * --memori-primary-color on .memori-widget; tokens computed only on :root stay
+ * frozen to the default brand, so disabled/soft/subtle UI would ignore the
+ * integration color. Formulas match @memori.ai/ui theme tokens. */
 @layer memori.overrides {
     :root,
     body,
@@ -161,6 +165,17 @@
     body.sb-show-main #root {
         --memori-primary-color: rgb(var(--memori-primary-rgb, 130 70 175));
         --memori-primary: var(--memori-primary-color);
+        --memori-primary-hover: color-mix(in oklch, var(--memori-primary), black 15%);
+        --memori-primary-active: color-mix(in oklch, var(--memori-primary), black 20%);
+        --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
+        --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), white 88%);
+        --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), white 78%);
+        --memori-primary-alpha: color-mix(in oklch, var(--memori-primary) 15%, transparent);
+        --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
+        --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
+        --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 55%);
+        --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
+        --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
         --memori-layout-max-width: 1280px;
         /* Shared conversation axis (message list, empty state, input) */
         --memori-conversation-max-width: 48rem; /* 768px */
@@ -178,7 +193,7 @@
     background-color: var(--memori-secondary-background);
 }
 
-/* --- 8. Dark mode: surface contrast only — keep --memori-primary on the brand hook --- */
+/* --- 8. Dark mode: surface contrast + primary-derived rebinds (keep brand on --memori-primary-color) --- */
 @layer memori.overrides {
     [data-theme='dark'] memori-client,
     [data-theme='dark'] memori-client #root,
@@ -189,6 +204,16 @@
         /* Align with @memori.ai/ui: contrast = ink, inverse = surface */
         --memori-surface-contrast: #fff;
         --memori-surface-contrast-inverse: #000;
+        --memori-primary-hover: color-mix(in oklch, var(--memori-primary), white 12%);
+        --memori-primary-active: color-mix(in oklch, var(--memori-primary), white 22%);
+        --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 55%);
+        --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), black 72%);
+        --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), black 62%);
+        --memori-primary-alpha: color-mix(in oklch, var(--memori-primary) 22%, transparent);
+        --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 45%);
+        --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 30%);
+        --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 40%);
+        --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 55%);
     }
 }
 
