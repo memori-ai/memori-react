@@ -3,6 +3,8 @@ import {
   getFileExtensionFromUrl,
   getFileExtensionFromMime,
   getDocumentBadgeLabel,
+  isDataPreviewMime,
+  parseDataPreviewRows,
   countLines,
   shouldUseDarkFileCard,
   fetchLinkPreview,
@@ -111,6 +113,41 @@ describe('MediaItemWidget.utils', () => {
           'budget.xlsx'
         )
       ).toBe('Excel');
+    });
+
+    it('uses filename extension over text/plain mime', () => {
+      expect(
+        getDocumentBadgeLabel('text/plain', 'checklist-produzione-set.pdf')
+      ).toBe('PDF');
+    });
+  });
+
+  describe('isDataPreviewMime', () => {
+    it('returns true for json/csv/xml mimes', () => {
+      expect(isDataPreviewMime('application/json')).toBe(true);
+      expect(isDataPreviewMime('text/csv')).toBe(true);
+      expect(isDataPreviewMime('text/xml')).toBe(true);
+      expect(isDataPreviewMime('application/xml')).toBe(true);
+    });
+
+    it('returns false for plain text and pdf', () => {
+      expect(isDataPreviewMime('text/plain')).toBe(false);
+      expect(isDataPreviewMime('application/pdf')).toBe(false);
+    });
+  });
+
+  describe('parseDataPreviewRows', () => {
+    it('parses json object keys', () => {
+      expect(
+        parseDataPreviewRows('{"a":1,"b":"x"}', 'application/json')
+      ).toEqual([
+        { label: 'a', value: '1' },
+        { label: 'b', value: 'x' },
+      ]);
+    });
+
+    it('returns [] for unparseable content', () => {
+      expect(parseDataPreviewRows('not-json', 'application/json')).toEqual([]);
     });
   });
 

@@ -545,6 +545,39 @@ it('uses the adjacent attachment link for document media', () => {
   ).toBeInTheDocument();
 });
 
+it('groups user attachments in a strip with the message bubble', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: true,
+        initial: false,
+        text: 'test',
+        media: [
+          {
+            mediumID: 'u-pdf-1',
+            mimeType: 'application/pdf',
+            title: 'checklist.pdf',
+            url: 'https://example.com/checklist.pdf',
+          },
+        ],
+      }}
+    />
+  );
+
+  const userBlock = container.querySelector('.memori-chat--user-block');
+  const strip = container.querySelector('.memori-chat--attachment-strip');
+  expect(userBlock).toBeInTheDocument();
+  expect(strip).toBeInTheDocument();
+  expect(userBlock?.contains(strip)).toBe(true);
+  expect(
+    userBlock?.querySelector('.memori-chat--user-bubble')
+  ).toBeInTheDocument();
+  expect(screen.getByText('PDF')).toBeInTheDocument();
+});
+
 it('hides date and time in the bubble addon by default', () => {
   const { container } = render(
     <ChatBubble

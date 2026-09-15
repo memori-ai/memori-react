@@ -196,7 +196,7 @@ it('renders PDF as document card with title and PDF badge', () => {
   expect(container.querySelector('.memori-media-item--document-link')).toBeInTheDocument();
 });
 
-it('renders HTML link as document card with Link badge when url present', () => {
+it('renders HTML with Open preview action when url present', () => {
   const linkItem: Medium & { type?: string } = {
     mediumID: 'link-1',
     mimeType: 'text/html',
@@ -208,7 +208,51 @@ it('renders HTML link as document card with Link badge when url present', () => 
     <MediaItemWidget items={[linkItem]} sessionID={sessionID} />
   );
   expect(screen.getByText('Memori')).toBeInTheDocument();
-  expect(screen.getByText('Link')).toBeInTheDocument();
+  expect(screen.getByText('Open preview')).toBeInTheDocument();
+  expect(screen.queryByText('Link')).not.toBeInTheDocument();
+});
+
+it('renders JSON content as data preview rows', () => {
+  const jsonItem: Medium & { type?: string } = {
+    mediumID: 'json-1',
+    mimeType: 'application/json',
+    title: 'payload.json',
+    content: '{"status":"ok","code":200}',
+    type: 'document',
+  };
+  render(<MediaItemWidget items={[jsonItem]} sessionID={sessionID} />);
+  expect(screen.getByText('payload.json')).toBeInTheDocument();
+  expect(screen.getByText('status')).toBeInTheDocument();
+  expect(screen.getByText('ok')).toBeInTheDocument();
+  expect(
+    document.querySelector('.memori-media-item--data-preview')
+  ).toBeInTheDocument();
+});
+
+it('shows PDF badge when filename is .pdf even if mime is text/plain', () => {
+  const pdfAsTxt: Medium & { type?: string } = {
+    mediumID: 'pdf-txt-1',
+    mimeType: 'text/plain',
+    title: 'checklist-produzione-set.pdf',
+    content: 'pages',
+    properties: { isDocumentAttachment: true },
+    type: 'document',
+  };
+  render(<MediaItemWidget items={[pdfAsTxt]} sessionID={sessionID} />);
+  expect(screen.getByText('PDF')).toBeInTheDocument();
+  expect(screen.queryByText('TXT')).not.toBeInTheDocument();
+});
+
+it('renders image caption under thumbnail', () => {
+  const imgItem: Medium & { type?: string } = {
+    ...medium,
+    mediumID: 'img-caption-1',
+    mimeType: 'image/jpeg',
+    title: 'luna.jpg',
+    url: 'https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2',
+  };
+  render(<MediaItemWidget items={[imgItem]} sessionID={sessionID} />);
+  expect(screen.getByText('luna.jpg — JPG')).toBeInTheDocument();
 });
 
 it('opens MediaPreviewModal when clicking document attachment card', () => {

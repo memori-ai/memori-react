@@ -115,6 +115,36 @@
     align-items: flex-end;
 }
 
+.memori-chat--user-block {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: min(70%, 42rem);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-chat--user-block .memori-chat--bubble-shell--from-user {
+    width: 100%;
+    max-width: 100%;
+}
+
+.memori-chat--attachment-strip {
+    width: 100%;
+    padding: var(--memori-spacing-sm);
+    border: 1px solid color-mix(in oklch, var(--memori-border-color) 80%, transparent);
+    border-radius: var(--memori-radius-box);
+    background: color-mix(in oklch, var(--memori-main-background) 14%, transparent);
+    border-top-right-radius: 4px;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--user {
+    max-width: 100%;
+    justify-content: stretch;
+    margin-inline: 0;
+}
+
 .memori-chat--bubble-avatar svg {
     fill: #000;
     font-size: var(--memori-text-size-heading-large);

@@ -58,6 +58,15 @@ export const IMAGE_MIME_TYPES = [
   'image/gif',
 ] as const;
 
+export const DATA_PREVIEW_MIME_TYPES = [
+  'application/json',
+  'text/csv',
+  'text/xml',
+  'application/xml',
+] as const;
+
+export type DataPreviewRow = { label: string; value: string };
+
 const MIME_TO_EXT: Record<string, string> = {
   'application/pdf': 'PDF',
   'text/html': 'HTML',
@@ -126,6 +135,58 @@ export function getDocumentBadgeLabel(
   }
 
   return getFileExtensionFromMime(mimeType);
+}
+
+export function isDataPreviewMime(mimeType: string): boolean {
+  const normalized = normalizeMimeType(mimeType).toLowerCase();
+  return (DATA_PREVIEW_MIME_TYPES as readonly string[]).includes(normalized);
+}
+
+export function parseDataPreviewRows(
+  content: string | undefined,
+  mimeType: string
+): DataPreviewRow[] {
+  if (!content?.trim()) return [];
+  const normalized = normalizeMimeType(mimeType).toLowerCase();
+  try {
+    if (normalized === 'application/json') {
+      const parsed = JSON.parse(content);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return Object.entries(parsed)
+          .slice(0, 4)
+          .map(([label, value]) => ({
+            label,
+            value: value == null ? '' : String(value),
+          }));
+      }
+      if (Array.isArray(parsed)) {
+        return parsed.slice(0, 4).map((row, i) => ({
+          label: String(i),
+          value: typeof row === 'object' ? JSON.stringify(row) : String(row),
+        }));
+      }
+      return [];
+    }
+    if (normalized === 'text/csv') {
+      return content
+        .trim()
+        .split(/\r?\n/)
+        .slice(0, 4)
+        .map(line => {
+          const [label, ...rest] = line.split(',');
+          return { label: label?.trim() ?? '', value: rest.join(',').trim() };
+        });
+    }
+    if (normalized === 'text/xml' || normalized === 'application/xml') {
+      const pairs = [
+        ...content.matchAll(/<([A-Za-z_][\w.-]*)>([^<]{1,80})<\/\1>/g),
+      ].slice(0, 4);
+      return pairs.map(m => ({ label: m[1], value: m[2].trim() }));
+    }
+  } catch {
+    return [];
+  }
+  return [];
 }
 
 export function countLines(content: string | undefined): number {

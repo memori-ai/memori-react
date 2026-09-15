@@ -9,16 +9,26 @@ exports[`DocumentCard renders unchanged snapshot 1`] = `
       class="memori-media-item--document-header"
     >
       <div
-        class="memori-media-item--document-title"
+        aria-hidden="true"
+        class="memori-media-item--document-icon memori-media-item--document-icon--xlsx"
       >
-        Spreadsheet
+        XLSX
+      </div>
+      <div
+        class="memori-media-item--document-body"
+      >
+        <div
+          class="memori-media-item--document-title"
+        >
+          Spreadsheet
+        </div>
+        <div
+          class="memori-media-item--document-meta"
+        >
+          256 KB
+        </div>
       </div>
     </div>
-    <span
-      class="memori-media-item--document-badge"
-    >
-      XLSX
-    </span>
   </div>
 </div>
 `;
