@@ -530,8 +530,9 @@ type ChatStylesConfig = {
 
 /**
  * Returns CSS custom properties for the chat container when a brand primary is set.
- * Sets the UI brand hook (`--memori-primary-color`); hover/active/subtle derive from
- * `@memori.ai/ui` theme tokens. Widget-only icon soft fills stay here.
+ * Sets the UI brand hook (`--memori-primary-color`); hover/active/disabled/subtle
+ * are rebound from that hook in `styles.css` on widget scopes (CSS derives only
+ * when computed on the same element as the override). Widget-only icon soft fills stay here.
  */
 export function getChatStyles(
   config: ChatStylesConfig | null | undefined

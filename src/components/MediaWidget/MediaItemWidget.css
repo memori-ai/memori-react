@@ -6,18 +6,53 @@
     gap: var(--memori-spacing-sm);
 }
 
-/* Single image: Single column, centered, full width */
+/*
+ * Image galleries must use a real CSS grid with reserved tile size.
+ * Previously few/many set grid-template-* on a flex container, so tiles
+ * sized to intrinsic screenshots and caused Safari scroll jumps / blanking.
+ */
+.memori-media-items--grid.memori-media-items--single,
+.memori-media-items--grid.memori-media-items--few,
+.memori-media-items--grid.memori-media-items--many {
+    display: grid;
+    max-width: 100%;
+    min-width: 0;
+    align-content: start;
+    justify-content: start;
+}
+
+/* Single image: one reserved tile */
 .memori-media-items--grid.memori-media-items--single {
-    grid-template-rows: 1fr;
-    justify-items: center;
+    grid-template-columns: 120px;
+    justify-items: stretch;
+}
+
+/* 2-4 images: two columns of reserved tiles */
+.memori-media-items--grid.memori-media-items--few {
+    grid-template-columns: repeat(2, 120px);
+}
+
+/* 5+ images: two columns by default, three on wide viewports */
+.memori-media-items--grid.memori-media-items--many {
+    grid-template-columns: repeat(2, 120px);
+}
+
+@media (min-width: 1025px) {
+    .memori-media-items--grid.memori-media-items--many {
+        grid-template-columns: repeat(3, 120px);
+    }
 }
 
 .memori-media-items--grid.memori-media-items--single .memori-media-item,
+.memori-media-items--grid.memori-media-items--few .memori-media-item,
+.memori-media-items--grid.memori-media-items--many .memori-media-item,
 .memori-media-item--link .memori-media-item--image {
-    width: 100%;
+    box-sizing: border-box;
     width: 120px;
     max-width: 100%;
     height: 120px;
+    min-width: 0;
+    min-height: 120px;
     padding: 0;
 }
 
@@ -25,47 +60,20 @@
     height: 100%;
 }
 
-/* 2-4 images: Maximum 2 columns, responsive */
-.memori-media-items--grid.memori-media-items--few {
-    max-width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-/* Limit to 2 columns for 2-4 images on tablet and desktop */
-@media (min-width: 641px) {
-    .memori-media-items--grid.memori-media-items--few {
-        grid-template-columns: repeat(2, minmax(200px, 1fr));
-    }
-}
-
-/* 5+ images: Maximum 3 columns on desktop */
-.memori-media-items--grid.memori-media-items--many {
-    max-width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-/* Limit to 3 columns for 5+ images on desktop */
-@media (min-width: 1025px) {
-    .memori-media-items--grid.memori-media-items--many {
-        grid-template-columns: repeat(3, minmax(200px, 1fr));
-    }
-}
-
-/* Allineamento media per messaggi dell'utente */
+/* User media: keep chronological order; avoid direction:rtl (Safari scroll bugs) */
 .memori-media-items--grid.memori-media-items--user {
     max-width: 90%;
-    margin: 0 auto;
-    /* margin-right: var(--memori-spacing-lg); */
-    margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
-    direction: rtl;
+    margin-block: 0;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+    justify-content: end;
 }
 
-/* Allineamento media per messaggi dell'agente */
+/* Agent media: start-aligned */
 .memori-media-items--grid.memori-media-items--agent {
-    margin: 0 auto;
-    /* margin-right: var(--memori-spacing-sm); */
-    /* margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm)); */
-    direction: ltr;
+    margin-block: 0;
+    margin-inline: 0;
+    justify-content: start;
 }
 
 .memori-media-item--card {
@@ -91,6 +99,8 @@
 
 .memori-media-item--image .memori-card {
     overflow: hidden;
+    width: 100%;
+    height: 100%;
     border: 1px solid #e5e7eb;
     border-radius: var(--memori-radius-box);
     margin: 0;
@@ -130,8 +140,10 @@
     border-radius: var(--memori-radius-box);
 }
 
-/* Single image: max-height 400px */
-.memori-media-items--single .memori-media-item--figure {
+/* Reserved tile for all image gallery sizes (prevents load-time layout shift) */
+.memori-media-items--single .memori-media-item--figure,
+.memori-media-items--few .memori-media-item--figure,
+.memori-media-items--many .memori-media-item--figure {
     min-height: 120px;
     max-height: 120px;
     background-color: var(--memori-secondary-background);
@@ -150,6 +162,15 @@
     max-height: inherit;
     object-fit: cover;
     object-position: center;
+}
+
+.memori-media-items--single .memori-media-item--figure img,
+.memori-media-items--few .memori-media-item--figure img,
+.memori-media-items--many .memori-media-item--figure img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
 }
 
 .memori-media-item--figure-caption {
@@ -730,39 +751,34 @@ div.memori-media-item--link:focus-visible {
 }
 
 /* Responsive design */
-/* Mobile (≤640px): Force single column layout */
+/* Mobile (≤640px): stack image tiles in one column, keep reserved 120px size */
 @media (max-width: 640px) {
     .memori-media-items--grid {
         padding: 0.75rem;
         gap: var(--memori-spacing-sm);
-        grid-template-columns: 1fr !important;
     }
 
     .memori-media-items--grid.memori-media-items--single,
     .memori-media-items--grid.memori-media-items--few,
     .memori-media-items--grid.memori-media-items--many {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 120px;
     }
 }
 
-/* Tablet (641px-1024px): 2 columns max, min 250px per column */
+/* Tablet (641px-1024px): two reserved tiles */
 @media (min-width: 641px) and (max-width: 1024px) {
-    .memori-media-items--grid.memori-media-items--few {
-        max-width: 100%;
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
-    }
-
+    .memori-media-items--grid.memori-media-items--few,
     .memori-media-items--grid.memori-media-items--many {
         max-width: 100%;
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 120px);
     }
 }
 
-/* Desktop (>1024px): 3 columns max for 5+ images */
+/* Desktop (>1024px): three tiles for 5+ images */
 @media (min-width: 1025px) {
     .memori-media-items--grid.memori-media-items--many {
         max-width: 100%;
-        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        grid-template-columns: repeat(3, 120px);
     }
 }
 

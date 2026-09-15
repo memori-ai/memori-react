@@ -35,6 +35,7 @@
     overflow: hidden;
     width: 100%;
     height: calc(100% - 50px);
+    min-height: 0;
     flex: 1;
     border-radius: var(--memori-radius-box) var(--memori-radius-box) 0 0;
     margin-bottom: 1rem;
@@ -59,15 +60,23 @@
     position: relative;
     display: flex;
     height: 100%;
+    min-height: 0;
     flex: 1;
     flex-direction: column;
     /* background-color: var(--memori-secondary-background); */
     /* padding: 2rem var(--memori-spacing-sm); */
     /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
     overflow-y: auto;
-    scroll-behavior: smooth;
+    /* auto avoids Safari flash on programmatic scrollTop / late image layout */
+    scroll-behavior: auto;
+    overflow-anchor: auto;
     scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
     scrollbar-width: thin;
+}
+
+/* Prevent WebKit from shrinking message children inside the scroll flex column */
+.memori-chat--content > * {
+    flex-shrink: 0;
 }
 
 .memori-chat--content::-webkit-scrollbar {
