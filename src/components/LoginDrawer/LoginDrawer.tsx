@@ -77,6 +77,9 @@ const LoginDrawer = ({
   const [showOtpForm, setShowOtpForm] = useState(true);
   const [showOtpCodeForm, setShowOtpCodeForm] = useState(false);
   const [otpTimer, setOtpTimer] = useState<number | null>(null);
+  const [otpResendCooldown, setOtpResendCooldown] = useState<number | null>(
+    null
+  );
   const [otpSent, setOtpSent] = useState(false);
   const [avatar, setAvatar] = useState<Blob | null>(null);
   const [isResending, setIsResending] = useState(false);
@@ -105,7 +108,7 @@ const LoginDrawer = ({
       : ({} as any)
   );
 
-  // OTP timer effect
+  // OTP validity timer (5 minutes, matches backend)
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (otpTimer != null && otpTimer > 0) {
@@ -125,6 +128,27 @@ const LoginDrawer = ({
       setOtpError(t('login.otpExpired'));
     }
   }, [otpTimer, otpSuccess, t]);
+
+  // Resend cooldown (60s), independent from OTP validity
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (otpResendCooldown != null && otpResendCooldown > 0) {
+      interval = setInterval(() => {
+        setOtpResendCooldown(prev =>
+          prev != null && prev > 0 ? prev - 1 : 0
+        );
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [otpResendCooldown]);
+
+  useEffect(() => {
+    if (otpResendCooldown === 0) {
+      setOtpResendCooldown(null);
+    }
+  }, [otpResendCooldown]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -257,8 +281,24 @@ const LoginDrawer = ({
           setOtpError(t('login.otpNotFound'));
         } else if (response.resultCode === -108) {
           setOtpError(t('login.otpExpired'));
+          setOtpTimer(null);
+          setOtpResendCooldown(null);
         } else if (response.resultCode === -109) {
-          setOtpError(t('login.otpMissing'));
+          // Wrong code on 1st/2nd attempt — allow retry
+          setOtpError(t('login.otpInvalid'));
+          setOtpCode('');
+          setOtpFocusedIndex(0);
+          window.setTimeout(() => {
+            otpInputRefs.current[0]?.focus();
+          }, 50);
+        } else if (response.resultCode === -110) {
+          // 3rd wrong attempt — OTP invalidated, need a new LoginWithOTP
+          setOtpError(t('login.otpAttemptsExceeded'));
+          setOtpCode('');
+          setOtpTimer(null);
+          setOtpResendCooldown(null);
+          setShowOtpCodeForm(false);
+          setOtpSent(false);
         } else {
           setOtpError(response.resultMessage || t('login.otpInvalid'));
         }
@@ -392,9 +432,16 @@ const LoginDrawer = ({
     }
   };
 
-  // Start OTP timer
+  const formatOtpTimer = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // Start OTP validity (5 min) + resend cooldown (60s)
   const startOtpTimer = () => {
-    setOtpTimer(60);
+    setOtpTimer(300);
+    setOtpResendCooldown(60);
   };
 
   const updateMissingData = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -649,8 +696,9 @@ const LoginDrawer = ({
 
             {otpTimer != null && otpTimer > 0 && !otpSuccess && (
               <div className="memori--login-drawer--otp-timer">
-                {/* <span className="memori--login-drawer--otp-timer-icon">⏱️</span> */}
-                <span>{t('login.otpTimer', { seconds: otpTimer })}</span>
+                <span>
+                  {t('login.otpTimer', { time: formatOtpTimer(otpTimer) })}
+                </span>
               </div>
             )}
 
@@ -675,13 +723,17 @@ const LoginDrawer = ({
                   disabled={
                     loading ||
                     isResending ||
-                    (otpTimer != null && otpTimer > 0) ||
+                    (otpResendCooldown != null && otpResendCooldown > 0) ||
                     !otpEmail
                   }
                   loading={isResending}
                   icon={<RefreshCcwIcon className="icon" />}
                 >
-                  {isResending ? t('login.resending') : t('login.resendOtp')}
+                  {isResending
+                    ? t('login.resending')
+                    : otpResendCooldown != null && otpResendCooldown > 0
+                    ? t('login.resendOtpIn', { seconds: otpResendCooldown })
+                    : t('login.resendOtp')}
                 </Button>
               </div>
             )}
