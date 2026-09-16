@@ -211,8 +211,12 @@ const StartPanel: React.FC<Props> = ({
               align="left"
               content={t('boardOfExperts')}
               {...boardOfExpertsTooltip.tooltipProps}
+              slotProps={{
+                positioner: boardOfExpertsTooltip.positionerProps,
+              }}
             >
               <Button
+                ref={boardOfExpertsTooltip.anchorRef}
                 type="button"
                 variant="ghost"
                 shape="circle"
@@ -229,8 +233,12 @@ const StartPanel: React.FC<Props> = ({
               align="left"
               content={t('nsfw')}
               {...nsfwTooltip.tooltipProps}
+              slotProps={{
+                positioner: nsfwTooltip.positionerProps,
+              }}
             >
               <span
+                ref={nsfwTooltip.anchorRef}
                 title={t('nsfw') || 'NSFW'}
                 {...nsfwTooltip.pressTriggerProps}
               >
@@ -511,6 +519,7 @@ const StartPanel: React.FC<Props> = ({
                               {...deepThoughtTooltip.tooltipProps}
                               slotProps={{
                                 positioner: {
+                                  ...deepThoughtTooltip.positionerProps,
                                   className:
                                     'memori--privacy-popover-positioner',
                                 },
@@ -521,6 +530,7 @@ const StartPanel: React.FC<Props> = ({
                               }}
                             >
                               <Button
+                                ref={deepThoughtTooltip.anchorRef}
                                 variant="toolbar"
                                 size="sm"
                                 className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
@@ -617,6 +627,7 @@ const StartPanel: React.FC<Props> = ({
                           {...privacyTooltip.tooltipProps}
                           slotProps={{
                             positioner: {
+                              ...privacyTooltip.positionerProps,
                               className: 'memori--privacy-popover-positioner',
                             },
                             popup: {
@@ -626,6 +637,7 @@ const StartPanel: React.FC<Props> = ({
                           }}
                         >
                           <Button
+                            ref={privacyTooltip.anchorRef}
                             variant="toolbar"
                             size="sm"
                             className="memori--privacy-popover-trigger memori--settings-section__info-trigger"

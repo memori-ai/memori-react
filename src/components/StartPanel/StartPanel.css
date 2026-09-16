@@ -961,10 +961,21 @@
     outline-offset: var(--memori-focus-ring-offset);
 }
 
-/* Portal on widget root; tooltip/popover library z-index is 1300. */
+/* Portal on widget root; tooltip/popover library z-index is 1300.
+   Hide while Floating UI is still applying coordinates so click-open
+   never flashes at viewport 0,0 (same pattern as ChatBubble addon tooltips). */
 .memori--privacy-popover-positioner,
 .memori--deep-thought-helper-tooltip-positioner {
     z-index: 1300;
+}
+
+.memori--privacy-popover-positioner[data-starting-style],
+.memori--privacy-popover-positioner[data-ending-style],
+.memori--deep-thought-helper-tooltip-positioner[data-starting-style],
+.memori--deep-thought-helper-tooltip-positioner[data-ending-style] {
+    opacity: 0 !important;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .memori--privacy-popover-popup {
