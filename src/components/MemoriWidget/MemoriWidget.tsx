@@ -3649,7 +3649,8 @@ const MemoriWidget = ({
     position: position,
     setVenue: setPosition,
     openPositionPopover: () => {
-      setAutoStartPositionGeolocation(true);
+      // StartPanel starts geolocation in its click handler (mobile Header does
+      // not mount PositionPopover). This only opens the desktop popover UI.
       setPositionPopoverOpen(true);
     },
     integrationConfig: integrationConfig,

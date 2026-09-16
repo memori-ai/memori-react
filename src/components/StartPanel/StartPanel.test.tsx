@@ -369,3 +369,60 @@ it('blocks start and shows credits badge when owner has not enough credits', () 
   expect(badge).toBeInTheDocument();
   expect(getByText('memoriBlockedTitle')).toBeInTheDocument();
 });
+
+it('requests geolocation from the use-my-position click and sets venue', () => {
+  const setVenue = jest.fn();
+  const openPositionPopover = jest.fn();
+  const getCurrentPosition = jest.fn(
+    (
+      success: (position: {
+        coords: { latitude: number; longitude: number; accuracy: number };
+      }) => void
+    ) => {
+      success({
+        coords: {
+          latitude: 45.4642,
+          longitude: 9.19,
+          accuracy: 25,
+        },
+      });
+    }
+  );
+
+  Object.defineProperty(navigator, 'geolocation', {
+    configurable: true,
+    value: { getCurrentPosition },
+  });
+
+  const { getByRole } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        needsPosition: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={setVenue}
+      openPositionPopover={openPositionPopover}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+    />
+  );
+
+  fireEvent.click(
+    getByRole('button', { name: /write_and_speak\.useMyPosition/i })
+  );
+
+  expect(getCurrentPosition).toHaveBeenCalled();
+  expect(setVenue).toHaveBeenCalledWith({
+    latitude: 45.4642,
+    longitude: 9.19,
+    placeName: '',
+    uncertainty: 0.025,
+  });
+});

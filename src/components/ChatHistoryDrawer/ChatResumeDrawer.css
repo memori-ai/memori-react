@@ -69,19 +69,42 @@
     }
 }
 
-.memori-chat-resume-drawer--header-icon-button {
-    display: inline-flex;
-    width: 28px;
-    min-width: 28px;
-    height: 28px;
+/* Compact circular header actions — beat UI lib ghost/sm + icon-only 44px touch targets */
+.memori-chat-resume-drawer--header-icon-button.memori-button,
+.memori-chat-resume-drawer--header
+    .memori-chat-history-drawer--header-download-button.memori-button {
+    display: inline-flex !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    flex-shrink: 0;
     align-items: center;
+    align-self: center;
     justify-content: center;
-    padding: 0;
-    border: none;
+    padding: 0 !important;
+    border: none !important;
     border-radius: 999px;
-    background: transparent;
+    margin: 0;
+    background: transparent !important;
+    box-shadow: none !important;
     color: var(--color-text-primary, var(--memori-text-color));
     cursor: pointer;
+}
+
+.memori-chat-resume-drawer--header-icon-button.memori-button:hover:not(:disabled),
+.memori-chat-resume-drawer--header
+    .memori-chat-history-drawer--header-download-button.memori-button:hover:not(
+        :disabled
+    ) {
+    background: color-mix(in oklch, var(--memori-text-color) 8%, transparent) !important;
+}
+
+.memori-chat-resume-drawer--header-icon-button.memori-button svg,
+.memori-chat-resume-drawer--header
+    .memori-chat-history-drawer--header-download-button.memori-button svg {
+    width: 18px;
+    height: 18px;
 }
 
 .memori-chat-resume-drawer--header-main {
@@ -316,8 +339,8 @@
 }
 
 .memori-chat-history-drawer--header-download-button {
-    display: flex;
-    align-self: baseline;
+    display: inline-flex;
+    align-self: center;
 }
 
 .memori-chat-resume-drawer--chips-row {

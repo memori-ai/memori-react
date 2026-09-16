@@ -130,13 +130,13 @@ const ChatResumeDrawer = ({
         <Button
           ref={backButtonRef}
           variant="ghost"
+          size="sm"
           type="button"
           className="memori-chat-resume-drawer--header-icon-button"
           onClick={onBack || onClose}
           aria-label={String(t('back', { defaultValue: 'Back' }))}
-        >
-          <ArrowLeft size={16} aria-hidden />
-        </Button>
+          icon={<ArrowLeft aria-hidden />}
+        />
         <div className="memori-chat-resume-drawer--header-main">
           <h2
             id={titleId}

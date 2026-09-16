@@ -11,6 +11,22 @@ export function shouldHoldAutoStartForPosition(
 }
 
 /**
+ * Whether Header exposes the position popover for the current layout.
+ * Mobile FullPage/Chat/ZoomedFullBody strip `needsPosition` from Header, so
+ * PositionPopover is not mounted and StartPanel must not rely on
+ * openPositionPopover + autoStartGeolocation alone.
+ */
+export function isHeaderPositionPopoverAvailable(
+  isMobile: boolean,
+  layoutStripsNeedsPositionOnMobile: boolean
+): boolean {
+  if (isMobile && layoutStripsNeedsPositionOnMobile) {
+    return false;
+  }
+  return true;
+}
+
+/**
  * Whether closing the position popover should re-run autoStart (`onClickStart`).
  * Only true on a real open → closed transition when a session has not started yet
  * and a position (or skip) is already stored. Closing during an active session

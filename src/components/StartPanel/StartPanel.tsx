@@ -350,7 +350,35 @@ const StartPanel: React.FC<Props> = ({
             <div className="memori--needsPosition-actions">
               <Button
                 variant="primary"
-                onClick={() => openPositionPopover()}
+                onClick={() => {
+                  // Must call getCurrentPosition from this click: mobile layouts
+                  // strip needsPosition from Header (popover unmounted), and iOS
+                  // requires a user gesture for the permission prompt.
+                  if (!navigator.geolocation) {
+                    openPositionPopover();
+                    return;
+                  }
+                  navigator.geolocation.getCurrentPosition(
+                    pos => {
+                      setVenue({
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude,
+                        placeName: '',
+                        uncertainty: pos.coords.accuracy / 1000,
+                      });
+                    },
+                    () => {
+                      // Permission denied / timeout → manual entry via popover
+                      // (desktop). On mobile the skip button remains available.
+                      openPositionPopover();
+                    },
+                    {
+                      enableHighAccuracy: true,
+                      timeout: 15000,
+                      maximumAge: 0,
+                    }
+                  );
+                }}
                 icon={<MapPin />}
                 style={{ width: '100%' }}
                 size="md"

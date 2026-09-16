@@ -1,7 +1,22 @@
 import {
+  isHeaderPositionPopoverAvailable,
   shouldHoldAutoStartForPosition,
   shouldRestartSessionOnPositionPopoverClose,
 } from './positionPopover';
+
+describe('isHeaderPositionPopoverAvailable', () => {
+  it('is unavailable on mobile when the layout strips needsPosition', () => {
+    expect(isHeaderPositionPopoverAvailable(true, true)).toBe(false);
+  });
+
+  it('is available on desktop even when the layout strips on mobile', () => {
+    expect(isHeaderPositionPopoverAvailable(false, true)).toBe(true);
+  });
+
+  it('is available on mobile when the layout keeps needsPosition', () => {
+    expect(isHeaderPositionPopoverAvailable(true, false)).toBe(true);
+  });
+});
 
 describe('shouldHoldAutoStartForPosition', () => {
   it('holds auto-start when position is required and none is stored', () => {
