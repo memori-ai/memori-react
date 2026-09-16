@@ -1,5 +1,33 @@
 # Changelog
 
+## [9.0.0-alpha.25](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.24...v9.0.0-alpha.25) (2026-09-16)
+
+
+### Features
+
+* **chat:** group user attachments and differentiate media cards ([90e6f0b](https://github.com/memori-ai/memori-react/commit/90e6f0baf41dd8a90f6ac8b58f593cfcef787fd8))
+* **DateSelector:** enhance mobile date input with placeholder and icon, improve styling ([b86cb87](https://github.com/memori-ai/memori-react/commit/b86cb87c81c95e66415cb04a122d54014e07c591))
+* implement fullscreen functionality for HiddenChat and WebsiteAssistant components ([bc346cd](https://github.com/memori-ai/memori-react/commit/bc346cd09ac5173ab26ed1dd988b23d558886699))
+* implement OTP resend cooldown and update timer logic ([12cbeba](https://github.com/memori-ai/memori-react/commit/12cbebaaff548992fb79da355eba6fb1786b1238))
+* **StartPanel:** enhance tooltip functionality with fixed positioning and visibility control ([a212d81](https://github.com/memori-ai/memori-react/commit/a212d81fa651d82f046947055d95a32f4ab31eba))
+* **StartPanel:** implement geolocation request on button click and update position handling ([08ab317](https://github.com/memori-ai/memori-react/commit/08ab317d482e63584cc5a211a1870b230e069b11))
+
+
+### Bug Fixes
+
+* update snapshot files to remove unnecessary data attributes for cleaner rendering ([329dfcf](https://github.com/memori-ai/memori-react/commit/329dfcf495e9630ea5e08e3281fbdfa9b49a0e92))
+
+
+### Changes
+
+* **chat:** update media item styles and structure for improved layout ([de52969](https://github.com/memori-ai/memori-react/commit/de5296976ce2ce1c4c3cc177946534cdd3bf30eb))
+* remove useWidgetSurfaceEl from multiple components to streamline modal rendering ([a5e199f](https://github.com/memori-ai/memori-react/commit/a5e199ff0c36524f8e911e4552fa3acda4014e48))
+
+
+### Maintenance
+
+* update dependencies and Jest configuration for improved module resolution ([8f0e8d6](https://github.com/memori-ai/memori-react/commit/8f0e8d6d201d9cb41503077d111bf6a62fda510a))
+
 ## [9.0.0-alpha.24](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.23...v9.0.0-alpha.24) (2026-09-10)
 
 
