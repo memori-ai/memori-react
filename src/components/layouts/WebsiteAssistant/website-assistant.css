@@ -200,12 +200,42 @@
 }
 
 /*
+ * Fullscreen: same approach as HiddenChat — class + inline styles expand the
+ * docked panel to the full window; browser Fullscreen API is requested on the panel.
+ */
+.memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded.memori-website_assistant--fullscreen,
+.memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded:fullscreen,
+.memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded:-webkit-full-screen {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    padding: 0.5rem 0;
+    border-radius: 0 !important;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+/*
  * Keep in sync with ArtifactDrawer split width (55% / --memori-modal-size-md override).
  * Same pairing as HiddenChat's `.memori-sidebar-toggle-artifact` → `right: 55%`.
  */
 .memori-widget.memori-layout-website_assistant
     .memori-website_assistant--expanded.memori-website_assistant--artifact-open {
     right: 55%;
+}
+
+/* Fullscreen must win over the artifact split offset */
+.memori-widget.memori-layout-website_assistant
+    .memori-website_assistant--expanded.memori-website_assistant--fullscreen.memori-website_assistant--artifact-open,
+.memori-widget.memori-layout-website_assistant
+    .memori-website_assistant--expanded:fullscreen.memori-website_assistant--artifact-open,
+.memori-widget.memori-layout-website_assistant
+    .memori-website_assistant--expanded:-webkit-full-screen.memori-website_assistant--artifact-open {
+    right: 0 !important;
 }
 
 /* Tablet */
@@ -309,9 +339,7 @@
     justify-content: center;
 }
 
-.memori-widget.memori-layout-website_assistant
-    .memori-conversation-footer
-    .memori-chat-inputs--ai-note {
+.memori-widget.memori-layout-website_assistant .memori-conversation-footer .memori-chat-inputs--ai-note {
     overflow: visible;
     flex: 1 1 100%;
     text-align: center;
@@ -319,9 +347,7 @@
     white-space: normal;
 }
 
-.memori-widget.memori--active.memori-layout-website_assistant
-    .memori-conversation-footer
-    .memori-chat-inputs--ai-note {
+.memori-widget.memori--active.memori-layout-website_assistant .memori-conversation-footer .memori-chat-inputs--ai-note {
     text-align: left;
 }
 
@@ -607,10 +633,8 @@
 }
 
 .memori-website_assistant-layout--controls .memori-chat--content--has-global-background,
-.memori-website_assistant-layout--controls
-    .memori-chat--history:has(.memori-chat--content--has-global-background),
-.memori-website_assistant-layout--controls
-    .memori-chat--wrapper:has(.memori-chat--content--has-global-background) {
+.memori-website_assistant-layout--controls .memori-chat--history:has(.memori-chat--content--has-global-background),
+.memori-website_assistant-layout--controls .memori-chat--wrapper:has(.memori-chat--content--has-global-background) {
     background: transparent;
 }
 
@@ -643,7 +667,7 @@
     }
 
     .memori-website_assistant-layout--controls .memori-chat--wrapper {
-        padding: 1rem;
+        padding: 0;
     }
 
     .memori-website_assistant-layout--controls .memori--start-panel {

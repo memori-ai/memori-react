@@ -22,22 +22,31 @@
     box-sizing: border-box;
     flex-flow: column;
     flex-shrink: 0;
-    padding: 8px 12px !important;
-    border: none;
+    padding: 0px;
+    border: 1.5px solid var(--memori-border-color, #ddd);
     border-radius: var(--memori-radius-box);
     margin: 0 auto;
+    background: var(--memori-secondary-background);
     background-color: transparent;
     box-shadow: none;
+    gap: 10px;
     overflow-x: hidden;
-}
-
-.memori-chat-inputs:has(.memori--preview-container) {
-    background-color: var(--memori-main-background);
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .memori-chat-inputs:disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.memori-chat-inputs:focus-within {
+    border-color: var(--memori-border-color, #ddd);
+    box-shadow: none;
+}
+
+.memori-chat-inputs:focus-within:has(:focus-visible) {
+    border-color: var(--memori-primary);
+    box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
 
 /* Wrapper so FilePreview horizontal scroll is constrained */
@@ -56,21 +65,6 @@
     box-sizing: border-box;
     align-items: center;
     padding: 10px 12px 10px 16px;
-    border: 1.5px solid var(--memori-border-color, #ddd);
-    border-radius: 8px;
-    margin: 0;
-    gap: 10px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.memori-chat-inputs--container:focus-within {
-    border-color: var(--memori-border-color, #ddd);
-    box-shadow: none;
-}
-
-.memori-chat-inputs--container:focus-within:has(:focus-visible) {
-    border-color: var(--memori-primary);
-    box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
 
 /* Responsive adjustments */
@@ -428,11 +422,6 @@
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--container {
     min-height: 0;
     padding: 12px;
-    border: 1.5px solid var(--memori-border-color, #ddd);
-    border-radius: var(--memori-radius-box);
-    background: var(--memori-secondary-background);
-    gap: 10px;
-    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat-inputs--container,
@@ -440,29 +429,6 @@
 .memori-widget.memori-layout-chat .memori-chat-inputs--container {
     min-height: 0;
     padding: 12px;
-    border: 1.5px solid var(--memori-border-color, #ddd);
-    border-radius: var(--memori-radius-box);
-    background: var(--memori-secondary-background);
-    gap: 8px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.memori-widget.memori-layout-fullpage .memori-chat-inputs--container:focus-within,
-.memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--container:focus-within,
-.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--container:focus-within,
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs--container:focus-within,
-.memori-widget.memori-layout-chat .memori-chat-inputs--container:focus-within {
-    border-color: var(--memori-border-color, #ddd);
-    box-shadow: none;
-}
-
-.memori-widget.memori-layout-fullpage .memori-chat-inputs--container:focus-within:has(:focus-visible),
-.memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs--container:focus-within:has(:focus-visible),
-.memori-widget.memori-layout-hidden_chat .memori-chat-inputs--container:focus-within:has(:focus-visible),
-.memori-widget.memori-layout-website_assistant .memori-chat-inputs--container:focus-within:has(:focus-visible),
-.memori-widget.memori-layout-chat .memori-chat-inputs--container:focus-within:has(:focus-visible) {
-    border-color: var(--memori-primary);
-    box-shadow: var(--memori-focus-ring, 0 0 0 3px color-mix(in oklch, var(--memori-primary) 18%, transparent));
 }
 
 /* Keep disclaimer + brand on the same axis as the input pill */

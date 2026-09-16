@@ -51,7 +51,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       showShare: false,
       showLogin: false,
       showMessageConsumption: false,
-      showFullscreen: false,
+      showFullscreen: true,
       memori: {
         ...headerProps.memori,
         needsPosition: false,
@@ -84,8 +84,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
   // Use refs to store original sidebar properties to restore them later
   const originalSidebarStyles = useRef({
+    left: '',
     right: '',
     width: '',
+    maxWidth: '',
     backgroundColor: '',
   });
 
@@ -170,8 +172,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     if (sidebarElement) {
       // Restore original styles
       const sidebar = sidebarElement as HTMLElement;
+      sidebar.style.left = originalSidebarStyles.current.left;
       sidebar.style.right = originalSidebarStyles.current.right;
       sidebar.style.width = originalSidebarStyles.current.width;
+      sidebar.style.maxWidth = originalSidebarStyles.current.maxWidth;
       sidebar.style.backgroundColor =
         originalSidebarStyles.current.backgroundColor;
 
@@ -190,14 +194,18 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
         // Store original styles before modifying
         originalSidebarStyles.current = {
+          left: sidebar.style.left,
           right: sidebar.style.right,
           width: sidebar.style.width,
+          maxWidth: sidebar.style.maxWidth,
           backgroundColor: sidebar.style.backgroundColor,
         };
 
         // Set styles for fullscreen — keep --memori-secondary-background via CSS, clear inline white
+        sidebar.style.left = '0';
         sidebar.style.right = '0';
         sidebar.style.width = '100%';
+        sidebar.style.maxWidth = 'none';
         sidebar.style.backgroundColor = '';
         sidebar.classList.add('memori-sidebar-fullscreen');
 

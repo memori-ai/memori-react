@@ -423,6 +423,7 @@
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat-inputs-wrapper {
     width: 100%;
     flex-shrink: 0;
+    padding: 16px 4px;
     border: none;
     border-radius: 0;
     background: var(--memori-secondary-background);

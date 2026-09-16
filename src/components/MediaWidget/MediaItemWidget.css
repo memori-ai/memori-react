@@ -15,8 +15,8 @@
 .memori-media-items--grid.memori-media-items--few,
 .memori-media-items--grid.memori-media-items--many {
     display: grid;
-    max-width: 100%;
     min-width: 0;
+    max-width: 100%;
     align-content: start;
     justify-content: start;
 }
@@ -47,12 +47,12 @@
 .memori-media-items--grid.memori-media-items--few .memori-media-item,
 .memori-media-items--grid.memori-media-items--many .memori-media-item,
 .memori-media-item--link .memori-media-item--image {
-    box-sizing: border-box;
     width: 120px;
+    min-width: 0;
     max-width: 120px;
     height: 120px;
-    min-width: 0;
     min-height: 120px;
+    box-sizing: border-box;
     padding: 0;
 }
 
@@ -63,17 +63,17 @@
 /* User media: keep chronological order; avoid direction:rtl (Safari scroll bugs) */
 .memori-media-items--grid.memori-media-items--user {
     max-width: 90%;
-    margin-block: 0;
-    margin-inline-start: auto;
-    margin-inline-end: 0;
     justify-content: end;
+    margin-block: 0;
+    margin-inline-end: 0;
+    margin-inline-start: auto;
 }
 
 /* Agent media: start-aligned */
 .memori-media-items--grid.memori-media-items--agent {
+    justify-content: start;
     margin-block: 0;
     margin-inline: 0;
-    justify-content: start;
 }
 
 .memori-media-item--card {

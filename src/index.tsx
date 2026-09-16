@@ -51,7 +51,7 @@ export interface Props {
   showLogin?: boolean;
   showUpload?: boolean;
   showReasoning?: boolean;
-  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  /** When true (default for WEBSITE_ASSISTANT), hide the 3D avatar in the expanded panel. Set false to show it. */
   avatar3dHidden?: boolean;
   height?: number | string;
   baseURL?: string;

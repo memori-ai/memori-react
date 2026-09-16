@@ -374,10 +374,8 @@ ${text}
         })}
         disabled={isDisabled}
       >
-        {/* Preview for document files (show when upload enabled or when paste added cards) */}
-        {(showUpload ||
-          documentPreviewFiles.length > 0 ||
-          uploadingCount > 0) && (
+        {/* Preview for document files (only when files or uploads are present) */}
+        {(documentPreviewFiles.length > 0 || uploadingCount > 0) && (
           <div className="memori-chat-inputs--preview-wrapper">
             <FilePreview
               previewFiles={documentPreviewFiles}

@@ -444,7 +444,8 @@ export interface LayoutProps {
   loading?: boolean;
   autoStart?: boolean;
   onSidebarToggle?: (isOpen: boolean) => void;
-  /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar. */
+  /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar.
+   * WEBSITE_ASSISTANT defaults to hidden when this is unset. */
   avatar3dHidden?: boolean | string;
   /** TOTEM only: max-width of the shared content axis (avatar + panel + status).
    * Accepts a number (px) or a CSS length string; enables vertical-kiosk widths. */
@@ -482,7 +483,7 @@ export interface Props {
   showUpload?: boolean;
   showChatHistory?: boolean;
   showReasoning?: boolean;
-  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  /** When true (default for WEBSITE_ASSISTANT), hide the 3D avatar in the expanded panel. Set false to show it. */
   avatar3dHidden?: boolean;
   preview?: boolean;
   embed?: boolean;

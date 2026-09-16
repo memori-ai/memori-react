@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Spin, Button } from '@memori.ai/ui';
 import { LayoutProps } from '../../MemoriWidget/MemoriWidget';
 import Blob from '../../Blob/Blob';
@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../../MemoriArtifactSystem/context/ArtifactContext';
 import ArtifactDrawer from '../../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { getResourceUrl } from '../../../helpers/media';
+
+const PANEL_SELECTOR = '.memori-website_assistant--expanded';
+const FULLSCREEN_CLASS = 'memori-website_assistant--fullscreen';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   Header,
@@ -21,7 +24,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   sessionId,
   hasUserActivatedSpeak,
   loading = false,
-  avatar3dHidden,
+  avatar3dHidden = true,
 }) => {
   const { t } = useTranslation();
   const { state: artifactState } = useArtifact();
@@ -29,6 +32,16 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
     artifactState.isDrawerOpen && !artifactState.isChatLogPanelPresentation;
   const [collapsed, _setCollapsed] = useState(true);
   const [expandedKey, setExpandedKey] = useState<string>();
+  const [fullScreen, setFullScreen] = useState(false);
+
+  const originalPanelStyles = useRef({
+    left: '',
+    right: '',
+    width: '',
+    maxWidth: '',
+    height: '',
+    backgroundColor: '',
+  });
 
   const stopAudio = useMemo(() => chatProps?.stopAudio, [chatProps?.stopAudio]);
 
@@ -54,9 +67,92 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
         })
     : undefined;
 
-  const setCollapsed = (collapsed: boolean) => {
-    _setCollapsed(collapsed);
-    setExpandedKey(collapsed ? undefined : new Date().toISOString());
+  const restoreFromFullscreen = () => {
+    const panelElement = document.querySelector(PANEL_SELECTOR);
+    if (panelElement) {
+      const panel = panelElement as HTMLElement;
+      panel.style.left = originalPanelStyles.current.left;
+      panel.style.right = originalPanelStyles.current.right;
+      panel.style.width = originalPanelStyles.current.width;
+      panel.style.maxWidth = originalPanelStyles.current.maxWidth;
+      panel.style.height = originalPanelStyles.current.height;
+      panel.style.backgroundColor = originalPanelStyles.current.backgroundColor;
+      panel.classList.remove(FULLSCREEN_CLASS);
+    }
+    setFullScreen(false);
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && fullScreen) {
+        restoreFromFullscreen();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [fullScreen]);
+
+  const handleFullscreenToggle = () => {
+    if (!document.fullscreenElement) {
+      const panelElement = document.querySelector(PANEL_SELECTOR);
+      if (panelElement) {
+        const panel = panelElement as HTMLElement;
+
+        originalPanelStyles.current = {
+          left: panel.style.left,
+          right: panel.style.right,
+          width: panel.style.width,
+          maxWidth: panel.style.maxWidth,
+          height: panel.style.height,
+          backgroundColor: panel.style.backgroundColor,
+        };
+
+        panel.style.left = '0';
+        panel.style.right = '0';
+        panel.style.width = '100%';
+        panel.style.maxWidth = 'none';
+        panel.style.height = '100%';
+        panel.style.backgroundColor = '';
+        panel.classList.add(FULLSCREEN_CLASS);
+
+        panel.requestFullscreen().catch(err => {
+          console.warn(
+            '[WebsiteAssistantLayout] Error enabling fullscreen:',
+            err
+          );
+        });
+      }
+      setFullScreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(err => {
+          console.warn(
+            '[WebsiteAssistantLayout] Error exiting fullscreen:',
+            err
+          );
+        });
+      }
+      restoreFromFullscreen();
+    }
+  };
+
+  const setCollapsed = (nextCollapsed: boolean) => {
+    if (nextCollapsed && fullScreen) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => {
+          console.warn(
+            '[WebsiteAssistantLayout] Error exiting fullscreen:',
+            err
+          );
+        });
+      }
+      restoreFromFullscreen();
+    }
+    _setCollapsed(nextCollapsed);
+    setExpandedKey(nextCollapsed ? undefined : new Date().toISOString());
     try {
       stopAudio?.();
     } catch (e) {
@@ -88,7 +184,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
           useSideArtifactChrome
             ? ' memori-website_assistant--artifact-open'
             : ''
-        }`}
+        }${fullScreen ? ` ${FULLSCREEN_CLASS}` : ''}`}
       >
         {!collapsed && (
           <>
@@ -127,6 +223,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                       showSettings={false}
                       showReload={false}
                       showChatHistory={false}
+                      fullScreenHandler={handleFullscreenToggle}
                     />
                   )}
                   <button

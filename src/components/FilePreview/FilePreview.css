@@ -39,8 +39,8 @@
     padding: calc(var(--memori-spacing-xs) / 4) calc(var(--memori-spacing-xs) + 2px);
     border-radius: var(--memori-radius-box);
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
-    font-weight: 550;
     font-size: 12px;
+    font-weight: 550;
     /* font-weight: bold; */
 }
 
@@ -50,8 +50,6 @@
 
 .memori--preview-container:has(.memori--document-count) .memori--preview-list {
     padding-right: 2.75rem;
-    padding-left: 0;
-    padding-bottom: 0;
 }
 
 .memori--preview-retention-notice {

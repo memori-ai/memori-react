@@ -190,12 +190,17 @@
     flex-shrink: 0;
 }
 
-/* Fullscreen styles */
-.memori-sidebar-fullscreen {
+/* Fullscreen styles — cover the full window width (browser FS or class toggle) */
+.memori-sidebar-fullscreen,
+.memori-sidebar:fullscreen,
+.memori-sidebar:-webkit-full-screen {
+    top: 0 !important;
     right: 0 !important;
+    left: 0 !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: none !important;
     height: 100% !important;
+    border-radius: 0;
     box-shadow: none;
 }
 
@@ -285,6 +290,19 @@
 /* Keep in sync with ArtifactDrawer split width (55% / --memori-modal-size-md override) */
 .memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar {
     right: 55%;
+}
+
+/* Fullscreen must win over the artifact split offset */
+.memori-sidebar-toggle-artifact:checked
+    ~ .memori-sidebar-container
+    .memori-sidebar.memori-sidebar-fullscreen,
+.memori-sidebar-toggle-artifact:checked
+    ~ .memori-sidebar-container
+    .memori-sidebar:fullscreen,
+.memori-sidebar-toggle-artifact:checked
+    ~ .memori-sidebar-container
+    .memori-sidebar:-webkit-full-screen {
+    right: 0 !important;
 }
 
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-open-label {
@@ -554,16 +572,22 @@
     }
 
     /* Mobile fullscreen styles */
-    .memori-sidebar-fullscreen {
+    .memori-sidebar-fullscreen,
+    .memori-sidebar:fullscreen,
+    .memori-sidebar:-webkit-full-screen {
         display: block;
     }
 
-    .memori-sidebar-container .memori-sidebar-fullscreen {
+    .memori-sidebar-container .memori-sidebar-fullscreen,
+    .memori-sidebar-container .memori-sidebar:fullscreen,
+    .memori-sidebar-container .memori-sidebar:-webkit-full-screen {
         position: fixed;
         top: 0;
+        right: 0 !important;
         left: 0;
         display: block;
         width: 100% !important;
+        max-width: none !important;
         height: 100% !important;
     }
 }

@@ -94,10 +94,10 @@ export const WebsiteAssistant: Story = {
   },
 };
 
-export const WebsiteAssistantWithout3DAvatar: Story = {
+export const WebsiteAssistantWith3DAvatar: Story = {
   args: {
     ...WebsiteAssistant.args,
-    avatar3dHidden: true,
+    avatar3dHidden: false,
   },
 };
 
