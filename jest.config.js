@@ -20,11 +20,13 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     uuid: require.resolve('uuid'),
     '@react-leaflet/core': require.resolve('./__mocks__/react-leaflet-core.js'),
+    // Portal `@memori.ai/ui` → ../ui can resolve a second React from ui/node_modules
+    '^react$': require.resolve('react'),
+    '^react-dom$': require.resolve('react-dom'),
+    '^react/jsx-runtime$': require.resolve('react/jsx-runtime'),
+    '^react/jsx-dev-runtime$': require.resolve('react/jsx-dev-runtime'),
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!@memori.ai/memori-api-client)',
-    '/node_modules/(?!microsoft-cognitiveservices-speech-sdk)',
-    '/node_modules/(?!uuid)',
-    '/node_modules/(?!@react-leaflet/core)',
+    '/node_modules/(?!@memori\\.ai/ui)(?!@memori\\.ai/memori-api-client)(?!microsoft-cognitiveservices-speech-sdk)(?!uuid)(?!@react-leaflet/core)',
   ],
 };

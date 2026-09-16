@@ -102,7 +102,8 @@
   "resolutions": {
     "eslint-scope": "5.1.1",
     "esbuild": "^0.24.0",
-    "marked-katex-extension": "5.1.10"
+    "marked-katex-extension": "5.1.10",
+    "lucide-react": "0.555.0"
   },
   "eslintIgnore": [
     "/node_modules",
@@ -261,7 +262,7 @@
   },
   "dependencies": {
     "@memori.ai/memori-api-client": "6.24.1",
-    "@memori.ai/ui": "^1.17.0",
+    "@memori.ai/ui": "^1.18.0",
     "@nats-io/jetstream": "^3.4.0",
     "@nats-io/nats-core": "^3.4.0",
     "@react-three/drei": "8.20.2",

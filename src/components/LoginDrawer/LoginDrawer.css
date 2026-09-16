@@ -1573,7 +1573,7 @@ p.memori--login-drawer--inline-error {
     padding: var(--memori-spacing-lg) var(--memori-spacing-2xl);
 }
 
-.memori--login-drawer--account-form label:not(.memori-checkbox) {
+.memori--login-drawer--account-form label:not(.memori-checkbox):not(.memori-login-drawer--consent) {
     display: flex;
     flex-direction: column;
     margin-bottom: var(--memori-spacing-lg);
