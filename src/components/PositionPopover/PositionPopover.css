@@ -215,5 +215,5 @@
 }
 
 .memori-position-popover__positioner--website-assistant {
-    z-index: 2147483600;
+    z-index: calc(var(--memori-z-index-base, 0) + 1300);
 }

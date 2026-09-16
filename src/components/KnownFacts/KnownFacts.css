@@ -57,10 +57,9 @@
     font-variant-numeric: tabular-nums;
 }
 
-/* Modal overlay */
-.memori-known-facts-modal {
-    z-index: 10000;
-}
+/* Delete confirm uses Modal stacking="stacked" (1600 + z-index-base).
+   Do not set z-index here: an unlayered rule would beat @layer memori.components
+   and park the viewport under the blurred backdrop. */
 
 @media (max-width: 768px) {
     .memori-known-facts-table-wrapper .memori-table-cell,

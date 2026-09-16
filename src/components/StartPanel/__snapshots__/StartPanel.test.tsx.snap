@@ -43,16 +43,16 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                   <path
                     d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
                   />
-                  <circle
-                    cx="9"
-                    cy="7"
-                    r="4"
+                  <path
+                    d="M16 3.128a4 4 0 0 1 0 7.744"
                   />
                   <path
                     d="M22 21v-2a4 4 0 0 0-3-3.87"
                   />
-                  <path
-                    d="M16 3.13a4 4 0 0 1 0 7.75"
+                  <circle
+                    cx="9"
+                    cy="7"
+                    r="4"
                   />
                 </svg>
               </span>
@@ -158,6 +158,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -214,6 +215,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -372,6 +374,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -428,6 +431,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -586,6 +590,7 @@ exports[`renders StartPanel unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -642,6 +647,7 @@ exports[`renders StartPanel unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -751,6 +757,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             id="base-ui-:r1n:"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
               fill="none"
               height="24"
@@ -795,6 +802,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -851,6 +859,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -1009,6 +1018,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1065,6 +1075,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -1223,6 +1234,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--info"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-info memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1296,6 +1308,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                           class="memori-button__content"
                         >
                           <svg
+                            aria-hidden="true"
                             class="lucide lucide-info memori--settings-section__inline-info-icon"
                             fill="none"
                             height="24"
@@ -1333,6 +1346,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1389,6 +1403,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -1547,6 +1562,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--info"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-info memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1607,6 +1623,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                           class="memori-button__content"
                         >
                           <svg
+                            aria-hidden="true"
                             class="lucide lucide-info memori--settings-section__inline-info-icon"
                             fill="none"
                             height="24"
@@ -1644,6 +1661,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1700,6 +1718,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -1858,6 +1877,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--info"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-info memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -1918,6 +1938,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                           class="memori-button__content"
                         >
                           <svg
+                            aria-hidden="true"
                             class="lucide lucide-info memori--settings-section__inline-info-icon"
                             fill="none"
                             height="24"
@@ -1955,6 +1976,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -2011,6 +2033,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -2169,6 +2192,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -2225,6 +2249,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -2383,6 +2408,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -2439,6 +2465,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -2592,6 +2619,7 @@ exports[`renders StartPanel with login required unchanged 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-user"
               fill="none"
               height="24"
@@ -2791,6 +2819,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -2847,6 +2876,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -2950,6 +2980,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
                     class="blocked-memori-badge "
                   >
                     <svg
+                      aria-hidden="true"
                       class="lucide lucide-triangle-alert blocked-memori-badge--icon"
                       fill="none"
                       height="24"
@@ -3049,6 +3080,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                 >
                   <svg
+                    aria-hidden="true"
                     class="lucide lucide-eye memori--settings-section__icon"
                     fill="none"
                     height="24"
@@ -3105,6 +3137,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
                         class="memori-button__content"
                       >
                         <svg
+                          aria-hidden="true"
                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                           fill="none"
                           height="24"
@@ -3264,6 +3297,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
               class="memori-button__icon"
             >
               <svg
+                aria-hidden="true"
                 class="lucide lucide-map-pin"
                 fill="none"
                 height="24"
@@ -3301,6 +3335,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
               class="memori-button__icon"
             >
               <svg
+                aria-hidden="true"
                 class="lucide lucide-map-pin-off"
                 fill="none"
                 height="24"

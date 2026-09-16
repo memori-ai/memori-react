@@ -300,7 +300,7 @@
 /* Toast Notifications */
 .memori-copy-toast {
     position: fixed;
-    z-index: 10000;
+    z-index: calc(var(--memori-z-index-base, 0) + 1700);
     top: 20px;
     right: 20px;
     display: flex;

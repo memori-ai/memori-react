@@ -27,7 +27,7 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -110,7 +110,7 @@ exports[`renders ShareButton unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -193,7 +193,7 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -276,7 +276,7 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -359,7 +359,7 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -442,7 +442,7 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -525,7 +525,7 @@ exports[`renders ShareButton with title unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -608,7 +608,7 @@ exports[`renders ShareButton with url unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -691,7 +691,7 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="lucide lucide-share2"
+              class="lucide lucide-share2 lucide-share-2"
               fill="none"
               height="24"
               stroke="currentColor"

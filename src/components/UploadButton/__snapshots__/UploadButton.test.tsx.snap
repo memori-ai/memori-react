@@ -28,6 +28,7 @@ exports[`renders UploadButton unchanged 1`] = `
             class="memori-button__content"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-upload memori--upload-icon"
               fill="none"
               height="24"
@@ -40,16 +41,13 @@ exports[`renders UploadButton unchanged 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
+                d="M12 3v12"
+              />
+              <path
+                d="m17 8-5-5-5 5"
+              />
+              <path
                 d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-              />
-              <polyline
-                points="17 8 12 3 7 8"
-              />
-              <line
-                x1="12"
-                x2="12"
-                y1="3"
-                y2="15"
               />
             </svg>
           </span>
@@ -88,10 +86,10 @@ exports[`renders UploadButton unchanged 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+              d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
             />
             <path
-              d="M14 2v4a2 2 0 0 0 2 2h4"
+              d="M14 2v5a1 1 0 0 0 1 1h5"
             />
             <path
               d="M10 9H8"

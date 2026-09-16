@@ -22,7 +22,6 @@ import { stripAllInternalTags } from '../../helpers/message';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
 import { SelectBox } from '@memori.ai/ui';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
 import ChatResumeDrawer from './ChatResumeDrawer';
@@ -458,7 +457,6 @@ const ChatHistoryDrawer = ({
   showFunctionCache = false,
   showMessageConsumption = false,
 }: Props) => {
-  const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
   const { add } = useAlertManager();
   const { getUserChatLogsByTokenPaged } = apiClient.chatLogs;
@@ -1171,7 +1169,6 @@ const ChatHistoryDrawer = ({
 
   return (
     <Drawer
-      container={surfaceEl ?? undefined}
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}

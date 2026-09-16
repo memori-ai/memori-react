@@ -10,7 +10,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
     data-memori-name="Memori"
     data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
     data-theme="light"
-    style="height: 100vh;"
+    style="height: 100vh; --memori-z-index-base: 0;"
   >
     <div
       aria-atomic="false"
@@ -20,11 +20,11 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
       class="memori-alert-viewport memori-alert-viewport--top-end"
       data-theme="light"
       role="region"
-      style="z-index: 10002;"
       tabindex="-1"
     />
     <div
       class="memori-widget__surface"
+      style="--memori-z-index-base: 0;"
     >
       <style>
         @layer memori.overrides {
@@ -92,7 +92,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                             >
                               <svg
                                 aria-hidden="true"
-                                class="lucide lucide-volume2"
+                                class="lucide lucide-volume2 lucide-volume-2"
                                 fill="none"
                                 height="20"
                                 stroke="currentColor"
@@ -143,7 +143,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                             >
                               <svg
                                 aria-hidden="true"
-                                class="lucide lucide-share2"
+                                class="lucide lucide-share2 lucide-share-2"
                                 fill="none"
                                 height="24"
                                 stroke="currentColor"
@@ -456,6 +456,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                                   class="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
                                 >
                                   <svg
+                                    aria-hidden="true"
                                     class="lucide lucide-eye memori--settings-section__icon"
                                     fill="none"
                                     height="24"
@@ -512,6 +513,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                                         class="memori-button__content"
                                       >
                                         <svg
+                                          aria-hidden="true"
                                           class="lucide lucide-info memori--settings-section__inline-info-icon"
                                           fill="none"
                                           height="24"

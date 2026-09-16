@@ -7,14 +7,21 @@ import {
 } from '@memori.ai/ui';
 
 function Probe() {
-  const portal = usePortalContainer();
+  const escapePortal = usePortalContainer(undefined, 'escape');
+  const clipPortal = usePortalContainer(undefined, 'clip');
   const theme = useMemoriTheme();
   return (
     <div
       data-testid="probe"
-      data-portal-is-root={
-        portal instanceof HTMLElement &&
-        portal.getAttribute('data-memori-probe-root') === '1'
+      data-escape-is-root={
+        escapePortal instanceof HTMLElement &&
+        escapePortal.getAttribute('data-memori-probe-root') === '1'
+          ? 'yes'
+          : 'no'
+      }
+      data-clip-is-surface={
+        clipPortal instanceof HTMLElement &&
+        clipPortal.getAttribute('data-memori-probe-surface') === '1'
           ? 'yes'
           : 'no'
       }
@@ -25,6 +32,7 @@ function Probe() {
 
 function Harness({ theme }: { theme: 'light' | 'dark' }) {
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
+  const [surface, setSurface] = useState<HTMLDivElement | null>(null);
   return (
     <div
       ref={setRoot}
@@ -32,7 +40,16 @@ function Harness({ theme }: { theme: 'light' | 'dark' }) {
       data-memori-probe-root="1"
       data-testid="widget-root"
     >
-      <MemoriUIProvider container={root} theme={theme}>
+      <div
+        ref={setSurface}
+        data-memori-probe-surface="1"
+        data-testid="widget-surface"
+      />
+      <MemoriUIProvider
+        container={root}
+        clipContainer={surface}
+        theme={theme}
+      >
         <Probe />
       </MemoriUIProvider>
     </div>
@@ -40,7 +57,7 @@ function Harness({ theme }: { theme: 'light' | 'dark' }) {
 }
 
 describe('MemoriUIProvider embed contract', () => {
-  it('keeps portal target on the widget root and theme in sync with data-theme', async () => {
+  it('keeps escape portal on widget root, clip on surface, theme in sync', async () => {
     render(<Harness theme="dark" />);
 
     const root = screen.getByTestId('widget-root');
@@ -48,7 +65,8 @@ describe('MemoriUIProvider embed contract', () => {
 
     await waitFor(() => {
       const probe = screen.getByTestId('probe');
-      expect(probe).toHaveAttribute('data-portal-is-root', 'yes');
+      expect(probe).toHaveAttribute('data-escape-is-root', 'yes');
+      expect(probe).toHaveAttribute('data-clip-is-surface', 'yes');
       expect(probe).toHaveAttribute('data-theme-context', 'dark');
     });
   });

@@ -7,7 +7,6 @@ import {
 import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { stripHTML } from '../../helpers/utils';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import Chat from '../Chat/Chat';
 
 export interface ResumeDrawerMessage {
@@ -81,7 +80,6 @@ const ChatResumeDrawer = ({
   showMessageConsumption = false,
 }: ChatResumeDrawerProps) => {
   const { t } = useTranslation();
-  const surfaceEl = useWidgetSurfaceEl();
   const backButtonRef = useRef<HTMLButtonElement>(null);
   const titleId = 'chat-resume-drawer-title';
 
@@ -222,7 +220,6 @@ const ChatResumeDrawer = ({
 
   return (
     <Drawer
-      container={surfaceEl ?? undefined}
       open={isOpen}
       onClose={onClose}
       className="memori-chat-resume-drawer"

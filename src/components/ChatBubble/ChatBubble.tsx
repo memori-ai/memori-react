@@ -39,7 +39,6 @@ import {
 } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
 
 const sanitizeRawCopyText = (text: string) =>
@@ -128,7 +127,6 @@ const ChatBubble: React.FC<Props> = ({
   customMediaRenderer,
 }) => {
   const { t, i18n } = useTranslation();
-  const surfaceEl = useWidgetSurfaceEl();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
@@ -440,7 +438,6 @@ const ChatBubble: React.FC<Props> = ({
   const shouldShowTimestampInAddon =
     showDates && !!formattedTimestamp && !message.fromUser && !isChatlogPanel;
   const bubbleAddonTooltipProps = {
-    container: surfaceEl ?? undefined,
     slotProps: {
       positioner: {
         className: 'memori-chat--bubble-addon-tooltip-positioner',
@@ -1145,7 +1142,6 @@ const ChatBubble: React.FC<Props> = ({
       )}
 
       <Modal
-        container={surfaceEl ?? undefined}
         open={openFunctionCache}
         className="memori-chat--function-cache-modal"
         stacking="stacked"

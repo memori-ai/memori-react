@@ -7,7 +7,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown, Drawer } from '@memori.ai/ui';
-import { useWidgetSurfaceEl } from '../../../../context/widgetSurfaceContext';
 import {
   X,
   Maximize,
@@ -34,7 +33,6 @@ const ArtifactDrawer: React.FC<{
    *  component falls back to the Drawer overlay regardless of this flag. */
   isLayoutColumn?: boolean;
 }> = ({ isChatLogPanel = false, isLayoutColumn = false }) => {
-  const surfaceEl = useWidgetSurfaceEl();
   const { state, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
@@ -148,7 +146,6 @@ const ArtifactDrawer: React.FC<{
         // Mobile or legacy: floating Drawer overlay
         return (
           <Drawer
-            container={surfaceEl ?? undefined}
             open={state.isDrawerOpen}
             onClose={handleClose}
             anchor="right"
@@ -172,7 +169,6 @@ const ArtifactDrawer: React.FC<{
       state.isDrawerOpen,
       state.isFullscreen,
       isMobile,
-      surfaceEl,
     ]
   );
 
@@ -321,7 +317,6 @@ const ArtifactDrawer: React.FC<{
                   placement="bottom"
                   align="end"
                   sideOffset={8}
-                  container={surfaceEl ?? undefined}
                 >
                   <Dropdown.Item
                     className="memori-artifact-action-btn"

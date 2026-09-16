@@ -34,6 +34,7 @@ exports[`renders SnippetUpload with css code 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -97,6 +98,7 @@ exports[`renders SnippetUpload with html code 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -160,6 +162,7 @@ exports[`renders SnippetUpload with js code 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -247,6 +250,7 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -354,6 +358,7 @@ export default Snippet;
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -461,6 +466,7 @@ export default Snippet;
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -524,6 +530,7 @@ exports[`renders SnippetUpload with text 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"
@@ -587,6 +594,7 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
             class="memori-button__icon"
           >
             <svg
+              aria-hidden="true"
               class="lucide lucide-copy"
               fill="none"
               height="24"

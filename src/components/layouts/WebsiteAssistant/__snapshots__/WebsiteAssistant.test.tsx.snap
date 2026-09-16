@@ -10,73 +10,79 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
     data-memori-name="Memori"
     data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
     data-theme="light"
-    style="height: 100vh;"
+    style="height: 100vh; --memori-z-index-base: 10000;"
   >
     <div
-      aria-atomic="false"
-      aria-label="Notifications"
-      aria-live="polite"
-      aria-relevant="additions text"
-      class="memori-alert-viewport memori-alert-viewport--top-end"
-      data-theme="light"
-      role="region"
-      style="z-index: 10002;"
-      tabindex="-1"
-    />
-    <div
-      class="memori-widget__surface"
+      class="memori-ui-provider"
+      data-memori-ui-provider=""
+      style="--memori-z-index-base: 10000;"
     >
       <div
-        class="memori-website_assistant--trigger"
-      >
-        <button
-          aria-expanded="false"
-          aria-label="expand"
-          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
-          tabindex="0"
-          title="expand"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            <div
-              class="memori-blob"
-            >
-              <figure>
-                <img
-                  alt=""
-                  role="presentation"
-                  src="https://aisuru.com/images/aisuru/square_logo.png"
-                />
-              </figure>
-              <div
-                class="mainDiv"
-              />
-              <div
-                class="mainDiv"
-              />
-              <div
-                class="mainDiv"
-              />
-              <div
-                class="mainDiv"
-              />
-              <div
-                class="mainDiv"
-              />
-            </div>
-          </span>
-        </button>
-      </div>
+        aria-atomic="false"
+        aria-label="Notifications"
+        aria-live="polite"
+        aria-relevant="additions text"
+        class="memori-alert-viewport memori-alert-viewport--top-end"
+        data-theme="light"
+        role="region"
+        tabindex="-1"
+      />
       <div
-        class="memori-website_assistant--collapsed"
-      />
-      <audio
-        id="memori-audio"
-        src="https://aisuru.com/intro.mp3"
-        style="display: none;"
-      />
+        class="memori-widget__surface"
+        style="--memori-z-index-base: 10000;"
+      >
+        <div
+          class="memori-website_assistant--trigger"
+        >
+          <button
+            aria-expanded="false"
+            aria-label="expand"
+            class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
+            tabindex="0"
+            title="expand"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              <div
+                class="memori-blob"
+              >
+                <figure>
+                  <img
+                    alt=""
+                    role="presentation"
+                    src="https://aisuru.com/images/aisuru/square_logo.png"
+                  />
+                </figure>
+                <div
+                  class="mainDiv"
+                />
+                <div
+                  class="mainDiv"
+                />
+                <div
+                  class="mainDiv"
+                />
+                <div
+                  class="mainDiv"
+                />
+                <div
+                  class="mainDiv"
+                />
+              </div>
+            </span>
+          </button>
+        </div>
+        <div
+          class="memori-website_assistant--collapsed"
+        />
+        <audio
+          id="memori-audio"
+          src="https://aisuru.com/intro.mp3"
+          style="display: none;"
+        />
+      </div>
     </div>
   </div>
   <div

@@ -49,8 +49,6 @@ import {
   MemoriUIProvider,
   AlertViewport,
 } from '@memori.ai/ui';
-import { WidgetSurfaceProvider } from '../../context/widgetSurfaceContext';
-
 // Components
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
@@ -3831,11 +3829,17 @@ const MemoriWidget = ({
       })}
       style={{ height }}
     >
-      <MemoriUIProvider container={widgetRootEl} theme={widgetTheme}>
+      <MemoriUIProvider
+        container={widgetRootEl}
+        clipContainer={widgetSurfaceEl}
+        theme={widgetTheme}
+        zIndexBase={
+          selectedLayout === 'WEBSITE_ASSISTANT' ? 10000 : 0
+        }
+      >
         {/* Inside themed root so alert text uses dark-theme tokens (white). */}
-        <AlertViewport placement="top-end" style={{ zIndex: 10002 }} />
-        <WidgetSurfaceProvider value={widgetSurfaceEl}>
-          <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
+        <AlertViewport placement="top-end" />
+        <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
             <Layout
               Header={Header}
               headerProps={headerProps}
@@ -4151,7 +4155,6 @@ const MemoriWidget = ({
               />
             )}
           </div>
-        </WidgetSurfaceProvider>
       </MemoriUIProvider>
     </div>
   );

@@ -374,7 +374,7 @@
 .memori--error-message-container,
 .memori--login-tip {
     position: fixed;
-    z-index: 10001;
+    z-index: calc(var(--memori-z-index-base, 0) + 1700);
     top: var(--memori-spacing-5xl);
     right: 20px;
 }
@@ -491,7 +491,7 @@ input.memori--upload-title-input {
 
 .memori--error-message-alert {
     position: relative;
-    z-index: 10002;
+    z-index: calc(var(--memori-z-index-base, 0) + 1700);
     top: 0;
     right: 0;
 }

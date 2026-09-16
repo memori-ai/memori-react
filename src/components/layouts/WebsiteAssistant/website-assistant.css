@@ -9,7 +9,7 @@
 
 .memori-website_assistant--trigger {
     position: fixed;
-    z-index: 2147483647;
+    z-index: calc(var(--memori-z-index-base, 0) + 1800);
     right: 0px;
     bottom: 0px;
     display: flex;

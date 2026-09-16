@@ -1,13 +1,6 @@
 /* Shared secondary icon-button chrome (header + chat input bar).
-   CTA primary (Accedi / send) must NOT use this class. */
-
-.memori-widget {
-    --memori-icon-active-bg: color-mix(in oklch, var(--memori-primary) 12%, transparent);
-    --memori-icon-recording-bg: color-mix(in oklch, var(--memori-error, #dc2626) 12%, transparent);
-    --memori-icon-button-size: 40px;
-    --memori-icon-button-icon-size: 20px;
-    --memori-icon-button-icon: color-mix(in oklch, var(--memori-text-color, #111827) 72%, transparent);
-}
+   CTA primary (Accedi / send) must NOT use this class.
+   Size / border / icon tokens come from @memori.ai/ui. */
 
 .memori-widget .memori-icon-button.memori-button {
     display: inline-flex;
@@ -61,11 +54,9 @@
     width: var(--memori-icon-button-icon-size, 20px);
     height: var(--memori-icon-button-icon-size, 20px);
     flex-shrink: 0;
-    /* Keep lucide / custom icons as authored — only size them */
     color: inherit;
 }
 
-/* Mute (VolumeX): slightly larger glyph + heavier stroke so the X reads clearly */
 .memori-widget .memori-icon-button.memori-button svg.lucide-volume-x {
     width: calc(var(--memori-icon-button-icon-size, 20px) + 1px);
     height: calc(var(--memori-icon-button-icon-size, 20px) + 1px);

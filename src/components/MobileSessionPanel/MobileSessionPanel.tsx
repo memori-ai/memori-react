@@ -7,7 +7,7 @@ import {
   LogIn,
   LogOut,
 } from 'lucide-react';
-import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
+import { Button, Drawer, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { Message, User, Venue } from '@memori.ai/memori-api-client/dist/types';
 import { getErrori18nKey } from '../../helpers/error';
@@ -194,7 +194,6 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   const showAuthControls = showLogin;
   const showProfileControls = showAuthControls && isLoggedIn;
   const panelRef = useRef<HTMLElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
   const panelTitleId = 'mobile-session-panel-title';
   const touchStartYRef = useRef(0);
   const [dragOffset, setDragOffset] = useState(0);
@@ -261,57 +260,10 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     knownFactsHint || t('widget.knownFactsHint') || 'What I remember about you';
   const resolvedAiUsageTitle =
     aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
-  useEffect(() => {
-    if (!open) return;
-    const onEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onEscape);
-    return () => document.removeEventListener('keydown', onEscape);
-  }, [open, onClose]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const root = dialogRef.current;
-    if (!root) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab') return;
-
-      const focusableElements = root.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusableElements.length) return;
-
-      const first = focusableElements[0];
-      const last = focusableElements[focusableElements.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-
-      if (event.shiftKey && active === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && active === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    panelRef.current?.focus();
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      previouslyFocused?.focus();
-    };
-  }, [open]);
 
   useEffect(() => {
     if (open) setActiveView('session');
   }, [open]);
-
-  if (!open) return null;
 
   const updateAvatar = async (avatar: any) => {
     if (!uploadAsset || !pwlUpdateUser) {
@@ -415,30 +367,15 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     return !isKnownFactsAction && !isAudioAction;
   });
 
-  return (
-    <div
-      ref={dialogRef}
-      className={`memori-mobile-session-panel--overlay ${
-        isPopover ? 'memori-mobile-session-panel--overlay-popover' : ''
-      }`}
-      role="presentation"
-    >
-      {!isPopover && (
-        <button
-          type="button"
-          className="memori-mobile-session-panel--backdrop"
-          aria-label={String(t('close', { defaultValue: 'Close' }))}
-          onClick={onClose}
-        />
-      )}
+  const panel = (
       <section
         ref={panelRef}
         tabIndex={-1}
         className={`memori-mobile-session-panel ${
           isPopover ? 'memori-mobile-session-panel--popover' : ''
         }`}
-        role="dialog"
-        aria-modal="true"
+        role={isPopover ? 'dialog' : undefined}
+        aria-modal={isPopover ? true : undefined}
         aria-labelledby={panelTitleId}
         onClick={event => event.stopPropagation()}
         onTouchStart={
@@ -809,7 +746,31 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
           </div>
         )}
       </section>
-    </div>
+  );
+
+  if (isPopover) {
+    if (!open) return null;
+    return (
+      <div
+        className="memori-mobile-session-panel--overlay memori-mobile-session-panel--overlay-popover"
+        role="presentation"
+      >
+        {panel}
+      </div>
+    );
+  }
+
+  return (
+    <Drawer
+      open={open}
+      onClose={onClose}
+      anchor="bottom"
+      size="lg"
+      className="memori-mobile-session-panel-drawer"
+      closable={false}
+    >
+      {panel}
+    </Drawer>
   );
 };
 

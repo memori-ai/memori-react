@@ -16,6 +16,7 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-triangle-alert blocked-memori-badge--icon"
             fill="none"
             height="24"
@@ -60,6 +61,7 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-triangle-alert blocked-memori-badge--icon"
             fill="none"
             height="24"
@@ -104,6 +106,7 @@ exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-triangle-alert blocked-memori-badge--icon"
             fill="none"
             height="24"
@@ -148,6 +151,7 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
           class="blocked-memori-badge  margin-left"
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-triangle-alert blocked-memori-badge--icon"
             fill="none"
             height="24"
@@ -192,6 +196,7 @@ exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-triangle-alert blocked-memori-badge--icon"
             fill="none"
             height="24"

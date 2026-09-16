@@ -10,7 +10,6 @@ import {
   localTextExtensions,
   officeNativeExtensions,
 } from '../../../helpers/constants';
-import { useWidgetSurfaceEl } from '../../../context/widgetSurfaceContext';
 import {
   isLocalTextFilename,
   isOfficeNativeFilename,
@@ -76,7 +75,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onValidatePayloadSize,
 }) => {
   const { t } = useTranslation();
-  const surfaceEl = useWidgetSurfaceEl();
   const { backend } = client || {
     backend: { uploadAsset: null, uploadAssetUnlogged: null },
   };
@@ -399,7 +397,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       {/* Modal */}
       <Modal
-        container={surfaceEl ?? undefined}
         width="80%"
         widthMd="80%"
         open={!!selectedFile}

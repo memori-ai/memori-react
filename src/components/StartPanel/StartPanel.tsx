@@ -28,7 +28,6 @@ import CompletionProviderStatus, {
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import { Expandable } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
@@ -89,7 +88,6 @@ const StartPanel: React.FC<Props> = ({
   showFullDescriptionOnMobile = false,
 }) => {
   const { t, i18n } = useTranslation();
-  const surfaceEl = useWidgetSurfaceEl();
   const boardOfExpertsTooltip = usePressTooltip();
   const nsfwTooltip = usePressTooltip();
   const deepThoughtTooltip = usePressTooltip();
@@ -714,7 +712,6 @@ const StartPanel: React.FC<Props> = ({
           )}
       </div>
       <Modal
-        container={surfaceEl ?? undefined}
         open={isMobile && mobileInfoModal !== null}
         onClose={() => setMobileInfoModal(null)}
         title={

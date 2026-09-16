@@ -53,7 +53,7 @@ form.memori--login-drawer--form {
     gap: var(--memori-spacing-xs);
 }
 
-.memori--login-drawer--form label:not(.memori-checkbox) {
+.memori--login-drawer--form label:not(.memori-checkbox):not(.memori-login-drawer--consent) {
     display: flex;
     width: 100%;
     min-width: 0;
@@ -64,11 +64,7 @@ form.memori--login-drawer--form {
     gap: var(--memori-spacing-sm);
 }
 
-.memori-checkbox--text {
-    width: 100%;
-}
-
-.memori--login-drawer--form label.memori-checkbox {
+.memori--login-drawer--form .memori-login-drawer--consent {
     width: 100%;
     margin: 0.5rem 0;
 }

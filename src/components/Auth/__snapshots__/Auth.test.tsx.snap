@@ -43,6 +43,7 @@ exports[`renders Auth on tokens unchanged 1`] = `
           class="memori-button__icon"
         >
           <svg
+            aria-hidden="true"
             class="lucide lucide-plus"
             fill="none"
             height="24"

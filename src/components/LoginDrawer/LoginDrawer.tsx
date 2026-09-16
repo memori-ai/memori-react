@@ -12,7 +12,6 @@ import {
   Field,
 } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
@@ -52,7 +51,6 @@ const LoginDrawer = ({
   __TEST__signup = false,
   __TEST__needMissingData = false,
 }: Props) => {
-  const surfaceEl = useWidgetSurfaceEl();
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
   const lang = i18n.language === 'it' ? 'it' : 'en';
@@ -494,7 +492,6 @@ const LoginDrawer = ({
 
   return (
     <Drawer
-      container={surfaceEl ?? undefined}
       open={open}
       onClose={onClose}
       className={cx('memori--login-drawer', {
@@ -547,49 +544,47 @@ const LoginDrawer = ({
 
             {needsMissingData?.tnCAndPPAccepted && (
               <>
-                <label className="memori-checkbox">
-                  <span className="memori-checkbox--input-wrapper">
-                    <Checkbox
-                      name="tnCAndPPAccepted"
-                      checked={tnCAndPPAccepted}
-                      onChange={checked => setTnCAndPPAccepted(checked)}
-                    />
-                  </span>
-                  <span className="memori-checkbox--text">
-                    {t('login.privacyLabel')}{' '}
-                    <a
-                      href={`https://memori.ai/${lang}/privacy_and_cookie`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t('login.privacyAndCookiePolicy')}
-                    </a>{' '}
-                    {t('login.and')}{' '}
-                    <a
-                      href={`https://memori.ai/${lang}/tos`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t('login.termsOfService')}
-                    </a>
-                  </span>
-                </label>
+                <Checkbox
+                  name="tnCAndPPAccepted"
+                  className="memori-login-drawer--consent"
+                  checked={tnCAndPPAccepted}
+                  onChange={checked => setTnCAndPPAccepted(checked)}
+                  label={
+                    <>
+                      {t('login.privacyLabel')}{' '}
+                      <a
+                        href={`https://memori.ai/${lang}/privacy_and_cookie`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t('login.privacyAndCookiePolicy')}
+                      </a>{' '}
+                      {t('login.and')}{' '}
+                      <a
+                        href={`https://memori.ai/${lang}/tos`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t('login.termsOfService')}
+                      </a>
+                    </>
+                  }
+                />
 
-                <label className="memori-checkbox">
-                  <span className="memori-checkbox--input-wrapper">
-                    <Checkbox
-                      name="pAndCUAccepted"
-                      checked={pAndCUAccepted}
-                      onChange={checked => setPAndCUAccepted(checked)}
-                    />
-                  </span>
-                  <span className="memori-checkbox--text">
-                    {t('login.pAndCUAccepted')}{' '}
-                    <small>
-                      <em>({t('login.optional')})</em>
-                    </small>
-                  </span>
-                </label>
+                <Checkbox
+                  name="pAndCUAccepted"
+                  className="memori-login-drawer--consent"
+                  checked={pAndCUAccepted}
+                  onChange={checked => setPAndCUAccepted(checked)}
+                  label={
+                    <>
+                      {t('login.pAndCUAccepted')}{' '}
+                      <small>
+                        <em>({t('login.optional')})</em>
+                      </small>
+                    </>
+                  }
+                />
                 <p>
                   <small>{t('login.goToAccountToChangeYourPreferences')}</small>
                 </p>

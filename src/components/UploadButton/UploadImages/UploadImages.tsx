@@ -8,7 +8,6 @@ import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
 import { compressImage } from '../../../helpers/imageCompression';
-import { useWidgetSurfaceEl } from '../../../context/widgetSurfaceContext';
 
 // Types
 type PreviewFile = {
@@ -55,7 +54,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   onValidateImageFile,
 }) => {
   const { t, i18n } = useTranslation();
-  const surfaceEl = useWidgetSurfaceEl();
   // Client
   const { backend, dialog } = client || {
     backend: { uploadAsset: null, uploadAssetUnlogged: null },
@@ -485,7 +483,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
       {/* Upload Modal with Title Input */}
       <Modal
-        container={surfaceEl ?? undefined}
         open={showUploadModal && !!selectedFile}
         className="memori--modal-preview-file memori--upload-image-preview-modal"
         onClose={handleCancelUpload}

@@ -80,6 +80,7 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
                               class="memori-button__icon"
                             >
                               <svg
+                                aria-hidden="true"
                                 class="lucide lucide-copy"
                                 fill="none"
                                 height="24"
@@ -317,6 +318,7 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
                               class="memori-button__icon"
                             >
                               <svg
+                                aria-hidden="true"
                                 class="lucide lucide-copy"
                                 fill="none"
                                 height="24"

@@ -457,3 +457,23 @@
         justify-content: flex-end;
     }
 }
+
+.memori-mobile-session-panel-drawer.memori-drawer--bottom {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 90vh;
+    padding: 0;
+    border-radius: 20px 20px 0 0;
+}
+
+.memori-mobile-session-panel-drawer .memori-drawer__body {
+    overflow: auto;
+    padding: 0;
+}
+
+.memori-mobile-session-panel-drawer .memori-mobile-session-panel {
+    max-height: none;
+    border-radius: 0;
+}
+

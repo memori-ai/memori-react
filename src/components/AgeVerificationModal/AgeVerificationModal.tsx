@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 import {
   Button,
   FieldGroup,
@@ -19,7 +18,6 @@ export interface Props {
 }
 
 const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
-  const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
   const { add } = useAlertManager();
   const [birthDate, setBirthDate] = useState<DateTime>();
@@ -74,7 +72,6 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
 
   return (
     <Modal
-      container={surfaceEl ?? undefined}
       open={visible}
       width="600px"
       widthMd="600px"

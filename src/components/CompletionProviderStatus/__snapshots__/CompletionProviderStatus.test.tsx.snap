@@ -10,6 +10,7 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
       id="base-ui-:r3:"
     >
       <svg
+        aria-hidden="true"
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
         height="24"
@@ -46,6 +47,7 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
       id="base-ui-:r5:"
     >
       <svg
+        aria-hidden="true"
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
         height="24"
@@ -82,6 +84,7 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
       id="base-ui-:r1:"
     >
       <svg
+        aria-hidden="true"
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
         height="24"

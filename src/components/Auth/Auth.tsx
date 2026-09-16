@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, Modal } from '@memori.ai/ui';
 import { Plus } from 'lucide-react';
-import { useWidgetSurfaceEl } from '../../context/widgetSurfaceContext';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
@@ -32,7 +31,6 @@ export const AuthWidget = ({
   openModal = false,
   withModal = false,
 }: Props) => {
-  const surfaceEl = useWidgetSurfaceEl();
   const { t } = useTranslation();
   const [numTokens, setNumTokens] = useState(1);
   const [passwordValue, setPasswordValue] = useState('');
@@ -213,7 +211,6 @@ export const AuthWidget = ({
 
   return withModal ? (
     <Modal
-      container={surfaceEl ?? undefined}
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
       closable={true}
