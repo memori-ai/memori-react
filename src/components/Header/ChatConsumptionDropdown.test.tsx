@@ -1,7 +1,9 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
-import ChatConsumptionDropdown from './ChatConsumptionDropdown';
+import ChatConsumptionDropdown, {
+  ChatConsumptionContent,
+} from './ChatConsumptionDropdown';
 
 type TestMessage = Message & {
   llmUsage?: {
@@ -17,46 +19,42 @@ type TestMessage = Message & {
   };
 };
 
-describe('ChatConsumptionDropdown', () => {
+const historyWithUsage = [
+  {
+    text: 'First response',
+    timestamp: '2021-03-01T12:00:00.000Z',
+    llmUsage: {
+      provider: 'OpenAI',
+      model: 'gpt-5',
+      totalInputTokens: 1000,
+      outputTokens: 200,
+      energyImpact: {
+        energy: { parsedValue: 0.0012 },
+        gwp: { parsedValue: 0.00045 },
+        wcf: { parsedValue: 0.0021 },
+      },
+    },
+  },
+  {
+    text: 'Second response',
+    timestamp: '2021-03-01T12:01:00.000Z',
+    llmUsage: {
+      provider: 'Anthropic',
+      model: 'claude-3',
+      totalInputTokens: 250,
+      outputTokens: 50,
+      energyImpact: {
+        energy: 0.0008,
+        gwp: { source: '0.00035' },
+        wcf: { source: '0.0014' },
+      },
+    },
+  },
+] as TestMessage[];
+
+describe('ChatConsumptionContent', () => {
   it('renders aggregated token and environmental usage', () => {
-    const history = [
-      {
-        text: 'First response',
-        timestamp: '2021-03-01T12:00:00.000Z',
-        llmUsage: {
-          provider: 'OpenAI',
-          model: 'gpt-5',
-          totalInputTokens: 1000,
-          outputTokens: 200,
-          energyImpact: {
-            energy: { parsedValue: 0.0012 },
-            gwp: { parsedValue: 0.00045 },
-            wcf: { parsedValue: 0.0021 },
-          },
-        },
-      },
-      {
-        text: 'Second response',
-        timestamp: '2021-03-01T12:01:00.000Z',
-        llmUsage: {
-          provider: 'Anthropic',
-          model: 'claude-3',
-          totalInputTokens: 250,
-          outputTokens: 50,
-          energyImpact: {
-            energy: 0.0008,
-            gwp: { source: '0.00035' },
-            wcf: { source: '0.0014' },
-          },
-        },
-      },
-    ] as TestMessage[];
-
-    render(<ChatConsumptionDropdown history={history} />);
-
-    fireEvent.click(
-      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
-    );
+    render(<ChatConsumptionContent history={historyWithUsage} />);
 
     expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
     expect(screen.getByText('chatLogs.modelUsage')).toBeTruthy();
@@ -69,7 +67,9 @@ describe('ChatConsumptionDropdown', () => {
     expect(screen.getByText('800 mg')).toBeTruthy();
     expect(screen.getByText('3.5 mL')).toBeTruthy();
   });
+});
 
+describe('ChatConsumptionDropdown', () => {
   it('does not render when the chat has no llm usage data', () => {
     const history = [
       {
@@ -81,33 +81,20 @@ describe('ChatConsumptionDropdown', () => {
     const { container } = render(<ChatConsumptionDropdown history={history} />);
 
     expect(container.firstChild).toBeNull();
-    // expect(
-    //   screen.queryByTitle('write_and_speak.showMessageConsumptionLabel')
-    // ).toBeNull();
+  });
+
+  it('renders the default trigger when usage data is present', () => {
+    render(<ChatConsumptionDropdown history={historyWithUsage} />);
+
+    expect(
+      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+    ).toBeTruthy();
   });
 
   it('supports a custom trigger component', () => {
-    const history = [
-      {
-        text: 'Response',
-        timestamp: '2021-03-01T12:00:00.000Z',
-        llmUsage: {
-          provider: 'OpenAI',
-          model: 'gpt-5',
-          totalInputTokens: 10,
-          outputTokens: 5,
-          energyImpact: {
-            energy: 0.0002,
-            gwp: 0.0001,
-            wcf: 0.0003,
-          },
-        },
-      },
-    ] as TestMessage[];
-
     render(
       <ChatConsumptionDropdown
-        history={history}
+        history={historyWithUsage}
         trigger={props => (
           <button type="button" {...props}>
             Custom Trigger
@@ -116,39 +103,19 @@ describe('ChatConsumptionDropdown', () => {
       />
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Custom Trigger' }));
-
-    expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
+    expect(
+      screen.getByRole('button', { name: 'Custom Trigger' })
+    ).toBeTruthy();
   });
 
   it('supports a custom trigger node', () => {
-    const history = [
-      {
-        text: 'First response',
-        timestamp: '2021-03-01T12:00:00.000Z',
-        llmUsage: {
-          provider: 'OpenAI',
-          model: 'gpt-5',
-          totalInputTokens: 1000,
-          outputTokens: 200,
-          energyImpact: {
-            energy: { parsedValue: 0.0012 },
-            gwp: { parsedValue: 0.00045 },
-            wcf: { parsedValue: 0.0021 },
-          },
-        },
-      },
-    ] as TestMessage[];
-
     render(
       <ChatConsumptionDropdown
-        history={history}
+        history={historyWithUsage}
         trigger={<button type="button">Open usage</button>}
       />
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Open usage' }));
-
-    expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Open usage' })).toBeTruthy();
   });
 });

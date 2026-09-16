@@ -15,9 +15,7 @@ exports[`renders KnownFacts hidden unchanged 1`] = `
 `;
 
 exports[`renders KnownFacts visible unchanged 1`] = `
-<div
-  data-base-ui-inert=""
->
+<div>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -31,9 +29,7 @@ exports[`renders KnownFacts visible unchanged 1`] = `
 `;
 
 exports[`renders KnownFacts with data unchanged 1`] = `
-<div
-  data-base-ui-inert=""
->
+<div>
   <div
     aria-atomic="false"
     aria-label="Notifications"
