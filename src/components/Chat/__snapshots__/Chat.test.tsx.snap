@@ -483,52 +483,37 @@ exports[`renders Chat unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -1452,52 +1437,37 @@ exports[`renders Chat with context vars unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -2415,52 +2385,37 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -3334,52 +3289,37 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -4315,52 +4255,37 @@ exports[`renders Chat with dates unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -5312,52 +5237,37 @@ exports[`renders Chat with hints unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -6315,7 +6225,7 @@ exports[`renders Chat with media unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--many"
                   >
                     <div
                       class="memori-media-item"
@@ -6326,42 +6236,34 @@ exports[`renders Chat with media unchanged 1`] = `
                         role="button"
                         style="cursor: pointer;"
                         tabindex="0"
+                        title="Image 0"
                       >
                         <div
-                          class="memori-media-item--image-with-caption"
+                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                          tabindex="0"
                         >
                           <div
-                            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                            tabindex="0"
+                            class="memori-card__cover"
                           >
-                            <div
-                              class="memori-card__cover"
+                            <picture
+                              class="memori-media-item--figure"
                             >
-                              <picture
-                                class="memori-media-item--figure"
-                              >
-                                <source
-                                  srcset="https://picsum.photos/300/200?random=0"
-                                  type="image/png"
-                                />
-                                <img
-                                  alt="Image 0"
-                                  src="https://picsum.photos/300/200?random=0"
-                                />
-                              </picture>
-                            </div>
-                            <div
-                              class="memori-card__body memori-card__body--padding-md"
-                            >
-                              <div
-                                class="memori-spin"
+                              <source
+                                srcset="https://picsum.photos/300/200?random=0"
+                                type="image/png"
                               />
-                            </div>
+                              <img
+                                alt="Image 0"
+                                src="https://picsum.photos/300/200?random=0"
+                              />
+                            </picture>
                           </div>
                           <div
-                            class="memori-media-item--image-caption"
+                            class="memori-card__body memori-card__body--padding-md"
                           >
-                            Image 0 — PNG
+                            <div
+                              class="memori-spin"
+                            />
                           </div>
                         </div>
                       </div>
@@ -6375,42 +6277,34 @@ exports[`renders Chat with media unchanged 1`] = `
                         role="button"
                         style="cursor: pointer;"
                         tabindex="0"
+                        title="Image 1"
                       >
                         <div
-                          class="memori-media-item--image-with-caption"
+                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                          tabindex="0"
                         >
                           <div
-                            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                            tabindex="0"
+                            class="memori-card__cover"
                           >
-                            <div
-                              class="memori-card__cover"
+                            <picture
+                              class="memori-media-item--figure"
                             >
-                              <picture
-                                class="memori-media-item--figure"
-                              >
-                                <source
-                                  srcset="https://picsum.photos/200/300?random=1"
-                                  type="image/png"
-                                />
-                                <img
-                                  alt="Image 1"
-                                  src="https://picsum.photos/200/300?random=1"
-                                />
-                              </picture>
-                            </div>
-                            <div
-                              class="memori-card__body memori-card__body--padding-md"
-                            >
-                              <div
-                                class="memori-spin"
+                              <source
+                                srcset="https://picsum.photos/200/300?random=1"
+                                type="image/png"
                               />
-                            </div>
+                              <img
+                                alt="Image 1"
+                                src="https://picsum.photos/200/300?random=1"
+                              />
+                            </picture>
                           </div>
                           <div
-                            class="memori-media-item--image-caption"
+                            class="memori-card__body memori-card__body--padding-md"
                           >
-                            Image 1 — PNG
+                            <div
+                              class="memori-spin"
+                            />
                           </div>
                         </div>
                       </div>
@@ -6424,42 +6318,34 @@ exports[`renders Chat with media unchanged 1`] = `
                         role="button"
                         style="cursor: pointer;"
                         tabindex="0"
+                        title="Image 2"
                       >
                         <div
-                          class="memori-media-item--image-with-caption"
+                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                          tabindex="0"
                         >
                           <div
-                            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                            tabindex="0"
+                            class="memori-card__cover"
                           >
-                            <div
-                              class="memori-card__cover"
+                            <picture
+                              class="memori-media-item--figure"
                             >
-                              <picture
-                                class="memori-media-item--figure"
-                              >
-                                <source
-                                  srcset="https://picsum.photos/300/300?random=2"
-                                  type="image/png"
-                                />
-                                <img
-                                  alt="Image 2"
-                                  src="https://picsum.photos/300/300?random=2"
-                                />
-                              </picture>
-                            </div>
-                            <div
-                              class="memori-card__body memori-card__body--padding-md"
-                            >
-                              <div
-                                class="memori-spin"
+                              <source
+                                srcset="https://picsum.photos/300/300?random=2"
+                                type="image/png"
                               />
-                            </div>
+                              <img
+                                alt="Image 2"
+                                src="https://picsum.photos/300/300?random=2"
+                              />
+                            </picture>
                           </div>
                           <div
-                            class="memori-media-item--image-caption"
+                            class="memori-card__body memori-card__body--padding-md"
                           >
-                            Image 2 — PNG
+                            <div
+                              class="memori-spin"
+                            />
                           </div>
                         </div>
                       </div>
@@ -6467,182 +6353,122 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai/en"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link Memori Srl"
                       >
-                        <a
-                          aria-label="Open preview: Link Memori Srl"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai/en"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link Memori Srl
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link Memori Srl
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://rawmaterial.it/en"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link RawMaterial"
                       >
-                        <a
-                          aria-label="Open preview: Link RawMaterial"
-                          class="memori-media-item--html-open-preview"
-                          href="https://rawmaterial.it/en"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link RawMaterial
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link RawMaterial
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://vimeo.com/766468314"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Introducing Plone Remix | Vimeo"
                       >
-                        <a
-                          aria-label="Open preview: Introducing Plone Remix | Vimeo"
-                          class="memori-media-item--html-open-preview"
-                          href="https://vimeo.com/766468314"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Introducing Plone Remix | Vimeo
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Introducing Plone Remix | Vimeo
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://www.youtube.com/watch?v=feH26j3rBz8"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="A sustainable web: is it possible? - Nicola Zambello | YouTube"
                       >
-                        <a
-                          aria-label="Open preview: A sustainable web: is it possible? - Nicola Zambello | YouTube"
-                          class="memori-media-item--html-open-preview"
-                          href="https://www.youtube.com/watch?v=feH26j3rBz8"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                A sustainable web: is it possible? - Nicola Zambello | YouTube
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              A sustainable web: is it possible? - Nicola Zambello | YouTube
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -7566,52 +7392,37 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -8558,52 +8369,37 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -9648,52 +9444,37 @@ exports[`renders Chat with user unchanged 1`] = `
                   class="memori-media-items"
                 >
                   <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
                   >
                     <div
                       class="memori-media-item"
                     >
-                      <div
-                        class="memori-media-item--html-open-preview-wrap"
+                      <a
+                        class="memori-media-item--link memori-media-item--document-link"
+                        href="https://memori.ai"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Link"
                       >
-                        <a
-                          aria-label="Open preview: Link"
-                          class="memori-media-item--html-open-preview"
-                          href="https://memori.ai"
-                          rel="noopener noreferrer"
-                          target="_blank"
+                        <div
+                          class="memori-media-item--document"
                         >
                           <div
-                            class="memori-media-item--html-open-preview-left"
+                            class="memori-media-item--document-header"
                           >
                             <div
-                              aria-hidden="true"
-                              class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                              class="memori-media-item--document-title"
                             >
-                              &lt;/&gt;
-                            </div>
-                            <div
-                              class="memori-media-item--document-body"
-                            >
-                              <div
-                                class="memori-media-item--document-title"
-                              >
-                                Link
-                              </div>
-                              <div
-                                class="memori-media-item--document-meta"
-                              >
-                                Interactive preview
-                              </div>
+                              Link
                             </div>
                           </div>
                           <span
-                            class="memori-media-item--html-open-preview-action"
+                            class="memori-media-item--document-badge"
                           >
-                            Open preview
+                            Link
                           </span>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
                     </div>
                   </div>
                 </div>

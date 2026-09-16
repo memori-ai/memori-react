@@ -44,104 +44,9 @@ import {
   getImageDisplaySource,
   FALLBACK_IMAGE_BASE64,
   TEXT_FILE_EXTENSIONS,
-  IMAGE_MIME_TYPES,
-  isDataPreviewMime,
-  parseDataPreviewRows,
 } from './MediaItemWidget.utils';
 import { DocumentCard } from './DocumentCard';
 import { MediaPreviewModal } from './MediaPreviewModal';
-
-function DataPreviewCard({
-  title,
-  rows,
-}: {
-  title: string;
-  rows: { label: string; value: string }[];
-}): React.ReactElement {
-  return (
-    <div className="memori-media-item--data-preview">
-      <div className="memori-media-item--data-preview-title">{title}</div>
-      <div className="memori-media-item--data-preview-rows">
-        {rows.map(row => (
-          <div
-            key={`${row.label}:${row.value}`}
-            className="memori-media-item--data-preview-row"
-          >
-            <span>{row.label}</span>
-            <span className="memori-media-item--data-preview-value">
-              {row.value}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function HtmlPreviewCard({
-  title,
-  href,
-  onOpen,
-}: {
-  title: string;
-  href?: string;
-  onOpen?: () => void;
-}): React.ReactElement {
-  const openLabel = 'Open preview';
-  const body = (
-    <>
-      <div className="memori-media-item--html-open-preview-left">
-        <div
-          className="memori-media-item--document-icon memori-media-item--document-icon--html"
-          aria-hidden
-        >
-          {'</>'}
-        </div>
-        <div className="memori-media-item--document-body">
-          <div className="memori-media-item--document-title">{title}</div>
-          <div className="memori-media-item--document-meta">
-            Interactive preview
-          </div>
-        </div>
-      </div>
-      <span className="memori-media-item--html-open-preview-action">
-        {openLabel}
-      </span>
-    </>
-  );
-
-  if (onOpen) {
-    return (
-      <div
-        className="memori-media-item--html-open-preview"
-        role="button"
-        tabIndex={0}
-        aria-label={`${openLabel}: ${title}`}
-        onClick={onOpen}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onOpen();
-          }
-        }}
-      >
-        {body}
-      </div>
-    );
-  }
-
-  return (
-    <a
-      href={href || '#'}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="memori-media-item--html-open-preview"
-      aria-label={`${openLabel}: ${title}`}
-    >
-      {body}
-    </a>
-  );
-}
 
 export type {
   LinkPreviewInfo,
@@ -446,87 +351,15 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         : `${lineCount} lines`
       : null;
 
-  const displayName = item.title || linkTitle || 'File';
-  const contentSize = getContentSize(item);
-  const sizeText =
-    contentSize != null && contentSize > 0 ? formatBytes(contentSize) : null;
-  const metaParts = [lineText, sizeText].filter(Boolean);
-  const metaLine = metaParts.length > 0 ? metaParts.join(' · ') : null;
-
-  // Structured data preview (MIME-based only)
-  const dataPreviewRows = isDataPreviewMime(item.mimeType)
-    ? parseDataPreviewRows(item.content, item.mimeType)
-    : [];
-  if (dataPreviewRows.length > 0) {
-    return (
-      <div className="memori-media-item--data-preview-wrap">
-        <DataPreviewCard title={displayName} rows={dataPreviewRows} />
-      </div>
-    );
-  }
-
-  // Build href for file / HTML open-in-tab cards
-  const getFileCardHref = (): string => {
-    const assetUrl = getDocumentAttachmentAssetUrl(item);
-    if (assetUrl) {
-      return (
-        getResourceUrl({
-          resourceURI: assetUrl,
-          sessionID,
-          tenantID,
-          baseURL,
-          apiURL,
-        }) ||
-        assetUrl ||
-        '#'
-      );
-    }
-    if (isHTML && item.content) {
-      let htmlContent = item.content;
-      if (
-        item.properties?.isDocumentAttachment ||
-        htmlContent.includes('document_attachment') ||
-        htmlContent.includes('<document_attachment')
-      ) {
-        if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
-          htmlContent = stripHTML(htmlContent) || htmlContent;
-        }
-        htmlContent = stripDocumentAttachmentTags(htmlContent);
-      }
-      const blob = new Blob([htmlContent], { type: 'text/html' });
-      return URL.createObjectURL(blob);
-    }
-    if (item.content) {
-      const blob = new Blob([item.content], {
-        type: item.mimeType || 'text/plain',
-      });
-      return URL.createObjectURL(blob);
-    }
-    return resourceUrl || item.url || '#';
-  };
-
-  // Live HTML / interactive preview: full-width card with Open preview CTA
-  if (isHTML && (item.url || item.content)) {
-    const isAssetOnlyAttachment = isAssetOnlyDocumentAttachment(item);
-    const openInModal =
-      (isDocumentAttachment || isAttachedFile) &&
-      item.mediumID &&
-      _onClick &&
-      !isAssetOnlyAttachment;
-
-    return (
-      <div className="memori-media-item--html-open-preview-wrap">
-        <HtmlPreviewCard
-          title={displayName}
-          href={openInModal ? undefined : getFileCardHref()}
-          onOpen={openInModal ? () => _onClick(item) : undefined}
-        />
-      </div>
-    );
-  }
-
   // File-like cards that are NOT code: render as clickable file cards
   if (isFile && !isCodeSnippet) {
+    const contentSize = getContentSize(item);
+    const sizeText =
+      contentSize != null && contentSize > 0 ? formatBytes(contentSize) : null;
+    const displayName = item.title || linkTitle || 'File';
+    const metaParts = [lineText, sizeText].filter(Boolean);
+    const metaLine = metaParts.length > 0 ? metaParts.join(' · ') : null;
+
     // Asset-only attachments (e.g. Office native files) open via URL, not modal
     const isAssetOnlyAttachment = isAssetOnlyDocumentAttachment(item);
 
@@ -542,6 +375,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           onClick={() => _onClick(item)}
           className="memori-media-item--link memori-media-item--document-link"
           style={{ cursor: 'pointer' }}
+          title={displayName}
           role="button"
           tabIndex={0}
           aria-label={displayName}
@@ -554,13 +388,63 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         >
           <DocumentCard
             title={displayName}
-            badge={fileExtension}
+            badge={
+              item.mimeType === 'text/html' && !!item.url
+                ? 'Link'
+                : fileExtension
+            }
             meta={metaLine}
-            icon={<File className="memori-media-item--document-icon-svg" />}
+            icon={
+              item.mimeType === 'text/html' ? (
+                <LinkIcon className="memori-media-item--document-icon-svg" />
+              ) : (
+                <File className="memori-media-item--document-icon-svg" />
+              )
+            }
           />
         </div>
       );
     }
+
+    // Build href: open in new tab (never modal). Use URL, or blob for content-only items.
+    const getFileCardHref = (): string => {
+      const assetUrl = getDocumentAttachmentAssetUrl(item);
+      if (assetUrl) {
+        return (
+          getResourceUrl({
+            resourceURI: assetUrl,
+            sessionID,
+            tenantID,
+            baseURL,
+            apiURL,
+          }) ||
+          assetUrl ||
+          '#'
+        );
+      }
+      if (isHTML && item.content) {
+        let htmlContent = item.content;
+        if (
+          item.properties?.isDocumentAttachment ||
+          htmlContent.includes('document_attachment') ||
+          htmlContent.includes('<document_attachment')
+        ) {
+          if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
+            htmlContent = stripHTML(htmlContent) || htmlContent;
+          }
+          htmlContent = stripDocumentAttachmentTags(htmlContent);
+        }
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        return URL.createObjectURL(blob);
+      }
+      if (item.content) {
+        const blob = new Blob([item.content], {
+          type: item.mimeType || 'text/plain',
+        });
+        return URL.createObjectURL(blob);
+      }
+      return '#';
+    };
 
     const hrefUrl = getFileCardHref();
 
@@ -570,13 +454,21 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         target="_blank"
         rel="noopener noreferrer"
         className="memori-media-item--link memori-media-item--document-link"
-        aria-label={displayName}
+        title={displayName}
       >
         <DocumentCard
           title={displayName}
-          badge={fileExtension}
+          badge={
+            item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
+          }
           meta={metaLine}
-          icon={<File className="memori-media-item--document-icon-svg" />}
+          icon={
+            item.mimeType === 'text/html' ? (
+              <LinkIcon className="memori-media-item--document-icon-svg" />
+            ) : (
+              <File className="memori-media-item--document-icon-svg" />
+            )
+          }
         />
       </a>
     );
@@ -679,24 +571,14 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // Image link flow: images with mediumID open in preview modal on click
   // -------------------------------------------------------------------------
   if (isImageMime(item.mimeType)) {
-    const imageCaption = item.title
-      ? `${item.title} — ${fileExtension}`
-      : null;
-    const imageCard = (
-      <div className="memori-media-item--image-with-caption">
+    if (isImageRGB) {
+      return (
         <Card
           hoverable
           className="memori-media-item--card memori-media-item--image"
           cover={renderMediaContent(item)}
         />
-        {imageCaption ? (
-          <div className="memori-media-item--image-caption">{imageCaption}</div>
-        ) : null}
-      </div>
-    );
-
-    if (isImageRGB) {
-      return imageCard;
+      );
     }
     if (item.mediumID && _onClick) {
       return (
@@ -704,6 +586,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           onClick={() => _onClick(item)}
           className="memori-media-item--link memori-media-item--image-link"
           style={{ cursor: 'pointer' }}
+          title={item.title}
           role="button"
           tabIndex={0}
           aria-label={item.title || 'Open image preview'}
@@ -714,11 +597,21 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             }
           }}
         >
-          {imageCard}
+          <Card
+            hoverable
+            className="memori-media-item--card memori-media-item--image"
+            cover={renderMediaContent(item)}
+          />
         </div>
       );
     }
-    return imageCard;
+    return (
+      <Card
+        hoverable
+        className="memori-media-item--card memori-media-item--image"
+        cover={renderMediaContent(item)}
+      />
+    );
   }
 
   // Video, audio, 3D, and other types: open in new tab (never modal)
@@ -919,15 +812,12 @@ const MediaItemWidget: React.FC<Props> = ({
 
   // Derive top-level "display" lists:
   // 1. All non-code, non-executable media sorted by timestamp (displayed as document, images, video, etc)
-  //    Data-preview MIME types (json/csv/xml) stay here even if also listed as Prism code langs.
   const nonCodeDisplayMedia = useMemo(
     () =>
       media
         .filter(
           m =>
-            !m.properties?.executable &&
-            (isDataPreviewMime(m.mimeType) ||
-              !CODE_MIME_TYPES.includes(m.mimeType))
+            !m.properties?.executable && !CODE_MIME_TYPES.includes(m.mimeType)
         )
         .sort((a, b) => {
           const at = a.creationTimestamp ?? 0;
@@ -937,14 +827,11 @@ const MediaItemWidget: React.FC<Props> = ({
     [media]
   );
 
-  // 2. Only code snippets (unless marked as executable or data-preview MIME)
+  // 2. Only code snippets (unless marked as executable)
   const codeSnippets = useMemo(
     () =>
       media.filter(
-        m =>
-          !m.properties?.executable &&
-          CODE_MIME_TYPES.includes(m.mimeType) &&
-          !isDataPreviewMime(m.mimeType)
+        m => !m.properties?.executable && CODE_MIME_TYPES.includes(m.mimeType)
       ),
     [media]
   );
@@ -958,22 +845,9 @@ const MediaItemWidget: React.FC<Props> = ({
     [media]
   );
 
-  // How many images are present for determining layout
-  const imageCount = useMemo(
-    () =>
-      nonCodeDisplayMedia.filter(m =>
-        (IMAGE_MIME_TYPES as readonly string[]).includes(m.mimeType)
-      ).length,
-    [nonCodeDisplayMedia]
-  );
-
-  const hasNonImageMedia = useMemo(
-    () =>
-      nonCodeDisplayMedia.some(
-        m => !(IMAGE_MIME_TYPES as readonly string[]).includes(m.mimeType)
-      ),
-    [nonCodeDisplayMedia]
-  );
+  // Tile count drives Claude-like row/column grid for images AND documents.
+  // (Previously only imageCount was used, so file cards stayed in a flex column.)
+  const tileCount = nonCodeDisplayMedia.length;
 
   // Media "card open"/preview modal: pass the clicked item so the correct one opens
   // (avoids wrong image when multiple items share the same mediumID)
@@ -1008,12 +882,9 @@ const MediaItemWidget: React.FC<Props> = ({
           className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
-            'memori-media-items--mixed': hasNonImageMedia,
-            'memori-media-items--single':
-              !hasNonImageMedia && imageCount === 1,
-            'memori-media-items--few':
-              !hasNonImageMedia && imageCount >= 2 && imageCount <= 4,
-            'memori-media-items--many': !hasNonImageMedia && imageCount >= 5,
+            'memori-media-items--single': tileCount === 1,
+            'memori-media-items--few': tileCount >= 2 && tileCount <= 4,
+            'memori-media-items--many': tileCount >= 5,
           })}
         >
           {nonCodeDisplayMedia.map((item, index) => (

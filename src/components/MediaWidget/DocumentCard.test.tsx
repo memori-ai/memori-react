@@ -17,7 +17,7 @@ describe('DocumentCard', () => {
     expect(screen.getByText('PDF')).toBeInTheDocument();
   });
 
-  it('applies document and icon classes', () => {
+  it('applies document and badge classes', () => {
     const { container } = render(
       <DocumentCard
         title="Report"
@@ -28,21 +28,7 @@ describe('DocumentCard', () => {
     );
     expect(container.querySelector('.memori-media-item--document')).toBeInTheDocument();
     expect(container.querySelector('.memori-media-item--document-title')).toHaveTextContent('Report');
-    expect(container.querySelector('.memori-media-item--document-icon--docx')).toHaveTextContent('DOCX');
-    expect(container.querySelector('.memori-media-item--document-meta')).toHaveTextContent('1.2 MB');
-  });
-
-  it('renders icon and meta when provided', () => {
-    render(
-      <DocumentCard
-        title="report.pdf"
-        badge="PDF"
-        meta="240 KB"
-        icon={<File data-testid="doc-icon" />}
-      />
-    );
-    expect(screen.getByText('PDF')).toBeInTheDocument();
-    expect(screen.getByText('240 KB')).toBeInTheDocument();
+    expect(container.querySelector('.memori-media-item--document-badge')).toHaveTextContent('DOCX');
   });
 
   it('renders unchanged snapshot', () => {

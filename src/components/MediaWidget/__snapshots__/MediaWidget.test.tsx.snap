@@ -43,52 +43,37 @@ exports[`renders MediaWidget with links unchanged 1`] = `
       class="memori-media-items"
     >
       <div
-        class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+        class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
       >
         <div
           class="memori-media-item"
         >
-          <div
-            class="memori-media-item--html-open-preview-wrap"
+          <a
+            class="memori-media-item--link memori-media-item--document-link"
+            href="https://memori.ai/en"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Memori Srl"
           >
-            <a
-              aria-label="Open preview: Memori Srl"
-              class="memori-media-item--html-open-preview"
-              href="https://memori.ai/en"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              class="memori-media-item--document"
             >
               <div
-                class="memori-media-item--html-open-preview-left"
+                class="memori-media-item--document-header"
               >
                 <div
-                  aria-hidden="true"
-                  class="memori-media-item--document-icon memori-media-item--document-icon--html"
+                  class="memori-media-item--document-title"
                 >
-                  &lt;/&gt;
-                </div>
-                <div
-                  class="memori-media-item--document-body"
-                >
-                  <div
-                    class="memori-media-item--document-title"
-                  >
-                    Memori Srl
-                  </div>
-                  <div
-                    class="memori-media-item--document-meta"
-                  >
-                    Interactive preview
-                  </div>
+                  Memori Srl
                 </div>
               </div>
               <span
-                class="memori-media-item--html-open-preview-action"
+                class="memori-media-item--document-badge"
               >
-                Open preview
+                Link
               </span>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -116,42 +101,34 @@ exports[`renders MediaWidget with media unchanged 1`] = `
             role="button"
             style="cursor: pointer;"
             tabindex="0"
+            title="Game Cover"
           >
             <div
-              class="memori-media-item--image-with-caption"
+              class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+              tabindex="0"
             >
               <div
-                class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                tabindex="0"
+                class="memori-card__cover"
               >
-                <div
-                  class="memori-card__cover"
+                <picture
+                  class="memori-media-item--figure"
                 >
-                  <picture
-                    class="memori-media-item--figure"
-                  >
-                    <source
-                      srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                      type="image/jpeg"
-                    />
-                    <img
-                      alt="Game Cover"
-                      src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="memori-card__body memori-card__body--padding-md"
-                >
-                  <div
-                    class="memori-spin"
+                  <source
+                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                    type="image/jpeg"
                   />
-                </div>
+                  <img
+                    alt="Game Cover"
+                    src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                  />
+                </picture>
               </div>
               <div
-                class="memori-media-item--image-caption"
+                class="memori-card__body memori-card__body--padding-md"
               >
-                Game Cover — JPEG
+                <div
+                  class="memori-spin"
+                />
               </div>
             </div>
           </div>

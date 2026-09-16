@@ -22,18 +22,17 @@
     box-sizing: border-box;
     flex-flow: column;
     flex-shrink: 0;
-    padding: 0 !important;
+    padding: 8px 12px !important;
     border: none;
-    border-radius: 0;
+    border-radius: var(--memori-radius-box);
     margin: 0 auto;
     background-color: transparent;
     box-shadow: none;
     overflow-x: hidden;
 }
 
-[data-theme='dark'] .memori-chat-inputs,
-.memori-chat-inputs[data-theme='dark'] {
-    background-color: transparent;
+.memori-chat-inputs:has(.memori--preview-container) {
+    background-color: var(--memori-main-background);
 }
 
 .memori-chat-inputs:disabled {
@@ -422,7 +421,7 @@
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-inputs {
     max-width: 100%;
     margin: 0;
-    background: transparent;
+    /* background: transparent; */
 }
 
 .memori-widget.memori-layout-fullpage .memori-chat-inputs--container,

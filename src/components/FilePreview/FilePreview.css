@@ -1,4 +1,4 @@
-/* Updated FilePreview Styles */
+/* FilePreview — matches chat DocumentCard / image media styles */
 
 .memori--preview-container {
     position: relative;
@@ -7,10 +7,8 @@
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    border-radius: 0.5rem;
-    animation: slide-in 0.3s ease;
-    background: var(--memori-main-background);
-    transition: all 0.3s ease;
+    border-radius: var(--memori-radius-box);
+    background: transparent;
 }
 
 .memori--preview-list {
@@ -40,9 +38,10 @@
     right: 8px;
     padding: calc(var(--memori-spacing-xs) / 4) calc(var(--memori-spacing-xs) + 2px);
     border-radius: var(--memori-radius-box);
-    color: var(--memori-text-color);
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
+    font-weight: 550;
     font-size: 12px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .memori--document-count-full {
@@ -51,163 +50,95 @@
 
 .memori--preview-container:has(.memori--document-count) .memori--preview-list {
     padding-right: 2.75rem;
+    padding-left: 0;
+    padding-bottom: 0;
 }
 
-.memori--preview-container.slide-down {
-    animation: slide-down 0.3s ease;
-}
-
-/* Responsive adjustments for file preview */
-@media (max-width: 768px) {
-    .memori--absolute-preview {
-        max-height: 150px;
-    }
-
-    .memori--preview-container {
-        padding: var(--memori-spacing-sm);
-        margin-bottom: var(--memori-spacing-sm);
-    }
-
-    .memori--preview-filename {
-        max-width: 150px;
-        font-size: 12px;
-    }
-
-    /* Increase card size for easier interaction */
-    .memori--preview-item {
-        min-width: 140px;
-        min-height: 60px;
-        padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    }
-
-    .memori--preview-icon {
-        width: 24px;
-        height: 24px;
-    }
-
-    .memori--preview-thumbnail {
-        min-width: 50px;
-        min-height: 50px;
-    }
-
-    .memori--preview-thumbnail img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-    }
-}
-
-@media (max-width: 480px) {
-    .memori--absolute-preview {
-        max-height: 120px;
-    }
-
-    .memori--preview-container {
-        padding: calc(var(--memori-spacing-xs) + 2px);
-        margin-bottom: var(--memori-spacing-sm);
-    }
-
-    .memori--preview-filename {
-        max-width: 100px;
-        font-size: 11px;
-    }
-
-    /* Make remove button always visible on mobile */
-    .memori--remove-button {
-        opacity: 1 !important;
-        transform: scale(1) !important;
-    }
-
-    /* Increase card size for easier interaction on small screens */
-    .memori--preview-item {
-        min-width: 160px;
-        min-height: 70px;
-        padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) + 2px);
-    }
-
-    .memori--preview-icon {
-        width: 28px;
-        height: 28px;
-    }
-
-    .memori--preview-thumbnail {
-        min-width: 60px;
-        min-height: 60px;
-    }
-
-    .memori--preview-thumbnail img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-    }
-}
-
-.memori--message-preview {
-    max-width: 100%;
-    margin: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) 0;
+.memori--preview-retention-notice {
+    display: block;
+    margin-top: 8px;
+    margin-left: 8px;
+    color: color-mix(in srgb, var(--memori-text-color) 52%, transparent);
+    font-size: var(--memori-text-size-xs);
 }
 
 .memori--preview-item {
     position: relative;
     display: flex;
-    max-width: fit-content;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
-    align-items: center;
-    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
-    border-radius: 0.5rem;
-    animation: slide-in 0.3s ease;
-    background-color: var(--memori-secondary-background);
-    gap: var(--memori-spacing-sm);
-    transition: all 0.2s ease;
+    align-items: stretch;
 }
 
 .memori--preview-item-trigger {
-    display: flex;
+    display: block;
+    overflow: hidden;
+    width: 100%;
     min-width: 0;
-    flex: 1;
-    align-items: center;
+    height: 100%;
     padding: 0;
     border: 0;
     background: transparent;
     color: inherit;
     cursor: pointer;
     font: inherit;
-    gap: var(--memori-spacing-sm);
     text-align: left;
 }
 
-.memori--preview-item:hover {
-    background-color: var(--memori-secondary-background);
+.memori--preview-item--document .memori--preview-item-trigger {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
 }
 
-.memori--preview-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    color: var(--memori-text-color);
-    fill: #fff;
+.memori--preview-item--document .memori-media-item--document {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    height: 120px;
+    min-height: 120px;
+    box-sizing: border-box;
+    /* background: transparent; */
 }
 
-.memori--preview-thumbnail {
+.memori--preview-item--skeleton .memori-media-item--document {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    height: 120px;
+    min-height: 120px;
+    /* background: transparent; */
+}
+
+.memori--preview-item--document .memori-media-item--document:hover {
+    box-shadow: none;
+}
+
+.memori--preview-item--image .memori--preview-thumbnail {
     display: flex;
     overflow: hidden;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
-    background-color: white;
+    border: 1px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
+    background: transparent;
 }
 
-.memori--preview-thumbnail img {
-    width: 40px;
-    height: 40px;
-    border-radius: 0.5rem;
+.memori--preview-item--image .memori--preview-thumbnail img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 .memori--preview-file-info {
     display: flex;
     overflow: hidden;
+    min-width: 0;
+    flex: 1;
     flex-direction: column;
 }
 
@@ -216,22 +147,6 @@
     max-width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.memori--preview-filename {
-    overflow: hidden;
-    max-width: 100px;
-    color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
-    font-weight: var(--memori-text-weight-medium);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.memori--preview-filetype {
-    margin-top: calc(var(--memori-spacing-xs) / 2);
-    color: var(--memori-text-color);
-    font-size: 12px;
 }
 
 .memori--modal-title-preview {
@@ -243,38 +158,45 @@
 
 .memori--remove-button {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 24px !important;
-    height: 24px !important;
-    min-height: 24px !important;
-    padding: 4px;
-    border: none;
+    z-index: 2;
+    top: -8px;
+    right: -8px;
+    width: 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 !important;
+    border: 1px solid var(--memori-border-color) !important;
     border-radius: 50%;
-    border-top-color: currentcolor;
-    border-right-color: currentcolor;
-    border-bottom-color: currentcolor;
-    border-left-color: currentcolor;
-    background-color: #e03131;
-    color: white;
+    background: var(--memori-main-background) !important;
+    box-shadow: none !important;
+    color: var(--memori-text-color) !important;
     cursor: pointer;
     opacity: 0;
-    transform: scale(0.75);
-    transition: all 0.2s ease;
+    pointer-events: none;
+    transition: none;
 }
 
-.memori--remove-button:hover {
-    background-color: #c92a2a;
+.memori--remove-button:hover,
+.memori--remove-button:focus-visible {
+    background: var(--memori-secondary-background) !important;
 }
 
-/* Show remove button only when user hovers the preview item */
-.memori--preview-item:hover .memori--remove-button {
+.memori--preview-item:hover .memori--remove-button,
+.memori--preview-item:focus-within .memori--remove-button {
     opacity: 1;
+    pointer-events: auto;
 }
 
-.memori--remove-icon {
-    width: 12px;
-    height: 12px;
+.memori--remove-button svg {
+    width: 14px;
+    height: 14px;
+}
+
+@media (max-width: 480px) {
+    .memori--remove-button {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
 
 .memori--modal-preview-file {
@@ -285,23 +207,17 @@
 
 .memori--preview-content {
     padding: var(--memori-spacing-md);
-    border-radius: 0.5rem;
-    /* background-color: #f8f9fa; */
+    border-radius: var(--memori-radius-box);
     font-family: monospace;
     font-size: var(--memori-text-size-small);
     line-height: var(--memori-text-line-normal);
 }
 
-/* Skeleton loading card */
 .memori--preview-item--skeleton {
-    min-width: 140px;
+    width: 120px;
+    height: 120px;
     cursor: default;
     pointer-events: none;
-}
-
-.memori--preview-item--skeleton:hover {
-    background-color: #f8f9fa;
-    transform: none;
 }
 
 .memori--skeleton-icon {
@@ -336,60 +252,20 @@
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
+@media (max-width: 768px) {
+    .memori--preview-container {
+        margin-bottom: var(--memori-spacing-sm);
     }
 }
 
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slide-in {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slide-down {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(10px);
+@media (max-width: 480px) {
+    .memori--preview-container {
+        margin-bottom: var(--memori-spacing-sm);
     }
 }

@@ -10,6 +10,7 @@ import {
   getDocumentAttachmentAssetUrl,
 } from '../../helpers/utils';
 import { getDocumentBadgeLabel } from '../MediaWidget/MediaItemWidget.utils';
+import { DocumentCard } from '../MediaWidget/DocumentCard';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { maxDocumentsPerMessage as defaultMaxDocumentsPerMessage } from '../../helpers/constants';
@@ -39,61 +40,11 @@ const FilePreview = ({
     type?: string;
   } | null>(null);
 
-  const getFileType = (filename: string, type?: string) => {
-    // If type is explicitly provided, use it first
-    if (type === 'image') {
-      const extension = filename.split('.').pop()?.toLowerCase();
-      switch (extension) {
-        case 'jpg':
-        case 'jpeg':
-          return 'JPEG';
-        case 'png':
-          return 'PNG';
-        default:
-          return 'Image';
-      }
-    }
-
-    // Otherwise use extension
-    const extension = filename.split('.').pop()?.toLowerCase();
-    switch (extension) {
-      case 'pdf':
-        return 'PDF';
-      case 'txt':
-        return 'Text';
-      case 'json':
-        return 'JSON';
-      case 'xlsx':
-        return 'Excel';
-      case 'csv':
-        return 'CSV';
-      case 'html':
-        return 'HTML';
-      case 'doc':
-      case 'docx':
-      case 'dotx':
-        return 'Word';
-      case 'xls':
-      case 'xltx':
-        return 'Excel';
-      case 'potx':
-        return 'PowerPoint';
-      case 'jpg':
-      case 'jpeg':
-        return 'JPEG';
-      case 'png':
-        return 'PNG';
-      default:
-        return 'Document';
-    }
-  };
-
   useEffect(() => {
     const chat = document.getElementsByClassName('memori-chat--content');
     if (chat) {
       const lastChild = chat[chat.length - 1];
       if (lastChild) {
-        //then scroll to the bottom of the chat
         (chat[0] as HTMLElement).scrollTo({
           top: (chat[0] as HTMLElement).scrollHeight,
           behavior: 'smooth',
@@ -101,7 +52,7 @@ const FilePreview = ({
       }
     }
   }, [previewFiles]);
-  // Detect if the file is HTML (by type or filename)
+
   const isHtmlFile = (
     file: { name?: string; type?: string; mimeType?: string } | null
   ): boolean => {
@@ -115,7 +66,6 @@ const FilePreview = ({
     );
   };
 
-  // Get display content for non-image files (strip document_attachment for HTML, stripHTML for others)
   const getDisplayContent = (
     file: {
       content?: string;
@@ -137,11 +87,9 @@ const FilePreview = ({
     return stripHTML(stripDocumentAttachmentTags(content));
   };
 
-  // Detect if the content is an image URL
   const isImageContent = (content: string, type?: string): boolean => {
     if (type === 'image') return true;
 
-    // Check if the content has image file extension or is an image URL
     const hasImageExtension = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(content);
     const isImageUrl =
       content.startsWith('http') &&
@@ -151,6 +99,15 @@ const FilePreview = ({
 
     return isImageUrl || hasImageExtension;
   };
+
+  const getBadge = (file: {
+    name?: string;
+    type?: string;
+    mimeType?: string;
+  }) =>
+    file.mimeType
+      ? getDocumentBadgeLabel(file.mimeType, file.name)
+      : getDocumentBadgeLabel('application/octet-stream', file.name);
 
   return (
     <>
@@ -167,15 +124,7 @@ const FilePreview = ({
             </div>
           )}
           {showAnonymousRetentionNotice && (
-            <small
-              style={{
-                color: 'rgb(138, 138, 138)',
-                display: 'block',
-                marginTop: '8px',
-                marginLeft: '8px',
-                fontSize: '0.7rem',
-              }}
-            >
+            <small className="memori--preview-retention-notice">
               {t('upload.anonymousRetentionNotice', {
                 defaultValue:
                   'Note: uploaded files are retained for a maximum of 24 hours.',
@@ -183,65 +132,65 @@ const FilePreview = ({
             </small>
           )}
           <div className="memori--preview-list">
-            {previewFiles.map((file: any) => (
-              <div
-                key={file.id}
-                className={`memori--preview-item ${
-                  isImageContent(file.content, file.type)
-                    ? 'memori--preview-item--image'
-                    : 'memori--preview-item--document'
-                }`}
-              >
-                <button
-                  type="button"
-                  className="memori--preview-item-trigger"
-                  onClick={() => {
-                    if (isOfficeNativeFilename(file.name || '')) {
-                      const url = getDocumentAttachmentAssetUrl(file);
-                      if (url) {
-                        window.open(url, '_blank', 'noopener,noreferrer');
-                      }
-                    } else {
-                      setSelectedFile(file);
-                    }
-                  }}
-                  aria-label={file.name}
+            {previewFiles.map((file: any) => {
+              const isImage = isImageContent(file.content, file.type);
+              return (
+                <div
+                  key={file.id}
+                  className={cx('memori--preview-item', {
+                    'memori--preview-item--image': isImage,
+                    'memori--preview-item--document': !isImage,
+                  })}
                 >
-                  {isImageContent(file.content, file.type) ? (
-                    <div className="memori--preview-thumbnail">
-                      <img src={file.content} alt="" />
-                    </div>
-                  ) : (
-                    <File className="memori--preview-icon" aria-hidden />
-                  )}
-
-                  <div className="memori--preview-file-info">
-                    <span className="memori--preview-filename">{file.name}</span>
-                    <span className="memori--preview-filetype">
-                      {file.mimeType
-                        ? getDocumentBadgeLabel(file.mimeType, file.name)
-                        : getFileType(file.name, file.type)}
-                    </span>
-                  </div>
-                </button>
-
-                {allowRemove && (
-                  <Button
-                    shape="circle"
-                    icon={<X aria-hidden />}
-                    danger
-                    className="memori--remove-button"
-                    aria-label={String(
-                      t('upload.removeFile', {
-                        defaultValue: 'Remove {{name}}',
-                        name: file.name,
-                      })
+                  <button
+                    type="button"
+                    className="memori--preview-item-trigger"
+                    onClick={() => {
+                      if (isOfficeNativeFilename(file.name || '')) {
+                        const url = getDocumentAttachmentAssetUrl(file);
+                        if (url) {
+                          window.open(url, '_blank', 'noopener,noreferrer');
+                        }
+                      } else {
+                        setSelectedFile(file);
+                      }
+                    }}
+                    aria-label={file.name}
+                  >
+                    {isImage ? (
+                      <div className="memori--preview-thumbnail memori-media-item--image">
+                        <img src={file.content} alt="" />
+                      </div>
+                    ) : (
+                      <DocumentCard
+                        title={file.name || 'File'}
+                        badge={getBadge(file)}
+                        icon={
+                          <File className="memori-media-item--document-icon-svg" />
+                        }
+                      />
                     )}
-                    onClick={() => removeFile(file.id, file?.mediumID)}
-                  />
-                )}
-              </div>
-            ))}
+                  </button>
+
+                  {allowRemove && (
+                    <Button
+                      shape="circle"
+                      variant="ghost"
+                      size="sm"
+                      icon={<X aria-hidden />}
+                      className="memori--remove-button"
+                      aria-label={String(
+                        t('upload.removeFile', {
+                          defaultValue: 'Remove {{name}}',
+                          name: file.name,
+                        })
+                      )}
+                      onClick={() => removeFile(file.id, file?.mediumID)}
+                    />
+                  )}
+                </div>
+              );
+            })}
 
             {uploadingCount > 0 &&
               Array.from({ length: uploadingCount }, (_, i) => (
@@ -249,10 +198,14 @@ const FilePreview = ({
                   key={`skeleton-${i}`}
                   className="memori--preview-item memori--preview-item--document memori--preview-item--skeleton"
                 >
-                  <div className="memori--skeleton-icon" />
-                  <div className="memori--preview-file-info">
-                    <div className="memori--skeleton-line memori--skeleton-line--name" />
-                    <div className="memori--skeleton-line memori--skeleton-line--type" />
+                  <div className="memori-media-item--document">
+                    <div className="memori-media-item--document-header">
+                      <div className="memori--skeleton-icon" />
+                      <div className="memori--preview-file-info">
+                        <div className="memori--skeleton-line memori--skeleton-line--name" />
+                        <div className="memori--skeleton-line memori--skeleton-line--type" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

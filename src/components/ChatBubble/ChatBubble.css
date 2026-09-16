@@ -21,6 +21,7 @@
 }
 
 .memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-message-row {
+    align-items: flex-start;
     justify-content: flex-end;
 }
 
@@ -122,27 +123,93 @@
     max-width: min(70%, 42rem);
     flex-direction: column;
     align-items: flex-end;
-    gap: var(--memori-spacing-sm);
+    gap: 8px;
 }
 
 .memori-chat--user-block .memori-chat--bubble-shell--from-user {
-    width: 100%;
+    width: auto;
     max-width: 100%;
 }
 
+/*
+ * Claude-like user media cluster: right-aligned, hug content, 8px gaps.
+ * No chrome by default — subtle fill only when chat has a custom background.
+ */
 .memori-chat--attachment-strip {
-    width: 100%;
-    padding: var(--memori-spacing-sm);
-    border: 1px solid color-mix(in oklch, var(--memori-border-color) 80%, transparent);
-    border-radius: var(--memori-radius-box);
-    background: color-mix(in oklch, var(--memori-main-background) 14%, transparent);
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+.memori-chat--content--has-global-background .memori-chat--attachment-strip,
+.memori-chat--history--has-global-background .memori-chat--attachment-strip {
+    padding: 8px;
+    border-radius: 12px;
+    background: color-mix(in oklch, var(--memori-main-background) 22%, transparent);
     border-top-right-radius: 4px;
 }
 
-.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--user {
+.memori-chat--attachment-strip .memori-media-items {
+    width: fit-content;
     max-width: 100%;
-    justify-content: stretch;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid {
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    justify-content: end;
+    padding: 0;
+    margin: 0;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--user {
+    width: fit-content;
+    max-width: 100%;
+    justify-content: end;
     margin-inline: 0;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--single {
+    grid-template-columns: 120px;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--few {
+    grid-template-columns: repeat(2, 120px);
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+    grid-template-columns: repeat(2, 120px);
+}
+
+@media (min-width: 1025px) {
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+        grid-template-columns: repeat(3, 120px);
+    }
+}
+
+/* Fixed 120px tiles in the user attachment cluster */
+.memori-chat--attachment-strip .memori-media-item {
+    width: 120px;
+    max-width: 120px;
+    height: 120px;
+    min-height: 120px;
+}
+
+.memori-chat--attachment-strip .memori-media-item--document-link,
+.memori-chat--attachment-strip .memori-media-item--document {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: 100%;
+    min-height: 120px;
 }
 
 .memori-chat--bubble-avatar svg {
@@ -292,6 +359,10 @@
     box-shadow: inset 0 0 0.25rem rgba(100, 100, 100, 0.2);
 }
 
+.memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar {
+    align-self: flex-start;
+}
+
 .memori-chat--bubble-timestamp {
     margin: 0;
     color: var(--memori-text-color);
@@ -309,8 +380,7 @@
 
 /* Shared elevation for the floating addon and the highlighted message bubble. */
 .memori-chat--bubble-container.memori-chat--with-addon {
-    --memori-chat-addon-elevation:
-        0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
+    --memori-chat-addon-elevation: 0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
         0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
 }
 
@@ -341,9 +411,7 @@
     opacity: 0;
     pointer-events: none;
     transform: translate3d(0, -6px, 0) scale(0.98);
-    transition:
-        opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     white-space: nowrap;
     will-change: opacity, transform;
 }

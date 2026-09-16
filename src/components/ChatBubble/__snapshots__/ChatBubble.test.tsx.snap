@@ -7176,17 +7176,17 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
         class="memori-media-items"
       >
         <div
-          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--mixed"
+          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
         >
           <div
             class="memori-media-item"
           >
             <a
-              aria-label="Function Cache Lorem ispum"
               class="memori-media-item--link memori-media-item--document-link"
               href="blob:http://localhost/mock"
               rel="noopener noreferrer"
               target="_blank"
+              title="Function Cache Lorem ispum"
             >
               <div
                 class="memori-media-item--document"
@@ -7195,26 +7195,16 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
                   class="memori-media-item--document-header"
                 >
                   <div
-                    aria-hidden="true"
-                    class="memori-media-item--document-icon memori-media-item--document-icon--txt"
+                    class="memori-media-item--document-title"
                   >
-                    TXT
-                  </div>
-                  <div
-                    class="memori-media-item--document-body"
-                  >
-                    <div
-                      class="memori-media-item--document-title"
-                    >
-                      Function Cache Lorem ispum
-                    </div>
-                    <div
-                      class="memori-media-item--document-meta"
-                    >
-                      1 line · 26 Bytes
-                    </div>
+                    Function Cache Lorem ispum
                   </div>
                 </div>
+                <span
+                  class="memori-media-item--document-badge"
+                >
+                  TXT
+                </span>
               </div>
             </a>
           </div>

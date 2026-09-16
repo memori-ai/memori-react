@@ -113,10 +113,10 @@
     min-width: 0;
     max-width: 100%;
     min-height: 120px;
-    border: 1px solid var(--memori-content-preview-snippet-border, #e2e8f0);
+    border: 1px solid var(--memori-border-color);
+    color: var(--memori-text-color);
     border-radius: var(--memori-radius-box);
-    background: var(--memori-content-preview-snippet-bg, #f8fafc);
-    color: var(--memori-content-preview-snippet-text, #334155);
+    background: var(--memori-main-background);
     font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: var(--memori-text-size-small);
     line-height: var(--memori-text-line-relaxed);
