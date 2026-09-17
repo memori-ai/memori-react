@@ -4,6 +4,22 @@
   name="viewport"
   content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
 />
+<style>
+  /* Layout CHAT uses height: 100%. Without a sized host the widget collapses
+     and the input sits at the top of the canvas with empty space below. */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  #storybook-root,
+  #root {
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+</style>
 <script
   id="MathJax-script"
   async

@@ -21,13 +21,15 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => (
-  <I18nWrapper>
-    <ArtifactProvider>
-      <VisemeProvider>
-        <Memori {...args} />
-      </VisemeProvider>
-    </ArtifactProvider>
-  </I18nWrapper>
+  <div style={{ height: '100%' }}>
+    <I18nWrapper>
+      <ArtifactProvider>
+        <VisemeProvider>
+          <Memori {...args} />
+        </VisemeProvider>
+      </ArtifactProvider>
+    </I18nWrapper>
+  </div>
 );
 
 const DefaultLayout = Template.bind({});
@@ -75,6 +77,7 @@ ChatOnly.args = {
   memori: memori,
   tenant,
   layout: 'CHAT',
+  height: '100%',
 };
 
 const CustomLayout: React.FC<LayoutProps> = ({

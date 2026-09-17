@@ -1,5 +1,34 @@
 .memori-widget.memori-layout-chat {
-    height: 100vh !important;
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex-direction: column;
+}
+
+/* Fill the embed slot (page header stays visible). No !important so the height prop still wins.
+   The web component wraps the widget in extra nodes; those must also be 100% or the chain collapses. */
+memori-client:has(.memori-layout-chat),
+memori-client:has(.memori-layout-chat) > div,
+memori-client:has(.memori-layout-chat) #memori-root,
+memori-client:has(.memori-layout-chat) .memori-root,
+memori-client:has(.memori-layout-chat) #root {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Same contract when this stylesheet is injected into the web component shadow root. */
+:host:has(.memori-layout-chat),
+:host:has(.memori-layout-chat) > div,
+:host:has(.memori-layout-chat) #memori-root,
+:host:has(.memori-layout-chat) .memori-root,
+:host:has(.memori-layout-chat) #root {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 }
 
 .memori-widget.memori-layout-chat .memori--global-background.no-background-image {
@@ -9,10 +38,13 @@
 .memori-widget > .memori-spin.memori-chat-layout {
     display: flex;
     height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
     flex-direction: column;
 }
 
 .memori-chat-layout--header {
+    flex: 0 0 auto;
     margin-bottom: 12px;
     text-align: right;
     transition: all 0.05s ease-in-out;
@@ -52,10 +84,10 @@
     display: flex;
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    min-height: 0;
     flex: 1;
     flex-direction: row;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     /* max-width: 1200px; */
     transition: all 0.05s ease-in-out;
@@ -75,8 +107,7 @@
     z-index: 5;
     overflow: hidden;
     min-width: 0;
-    height: 100%;
-    max-height: 100%;
+    min-height: 0;
     flex: 1;
     /* padding-bottom: 1.5rem; */
     transition: all 0.05s ease-in-out;

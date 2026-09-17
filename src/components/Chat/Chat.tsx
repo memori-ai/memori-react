@@ -218,7 +218,10 @@ const Chat: React.FC<Props> = ({
     if (isHistoryView) return;
     setTimeout(() => {
       let userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
-      userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
+      userMsgs[userMsgs.length - 1]?.scrollIntoView?.({
+        block: 'nearest',
+        inline: 'nearest',
+      });
     }, 200);
   }, [isHistoryView]);
 
