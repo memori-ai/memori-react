@@ -446,7 +446,7 @@
 
 .memori-chat--artifact-block {
     width: 100%;
-    max-width: 90%;
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-chat--artifact-block--chatlog {
