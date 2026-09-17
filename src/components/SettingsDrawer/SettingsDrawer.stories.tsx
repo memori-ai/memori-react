@@ -5,7 +5,7 @@ import SettingsDrawer, { Props } from './SettingsDrawer';
 import './SettingsDrawer.css';
 
 const meta: Meta = {
-  title: 'Widget/SettingsDrawer',
+  title: 'Surfaces/SettingsDrawer',
   component: SettingsDrawer,
   argTypes: {
     open: {

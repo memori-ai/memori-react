@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DocumentCard } from './DocumentCard';
-import File from '../icons/File';
+import { File } from 'lucide-react';
 
 describe('DocumentCard', () => {
   it('renders title and badge', () => {

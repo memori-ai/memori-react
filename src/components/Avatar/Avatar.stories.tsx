@@ -9,7 +9,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 import { VisemeProvider } from '../../context/visemeContext';
 
 const meta: Meta = {
-  title: 'Widget/Avatar',
+  title: 'Compositions/Avatar',
   component: Avatar,
   argTypes: {
     avatar3dVisible: {
@@ -96,23 +96,6 @@ AvatarInBlob.args = {
     ...integrationConfig,
     avatar: 'userAvatar',
     avatarURL: memori.avatarURL,
-  },
-};
-
-export const CustomGLBModel = Template.bind({});
-CustomGLBModel.args = {
-  memori,
-  tenant,
-  instruct: false,
-  avatar3dVisible: true,
-  setAvatar3dVisible: () => {},
-  hasUserActivatedSpeak: false,
-  isPlayingAudio: false,
-  integrationConfig: {
-    ...integrationConfig,
-    avatar: 'customglb',
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/7383f05a-0788-49b0-b9b9-3bfc402c7ddf.glb#1669136149862',
   },
 };
 

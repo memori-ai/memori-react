@@ -2,12 +2,13 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import LoginDrawer, { Props } from './LoginDrawer';
-import { tenant, user } from '../../mocks/data';
+import { tenant } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import './LoginDrawer.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/LoginDrawer',
+  title: 'Surfaces/LoginDrawer',
   component: LoginDrawer,
   argTypes: {
     open: {
@@ -26,6 +27,7 @@ export default meta;
 const Template: Story<Props> = args => {
   return (
     <I18nWrapper>
+      <AlertProvider defaultDuration={5000}>
       <LoginDrawer
         {...args}
         onClose={() => {}}
@@ -34,6 +36,7 @@ const Template: Story<Props> = args => {
         tenant={tenant}
         apiClient={memoriApiClient()}
       />
+      </AlertProvider>
     </I18nWrapper>
   );
 };
@@ -49,54 +52,4 @@ export const NeedsMissingData = Template.bind({});
 NeedsMissingData.args = {
   open: true,
   __TEST__needMissingData: true,
-};
-
-export const Signup = Template.bind({});
-Signup.args = {
-  open: true,
-  __TEST__signup: true,
-};
-
-export const SignupWaitingForOtp = Template.bind({});
-SignupWaitingForOtp.args = {
-  open: true,
-  __TEST__signup: true,
-};
-
-export const ChangePassword = Template.bind({});
-ChangePassword.args = {
-  open: true,
-  __TEST__changePwd: true,
-};
-
-export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  open: true,
-  user,
-  loginToken: 'token',
-};
-
-export const OtpForm = Template.bind({});
-OtpForm.args = {
-  open: true,
-  // Note: OTP form is shown by default in the new implementation
-  // when user is not logged in and not in signup mode
-};
-
-export const OtpFormWithTimer = Template.bind({});
-OtpFormWithTimer.args = {
-  open: true,
-  // Timer will be shown when OTP form is active
-};
-
-export const OtpFormWithError = Template.bind({});
-OtpFormWithError.args = {
-  open: true,
-  // Error state would be shown during OTP validation
-};
-
-export const OtpFormLoading = Template.bind({});
-OtpFormLoading.args = {
-  open: true,
-  // Loading state would be shown during OTP validation
 };

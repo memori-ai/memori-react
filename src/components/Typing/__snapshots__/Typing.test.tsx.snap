@@ -3,23 +3,31 @@
 exports[`renders Typing unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble-message-row"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,25 +37,33 @@ exports[`renders Typing unchanged 1`] = `
 exports[`renders Typing with custom loading text list unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble-message-row"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+          <p />
+        </div>
       </div>
-      <p />
     </div>
   </div>
 </div>
@@ -56,25 +72,33 @@ exports[`renders Typing with custom loading text list unchanged 1`] = `
 exports[`renders Typing with custom loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble-message-row"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+          <p />
+        </div>
       </div>
-      <p />
     </div>
   </div>
 </div>
@@ -83,23 +107,31 @@ exports[`renders Typing with custom loading text unchanged 1`] = `
 exports[`renders Typing with default italian loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble-message-row"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -109,23 +141,31 @@ exports[`renders Typing with default italian loading text unchanged 1`] = `
 exports[`renders Typing with default loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble-message-row"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

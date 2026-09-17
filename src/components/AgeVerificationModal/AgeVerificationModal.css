@@ -1,6 +1,6 @@
-/* Above website assistant and other fixed UI (same max z-index so modal stacks on top by DOM order) */
-.age-verification-modal {
-    z-index: 2147483647;
+/* Age verification uses Modal stacking="stacked"; keep backdrop tint only. */
+.memori-modal__backdrop.age-verification-modal-backdrop {
+    background: color-mix(in srgb, #000 45%, transparent);
 }
 
 .age-verification-modal,
@@ -21,29 +21,48 @@
     }
 } */
 
-.age-verification-form fieldset {
+.age-verification-form fieldset,
+.age-verification-form .age-verification-birth-field {
     padding-right: 0;
     padding-left: 0;
     border: 0;
 }
 
-.age-verification-form .form-item {
+.age-verification-form .form-item,
+.age-verification-form .age-verification-birth-field {
     width: 100%;
     text-align: center;
 }
 
+.age-verification-form .memori-field__control-wrapper {
+    width: 100%;
+}
+
+.age-verification-form .memori-field__description {
+    padding-bottom: var(--memori-spacing-xs);
+    margin: var(--memori-spacing-lg) 0 var(--memori-spacing-md);
+    opacity: 0.5;
+    text-align: left;
+}
+
+.age-verification-form .memori-field__error {
+    padding-bottom: 0.25rem;
+    margin: 1.5rem 0 1rem;
+    color: var(--memori-error);
+}
+
 .age-verification-form .form-item.submit {
-    margin-top: 1.5rem;
+    margin-top: var(--memori-spacing-lg);
     text-align: center;
 }
 
 .age-verification-form .form-item input {
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .age-verification-form .form-item-help {
-    padding-bottom: 0.25rem;
-    margin: 1.5rem 0 1rem;
+    padding-bottom: var(--memori-spacing-xs);
+    margin: var(--memori-spacing-lg) 0 var(--memori-spacing-md);
     opacity: 0.5;
     text-align: left;
 }
@@ -51,11 +70,11 @@
 .age-verification-form .form-item-error {
     padding-bottom: 0.25rem;
     margin: 1.5rem 0 1rem;
-    color: var(--memori-error-color);
+    color: var(--memori-error);
 }
 
 button.age-verification-submit {
-   position: relative;
+    position: relative;
     overflow: hidden;
     width: 100%;
     min-width: 220px;
@@ -63,14 +82,13 @@ button.age-verification-submit {
     min-height: 42px;
     padding: 1rem 2rem;
     border: none;
-    border-radius: 12px;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     margin-top: 1rem;
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--memori-text-size-base);
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -89,7 +107,11 @@ button.age-verification-submit:hover::before {
     left: 100%;
 }
 
-
 button.age-verification-submit:active {
     transform: translateY(0);
+}
+
+.age-verification-text {
+    margin-top: 0;
+    margin-bottom: var(--memori-spacing-lg);
 }

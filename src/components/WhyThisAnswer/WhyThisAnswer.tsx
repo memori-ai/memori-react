@@ -4,15 +4,18 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import { useCallback, useEffect, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Drawer from '../ui/Drawer';
-import Spin from '../ui/Spin';
-import Expandable from '../ui/Expandable';
-import toast from 'react-hot-toast';
+import {
+  Drawer,
+  Spin,
+  Expandable,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
 import MediaWidget from '../MediaWidget/MediaWidget';
-import Card from '../ui/Card';
+import { Card } from '@memori.ai/ui';
 import { stripAllInternalTags } from '../../helpers/message';
 
 export interface Props {
@@ -38,7 +41,7 @@ const WhyThisAnswer = ({
   _TEST_loading = false,
 }: Props) => {
   const { t } = useTranslation();
-
+  const { add } = useAlertManager();
   const searchMemory = client?.search.searchMemory;
   const sanitizedQuestionAnswered = stripAllInternalTags(
     message.questionAnswered || ''
@@ -72,7 +75,12 @@ const WhyThisAnswer = ({
 
       if (response.resultCode !== 0) {
         console.error(response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(
+          createAlertOptions({
+            description: t(getErrori18nKey(response.resultCode)),
+            severity: 'error',
+          })
+        );
       } else {
         setMatches(matches ?? []);
       }
@@ -90,10 +98,11 @@ const WhyThisAnswer = ({
   return (
     <Drawer
       open={visible}
-      width="80%"
-      animated={false}
+      anchor="right"
       className="memori-whythisanswer-drawer"
-      onClose={() => closeDrawer()}
+      onClose={() => {
+        closeDrawer();
+      }}
       title={t('whyThisAnswer')}
     >
       <p>{t('whyThisAnswerHelper')}</p>
@@ -107,7 +116,7 @@ const WhyThisAnswer = ({
 
       <Spin primary spinning={loading}>
         {!loading && matches.length === 0 && (
-          <p role="info" className="memori--whythisanswer-no-results">
+          <p role="status" className="memori--whythisanswer-no-results">
             {t('nothingFound')}
           </p>
         )}
