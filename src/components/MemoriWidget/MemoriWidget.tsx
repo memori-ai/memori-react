@@ -485,6 +485,7 @@ export interface Props {
   avatar3dHidden?: boolean;
   preview?: boolean;
   embed?: boolean;
+  /** Widget height. Defaults to `100%` of the host. Pass `100vh` for a full-page fallback. */
   height?: number | string;
   secret?: string;
   baseUrl?: string;
@@ -583,7 +584,7 @@ const MemoriWidget = ({
   showChatHistory,
   showReasoning,
   avatar3dHidden,
-  height = '100vh',
+  height: heightProp,
   secret,
   baseUrl = 'https://aisuru-staging.aclambda.online',
   apiURL = 'https://backend-staging.memori.ai',
@@ -848,6 +849,8 @@ const MemoriWidget = ({
     if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
     return 'FULLPAGE';
   })();
+  // Fill the host slot. Pass height="100vh" for a full-page fallback when the parent has no height.
+  const height = heightProp ?? '100%';
   // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
   const piiDetection: PiiDetectionConfig | undefined =
     layout &&

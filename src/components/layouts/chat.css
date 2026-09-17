@@ -1,10 +1,36 @@
 .memori-widget.memori-layout-chat {
+    display: flex;
     overflow: hidden;
-    height: 100vh !important;
-    height: 100dvh !important;
-    max-height: 100vh;
-    max-height: 100dvh;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex-direction: column;
     padding: 0;
+}
+
+/* Fill the embed slot (page header stays visible). No !important so the height prop still wins.
+   The web component wraps the widget in extra nodes; those must also be 100% or the chain collapses. */
+memori-client:has(.memori-layout-chat),
+memori-client:has(.memori-layout-chat) > div,
+memori-client:has(.memori-layout-chat) #memori-root,
+memori-client:has(.memori-layout-chat) .memori-root,
+memori-client:has(.memori-layout-chat) #root {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Same contract when this stylesheet is injected into the web component shadow root. */
+:host:has(.memori-layout-chat),
+:host:has(.memori-layout-chat) > div,
+:host:has(.memori-layout-chat) #memori-root,
+:host:has(.memori-layout-chat) .memori-root,
+:host:has(.memori-layout-chat) #root {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 }
 
 .memori-widget.memori-layout-chat .memori--global-background.no-background-image {
@@ -17,6 +43,7 @@
     overflow: hidden;
     height: 100%;
     min-height: 0;
+    flex: 1 1 auto;
     flex-direction: column;
 }
 
