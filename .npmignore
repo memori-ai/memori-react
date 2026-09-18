@@ -12,3 +12,10 @@ node_modules
 commitlint.config.js
 jest.config.js
 jest.setup.js
+**/.DS_Store
+**/*.test.*
+**/*.stories.*
+**/__snapshots__
+**/mocks
+**/testUtils.*
+**/CopyButtonTest.*
