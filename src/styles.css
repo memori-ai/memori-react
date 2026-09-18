@@ -118,14 +118,6 @@ body.sb-show-main #root,
     font-size: 16px;
 }
 
-html:has(#storybook-root),
-html:has(#storybook-root) body,
-#storybook-root,
-body.sb-show-main #root {
-    height: 100%;
-    min-height: 0;
-}
-
 @media (max-width: 768px) {
     .mobile-hidden {
         display: none;
