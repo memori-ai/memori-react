@@ -36,89 +36,26 @@
 .memori-chat--bubble-status-message {
     display: flex;
     width: 100%;
-    max-width: 100%;
     align-items: center;
     justify-content: center;
     padding: 0 var(--memori-spacing-md);
     margin: var(--memori-spacing-md) auto;
-    gap: var(--memori-spacing-sm);
-}
-
-.memori-chat--bubble-status-message::before,
-.memori-chat--bubble-status-message::after {
-    display: block;
-    max-width: 4.5rem;
-    height: 1px;
-    flex: 1 1 2.25rem;
-    background: linear-gradient(
-        to var(--memori-status-rule-dir, right),
-        transparent,
-        color-mix(in oklch, var(--memori-text-color) 16%, transparent)
-    );
-    content: '';
-}
-
-.memori-chat--bubble-status-message::before {
-    --memori-status-rule-dir: right;
-}
-
-.memori-chat--bubble-status-message::after {
-    --memori-status-rule-dir: left;
 }
 
 .memori-chat--bubble-status-message-content {
     display: inline-flex;
-    max-width: min(90%, 28rem);
+    max-width: 90%;
     align-items: center;
     justify-content: center;
     padding: calc(var(--memori-spacing-xs) * 0.75) var(--memori-spacing-sm);
-    border: 1px solid color-mix(in oklch, var(--memori-text-color) 12%, transparent);
     border-radius: 999px;
-    animation: memori-chat-status-in 280ms ease-out;
-    background: color-mix(in oklch, var(--memori-text-color) 5%, var(--memori-main-background, transparent));
-    color: color-mix(in oklch, var(--memori-text-color) 66%, transparent);
+    background: color-mix(in oklch, var(--memori-text-color) 8%, transparent);
+    color: color-mix(in oklch, var(--memori-text-color) 68%, transparent);
     font-size: var(--memori-text-size-small);
-    font-weight: var(--memori-text-weight-medium, 500);
-    letter-spacing: 0.01em;
-    line-height: 1.35;
+    font-weight: var(--memori-text-weight-medium);
+    line-height: 1.4;
     text-align: center;
     word-wrap: break-word;
-}
-
-.memori-chat--bubble-status-message-content::before {
-    display: block;
-    width: 0.375rem;
-    height: 0.375rem;
-    flex-shrink: 0;
-    border-radius: 50%;
-    margin-right: calc(var(--memori-spacing-xs) * 0.75);
-    background: var(--memori-primary-color, var(--memori-primary));
-    box-shadow: 0 0 0 3px color-mix(in oklch, var(--memori-primary-color, var(--memori-primary)) 18%, transparent);
-    content: '';
-}
-
-.memori-chat--content--has-global-background .memori-chat--bubble-status-message-content,
-.memori-chat--history--has-global-background .memori-chat--bubble-status-message-content {
-    backdrop-filter: blur(10px);
-    background: color-mix(in oklch, var(--memori-main-background) 78%, transparent);
-}
-
-@keyframes memori-chat-status-in {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .memori-chat--bubble-status-message-content {
-        animation: none;
-    }
 }
 
 .memori-chat--bubble-status-message-error {
