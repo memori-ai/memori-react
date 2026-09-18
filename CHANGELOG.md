@@ -1,5 +1,17 @@
 
 
+## [8.45.3](https://github.com/memori-ai/memori-react/compare/v8.45.2...v8.45.3) (2026-09-18)
+
+
+### Features
+
+* **chat:** enhance layout handling and scrolling behavior in Chat component ([3b450ae](https://github.com/memori-ai/memori-react/commit/3b450ae58341c29c3be0caa6d2ffb8fde8c20713))
+
+
+### Changes
+
+* **styles:** clean up CSS by removing redundant height rules and improving layout definitions ([70a9fab](https://github.com/memori-ai/memori-react/commit/70a9fabfd732a94a8b21151de1a29258d46353f2))
+
 ## [8.45.2](https://github.com/memori-ai/memori-react/compare/v8.45.1...v8.45.2) (2026-09-10)
 
 
