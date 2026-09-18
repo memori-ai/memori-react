@@ -69,7 +69,7 @@
 
 .memori-copy-button--success {
     border-color: var(--memori-success);
-    background: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-success) 18%);
+    /* background: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-success) 18%); */
     color: var(--memori-text-color);
 }
 

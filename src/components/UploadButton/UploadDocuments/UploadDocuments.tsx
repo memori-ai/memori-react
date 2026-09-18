@@ -14,6 +14,7 @@ import {
   isLocalTextFilename,
   isOfficeNativeFilename,
 } from '../../../helpers/utils';
+import { getOriginalMimeType } from '../../MediaWidget/MediaItemWidget.utils';
 import { convertDocument } from '../../../helpers/convertDocument';
 // Types
 type PreviewFile = {
@@ -284,7 +285,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               name: file.name,
               id: fileId,
               content: '',
-              mimeType: file.type,
+              mimeType: getOriginalMimeType(file.name, file.type),
               textAssetUrl: assetUrl,
             });
           } else if (text) {
@@ -312,7 +313,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               name: file.name,
               id: fileId,
               content: text,
-              mimeType: file.type,
+              mimeType: getOriginalMimeType(file.name, file.type),
               textAssetUrl,
             });
           } else {

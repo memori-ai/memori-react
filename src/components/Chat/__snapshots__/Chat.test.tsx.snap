@@ -27,9 +27,6 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -252,9 +249,6 @@ exports[`renders Chat unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -479,48 +473,6 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -536,6 +488,52 @@ exports[`renders Chat unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -743,9 +741,6 @@ exports[`renders Chat unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -985,9 +980,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -1210,9 +1202,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -1437,48 +1426,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -1494,6 +1441,52 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -1716,9 +1709,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -1973,9 +1963,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -2179,9 +2166,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -2387,48 +2371,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -2444,6 +2386,52 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -2632,9 +2620,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -2874,9 +2859,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -3082,9 +3064,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -3292,48 +3271,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -3349,6 +3286,52 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -3539,9 +3522,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -3781,9 +3761,6 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -4020,9 +3997,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -4261,48 +4235,6 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -4318,6 +4250,52 @@ exports[`renders Chat with dates unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -4539,9 +4517,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -4795,9 +4770,6 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -5020,9 +4992,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -5247,48 +5216,6 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -5304,6 +5231,52 @@ exports[`renders Chat with hints unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -5511,9 +5484,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -5787,9 +5757,6 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -6012,9 +5979,6 @@ exports[`renders Chat with media unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -6239,261 +6203,6 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--many"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <div
-                        aria-label="Image 0"
-                        class="memori-media-item--link memori-media-item--image-link"
-                        role="button"
-                        style="cursor: pointer;"
-                        tabindex="0"
-                        title="Image 0"
-                      >
-                        <div
-                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                          tabindex="0"
-                        >
-                          <div
-                            class="memori-card__cover"
-                          >
-                            <picture
-                              class="memori-media-item--figure"
-                            >
-                              <source
-                                srcset="https://picsum.photos/300/200?random=0"
-                                type="image/png"
-                              />
-                              <img
-                                alt="Image 0"
-                                src="https://picsum.photos/300/200?random=0"
-                              />
-                            </picture>
-                          </div>
-                          <div
-                            class="memori-card__body memori-card__body--padding-md"
-                          >
-                            <div
-                              class="memori-spin"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <div
-                        aria-label="Image 1"
-                        class="memori-media-item--link memori-media-item--image-link"
-                        role="button"
-                        style="cursor: pointer;"
-                        tabindex="0"
-                        title="Image 1"
-                      >
-                        <div
-                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                          tabindex="0"
-                        >
-                          <div
-                            class="memori-card__cover"
-                          >
-                            <picture
-                              class="memori-media-item--figure"
-                            >
-                              <source
-                                srcset="https://picsum.photos/200/300?random=1"
-                                type="image/png"
-                              />
-                              <img
-                                alt="Image 1"
-                                src="https://picsum.photos/200/300?random=1"
-                              />
-                            </picture>
-                          </div>
-                          <div
-                            class="memori-card__body memori-card__body--padding-md"
-                          >
-                            <div
-                              class="memori-spin"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <div
-                        aria-label="Image 2"
-                        class="memori-media-item--link memori-media-item--image-link"
-                        role="button"
-                        style="cursor: pointer;"
-                        tabindex="0"
-                        title="Image 2"
-                      >
-                        <div
-                          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
-                          tabindex="0"
-                        >
-                          <div
-                            class="memori-card__cover"
-                          >
-                            <picture
-                              class="memori-media-item--figure"
-                            >
-                              <source
-                                srcset="https://picsum.photos/300/300?random=2"
-                                type="image/png"
-                              />
-                              <img
-                                alt="Image 2"
-                                src="https://picsum.photos/300/300?random=2"
-                              />
-                            </picture>
-                          </div>
-                          <div
-                            class="memori-card__body memori-card__body--padding-md"
-                          >
-                            <div
-                              class="memori-spin"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai/en"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link Memori Srl"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link Memori Srl
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://rawmaterial.it/en"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link RawMaterial"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link RawMaterial
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://vimeo.com/766468314"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Introducing Plone Remix | Vimeo"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Introducing Plone Remix | Vimeo
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://www.youtube.com/watch?v=feH26j3rBz8"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="A sustainable web: is it possible? - Nicola Zambello | YouTube"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              A sustainable web: is it possible? - Nicola Zambello | YouTube
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -6509,6 +6218,265 @@ exports[`renders Chat with media unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--many"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <div
+                              aria-label="Image 0"
+                              class="memori-media-item--link memori-media-item--image-link"
+                              role="button"
+                              style="cursor: pointer;"
+                              tabindex="0"
+                              title="Image 0"
+                            >
+                              <div
+                                class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="memori-card__cover"
+                                >
+                                  <picture
+                                    class="memori-media-item--figure"
+                                  >
+                                    <source
+                                      srcset="https://picsum.photos/300/200?random=0"
+                                      type="image/png"
+                                    />
+                                    <img
+                                      alt="Image 0"
+                                      src="https://picsum.photos/300/200?random=0"
+                                    />
+                                  </picture>
+                                </div>
+                                <div
+                                  class="memori-card__body memori-card__body--padding-md"
+                                >
+                                  <div
+                                    class="memori-spin"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <div
+                              aria-label="Image 1"
+                              class="memori-media-item--link memori-media-item--image-link"
+                              role="button"
+                              style="cursor: pointer;"
+                              tabindex="0"
+                              title="Image 1"
+                            >
+                              <div
+                                class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="memori-card__cover"
+                                >
+                                  <picture
+                                    class="memori-media-item--figure"
+                                  >
+                                    <source
+                                      srcset="https://picsum.photos/200/300?random=1"
+                                      type="image/png"
+                                    />
+                                    <img
+                                      alt="Image 1"
+                                      src="https://picsum.photos/200/300?random=1"
+                                    />
+                                  </picture>
+                                </div>
+                                <div
+                                  class="memori-card__body memori-card__body--padding-md"
+                                >
+                                  <div
+                                    class="memori-spin"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <div
+                              aria-label="Image 2"
+                              class="memori-media-item--link memori-media-item--image-link"
+                              role="button"
+                              style="cursor: pointer;"
+                              tabindex="0"
+                              title="Image 2"
+                            >
+                              <div
+                                class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="memori-card__cover"
+                                >
+                                  <picture
+                                    class="memori-media-item--figure"
+                                  >
+                                    <source
+                                      srcset="https://picsum.photos/300/300?random=2"
+                                      type="image/png"
+                                    />
+                                    <img
+                                      alt="Image 2"
+                                      src="https://picsum.photos/300/300?random=2"
+                                    />
+                                  </picture>
+                                </div>
+                                <div
+                                  class="memori-card__body memori-card__body--padding-md"
+                                >
+                                  <div
+                                    class="memori-spin"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai/en"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link Memori Srl"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link Memori Srl
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://rawmaterial.it/en"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link RawMaterial"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link RawMaterial
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://vimeo.com/766468314"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Introducing Plone Remix | Vimeo"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Introducing Plone Remix | Vimeo
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://www.youtube.com/watch?v=feH26j3rBz8"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="A sustainable web: is it possible? - Nicola Zambello | YouTube"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    A sustainable web: is it possible? - Nicola Zambello | YouTube
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -6716,9 +6684,6 @@ exports[`renders Chat with media unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -6958,9 +6923,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -7183,9 +7145,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -7410,48 +7369,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -7467,6 +7384,52 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -7674,9 +7637,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -7938,9 +7898,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -8163,9 +8120,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -8390,48 +8344,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -8447,6 +8359,52 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -8655,9 +8613,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -8758,9 +8713,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -9049,9 +9001,6 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              />
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -9257,9 +9206,6 @@ exports[`renders Chat with user unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >
@@ -9467,48 +9413,6 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
               <div
-                class="memori-media-widget"
-              >
-                <div
-                  class="memori-media-items"
-                >
-                  <div
-                    class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-                  >
-                    <div
-                      class="memori-media-item"
-                    >
-                      <a
-                        class="memori-media-item--link memori-media-item--document-link"
-                        href="https://memori.ai"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Link"
-                      >
-                        <div
-                          class="memori-media-item--document"
-                        >
-                          <div
-                            class="memori-media-item--document-header"
-                          >
-                            <div
-                              class="memori-media-item--document-title"
-                            >
-                              Link
-                            </div>
-                          </div>
-                          <span
-                            class="memori-media-item--document-badge"
-                          >
-                            Link
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="memori-chat--bubble-message-row"
               >
                 <picture
@@ -9524,6 +9428,52 @@ exports[`renders Chat with user unchanged 1`] = `
                 <div
                   class="memori-chat--bubble-shell"
                 >
+                  <div
+                    class="memori-chat--attachment-strip"
+                  >
+                    <div
+                      class="memori-media-widget"
+                    >
+                      <div
+                        class="memori-media-items"
+                      >
+                        <div
+                          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+                        >
+                          <div
+                            class="memori-media-item"
+                          >
+                            <a
+                              class="memori-media-item--link memori-media-item--document-link"
+                              href="https://memori.ai"
+                              rel="noopener noreferrer"
+                              target="_blank"
+                              title="Link"
+                            >
+                              <div
+                                class="memori-media-item--document"
+                              >
+                                <div
+                                  class="memori-media-item--document-header"
+                                >
+                                  <div
+                                    class="memori-media-item--document-title"
+                                  >
+                                    Link
+                                  </div>
+                                </div>
+                                <span
+                                  class="memori-media-item--document-badge"
+                                >
+                                  Link
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
                   >
@@ -9714,9 +9664,6 @@ exports[`renders Chat with user unchanged 1`] = `
             <div
               class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
             >
-              <div
-                class="memori-media-widget"
-              />
               <div
                 class="memori-chat--bubble-message-row"
               >

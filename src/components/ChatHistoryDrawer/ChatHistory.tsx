@@ -19,6 +19,10 @@ import {
 } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import { stripAllInternalTags } from '../../helpers/message';
+import {
+  getDocumentBadgeLabel,
+  getOriginalMimeType,
+} from '../MediaWidget/MediaItemWidget.utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
 import { SelectBox } from '@memori.ai/ui';
@@ -889,15 +893,26 @@ const ChatHistoryDrawer = ({
               ? ('interrupted' as const)
               : ('completed' as const),
           attachment: attachmentMedium
-            ? {
-                name:
+            ? (() => {
+                const name =
+                  attachmentMedium.title ||
                   attachmentMedium.url?.split('/').pop() ||
-                  attachmentMedium.url ||
-                  'Attachment file',
-                type: 'Markdown',
-                size: '2.4 KB',
-                ext: 'MD',
-              }
+                  'Attachment file';
+                const mimeType = getOriginalMimeType(
+                  name,
+                  attachmentMedium.mimeType
+                );
+                return {
+                  name,
+                  type: mimeType,
+                  size: '2.4 KB',
+                  ext: getDocumentBadgeLabel(
+                    mimeType,
+                    name,
+                    attachmentMedium.url
+                  ),
+                };
+              })()
             : undefined,
         };
       }),

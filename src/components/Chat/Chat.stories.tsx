@@ -125,6 +125,40 @@ Default.args = {
   setSendOnEnter: () => {},
 };
 
+export const WithSessionStatus = Template.bind({});
+WithSessionStatus.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    history[0],
+    history[1],
+    {
+      fromUser: false,
+      text: '',
+      initial: 'nzambello has successfully logged in',
+      timestamp: '2021-03-01T12:04:00.000Z',
+    },
+    ...history.slice(2, 4),
+    {
+      fromUser: false,
+      text: '',
+      emitter: 'system',
+      initial: 'Session expired, reopening session',
+      timestamp: '2021-03-01T12:08:00.000Z',
+    },
+    ...history.slice(4),
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
 export const MemoriTyping = Template.bind({});
 MemoriTyping.args = {
   memori,
