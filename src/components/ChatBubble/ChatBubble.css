@@ -36,29 +36,89 @@
 .memori-chat--bubble-status-message {
     display: flex;
     width: 100%;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
-    padding: 0 calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    margin: var(--memori-spacing-lg) auto;
+    padding: 0 var(--memori-spacing-md);
+    margin: var(--memori-spacing-md) auto;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-chat--bubble-status-message::before,
+.memori-chat--bubble-status-message::after {
+    display: block;
+    max-width: 4.5rem;
+    height: 1px;
+    flex: 1 1 2.25rem;
+    background: linear-gradient(
+        to var(--memori-status-rule-dir, right),
+        transparent,
+        color-mix(in oklch, var(--memori-text-color) 16%, transparent)
+    );
+    content: '';
+}
+
+.memori-chat--bubble-status-message::before {
+    --memori-status-rule-dir: right;
+}
+
+.memori-chat--bubble-status-message::after {
+    --memori-status-rule-dir: left;
 }
 
 .memori-chat--bubble-status-message-content {
     display: inline-flex;
-    max-width: 90%;
+    max-width: min(90%, 28rem);
     align-items: center;
     justify-content: center;
-    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
-    /* border: 1px solid var(--memori-primary); */
-    border-radius: var(--memori-radius-box);
-    backdrop-filter: blur(10px);
-    background: var(--memori-secondary-background);
-    color: var(--memori-text-color);
+    padding: calc(var(--memori-spacing-xs) * 0.75) var(--memori-spacing-sm);
+    border: 1px solid color-mix(in oklch, var(--memori-text-color) 12%, transparent);
+    border-radius: 999px;
+    animation: memori-chat-status-in 280ms ease-out;
+    background: color-mix(in oklch, var(--memori-text-color) 5%, var(--memori-main-background, transparent));
+    color: color-mix(in oklch, var(--memori-text-color) 66%, transparent);
     font-size: var(--memori-text-size-small);
-    font-weight: var(--memori-text-weight-medium);
-    letter-spacing: 0.02em;
-    line-height: 1.4;
+    font-weight: var(--memori-text-weight-medium, 500);
+    letter-spacing: 0.01em;
+    line-height: 1.35;
     text-align: center;
     word-wrap: break-word;
+}
+
+.memori-chat--bubble-status-message-content::before {
+    display: block;
+    width: 0.375rem;
+    height: 0.375rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    margin-right: calc(var(--memori-spacing-xs) * 0.75);
+    background: var(--memori-primary-color, var(--memori-primary));
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--memori-primary-color, var(--memori-primary)) 18%, transparent);
+    content: '';
+}
+
+.memori-chat--content--has-global-background .memori-chat--bubble-status-message-content,
+.memori-chat--history--has-global-background .memori-chat--bubble-status-message-content {
+    backdrop-filter: blur(10px);
+    background: color-mix(in oklch, var(--memori-main-background) 78%, transparent);
+}
+
+@keyframes memori-chat-status-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-chat--bubble-status-message-content {
+        animation: none;
+    }
 }
 
 .memori-chat--bubble-status-message-error {
@@ -132,7 +192,9 @@
 }
 
 /*
- * Claude-like user media cluster: right-aligned, hug content, 8px gaps.
+ * Compact media cluster for both sides: hug content, 8px gaps, 120px tiles.
+ * User (inside .memori-chat--user-block): right-aligned.
+ * Agent (inside .memori-chat--bubble-shell): left-aligned.
  * No chrome by default — subtle fill only when chat has a custom background.
  */
 .memori-chat--attachment-strip {
@@ -140,11 +202,15 @@
     width: fit-content;
     max-width: 100%;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     padding: 0;
     border: none;
     border-radius: 0;
     background: transparent;
+}
+
+.memori-chat--user-block .memori-chat--attachment-strip {
+    align-items: flex-end;
 }
 
 .memori-chat--content--has-global-background .memori-chat--attachment-strip,
@@ -152,6 +218,12 @@
     padding: 8px;
     border-radius: 12px;
     background: color-mix(in oklch, var(--memori-main-background) 22%, transparent);
+    border-top-left-radius: 4px;
+}
+
+.memori-chat--content--has-global-background .memori-chat--user-block .memori-chat--attachment-strip,
+.memori-chat--history--has-global-background .memori-chat--user-block .memori-chat--attachment-strip {
+    border-top-left-radius: 12px;
     border-top-right-radius: 4px;
 }
 
@@ -164,10 +236,15 @@
     display: grid;
     width: fit-content;
     max-width: 100%;
-    justify-content: end;
+    justify-content: start;
     padding: 0;
     margin: 0;
     gap: var(--memori-spacing-sm);
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--agent {
+    justify-content: start;
+    margin-inline: 0;
 }
 
 .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--user {
@@ -195,7 +272,16 @@
     }
 }
 
-/* Fixed 120px tiles in the user attachment cluster */
+@media (max-width: 640px) {
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--single,
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--few,
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+        padding: 0;
+        grid-template-columns: 120px;
+    }
+}
+
+/* Fixed 120px tiles in the attachment cluster */
 .memori-chat--attachment-strip .memori-media-item {
     width: 120px;
     max-width: 120px;
@@ -320,6 +406,11 @@
 @media (max-width: 600px) {
     .memori-chat--bubble-shell {
         gap: 4px;
+    }
+
+    /* Keep the 8px attachment-to-bubble gap used on the user side */
+    .memori-chat--bubble-shell > .memori-chat--attachment-strip {
+        margin-bottom: 4px;
     }
 }
 

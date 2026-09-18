@@ -145,6 +145,29 @@ Initial.args = {
   },
 };
 
+export const StatusLoggedIn = Template.bind({});
+StatusLoggedIn.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: '',
+    initial: 'nzambello has successfully logged in',
+  },
+};
+
+export const StatusSessionExpired = Template.bind({});
+StatusSessionExpired.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: '',
+    emitter: 'system',
+    initial: 'Session expired, reopening session',
+  },
+};
+
 export const CopyDisabled = Template.bind({});
 CopyDisabled.args = {
   memori,

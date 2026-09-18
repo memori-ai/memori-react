@@ -44,6 +44,46 @@ it('renders ChatBubble with initial msg unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders login and session resume as a status tag', () => {
+  const { container, rerender } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: '',
+        initial: 'nzambello has successfully logged in',
+      }}
+    />
+  );
+
+  const status = screen.getByRole('status');
+  expect(status).toHaveClass('memori-chat--bubble-status-message');
+  expect(status).toHaveTextContent('nzambello has successfully logged in');
+  expect(
+    container.querySelector('.memori-chat--bubble-container')
+  ).not.toBeInTheDocument();
+
+  rerender(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: '',
+        emitter: 'system',
+        initial: 'Session expired, reopening session',
+      }}
+    />
+  );
+
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Session expired, reopening session'
+  );
+});
+
 it('renders ChatBubble with user msg unchanged', () => {
   const { container } = render(
     <ChatBubble
@@ -545,6 +585,35 @@ it('uses the adjacent attachment link for document media', () => {
   ).toBeInTheDocument();
 });
 
+it('shows HTML file attachments as HTML, not Link', () => {
+  render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: true,
+        initial: false,
+        text: 'check this html file',
+        media: [
+          {
+            mediumID: 'u-html-1',
+            mimeType: 'text/html',
+            title: 'page.html',
+            url: 'https://assets.example.com/page.txt',
+            content: '<html><body>Hi</body></html>',
+            properties: { isAttachedFile: true },
+          },
+        ],
+      }}
+    />
+  );
+
+  expect(screen.getByText('page.html')).toBeInTheDocument();
+  expect(screen.getByText('HTML')).toBeInTheDocument();
+  expect(screen.queryByText('Link')).not.toBeInTheDocument();
+});
+
 it('groups user attachments in a strip with the message bubble', () => {
   const { container } = render(
     <ChatBubble
@@ -575,6 +644,42 @@ it('groups user attachments in a strip with the message bubble', () => {
   expect(
     userBlock?.querySelector('.memori-chat--user-bubble')
   ).toBeInTheDocument();
+  expect(screen.getByText('PDF')).toBeInTheDocument();
+});
+
+it('groups agent attachments in a strip with the message bubble', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        initial: false,
+        text: 'Here is the file.',
+        media: [
+          {
+            mediumID: 'a-pdf-1',
+            mimeType: 'application/pdf',
+            title: 'report.pdf',
+            url: 'https://example.com/report.pdf',
+          },
+        ],
+      }}
+    />
+  );
+
+  const messageRow = container.querySelector('.memori-chat--bubble-message-row');
+  const shell = container.querySelector('.memori-chat--bubble-shell');
+  const strip = container.querySelector('.memori-chat--attachment-strip');
+  expect(strip).toBeInTheDocument();
+  expect(messageRow?.contains(strip)).toBe(true);
+  expect(shell?.contains(strip)).toBe(true);
+  expect(
+    container.querySelector(
+      '.memori-chat--bubble-container > .memori-media-widget'
+    )
+  ).not.toBeInTheDocument();
   expect(screen.getByText('PDF')).toBeInTheDocument();
 });
 

@@ -322,9 +322,6 @@ exports[`renders ChatBubble unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -426,9 +423,6 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -3060,9 +3054,6 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -4357,9 +4348,6 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -5388,9 +5376,6 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -5957,9 +5942,6 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -6790,9 +6772,6 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -7100,9 +7079,6 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -7152,48 +7128,6 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    >
-      <div
-        class="memori-media-items"
-      >
-        <div
-          class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
-        >
-          <div
-            class="memori-media-item"
-          >
-            <a
-              class="memori-media-item--link memori-media-item--document-link"
-              href="blob:http://localhost/mock"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Function Cache Lorem ispum"
-            >
-              <div
-                class="memori-media-item--document"
-              >
-                <div
-                  class="memori-media-item--document-header"
-                >
-                  <div
-                    class="memori-media-item--document-title"
-                  >
-                    Function Cache Lorem ispum
-                  </div>
-                </div>
-                <span
-                  class="memori-media-item--document-badge"
-                >
-                  TXT
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -7209,6 +7143,52 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
       <div
         class="memori-chat--bubble-shell"
       >
+        <div
+          class="memori-chat--attachment-strip"
+        >
+          <div
+            class="memori-media-widget"
+          >
+            <div
+              class="memori-media-items"
+            >
+              <div
+                class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
+              >
+                <div
+                  class="memori-media-item"
+                >
+                  <a
+                    class="memori-media-item--link memori-media-item--document-link"
+                    href="blob:http://localhost/mock"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="Function Cache Lorem ispum"
+                  >
+                    <div
+                      class="memori-media-item--document"
+                    >
+                      <div
+                        class="memori-media-item--document-header"
+                      >
+                        <div
+                          class="memori-media-item--document-title"
+                        >
+                          Function Cache Lorem ispum
+                        </div>
+                      </div>
+                      <span
+                        class="memori-media-item--document-badge"
+                      >
+                        TXT
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div
           class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
         >
@@ -7420,9 +7400,6 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -7524,9 +7501,6 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -7710,9 +7684,6 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -7868,9 +7839,6 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -8085,9 +8053,6 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -8814,9 +8779,6 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -8979,9 +8941,6 @@ exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`]
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >
@@ -9165,9 +9124,6 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -9321,9 +9277,6 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <div
-      class="memori-media-widget"
-    />
-    <div
       class="memori-chat--bubble-message-row"
     >
       <picture
@@ -9469,9 +9422,6 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <div
-      class="memori-media-widget"
-    />
     <div
       class="memori-chat--bubble-message-row"
     >

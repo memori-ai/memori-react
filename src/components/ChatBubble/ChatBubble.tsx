@@ -30,6 +30,7 @@ import {
   stripHTML,
   stripOutputTags,
 } from '../../helpers/utils';
+import { isHtmlWebLink } from '../MediaWidget/MediaItemWidget.utils';
 import {
   renderMsg,
   sanitizeMsg,
@@ -409,10 +410,10 @@ const ChatBubble: React.FC<Props> = ({
 
   if (initialStatus) {
     return (
-      <div className="memori-chat--bubble-status-message">
-        <div className="memori-chat--bubble-status-message-content">
+      <div className="memori-chat--bubble-status-message" role="status">
+        <span className="memori-chat--bubble-status-message-content">
           {initialStatus}
-        </div>
+        </span>
       </div>
     );
   }
@@ -479,7 +480,7 @@ const ChatBubble: React.FC<Props> = ({
 
   const topMediaWidgetLinks = (message?.media
     ?.filter(m => !m.properties?.functionSignature)
-    ?.filter(m => m.mimeType === 'text/html' && !!m.url) || []) as Medium[];
+    ?.filter(m => isHtmlWebLink(m)) || []) as Medium[];
 
   const topMediaWidgetMedia = [
     ...(message?.media
@@ -488,7 +489,7 @@ const ChatBubble: React.FC<Props> = ({
         m =>
           !(
             codeMimeTypes.includes(m.mimeType) ||
-            (m.mimeType === 'text/html' && !!m.url)
+            isHtmlWebLink(m)
           )
       ) || []),
     ...parseDocumentAttachmentsFromMessage(
@@ -523,6 +524,25 @@ const ChatBubble: React.FC<Props> = ({
       apiUrl &&
       showWhyThisAnswer);
 
+  const hasTopMedia =
+    topMediaWidgetMedia.length > 0 || topMediaWidgetLinks.length > 0;
+
+  const attachmentStrip = hasTopMedia ? (
+    <div className="memori-chat--attachment-strip">
+      <MediaWidget
+        simulateUserPrompt={simulateUserPrompt}
+        links={topMediaWidgetLinks}
+        media={topMediaWidgetMedia}
+        sessionID={sessionID}
+        baseUrl={baseUrl}
+        apiUrl={apiUrl}
+        translateTo={translateTo}
+        customMediaRenderer={customMediaRenderer}
+        fromUser={message.fromUser}
+      />
+    </div>
+  ) : null;
+
   return (
     <>
       {showInitialDivider && <div className="memori-chat--bubble-initial" />}
@@ -535,41 +555,12 @@ const ChatBubble: React.FC<Props> = ({
         })}
         onClick={handleBubbleContainerClick}
       >
-        {!message.fromUser && (
-          <MediaWidget
-            simulateUserPrompt={simulateUserPrompt}
-            links={topMediaWidgetLinks}
-            media={topMediaWidgetMedia}
-            sessionID={sessionID}
-            baseUrl={baseUrl}
-            apiUrl={apiUrl}
-            translateTo={translateTo}
-            customMediaRenderer={customMediaRenderer}
-            fromUser={message.fromUser}
-          />
-        )}
-
         <div className="memori-chat--bubble-message-row">
           {!message.fromUser && renderAssistantAvatar()}
 
           {message.fromUser ? (
             <div className="memori-chat--user-block">
-              {(topMediaWidgetMedia.length > 0 ||
-                topMediaWidgetLinks.length > 0) && (
-                <div className="memori-chat--attachment-strip">
-                  <MediaWidget
-                    simulateUserPrompt={simulateUserPrompt}
-                    links={topMediaWidgetLinks}
-                    media={topMediaWidgetMedia}
-                    sessionID={sessionID}
-                    baseUrl={baseUrl}
-                    apiUrl={apiUrl}
-                    translateTo={translateTo}
-                    customMediaRenderer={customMediaRenderer}
-                    fromUser={message.fromUser}
-                  />
-                </div>
-              )}
+              {attachmentStrip}
 
               <div
                 className={cx('memori-chat--bubble-shell', {
@@ -825,6 +816,8 @@ const ChatBubble: React.FC<Props> = ({
                 'memori-chat--bubble-shell--from-user': !!message.fromUser,
               })}
             >
+              {attachmentStrip}
+
               <div
                 className={cx('memori-chat--bubble-anchor', {
                   'memori-chat--bubble-anchor--from-user': !!message.fromUser,
