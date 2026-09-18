@@ -44,6 +44,7 @@ import {
   getImageDisplaySource,
   FALLBACK_IMAGE_BASE64,
   TEXT_FILE_EXTENSIONS,
+  isHtmlWebLink,
 } from './MediaItemWidget.utils';
 import { DocumentCard } from './DocumentCard';
 import { MediaPreviewModal } from './MediaPreviewModal';
@@ -110,7 +111,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // Fetch link preview info for HTML links, only if relevant and not already loaded
   useEffect(() => {
     if (
-      item.mimeType !== 'text/html' ||
+      !isHtmlWebLink(item) ||
       !normURL ||
       normURL === link?.urlKey ||
       !baseURL
@@ -134,7 +135,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     return () => {
       cancelled = true;
     };
-  }, [item?.url, baseURL, item.mimeType, normURL, link?.urlKey]);
+  }, [item, baseURL, normURL, link?.urlKey]);
 
   // Custom renderer for media type, overrides our logic
   const customRenderer = customMediaRenderer?.(item.mimeType);
@@ -291,7 +292,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
               })()}
-              icon={<LinkIcon className="memori-media-item--document-icon-svg" />}
+              icon={<File className="memori-media-item--document-icon-svg" />}
             />
           );
 
@@ -339,6 +340,13 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // Text file detection for line counting
   const isTextFile = (TEXT_FILE_EXTENSIONS as readonly string[]).includes(
     fileExtension || ''
+  );
+  const isWebLink = isHtmlWebLink(item);
+  const documentBadge = isWebLink ? 'Link' : fileExtension;
+  const documentIcon = isWebLink ? (
+    <LinkIcon className="memori-media-item--document-icon-svg" />
+  ) : (
+    <File className="memori-media-item--document-icon-svg" />
   );
 
   // Derive line count and line label for text files
@@ -388,19 +396,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         >
           <DocumentCard
             title={displayName}
-            badge={
-              item.mimeType === 'text/html' && !!item.url
-                ? 'Link'
-                : fileExtension
-            }
+            badge={documentBadge}
             meta={metaLine}
-            icon={
-              item.mimeType === 'text/html' ? (
-                <LinkIcon className="memori-media-item--document-icon-svg" />
-              ) : (
-                <File className="memori-media-item--document-icon-svg" />
-              )
-            }
+            icon={documentIcon}
           />
         </div>
       );
@@ -458,17 +456,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       >
         <DocumentCard
           title={displayName}
-          badge={
-            item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
-          }
+          badge={documentBadge}
           meta={metaLine}
-          icon={
-            item.mimeType === 'text/html' ? (
-              <LinkIcon className="memori-media-item--document-icon-svg" />
-            ) : (
-              <File className="memori-media-item--document-icon-svg" />
-            )
-          }
+          icon={documentIcon}
         />
       </a>
     );
@@ -500,7 +490,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   }
 
   // HTML file with link info / preview or video/image: render card with link preview (image, video, description)
-  if (isHTML && (linkImage || linkVideo || linkDescription)) {
+  if (isWebLink && (linkImage || linkVideo || linkDescription)) {
     // Compute card cover image/video src
     const coverSrc =
       linkImage?.includes('data:image') === true

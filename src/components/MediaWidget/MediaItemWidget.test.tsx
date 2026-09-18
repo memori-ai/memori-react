@@ -244,6 +244,42 @@ it('renders HTML link as document card with Link badge when url present', () => 
   expect(screen.getByText('Link')).toBeInTheDocument();
 });
 
+it('renders HTML file attachments with HTML badge, not Link', () => {
+  const htmlFile: Medium & { type?: string } = {
+    mediumID: 'html-file-1',
+    mimeType: 'text/html',
+    title: 'page.html',
+    url: 'https://assets.example.com/page.txt',
+    content: '<html><body>Hello</body></html>',
+    properties: { isAttachedFile: true },
+    type: 'document',
+  };
+  render(
+    <MediaItemWidget items={[htmlFile]} sessionID={sessionID} />
+  );
+  expect(screen.getByText('page.html')).toBeInTheDocument();
+  expect(screen.getByText('HTML')).toBeInTheDocument();
+  expect(screen.queryByText('Link')).not.toBeInTheDocument();
+});
+
+it('renders converted document attachments with the original file type, not TXT', () => {
+  const pdfFile: Medium & { type?: string } = {
+    mediumID: 'pdf-file-1',
+    mimeType: 'application/pdf',
+    title: 'report.pdf',
+    url: 'https://assets.example.com/report.txt',
+    content: 'Extracted PDF text',
+    properties: { isAttachedFile: true },
+    type: 'document',
+  };
+  render(
+    <MediaItemWidget items={[pdfFile]} sessionID={sessionID} />
+  );
+  expect(screen.getByText('report.pdf')).toBeInTheDocument();
+  expect(screen.getByText('PDF')).toBeInTheDocument();
+  expect(screen.queryByText('TXT')).not.toBeInTheDocument();
+});
+
 it('opens MediaPreviewModal when clicking document attachment card', () => {
   const docItem: Medium & { type?: string } = {
     mediumID: 'doc-att-1',
