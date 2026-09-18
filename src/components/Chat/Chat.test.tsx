@@ -32,8 +32,7 @@ beforeEach(() => {
 
 it('renders Chat unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -64,8 +63,7 @@ it('renders Chat unchanged', () => {
 
 it('renders Chat with memori typing unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -97,8 +95,7 @@ it('renders Chat with memori typing unchanged', () => {
 
 it('renders Chat with hints unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -129,8 +126,7 @@ it('renders Chat with hints unchanged', () => {
 
 it('renders Chat with media unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -161,8 +157,7 @@ it('renders Chat with media unchanged', () => {
 
 it('renders Chat with dates unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -194,8 +189,7 @@ it('renders Chat with dates unchanged', () => {
 
 it('renders Chat with context vars unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -274,8 +268,7 @@ it('renders Chat with message consumption unchanged', () => {
 
 it('renders Chat with user unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         user={{ avatarURL: 'https://picsum.photos/200' }}
         memori={memori}
@@ -307,8 +300,7 @@ it('renders Chat with user unchanged', () => {
 
 it('renders Chat with custom user avatar unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         userAvatar="https://picsum.photos/200"
         memori={memori}
@@ -340,8 +332,7 @@ it('renders Chat with custom user avatar unchanged', () => {
 
 it('renders Chat with custom user avatar as react element unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         userAvatar={<span>USER</span>}
         memori={memori}
@@ -369,4 +360,51 @@ it('renders Chat with custom user avatar as react element unchanged', () => {
     </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
+});
+
+it('scrolls new messages into view without shifting the page', () => {
+  jest.useFakeTimers();
+  const originalScrollIntoView = HTMLElement.prototype.scrollIntoView;
+  const scrollIntoView = jest.fn();
+  HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+  try {
+    render(
+      <ArtifactProvider>
+        <Chat
+          memori={memori}
+          tenant={tenant}
+          dialogState={dialogState}
+          layout="DEFAULT"
+          client={client}
+          history={history}
+          pushMessage={jest.fn()}
+          sessionID={sessionID}
+          simulateUserPrompt={jest.fn()}
+          setAttachmentsMenuOpen={jest.fn()}
+          setSendOnEnter={jest.fn()}
+          userMessage=""
+          onChangeUserMessage={jest.fn()}
+          sendMessage={jest.fn()}
+          isPlayingAudio={false}
+          stopAudio={jest.fn()}
+          showMicrophone={false}
+          listening={false}
+          startListening={jest.fn()}
+          stopListening={jest.fn()}
+          setEnableFocusChatInput={jest.fn()}
+        />
+      </ArtifactProvider>
+    );
+
+    jest.advanceTimersByTime(200);
+
+    expect(scrollIntoView).toHaveBeenCalled();
+    expect(scrollIntoView).toHaveBeenCalledWith(
+      expect.objectContaining({ block: 'nearest', inline: 'nearest' })
+    );
+  } finally {
+    HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
+    jest.useRealTimers();
+  }
 });

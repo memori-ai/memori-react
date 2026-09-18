@@ -1,5 +1,25 @@
 .memori-widget.memori-layout-chat {
-    height: 100vh !important;
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex-direction: column;
+}
+
+/* Fill the known mount nodes. Do not size memori-client / :host: the page owns those. */
+#memori-root:has(.memori-layout-chat),
+.memori-root:has(.memori-layout-chat) {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Same mount nodes when this stylesheet is injected into the web component shadow root. */
+:host:has(.memori-layout-chat) #memori-root,
+:host:has(.memori-layout-chat) .memori-root {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 }
 
 .memori-widget.memori-layout-chat .memori--global-background.no-background-image {
@@ -9,10 +29,13 @@
 .memori-widget > .memori-spin.memori-chat-layout {
     display: flex;
     height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
     flex-direction: column;
 }
 
 .memori-chat-layout--header {
+    flex: 0 0 auto;
     margin-bottom: 12px;
     text-align: right;
     transition: all 0.05s ease-in-out;
@@ -53,9 +76,10 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
+    min-height: 0;
     flex: 1;
     flex-direction: row;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     /* max-width: 1200px; */
     transition: all 0.05s ease-in-out;
@@ -75,8 +99,7 @@
     z-index: 5;
     overflow: hidden;
     min-width: 0;
-    height: 100%;
-    max-height: 100%;
+    min-height: 0;
     flex: 1;
     /* padding-bottom: 1.5rem; */
     transition: all 0.05s ease-in-out;
