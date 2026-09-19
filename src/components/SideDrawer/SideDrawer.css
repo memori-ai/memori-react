@@ -1,0 +1,92 @@
+.memori-side-drawer.memori-drawer {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+}
+
+.memori-side-drawer .memori-drawer__header {
+    align-items: flex-start;
+    gap: var(--memori-spacing-md);
+}
+
+.memori-side-drawer .memori-drawer__header > :first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.memori-side-drawer .memori-drawer__title {
+    font-size: var(--memori-text-size-heading-large);
+}
+
+.memori-side-drawer .memori-drawer__description {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+}
+
+.memori-side-drawer .memori-drawer__body {
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0;
+}
+
+.memori-side-drawer__body {
+    display: flex;
+    overflow: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+    gap: var(--memori-spacing-md);
+}
+
+.memori-side-drawer .memori-drawer__footer {
+    display: block;
+    justify-content: stretch;
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+}
+
+.memori-side-drawer .memori-drawer__footer .memori-drawer-footer {
+    width: 100%;
+    padding: 0;
+    border-top: none;
+    box-shadow: none;
+}
+
+.memori-side-drawer-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--memori-spacing-xl) var(--memori-spacing-md);
+    color: var(--memori-text-color);
+    gap: var(--memori-spacing-sm);
+    text-align: center;
+}
+
+.memori-side-drawer-empty__icon {
+    display: inline-flex;
+    width: 3.25rem;
+    height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--memori-radius-box);
+    margin-bottom: var(--memori-spacing-xs);
+    background: var(--memori-main-background);
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+}
+
+.memori-side-drawer-empty__title {
+    margin: 0;
+    font-size: var(--memori-text-size-large);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-side-drawer-empty__text {
+    max-width: 22.5rem;
+    margin: 0;
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-relaxed);
+}

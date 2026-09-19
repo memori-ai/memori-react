@@ -1,70 +1,187 @@
-/* Drawer content layout */
-.memori-known-facts-body {
+.memori-known-facts-toolbar {
     display: flex;
-    height: 100%;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-known-facts-search {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    align-items: center;
+}
+
+.memori-known-facts-search__icon {
+    position: absolute;
+    z-index: 1;
+    left: var(--memori-spacing-md);
+    width: 1.05rem;
+    height: 1.05rem;
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+    pointer-events: none;
+}
+
+.memori-known-facts-search .memori-input,
+.memori-known-facts-search input {
+    padding-left: calc(var(--memori-spacing-md) * 2 + 0.5rem);
+}
+
+.memori-known-facts-total,
+.memori-known-facts-count {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-small);
+    white-space: nowrap;
+}
+
+.memori-known-facts-selection-bar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: var(--memori-border) solid color-mix(in oklch, var(--memori-primary) 28%, var(--memori-border-color));
+    border-radius: var(--memori-radius-box);
+    background: color-mix(in oklch, var(--memori-primary) 8%, var(--memori-secondary-background));
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-known-facts-selection-bar__count {
+    color: var(--memori-primary);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-known-facts-selection-bar__actions {
+    display: flex;
+    margin-left: auto;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-known-facts-selection-bar__delete {
+    border-color: color-mix(in oklch, var(--memori-error) 40%, transparent);
+    color: var(--memori-error);
+}
+
+.memori-known-facts-list {
+    display: flex;
     min-height: 0;
     flex-direction: column;
-    padding: 0.25rem 0;
-    gap: 1.25rem;
+    padding: 0;
+    margin: 0;
+    gap: var(--memori-spacing-sm);
+    list-style: none;
 }
 
-.memori-known-facts-drawer {
-    .memori-drawer__body {
-        overflow: hidden;
-    }
-}
-
-/* Table wrapper: flex column so pagination footer stays visible below the scroll body */
-.memori-known-facts-table-wrapper.memori-table-wrapper {
+.memori-known-facts-card {
     display: flex;
-    overflow: hidden;
-    min-height: 0;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: var(--memori-spacing-md);
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
+    background: var(--memori-secondary-background);
+    gap: var(--memori-spacing-md);
+}
+
+.memori-known-facts-card--selected {
+    border-color: var(--memori-primary);
+    background: color-mix(in oklch, var(--memori-primary) 6%, var(--memori-secondary-background));
+}
+
+.memori-known-facts-card--editing {
+    flex-direction: column;
+    border-color: var(--memori-primary);
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-known-facts-card__content {
+    display: flex;
+    min-width: 0;
     flex: 1 1 auto;
     flex-direction: column;
-    border: 1px solid var(--memori-border-color, #e2e8f0);
-    border-radius: 8px;
+    gap: var(--memori-spacing-xs);
 }
 
-.memori-known-facts-table-wrapper {
-    .memori-table-scroll {
-        min-height: 0;
-        max-height: none;
-        flex: 1 1 auto;
-    }
-
-    .memori-table-footer {
-        flex-shrink: 0;
-    }
-
-    .memori-table-pagination__range {
-        display: none;
-    }
-
-    .memori-table-pagination__page-size {
-        display: none;
-    }
-}
-
-.memori-known-facts-text-cell {
-    display: block;
+.memori-known-facts-card__text {
     min-width: 0;
+    margin: 0;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-normal);
     overflow-wrap: anywhere;
-    white-space: normal;
-    word-break: break-word;
 }
 
-.memori-known-facts-date-cell {
-    font-variant-numeric: tabular-nums;
+.memori-known-facts-card__date {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-xs);
 }
 
-/* Delete confirm uses Modal stacking="stacked" (1600 + z-index-base).
-   Do not set z-index here: an unlayered rule would beat @layer memori.components
-   and park the viewport under the blurred backdrop. */
+.memori-known-facts-card__actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2px;
+}
+
+.memori-known-facts-card__edit,
+.memori-known-facts-card__delete {
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+}
+
+.memori-known-facts-card__delete:hover,
+.memori-known-facts-card__delete:focus-visible {
+    background: color-mix(in oklch, var(--memori-error) 10%, transparent);
+    color: var(--memori-error);
+}
+
+.memori-known-facts-card__edit-label {
+    color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-known-facts-card__textarea {
+    width: 100%;
+    min-height: 4.5rem;
+    box-sizing: border-box;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-field);
+    background: var(--memori-secondary-background);
+    color: var(--memori-text-color);
+    font: inherit;
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-normal);
+    resize: vertical;
+}
+
+.memori-known-facts-card__textarea:focus {
+    border-color: var(--memori-primary);
+    outline: none;
+}
+
+.memori-known-facts-card__edit-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
 
 @media (max-width: 768px) {
-    .memori-known-facts-table-wrapper .memori-table-cell,
-    .memori-known-facts-table-wrapper .memori-table--cell {
-        overflow: visible;
-        white-space: normal;
+    .memori-known-facts-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .memori-known-facts-search {
+        flex-basis: 100%;
     }
 }

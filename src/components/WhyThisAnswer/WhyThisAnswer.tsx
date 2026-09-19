@@ -1,22 +1,31 @@
 import {
   SearchMatches,
   Message,
+  Memory,
+  Medium,
 } from '@memori.ai/memori-api-client/dist/types';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import {
-  Drawer,
-  Spin,
-  Expandable,
+  Button,
   useAlertManager,
   createAlertOptions,
 } from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
-import Snippet from '../Snippet/Snippet';
-import MediaWidget from '../MediaWidget/MediaWidget';
-import { Card } from '@memori.ai/ui';
 import { stripAllInternalTags } from '../../helpers/message';
+import { highlightMatches } from '../../helpers/highlightMatches';
+import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
+import DrawerFooter from '../DrawerFooter/DrawerFooter';
+import ContentPreviewModal from '../ContentPreviewModal/ContentPreviewModal';
+import {
+  FileText,
+  Globe,
+  HelpCircle,
+  Plus,
+  SearchX,
+} from 'lucide-react';
+import cx from 'classnames';
 
 export interface Props {
   sessionID: string;
@@ -26,10 +35,73 @@ export interface Props {
   closeDrawer: () => void;
   client?: ReturnType<typeof memoriApiClient>;
   _TEST_loading?: boolean;
+  disableFetch?: boolean;
+  isAgentAuthor?: boolean;
+  onAddMissingContent?: () => void;
 }
+
+const ANSWER_PREVIEW_CHARS = 160;
+const SNIPPET_CHARS = 220;
+
+type SourceKind = 'question' | 'document' | 'website' | 'story';
 
 const addQuestionMark = (question: string) =>
   question.endsWith('?') ? question : `${question}?`;
+
+const isWebsiteMedium = (medium: Medium) =>
+  medium.mimeType === 'text/html' && !!medium.url;
+
+const isDocumentMedium = (medium: Medium) =>
+  medium.mimeType === 'text/plain' ||
+  medium.mimeType === 'application/pdf' ||
+  medium.mimeType?.startsWith('application/') === true;
+
+const getSourceKind = (memory: Memory): SourceKind => {
+  if (memory.media?.some(isWebsiteMedium)) return 'website';
+  if (memory.media?.some(isDocumentMedium)) return 'document';
+  if (memory.memoryType === 'Story') return 'story';
+  return 'question';
+};
+
+const getSourceTitle = (memory: Memory): string => {
+  const website = memory.media?.find(isWebsiteMedium);
+  if (website?.title) return website.title;
+  const document = memory.media?.find(m => m.title && isDocumentMedium(m));
+  if (document?.title) return document.title;
+  return addQuestionMark(memory.title ?? '');
+};
+
+const getSourceSnippet = (memory: Memory): string => {
+  const answer = memory.answers
+    ?.map(item => stripAllInternalTags(item.text || ''))
+    .find(Boolean);
+  if (answer) return answer;
+  const document = memory.media?.find(
+    m => isDocumentMedium(m) && (m.content || m.title)
+  );
+  if (document?.content) return stripAllInternalTags(document.content);
+  if (document?.title) return document.title;
+  return (
+    memory.titleVariants?.map(addQuestionMark).join(' · ') ||
+    stripAllInternalTags(memory.text || '')
+  );
+};
+
+const truncateText = (text: string, max: number): string => {
+  if (text.length <= max) return text;
+  return `${text.slice(0, max).trimEnd()}…`;
+};
+
+const getOpenUrl = (memory: Memory): string | undefined =>
+  memory.media?.find(isWebsiteMedium)?.url;
+
+const confidenceFill = (
+  level?: SearchMatches['confidenceLevel']
+): 1 | 2 | 3 => {
+  if (level === 'HIGH') return 3;
+  if (level === 'MEDIUM') return 2;
+  return 1;
+};
 
 const WhyThisAnswer = ({
   message,
@@ -39,6 +111,9 @@ const WhyThisAnswer = ({
   closeDrawer,
   client,
   _TEST_loading = false,
+  disableFetch = false,
+  isAgentAuthor = false,
+  onAddMissingContent,
 }: Props) => {
   const { t } = useTranslation();
   const { add } = useAlertManager();
@@ -46,32 +121,49 @@ const WhyThisAnswer = ({
   const sanitizedQuestionAnswered = stripAllInternalTags(
     message.questionAnswered || ''
   );
+  const sanitizedAnswer = stripAllInternalTags(
+    message.translatedText || message.text || ''
+  );
 
   const [matches, setMatches] = useState<SearchMatches[]>(initialMatches);
   const [loading, setLoading] = useState(_TEST_loading);
+  const [answerExpanded, setAnswerExpanded] = useState(false);
+  const [previewMemory, setPreviewMemory] = useState<Memory>();
 
-  /**
-   * Fetch matching memories
-   */
   const fetchMemories = useCallback(async () => {
+    if (_TEST_loading) {
+      setLoading(true);
+      return;
+    }
+    if (disableFetch) {
+      setMatches(initialMatches);
+      setLoading(false);
+      return;
+    }
+    if (!searchMemory) {
+      setMatches(initialMatches);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
-
-    if (_TEST_loading || !searchMemory) return;
-
     try {
-      const { matches, ...response } = await searchMemory(sessionID, {
-        searchType: 'Semantic',
-        numberOfResults: 3,
-        text: sanitizedQuestionAnswered,
-        date: message.date,
-        placeName: message.placeName,
-        placeLatitude: message.placeLatitude,
-        placeLongitude: message.placeLongitude,
-        placeUncertaintyKm: message.placeUncertaintyKm,
-        contextVars: message.contextVars,
-        tag: message.tag,
-        memoryTags: message.memoryTags,
-      });
+      const { matches: nextMatches, ...response } = await searchMemory(
+        sessionID,
+        {
+          searchType: 'Semantic',
+          numberOfResults: 5,
+          text: sanitizedQuestionAnswered,
+          date: message.date,
+          placeName: message.placeName,
+          placeLatitude: message.placeLatitude,
+          placeLongitude: message.placeLongitude,
+          placeUncertaintyKm: message.placeUncertaintyKm,
+          contextVars: message.contextVars,
+          tag: message.tag,
+          memoryTags: message.memoryTags,
+        }
+      );
 
       if (response.resultCode !== 0) {
         console.error(response);
@@ -82,7 +174,7 @@ const WhyThisAnswer = ({
           })
         );
       } else {
-        setMatches(matches ?? []);
+        setMatches(nextMatches ?? []);
       }
     } catch (err) {
       console.error('WHYTHISANSWER/FETCH', err);
@@ -90,152 +182,284 @@ const WhyThisAnswer = ({
     }
 
     setLoading(false);
-  }, [message, sessionID]);
+  }, [
+    _TEST_loading,
+    add,
+    disableFetch,
+    initialMatches,
+    message.contextVars,
+    message.date,
+    message.memoryTags,
+    message.placeLatitude,
+    message.placeLongitude,
+    message.placeName,
+    message.placeUncertaintyKm,
+    message.tag,
+    sanitizedQuestionAnswered,
+    searchMemory,
+    sessionID,
+    t,
+  ]);
+
   useEffect(() => {
-    fetchMemories();
-  }, [fetchMemories, message, sessionID]);
+    void fetchMemories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    sessionID,
+    sanitizedQuestionAnswered,
+    disableFetch,
+    _TEST_loading,
+  ]);
+
+  const answerNeedsTruncation = sanitizedAnswer.length > ANSWER_PREVIEW_CHARS;
+  const displayedAnswer =
+    answerExpanded || !answerNeedsTruncation
+      ? sanitizedAnswer
+      : truncateText(sanitizedAnswer, ANSWER_PREVIEW_CHARS);
+
+  const sourceKindLabel = useCallback(
+    (kind: SourceKind) => {
+      if (kind === 'document') return t('whyThisAnswerTypeDocument');
+      if (kind === 'website') return t('whyThisAnswerTypeWebsite');
+      if (kind === 'story') return t('whyThisAnswerTypeStory');
+      return t('whyThisAnswerTypeQuestion');
+    },
+    [t]
+  );
+
+  const confidenceLabel = useCallback(
+    (level?: SearchMatches['confidenceLevel']) => {
+      if (level === 'HIGH') return t('whyThisAnswerConfidenceHigh');
+      if (level === 'MEDIUM') return t('whyThisAnswerConfidenceMedium');
+      return t('whyThisAnswerConfidenceLow');
+    },
+    [t]
+  );
+
+  const sourceKindIcon = (kind: SourceKind) => {
+    if (kind === 'document') return <FileText aria-hidden />;
+    if (kind === 'website') return <Globe aria-hidden />;
+    return <HelpCircle aria-hidden />;
+  };
+
+  const openSource = (memory: Memory) => {
+    const url = getOpenUrl(memory);
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    setPreviewMemory(memory);
+  };
+
+  const previewTitle = previewMemory ? getSourceTitle(previewMemory) : '';
+  const previewBody = useMemo(() => {
+    if (!previewMemory) return '';
+    const answers = previewMemory.answers
+      ?.map(item => stripAllInternalTags(item.text || ''))
+      .filter(Boolean)
+      .join('\n\n');
+    return answers || getSourceSnippet(previewMemory);
+  }, [previewMemory]);
+
+  const footer =
+    matches.length > 0 ? (
+      <DrawerFooter>
+        <p className="memori-whythisanswer-disclaimer">
+          {t('whyThisAnswerDisclaimer')}
+        </p>
+      </DrawerFooter>
+    ) : undefined;
 
   return (
-    <Drawer
+    <SideDrawer
       open={visible}
-      anchor="right"
+      size="md"
       className="memori-whythisanswer-drawer"
-      onClose={() => {
-        closeDrawer();
-      }}
       title={t('whyThisAnswer')}
+      description={t('whyThisAnswerDescription')}
+      closeLabel={t('close') || 'Close'}
+      footer={footer}
+      onClose={closeDrawer}
     >
-      <p>{t('whyThisAnswerHelper')}</p>
-
       {sanitizedQuestionAnswered && (
-        <p className="memori--whythisanswer-question-answered">
-          <strong>{t('question') || 'Question'}:</strong>{' '}
-          {sanitizedQuestionAnswered}
-        </p>
+        <section className="memori-whythisanswer-pair">
+          <div className="memori-whythisanswer-pair__block">
+            <span className="memori-whythisanswer-pair__label">
+              {isAgentAuthor
+                ? t('whyThisAnswerUserAsked')
+                : t('whyThisAnswerYouAsked')}
+            </span>
+            <p className="memori-whythisanswer-pair__text">
+              {sanitizedQuestionAnswered}
+            </p>
+          </div>
+          {sanitizedAnswer && (
+            <>
+              <div className="memori-whythisanswer-pair__divider" />
+              <div className="memori-whythisanswer-pair__block">
+                <span className="memori-whythisanswer-pair__label">
+                  {t('whyThisAnswerAgentReplied')}
+                </span>
+                <p className="memori-whythisanswer-pair__text">
+                  {displayedAnswer}
+                </p>
+                {answerNeedsTruncation && (
+                  <button
+                    type="button"
+                    className="memori-whythisanswer-pair__expand"
+                    onClick={() => setAnswerExpanded(open => !open)}
+                  >
+                    {answerExpanded
+                      ? t('collapse')
+                      : t('whyThisAnswerShowFull')}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </section>
       )}
 
-      <Spin primary spinning={loading}>
-        {!loading && matches.length === 0 && (
-          <p role="status" className="memori--whythisanswer-no-results">
-            {t('nothingFound')}
-          </p>
-        )}
-        {loading && matches.length === 0 && (
-          <ul className="memori--whythisanswer-list memori--whythisanswer-skeleton">
-            <li>
-              <div className="memori--whythisanswer-title">
-                <span className="memori--whythisanswer-confidence">
-                  <span className="memori--whythisanswer-skeleton-text"></span>
-                </span>
-                <div className="memori--whythisanswer-title-text">
-                  <p className="memori--whythisanswer-skeleton-text"></p>
-                </div>
-              </div>
-              <p>
-                <div className="memori--whythisanswer-skeleton-text"></div>
-                <div className="memori--whythisanswer-skeleton-text"></div>
-                <div className="memori--whythisanswer-skeleton-text"></div>
-              </p>
-              <div className="memori--whythisanswer-skeleton-block"></div>
-            </li>
-            <li>
-              <div className="memori--whythisanswer-title">
-                <span className="memori--whythisanswer-confidence">
-                  <span className="memori--whythisanswer-skeleton-text"></span>
-                </span>
-                <div className="memori--whythisanswer-title-text">
-                  <p className="memori--whythisanswer-skeleton-text"></p>
-                  <p className="memori--whythisanswer-skeleton-text"></p>
-                </div>
-              </div>
-              <p>
-                <div className="memori--whythisanswer-skeleton-text"></div>
-                <div className="memori--whythisanswer-skeleton-text"></div>
-              </p>
-              <div className="memori--whythisanswer-skeleton-block"></div>
-            </li>
-          </ul>
-        )}
-        {matches.length > 0 && (
-          <ul className="memori--whythisanswer-list">
-            {matches.map(m => (
-              <li key={m.memory.memoryID}>
-                <div className="memori--whythisanswer-title">
-                  <span className="memori--whythisanswer-confidence">
-                    {m.confidenceLevel}
-                  </span>
-                  <div className="memori--whythisanswer-title-text">
-                    <div className="memori--whythisanswer-title-text-top-container">
-                      <p>
-                        <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
-                      </p>
-                    </div>
-                    <p>
-                      {m.memory.titleVariants
-                        ?.map(t => addQuestionMark(t))
-                        ?.join(' | ')}
-                    </p>
-                    {(m.memory.receiverName || m.memory.receiverTag) && (
-                      <p className="memori--whythisanswer-title-text-top">
-                        {t('receiverLabel')}: {m.memory.receiverTag}{' '}
-                        {m.memory.receiverName}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                {m.memory.contextVars && (
-                  <div className="memori--whythisanswer-contextvars">
-                    {Object.entries(m.memory.contextVars || {}).map(
-                      ([key, value]) => (
-                        <Card
-                          key={key}
-                          className="memori--whythisanswer-contextvars-card"
-                        >
-                          <span>
-                            {key}: {value?.toString() || '✔️'}
-                          </span>
-                        </Card>
-                      )
-                    )}
-                  </div>
-                )}
-                {m.memory.answers?.map((a, i) => (
-                  <p key={i} className="memori--whythisanswer-answer">
-                    <Expandable mode="rows" rows={3}>
-                      {stripAllInternalTags(a.text || '')}
-                    </Expandable>
-                  </p>
-                ))}
+      {loading && matches.length === 0 && (
+        <ul className="memori-whythisanswer-list memori-whythisanswer-skeleton">
+          <li className="memori-whythisanswer-card">
+            <span className="memori-whythisanswer-skeleton-block" />
+            <div className="memori-whythisanswer-card__body">
+              <span className="memori-whythisanswer-skeleton-text" />
+              <span className="memori-whythisanswer-skeleton-text" />
+            </div>
+          </li>
+          <li className="memori-whythisanswer-card">
+            <span className="memori-whythisanswer-skeleton-block" />
+            <div className="memori-whythisanswer-card__body">
+              <span className="memori-whythisanswer-skeleton-text" />
+              <span className="memori-whythisanswer-skeleton-text" />
+            </div>
+          </li>
+        </ul>
+      )}
 
-                <MediaWidget
-                  links={m.memory.media?.filter(
-                    m => m.mimeType === 'text/html'
-                  )}
-                />
+      {!loading && matches.length === 0 && (
+        <SideDrawerEmpty
+          icon={<SearchX />}
+          title={t('whyThisAnswerEmptyTitle')}
+          description={
+            isAgentAuthor
+              ? t('whyThisAnswerEmptyAuthorDescription')
+              : t('whyThisAnswerEmptyDescription')
+          }
+        >
+          {isAgentAuthor && (
+            <Button
+              variant="outline"
+              className="memori-whythisanswer-empty-action"
+              icon={<Plus aria-hidden />}
+              onClick={() => {
+                onAddMissingContent?.();
+                closeDrawer();
+              }}
+            >
+              {t('whyThisAnswerAddContent')}
+            </Button>
+          )}
+        </SideDrawerEmpty>
+      )}
 
-                {m.memory.media
-                  ?.filter(m => m.mimeType === 'text/plain')
-                  ?.map(m => (
-                    <Expandable
-                      mode="rows"
-                      rows={2}
-                      key={m.mediumID}
-                      lineHeightMultiplier={2}
-                      innerClassName="memori--whythisanswer-snippet-expandable"
+      {matches.length > 0 && (
+        <>
+          <div className="memori-whythisanswer-heading">
+            <h3 className="memori-whythisanswer-heading__title">
+              {t('whyThisAnswerContentsUsed')}
+            </h3>
+            <span className="memori-whythisanswer-heading__count">
+              {matches.length}
+            </span>
+          </div>
+          <ul className="memori-whythisanswer-list">
+            {matches.map(match => {
+              const kind = getSourceKind(match.memory);
+              const snippet = truncateText(
+                getSourceSnippet(match.memory),
+                SNIPPET_CHARS
+              );
+              const filled = confidenceFill(match.confidenceLevel);
+              const tags = match.memory.tags?.filter(Boolean);
+
+              return (
+                <li key={match.memory.memoryID}>
+                  <article className="memori-whythisanswer-card">
+                    <span
+                      className="memori-whythisanswer-card__icon"
+                      aria-hidden
                     >
-                      <Snippet
-                        key={m.mediumID}
-                        medium={m}
-                        showCopyButton={false}
-                      />
-                    </Expandable>
-                  ))}
-              </li>
-            ))}
+                      {sourceKindIcon(kind)}
+                    </span>
+                    <div className="memori-whythisanswer-card__body">
+                      <div className="memori-whythisanswer-card__title-row">
+                        <h4 className="memori-whythisanswer-card__title">
+                          {getSourceTitle(match.memory)}
+                        </h4>
+                        <span className="memori-whythisanswer-card__type">
+                          {sourceKindLabel(kind)}
+                        </span>
+                      </div>
+                      {snippet && (
+                        <p className="memori-whythisanswer-card__snippet">
+                          {highlightMatches(snippet, sanitizedQuestionAnswered)}
+                        </p>
+                      )}
+                      <div className="memori-whythisanswer-card__meta">
+                        <span
+                          className="memori-whythisanswer-confidence"
+                          aria-label={confidenceLabel(match.confidenceLevel)}
+                        >
+                          <span
+                            className="memori-whythisanswer-confidence__bars"
+                            aria-hidden
+                          >
+                            {[1, 2, 3].map(bar => (
+                              <span
+                                key={bar}
+                                className={cx(
+                                  'memori-whythisanswer-confidence__bar',
+                                  bar <= filled &&
+                                    'memori-whythisanswer-confidence__bar--filled'
+                                )}
+                              />
+                            ))}
+                          </span>
+                          {confidenceLabel(match.confidenceLevel)}
+                        </span>
+                        {tags && tags.length > 0 && (
+                          <span className="memori-whythisanswer-card__tags">
+                            {tags.join(' · ')}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      className="memori-whythisanswer-card__open"
+                      onClick={() => openSource(match.memory)}
+                    >
+                      {t('whyThisAnswerOpen')}
+                    </Button>
+                  </article>
+                </li>
+              );
+            })}
           </ul>
-        )}
-      </Spin>
-    </Drawer>
+        </>
+      )}
+
+      <ContentPreviewModal
+        open={previewMemory != null}
+        onClose={() => setPreviewMemory(undefined)}
+        title={previewTitle}
+      >
+        <p className="memori-whythisanswer-preview">{previewBody}</p>
+      </ContentPreviewModal>
+    </SideDrawer>
   );
 };
 

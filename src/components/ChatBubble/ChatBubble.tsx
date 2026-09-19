@@ -38,6 +38,7 @@ import {
   stripAllInternalTags,
   truncateMessage,
 } from '../../helpers/message';
+import { getExposedSourcesCount } from '../../helpers/sourcesCount';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
@@ -445,6 +446,7 @@ const ChatBubble: React.FC<Props> = ({
       },
     },
   } as const;
+  const exposedSourcesCount = getExposedSourcesCount(message);
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
@@ -1075,16 +1077,34 @@ const ChatBubble: React.FC<Props> = ({
                           <span className="memori-chat--bubble-addon-tooltip-trigger">
                             <Button
                               variant="ghost"
-                              shape="circle"
+                              shape={
+                                exposedSourcesCount == null
+                                  ? 'circle'
+                                  : 'default'
+                              }
                               size="sm"
-                              className="memori-chat--bubble-action-button"
+                              className={cx(
+                                'memori-chat--bubble-action-button',
+                                exposedSourcesCount != null &&
+                                  'memori-chat--bubble-action-button--sources',
+                                exposedSourcesCount === 0 &&
+                                  'memori-chat--bubble-action-button--sources-empty'
+                              )}
                               onClick={() => setShowingWhyThisAnswer(true)}
                               disabled={showingWhyThisAnswer}
                               aria-label={
                                 t('whyThisAnswer') || 'Why this answer?'
                               }
                               icon={<HelpCircle aria-hidden />}
-                            />
+                            >
+                              {exposedSourcesCount != null &&
+                                exposedSourcesCount > 0 &&
+                                t('whyThisAnswerSourcesCount', {
+                                  count: exposedSourcesCount,
+                                })}
+                              {exposedSourcesCount === 0 &&
+                                t('whyThisAnswerNoSources')}
+                            </Button>
                           </span>
                         </Tooltip>
                       )}
@@ -1131,6 +1151,7 @@ const ChatBubble: React.FC<Props> = ({
           message={message}
           closeDrawer={() => setShowingWhyThisAnswer(false)}
           sessionID={sessionID}
+          isAgentAuthor={!!memori.isGiver}
         />
       )}
 

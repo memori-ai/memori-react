@@ -598,6 +598,24 @@
 .memori-chat--bubble-action-button:hover {
     background-color: var(--memori-secondary-background) !important;
 }
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button--sources {
+    width: auto;
+    min-width: 1.875rem;
+    height: 1.875rem;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    color: var(--memori-primary);
+    font-size: var(--memori-text-size-xs);
+    font-weight: var(--memori-text-weight-medium);
+    gap: 6px;
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button--sources-empty {
+    background: transparent;
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+}
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;

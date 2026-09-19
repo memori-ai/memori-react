@@ -722,3 +722,44 @@ it('shows formatted date and time in the bubble addon when showDates is true', (
   expect(timestamp?.textContent).toMatch(/\d{2}\/\d{2}\/\d{4}/);
   expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
 });
+
+it('shows the why-this-answer icon without inventing a source count', () => {
+  render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      apiUrl="https://backend.memori.ai"
+      message={{
+        fromUser: false,
+        text: 'We use the DJI Mic Mini.',
+        questionAnswered: 'Which microphones do we use?',
+      }}
+    />
+  );
+
+  expect(
+    screen.getByRole('button', { name: 'whyThisAnswer' })
+  ).toBeInTheDocument();
+  expect(screen.queryByText('whyThisAnswerSourcesCount')).not.toBeInTheDocument();
+  expect(screen.queryByText('whyThisAnswerNoSources')).not.toBeInTheDocument();
+});
+
+it('shows the source count on the why-this-answer button when the backend exposes it', () => {
+  render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      apiUrl="https://backend.memori.ai"
+      message={{
+        fromUser: false,
+        text: 'We use the DJI Mic Mini.',
+        questionAnswered: 'Which microphones do we use?',
+        sourcesCount: 3,
+      } as never}
+    />
+  );
+
+  expect(screen.getByText('whyThisAnswerSourcesCount')).toBeInTheDocument();
+});

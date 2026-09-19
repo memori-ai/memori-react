@@ -7,6 +7,8 @@ import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './WhyThisAnswer.css';
+import '../SideDrawer/SideDrawer.css';
+import '../DrawerFooter/DrawerFooter.css';
 import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
@@ -58,6 +60,7 @@ const Template: Story<Props> = args => (
 export const Default = Template.bind({});
 Default.args = {
   visible: true,
+  disableFetch: true,
 };
 
 export const Loading = Template.bind({});
@@ -66,9 +69,25 @@ Loading.args = {
   _TEST_loading: true,
 };
 
+export const Empty = Template.bind({});
+Empty.args = {
+  visible: true,
+  disableFetch: true,
+  initialMatches: [],
+};
+
+export const EmptyForAuthor = Template.bind({});
+EmptyForAuthor.args = {
+  visible: true,
+  disableFetch: true,
+  isAgentAuthor: true,
+  initialMatches: [],
+};
+
 export const WithDocumentTagsInQuestion = Template.bind({});
 WithDocumentTagsInQuestion.args = {
   visible: true,
+  disableFetch: true,
   message: {
     questionAnswered:
       '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
@@ -100,6 +119,7 @@ WithDocumentTagsInQuestion.parameters = {
 export const WithDocumentTagsInAnswers = Template.bind({});
 WithDocumentTagsInAnswers.args = {
   visible: true,
+  disableFetch: true,
   initialMatches: [
     {
       confidence: 0.85,
@@ -129,6 +149,7 @@ WithDocumentTagsInAnswers.parameters = {
 export const WithData = Template.bind({});
 WithData.args = {
   visible: true,
+  disableFetch: true,
   initialMatches: [
     {
       confidence: 0.8,

@@ -406,6 +406,7 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
                   contextVars: { COUNTRY: 'France' },
                 }}
                 closeDrawer={() => setShowWhyThisAnswerDrawer(false)}
+                disableFetch
                 initialMatches={[
                   {
                     confidence: 0.95,
