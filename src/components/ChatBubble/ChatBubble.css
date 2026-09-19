@@ -50,7 +50,7 @@
     padding: calc(var(--memori-spacing-xs) * 0.75) var(--memori-spacing-sm);
     border-radius: 999px;
     background: color-mix(in oklch, var(--memori-text-color) 8%, transparent);
-    color: color-mix(in oklch, var(--memori-text-color) 68%, transparent);
+    color: var(--memori-main-background);
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;

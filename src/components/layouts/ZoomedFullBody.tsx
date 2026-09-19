@@ -271,8 +271,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading}>
-        {useSideArtifactChrome && poweredBy}
-
         {Header && headerProps && mobileHeaderProps && (
           <div className="memori-fullpage-top-header">
             <div className="memori-chat-layout--header">
