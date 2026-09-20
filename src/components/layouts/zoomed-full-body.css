@@ -317,10 +317,12 @@
     background: var(--memori-secondary-background);
 }
 
-/* Hide avatar column when artifact drawer is open in split mode */
+/* Hide avatar column when artifact drawer is open (split and overlay).
+   Overlay must still show chat on the left, like the CHAT layout. */
 .memori-widget.memori-layout-zoomed_full_body
     .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
-    .memori--grid-column-left {
+    .memori--grid-column-left,
+.memori-widget.memori-layout-zoomed_full_body .memori--grid-column-left[hidden] {
     display: none;
 }
 
@@ -337,12 +339,6 @@
         bottom: 0;
         width: min(560px, 100%);
         box-shadow: var(--memori-shadow-lg, 0 10px 28px rgba(0, 0, 0, 0.12));
-    }
-
-    .memori-widget.memori-layout-zoomed_full_body
-        .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
-        .memori--grid-column-left {
-        display: flex;
     }
 }
 

@@ -101,3 +101,38 @@ it('renders PoweredBy only once when an artifact drawer is open', async () => {
 
   expect(container.querySelectorAll('.memori--powered-by')).toHaveLength(1);
 });
+
+const renderZoomedWithArtifact = () =>
+  render(
+    <I18nWrapper>
+      <ArtifactProvider>
+        <OpenArtifact>
+          <ZoomedFullBodyLayout
+            Avatar={Dummy as any}
+            StartPanel={Dummy as any}
+            Chat={ChatStub as any}
+            chatProps={{} as any}
+            sessionId="session-1"
+            hasUserActivatedSpeak
+          />
+        </OpenArtifact>
+      </ArtifactProvider>
+    </I18nWrapper>
+  );
+
+it('hides the avatar column while the artifact is open so chat stays on the left', async () => {
+  const { container } = renderZoomedWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori--grid-column-artifact--open')
+    ).not.toBeNull();
+  });
+
+  expect(container.querySelector('.memori--grid-column-left')).toHaveAttribute(
+    'hidden'
+  );
+  expect(
+    container.querySelector('.memori-chat-layout--main')
+  ).toBeInTheDocument();
+});

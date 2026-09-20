@@ -19,6 +19,8 @@ button.memori-artifact-handler {
 }
 
 .memori-artifact-handler {
+    --memori-artifact-chevron-rest: -90deg;
+
     display: flex;
     min-width: 300px;
     align-items: center;
@@ -115,10 +117,6 @@ button.memori-artifact-handler {
  *   bottom (chatlog accordion): down → up
  *   side (layout column / overlay): right → left
  */
-.memori-artifact-handler {
-    --memori-artifact-chevron-rest: -90deg;
-}
-
 .memori-artifact-handler[data-placement='bottom'] {
     --memori-artifact-chevron-rest: 0deg;
 }

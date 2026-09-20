@@ -391,8 +391,11 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         {/* Content row: grid (avatar+chat) + artifact column as full-height siblings */}
         <div className="memori-fullpage-content-row">
           <div className="memori--grid">
-            {/* Avatar column — hidden via CSS when artifact is open */}
-            <div className="memori--grid-column memori--grid-column-left">
+            {/* Avatar column — hidden when artifact is open so chat stays on the left */}
+            <div
+              className="memori--grid-column memori--grid-column-left"
+              hidden={useSideArtifactChrome}
+            >
               {isSessionStarted && agentStatus && (
                 <div
                   className="memori-fullpage-agent-status"

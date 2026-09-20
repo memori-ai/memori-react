@@ -1,6 +1,6 @@
 .memori-chat-history-drawer .memori-drawer__title {
-    min-width: 0;
     width: 100%;
+    min-width: 0;
 }
 
 .memori-chat-history-drawer--detail .memori-drawer__title {
@@ -50,8 +50,8 @@
 
 .memori-chat-history-drawer--toolbar {
     display: flex;
-    flex-shrink: 0;
     flex-direction: column;
+    flex-shrink: 0;
     align-items: stretch;
     gap: var(--memori-spacing-sm);
 }
@@ -93,8 +93,8 @@
 }
 
 .memori-chat-history-drawer--filters-toggle {
-    align-self: flex-start;
     min-height: 36px;
+    align-self: flex-start;
     padding-right: var(--memori-spacing-sm);
     padding-left: var(--memori-spacing-sm);
     color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
@@ -245,9 +245,9 @@
 }
 
 .memori-chat-history-drawer--list-item-chevron {
-    flex-shrink: 0;
     width: 1.1rem;
     height: 1.1rem;
+    flex-shrink: 0;
     margin-right: var(--memori-spacing-sm);
     color: color-mix(in oklch, var(--memori-text-color) 45%, transparent);
     pointer-events: none;

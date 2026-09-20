@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
+import { Code, Eye } from 'lucide-react';
 import { ArtifactTab } from '../../../types/artifact.types';
 
 interface TabSwitchProps {
@@ -20,14 +21,16 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
     return null;
   }
 
-  const tabs: { id: ArtifactTab; label: string }[] = [
+  const tabs: { id: ArtifactTab; label: string; icon: React.ReactNode }[] = [
     {
       id: 'preview',
       label: t('artifact.preview') || 'Preview',
+      icon: <Eye className="memori-tab-switch__icon" aria-hidden />,
     },
     {
       id: 'code',
       label: t('artifact.source') || t('artifact.code') || 'Source',
+      icon: <Code className="memori-tab-switch__icon" aria-hidden />,
     },
   ];
 
@@ -49,6 +52,7 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
             aria-pressed={pressed}
             onClick={() => onTabChange(tab.id)}
           >
+            {tab.icon}
             {tab.label}
           </button>
         );

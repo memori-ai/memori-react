@@ -160,6 +160,23 @@ it('shows a resizable artifact column with name in the toolbar', async () => {
   ).toHaveTextContent('Hello');
 });
 
+it('hides the avatar column while the artifact is open so chat stays on the left', async () => {
+  const { container } = renderFullPageWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori--grid-column-artifact--open')
+    ).not.toBeNull();
+  });
+
+  expect(container.querySelector('.memori--grid-column-left')).toHaveAttribute(
+    'hidden'
+  );
+  expect(
+    container.querySelector('.memori-chat-layout--main')
+  ).toBeInTheDocument();
+});
+
 it('overlays the artifact panel under 1200px instead of compressing chat', async () => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
@@ -182,4 +199,8 @@ it('overlays the artifact panel under 1200px instead of compressing chat', async
       container.querySelector('.memori-fullpage-content-row--artifact-overlay')
     ).not.toBeNull();
   });
+
+  expect(container.querySelector('.memori--grid-column-left')).toHaveAttribute(
+    'hidden'
+  );
 });

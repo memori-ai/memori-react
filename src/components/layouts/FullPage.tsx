@@ -501,8 +501,11 @@ const FullPageLayout: React.FC<LayoutProps> = ({
           }
         >
           <div className="memori--grid">
-            {/* Avatar column — hidden via CSS when artifact is open */}
-            <div className="memori--grid-column memori--grid-column-left">
+            {/* Avatar column — hidden when artifact is open so chat stays on the left */}
+            <div
+              className="memori--grid-column memori--grid-column-left"
+              hidden={useSideArtifactChrome}
+            >
               {isSessionStarted && agentStatus && (
                 <div
                   className="memori-fullpage-agent-status"
