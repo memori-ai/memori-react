@@ -119,6 +119,7 @@ exports[`renders MediaWidget with media unchanged 1`] = `
                   />
                   <img
                     alt="Game Cover"
+                    class="memori-motion-fade-in"
                     src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                   />
                 </picture>
