@@ -20,7 +20,6 @@ import {
   Check,
   ChevronDown,
   Lightbulb,
-  Pencil,
   Search,
   Trash2,
 } from 'lucide-react';
@@ -48,42 +47,10 @@ export interface Props {
   closeDrawer: () => void;
 }
 
-type KnownFactsClient = ReturnType<typeof memoriApiClient>['knownFacts'] & {
-  patchKnownFact?: (
-    sessionId: string,
-    knownFact: KnownFact
-  ) => Promise<{ resultCode: number; resultMessage?: string }>;
-};
-
 const filterFacts = (facts: KnownFact[], query: string): KnownFact[] => {
   const needle = query.trim().toLowerCase();
   if (!needle) return facts;
   return facts.filter(fact => fact.text.toLowerCase().includes(needle));
-};
-
-const patchKnownFact = async (
-  apiClient: ReturnType<typeof memoriApiClient>,
-  sessionID: string,
-  fact: KnownFact
-) => {
-  const knownFactsApi = apiClient.knownFacts as KnownFactsClient;
-  if (typeof knownFactsApi.patchKnownFact === 'function') {
-    return knownFactsApi.patchKnownFact(sessionID, fact);
-  }
-
-  const response = await fetch(
-    `${apiClient.constants.ENGINE_URL}/KnownFact/${sessionID}/${fact.knownFactID}`,
-    {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(fact),
-    }
-  );
-  return response.json() as Promise<{
-    resultCode: number;
-    resultMessage?: string;
-  }>;
 };
 
 const KnownFacts = ({
@@ -117,9 +84,6 @@ const KnownFacts = ({
   const searchQuery = useDebounce(searchInput, 300);
   const [selectMode, setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [editingId, setEditingId] = useState<string>();
-  const [editingText, setEditingText] = useState('');
-  const [savingEdit, setSavingEdit] = useState(false);
   const [bulkDeleteModalVisible, setBulkDeleteModalVisible] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [deleteModalVisibleFor, setDeleteModalVisibleFor] = useState<string>();
@@ -220,7 +184,6 @@ const KnownFacts = ({
   useEffect(() => {
     setSelectMode(false);
     setSelectedIds([]);
-    setEditingId(undefined);
   }, [searchQuery]);
 
   const selectedRowsLabel = useMemo(
@@ -244,78 +207,6 @@ const KnownFacts = ({
     setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
-  };
-
-  const startEditing = (fact: KnownFact) => {
-    setSelectMode(false);
-    setSelectedIds([]);
-    setEditingId(fact.knownFactID);
-    setEditingText(fact.text);
-  };
-
-  const cancelEditing = () => {
-    setEditingId(undefined);
-    setEditingText('');
-  };
-
-  const saveEditing = async () => {
-    if (!editingId) return;
-    const nextText = editingText.trim();
-    if (!nextText) return;
-    const current = knownFacts.find(f => f.knownFactID === editingId);
-    if (!current) return;
-
-    if (disableFetch) {
-      setKnownFacts(prev =>
-        prev.map(fact =>
-          fact.knownFactID === editingId ? { ...fact, text: nextText } : fact
-        )
-      );
-      initialKnownFactsRef.current = initialKnownFactsRef.current.map(fact =>
-        fact.knownFactID === editingId ? { ...fact, text: nextText } : fact
-      );
-      cancelEditing();
-      return;
-    }
-
-    setSavingEdit(true);
-    try {
-      const response = await patchKnownFact(apiClient, sessionID, {
-        ...current,
-        text: nextText,
-      });
-      if (response.resultCode === 0) {
-        add(
-          createAlertOptions({
-            description: t('knownFacts.updateSuccess'),
-            severity: 'success',
-          })
-        );
-        setKnownFacts(prev =>
-          prev.map(fact =>
-            fact.knownFactID === editingId ? { ...fact, text: nextText } : fact
-          )
-        );
-        cancelEditing();
-      } else {
-        add(
-          createAlertOptions({
-            description: t(getErrori18nKey(response.resultCode)),
-            severity: 'error',
-          })
-        );
-      }
-    } catch (err) {
-      const error = err as Error;
-      add(
-        createAlertOptions({
-          description: t('Error') + error.message,
-          severity: 'error',
-        })
-      );
-    } finally {
-      setSavingEdit(false);
-    }
   };
 
   const deleteFacts = async (ids: string[]) => {
@@ -419,7 +310,6 @@ const KnownFacts = ({
             onClick={() => {
               setSelectMode(on => !on);
               setSelectedIds([]);
-              setEditingId(undefined);
             }}
           >
             {t('knownFacts.select')}
@@ -486,7 +376,6 @@ const KnownFacts = ({
           aria-busy={loading || undefined}
         >
           {knownFacts.map(fact => {
-            const isEditing = editingId === fact.knownFactID;
             const isSelected = selectedIds.includes(fact.knownFactID);
             const relative = fact.creationTimestamp
               ? formatRelativeTime(fact.creationTimestamp, i18n.language)
@@ -512,39 +401,6 @@ const KnownFacts = ({
                       {fact.text}
                     </span>
                   </label>
-                ) : isEditing ? (
-                  <div className="memori-known-facts-card memori-known-facts-card--editing">
-                    <label
-                      className="memori-known-facts-card__edit-label"
-                      htmlFor={`memori-known-fact-edit-${fact.knownFactID}`}
-                    >
-                      {t('knownFacts.editTextLabel')}
-                    </label>
-                    <textarea
-                      id={`memori-known-fact-edit-${fact.knownFactID}`}
-                      className="memori-known-facts-card__textarea"
-                      rows={3}
-                      value={editingText}
-                      onChange={event => setEditingText(event.target.value)}
-                    />
-                    <div className="memori-known-facts-card__edit-actions">
-                      <Button
-                        variant="primary"
-                        loading={savingEdit}
-                        disabled={savingEdit || !editingText.trim()}
-                        onClick={() => void saveEditing()}
-                      >
-                        {t('login.save') || t('apply')}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        disabled={savingEdit}
-                        onClick={cancelEditing}
-                      >
-                        {t('cancel')}
-                      </Button>
-                    </div>
-                  </div>
                 ) : (
                   <article className="memori-known-facts-card">
                     <div className="memori-known-facts-card__content">
@@ -561,16 +417,6 @@ const KnownFacts = ({
                       )}
                     </div>
                     <div className="memori-known-facts-card__actions">
-                      <Button
-                        variant="ghost"
-                        shape="circle"
-                        size="sm"
-                        className="memori-known-facts-card__edit"
-                        aria-label={t('knownFacts.editLabel') || undefined}
-                        title={t('edit') || ''}
-                        icon={<Pencil aria-hidden />}
-                        onClick={() => startEditing(fact)}
-                      />
                       <Button
                         variant="ghost"
                         shape="circle"

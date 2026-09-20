@@ -89,12 +89,6 @@
     background: color-mix(in oklch, var(--memori-primary) 6%, var(--memori-secondary-background));
 }
 
-.memori-known-facts-card--editing {
-    flex-direction: column;
-    border-color: var(--memori-primary);
-    gap: var(--memori-spacing-sm);
-}
-
 .memori-known-facts-card__content {
     display: flex;
     min-width: 0;
@@ -124,7 +118,6 @@
     gap: 2px;
 }
 
-.memori-known-facts-card__edit,
 .memori-known-facts-card__delete {
     color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
 }
@@ -133,38 +126,6 @@
 .memori-known-facts-card__delete:focus-visible {
     background: color-mix(in oklch, var(--memori-error) 10%, transparent);
     color: var(--memori-error);
-}
-
-.memori-known-facts-card__edit-label {
-    color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
-    font-size: var(--memori-text-size-sm);
-    font-weight: var(--memori-text-weight-medium);
-}
-
-.memori-known-facts-card__textarea {
-    width: 100%;
-    min-height: 4.5rem;
-    box-sizing: border-box;
-    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
-    border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-control);
-    background: var(--memori-secondary-background);
-    color: var(--memori-text-color);
-    font: inherit;
-    font-size: var(--memori-text-size-sm);
-    line-height: var(--memori-text-line-normal);
-    resize: vertical;
-}
-
-.memori-known-facts-card__textarea:focus {
-    border-color: var(--memori-primary);
-    outline: none;
-}
-
-.memori-known-facts-card__edit-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--memori-spacing-xs);
 }
 
 .memori-sr-only {

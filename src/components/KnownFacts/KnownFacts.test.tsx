@@ -75,28 +75,6 @@ it('shows an empty state that explains how facts appear', () => {
   expect(screen.getByText('knownFacts.emptyDescription')).toBeInTheDocument();
 });
 
-it('edits a fact inline', () => {
-  render(
-    <KnownFacts
-      apiClient={client}
-      memori={memori}
-      sessionID={sessionID}
-      visible
-      disableFetch
-      initialKnownFacts={facts}
-      closeDrawer={jest.fn()}
-    />
-  );
-
-  fireEvent.click(screen.getAllByLabelText('knownFacts.editLabel')[0]);
-  const textarea = screen.getByLabelText('knownFacts.editTextLabel');
-  fireEvent.change(textarea, { target: { value: 'Corrected fact' } });
-  fireEvent.click(screen.getByRole('button', { name: 'login.save' }));
-
-  expect(screen.getByText('Corrected fact')).toBeInTheDocument();
-  expect(screen.queryByLabelText('knownFacts.editTextLabel')).not.toBeInTheDocument();
-});
-
 it('keeps multi-select behind the Select button', () => {
   render(
     <KnownFacts
