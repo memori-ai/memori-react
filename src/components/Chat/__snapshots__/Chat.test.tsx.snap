@@ -34,7 +34,7 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -257,7 +257,7 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -480,7 +480,7 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -749,7 +749,7 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -986,7 +986,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -1209,7 +1209,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -1432,7 +1432,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -1716,7 +1716,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -1968,7 +1968,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -2172,7 +2172,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -2376,7 +2376,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -2626,7 +2626,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -2863,7 +2863,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -3047,7 +3047,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -3069,7 +3069,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -3253,7 +3253,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -3275,7 +3275,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -3505,7 +3505,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -3527,7 +3527,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -3764,7 +3764,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -4001,7 +4001,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -4238,7 +4238,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -4521,7 +4521,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -4772,7 +4772,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -4995,7 +4995,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -5218,7 +5218,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -5487,7 +5487,7 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -5758,7 +5758,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -5981,7 +5981,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -6204,7 +6204,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -6250,6 +6250,7 @@ exports[`renders Chat with media unchanged 1`] = `
                                     />
                                     <img
                                       alt="Image 0"
+                                      class="memori-motion-fade-in"
                                       src="https://picsum.photos/300/200?random=0"
                                     />
                                   </picture>
@@ -6291,6 +6292,7 @@ exports[`renders Chat with media unchanged 1`] = `
                                     />
                                     <img
                                       alt="Image 1"
+                                      class="memori-motion-fade-in"
                                       src="https://picsum.photos/200/300?random=1"
                                     />
                                   </picture>
@@ -6332,6 +6334,7 @@ exports[`renders Chat with media unchanged 1`] = `
                                     />
                                     <img
                                       alt="Image 2"
+                                      class="memori-motion-fade-in"
                                       src="https://picsum.photos/300/300?random=2"
                                     />
                                   </picture>
@@ -6686,7 +6689,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -6923,7 +6926,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -7146,7 +7149,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -7369,7 +7372,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -7638,7 +7641,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -7747,6 +7750,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                   class="memori-chat--bubble-typing"
                 >
                   <div
+                    class="memori-motion-loop"
                     id="wave"
                   >
                     <span
@@ -7897,7 +7901,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -8120,7 +8124,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -8343,7 +8347,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -8612,7 +8616,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -8713,7 +8717,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -8999,7 +9003,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -9183,7 +9187,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -9205,7 +9209,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -9389,7 +9393,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -9411,7 +9415,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>
@@ -9641,7 +9645,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="User"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://picsum.photos/200"
                   />
                 </picture>
@@ -9663,7 +9667,7 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <img
                     alt="Memori"
-                    class="memori-chat--bubble-avatar-img"
+                    class="memori-chat--bubble-avatar-img memori-motion-fade-in"
                     src="https://aisuru.com/images/aisuru/square_logo.png"
                   />
                 </picture>

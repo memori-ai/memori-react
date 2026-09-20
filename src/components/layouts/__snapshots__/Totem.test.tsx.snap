@@ -488,7 +488,7 @@ exports[`renders Totem layout unchanged 1`] = `
           class="memori-totem-layout--avatar"
         >
           <div
-            class="memori--avatar-wrapper memori--avatar-readyplayerme"
+            class="memori--avatar-wrapper memori-motion-fade-in memori--avatar-readyplayerme"
           >
             <div
               class="memori--blob-container"

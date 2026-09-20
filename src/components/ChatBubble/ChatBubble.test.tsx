@@ -845,3 +845,40 @@ it('shows the source count on the why-this-answer button when the backend expose
 
   expect(screen.getByText('whyThisAnswerSourcesCount')).toBeInTheDocument();
 });
+
+it('does not enter-animate unless animateEnter is set', () => {
+  const { container, rerender } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: 'Hello',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-motion-enter-up')
+  ).not.toBeInTheDocument();
+
+  rerender(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      animateEnter
+      message={{
+        fromUser: false,
+        text: 'Hello',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-chat--bubble-container')
+  ).toHaveClass('memori-motion-enter-up');
+});

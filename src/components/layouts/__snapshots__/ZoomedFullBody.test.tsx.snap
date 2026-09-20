@@ -203,7 +203,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
               class="memori--grid-column memori--grid-column-left"
             >
               <div
-                class="memori--avatar-wrapper memori--avatar-readyplayerme"
+                class="memori--avatar-wrapper memori-motion-fade-in memori--avatar-readyplayerme"
               >
                 <div
                   class="memori--blob-container"

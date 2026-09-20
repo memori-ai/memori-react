@@ -102,6 +102,8 @@ export interface Props {
   codeMimeTypes?: string[];
   translateTo?: string;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
+  /** Play enter motion. Omit for history already present on first render. */
+  animateEnter?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -130,6 +132,7 @@ const ChatBubble: React.FC<Props> = ({
   codeMimeTypes = [],
   translateTo,
   customMediaRenderer,
+  animateEnter = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -350,7 +353,7 @@ const ChatBubble: React.FC<Props> = ({
       }
     >
       <img
-        className="memori-chat--bubble-avatar-img"
+        className="memori-chat--bubble-avatar-img memori-motion-fade-in"
         alt={
           !!message.emitter?.length && !!memori.enableBoardOfExperts
             ? message.emitter
@@ -407,7 +410,7 @@ const ChatBubble: React.FC<Props> = ({
       return (
         <picture className="memori-chat--bubble-avatar">
           <img
-            className="memori-chat--bubble-avatar-img"
+            className="memori-chat--bubble-avatar-img memori-motion-fade-in"
             alt={user?.userName ?? 'User'}
             src={userAvatar ?? user?.avatarURL}
           />
@@ -442,6 +445,7 @@ const ChatBubble: React.FC<Props> = ({
       <div
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': false,
+          'memori-motion-enter-up': animateEnter,
         })}
       >
         {renderAssistantAvatar()}
@@ -571,6 +575,7 @@ const ChatBubble: React.FC<Props> = ({
             shouldShowBubbleAddon &&
             (message.fromUser || hasAnswerBody) &&
             addonOpen,
+          'memori-motion-enter-up': animateEnter,
         })}
         onClick={handleBubbleContainerClick}
       >

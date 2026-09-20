@@ -11,6 +11,7 @@
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
 
 /* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
+@import url('./styles/motion.css');
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
 @import url('./components/Auth/Auth.css');

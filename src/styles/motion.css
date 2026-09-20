@@ -1,0 +1,25 @@
+/**
+ * Host motion utilities.
+ * Durations, easings and keyframes come from @memori.ai/ui — do not add new ones.
+ */
+
+/* Bubble enter: fade + slight translateY. Never scale. */
+.memori-motion-enter-up {
+    animation: memori-fade-in-up var(--memori-motion-duration-normal) var(--memori-motion-ease-out) both;
+}
+
+/* Media / avatar load: opacity only. Pair with a sized placeholder. */
+.memori-motion-fade-in {
+    animation: memori-fade-in var(--memori-motion-duration-normal) var(--memori-motion-ease-out) both;
+}
+
+/* Typing indicator: one opacity loop, no stagger. */
+.memori-motion-loop {
+    animation: memori-pulse var(--memori-motion-duration-loop) var(--memori-motion-ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-motion-enter-up {
+        animation: memori-fade-in var(--memori-motion-duration-normal) var(--memori-motion-ease-out) both;
+    }
+}

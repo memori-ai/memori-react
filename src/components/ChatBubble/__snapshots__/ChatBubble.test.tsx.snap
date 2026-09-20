@@ -201,7 +201,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
       >
         <img
           alt="User"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://picsum.photos/200"
         />
       </picture>
@@ -307,7 +307,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
       >
         <img
           alt="User"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://picsum.photos/200"
         />
       </picture>
@@ -330,7 +330,7 @@ exports[`renders ChatBubble unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -432,7 +432,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -3062,7 +3062,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -4356,7 +4356,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -5384,7 +5384,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -5951,7 +5951,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -6780,7 +6780,7 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7087,7 +7087,7 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7136,7 +7136,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7408,7 +7408,7 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7510,7 +7510,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7692,7 +7692,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -7848,7 +7848,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -8062,7 +8062,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -8787,7 +8787,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -8950,7 +8950,7 @@ exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`]
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -9132,7 +9132,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -9331,7 +9331,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>
@@ -9477,7 +9477,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
       >
         <img
           alt="Memori"
-          class="memori-chat--bubble-avatar-img"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
           src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </picture>

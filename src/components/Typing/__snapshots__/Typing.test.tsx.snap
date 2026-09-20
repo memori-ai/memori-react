@@ -15,6 +15,7 @@ exports[`renders Typing unchanged 1`] = `
           class="memori-chat--bubble-typing"
         >
           <div
+            class="memori-motion-loop"
             id="wave"
           >
             <span
@@ -49,6 +50,7 @@ exports[`renders Typing with custom loading text list unchanged 1`] = `
           class="memori-chat--bubble-typing"
         >
           <div
+            class="memori-motion-loop"
             id="wave"
           >
             <span
@@ -84,6 +86,7 @@ exports[`renders Typing with custom loading text unchanged 1`] = `
           class="memori-chat--bubble-typing"
         >
           <div
+            class="memori-motion-loop"
             id="wave"
           >
             <span
@@ -119,6 +122,7 @@ exports[`renders Typing with default italian loading text unchanged 1`] = `
           class="memori-chat--bubble-typing"
         >
           <div
+            class="memori-motion-loop"
             id="wave"
           >
             <span
@@ -153,6 +157,7 @@ exports[`renders Typing with default loading text unchanged 1`] = `
           class="memori-chat--bubble-typing"
         >
           <div
+            class="memori-motion-loop"
             id="wave"
           >
             <span

@@ -6,6 +6,13 @@ it('renders Typing unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('runs a single continuous loop on the typing indicator', () => {
+  const { container } = render(<Typing />);
+  const wave = container.querySelector('#wave');
+  expect(wave).toHaveClass('memori-motion-loop');
+  expect(wave?.querySelectorAll('.dot')).toHaveLength(3);
+});
+
 it('renders Typing with default loading text unchanged', () => {
   const { container } = render(<Typing useDefaultSentences lang="en" />);
   expect(container).toMatchSnapshot();

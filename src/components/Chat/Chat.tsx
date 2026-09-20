@@ -202,6 +202,7 @@ const Chat: React.FC<Props> = ({
   const chatWrapperRef = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
   const pendingScrollToBottomRef = useRef(false);
+  const prevHistoryLengthRef = useRef(history.length);
   const { t } = useTranslation();
   const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
 
@@ -243,6 +244,21 @@ const Chat: React.FC<Props> = ({
       }),
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
+
+  const enteringMessageIndexRef = useRef<number | null>(null);
+  if (history.length === prevHistoryLengthRef.current + 1) {
+    enteringMessageIndexRef.current =
+      isHistoryView || isChatlogPanel || preview ? null : history.length - 1;
+  } else if (history.length !== prevHistoryLengthRef.current) {
+    enteringMessageIndexRef.current = null;
+  }
+
+  useLayoutEffect(() => {
+    prevHistoryLengthRef.current = history.length;
+  }, [history.length]);
+
+  const enteringMessageIndex = enteringMessageIndexRef.current;
+
   const scrollToBottom = useCallback(() => {
     if (preview || isHistoryView) return;
     const content = chatContentRef.current;
@@ -528,6 +544,7 @@ const Chat: React.FC<Props> = ({
                   usageHtml={usageHtmlByIndex[index]}
                   isChatlogPanel={isChatlogPanel}
                   showDates={showDates}
+                  animateEnter={index === enteringMessageIndex}
                 />
 
                 {showContextPerLine &&

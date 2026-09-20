@@ -216,7 +216,7 @@ const Typing = ({
         {renderAssistantAvatar()}
         <div className="memori-chat--bubble">
           <div className="memori-chat--bubble-typing">
-            <div id="wave">
+            <div id="wave" className="memori-motion-loop">
               <span className="dot"></span>
               <span className="dot"></span>
               <span className="dot"></span>

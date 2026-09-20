@@ -547,3 +547,36 @@ it('scrolls to the latest message when the user sends, but not when a reply arri
   });
   expect(content.scrollTop).toBe(0);
 });
+
+it('does not play enter motion on history present at first render', () => {
+  const { container } = renderChat();
+  expect(container.querySelectorAll('.memori-motion-enter-up')).toHaveLength(0);
+});
+
+it('plays enter motion only on a newly appended message', () => {
+  const { container, rerenderChat } = renderChat();
+  const userMessage: Message = {
+    text: 'hello from the composer',
+    fromUser: true,
+    timestamp: FIXED_TEST_DATE.toISOString(),
+  };
+  rerenderChat({
+    history: [...history, userMessage],
+  });
+
+  const entering = container.querySelectorAll('.memori-motion-enter-up');
+  expect(entering).toHaveLength(1);
+  expect(entering[0]).toHaveTextContent('hello from the composer');
+
+  rerenderChat({
+    history: [...history, userMessage],
+    userMessage: 'keep composer state',
+  });
+  expect(container.querySelectorAll('.memori-motion-enter-up')).toHaveLength(1);
+});
+
+it('does not play enter motion when history is replaced in bulk', () => {
+  const { container, rerenderChat } = renderChat({ history: [] });
+  rerenderChat({ history });
+  expect(container.querySelectorAll('.memori-motion-enter-up')).toHaveLength(0);
+});

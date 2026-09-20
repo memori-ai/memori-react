@@ -101,6 +101,7 @@ const Avatar: React.FC<Props> = ({
           <div
             className={cx(
               'memori--avatar-wrapper',
+              'memori-motion-fade-in',
               `memori--avatar-${integrationConfig?.avatar || 'default'}`,
               {
                 hidden: !avatar3dVisible,

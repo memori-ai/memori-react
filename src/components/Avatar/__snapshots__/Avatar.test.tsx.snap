@@ -3,7 +3,7 @@
 exports[`renders Avatar with avatar-configurator like readyplayerme-full 1`] = `
 <div>
   <div
-    class="memori--avatar-wrapper memori--avatar-avatar-configurator"
+    class="memori--avatar-wrapper memori-motion-fade-in memori--avatar-avatar-configurator"
   >
     <div
       class="memori--blob-container"
@@ -85,7 +85,7 @@ exports[`renders Avatar with avatar-configurator like readyplayerme-full 1`] = `
 exports[`renders Avatar with avatar-configurator on totem layout unchanged 1`] = `
 <div>
   <div
-    class="memori--avatar-wrapper memori--avatar-avatar-configurator"
+    class="memori--avatar-wrapper memori-motion-fade-in memori--avatar-avatar-configurator"
   >
     <div
       class="memori--blob-container"

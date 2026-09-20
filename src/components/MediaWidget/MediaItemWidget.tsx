@@ -193,6 +193,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
                 <source srcSet={imageSrc} type={medium.mimeType} />
               )}
               <img
+                className="memori-motion-fade-in"
                 alt={medium.title}
                 src={imageError || !imageSrc ? FALLBACK_IMAGE_BASE64 : imageSrc}
                 onError={() => setImageError(true)}
@@ -529,7 +530,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
               />
             ) : linkImage ? (
               <img
-                className="memori-media-item--card-cover-img"
+                className="memori-media-item--card-cover-img memori-motion-fade-in"
                 src={coverSrc}
                 alt={linkTitle}
               />
