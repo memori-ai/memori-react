@@ -334,7 +334,7 @@ function createArtifactHandler(
     margin: 12px 0;
     background: white;
     border: 1px solid #e5e7eb;
-    border-radius: .5rem;
+    border-radius: var(--memori-radius-surface);
     cursor: pointer;
     transition: all 0.2s ease;
   `;

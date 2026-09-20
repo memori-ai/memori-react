@@ -1,0 +1,57 @@
+import React from 'react';
+import { fireEvent, render, screen, waitFor } from '../../../../testUtils';
+import I18nWrapper from '../../../../I18nWrapper';
+import { ArtifactProvider } from '../../context/ArtifactContext';
+import ArtifactHandler from './ArtifactHandler';
+
+const message = {
+  fromUser: false,
+  text: `<output class="memori-artifact" data-mimetype="markdown" data-title="Hello notes"># Hello</output>`,
+  timestamp: '2026-01-01T00:00:00.000Z',
+};
+
+const renderCard = (isChatlogPanel = false) =>
+  render(
+    <I18nWrapper>
+      <ArtifactProvider>
+        <ArtifactHandler
+          isChatlogPanel={isChatlogPanel}
+          message={message as any}
+        />
+      </ArtifactProvider>
+    </I18nWrapper>
+  );
+
+it('points the side chevron at the column and flips it when expanded', async () => {
+  renderCard(false);
+
+  const card = await screen.findByRole('button', { name: 'Hello notes' });
+  expect(card).toHaveAttribute('data-placement', 'side');
+  expect(
+    card.querySelectorAll('.memori-artifact-handler-chevron')
+  ).toHaveLength(1);
+
+  await waitFor(() => {
+    expect(card).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  fireEvent.click(card);
+
+  await waitFor(() => {
+    expect(card).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+it('points the chatlog chevron down and flips it when the inline panel opens', async () => {
+  renderCard(true);
+
+  const card = await screen.findByRole('button', { name: 'Hello notes' });
+  expect(card).toHaveAttribute('data-placement', 'bottom');
+  expect(card).toHaveAttribute('aria-expanded', 'false');
+
+  fireEvent.click(card);
+
+  await waitFor(() => {
+    expect(card).toHaveAttribute('aria-expanded', 'true');
+  });
+});

@@ -4,13 +4,11 @@
  * Following the project's design system and responsive patterns
  */
 
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown, Drawer } from '@memori.ai/ui';
 import {
   X,
-  Maximize,
-  Minimize,
   MoreVertical,
   Download,
   Link as LinkIcon,
@@ -25,36 +23,27 @@ import cx from 'classnames';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
 import IconButton from '../../../IconButton/IconButton';
+import { formatArtifactType } from '../../../../helpers/artifactPanel';
 
 const ArtifactDrawer: React.FC<{
   isChatLogPanel?: boolean;
   /** Render as a plain flex column (no Drawer overlay). Used when the drawer
-   *  is mounted as a proper flex sibling in the page layout. On mobile the
-   *  component falls back to the Drawer overlay regardless of this flag. */
+   *  is mounted as a proper flex sibling in the page layout. */
   isLayoutColumn?: boolean;
 }> = ({ isChatLogPanel = false, isLayoutColumn = false }) => {
-  const { state, closeArtifact, toggleFullscreen } = useArtifact();
+  const { state, closeArtifact } = useArtifact();
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(false);
-
+  const [isCompactToolbar, setIsCompactToolbar] = useState(false);
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
 
-  /**
-   * Handle tab switching
-   */
-  const handleTabChange = useCallback(
-    (tab: ArtifactTab) => {
-      setActiveTab(tab);
-    },
-    [activeTab]
-  );
+  const handleTabChange = useCallback((tab: ArtifactTab) => {
+    setActiveTab(tab);
+  }, []);
 
-  // Use copy artifact hook for dynamic actions
   const {
     copyState,
     formats,
     handleCopy: handleCopyFormat,
-    handleCopyClick,
   } = useCopyArtifact(
     state.currentArtifact || { content: '', mimeType: 'text/plain' },
     () => console.log('Copy completed'),
@@ -62,21 +51,17 @@ const ArtifactDrawer: React.FC<{
     () => console.log('Print completed')
   );
 
-  // Mobile detection
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1260);
+    const checkCompact = () => {
+      setIsCompactToolbar(window.innerWidth <= 768);
     };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    checkCompact();
+    window.addEventListener('resize', checkCompact);
 
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkCompact);
   }, []);
 
-  /**
-   * Handle copy action
-   */
   const handleCopy = useCallback(async () => {
     if (!state.currentArtifact) return;
 
@@ -84,7 +69,6 @@ const ArtifactDrawer: React.FC<{
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(state.currentArtifact.content);
       } else {
-        // Fallback for older browsers
         const textArea = document.createElement('textarea');
         textArea.value = state.currentArtifact.content;
         textArea.style.position = 'fixed';
@@ -102,18 +86,6 @@ const ArtifactDrawer: React.FC<{
     }
   }, [state.currentArtifact]);
 
-  /**
-   * Handle fullscreen toggle
-   */
-  const handleToggleFullscreen = useCallback(() => {
-    if (toggleFullscreen) {
-      toggleFullscreen();
-    }
-  }, [toggleFullscreen]);
-
-  /**
-   * Handle close with escape key
-   */
   const handleClose = useCallback(() => {
     closeArtifact();
   }, [closeArtifact]);
@@ -139,11 +111,9 @@ const ArtifactDrawer: React.FC<{
             {children}
           </div>
         );
-      } else if (isLayoutColumn && !isMobile) {
-        // Desktop inline column — rendered as a normal flex child by the layout
+      } else if (isLayoutColumn) {
         return <div className="memori-artifact-layout-column">{children}</div>;
       } else {
-        // Mobile or legacy: floating Drawer overlay
         return (
           <Drawer
             open={state.isDrawerOpen}
@@ -151,7 +121,7 @@ const ArtifactDrawer: React.FC<{
             anchor="right"
             size="md"
             className={
-              state.isFullscreen || isMobile
+              state.isFullscreen || isCompactToolbar
                 ? 'memori-artifact-panel-drawer-fullscreen'
                 : 'memori-artifact-panel-drawer'
             }
@@ -168,13 +138,10 @@ const ArtifactDrawer: React.FC<{
       handleClose,
       state.isDrawerOpen,
       state.isFullscreen,
-      isMobile,
+      isCompactToolbar,
     ]
   );
 
-  /**
-   * Get MIME type string for downloads
-   */
   const getMimeTypeString = useCallback((mimeType: string): string => {
     const mimeTypes: Record<string, string> = {
       html: 'text/html',
@@ -200,9 +167,6 @@ const ArtifactDrawer: React.FC<{
     return mimeTypes[mimeType] || 'text/plain';
   }, []);
 
-  /**
-   * Handle external open action
-   */
   const handleOpenExternal = useCallback(
     (artifact: ArtifactData) => {
       try {
@@ -218,7 +182,6 @@ const ArtifactDrawer: React.FC<{
           return;
         }
 
-        // Cleanup URL after a delay
         setTimeout(() => {
           URL.revokeObjectURL(url);
         }, 60000);
@@ -233,64 +196,43 @@ const ArtifactDrawer: React.FC<{
     return null;
   }
 
-  // Render web split panel
+  const closeButton = !isChatLogPanel ? (
+    <IconButton
+      onClick={closeArtifact}
+      aria-label={t('artifact.close') || 'Close'}
+      title={t('artifact.close') || 'Close'}
+      className="memori-artifact-drawer--close"
+      icon={<X className="memori-icon-close" aria-hidden />}
+    />
+  ) : null;
+
   return (
     <ContentContainer>
-      {/* Header */}
-      <div
-        className={cx('memori-artifact-drawer-container-actions', {
-          'memori-artifact-drawer-container-actions--no-preview': !hasPreview,
-          'memori-artifact-drawer-container-actions--chatlog': isChatLogPanel,
+      <header
+        className={cx('memori-artifact-toolbar', {
+          'memori-artifact-toolbar--chatlog': isChatLogPanel,
         })}
       >
-        {/* Desktop Actions */}
-        {!isMobile && (
-          <>
-            {/* Modern Tab Switch */}
-            {hasPreview && (
-              <TabSwitch
-                activeTab={activeTab}
-                onTabChange={handleTabChange}
-                hasPreview={hasPreview}
-              />
-            )}
-            <ArtifactActions
-              artifact={state.currentArtifact}
-              onCopy={handleCopy}
-              loading={false}
-              isMobile={isMobile}
-            />
-            {!isChatLogPanel && (
-              <IconButton
-                onClick={closeArtifact}
-                aria-label={t('artifact.close') || 'Close'}
-                title={t('artifact.close') || 'Close'}
-                className="memori-artifact-drawer--close"
-                icon={<X className="memori-icon-close" aria-hidden />}
-              />
-            )}
-          </>
-        )}
-      </div>
+        <div className="memori-artifact-toolbar--identity">
+          <h2 className="memori-artifact-toolbar--title">
+            {state.currentArtifact.title}
+          </h2>
+          <span className="memori-artifact-toolbar--type">
+            {formatArtifactType(state.currentArtifact.mimeType)}
+          </span>
+        </div>
 
-      {/* Top Right Header Section */}
-      <div
-        className={cx('memori-artifact-drawer-top-right', {
-          'memori-artifact-drawer-top-right--no-preview': !hasPreview,
-          'memori-artifact-drawer-top-right--chatlog': isChatLogPanel,
-        })}
-      >
-        {/* Mobile Dropdown Menu */}
-        {isMobile && (
-          <>
-            {hasPreview && (
-              <TabSwitch
-                activeTab={activeTab}
-                onTabChange={handleTabChange}
-                hasPreview={hasPreview}
-              />
-            )}
-            <div className="memori-artifact-drawer-top-right-actions">
+        <div className="memori-artifact-toolbar--controls">
+          {hasPreview && (
+            <TabSwitch
+              activeTab={activeTab}
+              onTabChange={handleTabChange}
+              hasPreview={hasPreview}
+            />
+          )}
+
+          {isCompactToolbar ? (
+            <div className="memori-artifact-toolbar--mobile-actions">
               <Dropdown className="memori-mobile-actions-menu">
                 <Dropdown.Trigger
                   showChevron={false}
@@ -389,19 +331,22 @@ const ArtifactDrawer: React.FC<{
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <IconButton
-                onClick={closeArtifact}
-                aria-label={t('artifact.close') || 'Close'}
-                title={t('artifact.close') || 'Close'}
-                className="memori-artifact-drawer--close"
-                icon={<X className="memori-icon-close" aria-hidden />}
-              />
+              {closeButton}
             </div>
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              <ArtifactActions
+                artifact={state.currentArtifact}
+                onCopy={handleCopy}
+                loading={false}
+                isMobile={isCompactToolbar}
+              />
+              {closeButton}
+            </>
+          )}
+        </div>
+      </header>
 
-      {/* Content */}
       <div className="memori-artifact-panel--content">
         <div className="memori-artifact-panel--main">
           <ArtifactPreview

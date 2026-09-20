@@ -14,7 +14,7 @@
     background: none;
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     text-align: left;
     transition: background-color 0.15s ease;
 }
@@ -118,7 +118,7 @@
 /* Icon Sizing */
 .memori-artifact-action-btn .memori-button--icon,
 .memori-artifact-action-icon-fullscreen {
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: 1;
 }
 

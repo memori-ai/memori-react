@@ -34,13 +34,13 @@
     align-items: center;
     padding: 8px 12px;
     border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-    border-radius: var(--memori-radius-box, 8px);
+    border-radius: var(--memori-radius-control);
     background: transparent;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
     line-height: 1.4;
@@ -100,13 +100,13 @@
     justify-content: center;
     padding: 8px;
     border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
-    border-radius: var(--memori-radius-box, 8px);
+    border-radius: var(--memori-radius-control);
     background: transparent;
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
     line-height: 1.4;
@@ -194,7 +194,7 @@
     background: transparent;
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     text-align: left;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
@@ -288,7 +288,7 @@
 .memori-copy-menu-item-async-badge {
     display: inline-block;
     padding: calc(var(--memori-spacing-xs) / 2) calc(var(--memori-spacing-xs) + 2px);
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-xs);
     background: color-mix(in oklch, var(--memori-main-background) 78%, var(--memori-primary) 22%);
     color: var(--memori-text-color);
     font-size: 10px;
@@ -307,10 +307,10 @@
     max-width: 300px;
     align-items: center;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-surface);
     animation: memori-copy-toast-enter 0.3s ease-out;
     box-shadow: var(--memori-copy-shadow);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
 }

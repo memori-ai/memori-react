@@ -8,12 +8,7 @@ import React, {
 } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData, ArtifactEdit } from '../../types/artifact.types';
-import {
-  ChevronRight,
-  ChevronDown,
-  ChevronLeft,
-  ChevronUp,
-} from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { stripReasoningTags } from '../../../../helpers/utils';
@@ -445,20 +440,12 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
   if (!hasCreates && !hasUpdates && !hasFailed) return null;
 
-  const renderChevron = (isSelected: boolean) => {
-    if (isChatlogPanel) {
-      return isSelected ? (
-        <ChevronUp className="memori-artifact-handler-action-icon" />
-      ) : (
-        <ChevronDown className="memori-artifact-handler-action-icon" />
-      );
-    }
-    return isSelected ? (
-      <ChevronLeft className="memori-artifact-handler-action-icon" />
-    ) : (
-      <ChevronRight className="memori-artifact-handler-action-icon" />
-    );
-  };
+  const renderChevron = () => (
+    <ChevronDown
+      className="memori-artifact-handler-action-icon memori-artifact-handler-chevron"
+      aria-hidden
+    />
+  );
 
   const renderInlineDrawer = (isSelected: boolean) =>
     isChatlogPanel && isSelected ? (
@@ -478,8 +465,9 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               className={`memori-artifact-handler${
                 isSelected ? ' memori-artifact-handler--selected' : ''
               }`}
+              data-placement={isChatlogPanel ? 'bottom' : 'side'}
               onClick={() => handleArtifactClick(artifact)}
-              aria-pressed={isSelected}
+              aria-expanded={isSelected}
               aria-label={artifact.title}
               style={
                 isSelected
@@ -502,7 +490,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                 </div>
               </div>
               <div className="memori-artifact-handler-action">
-                {renderChevron(isSelected)}
+                {renderChevron()}
               </div>
             </button>
 
@@ -524,8 +512,9 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               className={`memori-artifact-handler${
                 isSelected ? ' memori-artifact-handler--selected' : ''
               }`}
+              data-placement={isChatlogPanel ? 'bottom' : 'side'}
               onClick={() => handleArtifactClick(artifact)}
-              aria-pressed={isSelected}
+              aria-expanded={isSelected}
               aria-label={`${artifact.title} — ${updatedLabel}`}
               style={
                 isSelected
@@ -547,7 +536,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
                 </div>
               </div>
               <div className="memori-artifact-handler-action">
-                {renderChevron(isSelected)}
+                {renderChevron()}
               </div>
             </button>
 

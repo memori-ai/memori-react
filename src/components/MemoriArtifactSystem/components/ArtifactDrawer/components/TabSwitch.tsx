@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
 import { ArtifactTab } from '../../../types/artifact.types';
-import { Tabs } from '@memori.ai/ui';
-import { Code, Eye as PreviewIcon } from 'lucide-react';
 
 interface TabSwitchProps {
   activeTab: ArtifactTab;
@@ -14,49 +14,46 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
   onTabChange,
   hasPreview,
 }) => {
-  const tabs = [
+  const { t } = useTranslation();
+
+  if (!hasPreview) {
+    return null;
+  }
+
+  const tabs: { id: ArtifactTab; label: string }[] = [
     {
-      id: 'code' as ArtifactTab,
-      icon: Code,
-      label: 'Code',
+      id: 'preview',
+      label: t('artifact.preview') || 'Preview',
     },
-    ...(hasPreview
-      ? [
-          {
-            id: 'preview' as ArtifactTab,
-            icon: PreviewIcon,
-            label: 'Preview',
-          },
-        ]
-      : []),
+    {
+      id: 'code',
+      label: t('artifact.source') || t('artifact.code') || 'Source',
+    },
   ];
 
   return (
-    <Tabs.Root
+    <div
       className="memori-tab-switch"
-      value={activeTab}
-      onValueChange={value => onTabChange(value as ArtifactTab)}
-      variant="segmented"
+      role="group"
+      aria-label={t('artifact.viewMode') || 'View mode'}
     >
-      <Tabs.List
-        className="memori-tab-switch__list"
-        aria-label="Artifact content view"
-      >
-        {tabs.map(tab => {
-          const IconComponent = tab.icon;
-          return (
-            <Tabs.Tab
-              key={tab.id}
-              value={tab.id}
-              className="memori-tab-switch__tab"
-              aria-label={tab.label}
-            >
-              <IconComponent className="memori-tab-switch__icon" aria-hidden />
-            </Tabs.Tab>
-          );
-        })}
-      </Tabs.List>
-    </Tabs.Root>
+      {tabs.map(tab => {
+        const pressed = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            className={cx('memori-tab-switch__tab', {
+              'memori-tab-switch__tab--pressed': pressed,
+            })}
+            aria-pressed={pressed}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
   );
 };
 
