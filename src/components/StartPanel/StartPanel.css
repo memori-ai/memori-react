@@ -785,8 +785,8 @@
     align-items: center;
     justify-content: center;
     border: none;
-    margin-right: var(--memori-spacing-md);
     border-radius: 50%;
+    margin-right: var(--memori-spacing-md);
     background: #fff;
     box-shadow: 0 0 5px 6px rgba(255, 255, 255, 0.5);
     color: var(--memori-text-color);
