@@ -3792,7 +3792,7 @@ __metadata:
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
     "@memori.ai/memori-api-client": 6.24.1
-    "@memori.ai/ui": ^1.18.0
+    "@memori.ai/ui": 2.0.0
     "@nats-io/jetstream": ^3.4.0
     "@nats-io/nats-core": ^3.4.0
     "@react-three/drei": 8.20.2
@@ -3881,9 +3881,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@memori.ai/ui@npm:^1.18.0":
-  version: 1.18.0
-  resolution: "@memori.ai/ui@npm:1.18.0"
+"@memori.ai/ui@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@memori.ai/ui@npm:2.0.0"
   dependencies:
     "@base-ui/react": ^1.0.0
     "@tanstack/react-table": ^8.21.0
@@ -3905,7 +3905,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 8e1a9b95228eeebe5ea2089a48ad87e23f2d2af81d10d8df5368847cc64ec73aed9819ae2d68d0fbc4ae399f5a05d07c65c761162f54125faaa0663050e8c3ba
+  checksum: 810740686599b3a067c3ee38303ef33fdd39015f0e5a600fc30fe44f3e120ce24b390a87e21e7ea54179aebc626a3ac9a7835a145a01ecf9be615b2dfd8ac00e
   languageName: node
   linkType: hard
 

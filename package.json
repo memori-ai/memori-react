@@ -262,7 +262,7 @@
   },
   "dependencies": {
     "@memori.ai/memori-api-client": "6.24.1",
-    "@memori.ai/ui": "^1.18.0",
+    "@memori.ai/ui": "2.0.0",
     "@nats-io/jetstream": "^3.4.0",
     "@nats-io/nats-core": "^3.4.0",
     "@react-three/drei": "8.20.2",
