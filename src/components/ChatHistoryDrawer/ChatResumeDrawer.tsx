@@ -1,11 +1,6 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { Button, Drawer } from '@memori.ai/ui';
-import {
-  Message,
-  Memori,
-} from '@memori.ai/memori-api-client/dist/types';
-import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import React, { useMemo } from 'react';
+import { Drawer } from '@memori.ai/ui';
+import { Message, Memori } from '@memori.ai/memori-api-client/dist/types';
 import { stripHTML } from '../../helpers/utils';
 import Chat from '../Chat/Chat';
 
@@ -30,8 +25,7 @@ export interface ChatResumeDrawerProps {
   onBack?: () => void;
   onExportChat: () => void;
   /**
-   * When true, render panel content only (nested inside ChatHistory Drawer).
-   * When false, open as a library Drawer on the widget surface.
+   * When true, render the chat thread only (chrome lives on SideDrawer).
    */
   embedded?: boolean;
   session: {
@@ -45,9 +39,10 @@ export interface ChatResumeDrawerProps {
   isLoading?: boolean;
   showFunctionCache?: boolean;
   showMessageConsumption?: boolean;
+  memori?: Memori;
 }
 
-const EMPTY_MEMORI = {
+const FALLBACK_MEMORI = {
   memoriID: 'chat-resume-drawer',
   name: 'AI',
   culture: 'it-IT',
@@ -57,42 +52,19 @@ const EMPTY_MEMORI = {
 } as Memori;
 const NOOP = () => {};
 
-const stripMarkdownChars = (value: string): string => {
-  return value
-    .replace(/[#*_`~>\-[\]()]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-};
-
 const escapeAttachmentAttr = (value: string): string =>
   value.replaceAll('"', '&quot;');
 
 const ChatResumeDrawer = ({
   isOpen,
   onClose,
-  onBack,
   embedded = false,
   session,
-  onResume,
   isLoading = false,
-  onExportChat,
   showFunctionCache = false,
   showMessageConsumption = false,
+  memori = FALLBACK_MEMORI,
 }: ChatResumeDrawerProps) => {
-  const { t } = useTranslation();
-  const backButtonRef = useRef<HTMLButtonElement>(null);
-  const titleId = 'chat-resume-drawer-title';
-
-  useEffect(() => {
-    if (!isOpen) return;
-    backButtonRef.current?.focus();
-  }, [isOpen]);
-
-  const safeTitle = useMemo(() => {
-    const cleaned = stripMarkdownChars(stripHTML(session.title || ''));
-    return cleaned || 'Conversazione';
-  }, [session.title]);
-
   const history = useMemo<Message[]>(
     () =>
       session.messages.map(message => {
@@ -118,103 +90,52 @@ const ChatResumeDrawer = ({
     [session.messages]
   );
 
-  const content = (
-    <div
-      className={`memori-chat-resume-drawer--panel ${
-        embedded ? 'memori-chat-resume-drawer--panel-embedded' : ''
-      }`}
-    >
-      <header className="memori-chat-resume-drawer--header">
-        <Button
-          ref={backButtonRef}
-          variant="ghost"
-          size="sm"
-          type="button"
-          className="memori-chat-resume-drawer--header-icon-button"
-          onClick={onBack || onClose}
-          aria-label={String(t('back', { defaultValue: 'Back' }))}
-          icon={<ArrowLeft aria-hidden />}
-        />
-        <div className="memori-chat-resume-drawer--header-main">
-          <h2
-            id={titleId}
-            className="memori-chat-resume-drawer--title"
-            title={safeTitle}
-          >
-            {safeTitle}
-          </h2>
-          <p className="memori-chat-resume-drawer--subtitle">
-            {session.subtitle}
-          </p>
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="memori-chat-history-drawer--header-download-button"
-          aria-label={String(t('download', { defaultValue: 'Download' }))}
-          title={String(t('download', { defaultValue: 'Download' }))}
-          icon={<Download aria-hidden />}
-          onClick={onExportChat}
-        />
-      </header>
-
-      <div className="memori-chat-resume-drawer--thread">
-        {isLoading && (
-          <div className="memori-chat-resume-drawer--skeletons">
-            {[0, 1, 2].map(item => (
-              <div
-                key={item}
-                className="memori-chat-resume-drawer--skeleton-bubble"
-              />
-            ))}
-          </div>
-        )}
-
-        {!isLoading && (
-          <div className="memori-chat-resume-drawer--embedded-chat">
-            <Chat
-              memori={EMPTY_MEMORI}
-              sessionID="chat-resume-drawer"
-              history={history}
-              pushMessage={NOOP}
-              simulateUserPrompt={NOOP}
-              setSendOnEnter={NOOP}
-              setAttachmentsMenuOpen={NOOP}
-              onChangeUserMessage={NOOP}
-              sendMessage={NOOP}
-              setEnableFocusChatInput={NOOP}
-              stopAudio={NOOP}
-              startListening={NOOP}
-              stopListening={NOOP}
-              showInputs={false}
-              showAIicon={true}
-              showCopyButton={true}
-              isHistoryView={true}
-              isChatlogPanel={true}
-              showFunctionCache={showFunctionCache}
-              showMessageConsumption={showMessageConsumption}
+  const thread = (
+    <div className="memori-chat-resume-drawer--thread">
+      {isLoading && (
+        <div className="memori-chat-resume-drawer--skeletons">
+          {[0, 1, 2].map(item => (
+            <div
+              key={item}
+              className="memori-chat-resume-drawer--skeleton-bubble"
             />
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
-      <footer className="memori-chat-resume-drawer--actions">
-        <Button
-          className="memori-chat-resume-drawer--resume-cta"
-          variant="primary"
-          onClick={() => onResume()}
-        >
-          {t('chatResume.resume', { defaultValue: 'Resume conversation' })}{' '}
-          <ArrowUpRight size={16} aria-hidden />
-        </Button>
-      </footer>
+      {!isLoading && (
+        <div className="memori-chat-resume-drawer--embedded-chat">
+          <Chat
+            memori={memori}
+            sessionID="chat-resume-drawer"
+            history={history}
+            pushMessage={NOOP}
+            simulateUserPrompt={NOOP}
+            setSendOnEnter={NOOP}
+            setAttachmentsMenuOpen={NOOP}
+            onChangeUserMessage={NOOP}
+            sendMessage={NOOP}
+            setEnableFocusChatInput={NOOP}
+            stopAudio={NOOP}
+            startListening={NOOP}
+            stopListening={NOOP}
+            showInputs={false}
+            showAIicon={true}
+            showCopyButton={true}
+            isHistoryView={true}
+            isChatlogPanel={true}
+            showFunctionCache={showFunctionCache}
+            showMessageConsumption={showMessageConsumption}
+          />
+        </div>
+      )}
     </div>
   );
 
   if (embedded) {
     if (!isOpen) return null;
     return (
-      <div className="memori-chat-resume-drawer--embedded-shell">{content}</div>
+      <div className="memori-chat-resume-drawer--embedded-shell">{thread}</div>
     );
   }
 
@@ -226,8 +147,9 @@ const ChatResumeDrawer = ({
       anchor="right"
       size="md"
       showCloseButton={false}
+      title={stripHTML(session.title)}
     >
-      {content}
+      {thread}
     </Drawer>
   );
 };

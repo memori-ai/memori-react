@@ -18,11 +18,26 @@ const mockApiClient = {
       Promise.resolve({
         chatLogs: mockChatLogs,
       }),
-    getUserChatLogsByTokenPaged: (requestBody: any) =>
-      Promise.resolve({
-        chatLogs: mockChatLogs,
-        totalItems: mockChatLogs.length,
-      }),
+    getUserChatLogsByTokenPaged: (requestBody: {
+      from?: number;
+      howMany?: number;
+      filter?: string;
+    }) => {
+      const from = requestBody?.from ?? 0;
+      const howMany = requestBody?.howMany ?? mockChatLogs.length;
+      const needle = (requestBody?.filter || '').trim().toLowerCase();
+      const filtered = needle
+        ? mockChatLogs.filter(log =>
+            log.lines.some(line =>
+              (line.text || '').toLowerCase().includes(needle)
+            )
+          )
+        : mockChatLogs;
+      return Promise.resolve({
+        chatLogs: filtered.slice(from, from + howMany),
+        count: filtered.length,
+      });
+    },
   },
 };
 
@@ -232,7 +247,7 @@ export const WithSelectedChat: Story = {
     const canvas = canvasElement.ownerDocument.body;
     setTimeout(() => {
       const chatCard = canvas.querySelector(
-        '.memori-chat-history-drawer--list-item--button'
+        '.memori-chat-history-drawer--list-item-main'
       );
       if (chatCard) {
         (chatCard as HTMLElement).click();
