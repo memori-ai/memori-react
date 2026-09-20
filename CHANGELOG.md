@@ -46,6 +46,14 @@
 * release v8.45.2 ([73fc1bf](https://github.com/memori-ai/memori-react/commit/73fc1bf06bff091a58bf60ea0cd40272e96a8103))
 * update marked-katex-extension to version 5.1.10 and adjust peer dependencies ([934d15c](https://github.com/memori-ai/memori-react/commit/934d15cc3d5a71a0064d942a8ebed68048ca925d))
 
+## [8.45.4](https://github.com/memori-ai/memori-react/compare/v8.45.3...v8.45.4) (2026-09-18)
+
+
+### Maintenance
+
+* update .npmignore and package.json for improved cleanup scripts and file exclusions ([fc85f9e](https://github.com/memori-ai/memori-react/commit/fc85f9e16814536b95cce2e42b66f6c46900770b))
+* upgrade postcss and @babel/core ([0d88f5b](https://github.com/memori-ai/memori-react/commit/0d88f5b4a6cc29ca4c5e5e14c3042884e3101557))
+
 ## [8.45.3](https://github.com/memori-ai/memori-react/compare/v8.45.2...v8.45.3) (2026-09-18)
 
 
