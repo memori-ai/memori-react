@@ -682,6 +682,23 @@ WithMarkdownTable.args = {
   },
 };
 
+export const WithReasoningStreaming = Template.bind({});
+WithReasoningStreaming.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showReasoning: true,
+  message: {
+    fromUser: false,
+    text: `<think>
+The user is asking whether I'm available. I should greet them warmly, confirm that I'm here, and invite them to tell me what they need.
+
+I will keep the reply short and in the same language as the question.`,
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
 export const MarkdownWithSquareBrackets = Template.bind({});
 MarkdownWithSquareBrackets.args = {
   memori,

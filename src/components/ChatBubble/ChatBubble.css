@@ -1,3 +1,5 @@
+@import url('../ReasoningBlock/ReasoningBlock.css');
+
 .memori-chat--bubble-container {
     display: flex;
     flex-direction: column;
@@ -458,6 +460,10 @@
     align-items: flex-start;
 }
 
+.memori-chat--bubble-anchor:has(.memori-reasoning) {
+    gap: 6px;
+}
+
 .memori-chat--bubble-anchor--from-user {
     align-items: flex-end;
 }
@@ -826,32 +832,36 @@
 
 details.memori-think {
     display: block;
-    width: calc(100% - 1.5rem);
-    max-width: 500px;
-    border-radius: var(--memori-radius-surface);
-    margin-bottom: var(--memori-spacing-lg);
-    background-color: var(--memori-secondary-background);
-    font-size: 0.85em;
-    font-style: italic;
-    line-height: 1.33;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: var(--memori-spacing-sm);
+    background: transparent;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.65;
 }
 
 details.memori-think summary {
+    display: list-item;
+    color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
     cursor: pointer;
-    font-weight: bold;
-    opacity: 0.6;
+    font-weight: 500;
+    list-style: none;
+}
+
+details.memori-think summary::-webkit-details-marker {
+    display: none;
 }
 
 details.memori-think summary:hover {
-    color: var(--memori-primary);
-    opacity: 1;
+    color: color-mix(in oklch, var(--memori-text-color) 82%, transparent);
 }
 
 details.memori-think[open] {
-    color: var(--memori-text-color);
+    color: color-mix(in oklch, var(--memori-text-color) 62%, transparent);
 }
 
 details.memori-think[open] summary {
-    margin-bottom: var(--memori-spacing-sm);
-    color: var(--memori-text-color);
+    margin-bottom: var(--memori-spacing-xs);
+    color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
 }

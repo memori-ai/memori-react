@@ -21,6 +21,7 @@
 @import url('./components/ChangeMode/ChangeMode.css');
 @import url('./components/Chat/Chat.css');
 @import url('./components/ChatBubble/ChatBubble.css');
+@import url('./components/ReasoningBlock/ReasoningBlock.css');
 @import url('./components/ChatInputs/ChatInputs.css');
 @import url('./components/MicrophoneButton/MicrophoneButton.css');
 @import url('./components/ChatTextArea/ChatTextArea.css');

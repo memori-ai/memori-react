@@ -2946,7 +2946,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3l:"
+                id="base-ui-:r42:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2995,7 +2995,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3n:"
+                id="base-ui-:r44:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4240,7 +4240,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3r:"
+                id="base-ui-:r48:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4289,7 +4289,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3t:"
+                id="base-ui-:r4a:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5268,7 +5268,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r41:"
+                id="base-ui-:r4e:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5317,7 +5317,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r43:"
+                id="base-ui-:r4g:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5835,7 +5835,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r47:"
+                id="base-ui-:r4k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5884,7 +5884,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r49:"
+                id="base-ui-:r4m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6664,7 +6664,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4d:"
+                id="base-ui-:r4q:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6713,7 +6713,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4f:"
+                id="base-ui-:r4s:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6971,7 +6971,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3f:"
+                id="base-ui-:r3s:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7020,7 +7020,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3h:"
+                id="base-ui-:r3u:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7576,7 +7576,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2t:"
+                id="base-ui-:r3a:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7625,7 +7625,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2v:"
+                id="base-ui-:r3c:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7732,7 +7732,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r33:"
+                id="base-ui-:r3g:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7781,7 +7781,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r35:"
+                id="base-ui-:r3i:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7946,7 +7946,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r39:"
+                id="base-ui-:r3m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7995,7 +7995,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3b:"
+                id="base-ui-:r3o:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8323,7 +8323,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2n:"
+                id="base-ui-:r34:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8372,7 +8372,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2p:"
+                id="base-ui-:r36:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9016,7 +9016,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4j:"
+                id="base-ui-:r50:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9065,7 +9065,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4l:"
+                id="base-ui-:r52:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9143,22 +9143,68 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
           class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
         >
           <div
+            class="memori-reasoning"
+          >
+            <button
+              aria-controls=":r2g:"
+              aria-expanded="false"
+              class="memori-reasoning__trigger"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-chevron-right memori-reasoning__chevron"
+                fill="none"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.25"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                />
+              </svg>
+              <span
+                class="memori-reasoning__label"
+              >
+                thought
+              </span>
+            </button>
+            <div
+              aria-hidden="true"
+              class="memori-reasoning__collapsible"
+              id=":r2g:"
+              role="region"
+            >
+              <div
+                class="memori-reasoning__clip"
+              >
+                <div
+                  class="memori-reasoning__panel"
+                >
+                  <div
+                    class="memori-reasoning__body"
+                  >
+                    Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              <details
-                class="memori-think"
-              >
-                <summary>
-                  reasoning
-                </summary>
-                Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.
-              </details>
-              
-Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+              <p>
+                Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+              </p>
             </div>
           </div>
           <div
@@ -9169,7 +9215,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2h:"
+                id="base-ui-:r2i:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9218,7 +9264,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2j:"
+                id="base-ui-:r2k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"

@@ -4,6 +4,7 @@ import {
   stripHTML,
   stripMarkdown,
   stripOutputTags,
+  stripReasoningTags,
   escapeHTML,
   extractAttachmentLinks,
   extractAttachmentLink,
@@ -131,6 +132,18 @@ describe('utils/stripMarkdown', () => {
   it('should strip inline mathjax from a string', () => {
     const result = stripMarkdown('\\( f_m \\)');
     expect(result).toEqual('');
+  });
+});
+
+describe('utils/stripReasoningTags', () => {
+  it('should remove complete think tags', () => {
+    expect(stripReasoningTags('before <think>secret</think> after')).toBe(
+      'before  after'
+    );
+  });
+
+  it('should remove unclosed think tags', () => {
+    expect(stripReasoningTags('<think>still streaming')).toBe('');
   });
 });
 

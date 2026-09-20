@@ -1,7 +1,7 @@
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { MAX_MSG_CHARS, MAX_MSG_WORDS } from './constants';
-import { cleanUrl } from './utils';
+import { cleanUrl, stripOutputTags } from './utils';
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
 import markedExtendedTables from './markedExtendedTables';
@@ -52,11 +52,11 @@ export const stripAttachmentTags = (value: string) =>
 const ASSET_URL_RE = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
 
 /**
- * Strips all internal document/attachment wrapper tags AND bare asset URLs.
+ * Strips all internal document/attachment wrapper tags, output tags, AND bare asset URLs.
  * Use this for any user-facing text output (copy, export, tooltips, etc.).
  */
 export const stripAllInternalTags = (value: string) =>
-  stripAttachmentTags(value)
+  stripOutputTags(stripAttachmentTags(value))
     .replace(/<\/?documents?\b[^>]*>/gi, '')
     .replace(/<documents?\b[^>]*\/>/gi, '')
     .replace(/<\/?attachments?\b[^>]*>/gi, '')

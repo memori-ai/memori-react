@@ -50,11 +50,13 @@ it('renders login and session resume as a status tag', () => {
       memori={memori}
       tenant={tenant}
       sessionID={sessionID}
-      message={{
-        fromUser: false,
-        text: '',
-        initial: 'nzambello has successfully logged in',
-      }}
+      message={
+        {
+          fromUser: false,
+          text: '',
+          initial: 'nzambello has successfully logged in',
+        } as never
+      }
     />
   );
 
@@ -70,12 +72,14 @@ it('renders login and session resume as a status tag', () => {
       memori={memori}
       tenant={tenant}
       sessionID={sessionID}
-      message={{
-        fromUser: false,
-        text: '',
-        emitter: 'system',
-        initial: 'Session expired, reopening session',
-      }}
+      message={
+        {
+          fromUser: false,
+          text: '',
+          emitter: 'system',
+          initial: 'Session expired, reopening session',
+        } as never
+      }
     />
   );
 
@@ -378,6 +382,78 @@ it('renders ChatBubble with reasoning shown unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders a collapsible reasoning block instead of think tags', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showReasoning
+      message={{
+        fromUser: false,
+        text: '<think>The user said hello.</think>\nHello there.',
+        initial: false,
+      }}
+    />
+  );
+
+  const trigger = screen.getByRole('button', { name: /thought/i });
+  expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  expect(container.querySelector('.memori-reasoning')).toBeInTheDocument();
+  expect(
+    container.querySelector('details.memori-think')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector('.memori-chat--bubble-content')
+  ).toHaveTextContent('Hello there.');
+  expect(
+    container.querySelector('.memori-chat--bubble-content')
+  ).not.toHaveTextContent('The user said hello.');
+});
+
+it('expands streaming reasoning and keeps it out of the answer bubble', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showReasoning
+      message={{
+        fromUser: false,
+        text: '<think>Still working through the request',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(screen.getByRole('button', { name: /thinking/i })).toHaveAttribute(
+    'aria-expanded',
+    'true'
+  );
+  expect(
+    container.querySelector('.memori-chat--bubble')
+  ).not.toBeInTheDocument();
+  expect(container).toHaveTextContent('Still working through the request');
+});
+
+it('strips unclosed think tags when reasoning is hidden', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: '<think>Should not appear in the answer',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(container.querySelector('.memori-reasoning')).not.toBeInTheDocument();
+  expect(container).not.toHaveTextContent('Should not appear in the answer');
+});
+
 it('renders ChatBubble with markdown unchanged', () => {
   const { container } = render(
     <ChatBubble
@@ -669,7 +745,9 @@ it('groups agent attachments in a strip with the message bubble', () => {
     />
   );
 
-  const messageRow = container.querySelector('.memori-chat--bubble-message-row');
+  const messageRow = container.querySelector(
+    '.memori-chat--bubble-message-row'
+  );
   const shell = container.querySelector('.memori-chat--bubble-shell');
   const strip = container.querySelector('.memori-chat--attachment-strip');
   expect(strip).toBeInTheDocument();
@@ -741,7 +819,9 @@ it('shows the why-this-answer icon without inventing a source count', () => {
   expect(
     screen.getByRole('button', { name: 'whyThisAnswer' })
   ).toBeInTheDocument();
-  expect(screen.queryByText('whyThisAnswerSourcesCount')).not.toBeInTheDocument();
+  expect(
+    screen.queryByText('whyThisAnswerSourcesCount')
+  ).not.toBeInTheDocument();
   expect(screen.queryByText('whyThisAnswerNoSources')).not.toBeInTheDocument();
 });
 
@@ -752,12 +832,14 @@ it('shows the source count on the why-this-answer button when the backend expose
       tenant={tenant}
       sessionID={sessionID}
       apiUrl="https://backend.memori.ai"
-      message={{
-        fromUser: false,
-        text: 'We use the DJI Mic Mini.',
-        questionAnswered: 'Which microphones do we use?',
-        sourcesCount: 3,
-      } as never}
+      message={
+        {
+          fromUser: false,
+          text: 'We use the DJI Mic Mini.',
+          questionAnswered: 'Which microphones do we use?',
+          sourcesCount: 3,
+        } as never
+      }
     />
   );
 

@@ -94,6 +94,28 @@ it('shows the question/answer pair and source cards', () => {
   expect(document.querySelector('.memori--whythisanswer-no-results')).toBeNull();
 });
 
+it('hides output tags from the agent reply', () => {
+  render(
+    <WhyThisAnswer
+      client={memoriApiClient()}
+      sessionID={sessionID}
+      visible
+      disableFetch
+      message={{
+        ...message,
+        text: 'Usiamo il DJI Mic Mini.\n<output class="memori-emotion">["gioia"]</output>',
+      }}
+      closeDrawer={jest.fn()}
+      initialMatches={[]}
+    />
+  );
+
+  expect(screen.getByText('Usiamo il DJI Mic Mini.')).toBeInTheDocument();
+  expect(screen.queryByText(/<output/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/memori-emotion/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/gioia/)).not.toBeInTheDocument();
+});
+
 it('shows a neutral empty state for visitors', () => {
   render(
     <WhyThisAnswer

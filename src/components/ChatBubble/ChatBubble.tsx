@@ -29,7 +29,10 @@ import {
   parseDocumentAttachmentsFromMessage,
   stripHTML,
   stripOutputTags,
+  stripReasoningTags,
 } from '../../helpers/utils';
+import { extractReasoning } from '../../helpers/reasoning';
+import ReasoningBlock from '../ReasoningBlock/ReasoningBlock';
 import { isHtmlWebLink } from '../MediaWidget/MediaItemWidget.utils';
 import {
   renderMsg,
@@ -171,18 +174,28 @@ const ChatBubble: React.FC<Props> = ({
 
   // Clean text by removing attachment blocks before rendering
   const cleanText = stripAttachmentTags(message.translatedText || message.text);
+  const reasoningExtract = message.fromUser
+    ? {
+        content: '',
+        complete: true,
+        remaining: truncateMessage(cleanText),
+        hasReasoning: false,
+      }
+    : extractReasoning(cleanText);
   const { text: renderedText } = renderMsg(
-    message.fromUser ? truncateMessage(cleanText) : cleanText,
+    reasoningExtract.remaining,
     useMathFormatting,
     t('reasoning') || 'Reasoning...',
-    showReasoning
+    false
   );
   const plainText = message.fromUser
     ? sanitizeMsg(truncateMessage(cleanText))
     : stripHTML(stripOutputTags(renderedText));
   const copyText = message.fromUser ? cleanText : plainText;
   const shouldShowCopyButtons =
-    showCopyButton && (!!plainText?.length || !!message.text?.length);
+    showCopyButton &&
+    (!!plainText?.length ||
+      !!(message.fromUser ? message.text : reasoningExtract.remaining)?.length);
   const shouldShowCopyRawButton =
     shouldShowCopyButtons &&
     !!message.text?.length &&
@@ -191,9 +204,13 @@ const ChatBubble: React.FC<Props> = ({
     stripAllInternalTags(
       message.fromUser
         ? message.text || ''
-        : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+        : stripReasoningTags(message.text || '')
     )
   );
+  const showReasoningBlock =
+    !message.fromUser && showReasoning && reasoningExtract.hasReasoning;
+  const hasAnswerBody =
+    reasoningExtract.remaining.trim().length > 0 || !!usageHtml;
   const copiedLabel = t('copied') || 'Copied';
   const formattedTimestamp =
     showDates && message.timestamp
@@ -488,11 +505,7 @@ const ChatBubble: React.FC<Props> = ({
     ...(message?.media
       ?.filter(m => !m.properties?.functionSignature)
       ?.filter(
-        m =>
-          !(
-            codeMimeTypes.includes(m.mimeType) ||
-            isHtmlWebLink(m)
-          )
+        m => !(codeMimeTypes.includes(m.mimeType) || isHtmlWebLink(m))
       ) || []),
     ...parseDocumentAttachmentsFromMessage(
       message.translatedText || message.text
@@ -552,8 +565,12 @@ const ChatBubble: React.FC<Props> = ({
         ref={bubbleContainerRef}
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
-          'memori-chat--with-addon': shouldShowBubbleAddon,
-          'memori-chat--addon-open': shouldShowBubbleAddon && addonOpen,
+          'memori-chat--with-addon':
+            shouldShowBubbleAddon && (message.fromUser || hasAnswerBody),
+          'memori-chat--addon-open':
+            shouldShowBubbleAddon &&
+            (message.fromUser || hasAnswerBody) &&
+            addonOpen,
         })}
         onClick={handleBubbleContainerClick}
       >
@@ -823,34 +840,44 @@ const ChatBubble: React.FC<Props> = ({
               <div
                 className={cx('memori-chat--bubble-anchor', {
                   'memori-chat--bubble-anchor--from-user': !!message.fromUser,
-                  'memori-chat--bubble-anchor--has-addon': shouldShowBubbleAddon,
+                  'memori-chat--bubble-anchor--has-addon':
+                    shouldShowBubbleAddon && hasAnswerBody,
                 })}
               >
-                <div
-                  className={cx('memori-chat--bubble', {
-                    'memori-chat--user-bubble': !!message.fromUser,
-                    'memori-chat--with-addon':
-                      shouldShowCopyButtons ||
-                      (showFeedback && simulateUserPrompt),
-                    'memori-chat--ai-generated': message.generatedByAI,
-                    'memori-chat--with-feedback': showFeedback,
-                  })}
-                >
-                  <div
-                    dir="auto"
-                    className="memori-chat--bubble-content"
-                    dangerouslySetInnerHTML={{ __html: renderedText }}
+                {showReasoningBlock && (
+                  <ReasoningBlock
+                    content={reasoningExtract.content}
+                    complete={reasoningExtract.complete}
                   />
+                )}
 
-                  {!!usageHtml && (
+                {hasAnswerBody && (
+                  <div
+                    className={cx('memori-chat--bubble', {
+                      'memori-chat--user-bubble': !!message.fromUser,
+                      'memori-chat--with-addon':
+                        shouldShowCopyButtons ||
+                        (showFeedback && simulateUserPrompt),
+                      'memori-chat--ai-generated': message.generatedByAI,
+                      'memori-chat--with-feedback': showFeedback,
+                    })}
+                  >
                     <div
-                      className="memori-chat--usage-inside-bubble"
-                      dangerouslySetInnerHTML={{ __html: usageHtml }}
+                      dir="auto"
+                      className="memori-chat--bubble-content"
+                      dangerouslySetInnerHTML={{ __html: renderedText }}
                     />
-                  )}
-                </div>
 
-                {shouldShowBubbleAddon && (
+                    {!!usageHtml && (
+                      <div
+                        className="memori-chat--usage-inside-bubble"
+                        dangerouslySetInnerHTML={{ __html: usageHtml }}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {hasAnswerBody && shouldShowBubbleAddon && (
                   <div className="memori-chat--bubble-addon">
                     {shouldShowTimestampInAddon && (
                       <div className="memori-chat--bubble-timestamp-container">
