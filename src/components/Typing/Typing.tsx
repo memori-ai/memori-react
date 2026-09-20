@@ -221,7 +221,7 @@ const Typing = ({
               <span className="dot"></span>
               <span className="dot"></span>
             </div>
-            {text.length > 0 && <p>{shownText}</p>}
+            {text.length > 0 && <p>{shownText.trimEnd()}</p>}
           </div>
         </div>
       </div>

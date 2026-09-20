@@ -52,7 +52,7 @@
     padding: calc(var(--memori-spacing-xs) * 0.75) var(--memori-spacing-sm);
     border-radius: 999px;
     background: color-mix(in oklch, var(--memori-text-color) 8%, transparent);
-    color: var(--memori-main-background);
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     line-height: 1.4;
@@ -275,8 +275,16 @@
     margin-bottom: var(--memori-spacing-sm, 8px);
 }
 
+.memori-chat--bubble-container--typing .memori-chat--bubble {
+    width: fit-content;
+    max-width: 90%;
+    white-space: normal;
+}
+
 .memori-chat--bubble-typing {
     display: flex;
+    width: fit-content;
+    max-width: 100%;
     align-items: center;
     color: var(--memori-text-color);
 }

@@ -53,7 +53,7 @@ const SettingsDrawer = ({
       open={open}
       onClose={onClose}
       title={t('widget.settings') || 'Settings'}
-      description={t('write_and_speak.settingsHeaderLabel')}
+      // description={t('write_and_speak.settingsHeaderLabel')}
     >
       {/* <div className="memori-settings-drawer--field controls">
         <label htmlFor="#microphoneMode">

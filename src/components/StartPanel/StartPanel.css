@@ -784,7 +784,8 @@
     height: var(--memori-spacing-xl);
     align-items: center;
     justify-content: center;
-    border: var(--memori-border) solid var(--memori-primary);
+    border: none;
+    margin-right: var(--memori-spacing-md);
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 0 5px 6px rgba(255, 255, 255, 0.5);
