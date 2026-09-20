@@ -66,7 +66,7 @@
     align-items: center;
     padding: 0.55rem 0.65rem;
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-surface);
     background: transparent;
     color: var(--memori-text-color, #111827);
     cursor: pointer;
@@ -100,7 +100,7 @@
 /* All actionable menu rows: press feedback */
 .memori-share-button--menu-item {
     position: relative;
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-surface);
     transition: background-color 0.2s ease, transform 0.12s ease;
 }
 
@@ -163,7 +163,7 @@
     align-items: center;
     justify-content: center;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-control);
     margin-top: 0.25rem;
     background: transparent;
     /* color: var(--memori-primary, #3b82f6); */
@@ -234,7 +234,7 @@
     flex-direction: column;
     padding: 0.5rem 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 0;
     margin-top: var(--memori-spacing-sm);
     background-color: #fff;

@@ -6,7 +6,7 @@
     max-width: 100%;
     box-sizing: border-box;
     /* border: 1px solid #e5e7eb; */
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-surface);
     background: #f8fafc;
 }
 
@@ -31,7 +31,7 @@
     margin: 0;
     background: transparent;
     font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-relaxed);
     overflow-x: auto;
     white-space: pre-wrap;
@@ -105,7 +105,7 @@ pre[class*='language-'] {
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-control);
     gap: var(--memori-spacing-sm);
 }
 
@@ -114,7 +114,7 @@ button.memori-snippet--copy-button {
     height: 32px !important; */
     padding: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem !important;
+    border-radius: var(--memori-radius-control) !important;
     background: var(--memori-secondary-background);
     transition: all 0.2s ease;
 }

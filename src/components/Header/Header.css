@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: flex-end;
     padding: calc(var(--memori-spacing-md) / 4) calc(var(--memori-spacing-md) / 2);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-left: auto;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -23,14 +23,14 @@
     min-width: 320px;
     padding: var(--memori-spacing-md);
     border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 14px;
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background, #fff);
     box-shadow: var(--memori-shadow-lg);
 }
 
 .memori-dropdown--user-item {
     padding: 0;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-surface);
     margin: calc(-1 * var(--memori-spacing-xs)) 0;
 }
 
@@ -152,7 +152,7 @@
 .memori-dropdown--user-name {
     margin: 0;
     color: var(--memori-text-color, #111);
-    font-size: 1.05rem;
+    font-size: var(--memori-text-size-lg);
     font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.3;
@@ -201,7 +201,7 @@
     justify-content: center;
     padding: 12px 16px;
     border-color: rgba(185, 28, 28, 0.45);
-    border-radius: 10px;
+    border-radius: var(--memori-radius-control);
     background: transparent;
     color: #b91c1c;
     font-size: 0.9375rem;
@@ -505,7 +505,7 @@
 .memori-dropdown--sustainability {
     min-width: 260px;
     padding: 0.625rem 0.75rem;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-surface);
 }
 
 .memori-dropdown--sustainability-menu {
@@ -563,7 +563,7 @@
     flex-direction: column;
     padding: 0.55rem 0.65rem;
     border: 1px solid rgba(15, 23, 42, 0.07);
-    border-radius: 10px;
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-main-background);
     gap: 0.15rem;
 }
@@ -596,7 +596,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.4rem 0.5rem;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-main-background);
     gap: 1rem;
 }
@@ -751,7 +751,7 @@
 
 .memori-header--fullpage .memori-dropdown--user-trigger--fullpage {
     max-width: none;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-control);
 }
 
 .memori-header--auth-icon-controls {
@@ -768,7 +768,7 @@
 }
 
 .memori-header--action-label {
-    font-size: var(--memori-text-size-sm, 0.8125rem);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium, 500);
     line-height: 1.2;
     white-space: nowrap;
@@ -790,7 +790,7 @@
     max-height: min(62vh, 480px);
     /* padding: 0.25rem; */
     /* border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent); */
-    border-radius: 10px;
+    border-radius: var(--memori-radius-surface);
     margin-top: 0.2rem;
 }
 
@@ -802,7 +802,7 @@
     justify-content: space-between;
     padding: 0.6rem 0.55rem;
     border: 0;
-    border-radius: 10px;
+    border-radius: var(--memori-radius-surface);
     background: transparent;
     color: inherit;
     gap: 0.65rem;

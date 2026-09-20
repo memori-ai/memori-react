@@ -468,7 +468,9 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           'memori--conversation-button',
           'memori--image-upload-button'
         )}
-        aria-label={String(t('upload.addImage', { defaultValue: 'Upload image' }))}
+        aria-label={String(
+          t('upload.addImage', { defaultValue: 'Upload image' })
+        )}
         onClick={() => imageInputRef.current?.click()}
         disabled={
           isLoading || !isMediaAccepted || currentMediaCount >= maxImages
@@ -493,7 +495,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               gap: 'var(--memori-spacing-sm)',
               justifyContent: 'end',
               alignItems: 'center',
-              borderTop: '1px solid rgba(255, 255, 255, 0.2)',
             }}
           >
             <Button onClick={handleCancelUpload} variant="outline">

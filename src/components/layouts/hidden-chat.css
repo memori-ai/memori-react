@@ -43,13 +43,13 @@
     align-items: center;
     justify-content: center;
     padding: var(--memori-spacing-sm);
-    border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
+    border-radius: var(--memori-radius-control) 0 0 var(--memori-radius-control);
     /* Prefer --memori-primary-color: dark theme remaps --memori-primary to
        --memori-primary-hover, which can circularly resolve to an invalid value. */
     background-color: var(--memori-primary-color, var(--memori-primary));
     color: var(--memori-primary-content, #fff);
     cursor: pointer;
-    font-size: var(--memori-text-size-large);
+    font-size: var(--memori-text-size-lg);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-normal);
     text-orientation: mixed;
@@ -59,12 +59,12 @@
 }
 
 .memori-open-label {
-    border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
+    border-radius: var(--memori-radius-control) 0 0 var(--memori-radius-control);
 }
 
 .memori-close-label {
     right: var(--memori-hidden-chat-width);
-    border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
+    border-radius: var(--memori-radius-control) 0 0 var(--memori-radius-control);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, right 0.3s ease-in-out;
@@ -255,7 +255,7 @@
 .memori-sidebar-content h2 {
     margin-bottom: var(--memori-spacing-lg);
     color: var(--memori-primary);
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-tight);
 }
@@ -273,7 +273,7 @@
     display: flex;
     align-items: center;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-normal);
     text-decoration: none;
     transition: color 0.2s ease-in-out;
@@ -533,7 +533,7 @@
     max-width: 30.5rem;
     align-self: center;
     border: none;
-    border-radius: 16px;
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background);
 }
 

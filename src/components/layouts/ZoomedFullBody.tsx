@@ -433,13 +433,10 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                   />
                 ) : startPanelProps ? (
                   <div className="memori-conversation-column">
-                    <StartPanel {...startPanelProps} />
-                    {poweredBy ? (
-                      <div className="memori-conversation-footer">
-                        <span aria-hidden />
-                        {poweredBy}
-                      </div>
-                    ) : null}
+                    <StartPanel
+                      {...startPanelProps}
+                      footerBrand={poweredBy}
+                    />
                   </div>
                 ) : null}
               </div>

@@ -11,7 +11,7 @@
   max-height: 340px;
   flex-direction: column;
   padding: var(--memori-spacing-md);
-  border-radius: var(--memori-radius-box);
+  border-radius: var(--memori-radius-overlay);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: var(--memori-main-background);
@@ -32,7 +32,7 @@
 .memori--slider-label {
   color: var(--memori-text-color);
   /* margin-bottom: var(--memori-spacing-sm); */
-  font-size: var(--memori-text-size-large);
+  font-size: var(--memori-text-size-lg);
 }
 
 /* Button adjustments */
@@ -106,6 +106,6 @@
   
   .memori--preset-buttons button {
     padding: calc(var(--memori-spacing-sm) + 2px) calc(var(--memori-spacing-xs) + 2px);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
   }
 }

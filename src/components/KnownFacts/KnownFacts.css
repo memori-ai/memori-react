@@ -31,7 +31,7 @@
 .memori-known-facts-total,
 .memori-known-facts-count {
     color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     white-space: nowrap;
 }
 
@@ -41,14 +41,14 @@
     align-items: center;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: var(--memori-border) solid color-mix(in oklch, var(--memori-primary) 28%, var(--memori-border-color));
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: color-mix(in oklch, var(--memori-primary) 8%, var(--memori-secondary-background));
     gap: var(--memori-spacing-sm);
 }
 
 .memori-known-facts-selection-bar__count {
     color: var(--memori-primary);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
 }
 
@@ -79,7 +79,7 @@
     align-items: flex-start;
     padding: var(--memori-spacing-md);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background);
     gap: var(--memori-spacing-md);
 }
@@ -107,7 +107,7 @@
     min-width: 0;
     margin: 0;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal);
     overflow-wrap: anywhere;
 }
@@ -147,11 +147,11 @@
     box-sizing: border-box;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-field);
+    border-radius: var(--memori-radius-control);
     background: var(--memori-secondary-background);
     color: var(--memori-text-color);
     font: inherit;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal);
     resize: vertical;
 }

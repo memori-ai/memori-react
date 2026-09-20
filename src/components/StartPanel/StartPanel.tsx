@@ -61,6 +61,7 @@ export interface Props {
   notEnoughCredits?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
   showFullDescriptionOnMobile?: boolean;
+  footerBrand?: React.ReactNode;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -86,6 +87,7 @@ const StartPanel: React.FC<Props> = ({
   notEnoughCredits = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
+  footerBrand,
 }) => {
   const { t, i18n } = useTranslation();
   const boardOfExpertsTooltip = usePressTooltip();
@@ -711,6 +713,9 @@ const StartPanel: React.FC<Props> = ({
             </div>
           )}
       </div>
+      {footerBrand ? (
+        <div className="memori--start-panel__footer">{footerBrand}</div>
+      ) : null}
       <Modal
         open={isMobile && mobileInfoModal !== null}
         onClose={() => setMobileInfoModal(null)}

@@ -17,7 +17,7 @@
     flex-direction: column;
     padding: 0.5rem 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 0;
     margin-top: var(--memori-spacing-sm);
     background-color: #fff;

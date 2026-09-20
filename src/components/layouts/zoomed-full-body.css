@@ -28,7 +28,8 @@
     gap: 0;
 }
 
-/* "Powered by" lives in the conversation footer under the chat input. */
+/* "Powered by" lives inside StartPanel on the start screen, then in the
+   conversation footer under the chat input once the session starts. */
 
 /* Header spacing + fullpage chrome (brand + actions bar) */
 .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-top-header {
@@ -82,7 +83,7 @@
     min-height: 0;
     flex: 1 1 auto;
     border: none;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-bottom: 0;
     background-color: var(--memori-secondary-background);
 }
@@ -94,7 +95,7 @@
     flex: 1 1 auto;
     align-items: center;
     margin-right: auto;
-    gap: 0.625rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-header-brand-text {
@@ -129,7 +130,7 @@
     min-width: 0;
     max-width: 100%;
     color: var(--memori-text-color, #1f2937);
-    font-size: 1.05rem;
+    font-size: var(--memori-text-size-lg);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -143,7 +144,7 @@
     min-width: 0;
     max-width: 100%;
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
-    font-size: var(--memori-text-size-sm, 0.8125rem);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-normal, 400);
     line-height: 1.3;
     text-overflow: ellipsis;
@@ -223,7 +224,7 @@
     align-items: stretch;
     align-self: stretch;
     border: none;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-surface);
     margin-right: 0;
     background: color-mix(in srgb, var(--memori-text-color) 4%, var(--memori-secondary-background));
 }
@@ -236,7 +237,7 @@
     justify-content: center;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
-    font-size: var(--memori-text-size-sm, 0.8125rem);
+    font-size: var(--memori-text-size-sm);
     gap: var(--memori-spacing-xs);
     line-height: 1.2;
     text-align: center;
@@ -316,16 +317,32 @@
     background: var(--memori-secondary-background);
 }
 
-/* Hide avatar column when artifact drawer is open */
+/* Hide avatar column when artifact drawer is open in split mode */
 .memori-widget.memori-layout-zoomed_full_body
     .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
     .memori--grid-column-left {
     display: none;
 }
 
-@media (max-width: 1260px) {
-    .memori-widget.memori-layout-zoomed_full_body .memori--grid-column-artifact {
-        display: none;
+@media (max-width: 1199px) {
+    .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-content-row {
+        position: relative;
+    }
+
+    .memori-widget.memori-layout-zoomed_full_body .memori--grid-column-artifact--open {
+        position: absolute;
+        z-index: 8;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(560px, 100%);
+        box-shadow: var(--memori-shadow-lg, 0 10px 28px rgba(0, 0, 0, 0.12));
+    }
+
+    .memori-widget.memori-layout-zoomed_full_body
+        .memori-fullpage-content-row:has(.memori--grid-column-artifact--open)
+        .memori--grid-column-left {
+        display: flex;
     }
 }
 
@@ -370,7 +387,7 @@
 .memori-widget.memori-layout-zoomed_full_body .memori--title {
     margin-bottom: var(--memori-spacing-xs);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-tight);
 }
@@ -380,12 +397,11 @@
     padding: var(--memori-spacing-lg);
     padding-top: var(--memori-spacing-xs);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-relaxed);
 }
 
-/* ZoomedFullBody: Memori brand lives in the conversation footer; no watermark.
-   Input bar styles live in ChatInputs.css (shared with FULLPAGE). */
+/* Input bar styles live in ChatInputs.css (shared with FULLPAGE). */
 
 /* Keep the input bar inside the chat panel, pinned to the bottom of the column */
 .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls .memori-chat--wrapper {

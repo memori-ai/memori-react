@@ -182,7 +182,7 @@
         --memori-conversation-max-width: 48rem; /* 768px */
         --memori-conversation-inline-padding: var(--memori-spacing-md);
         font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
-        font-size: var(--memori-text-size-base);
+        font-size: var(--memori-text-size-md);
     }
 }
 

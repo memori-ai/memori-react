@@ -5,6 +5,9 @@ import { memori, tenant, integration } from '../../mocks/data';
 import Memori, { Props } from '../../index';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { withWidgetProviders } from '../../../.storybook/decorators';
+import FullPageLayout from './FullPage';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 
 /**
  * Canonical layout matrix — one story per LayoutName (plus Custom + HiddenChat note).
@@ -46,6 +49,76 @@ export const FullPage: Story = {
     ...fixtureBase,
     layout: 'FULLPAGE',
   },
+};
+
+const sampleArtifact: ArtifactData = {
+  id: 'artifact-fullpage',
+  artifactId: 'artifact-fullpage',
+  mimeType: 'markdown',
+  title: 'Guida alla conversazione',
+  timestamp: new Date('2026-01-01T00:00:00.000Z'),
+  size: 120,
+  content: `# Guida alla conversazione
+
+## Come funziona
+
+Questo pannello mostra l'artifact in una colonna di lettura da 720px, con titolo e tipo nella toolbar.
+`,
+};
+
+const OpenArtifactOnMount = () => {
+  const { openArtifact } = useArtifact();
+  React.useLayoutEffect(() => {
+    openArtifact(sampleArtifact);
+  }, [openArtifact]);
+  return null;
+};
+
+const ArtifactChatStub = ({
+  footerBrand,
+}: {
+  footerBrand?: React.ReactNode;
+}) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      padding: '1.5rem',
+      background: '#fff',
+    }}
+  >
+    <p style={{ margin: 0 }}>Chat</p>
+    <button
+      type="button"
+      style={{ marginTop: '1rem', alignSelf: 'flex-start' }}
+    >
+      Guida alla conversazione
+    </button>
+    {footerBrand}
+  </div>
+);
+
+const ArtifactDummy = () => null;
+
+export const FullPageWithArtifact: Story = {
+  render: () => (
+    <div
+      className="memori memori-widget memori-layout-fullpage"
+      data-theme="light"
+      style={{ height: '100%', minHeight: '100%' }}
+    >
+      <OpenArtifactOnMount />
+      <FullPageLayout
+        Avatar={ArtifactDummy as any}
+        StartPanel={ArtifactDummy as any}
+        Chat={ArtifactChatStub as any}
+        chatProps={{} as any}
+        sessionId="session-1"
+        hasUserActivatedSpeak
+      />
+    </div>
+  ),
 };
 
 export const Chat: Story = {
@@ -124,10 +197,7 @@ const CustomLayout: React.FC<LayoutProps> = ({
   <>
     {integrationStyle}
     {integrationBackground}
-    <Spin
-      spinning={loading}
-      className="memori-mycustom-layout"
-    >
+    <Spin spinning={loading} className="memori-mycustom-layout">
       {poweredBy}
       <div className="memori-mycustom-layout--controls">
         {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (

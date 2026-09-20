@@ -15,7 +15,7 @@
 }
 
 .memori-side-drawer .memori-drawer__title {
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
 }
 
 .memori-side-drawer .memori-drawer__description {
@@ -70,7 +70,7 @@
     height: 3.25rem;
     align-items: center;
     justify-content: center;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-bottom: var(--memori-spacing-xs);
     background: var(--memori-main-background);
     color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
@@ -78,7 +78,7 @@
 
 .memori-side-drawer-empty__title {
     margin: 0;
-    font-size: var(--memori-text-size-large);
+    font-size: var(--memori-text-size-lg);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-tight);
 }
@@ -87,6 +87,6 @@
     max-width: 22.5rem;
     margin: 0;
     color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-relaxed);
 }

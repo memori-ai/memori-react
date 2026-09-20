@@ -96,7 +96,7 @@
 .memori--venue-widget__place-name {
     padding: var(--memori-spacing-sm) 0;
     margin: 0;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-normal);
 }
 
@@ -104,7 +104,7 @@
     overflow: hidden;
     width: 100%;
     min-height: 200px;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
 }
 
 .memori--venue-widget__map {
@@ -126,9 +126,9 @@
     flex: 1 1 auto;
     padding: calc(var(--memori-spacing-sm) + 2px);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin: 0;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-normal);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -163,7 +163,7 @@ ul.memori--venue-widget-search--options {
     padding-right: 0;
     padding-bottom: 0.25rem;
     padding-left: 0;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-top: var(--memori-spacing-sm);
     margin-right: 0;
     margin-bottom: 0;
@@ -176,7 +176,7 @@ ul.memori--venue-widget-search--options {
 
 @media (min-width: 640px) {
     .memori--venue-widget-search--options {
-        font-size: var(--memori-text-size-small);
+        font-size: var(--memori-text-size-sm);
         line-height: var(--memori-text-line-tight);
     }
 }

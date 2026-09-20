@@ -69,7 +69,7 @@
 .memori-chat--feedback-menu-items {
     width: 14rem;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     outline: none;
 }
@@ -88,14 +88,14 @@
     align-items: center;
     padding: var(--memori-spacing-sm);
     border: none;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin: 0;
     background: none;
     box-shadow: none;
     color: var(--memori-text-color);
     cursor: pointer;
     font-family: inherit;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: inherit;
     line-height: inherit;
 }

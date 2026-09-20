@@ -13,7 +13,7 @@
     justify-content: center;
     padding: 0;
     border: 1px solid var(--memori-border-color, #ddd);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     background: transparent;
     box-shadow: none;
     color: var(--memori-icon-button-icon);
@@ -43,7 +43,7 @@
     display: inline-flex;
     overflow: visible;
     align-items: center;
-    font-size: var(--memori-text-size-sm, 0.8125rem);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium, 500);
     line-height: 1.2;
     white-space: nowrap;

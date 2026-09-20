@@ -82,12 +82,12 @@ button.age-verification-submit {
     min-height: 42px;
     padding: 1rem 2rem;
     border: none;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin-top: 1rem;
     background: var(--memori-primary);
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

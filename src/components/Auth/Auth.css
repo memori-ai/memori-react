@@ -21,10 +21,10 @@
 input.memori-auth-widget--input {
     min-height: 2.5rem;
     border: 1px solid #e0e0e0;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     appearance: none;
     background: inherit;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     outline: transparent solid 2px;
     outline-offset: 2px;
     padding-inline-end: 1rem;
@@ -53,7 +53,7 @@ input.memori-auth-widget--input:focus {
 .memori-auth-widget--error {
     padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
     border: 1px solid #ef4444;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-top: var(--memori-spacing-sm);
     margin-bottom: var(--memori-spacing-lg);
     background-color: #fee2e2;

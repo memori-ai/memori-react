@@ -2,7 +2,7 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
   }
   
   .memori--completion-provider-status--loading {

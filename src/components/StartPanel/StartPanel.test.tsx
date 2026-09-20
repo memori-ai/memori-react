@@ -426,3 +426,31 @@ it('requests geolocation from the use-my-position click and sets venue', () => {
     uncertainty: 0.025,
   });
 });
+
+it('renders footerBrand inside the start panel', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+      footerBrand={
+        <div className="memori--powered-by">Powered by Memori.AI</div>
+      }
+    />
+  );
+
+  const panel = container.querySelector('.memori--start-panel');
+  const footer = panel?.querySelector('.memori--start-panel__footer');
+
+  expect(footer).not.toBeNull();
+  expect(footer).toHaveTextContent('Powered by Memori.AI');
+});

@@ -155,8 +155,7 @@
 .memori--upload-menu-item {
     display: flex;
     align-items: center;
-    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin: var(--memori-spacing-xs) var(--memori-spacing-sm);
     cursor: pointer;
     transition: all 0.2s;
@@ -201,7 +200,7 @@
     display: flex;
     align-items: center;
     /* padding: calc(var(--memori-spacing-sm) + 2px) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)); */
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     /* border-left: 3px solid transparent; */
     margin-bottom: var(--memori-spacing-sm);
     background-color: #f8f9fa;
@@ -241,7 +240,7 @@
     width: 36px;
     height: 36px;
     flex-shrink: 0;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -263,7 +262,7 @@
     overflow: hidden;
     max-width: 200px;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -315,7 +314,7 @@
 /* Modal Preview Content */
 .memori--preview-content {
     padding: var(--memori-spacing-md);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 0;
     /* background-color: #f8f9fa; */
     font-family: monospace;
@@ -353,7 +352,7 @@
 .memori--modal-preview-file .memori--asset-info {
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: 1px solid #b2f2bb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-top: var(--memori-spacing-md);
     /* background-color: #ebfbee; */
     text-align: left;
@@ -362,7 +361,7 @@
 .memori--asset-url {
     overflow: hidden;
     padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-top: var(--memori-spacing-sm);
     background-color: #f5f5f5;
     font-family: monospace;
@@ -396,7 +395,7 @@
     right: 0;
     bottom: -35px;
     padding: var(--memori-spacing-xs) var(--memori-spacing-sm);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 0;
     background-color: #f5f5f5;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -416,7 +415,7 @@
     top: -8px;
     right: -8px;
     padding: calc(var(--memori-spacing-xs) / 4) calc(var(--memori-spacing-xs) + 2px);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     background-color: #4dabf7;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: var(--memori-text-color);
@@ -427,7 +426,7 @@
 .memori--upload-image {
     min-width: 140px;
     min-height: 42px;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -462,7 +461,7 @@
     bottom: 50px;
     width: 220px; /* Slightly wider to accommodate the text */
     padding: var(--memori-spacing-sm) 0;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     animation: fadeIn 0.2s ease;
     background-color: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -477,10 +476,10 @@
 input.memori--upload-title-input {
     min-height: 2.5rem;
     border: 1px solid #e0e0e0;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     appearance: none;
     background: inherit;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     outline: transparent solid 2px;
     outline-offset: 2px;
     padding-inline-end: 1rem;

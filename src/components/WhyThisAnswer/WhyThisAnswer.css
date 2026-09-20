@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: var(--memori-spacing-md);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-main-background);
     gap: var(--memori-spacing-sm);
 }
@@ -25,7 +25,7 @@
 .memori-whythisanswer-pair__text {
     margin: 0;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal);
 }
 
@@ -42,7 +42,7 @@
     color: var(--memori-primary);
     cursor: pointer;
     font: inherit;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     text-decoration: underline;
 }
@@ -55,7 +55,7 @@
 
 .memori-whythisanswer-heading__title {
     margin: 0;
-    font-size: var(--memori-text-size-large);
+    font-size: var(--memori-text-size-lg);
     font-weight: var(--memori-text-weight-semibold);
 }
 
@@ -88,7 +88,7 @@
     align-items: flex-start;
     padding: var(--memori-spacing-md);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background);
     gap: var(--memori-spacing-sm);
 }
@@ -123,7 +123,7 @@
 .memori-whythisanswer-card__title {
     margin: 0;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-semibold);
 }
 
@@ -141,13 +141,13 @@
 .memori-whythisanswer-card__snippet {
     margin: 0;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-relaxed);
 }
 
 .memori-whythisanswer-mark {
     padding: 1px 3px;
-    border-radius: calc(var(--memori-radius-box) / 2);
+    border-radius: var(--memori-radius-tail);
     background: color-mix(in oklch, var(--memori-warning, #e8b931) 42%, transparent);
     color: var(--memori-text-color);
 }
@@ -213,7 +213,7 @@
 .memori-whythisanswer-skeleton-text,
 .memori-whythisanswer-skeleton-block {
     display: block;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     animation: memori-pulse var(--memori-motion-duration-slow) var(--memori-motion-ease-in-out) infinite;
     background: color-mix(in oklch, var(--memori-text-color) 12%, transparent);
 }

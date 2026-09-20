@@ -4,7 +4,7 @@
     right: 0.5rem;
     padding: var(--memori-button-padding);
     border: var(--memori-border) solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-top: 0.5rem;
     background: #fff;
     box-shadow: var(--memori-button-box-shadow);

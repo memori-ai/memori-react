@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '../../testUtils';
+import { render, screen, waitFor } from '../../testUtils';
 import Memori from '../MemoriWidget/MemoriWidget';
 import FullPageLayout from './FullPage';
 import { integration, memori, tenant } from '../../mocks/data';
@@ -28,8 +28,7 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders FullPage layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <ArtifactProvider
-      >
+      <ArtifactProvider>
         <VisemeProvider>
           <Memori
             showShare={true}
@@ -50,20 +49,19 @@ it('renders FullPage layout unchanged', () => {
 it('renders FullPage layout with root css properties unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <ArtifactProvider
-      >
-      <VisemeProvider>
-        <Memori
-          showShare={true}
-          showSettings={true}
-          memori={memori}
-          tenant={tenant}
-          tenantID="aisuru.com"
-          integration={integration}
-          layout="FULLPAGE"
-          applyVarsToRoot
-        />
-      </VisemeProvider>
+      <ArtifactProvider>
+        <VisemeProvider>
+          <Memori
+            showShare={true}
+            showSettings={true}
+            memori={memori}
+            tenant={tenant}
+            tenantID="aisuru.com"
+            integration={integration}
+            layout="FULLPAGE"
+            applyVarsToRoot
+          />
+        </VisemeProvider>
       </ArtifactProvider>
     </I18nWrapper>
   );
@@ -125,4 +123,63 @@ it('renders PoweredBy only once when an artifact drawer is open', async () => {
   });
 
   expect(container.querySelectorAll('.memori--powered-by')).toHaveLength(1);
+});
+
+const renderFullPageWithArtifact = () =>
+  render(
+    <I18nWrapper>
+      <ArtifactProvider>
+        <OpenArtifact>
+          <FullPageLayout
+            Avatar={Dummy as any}
+            StartPanel={Dummy as any}
+            Chat={ChatStub as any}
+            chatProps={{} as any}
+            sessionId="session-1"
+            hasUserActivatedSpeak
+          />
+        </OpenArtifact>
+      </ArtifactProvider>
+    </I18nWrapper>
+  );
+
+it('shows a resizable artifact column with name in the toolbar', async () => {
+  const { container } = renderFullPageWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori--grid-column-artifact--open')
+    ).not.toBeNull();
+  });
+
+  expect(
+    screen.getByRole('separator', { name: 'artifact.resizeHandle' })
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('.memori-artifact-toolbar--title')
+  ).toHaveTextContent('Hello');
+});
+
+it('overlays the artifact panel under 1200px instead of compressing chat', async () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query: string) => ({
+      matches: query.includes('1199'),
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
+  const { container } = renderFullPageWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori-fullpage-content-row--artifact-overlay')
+    ).not.toBeNull();
+  });
 });

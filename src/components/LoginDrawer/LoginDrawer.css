@@ -29,7 +29,7 @@
 
 .memori--login-drawer .memori-drawer--panel {
     height: 100vh;
-    border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
+    border-radius: var(--memori-radius-overlay) 0 0 var(--memori-radius-overlay);
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
 }
@@ -77,11 +77,11 @@ form.memori--login-drawer--form {
     flex: 1 1 auto;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
     border: 2px solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin: 0.5rem 0;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-normal);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -126,7 +126,7 @@ form.memori--login-drawer--form {
 .memori--login-drawer--form small {
     margin-top: var(--memori-spacing-xs);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
 }
 
 /* ===== ERROR STYLES ===== */
@@ -139,7 +139,7 @@ p.memori--login-drawer--error {
 p.memori--login-drawer--inline-error {
     margin: 0 0 0.5rem;
     color: var(--memori-error);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     text-align: center;
 }
 
@@ -219,7 +219,7 @@ p.memori--login-drawer--inline-error {
     align-items: flex-start;
     padding: var(--memori-spacing-lg);
     border: 1px solid var(--memori-border-color);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     backdrop-filter: blur(10px);
     background: white;
     gap: var(--memori-spacing-lg);
@@ -308,7 +308,7 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);
     gap: var(--memori-spacing-sm);
@@ -322,7 +322,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--feature-icon {
     display: block;
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
 }
 
 .memori--login-drawer--feature span:last-child {
@@ -339,7 +339,7 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     padding: 1rem 2rem;
     border: none;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin-top: var(--memori-spacing-2xl);
     background: var(--memori-primary);
     color: var(--memori-text-color);
@@ -451,7 +451,7 @@ p.memori--login-drawer--inline-error {
     flex-direction: column;
     justify-content: center;
     padding: clamp(1.5rem, 4vw, 2.5rem);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-bottom: 12rem;
     background: var(--memori-main-background);
     gap: 0.75rem;
@@ -470,7 +470,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-card-heading {
     margin: 0 0 1rem;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-heading-xlarge);
+    font-size: var(--memori-text-size-3xl);
     font-weight: var(--memori-text-weight-bold);
     text-align: center;
 }
@@ -478,7 +478,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-card .memori-card__description {
     margin: 0 0 2rem;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-relaxed);
     overflow-wrap: anywhere;
     text-align: center;
@@ -524,7 +524,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-container h3 {
     margin: 0 0 1rem;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-heading-xlarge);
+    font-size: var(--memori-text-size-3xl);
     font-weight: var(--memori-text-weight-bold);
     text-align: center;
 }
@@ -532,7 +532,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-description {
     margin: 0 0 2rem;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     line-height: var(--memori-text-line-relaxed);
     text-align: center;
 }
@@ -596,7 +596,7 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     height: 3.5rem;
     border: 2px solid #d7e0ea;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-control);
     margin: 0;
     background: var(--memori-main-background);
     box-shadow: none;
@@ -631,7 +631,7 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     height: 3.5rem;
     padding: 0 2.75rem 0 1rem;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     font-weight: var(--memori-text-weight-medium);
     outline: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -703,7 +703,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-help {
     margin-top: var(--memori-spacing-sm);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     text-align: center;
 }
 
@@ -711,7 +711,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-success {
     padding: 2rem;
     border: 2px solid #10b981;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 1rem 0;
     animation: successSlide 0.5s ease-out;
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
@@ -833,7 +833,7 @@ p.memori--login-drawer--inline-error {
     /* overflow: hidden; */
     min-width: 140px;
     min-height: 42px;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -855,7 +855,7 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     padding: 1rem 1.5rem;
     border: 2px solid #ef4444;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: var(--memori-spacing-lg) 0;
     animation: errorSlide 0.3s ease-out;
     background: #fee2e2;
@@ -906,7 +906,7 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     padding: 1rem 1.5rem;
     border: 2px solid #ef4444;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin: 1rem;
     animation: errorSlide 0.3s ease-out;
     background: linear-gradient(135deg, #fee2e2, #fecaca);
@@ -958,7 +958,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer .memori-drawer--panel {
-        border-radius: 20px 20px 0 0;
+        border-radius: var(--memori-radius-overlay) var(--memori-radius-overlay) 0 0;
     }
 
     .memori--login-drawer--welcome {
@@ -967,11 +967,11 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--welcome h3 {
-        font-size: var(--memori-text-size-heading-large);
+        font-size: var(--memori-text-size-2xl);
     }
 
     .memori--login-drawer--welcome-description {
-        font-size: var(--memori-text-size-base);
+        font-size: var(--memori-text-size-md);
     }
 
     .memori--login-drawer--otp-info {
@@ -1047,7 +1047,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--welcome h3 {
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--welcome-description {
@@ -1062,11 +1062,11 @@ p.memori--login-drawer--inline-error {
     .memori--login-drawer--otp-info-number {
         width: 32px;
         height: 32px;
-        font-size: var(--memori-text-size-base);
+        font-size: var(--memori-text-size-md);
     }
 
     .memori--login-drawer--otp-info-content h4 {
-        font-size: var(--memori-text-size-base);
+        font-size: var(--memori-text-size-md);
     }
 
     .memori--login-drawer--otp-info-content p {
@@ -1079,7 +1079,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--feature-icon {
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--feature span:last-child {
@@ -1092,13 +1092,13 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-container h3 {
-        font-size: var(--memori-text-size-heading-large);
+        font-size: var(--memori-text-size-2xl);
     }
 
     .memori--login-drawer--otp-input {
         width: 140px;
         height: 64px;
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
         letter-spacing: 0.2rem;
     }
 
@@ -1108,7 +1108,7 @@ p.memori--login-drawer--inline-error {
 
     .memori--login-drawer--otp-digit-input {
         height: 3rem;
-        border-radius: 10px;
+        border-radius: var(--memori-radius-control);
         font-size: 1.25rem;
     }
 
@@ -1208,7 +1208,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--user-name {
     overflow: hidden;
     margin: 0 0 0.5rem;
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
     font-weight: var(--memori-text-weight-bold);
     text-overflow: ellipsis;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -1235,7 +1235,7 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     backdrop-filter: blur(10px);
     font-size: 0.8rem;
     font-weight: var(--memori-text-weight-semibold);
@@ -1283,7 +1283,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--section-title::before {
     width: 4px;
     height: 20px;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: var(--memori-primary);
     content: '';
 }
@@ -1339,7 +1339,7 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 1.5rem 1rem;
     border: 2px solid transparent;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     cursor: pointer;
     gap: var(--memori-spacing-sm);
@@ -1426,7 +1426,7 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     gap: var(--memori-spacing-lg);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1472,9 +1472,9 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     justify-content: center;
     /* background: var(--memori-primary); */
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-heading-large);
+    font-size: var(--memori-text-size-2xl);
 }
 
 .memori--login-drawer--stat-content {
@@ -1487,7 +1487,7 @@ p.memori--login-drawer--inline-error {
     overflow: hidden;
     margin-bottom: var(--memori-spacing-xs);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     font-weight: var(--memori-text-weight-bold);
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1514,7 +1514,7 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     margin: 0 0 1.5rem;
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-heading);
+    font-size: var(--memori-text-size-xl);
     font-weight: var(--memori-text-weight-bold);
     gap: var(--memori-spacing-sm);
 }
@@ -1522,14 +1522,14 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--account-form {
     padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
 }
 
 .memori--login-drawer--account-form .memori--details {
     overflow: hidden;
     border: 1px solid #e5e7eb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-bottom: var(--memori-spacing-lg);
     background: white;
     transition: all 0.3s ease;
@@ -1584,7 +1584,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--account-form input[type='file'] {
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 2px solid #e5e7eb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     background: white;
     font-size: 0.95rem;
     transition: all 0.3s ease;
@@ -1600,7 +1600,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--account-form .memori-checkbox {
     padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     margin-bottom: var(--memori-spacing-lg);
     background: white;
     transition: all 0.3s ease;
@@ -1621,12 +1621,12 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     padding: var(--memori-spacing-lg) var(--memori-spacing-2xl);
     border: none;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-control);
     margin-top: var(--memori-spacing-lg);
     background: var(--memori-primary);
     color: var(--memori-text-color);
     cursor: pointer;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1674,11 +1674,11 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--avatar-initial {
-        font-size: var(--memori-text-size-heading-large);
+        font-size: var(--memori-text-size-2xl);
     }
 
     .memori--login-drawer--user-name {
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--actions-grid {
@@ -1693,7 +1693,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--action-icon {
-        font-size: var(--memori-text-size-heading-large);
+        font-size: var(--memori-text-size-2xl);
     }
 
     .memori--login-drawer--stats-grid {
@@ -1723,7 +1723,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--avatar-initial {
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--user-name {
@@ -1744,11 +1744,11 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--action-icon {
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--action-text {
-        font-size: var(--memori-text-size-small);
+        font-size: var(--memori-text-size-sm);
     }
 
     .memori--login-drawer--stat-card {
@@ -1759,7 +1759,7 @@ p.memori--login-drawer--inline-error {
     .memori--login-drawer--stat-icon {
         width: 32px;
         height: 32px;
-        font-size: var(--memori-text-size-heading);
+        font-size: var(--memori-text-size-xl);
     }
 
     .memori--login-drawer--stat-value {

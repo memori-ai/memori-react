@@ -1,7 +1,7 @@
 .memori--changeMode-instruct {
     display: flex;
     padding: 1rem;
-    border-radius: var(--memori-radius-box);
+    border-radius: var(--memori-radius-surface);
     gap: var(--memori-spacing-sm);
 }
 

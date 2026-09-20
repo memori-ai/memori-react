@@ -45,7 +45,7 @@ figure.memori--experts-drawer--avatar img {
 
 h3.memori--experts-drawer--name {
     margin: 0;
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-normal);
     line-height: 1.25rem;
 }

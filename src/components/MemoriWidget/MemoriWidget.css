@@ -98,7 +98,7 @@
 .memori--select label {
     margin: var(--memori-spacing-sm) 0 var(--memori-spacing-xs);
     color: var(--memori-text-color);
-    font-size: var(--memori-text-size-small);
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal);
 }
 
@@ -148,7 +148,7 @@
 .memori--conversation-button svg {
     width: 1rem;
     height: 1rem;
-    font-size: var(--memori-text-size-base);
+    font-size: var(--memori-text-size-md);
 }
 
 .memori--conversation-button + .memori--conversation-button {

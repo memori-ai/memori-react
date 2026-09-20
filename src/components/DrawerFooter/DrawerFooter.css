@@ -31,7 +31,7 @@
 .memori-drawer-footer__end .memori-button {
   min-height: 44px;
   padding: 10px var(--memori-spacing-lg);
-  border-radius: 10px;
+  border-radius: var(--memori-radius-control);
   font-weight: 500;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
