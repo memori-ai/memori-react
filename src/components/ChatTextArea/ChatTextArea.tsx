@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import cx from 'classnames';
 import { Button } from '@memori.ai/ui';
 import { Maximize2, Minimize } from 'lucide-react';
@@ -48,35 +48,12 @@ const ChatTextArea: React.FC<Props> = ({
         if (onExpandedChange) {
           onExpandedChange(false);
         }
-        //reset the padding bottom of the chat
-        const chat = document.getElementsByClassName('memori-chat--content');
-        if (chat) {
-          const lastChild = chat[chat.length - 1];
-          if (lastChild) {
-            (lastChild as HTMLElement).style.paddingBottom = '0px';
-          }
-        }
       } else {
         textarea.style.height = 'auto';
         const scrollHeight = textarea.scrollHeight;
         const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT);
         textarea.style.height = `${newHeight}px`;
         inner.style.height = `${newHeight}px`;
-
-        //set the padding bottom to the chat in order to keep the whole chat visible
-        // take last child of chat wrapper and set the padding bottom to the height of the textarea
-        const chat = document.getElementsByClassName('memori-chat--content');
-        if (chat) {
-        const lastChild = chat[chat.length - 1];
-          if (lastChild) {
-            // (lastChild as HTMLElement).style.paddingBottom = `${newHeight}px`;
-            //then scroll to the bottom of the chat
-            (chat[0] as HTMLElement).scrollTo({
-              top: (chat[0] as HTMLElement).scrollHeight,
-              behavior: 'smooth'
-            });
-          }
-        }
       }
     }
   }, [value]);

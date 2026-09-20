@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   memo,
   useMemo,
   useRef,
@@ -27,7 +28,11 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-import { FileText as DocumentIcon } from 'lucide-react';
+import { ChevronDown, FileText as DocumentIcon } from 'lucide-react';
+import {
+  isChatScrolledToBottom,
+  scrollChatToBottom,
+} from '../../helpers/chatScroll';
 import { useTranslation } from 'react-i18next';
 import { Tooltip, Modal } from '@memori.ai/ui';
 import {
@@ -191,9 +196,12 @@ const Chat: React.FC<Props> = ({
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
   const [activeUsageBadge, setActiveUsageBadge] =
     useState<UsageBadgeModalState | null>(null);
   const chatWrapperRef = useRef<HTMLDivElement>(null);
+  const chatContentRef = useRef<HTMLDivElement>(null);
+  const pendingScrollToBottomRef = useRef(false);
   const { t } = useTranslation();
   const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
 
@@ -236,68 +244,67 @@ const Chat: React.FC<Props> = ({
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
   const scrollToBottom = useCallback(() => {
-    if (isHistoryView) return;
-    setTimeout(() => {
-      const userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
-      const last = userMsgs[userMsgs.length - 1] as HTMLElement | undefined;
-      if (!last) return;
-      // Scroll only the message list — never scrollIntoView on ancestors
-      // (layout chrome with overflow can shift and clip the header).
-      const content = last.closest(
-        '.memori-chat--content'
-      ) as HTMLElement | null;
-      if (content) {
-        content.scrollTop = content.scrollHeight;
-        return;
-      }
-      last.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
-    }, 200);
-  }, [isHistoryView]);
-
-  // Avoid re-scrolling when `history` is recreated with same content (e.g. on every keystroke).
-  const lastAutoscrollSignatureRef = useRef<string | null>(null);
-  const lastMessage = history?.[history.length - 1];
-  const lastMessageSignature = `${history?.length ?? 0}|${
-    lastMessage?.timestamp ?? ''
-  }|${lastMessage?.fromUser ? 'u' : 'm'}|${lastMessage?.text?.length ?? 0}|${
-    lastMessage?.translatedText?.length ?? 0
-  }`;
-  useEffect(() => {
-    // if we are in preview mode or in history view, don't scroll to the bottom
     if (preview || isHistoryView) return;
-    // if the last message signature is the same as the previous one, don't scroll to the bottom
-    if (lastAutoscrollSignatureRef.current === lastMessageSignature) return;
-    // set the last autoscroll signature to the current one
-    lastAutoscrollSignatureRef.current = lastMessageSignature;
-    // scroll to the bottom
-    scrollToBottom();
-  }, [preview, isHistoryView, lastMessageSignature, scrollToBottom]);
+    const content = chatContentRef.current;
+    if (!content) return;
+    scrollChatToBottom(content);
+  }, [isHistoryView, preview]);
 
-  // Scroll to bottom when textarea is expanded
-  // useEffect(() => {
-  //   if (isTextareaExpanded && !isHistoryView) {
-  //     setTimeout(() => {
-  //       scrollToBottom();
-  //     }, 250);
-  //   }
-  // }, [isTextareaExpanded, isHistoryView]);
+  const requestScrollToBottom = useCallback(() => {
+    pendingScrollToBottomRef.current = true;
+    scrollToBottom();
+  }, [scrollToBottom]);
+
+  const handleSendMessage = useCallback(
+    (msg: string, media?: (Medium & { type: string })[]) => {
+      requestScrollToBottom();
+      sendMessage(msg, media);
+    },
+    [requestScrollToBottom, sendMessage]
+  );
+
+  const handleSimulateUserPrompt = useCallback(
+    (text: string, translatedText?: string) => {
+      requestScrollToBottom();
+      simulateUserPrompt(text, translatedText);
+    },
+    [requestScrollToBottom, simulateUserPrompt]
+  );
+
+  const updateJumpToLatestVisibility = useCallback(() => {
+    const content = chatContentRef.current;
+    if (!content || preview || isHistoryView) {
+      setShowJumpToLatest(false);
+      return;
+    }
+    setShowJumpToLatest(!isChatScrolledToBottom(content));
+  }, [isHistoryView, preview]);
+
+  useLayoutEffect(() => {
+    if (!pendingScrollToBottomRef.current) return;
+    pendingScrollToBottomRef.current = false;
+    scrollToBottom();
+    updateJumpToLatestVisibility();
+  }, [history, scrollToBottom, updateJumpToLatestVisibility]);
+
+  useEffect(() => {
+    const content = chatContentRef.current;
+    if (!content) return;
+    const onScroll = () => updateJumpToLatestVisibility();
+    content.addEventListener('scroll', onScroll, { passive: true });
+    updateJumpToLatestVisibility();
+    return () => content.removeEventListener('scroll', onScroll);
+  }, [updateJumpToLatestVisibility]);
+
+  useLayoutEffect(() => {
+    updateJumpToLatestVisibility();
+  }, [history, memoriTyping, updateJumpToLatestVisibility]);
 
   const onTextareaFocus = () => {
     stopListening();
     const hasTouch = hasTouchscreen();
 
     if (hasTouch) setEnableFocusChatInput(true);
-    // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
-    // if (hasTouch && window.innerWidth <= 768) {
-    //   document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
-    //   // add the chat-focused class to the memori widget
-    //   document
-    //     .querySelector('.memori.memori-widget')
-    //     ?.classList?.add('chat-focused');
-    //   setTimeout(() => {
-    //     scrollToBottom();
-    //   }, 300);
-    // }
   };
   const onTextareaBlur = () => {
     if (
@@ -309,7 +316,6 @@ const Chat: React.FC<Props> = ({
       document
         .querySelector('.memori.memori-widget')
         ?.classList?.remove('chat-focused');
-      scrollToBottom();
     }
   };
 
@@ -449,6 +455,7 @@ const Chat: React.FC<Props> = ({
         }
       >
         <div
+          ref={chatContentRef}
           className={cx('memori-chat--content', {
             'memori-chat--content-touch': hasTouchscreen(),
             'memori-chat--content--has-global-background': !!globalBackground,
@@ -501,7 +508,7 @@ const Chat: React.FC<Props> = ({
                   baseUrl={baseUrl}
                   apiUrl={apiUrl}
                   sessionID={sessionID}
-                  simulateUserPrompt={simulateUserPrompt}
+                  simulateUserPrompt={handleSimulateUserPrompt}
                   showAIicon={showAIicon}
                   showWhyThisAnswer={showWhyThisAnswer}
                   codeMimeTypes={CODE_MIME_TYPES}
@@ -560,7 +567,7 @@ const Chat: React.FC<Props> = ({
             dialogState.hints.length > 0 &&
             !memoriTyping && (
               <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
+                simulateUserPrompt={handleSimulateUserPrompt}
                 hints={
                   dialogState.translatedHints
                     ? dialogState.translatedHints
@@ -600,6 +607,26 @@ const Chat: React.FC<Props> = ({
           )}
           <div id="end-messages-ref" />
         </div>
+        {showJumpToLatest && (
+          <div className="memori-chat--jump-to-latest">
+            <button
+              type="button"
+              className="memori-chat--jump-to-latest-btn"
+              data-testid="memori-chat-jump-to-latest"
+              aria-label={
+                t('scrollToLatest', {
+                  defaultValue: 'Scroll to latest',
+                }) || 'Scroll to latest'
+              }
+              onClick={() => {
+                scrollToBottom();
+                updateJumpToLatestVisibility();
+              }}
+            >
+              <ChevronDown aria-hidden size={20} />
+            </button>
+          </div>
+        )}
       </div>
 
       {showInputs && (
@@ -609,7 +636,7 @@ const Chat: React.FC<Props> = ({
           dialogState={dialogState}
           instruct={instruct}
           authToken={authToken}
-          sendMessage={sendMessage}
+          sendMessage={handleSendMessage}
           isTyping={memoriTyping}
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}

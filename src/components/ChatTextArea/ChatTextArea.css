@@ -99,7 +99,7 @@ textarea.memori-chat-textarea--input {
     background: transparent;
     color: var(--memori-text-color, #1f1425);
     font-family: var(--memori-font-family);
-    font-size: 14.5px;
+    font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal);
     outline: none;
     -ms-overflow-style: none; /* IE/Edge */
@@ -107,6 +107,12 @@ textarea.memori-chat-textarea--input {
     resize: none;
     scrollbar-width: none; /* Firefox */
     transition: height 0.2s ease-in-out;
+}
+
+@media (pointer: coarse) {
+    textarea.memori-chat-textarea--input {
+        font-size: var(--memori-text-size-md);
+    }
 }
 
 /* Placeholder styling */
@@ -125,14 +131,12 @@ textarea.memori-chat-textarea--input::-webkit-scrollbar {
 @media (max-width: 768px) {
     textarea.memori-chat-textarea--input {
         max-height: 200px;
-        font-size: 14.5px; /* Prevent zoom on iOS */
     }
 }
 
 @media (max-width: 480px) {
     textarea.memori-chat-textarea--input {
         max-height: 150px;
-        font-size: 14.5px; /* Prevent zoom on iOS */
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { File, X } from 'lucide-react';
 import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
@@ -39,19 +39,6 @@ const FilePreview = ({
     content: string;
     type?: string;
   } | null>(null);
-
-  useEffect(() => {
-    const chat = document.getElementsByClassName('memori-chat--content');
-    if (chat) {
-      const lastChild = chat[chat.length - 1];
-      if (lastChild) {
-        (chat[0] as HTMLElement).scrollTo({
-          top: (chat[0] as HTMLElement).scrollHeight,
-          behavior: 'smooth',
-        });
-      }
-    }
-  }, [previewFiles]);
 
   const isHtmlFile = (
     file: { name?: string; type?: string; mimeType?: string } | null
