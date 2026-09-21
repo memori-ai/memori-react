@@ -80,7 +80,7 @@ it('does not show a subtitle that repeats the drawer title', async () => {
   ).not.toBeInTheDocument();
 });
 
-it('renders each conversation title on one line with date and message count', async () => {
+it('renders each conversation title with date and message count', async () => {
   const longTitle =
     'Attrezzatura audio per le riprese in interni e scelta dei microfoni da usare in produzione';
   renderDrawer(
