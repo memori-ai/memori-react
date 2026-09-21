@@ -886,6 +886,13 @@
     }
 }
 
+.memori-fullpage-header-brand-role-tooltip {
+    max-width: min(22rem, calc(100vw - 2rem));
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 [data-theme='dark'] .memori-widget .memori-header--fullpage .memori-header--fullpage-divider,
 .memori-widget[data-theme='dark'] .memori-header--fullpage .memori-header--fullpage-divider {
     background: color-mix(in srgb, #fff 22%, transparent);

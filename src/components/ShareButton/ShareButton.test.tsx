@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '../../testUtils';
+import { render, screen } from '../../testUtils';
 import ShareButton from './ShareButton';
 import { tenant, memori, sessionID } from '../../mocks/data';
 
@@ -50,4 +50,19 @@ it('renders ShareButton with share chat unchanged', () => {
     <ShareButton memori={memori} sessionID={sessionID} />
   );
   expect(container).toMatchSnapshot();
+});
+
+it('renders an inline share list for the mobile share page', () => {
+  const { container } = render(
+    <ShareButton renderMode="inline" url="https://memori.ai" />
+  );
+
+  expect(
+    container.querySelector('.memori-share-button--inline-list')
+  ).toBeTruthy();
+  expect(
+    container.querySelector('.memori-share-button--dropdown-section-social')
+  ).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Facebook' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Email' })).toBeTruthy();
 });

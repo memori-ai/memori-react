@@ -650,24 +650,26 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
           </>
         ) : (
           <div className="memori-mobile-session-panel--page">
-            <Button
-              variant="toolbar"
-              size="sm"
-              className="memori-mobile-session-panel--back"
-              onClick={() => setActiveView('session')}
-            >
-              <ChevronLeft size={16} />
-              {backLabel}
-            </Button>
-            <h3 className="memori-mobile-session-panel--page-title">
-              {activeView === 'location'
-                ? locationPageTitle
-                : activeView === 'share'
-                ? sharePageTitle
-                : activeView === 'aiUsage'
-                ? resolvedAiUsageTitle
-                : knownFactsPageTitle}
-            </h3>
+            <div className="memori-mobile-session-panel--page-header">
+              <Button
+                variant="toolbar"
+                size="sm"
+                className="memori-mobile-session-panel--back"
+                onClick={() => setActiveView('session')}
+              >
+                <ChevronLeft size={16} />
+                {backLabel}
+              </Button>
+              <h3 className="memori-mobile-session-panel--page-title">
+                {activeView === 'location'
+                  ? locationPageTitle
+                  : activeView === 'share'
+                  ? sharePageTitle
+                  : activeView === 'aiUsage'
+                  ? resolvedAiUsageTitle
+                  : knownFactsPageTitle}
+              </h3>
+            </div>
             {activeView === 'location' ? (
               <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--location-content">
                 {setVenue ? (

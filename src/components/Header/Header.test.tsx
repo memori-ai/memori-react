@@ -451,3 +451,11 @@ it('shows the session menu when AI consumption is enabled', () => {
 
   expect(screen.getByLabelText('Info sessione')).toBeTruthy();
 });
+
+it('shows the agent description in the fullpage header', () => {
+  render(<Header {...loggedInFullpageProps} />);
+
+  expect(
+    document.querySelector('.memori-fullpage-header-brand-role')
+  ).toHaveTextContent('Lorem ipsum.');
+});

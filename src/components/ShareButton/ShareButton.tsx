@@ -406,9 +406,12 @@ const ShareButton: React.FC<Props> = ({
     return undefined;
   }, [memori, sessionID, baseUrl, i18n.language]);
 
+  const inlineQrSize = 96;
+  const inlineQrLogoSize = 24;
+
   const shareMenu = (
     <>
-      <div className="memori-share-button--dropdown-section">
+      <div className="memori-share-button--dropdown-section memori-share-button--dropdown-section-primary">
         {memori && sessionID && sharedUrl && (
           <button
             type="button"
@@ -466,7 +469,7 @@ const ShareButton: React.FC<Props> = ({
         </button>
       </div>
       <div className="memori-share-button--dropdown-divider" />
-      <div className="memori-share-button--dropdown-section">
+      <div className="memori-share-button--dropdown-section memori-share-button--dropdown-section-social">
         {socialShare.map(item => {
           const IconComponent = item.icon;
           return (
@@ -495,7 +498,7 @@ const ShareButton: React.FC<Props> = ({
             <QRCodeCanvas
               id="qr-canvas"
               value={targetUrl ?? ''}
-              size={128}
+              size={inlineQrSize}
               bgColor={'#ffffff'}
               fgColor={'#000000'}
               level={'H'}
@@ -504,8 +507,8 @@ const ShareButton: React.FC<Props> = ({
                 src: qrImageURL,
                 x: undefined,
                 y: undefined,
-                height: 32,
-                width: 32,
+                height: inlineQrLogoSize,
+                width: inlineQrLogoSize,
                 excavate: true,
               }}
             />

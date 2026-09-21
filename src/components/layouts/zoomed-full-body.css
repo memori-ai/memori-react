@@ -149,6 +149,7 @@
     line-height: 1.3;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .memori-widget.memori-layout-zoomed_full_body .memori-fullpage-header-actions {

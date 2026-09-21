@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '../../testUtils';
+import { fireEvent, render, screen } from '../../testUtils';
 import MobileSessionPanel from './MobileSessionPanel';
 
 const baseProps = {
@@ -41,4 +41,31 @@ it('shows AI usage when showMessageConsumption is on', () => {
   render(<MobileSessionPanel {...baseProps} showMessageConsumption />);
 
   expect(screen.getByText('widget.aiConsumption')).toBeTruthy();
+});
+
+it('opens the share page with inline share content', () => {
+  render(
+    <MobileSessionPanel
+      {...baseProps}
+      sharePageTitle="Share"
+      backLabel="Back"
+      actions={[
+        {
+          key: 'share',
+          icon: <span>icon</span>,
+          title: 'Share chat',
+          view: 'share',
+        },
+      ]}
+      shareContent={<div>Copy link or download</div>}
+    />
+  );
+
+  expect(screen.queryByText('Copy link or download')).toBeNull();
+
+  fireEvent.click(screen.getByRole('button', { name: /Share chat/i }));
+
+  expect(screen.getByText('Copy link or download')).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Share' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Back' })).toBeTruthy();
 });

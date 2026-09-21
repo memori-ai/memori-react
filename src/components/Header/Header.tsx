@@ -44,6 +44,7 @@ import ChatConsumptionDropdown from './ChatConsumptionDropdown';
 import IconButton from '../IconButton/IconButton';
 import { imgMimeTypes } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
+import { usePressTooltip } from '../../helpers/usePressTooltip';
 
 export interface Props {
   className?: string;
@@ -136,6 +137,7 @@ const Header: React.FC<Props> = ({
   const [userPopoverOpen, setUserPopoverOpen] = useState(false);
   const [infoPopoverOpen, setInfoPopoverOpen] = useState(false);
   const [consumptionModalOpen, setConsumptionModalOpen] = useState(false);
+  const brandRoleTooltip = usePressTooltip();
 
   type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -1544,8 +1546,22 @@ const Header: React.FC<Props> = ({
                 </span>
               ) : null}
               {brandRole ? (
-                <Tooltip title={brandRole} placement="bottom">
-                  <span className="memori-fullpage-header-brand-role">
+                <Tooltip
+                  title={brandRole}
+                  placement="bottom"
+                  {...brandRoleTooltip.tooltipProps}
+                  slotProps={{
+                    positioner: brandRoleTooltip.positionerProps,
+                    popup: {
+                      className: 'memori-fullpage-header-brand-role-tooltip',
+                    },
+                  }}
+                >
+                  <span
+                    ref={brandRoleTooltip.anchorRef}
+                    className="memori-fullpage-header-brand-role"
+                    {...brandRoleTooltip.pressTriggerProps}
+                  >
                     {brandRole}
                   </span>
                 </Tooltip>
