@@ -504,6 +504,10 @@
     max-width: 100%;
 }
 
+.memori-chat--artifact-block--chatlog.memori-chat--artifact-block--expanded {
+    width: 100%;
+}
+
 .memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble-addon,
 .memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble-addon {
     opacity: 1;

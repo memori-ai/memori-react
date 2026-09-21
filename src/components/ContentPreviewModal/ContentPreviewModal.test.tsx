@@ -1,4 +1,6 @@
 import React from 'react';
+import fs from 'fs';
+import path from 'path';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ContentPreviewModal from './ContentPreviewModal';
@@ -100,5 +102,23 @@ describe('ContentPreviewModal', () => {
 
     fireEvent.click(cue);
     expect(scrollTop).toBeGreaterThan(0);
+  });
+
+  it('caps the popup to the visible viewport so the close control stays reachable', () => {
+    const css = fs.readFileSync(
+      path.join(__dirname, 'ContentPreviewModal.css'),
+      'utf8'
+    );
+    const popupRule = css.match(
+      /\.memori-content-preview-modal\.memori-modal__viewport \.memori-modal__popup \{[\s\S]*?\n\}/
+    )?.[0];
+
+    expect(popupRule).toBeDefined();
+    expect(popupRule).toMatch(/min-height:\s*0;/);
+    expect(popupRule).toMatch(/100dvh/);
+    expect(popupRule).toMatch(/max-height:/);
+    expect(css).not.toMatch(
+      /\.memori-modal__popup \{[\s\S]*?min-height:\s*auto;/
+    );
   });
 });
