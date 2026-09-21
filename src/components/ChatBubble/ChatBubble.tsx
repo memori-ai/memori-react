@@ -21,6 +21,7 @@ import {
   Check,
 } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
+import { usePressTooltip } from '../../helpers/usePressTooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
@@ -60,6 +61,35 @@ import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/
 
 /** Same reset window as ShareButton copy feedback */
 const COPY_FEEDBACK_MS = 2500;
+
+const GeneratedByAIMark: React.FC<{ label: string }> = ({ label }) => {
+  const pressTooltip = usePressTooltip();
+
+  return (
+    <Tooltip
+      placement="bottom"
+      content={label}
+      className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+      {...pressTooltip.tooltipProps}
+      slotProps={{
+        positioner: {
+          className: 'memori-chat--bubble-addon-tooltip-positioner',
+          ...pressTooltip.positionerProps,
+        },
+      }}
+    >
+      <span
+        ref={pressTooltip.anchorRef}
+        className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
+        role="img"
+        aria-label={label}
+        {...pressTooltip.pressTriggerProps}
+      >
+        <Bot aria-hidden />
+      </span>
+    </Tooltip>
+  );
+};
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -778,20 +808,9 @@ const ChatBubble: React.FC<Props> = ({
                       )}
 
                       {message.generatedByAI && showAIicon && (
-                        <Tooltip
-                          {...bubbleAddonTooltipProps}
-                          placement="bottom"
-                          content={t('generatedByAI')}
-                          className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-                        >
-                          <span
-                            className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
-                            role="img"
-                            aria-label={String(t('generatedByAI'))}
-                          >
-                            <Bot aria-hidden />
-                          </span>
-                        </Tooltip>
+                        <GeneratedByAIMark
+                          label={String(t('generatedByAI'))}
+                        />
                       )}
 
                       {showTranslationOriginal &&
@@ -1060,20 +1079,9 @@ const ChatBubble: React.FC<Props> = ({
                     )}
 
                     {message.generatedByAI && showAIicon && (
-                      <Tooltip
-                        {...bubbleAddonTooltipProps}
-                        placement="bottom"
-                        content={t('generatedByAI')}
-                        className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-                      >
-                        <span
-                          className="memori-chat--bubble-addon-tooltip-trigger memori-chat--bubble-ai-icon"
-                          role="img"
-                          aria-label={String(t('generatedByAI'))}
-                        >
-                          <Bot aria-hidden />
-                        </span>
-                      </Tooltip>
+                      <GeneratedByAIMark
+                        label={String(t('generatedByAI'))}
+                      />
                     )}
 
                     {showTranslationOriginal &&

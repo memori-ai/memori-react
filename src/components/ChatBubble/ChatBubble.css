@@ -51,8 +51,12 @@
     align-items: center;
     justify-content: center;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
     border-radius: 999px;
-    background: color-mix(in oklch, var(--memori-text-color) 8%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--memori-main-background, #fff) 92%, transparent);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
@@ -580,7 +584,7 @@
     align-items: center;
     justify-content: center;
     color: var(--memori-text-color);
-    cursor: default;
+    cursor: pointer;
     pointer-events: auto;
 }
 
