@@ -27,7 +27,8 @@ button.memori-artifact-handler {
     align-items: center;
     justify-content: space-between;
     padding: 12px 14px;
-    border: var(--memori-border) solid var(--memori-border-color);
+    /* border: var(--memori-border) solid var(--memori-border-color); */
+    border: none;
     border-radius: var(--memori-radius-surface);
     animation: fadeInUp 0.5s ease forwards;
     backdrop-filter: blur(4px);
@@ -46,11 +47,6 @@ button.memori-artifact-handler {
 .memori-artifact-handler-wrapper > .memori-artifact-handler {
     width: 100%;
     max-width: 100%;
-}
-
-.memori-artifact-handler:hover {
-    border-color: var(--memori-primary);
-    transform: translateY(0);
 }
 
 .memori-artifact-handler--active {

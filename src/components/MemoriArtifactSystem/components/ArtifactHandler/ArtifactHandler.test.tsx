@@ -75,3 +75,24 @@ it('points the chatlog chevron down and flips it when the inline panel opens', a
     expect(card).toHaveAttribute('aria-expanded', 'true');
   });
 });
+
+it('hides the drawer title and expands to full chat width when opened in the chatlog panel', async () => {
+  const { container } = renderCard(true);
+
+  const card = await screen.findByRole('button', { name: 'Hello notes' });
+  const block = container.querySelector('.memori-chat--artifact-block');
+
+  expect(block).not.toHaveClass('memori-chat--artifact-block--expanded');
+
+  fireEvent.click(card);
+
+  await waitFor(() => {
+    expect(card).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  expect(block).toHaveClass('memori-chat--artifact-block--expanded');
+  expect(
+    screen.queryByRole('heading', { name: 'Hello notes' })
+  ).not.toBeInTheDocument();
+  expect(screen.queryByText('Markdown')).not.toBeInTheDocument();
+});

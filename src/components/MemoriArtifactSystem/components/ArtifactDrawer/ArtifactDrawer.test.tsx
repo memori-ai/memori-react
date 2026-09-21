@@ -23,12 +23,15 @@ const OpenArtifact = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const renderDrawer = () =>
+const renderDrawer = (isChatLogPanel = false) =>
   render(
     <I18nWrapper>
       <ArtifactProvider>
         <OpenArtifact>
-          <ArtifactDrawer isLayoutColumn />
+          <ArtifactDrawer
+            isLayoutColumn={!isChatLogPanel}
+            isChatLogPanel={isChatLogPanel}
+          />
         </OpenArtifact>
       </ArtifactProvider>
     </I18nWrapper>
@@ -44,6 +47,34 @@ it('puts the artifact name and type in the toolbar', async () => {
   });
 
   expect(screen.getByText('Markdown')).toBeInTheDocument();
+});
+
+it('hides the artifact title and type in chatlog panel mode', async () => {
+  renderDrawer(true);
+
+  await screen.findByRole('button', { name: 'artifact.preview' });
+
+  expect(
+    screen.queryByRole('heading', { name: 'Hello notes' })
+  ).not.toBeInTheDocument();
+  expect(screen.queryByText('Markdown')).not.toBeInTheDocument();
+});
+
+it('keeps tabs and the compact actions control in the chatlog toolbar on mobile', async () => {
+  Object.defineProperty(window, 'innerWidth', {
+    configurable: true,
+    writable: true,
+    value: 390,
+  });
+  window.dispatchEvent(new Event('resize'));
+
+  renderDrawer(true);
+
+  await screen.findByRole('button', { name: 'artifact.preview' });
+  expect(
+    screen.getByRole('button', { name: 'artifact.source' })
+  ).toBeInTheDocument();
+  expect(screen.getByTitle('artifact.actions')).toBeInTheDocument();
 });
 
 it('toggles preview and source with aria-pressed', async () => {

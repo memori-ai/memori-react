@@ -102,11 +102,12 @@ const ArtifactDrawer: React.FC<{
             style={{
               minHeight: '75vh',
               maxHeight: '75vh',
-              background: 'var(--memori-secondary-background)',
+              width: '100%',
+              background: 'var(--memori-main-background)',
               marginTop: '-24px',
-              border: '2px solid var(--memori-border-primary)',
+              // border: '2px solid var(--memori-border-primary)',
             }}
-            className="memori-artifact-panel"
+            className="memori-artifact-panel memori-artifact-panel--chatlog"
           >
             {children}
           </div>
@@ -213,14 +214,16 @@ const ArtifactDrawer: React.FC<{
           'memori-artifact-toolbar--chatlog': isChatLogPanel,
         })}
       >
-        <div className="memori-artifact-toolbar--identity">
-          <h2 className="memori-artifact-toolbar--title">
-            {state.currentArtifact.title}
-          </h2>
-          <span className="memori-artifact-toolbar--type">
-            {formatArtifactType(state.currentArtifact.mimeType)}
-          </span>
-        </div>
+        {!isChatLogPanel && (
+          <div className="memori-artifact-toolbar--identity">
+            <h2 className="memori-artifact-toolbar--title">
+              {state.currentArtifact.title}
+            </h2>
+            <span className="memori-artifact-toolbar--type">
+              {formatArtifactType(state.currentArtifact.mimeType)}
+            </span>
+          </div>
+        )}
 
         <div className="memori-artifact-toolbar--controls">
           {hasPreview && (

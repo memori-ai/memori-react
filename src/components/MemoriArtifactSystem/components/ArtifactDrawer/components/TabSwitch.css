@@ -52,3 +52,7 @@
     outline: 2px solid var(--memori-primary);
     outline-offset: 2px;
 }
+
+.memori-tab-switch__label {
+    min-width: 0;
+}

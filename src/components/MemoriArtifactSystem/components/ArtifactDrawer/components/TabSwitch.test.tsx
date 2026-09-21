@@ -40,3 +40,18 @@ it('notifies when the source segment is pressed', () => {
   fireEvent.click(screen.getByRole('button', { name: 'artifact.source' }));
   expect(onTabChange).toHaveBeenCalledWith('code');
 });
+
+it('wraps labels so a narrow chatlog toolbar can collapse them', () => {
+  renderSwitch();
+
+  expect(
+    screen
+      .getByRole('button', { name: 'artifact.preview' })
+      .querySelector('.memori-tab-switch__label')
+  ).toHaveTextContent('artifact.preview');
+  expect(
+    screen
+      .getByRole('button', { name: 'artifact.source' })
+      .querySelector('.memori-tab-switch__label')
+  ).toHaveTextContent('artifact.source');
+});

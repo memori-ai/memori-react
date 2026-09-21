@@ -437,6 +437,18 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   const hasCreates = artifacts.length > 0;
   const hasUpdates = updateEntries.length > 0;
   const hasFailed = failedUpdates.length > 0;
+  const hasExpandedChatlogPanel =
+    isChatlogPanel &&
+    state.isDrawerOpen &&
+    Boolean(
+      state.currentArtifact &&
+        (artifacts.some(
+          artifact => artifact.id === state.currentArtifact?.id
+        ) ||
+          updateEntries.some(
+            ([, artifact]) => artifact.id === state.currentArtifact?.id
+          ))
+    );
 
   if (!hasCreates && !hasUpdates && !hasFailed) return null;
 
@@ -456,6 +468,8 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     <div
       className={`memori-chat--artifact-block${
         isChatlogPanel ? ' memori-chat--artifact-block--chatlog' : ''
+      }${
+        hasExpandedChatlogPanel ? ' memori-chat--artifact-block--expanded' : ''
       }`}
       style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
     >
@@ -477,7 +491,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               style={
                 isSelected
                   ? {
-                      border: '2px solid var(--memori-border-primary)',
+                      // border: '2px solid var(--memori-border-primary)',
                       // boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
                     }
                   : undefined
@@ -524,7 +538,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               style={
                 isSelected
                   ? {
-                      border: '2px solid var(--memori-border-primary)',
+                      // border: '2px solid var(--memori-border-primary)',
                     }
                   : undefined
               }

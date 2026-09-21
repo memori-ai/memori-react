@@ -53,7 +53,7 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
             onClick={() => onTabChange(tab.id)}
           >
             {tab.icon}
-            {tab.label}
+            <span className="memori-tab-switch__label">{tab.label}</span>
           </button>
         );
       })}

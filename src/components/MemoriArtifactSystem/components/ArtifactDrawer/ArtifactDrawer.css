@@ -149,7 +149,38 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
 }
 
 .memori-artifact-toolbar--chatlog {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     padding-top: var(--memori-spacing-md);
+}
+
+.memori-artifact-toolbar--chatlog .memori-artifact-toolbar--controls {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.memori-artifact-toolbar--chatlog .memori-tab-switch {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
+}
+
+.memori-artifact-toolbar--chatlog .memori-tab-switch__tab {
+    min-width: 0;
+    flex: 1 1 0;
+}
+
+.memori-artifact-toolbar--chatlog .memori-artifact-toolbar--mobile-actions {
+    flex-shrink: 0;
+}
+
+.memori-artifact-panel--chatlog {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Main Drawer Container (Mobile Only) */
@@ -296,6 +327,10 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
+}
+
+.memori-artifact-panel--chatlog .memori-artifact-panel--main {
+    max-width: none;
 }
 
 .memori-artifact-panel--main::before {
@@ -780,6 +815,41 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid var(--memori-border-color, #e1e5e9);
     border-radius: var(--memori-radius-control);
+}
+
+.memori-artifact-toolbar--chatlog .memori-button--more-options {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .memori-artifact-toolbar--chatlog .memori-tab-switch__tab {
+        position: relative;
+        min-width: 2.25rem;
+        padding: 0.35rem 0.5rem;
+    }
+
+    .memori-artifact-toolbar--chatlog .memori-tab-switch__label {
+        position: absolute;
+        overflow: hidden;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        border-width: 0;
+        margin: -1px;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .memori-artifact-toolbar--chatlog .memori-button--more-options {
+        display: flex;
+        width: 2.25rem;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        min-height: 2.25rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
 }
 
 .memori-artifact-drawer--sidebar {
