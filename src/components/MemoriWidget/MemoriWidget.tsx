@@ -83,6 +83,7 @@ import {
   hasTouchscreen,
   stripDuplicates,
   installMathJax,
+  resolveOptionalBoolean,
 } from '../../helpers/utils';
 import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
 import {
@@ -574,7 +575,7 @@ const MemoriWidget = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showMessageConsumption = false,
+  showMessageConsumption,
   showSettings,
   showTypingText = false,
   showClear = false,
@@ -889,8 +890,6 @@ const MemoriWidget = ({
     null
   );
   const [hideEmissions, setHideEmissions] = useState(false);
-  const [runtimeShowMessageConsumption, setRuntimeShowMessageConsumption] =
-    useState(false);
 
   const speechSynthesizerRef = useRef<any | null>(null);
   const [memoriSpeaking, setMemoriSpeaking] = useState(false);
@@ -929,14 +928,6 @@ const MemoriWidget = ({
     );
     setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
     setHideEmissions(getLocalConfig('hideEmissions', false));
-    setRuntimeShowMessageConsumption(
-      getLocalConfig(
-        'showMessageConsumption',
-        showMessageConsumption ??
-          integrationConfig?.showMessageConsumption ??
-          false
-      )
-    );
 
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
@@ -2766,7 +2757,10 @@ const MemoriWidget = ({
   const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
 
   const enableReasoning = !!(showReasoning ?? integrationConfig?.showReasoning);
-  const enableMessageConsumption = !!runtimeShowMessageConsumption;
+  const enableMessageConsumption = resolveOptionalBoolean(
+    showMessageConsumption,
+    integrationConfig?.showMessageConsumption
+  );
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined

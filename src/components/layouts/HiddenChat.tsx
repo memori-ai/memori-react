@@ -117,9 +117,20 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       'min(450px, 100vw)';
     if (isOpen) {
       if (!fullScreen) {
-        mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
-        mainDiv.style.marginRight = sidebarWidth;
-        mainDiv.style.transition = 'all 0.5s';
+        // On phones the sidebar is already 100vw; shrinking the host by the
+        // same amount collapses the page to 0 width.
+        const sidebarFillsViewport =
+          typeof window !== 'undefined' &&
+          window.matchMedia('(max-width: 768px)').matches;
+        if (!sidebarFillsViewport) {
+          mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
+          mainDiv.style.marginRight = sidebarWidth;
+          mainDiv.style.transition = 'all 0.5s';
+        } else {
+          mainDiv.style.width = '100%';
+          mainDiv.style.marginRight = '0';
+          mainDiv.style.marginLeft = '0';
+        }
       } else {
         mainDiv.style.width = '100%';
         mainDiv.style.marginLeft = '0';

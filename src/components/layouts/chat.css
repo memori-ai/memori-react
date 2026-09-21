@@ -92,6 +92,7 @@
     display: flex;
     overflow: hidden;
     width: 100%;
+    min-width: 0;
     max-width: var(--memori-conversation-max-width, 48rem);
     min-height: 0;
     box-sizing: border-box;

@@ -308,7 +308,7 @@
     padding: 0;
     border: 0;
     border-radius: 0 !important;
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--memori-spacing-md);
     background: transparent;
     color: var(--memori-text-color);
     cursor: pointer;

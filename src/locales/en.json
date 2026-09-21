@@ -203,6 +203,7 @@
     "headerLogin": "Log in",
     "downloadQrCode": "Download QR Code",
     "expandToImmersive": "Expand to immersive view",
+    "moreActions": "More actions",
     "mobileSession": {
       "session": "Session",
       "copyLinkOrDownload": "Copy link or download",
@@ -402,7 +403,7 @@
     "fileReadingFailed": "File reading failed",
     "uploadFailed": "Upload failed",
     "uploadSuccess": "Upload success",
-    "titleImage": "Image title: {{title}}",
+    "titleImage": "Add an image title",
     "uploadSuccessDescription": "The file has been uploaded successfully",
     "titleImageUpload": "Upload images",
     "partialUpload": "Only {{uploaded}} images on {{total}} will be uploaded. Maximum {{max}} images allowed.",

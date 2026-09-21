@@ -17,6 +17,7 @@
 .memori-chat--bubble-message-row {
     display: flex;
     width: 100%;
+    min-width: 0;
     max-width: 100%;
     align-items: flex-start;
     gap: 8px;
@@ -69,7 +70,9 @@
 
 .memori-chat--bubble {
     display: inline-flex;
-    max-width: 90%;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
     flex-direction: column;
     align-items: flex-start;
     padding: 12px 14px;
@@ -82,8 +85,10 @@
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-sm);
     line-height: 1.4;
+    overflow-wrap: anywhere;
     transition: box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .memori-chat--bubble-timestamp-container {
@@ -105,6 +110,8 @@
     position: relative;
     display: flex;
     min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
@@ -119,7 +126,7 @@
     display: flex;
     width: 100%;
     min-width: 0;
-    max-width: min(70%, 42rem);
+    /* max-width: min(70%, 42rem); */
     flex-direction: column;
     align-items: flex-end;
     gap: 8px;
@@ -211,14 +218,14 @@
     }
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
     .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--single,
     .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--few,
     .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
         padding: 0;
         grid-template-columns: 120px;
     }
-}
+} */
 
 /* Fixed 120px tiles in the attachment cluster */
 .memori-chat--attachment-strip .memori-media-item {
@@ -494,7 +501,9 @@
 }
 
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
-    min-width: fit-content;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble,
@@ -502,9 +511,8 @@
     box-shadow: var(--memori-chat-addon-elevation);
 }
 
-/* fit-content outranks the bubble max-width, so a wide markdown code block or table
-   would stretch the bubble past the messages viewport and make the whole chat scroll
-   sideways. Those blocks are kept scrollable on their own instead. */
+/* Wide markdown code blocks and tables scroll inside the bubble instead of
+   stretching the conversation column. */
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table) {
     min-width: 0;
 }

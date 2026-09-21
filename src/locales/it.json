@@ -203,6 +203,7 @@
     "headerLogin": "Accedi",
     "downloadQrCode": "Scarica QR Code",
     "expandToImmersive": "Espandi per vista immersiva",
+    "moreActions": "Altre azioni",
     "mobileSession": {
       "session": "Sessione",
       "copyLinkOrDownload": "Copia link o scarica",
@@ -421,7 +422,7 @@
     "uploadSuccess": "Caricamento riuscito",
     "remaining": "rimanenti",
     "maxReached": "Limite raggiunto",
-    "titleImage": "Titolo immagine: {{title}}",
+    "titleImage": "Aggiungi un titolo all'immagine",
     "titleImageUpload": "Carica immagini",
     "titleHelp": "Aggiungi un titolo descrittivo per aiutare l'AI a fornire risposte più appropriate.",
     "titlePlaceholder": "Inserisci il titolo dell'immagine",

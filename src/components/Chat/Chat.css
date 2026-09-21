@@ -76,6 +76,8 @@
 
 /* Prevent WebKit from shrinking message children inside the scroll flex column */
 .memori-chat--content > * {
+    min-width: 0;
+    max-width: 100%;
     flex-shrink: 0;
 }
 
@@ -112,7 +114,8 @@
     margin-inline: 0;
 }
 
-.memori-conversation-column .memori-chat--content {
+.memori-conversation-column .memori-chat--content,
+.memori-conversation-column .memori-chat--content.memori-chat--content-touch {
     padding-top: var(--memori-spacing-lg);
     padding-inline: 0;
 }
@@ -187,7 +190,8 @@
 }
 
 .memori-chat--content.memori-chat--content-touch {
-    padding: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
 }
 
 .memori-chat--jump-to-latest {

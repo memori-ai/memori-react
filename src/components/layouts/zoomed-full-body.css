@@ -437,6 +437,12 @@
     .memori-widget.memori-layout-zoomed_full_body .memori-chat-layout--controls {
         padding: 0;
     }
+
+    .memori-widget.memori-layout-zoomed_full_body .memori-chat--history.memori-chat--history-touch {
+        height: auto !important;
+        min-height: 0;
+        flex: 1 1 auto;
+    }
 }
 
 @media (max-width: 480px) {

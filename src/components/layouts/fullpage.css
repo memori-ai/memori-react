@@ -347,10 +347,13 @@
     background: color-mix(in srgb, var(--memori-text-color) 6%, var(--memori-secondary-background));
 }
 
+/* Keep a readable chat column beside the avatar on desktop. On phones the
+   avatar column is hidden and 400px exceeds the viewport, which clips both
+   bubbles and the composer. */
 .memori-widget.memori-layout-fullpage
     .memori-fullpage-content-row:not(.memori-fullpage-content-row--artifact-overlay)
     .memori-chat-layout--main {
-    min-width: 400px;
+    min-width: min(400px, 100%);
 }
 
 .memori-widget.memori-layout-fullpage .memori-artifact-resize-handle {
@@ -507,6 +510,7 @@
 
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat-inputs-wrapper {
     width: 100%;
+    min-width: 0;
     flex-shrink: 0;
     padding: 16px 4px;
     border: none;
@@ -517,6 +521,22 @@
 @media (max-width: 870px) {
     .memori-widget.memori-layout-fullpage {
         padding: var(--memori-spacing-sm);
+    }
+
+    .memori-widget.memori-layout-fullpage
+        .memori-fullpage-content-row:not(.memori-fullpage-content-row--artifact-overlay)
+        .memori-chat-layout--main {
+        min-width: 0;
+    }
+
+    .memori-widget.memori-layout-fullpage .memori-chat--history.memori-chat--history-touch {
+        height: auto !important;
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat-inputs-wrapper {
+        padding: 12px;
     }
     /* 
     .memori-widget.memori-layout-fullpage > .memori-spin {

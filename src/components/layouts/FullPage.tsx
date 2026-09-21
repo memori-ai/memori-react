@@ -267,7 +267,6 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       showSettings: false,
       showShare: false,
       showLogin: false,
-      showMessageConsumption: false,
       showFullscreen: false,
       memori: {
         ...headerProps.memori,

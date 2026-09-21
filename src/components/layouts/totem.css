@@ -282,7 +282,16 @@
 .memori-totem-layout--controls .memori--start-panel__body {
     min-height: 0;
     flex: 1 1 0%;
+    padding-bottom: var(--memori-spacing-lg);
     overflow-y: auto;
+}
+
+.memori-totem-layout--controls .memori--start-actions {
+    position: sticky;
+    z-index: 1;
+    bottom: 0;
+    padding-bottom: var(--memori-spacing-sm);
+    background: var(--memori-secondary-background);
 }
 
 @media (max-width: 870px) {

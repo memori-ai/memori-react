@@ -199,6 +199,7 @@
     "headerLogin": "Connexion",
     "downloadQrCode": "Télécharger le QR Code",
     "expandToImmersive": "Agrandir pour une vue immersive",
+    "moreActions": "Plus d'actions",
     "mobileSession": {
       "session": "Session",
       "copyLinkOrDownload": "Copier le lien ou télécharger",
@@ -374,6 +375,7 @@
     "uploadFilesOrImages": "Télécharger des fichiers ou des images",
     "uploadFilesWithShortcut": "{{shortcut}}+O pour ouvrir le sélecteur de fichiers",
     "uploadImages": "Télécharger des images",
+    "titleImage": "Ajouter un titre à l'image",
     "uploadDocuments": "Télécharger des documents",
     "replace": "Remplacer",
     "remaining": "restant",

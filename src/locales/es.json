@@ -200,6 +200,7 @@
     "headerProfile": "Perfil",
     "headerLogin": "Iniciar sesión",
     "expandToImmersive": "Expandir para vista inmersiva",
+    "moreActions": "Más acciones",
     "mobileSession": {
       "session": "Sesión",
       "copyLinkOrDownload": "Copiar enlace o descargar",
@@ -374,6 +375,7 @@
     "uploadFilesOrImages": "Subir archivos o imágenes",
     "uploadFilesWithShortcut": "{{shortcut}}+O para abrir el selector de archivos",
     "uploadImages": "Télécharger des images",
+    "titleImage": "Añadir un título a la imagen",
     "uploadDocuments": "Télécharger des documents",
     "apiClientNotConfigured": "API client non configuré correctement pour le téléchargement de médias",
     "fileReadingFailed": "Échec de la lecture du fichier",

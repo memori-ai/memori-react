@@ -201,6 +201,7 @@
     "headerLogin": "Anmelden",
     "downloadQrCode": "QR-Code herunterladen",
     "expandToImmersive": "Zum immersivem Ansichtsmodus erweitern",
+    "moreActions": "Weitere Aktionen",
     "mobileSession": {
       "session": "Session",
       "copyLinkOrDownload": "Link kopieren oder herunterladen",
@@ -375,6 +376,7 @@
     "uploadFilesOrImages": "Dateien oder Bilder hochladen",
     "uploadFilesWithShortcut": "{{shortcut}}+O zum Öffnen des Datei-Selektors",
     "uploadImages": "Bilder hochladen",
+    "titleImage": "Bildtitel hinzufügen",
     "uploadDocuments": "Dokumente hochladen",
     "replace": "Ersetzen",
     "remaining": "verbleibend",

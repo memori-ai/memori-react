@@ -260,6 +260,10 @@
     .memori--preview-container {
         margin-bottom: var(--memori-spacing-sm);
     }
+
+    .memori--preview-retention-notice {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
