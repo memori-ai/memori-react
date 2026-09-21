@@ -60,9 +60,9 @@
 
 .memori-known-facts-selection-bar__delete {
     border-color: color-mix(in oklch, var(--memori-error) 40%, transparent);
-    color: var(--memori-error);
-    background: color-mix(in oklch, var(--memori-error) 10%, transparent);
     border-radius: var(--memori-radius-control);
+    background: color-mix(in oklch, var(--memori-error) 10%, transparent);
+    color: var(--memori-error);
 }
 
 .memori-known-facts-selection-bar__delete:hover,

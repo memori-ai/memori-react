@@ -190,8 +190,8 @@
 }
 
 .memori-chat--content.memori-chat--content-touch {
-    padding-inline: 0;
     padding-bottom: 0;
+    padding-inline: 0;
 }
 
 .memori-chat--jump-to-latest {

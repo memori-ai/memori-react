@@ -888,8 +888,8 @@
 
 .memori-fullpage-header-brand-role-tooltip {
     max-width: min(22rem, calc(100vw - 2rem));
-    white-space: normal;
     overflow-wrap: anywhere;
+    white-space: normal;
     word-break: break-word;
 }
 
