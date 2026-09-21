@@ -126,6 +126,16 @@ it('labels the download action as this conversation, not all history', async () 
   ).not.toBeInTheDocument();
 });
 
+it('renders the download action with the same square icon chrome as the drawer close', async () => {
+  renderDrawer(mockPagedClient([makeChatLog()]));
+
+  const download = await screen.findByRole('button', {
+    name: 'write_and_speak.downloadThisConversation',
+  });
+  expect(download).toHaveClass('memori-icon-button');
+  expect(download.className).not.toMatch(/circle/);
+});
+
 it('opens a conversation with chat bubbles and resumes in the same view', async () => {
   const resumeSession = jest.fn();
   renderDrawer(mockPagedClient([makeChatLog()]), { resumeSession });

@@ -252,7 +252,6 @@
 
 .memori-chat-history-drawer--list-item-download.memori-button {
     flex-shrink: 0;
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
 }
 
 .memori-chat-history-drawer--list-item-chevron {

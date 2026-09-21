@@ -38,6 +38,7 @@ import {
   groupConversations,
 } from '../../helpers/conversationHistory';
 import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
+import IconButton from '../IconButton/IconButton';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import ChatResumeDrawer from './ChatResumeDrawer';
 import cx from 'classnames';
@@ -537,10 +538,7 @@ const ChatHistoryDrawer = ({
           {selectedChatSession?.subtitle}
         </span>
       </span>
-      <Button
-        variant="ghost"
-        shape="circle"
-        size="sm"
+      <IconButton
         type="button"
         className="memori-chat-history-drawer--heading-button"
         aria-label={
@@ -840,26 +838,6 @@ const ChatHistoryDrawer = ({
                                 </span>
                               </span>
                             </button>
-                            <Button
-                              variant="ghost"
-                              shape="circle"
-                              size="sm"
-                              type="button"
-                              className="memori-chat-history-drawer--list-item-download"
-                              aria-label={
-                                t('write_and_speak.downloadThisConversation') ||
-                                'Download this conversation'
-                              }
-                              title={
-                                t('write_and_speak.downloadThisConversation') ||
-                                'Download this conversation'
-                              }
-                              icon={<Download aria-hidden />}
-                              onClick={(event: React.MouseEvent) => {
-                                event.stopPropagation();
-                                exportChatLog(chatLog);
-                              }}
-                            />
                             <ChevronRight
                               aria-hidden
                               className="memori-chat-history-drawer--list-item-chevron"
