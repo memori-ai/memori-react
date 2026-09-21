@@ -7,7 +7,7 @@
     width: min(22rem, calc(100vw - 2rem));
     max-width: 22rem;
     flex-direction: column;
-    padding: var(--memori-spacing-md);
+    padding: 0.45rem;
     border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--memori-border-color, rgba(0, 0, 0, 0.08));
@@ -23,8 +23,7 @@
 
 .memori-position-popover__switch-row {
     min-height: 3rem;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .memori-position-popover__switch-meta {
