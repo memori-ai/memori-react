@@ -20,14 +20,28 @@
 .memori-select--button,
 .memori-select--language-chooser,
 .memori-combobox--language-chooser {
-    min-width: 7rem;
+    min-width: 0;
+    max-width: 100%;
     background: transparent;
 }
 
 /* Combobox options are rendered in a portal, so they are not descendants of
    .memori-combobox--language-chooser. Target the popup and disabled items globally. */
 .memori-combobox__popup {
+    width: min(var(--anchor-width, 100%), calc(100dvw - 2 * var(--memori-spacing-md)));
+    min-width: 0;
+    max-width: calc(
+        100dvw - 2 * var(--memori-spacing-md) - env(safe-area-inset-left, 0px) -
+            env(safe-area-inset-right, 0px)
+    );
+    max-height: min(70dvh, 24rem);
+    box-sizing: border-box;
     box-shadow: var(--memori-shadow-lg);
+    overflow-x: hidden;
+}
+
+.memori-combobox__list {
+    max-height: min(50dvh, 280px);
 }
 
 /* Disabled items are used as non-selectable section headers in the language
@@ -393,6 +407,8 @@
 
 .memori--language-row {
     display: flex;
+    min-width: 0;
+    max-width: 100%;
     flex-wrap: wrap;
     align-items: center;
     margin-bottom: 1rem;
@@ -401,7 +417,8 @@
 
 .memori--language-row__combobox {
     width: 100%;
-    min-width: 7rem;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .memori--language-row__combobox .memori-combobox__label {
@@ -657,6 +674,13 @@
 
     .memori--settings-section__action {
         margin-top: 0;
+    }
+
+    .memori-combobox__positioner {
+        max-width: calc(
+            100dvw - 2 * var(--memori-spacing-sm) - env(safe-area-inset-left, 0px) -
+                env(safe-area-inset-right, 0px)
+        );
     }
 }
 
@@ -1087,6 +1111,17 @@
 
 .memori--privacy-popover-content-list {
     padding-left: var(--memori-spacing-md);
+}
+
+/* Close button is absolutely positioned; keep the title out from under it. */
+.memori--start-panel-info-modal.memori-modal__viewport .memori-modal__title,
+.memori--start-panel-info-modal-title {
+    min-width: 0;
+    max-width: 100%;
+    padding-right: calc(var(--memori-icon-button-size, 44px) + var(--memori-spacing-md));
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
 }
 
 @media (max-width: 480px) {

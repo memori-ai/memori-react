@@ -717,14 +717,14 @@ const StartPanel: React.FC<Props> = ({
         <div className="memori--start-panel__footer">{footerBrand}</div>
       ) : null}
       <Modal
+        className="memori--start-panel-info-modal"
+        titleClassName="memori--start-panel-info-modal-title"
         open={isMobile && mobileInfoModal !== null}
         onClose={() => setMobileInfoModal(null)}
         title={
           mobileInfoModal === 'deepThought'
             ? String(t('deepThoughtDisclaimerTitle') || 'Deep Thought')
-            : String(
-                t('write_and_speak.pagePrivacyExplanation') || 'Privacy policy'
-              )
+            : String(t('privacyPolicy') || 'Privacy policy')
         }
       >
         {mobileInfoModal === 'deepThought' && (

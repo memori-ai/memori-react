@@ -196,6 +196,7 @@ WithDeepThoughtEnabled.args = {
   clickedStart: false,
   onClickStart: () => {},
   isUserLoggedIn: true,
+  isMultilanguageEnabled: true,
   user: {
     ...user,
     pAndCUAccepted: true,
