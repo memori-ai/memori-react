@@ -4,10 +4,14 @@ import { getResourceUrl } from '../../helpers/media';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 import Snippet from '../Snippet/Snippet';
-import ContentPreviewModal from '../ContentPreviewModal';
+import ContentPreviewModal, {
+  DocumentMarkdown,
+} from '../ContentPreviewModal';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
+import { File } from 'lucide-react';
 import {
   IMAGE_MIME_TYPES,
+  getDocumentBadgeLabel,
   getImageDisplaySource,
 } from './MediaItemWidget.utils';
 
@@ -46,7 +50,7 @@ import {
  *     → Snippet (language-text) for readable, copyable content.
  *
  * 11. MARKDOWN (text/markdown)
- *     → Snippet for now (readable as text); can be upgraded to rendered markdown later.
+ *     → Rendered markdown (headings, bold, inline code).
  *
  * 12. WORD / OTHER DOCS (application/msword, application/vnd...wordprocessingml.document, etc.)
  *     → No reliable in-browser preview; show “Preview not available” + Open in new tab + Download.
@@ -255,11 +259,28 @@ export function MediaPreviewModal({
     }
   }
 
+  const documentBadge = getDocumentBadgeLabel(
+    medium.mimeType,
+    medium.title,
+    medium.url
+  );
+  const isHtmlDocumentAttachment =
+    isDocumentAttachment && medium.mimeType === MIME_HTML;
+  const isDocumentReader =
+    !isCode &&
+    ((isDocumentAttachment && !isHtmlDocumentAttachment) ||
+      medium.mimeType === MIME_PLAIN ||
+      isCsv ||
+      isMarkdown);
+
   return (
     <ContentPreviewModal
       open
       onClose={onClose}
       title={medium.title ?? undefined}
+      description={isDocumentReader ? documentBadge : undefined}
+      headerIcon={isDocumentReader ? <File aria-hidden /> : undefined}
+      contentKind={isDocumentReader ? 'document' : 'snippet'}
     >
       {isCode ? (
         <Snippet preview={false} medium={medium} />
@@ -291,31 +312,7 @@ export function MediaPreviewModal({
               <Snippet preview={false} medium={htmlMedium} />
             );
           } else {
-            // Other document attachments: render as plain text
-            let displayContent = medium.content;
-            if (displayContent.includes('&lt;') || displayContent.includes('&quot;')) {
-              displayContent = stripHTML(displayContent) || displayContent;
-            } else {
-              displayContent = stripDocumentAttachmentTags(displayContent);
-            }
-            
-            // Improve formatting for PDF text: normalize whitespace and ensure proper line breaks
-            // Replace multiple spaces with single space, but preserve line breaks
-            displayContent = displayContent
-              .replace(/[ \t]+/g, ' ') // Replace multiple spaces/tabs with single space
-              .replace(/\n{3,}/g, '\n\n') // Replace 3+ newlines with double newline
-              .trim();
-            
-            return (
-              <Snippet
-                preview={false}
-                medium={{
-                  ...medium,
-                  mimeType: 'text/plain',
-                  content: displayContent,
-                }}
-              />
-            );
+            return <DocumentMarkdown content={medium.content} />;
           }
         })()
       ) : isPdf && (previewUrl || medium.content) ? (
@@ -386,9 +383,9 @@ export function MediaPreviewModal({
           />
         </div>
       ) : isPlainText && medium.content ? (
-        <Snippet preview={false} medium={medium} />
+        <DocumentMarkdown content={medium.content} />
       ) : isMarkdown && medium.content ? (
-        <Snippet preview={false} medium={medium} />
+        <DocumentMarkdown content={medium.content} />
       ) : (
         <div className="memori-media-item-preview--content memori-media-item--modal-fallback">
           <p className="memori-media-item--modal-fallback-message">

@@ -47,7 +47,8 @@
     text-align: left;
 }
 
-/* Mobile CHAT header: single row (brand + actions); horizontal scroll if needed */
+/* Mobile CHAT header: single row (brand + actions). Keep overflow visible so
+   outline icon buttons (audio, more) are not clipped. */
 @media (max-width: 768px) {
     .memori-widget.memori-layout-chat .memori-fullpage-header-row {
         flex-wrap: nowrap;
@@ -55,12 +56,10 @@
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions {
+        overflow: visible;
         min-width: 0;
-        flex: 1 1 auto;
+        flex: 0 0 auto;
         flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-        overflow-x: auto;
-        overflow-y: hidden;
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-header.memori-header--fullpage {
@@ -71,6 +70,7 @@
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-icon-button,
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-button {
+        overflow: visible;
         flex-shrink: 0;
     }
 }

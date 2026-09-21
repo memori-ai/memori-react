@@ -607,13 +607,11 @@
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions {
+        overflow: visible;
         min-width: 0;
-        flex: 1 1 auto;
+        flex: 0 0 auto;
         flex-wrap: nowrap;
         justify-content: flex-end;
-        -webkit-overflow-scrolling: touch;
-        overflow-x: auto;
-        overflow-y: hidden;
     }
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-header.memori-header--fullpage {
@@ -624,6 +622,7 @@
 
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-icon-button,
     .memori-widget.memori-layout-chat .memori-fullpage-header-actions .memori-button {
+        overflow: visible;
         flex-shrink: 0;
     }
 }

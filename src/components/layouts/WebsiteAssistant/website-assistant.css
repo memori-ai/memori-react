@@ -192,6 +192,8 @@
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     height: min(85vh, calc(100vh - var(--memori-spacing-5xl)));
+    height: min(85dvh, calc(100dvh - var(--memori-spacing-5xl)));
+    max-height: 100dvh;
     padding: 0.5rem 0rem;
     margin-bottom: 0;
     background: var(--memori-secondary-background);
@@ -255,6 +257,8 @@
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
         height: min(75vh, calc(100vh - var(--memori-spacing-5xl)));
+        height: min(75dvh, calc(100dvh - var(--memori-spacing-5xl)));
+        max-height: 100dvh;
     }
 }
 
@@ -273,6 +277,8 @@
 
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
         height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
         border-radius: 0;
         margin-bottom: 0;
     }
@@ -374,9 +380,12 @@
 .memori-website_assistant-layout .memori-header {
     z-index: 1000;
     display: inline-flex;
+    overflow: visible;
     width: auto;
     height: auto;
     flex-direction: row;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
     padding: 0;
     gap: 0.35rem;
 }
@@ -400,7 +409,9 @@
     position: relative;
     z-index: 1001;
     display: flex;
+    overflow: visible;
     width: 100%;
+    min-width: 0;
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
@@ -412,7 +423,9 @@
 
 .memori-website_assistant-layout--header-actions {
     display: inline-flex;
+    overflow: visible;
     flex: 0 0 auto;
+    flex-shrink: 0;
     align-items: center;
     margin-left: auto;
     gap: 0.35rem;
@@ -462,7 +475,7 @@
 @media (max-width: 480px) {
     .memori-website_assistant-layout .memori-chat-layout--brand {
         min-width: 0;
-        max-width: calc(100% - 6.5rem);
+        max-width: none;
         flex: 1 1 auto;
     }
 }

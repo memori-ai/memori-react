@@ -141,10 +141,11 @@
 }
 
 .memori-modal--title {
-    overflow: hidden;
+    overflow: visible;
     max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .memori--modal-title-preview {

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { File, X } from 'lucide-react';
 import { Button } from '@memori.ai/ui';
-import ContentPreviewModal from '../ContentPreviewModal';
+import ContentPreviewModal, {
+  DocumentMarkdown,
+} from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import {
   stripHTML,
@@ -38,6 +40,7 @@ const FilePreview = ({
     id: string;
     content: string;
     type?: string;
+    mimeType?: string;
   } | null>(null);
 
   const isHtmlFile = (
@@ -204,7 +207,21 @@ const FilePreview = ({
         open={!!selectedFile}
         onClose={() => setSelectedFile(null)}
         title={selectedFile?.name}
+        description={selectedFile ? getBadge(selectedFile) : undefined}
+        headerIcon={
+          selectedFile &&
+          !isImageContent(selectedFile.content, selectedFile.type) ? (
+            <File aria-hidden />
+          ) : undefined
+        }
         className="memori-file-preview-modal"
+        contentKind={
+          selectedFile &&
+          !isImageContent(selectedFile.content, selectedFile.type) &&
+          !isHtmlFile(selectedFile)
+            ? 'document'
+            : 'snippet'
+        }
         isImage={
           !!selectedFile &&
           isImageContent(selectedFile.content, selectedFile.type)
@@ -230,7 +247,7 @@ const FilePreview = ({
               }}
             />
           ) : (
-            getDisplayContent(selectedFile)
+            <DocumentMarkdown content={selectedFile.content} />
           ))}
       </ContentPreviewModal>
     </>
