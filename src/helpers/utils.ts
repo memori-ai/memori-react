@@ -590,6 +590,15 @@ export const safeParseJSON = (jsonString: string, fallbackString = false) => {
   }
 };
 
+/**
+ * Resolve a boolean widget flag from an explicit client prop, falling back to
+ * the integration config. An explicit `false` still disables the feature.
+ */
+export const resolveOptionalBoolean = (
+  clientValue?: boolean,
+  integrationValue?: boolean
+): boolean => !!(clientValue ?? integrationValue);
+
 export const imgMimeTypes = [
   'image/jpeg',
   'image/png',

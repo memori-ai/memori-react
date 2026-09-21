@@ -509,8 +509,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           </div>
         }
         closable
-        // title={t('upload.titleImage', { title: imageTitle })}
-        // description={t('upload.imageTitleDescription')}
+        title={t('upload.titleImage') || 'Image title'}
+        description={t('upload.titleHelp')}
       >
         <div className="memori--preview-content memori--upload-image-preview-content">
           {filePreview && (
@@ -522,27 +522,16 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               />
             </div>
           )}
-
-          <div style={{ textAlign: 'left' }}>
-            <p
-              style={{
-                marginBottom: '10px',
-                color: 'var(--memori-text-color)',
-              }}
-            >
-              {t('upload.titleHelp')}
-            </p>
-            <FieldGroup
-              label={t('upload.titlePlaceholder') ?? 'Enter image title'}
-            >
-              <Input
-                value={imageTitle}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setImageTitle(e.target.value)
-                }
-              />
-            </FieldGroup>
-          </div>
+          <FieldGroup
+            label={t('upload.titlePlaceholder') ?? 'Enter image title'}
+          >
+            <Input
+              value={imageTitle}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setImageTitle(e.target.value)
+              }
+            />
+          </FieldGroup>
         </div>
       </Modal>
     </div>

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import { Button, Dropdown } from '@memori.ai/ui';
+import { Button, Modal } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import GasStation from '../icons/GasStation';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
@@ -26,7 +26,6 @@ type MessageLlmUsage = {
 export interface ChatConsumptionDropdownProps {
   history: Message[];
   triggerVariant?: React.ComponentProps<typeof Button>['variant'];
-  menuAlign?: 'start' | 'center' | 'end';
   trigger?:
     | ((
         props: React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -261,7 +260,6 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
 const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
   triggerVariant = 'ghost',
-  menuAlign = 'end',
   trigger,
 }) => {
   const { t } = useTranslation();
@@ -275,10 +273,10 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
     [history]
   );
 
-  if (!hasConsumptionData) return null;
-
   const triggerLabel =
     t('write_and_speak.showMessageConsumptionLabel') || 'Show chat consumption';
+  const modalTitle =
+    t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat';
   const renderDefaultTrigger = (
     triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => (
@@ -287,6 +285,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
       variant={triggerVariant}
       shape="default"
       active={open}
+      disabled={triggerButtonProps.disabled ?? !hasConsumptionData}
       className={cx(
         'memori-header--button memori-header--button--sustainability',
         triggerButtonProps.className
@@ -298,6 +297,20 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
       }
     />
   );
+
+  const handleTriggerClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = event => {
+    if (!hasConsumptionData) return;
+    setOpen(true);
+    event.currentTarget.blur();
+  };
+
+  if (!hasConsumptionData) {
+    if (trigger) return null;
+    return renderDefaultTrigger({ disabled: true });
+  }
+
   const renderTrigger = (
     triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => {
@@ -331,23 +344,21 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   };
 
   return (
-    <Dropdown
-      className="memori-header--dropdown"
-      open={open}
-      onOpenChange={setOpen}
-    >
-      <Dropdown.Trigger
-        showChevron={false}
-        render={props => renderTrigger(props)}
-      />
-      <Dropdown.Menu
-        className="memori-dropdown--sustainability-menu"
-        placement="bottom"
-        align={menuAlign}
+    <>
+      {renderTrigger({
+        onClick: handleTriggerClick,
+      })}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={modalTitle}
+        className="memori-chat--usage-modal memori-chat--consumption-modal"
+        stacking="stacked"
+        closable
       >
-        <ChatConsumptionContent history={history} />
-      </Dropdown.Menu>
-    </Dropdown>
+        <ChatConsumptionContent history={history} showTitle={false} />
+      </Modal>
+    </>
   );
 };
 

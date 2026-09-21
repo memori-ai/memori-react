@@ -50,7 +50,7 @@
     max-width: 90%;
     align-items: center;
     justify-content: center;
-    padding: calc(var(--memori-spacing-xs) * 0.75) var(--memori-spacing-sm);
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border-radius: 999px;
     background: color-mix(in oklch, var(--memori-text-color) 8%, transparent);
     color: var(--memori-text-color);

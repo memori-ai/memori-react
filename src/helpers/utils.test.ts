@@ -12,6 +12,7 @@ import {
   isLocalTextFilename,
   isOfficeNativeFilename,
   parseDocumentAttachmentsFromMessage,
+  resolveOptionalBoolean,
 } from './utils';
 
 describe('Utils/difference', () => {
@@ -323,6 +324,19 @@ describe('utils/stripHTML', () => {
 
   it('returns empty string for empty input', () => {
     expect(stripHTML('')).toBe('');
+  });
+});
+
+describe('resolveOptionalBoolean', () => {
+  it('uses the integration flag when the client prop is unset', () => {
+    expect(resolveOptionalBoolean(undefined, true)).toBe(true);
+    expect(resolveOptionalBoolean(undefined, false)).toBe(false);
+    expect(resolveOptionalBoolean(undefined, undefined)).toBe(false);
+  });
+
+  it('lets an explicit client prop override the integration flag', () => {
+    expect(resolveOptionalBoolean(true, false)).toBe(true);
+    expect(resolveOptionalBoolean(false, true)).toBe(false);
   });
 });
 

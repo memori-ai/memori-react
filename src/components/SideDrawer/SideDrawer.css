@@ -4,6 +4,12 @@
     flex-direction: column;
 }
 
+@layer memori.components {
+    .memori-side-drawer .memori-drawer__body {
+        padding-bottom: var(--memori-spacing-lg);
+    }
+}
+
 .memori-side-drawer .memori-drawer__header {
     align-items: flex-start;
     gap: var(--memori-spacing-md);

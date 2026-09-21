@@ -313,7 +313,7 @@
 
 /* Modal Preview Content */
 .memori--preview-content {
-    padding: var(--memori-spacing-md);
+    padding: 0;
     border-radius: var(--memori-radius-surface);
     margin: 0;
     /* background-color: #f8f9fa; */
@@ -421,6 +421,26 @@
     color: var(--memori-text-color);
     font-size: 11px;
     font-weight: bold;
+}
+
+.memori--upload-image-preview-content-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.memori-field {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: var(--memori-text-weight-medium);
+    text-align: left;
 }
 
 .memori--upload-image {

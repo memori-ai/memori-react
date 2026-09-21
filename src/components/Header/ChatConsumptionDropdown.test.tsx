@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import ChatConsumptionDropdown, {
   ChatConsumptionContent,
@@ -70,7 +70,7 @@ describe('ChatConsumptionContent', () => {
 });
 
 describe('ChatConsumptionDropdown', () => {
-  it('does not render when the chat has no llm usage data', () => {
+  it('renders a disabled trigger when the chat has no llm usage data', () => {
     const history = [
       {
         text: 'Plain message',
@@ -78,9 +78,11 @@ describe('ChatConsumptionDropdown', () => {
       },
     ] as TestMessage[];
 
-    const { container } = render(<ChatConsumptionDropdown history={history} />);
+    render(<ChatConsumptionDropdown history={history} />);
 
-    expect(container.firstChild).toBeNull();
+    expect(
+      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+    ).toBeDisabled();
   });
 
   it('renders the default trigger when usage data is present', () => {
@@ -89,6 +91,20 @@ describe('ChatConsumptionDropdown', () => {
     expect(
       screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
     ).toBeTruthy();
+  });
+
+  it('opens consumption details in a modal instead of a dropdown', () => {
+    render(<ChatConsumptionDropdown history={historyWithUsage} />);
+
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    fireEvent.click(
+      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+    );
+
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
+    expect(screen.queryByRole('menu')).toBeNull();
   });
 
   it('supports a custom trigger component', () => {

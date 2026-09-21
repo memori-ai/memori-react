@@ -47,3 +47,22 @@ export const StagingZoomedFullBody: Story = {
     layout: 'ZOOMED_FULL_BODY',
   },
 };
+
+export const StagingWithConsumption: Story = {
+  args: {
+    ...stagingBase,
+    memoriName: 'Layout Storybook',
+    ownerUserName: 'Andrea-Patini',
+    memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+    ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+    tenantID: 'aisuru-staging.aclambda.online',
+    engineURL: 'https://engine-staging.memori.ai/memori/v2',
+    apiURL: 'https://backend-staging.memori.ai/api/v2',
+    baseURL: 'https://aisuru-staging.aclambda.online',
+    layout: 'FULLPAGE',
+    uiLang: 'IT',
+    spokenLang: 'IT',
+    integrationID: '01a0af56-ca22-7093-805c-233a7ca482d2',
+    showMessageConsumption: false,
+  },
+};

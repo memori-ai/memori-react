@@ -25,7 +25,6 @@ import {
   X,
   Brain,
   MapPin,
-  ChevronDown,
   ChevronUp,
   ChevronRight,
   Users,
@@ -991,7 +990,6 @@ const Header: React.FC<Props> = ({
                   <ChatConsumptionDropdown
                     history={history}
                     triggerVariant={buttonVariant}
-                    menuAlign="start"
                     trigger={(triggerProps, { open }) => (
                       <button
                         {...triggerProps}
@@ -1002,6 +1000,10 @@ const Header: React.FC<Props> = ({
                           open && 'memori-dropdown--auth-row--active',
                           triggerProps.className
                         )}
+                        onClick={event => {
+                          triggerProps.onClick?.(event);
+                          setInfoPopoverOpen(false);
+                        }}
                       >
                         <span className="memori-dropdown--auth-icon-wrap">
                           <GasStation />
@@ -1014,11 +1016,7 @@ const Header: React.FC<Props> = ({
                             {sessionInfoConsumptionSubtitle}
                           </span>
                         </span>
-                        {open ? (
-                          <ChevronDown size={16} aria-hidden />
-                        ) : (
-                          <ChevronUp size={16} aria-hidden />
-                        )}
+                        <ChevronRight size={16} aria-hidden />
                       </button>
                     )}
                   />
@@ -1209,6 +1207,9 @@ const Header: React.FC<Props> = ({
   const totemShowSettings =
     showSettings && hasSettingsContent(layout, additionalSettings);
   const totemShowKnownFacts = showKnownFacts && isConversationStarted;
+  const totemAccountMenuHasContent = Boolean(
+    showLogin || totemShowKnownFacts
+  );
 
   // TOTEM rail: two-tier grouping inside one bordered container (section 5).
   // Tier 1 (visible): session utilities — audio, fullscreen, share, reload, settings, history.
@@ -1319,9 +1320,11 @@ const Header: React.FC<Props> = ({
         )}
       </div>
 
-      <div className="memori-totem-rail--divider" aria-hidden="true" />
+      {totemAccountMenuHasContent && (
+        <>
+          <div className="memori-totem-rail--divider" aria-hidden="true" />
 
-      <div className="memori-totem-rail--group">
+          <div className="memori-totem-rail--group">
         <Popover
           className="memori-header--dropdown"
           open={userPopoverOpen}
@@ -1426,6 +1429,8 @@ const Header: React.FC<Props> = ({
           {null}
         </Popover>
       </div>
+        </>
+      )}
     </div>
   );
 

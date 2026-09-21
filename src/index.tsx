@@ -130,7 +130,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showMessageConsumption = false,
+  showMessageConsumption,
   showUpload,
   showLogin,
   showReasoning,

@@ -188,8 +188,7 @@
 
 /* Logout action — full-width labeled control inside user menu */
 .memori-dropdown--action-button.memori-dropdown--action-button--logout,
-.memori-widget
-    .memori-icon-button.memori-icon-button--labeled.memori-dropdown--action-button--logout.memori-button {
+.memori-widget .memori-icon-button.memori-icon-button--labeled.memori-dropdown--action-button--logout.memori-button {
     display: flex;
     width: 100%;
     min-width: 0;
@@ -238,12 +237,12 @@
     margin-left: var(--memori-spacing-xs);
 }
 
-.memori-header--button[disabled]:not(.memori-header--button--knownfacts) {
+/* .memori-header--button[disabled]:not(.memori-header--button--knownfacts) {
     border: 0;
     cursor: not-allowed;
     opacity: 0.5;
     pointer-events: none;
-}
+} */
 
 .memori-header--button svg {
     width: 1.25em;
@@ -321,9 +320,12 @@
     pointer-events: none;
 }
 
-.memori-header .memori-icon-button.memori-button.memori-icon-button--active:not(:disabled):not(.memori-button--disabled),
 .memori-header
-    .memori-dropdown--user-trigger-button.memori-icon-button.memori-button--active:not(:disabled):not(.memori-button--disabled) {
+    .memori-icon-button.memori-button.memori-icon-button--active:not(:disabled):not(.memori-button--disabled),
+.memori-header
+    .memori-dropdown--user-trigger-button.memori-icon-button.memori-button--active:not(:disabled):not(
+        .memori-button--disabled
+    ) {
     /* Soft active owned by IconButton.css — do not use CTA ring/fill here */
     box-shadow: none;
 }
@@ -339,18 +341,10 @@
     ),
 .memori-widget
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    ),
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
 .memori-widget
     .memori-chat-layout--header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    ),
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
 .memori-widget
     .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
         :disabled,
@@ -370,19 +364,11 @@
     svg,
 .memori-widget
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    )
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
     svg,
 .memori-widget
     .memori-chat-layout--header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    )
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
     svg,
 .memori-widget
     .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
@@ -413,19 +399,11 @@
     ),
 .memori-widget[data-theme='dark']
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    ),
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
 [data-theme='dark']
     .memori-widget
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    ),
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
 .memori-widget[data-theme='dark']
     .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
         :disabled,
@@ -461,20 +439,12 @@
     svg,
 .memori-widget[data-theme='dark']
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    )
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
     svg,
 [data-theme='dark']
     .memori-widget
     .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    )
+    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
     svg,
 .memori-widget[data-theme='dark']
     .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
@@ -511,6 +481,17 @@
 .memori-dropdown--sustainability-menu {
     margin-top: 10px;
     margin-left: -10px;
+}
+
+.memori-chat--consumption-modal.memori-modal__viewport .memori-modal__popup,
+.memori-chat--consumption-modal .memori-modal--panel {
+    min-width: 20rem;
+    max-width: 30rem;
+}
+
+.memori-chat--consumption-modal .memori-dropdown--sustainability {
+    min-width: 0;
+    padding: 0;
 }
 
 /* Nested inside the session Popover (z-index 1300); default Dropdown is 1001. */
