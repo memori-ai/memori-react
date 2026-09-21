@@ -222,11 +222,7 @@
 }
 
 .memori-chat--jump-to-latest-btn:hover {
-    background: color-mix(
-        in oklch,
-        var(--memori-text-color) 6%,
-        var(--memori-secondary-background, #fff)
-    );
+    background: color-mix(in oklch, var(--memori-text-color) 6%, var(--memori-secondary-background, #fff));
 }
 
 .memori-chat--jump-to-latest-btn:focus-visible {
@@ -392,10 +388,10 @@
     display: inline-flex;
     align-items: center;
     padding: 0.35rem 0.5rem;
-    border: 1px solid #d4d8dd;
+    border: 1px solid var(--memori-border-color);
     border-radius: 999px;
-    background: #fff;
-    color: #1f2937;
+    background: transparent;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: 0.75rem;
     gap: 0.25rem;
@@ -404,9 +400,7 @@
 }
 
 .memori-chat--usage-badge:hover {
-    border-color: var(--memori-primary, #1890ff);
-    background-color: #f8fafc;
-    color: var(--memori-primary, #1890ff);
+    background-color: var(--memori-secondary-background);
 }
 
 .memori-chat--usage-badge:focus-visible {
@@ -476,29 +470,63 @@
    Soft-active / recording IconButtons keep primary/error chrome from IconButton.css. */
 .memori-widget.memori-layout-chat[data-theme='dark']
     .memori-header
-    .memori-button:not(.memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
+    .memori-button:not(
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ),
 [data-theme='dark']
     .memori-widget.memori-layout-chat
     .memori-header
-    .memori-button:not(.memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled) {
+    .memori-button:not(
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ) {
     border: var(--memori-border) solid #fff;
     color: #fff;
 }
 
 .memori-widget.memori-layout-chat[data-theme='dark']
     .memori-header
-    .memori-button:hover:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
+    .memori-button:hover:not(
+        .memori-icon-button,
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ),
 .memori-widget.memori-layout-chat[data-theme='dark']
     .memori-header
-    .memori-button:active:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
+    .memori-button:active:not(
+        .memori-icon-button,
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ),
 [data-theme='dark']
     .memori-widget.memori-layout-chat
     .memori-header
-    .memori-button:hover:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
+    .memori-button:hover:not(
+        .memori-icon-button,
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ),
 [data-theme='dark']
     .memori-widget.memori-layout-chat
     .memori-header
-    .memori-button:active:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled) {
+    .memori-button:active:not(
+        .memori-icon-button,
+        .memori-icon-button--active,
+        .memori-icon-button--recording,
+        :disabled,
+        .memori-button--disabled
+    ) {
     border: var(--memori-border) solid #fff;
     color: #fff;
 }

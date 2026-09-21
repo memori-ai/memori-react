@@ -468,6 +468,14 @@ const ChatBubble: React.FC<Props> = ({
     },
   } as const;
   const exposedSourcesCount = getExposedSourcesCount(message);
+  const whyThisAnswerSourcesLabel =
+    exposedSourcesCount == null
+      ? undefined
+      : exposedSourcesCount > 0
+      ? t('whyThisAnswerSourcesCount', {
+          count: exposedSourcesCount,
+        })
+      : t('whyThisAnswerNoSources');
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
@@ -1129,13 +1137,7 @@ const ChatBubble: React.FC<Props> = ({
                               }
                               icon={<HelpCircle aria-hidden />}
                             >
-                              {exposedSourcesCount != null &&
-                                exposedSourcesCount > 0 &&
-                                t('whyThisAnswerSourcesCount', {
-                                  count: exposedSourcesCount,
-                                })}
-                              {exposedSourcesCount === 0 &&
-                                t('whyThisAnswerNoSources')}
+                              {whyThisAnswerSourcesLabel}
                             </Button>
                           </span>
                         </Tooltip>

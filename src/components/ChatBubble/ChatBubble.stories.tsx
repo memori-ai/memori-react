@@ -238,12 +238,14 @@ export const WithAllAddonsContents = Template.bind({});
 WithAllAddonsContents.args = {
   memori,
   tenant,
+  apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
     text: 'Proin libero ante.',
     initial: false,
     translatedText: 'Proin libero ter.',
     generatedByAI: true,
+    questionAnswered: 'What does this answer use?',
   },
   showFeedback: true,
   simulateUserPrompt: () => {},

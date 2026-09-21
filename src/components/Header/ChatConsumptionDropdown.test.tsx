@@ -134,4 +134,40 @@ describe('ChatConsumptionDropdown', () => {
 
     expect(screen.getByRole('button', { name: 'Open usage' })).toBeTruthy();
   });
+
+  it('keeps a controlled modal mounted when the original trigger unmounts', () => {
+    const Harness = () => {
+      const [open, setOpen] = React.useState(false);
+      const [showTrigger, setShowTrigger] = React.useState(true);
+
+      return (
+        <>
+          {showTrigger && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(true);
+                setShowTrigger(false);
+              }}
+            >
+              Open then hide
+            </button>
+          )}
+          <ChatConsumptionDropdown
+            history={historyWithUsage}
+            open={open}
+            onOpenChange={setOpen}
+            hideTrigger
+          />
+        </>
+      );
+    };
+
+    render(<Harness />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open then hide' }));
+
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
+  });
 });

@@ -32,6 +32,9 @@ export interface ChatConsumptionDropdownProps {
         state: { open: boolean }
       ) => React.ReactElement)
     | React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  hideTrigger?: boolean;
 }
 
 export interface ChatConsumptionContentProps {
@@ -261,9 +264,20 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
   triggerVariant = 'ghost',
   trigger,
+  open: openProp,
+  onOpenChange,
+  hideTrigger = false,
 }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : uncontrolledOpen;
+  const setOpen = (next: boolean) => {
+    if (!isControlled) {
+      setUncontrolledOpen(next);
+    }
+    onOpenChange?.(next);
+  };
 
   const hasConsumptionData = useMemo(
     () =>
@@ -307,7 +321,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   };
 
   if (!hasConsumptionData) {
-    if (trigger) return null;
+    if (hideTrigger || trigger) return null;
     return renderDefaultTrigger({ disabled: true });
   }
 
@@ -345,9 +359,10 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
 
   return (
     <>
-      {renderTrigger({
-        onClick: handleTriggerClick,
-      })}
+      {!hideTrigger &&
+        renderTrigger({
+          onClick: handleTriggerClick,
+        })}
       <Modal
         open={open}
         onClose={() => setOpen(false)}

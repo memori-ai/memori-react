@@ -25,8 +25,6 @@ import {
   X,
   Brain,
   MapPin,
-  ChevronUp,
-  ChevronRight,
   Users,
   User as UserIcon,
   MessageCircle,
@@ -137,6 +135,7 @@ const Header: React.FC<Props> = ({
   const [fullScreen, setFullScreen] = useState(false);
   const [userPopoverOpen, setUserPopoverOpen] = useState(false);
   const [infoPopoverOpen, setInfoPopoverOpen] = useState(false);
+  const [consumptionModalOpen, setConsumptionModalOpen] = useState(false);
 
   type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -925,259 +924,265 @@ const Header: React.FC<Props> = ({
     : t('widget.noData', { defaultValue: 'Nessun dato disponibile' });
 
   const loggedInFullpageRightControls = (
-    <div className="memori-header--auth-icon-controls">
-      {showSessionInfoMenu && (
-        <Popover
-          className="memori-header--dropdown"
-          open={infoPopoverOpen}
-          onOpenChange={open => {
-            setInfoPopoverOpen(open);
-            if (open) {
-              setUserPopoverOpen(false);
-              setPositionPopoverOpen(false);
-            }
-          }}
-          placement="bottom-end"
-          sideOffset={8}
-          closable={false}
-          contentClassName="memori-dropdown--menu memori-dropdown--auth-menu"
-          slotProps={{
-            trigger: {
-              render: (props: React.ComponentProps<typeof Button>) => (
-                <Tooltip title="Info sessione" placement="bottom">
-                  <span style={{ display: 'inline-flex' }}>
-                    <IconButton
-                      {...props}
-                      active={infoPopoverOpen}
-                      variant={buttonVariant}
-                      className="memori-header--auth-icon-button"
-                      aria-label="Info sessione"
-                      icon={<MoreVertical />}
-                    />
-                  </span>
-                </Tooltip>
-              ),
-            },
-          }}
-          content={
-            <div className="memori-dropdown--auth-content">
-              {showKnownFacts && (
-                <button
-                  type="button"
-                  className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
-                  onClick={() => {
-                    setShowKnownFactsDrawer(true);
-                    setInfoPopoverOpen(false);
-                  }}
-                >
-                  <span className="memori-dropdown--auth-icon-wrap">
-                    <Brain size={16} />
-                  </span>
-                  <span className="memori-dropdown--auth-copy">
-                    <span className="memori-dropdown--auth-title">
-                      {t('knownFacts.title') || 'Known facts'}
+    <>
+      <div className="memori-header--auth-icon-controls">
+        {showSessionInfoMenu && (
+          <Popover
+            className="memori-header--dropdown"
+            open={infoPopoverOpen}
+            onOpenChange={open => {
+              setInfoPopoverOpen(open);
+              if (open) {
+                setUserPopoverOpen(false);
+                setPositionPopoverOpen(false);
+              }
+            }}
+            placement="bottom-end"
+            sideOffset={8}
+            closable={false}
+            contentClassName="memori-dropdown--menu memori-dropdown--auth-menu"
+            slotProps={{
+              trigger: {
+                render: (props: React.ComponentProps<typeof Button>) => (
+                  <Tooltip title="Info sessione" placement="bottom">
+                    <span style={{ display: 'inline-flex' }}>
+                      <IconButton
+                        {...props}
+                        active={infoPopoverOpen}
+                        variant={buttonVariant}
+                        className="memori-header--auth-icon-button"
+                        aria-label="Info sessione"
+                        icon={<MoreVertical />}
+                      />
                     </span>
-                    <span className="memori-dropdown--auth-subtitle">
-                      {t('widget.knownFactsHint') ||
-                        'What I remember about you'}
-                    </span>
-                  </span>
-                  {/* <ChevronRight size={16} aria-hidden /> */}
-                </button>
-              )}
-              {showMessageConsumption &&
-                (hasChatConsumptionData ? (
-                  <ChatConsumptionDropdown
-                    history={history}
-                    triggerVariant={buttonVariant}
-                    trigger={(triggerProps, { open }) => (
-                      <button
-                        {...triggerProps}
-                        type="button"
-                        className={cx(
-                          'memori-dropdown--auth-row',
-                          'memori-dropdown--auth-row--navigable',
-                          open && 'memori-dropdown--auth-row--active',
-                          triggerProps.className
-                        )}
-                        onClick={event => {
-                          triggerProps.onClick?.(event);
-                          setInfoPopoverOpen(false);
-                        }}
-                      >
-                        <span className="memori-dropdown--auth-icon-wrap">
-                          <GasStation />
-                        </span>
-                        <span className="memori-dropdown--auth-copy">
-                          <span className="memori-dropdown--auth-title">
-                            {t('widget.aiConsumption') || 'AI usage'}
-                          </span>
-                          <span className="memori-dropdown--auth-subtitle">
-                            {sessionInfoConsumptionSubtitle}
-                          </span>
-                        </span>
-                        <ChevronRight size={16} aria-hidden />
-                      </button>
-                    )}
-                  />
-                ) : (
+                  </Tooltip>
+                ),
+              },
+            }}
+            content={
+              <div className="memori-dropdown--auth-content">
+                {showKnownFacts && (
                   <button
                     type="button"
-                    disabled
-                    className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable memori-dropdown--auth-row--disabled"
+                    className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
+                    onClick={() => {
+                      setShowKnownFactsDrawer(true);
+                      setInfoPopoverOpen(false);
+                    }}
                   >
                     <span className="memori-dropdown--auth-icon-wrap">
-                      <GasStation />
+                      <Brain size={16} />
                     </span>
                     <span className="memori-dropdown--auth-copy">
                       <span className="memori-dropdown--auth-title">
-                        {t('widget.aiConsumption') || 'AI usage'}
+                        {t('knownFacts.title') || 'Known facts'}
                       </span>
                       <span className="memori-dropdown--auth-subtitle">
-                        {sessionInfoConsumptionSubtitle}
+                        {t('widget.knownFactsHint') ||
+                          'What I remember about you'}
                       </span>
                     </span>
-                    <ChevronUp size={16} aria-hidden />
                   </button>
-                ))}
-            </div>
-          }
-        >
-          {null}
-        </Popover>
-      )}
-      {showFullscreen && fullScreenAvailable && (
-        <Tooltip title={fullscreenLabel} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              className="memori-header--auth-icon-button"
-              title={fullscreenLabel}
-              aria-label={fullscreenLabel}
-              icon={fullScreen ? <Minimize /> : <Maximize />}
-              onClick={
-                fullScreenHandler ||
-                (() => {
-                  if (!document.fullscreenElement) {
-                    const body =
-                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
-                        ? document.body
-                        : document.querySelector('.memori-widget');
-                    if (body) {
-                      const memoriWidget = document.querySelector(
-                        '.memori-widget'
-                      ) as HTMLElement | null;
-                      if (memoriWidget) {
-                        if (
-                          memoriWidget.dataset.memoriPrevBgColor === undefined
-                        )
-                          memoriWidget.dataset.memoriPrevBgColor =
-                            memoriWidget.style.backgroundColor ?? '';
-                        memoriWidget.style.backgroundColor = '';
+                )}
+                {showMessageConsumption &&
+                  (hasChatConsumptionData ? (
+                    <button
+                      type="button"
+                      className={cx(
+                        'memori-dropdown--auth-row',
+                        'memori-dropdown--auth-row--navigable',
+                        consumptionModalOpen &&
+                          'memori-dropdown--auth-row--active'
+                      )}
+                      onClick={() => {
+                        setConsumptionModalOpen(true);
+                        setInfoPopoverOpen(false);
+                      }}
+                    >
+                      <span className="memori-dropdown--auth-icon-wrap">
+                        <GasStation />
+                      </span>
+                      <span className="memori-dropdown--auth-copy">
+                        <span className="memori-dropdown--auth-title">
+                          {t('widget.aiConsumption') || 'AI usage'}
+                        </span>
+                        <span className="memori-dropdown--auth-subtitle">
+                          {sessionInfoConsumptionSubtitle}
+                        </span>
+                      </span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled
+                      className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable memori-dropdown--auth-row--disabled"
+                    >
+                      <span className="memori-dropdown--auth-icon-wrap">
+                        <GasStation />
+                      </span>
+                      <span className="memori-dropdown--auth-copy">
+                        <span className="memori-dropdown--auth-title">
+                          {t('widget.aiConsumption') || 'AI usage'}
+                        </span>
+                        <span className="memori-dropdown--auth-subtitle">
+                          {sessionInfoConsumptionSubtitle}
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+              </div>
+            }
+          >
+            {null}
+          </Popover>
+        )}
+        {showFullscreen && fullScreenAvailable && (
+          <Tooltip title={fullscreenLabel} placement="bottom">
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={buttonVariant}
+                className="memori-header--auth-icon-button"
+                title={fullscreenLabel}
+                aria-label={fullscreenLabel}
+                icon={fullScreen ? <Minimize /> : <Maximize />}
+                onClick={
+                  fullScreenHandler ||
+                  (() => {
+                    if (!document.fullscreenElement) {
+                      const body =
+                        layout !== 'HIDDEN_CHAT' &&
+                        layout !== 'WEBSITE_ASSISTANT'
+                          ? document.body
+                          : document.querySelector('.memori-widget');
+                      if (body) {
+                        const memoriWidget = document.querySelector(
+                          '.memori-widget'
+                        ) as HTMLElement | null;
+                        if (memoriWidget) {
+                          if (
+                            memoriWidget.dataset.memoriPrevBgColor === undefined
+                          )
+                            memoriWidget.dataset.memoriPrevBgColor =
+                              memoriWidget.style.backgroundColor ?? '';
+                          memoriWidget.style.backgroundColor = '';
+                        }
+                        body
+                          .requestFullscreen()
+                          .then(() => setFullScreen(true))
+                          .catch(err => {
+                            console.warn(
+                              'Error attempting to enable fullscreen:',
+                              err
+                            );
+                          });
                       }
-                      body
-                        .requestFullscreen()
-                        .then(() => setFullScreen(true))
+                    } else if (document.exitFullscreen) {
+                      document
+                        .exitFullscreen()
+                        .then(() => {
+                          setFullScreen(false);
+                          const memoriWidget = document.querySelector(
+                            '.memori-widget'
+                          ) as HTMLElement | null;
+                          if (
+                            memoriWidget?.dataset?.memoriPrevBgColor !==
+                            undefined
+                          ) {
+                            memoriWidget.style.backgroundColor =
+                              memoriWidget.dataset.memoriPrevBgColor;
+                            delete memoriWidget.dataset.memoriPrevBgColor;
+                          }
+                        })
                         .catch(err => {
                           console.warn(
-                            'Error attempting to enable fullscreen:',
+                            'Error attempting to exit fullscreen:',
                             err
                           );
                         });
                     }
-                  } else if (document.exitFullscreen) {
-                    document
-                      .exitFullscreen()
-                      .then(() => {
-                        setFullScreen(false);
-                        const memoriWidget = document.querySelector(
-                          '.memori-widget'
-                        ) as HTMLElement | null;
-                        if (
-                          memoriWidget?.dataset?.memoriPrevBgColor !== undefined
-                        ) {
-                          memoriWidget.style.backgroundColor =
-                            memoriWidget.dataset.memoriPrevBgColor;
-                          delete memoriWidget.dataset.memoriPrevBgColor;
-                        }
-                      })
-                      .catch(err => {
-                        console.warn(
-                          'Error attempting to exit fullscreen:',
-                          err
-                        );
-                      });
-                  }
-                })
-              }
-            />
-          </span>
-        </Tooltip>
-      )}
-      {enableAudio && (
-        <Tooltip title={soundLabel} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              className="memori-header--auth-icon-button"
-              title={soundLabel}
-              aria-label={soundLabel}
-              icon={
-                speakerMuted ? (
-                  <VolumeX size={20} strokeWidth={2.35} aria-hidden />
-                ) : (
-                  <Volume2 size={20} strokeWidth={2} aria-hidden />
-                )
-              }
-              onClick={() => setSpeakerMuted(!speakerMuted)}
-            />
-          </span>
-        </Tooltip>
-      )}
-      {memori.needsPosition && (
-        <Tooltip title={t('widget.position') || 'Position'} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <PositionPopover
-              venue={position}
-              setVenue={setVenue}
-              open={positionPopoverOpen}
-              autoStartGeolocation={autoStartPositionGeolocation}
-              onOpenChange={open => {
-                setPositionPopoverOpen(open);
-                if (open) {
-                  setInfoPopoverOpen(false);
-                  setUserPopoverOpen(false);
+                  })
                 }
-              }}
-              triggerButtonVariant={buttonVariant}
-              triggerClassName="memori-header--auth-icon-button"
-              triggerAriaLabel={t('widget.position') || 'Position'}
-              positionerClassName={
-                layout === 'WEBSITE_ASSISTANT'
-                  ? 'memori-position-popover__positioner--website-assistant'
-                  : undefined
-              }
+              />
+            </span>
+          </Tooltip>
+        )}
+        {enableAudio && (
+          <Tooltip title={soundLabel} placement="bottom">
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={buttonVariant}
+                className="memori-header--auth-icon-button"
+                title={soundLabel}
+                aria-label={soundLabel}
+                icon={
+                  speakerMuted ? (
+                    <VolumeX size={20} strokeWidth={2.35} aria-hidden />
+                  ) : (
+                    <Volume2 size={20} strokeWidth={2} aria-hidden />
+                  )
+                }
+                onClick={() => setSpeakerMuted(!speakerMuted)}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {memori.needsPosition && (
+          <Tooltip
+            title={t('widget.position') || 'Position'}
+            placement="bottom"
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <PositionPopover
+                venue={position}
+                setVenue={setVenue}
+                open={positionPopoverOpen}
+                autoStartGeolocation={autoStartPositionGeolocation}
+                onOpenChange={open => {
+                  setPositionPopoverOpen(open);
+                  if (open) {
+                    setInfoPopoverOpen(false);
+                    setUserPopoverOpen(false);
+                  }
+                }}
+                triggerButtonVariant={buttonVariant}
+                triggerClassName="memori-header--auth-icon-button"
+                triggerAriaLabel={t('widget.position') || 'Position'}
+                positionerClassName={
+                  layout === 'WEBSITE_ASSISTANT'
+                    ? 'memori-position-popover__positioner--website-assistant'
+                    : undefined
+                }
+              />
+            </span>
+          </Tooltip>
+        )}
+        {showShare && (
+          <span className="memori-header--auth-share-button-wrap">
+            <ShareButton
+              title={memori.name}
+              memori={memori}
+              sessionID={sessionID}
+              tenant={tenant}
+              showQrCode
+              align="left"
+              baseUrl={baseUrl}
+              history={history}
+              triggerVariant={buttonVariant}
+              className="memori-header--auth-share-button"
             />
           </span>
-        </Tooltip>
+        )}
+      </div>
+      {showMessageConsumption && hasChatConsumptionData && (
+        <ChatConsumptionDropdown
+          history={history}
+          triggerVariant={buttonVariant}
+          hideTrigger
+          open={consumptionModalOpen}
+          onOpenChange={setConsumptionModalOpen}
+        />
       )}
-      {showShare && (
-        <span className="memori-header--auth-share-button-wrap">
-          <ShareButton
-            title={memori.name}
-            memori={memori}
-            sessionID={sessionID}
-            tenant={tenant}
-            showQrCode
-            align="left"
-            baseUrl={baseUrl}
-            history={history}
-            triggerVariant={buttonVariant}
-            className="memori-header--auth-share-button"
-          />
-        </span>
-      )}
-    </div>
+    </>
   );
 
   const handleTotemFullscreen = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -1207,9 +1212,7 @@ const Header: React.FC<Props> = ({
   const totemShowSettings =
     showSettings && hasSettingsContent(layout, additionalSettings);
   const totemShowKnownFacts = showKnownFacts && isConversationStarted;
-  const totemAccountMenuHasContent = Boolean(
-    showLogin || totemShowKnownFacts
-  );
+  const totemAccountMenuHasContent = Boolean(showLogin || totemShowKnownFacts);
 
   // TOTEM rail: two-tier grouping inside one bordered container (section 5).
   // Tier 1 (visible): session utilities — audio, fullscreen, share, reload, settings, history.
@@ -1325,110 +1328,110 @@ const Header: React.FC<Props> = ({
           <div className="memori-totem-rail--divider" aria-hidden="true" />
 
           <div className="memori-totem-rail--group">
-        <Popover
-          className="memori-header--dropdown"
-          open={userPopoverOpen}
-          onOpenChange={open => {
-            setUserPopoverOpen(open);
-            if (open) {
-              setInfoPopoverOpen(false);
-              setPositionPopoverOpen(false);
-            }
-          }}
-          placement="left-start"
-          sideOffset={8}
-          closable={false}
-          contentClassName="memori-dropdown--menu memori-totem-rail--menu"
-          slotProps={{
-            trigger: {
-              render: (props: React.ComponentProps<typeof Button>) => (
-                <Tooltip title={totemAccountLabel} placement="left">
-                  <span style={{ display: 'inline-flex' }}>
-                    <IconButton
-                      {...props}
-                      active={userPopoverOpen}
-                      variant={buttonVariant}
-                      className={cx(
-                        'memori-totem-rail--button',
-                        'memori-totem-rail--account-trigger'
+            <Popover
+              className="memori-header--dropdown"
+              open={userPopoverOpen}
+              onOpenChange={open => {
+                setUserPopoverOpen(open);
+                if (open) {
+                  setInfoPopoverOpen(false);
+                  setPositionPopoverOpen(false);
+                }
+              }}
+              placement="left-start"
+              sideOffset={8}
+              closable={false}
+              contentClassName="memori-dropdown--menu memori-totem-rail--menu"
+              slotProps={{
+                trigger: {
+                  render: (props: React.ComponentProps<typeof Button>) => (
+                    <Tooltip title={totemAccountLabel} placement="left">
+                      <span style={{ display: 'inline-flex' }}>
+                        <IconButton
+                          {...props}
+                          active={userPopoverOpen}
+                          variant={buttonVariant}
+                          className={cx(
+                            'memori-totem-rail--button',
+                            'memori-totem-rail--account-trigger'
+                          )}
+                          title={totemAccountLabel}
+                          aria-label={totemAccountLabel}
+                          icon={<UserIcon />}
+                        />
+                      </span>
+                    </Tooltip>
+                  ),
+                },
+              }}
+              content={
+                <div className="memori-totem-rail--menu-content">
+                  {showLogin && isAuthenticated && (
+                    <div className="memori-totem-rail--menu-identity">
+                      <span className="memori-totem-rail--menu-identity-name">
+                        {user?.userName || t('login.welcomeUser')}
+                      </span>
+                      {user?.eMail && (
+                        <span className="memori-totem-rail--menu-identity-email">
+                          {user.eMail}
+                        </span>
                       )}
-                      title={totemAccountLabel}
-                      aria-label={totemAccountLabel}
-                      icon={<UserIcon />}
-                    />
-                  </span>
-                </Tooltip>
-              ),
-            },
-          }}
-          content={
-            <div className="memori-totem-rail--menu-content">
-              {showLogin && isAuthenticated && (
-                <div className="memori-totem-rail--menu-identity">
-                  <span className="memori-totem-rail--menu-identity-name">
-                    {user?.userName || t('login.welcomeUser')}
-                  </span>
-                  {user?.eMail && (
-                    <span className="memori-totem-rail--menu-identity-email">
-                      {user.eMail}
-                    </span>
+                    </div>
                   )}
+                  {totemShowKnownFacts && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="memori-totem-rail--menu-item"
+                      icon={<Brain size={18} aria-hidden />}
+                      title={totemKnownFactsLabel}
+                      aria-label={totemKnownFactsLabel}
+                      onClick={() => {
+                        setUserPopoverOpen(false);
+                        setShowKnownFactsDrawer(true);
+                      }}
+                    >
+                      {totemKnownFactsLabel}
+                    </Button>
+                  )}
+                  {showLogin &&
+                    (isAuthenticated ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="memori-totem-rail--menu-item memori-totem-rail--menu-item--logout"
+                        icon={<LogOut size={18} aria-hidden />}
+                        title={t('login.logout') || 'Logout'}
+                        aria-label={t('login.logout') || 'Logout'}
+                        onClick={() => {
+                          setUserPopoverOpen(false);
+                          onLogout?.();
+                        }}
+                      >
+                        {t('login.logout') || 'Logout'}
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="memori-totem-rail--menu-item"
+                        icon={<UserIcon size={18} aria-hidden />}
+                        title={t('login.login') || 'Login'}
+                        aria-label={t('login.login') || 'Login'}
+                        onClick={() => {
+                          setUserPopoverOpen(false);
+                          setShowLoginDrawer(true);
+                        }}
+                      >
+                        {t('login.login') || 'Login'}
+                      </Button>
+                    ))}
                 </div>
-              )}
-              {totemShowKnownFacts && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="memori-totem-rail--menu-item"
-                  icon={<Brain size={18} aria-hidden />}
-                  title={totemKnownFactsLabel}
-                  aria-label={totemKnownFactsLabel}
-                  onClick={() => {
-                    setUserPopoverOpen(false);
-                    setShowKnownFactsDrawer(true);
-                  }}
-                >
-                  {totemKnownFactsLabel}
-                </Button>
-              )}
-              {showLogin &&
-                (isAuthenticated ? (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="memori-totem-rail--menu-item memori-totem-rail--menu-item--logout"
-                    icon={<LogOut size={18} aria-hidden />}
-                    title={t('login.logout') || 'Logout'}
-                    aria-label={t('login.logout') || 'Logout'}
-                    onClick={() => {
-                      setUserPopoverOpen(false);
-                      onLogout?.();
-                    }}
-                  >
-                    {t('login.logout') || 'Logout'}
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="memori-totem-rail--menu-item"
-                    icon={<UserIcon size={18} aria-hidden />}
-                    title={t('login.login') || 'Login'}
-                    aria-label={t('login.login') || 'Login'}
-                    onClick={() => {
-                      setUserPopoverOpen(false);
-                      setShowLoginDrawer(true);
-                    }}
-                  >
-                    {t('login.login') || 'Login'}
-                  </Button>
-                ))}
-            </div>
-          }
-        >
-          {null}
-        </Popover>
-      </div>
+              }
+            >
+              {null}
+            </Popover>
+          </div>
         </>
       )}
     </div>

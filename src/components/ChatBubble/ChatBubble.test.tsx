@@ -816,9 +816,14 @@ it('shows the why-this-answer icon without inventing a source count', () => {
     />
   );
 
+  const whyThisAnswerButton = screen.getByRole('button', {
+    name: 'whyThisAnswer',
+  });
+  expect(whyThisAnswerButton).toBeInTheDocument();
+  expect(whyThisAnswerButton).toHaveClass('memori-button--icon-only');
   expect(
-    screen.getByRole('button', { name: 'whyThisAnswer' })
-  ).toBeInTheDocument();
+    whyThisAnswerButton.querySelector('.memori-button__content')
+  ).not.toBeInTheDocument();
   expect(
     screen.queryByText('whyThisAnswerSourcesCount')
   ).not.toBeInTheDocument();

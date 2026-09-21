@@ -5,6 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
+import KnownFacts from '../KnownFacts/KnownFacts';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import './Header.css';
@@ -110,6 +111,16 @@ const Template: Story<Props> = args => {
             onLogout={() => setShowLoginDrawer(false)}
             apiClient={memoriApiClient()}
           />
+          {showKnownFactsDrawer && args.sessionID && (
+            <KnownFacts
+              apiClient={memoriApiClient()}
+              memori={args.memori}
+              sessionID={args.sessionID}
+              visible={showKnownFactsDrawer}
+              closeDrawer={() => setShowKnownFactsDrawer(false)}
+              disableFetch
+            />
+          )}
         </ArtifactProvider>
       </AlertProvider>
     </I18nWrapper>
@@ -395,6 +406,7 @@ AllButtonsShowcase.args = {
   showChatHistory: true,
   showLogin: true,
   showMessageConsumption: true,
+  layout: 'FULLPAGE',
   sessionID: '1234',
   loginToken: 'abcd',
   user: {
