@@ -3,17 +3,12 @@
 
 .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
     --memori-content-preview-max-height: calc(
-        100vh - 2 * var(--memori-spacing-md) - env(safe-area-inset-top, 0px) -
-            env(safe-area-inset-bottom, 0px)
-    );
-    --memori-content-preview-max-height: calc(
         100dvh - 2 * var(--memori-spacing-md) - env(safe-area-inset-top, 0px) -
             env(safe-area-inset-bottom, 0px)
     );
 
     display: flex;
     overflow: hidden;
-    box-sizing: border-box;
     width: min(90vw, 800px);
     min-width: 0;
     max-width: min(90vw, 800px);
@@ -21,6 +16,7 @@
        popup past the screen and hides the close button. Keep it shrinkable. */
     min-height: 0;
     max-height: var(--memori-content-preview-max-height);
+    box-sizing: border-box;
     flex-direction: column;
     border-radius: var(--memori-radius-overlay);
     box-shadow:
@@ -167,8 +163,8 @@
     max-width: 100%;
     height: min(56vh, 420px);
     height: min(56dvh, 420px);
-    max-height: 100%;
     min-height: 0;
+    max-height: 100%;
     flex: 1 1 auto;
     align-items: center;
     justify-content: center;
