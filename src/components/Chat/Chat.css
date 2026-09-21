@@ -114,6 +114,11 @@
     margin-inline: 0;
 }
 
+.memori-chat--content.memori-chat--content-touch {
+    padding-bottom: 0;
+    padding-inline: 0;
+}
+
 .memori-conversation-column .memori-chat--content,
 .memori-conversation-column .memori-chat--content.memori-chat--content-touch {
     padding-top: var(--memori-spacing-lg);
@@ -187,11 +192,6 @@
 .memori-chat--history--has-global-background > * {
     position: relative;
     z-index: 1;
-}
-
-.memori-chat--content.memori-chat--content-touch {
-    padding-bottom: 0;
-    padding-inline: 0;
 }
 
 .memori-chat--jump-to-latest {
