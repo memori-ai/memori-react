@@ -2,16 +2,38 @@
 /* Stacking above drawers: Modal stacking="stacked" (library z-index 1600). */
 
 .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
+    display: flex;
     overflow: hidden;
     width: min(90vw, 800px);
     min-width: 0;
     max-width: min(90vw, 800px);
     min-height: min(500px, 80vh);
     max-height: 80vh;
+    flex-direction: column;
     border-radius: var(--memori-radius-overlay);
-    /* background: var(--memori-content-preview-bg, #fafafa); */
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
-    overflow-y: auto;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__popup > .memori-spin {
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__content {
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    flex-direction: column;
 }
 
 /* Image variant: modal at least 600px wide (capped by viewport on small screens) */
@@ -23,18 +45,74 @@
 }
 
 .memori-modal__viewport.memori-content-preview-modal .memori-modal__title {
-    overflow: hidden;
+    overflow: visible;
     min-width: 0;
     max-width: 100%;
     padding: 1rem 1.25rem 0.75rem;
     padding-right: calc(var(--memori-icon-button-size, 40px) + 1.5rem);
     border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
+    margin-bottom: 0;
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-md);
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: -0.01em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.memori-content-preview-modal--heading {
+    display: flex;
+    min-width: 0;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.memori-content-preview-modal--heading-icon {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--memori-primary-subtle);
+    color: var(--memori-primary);
+}
+
+.memori-content-preview-modal--heading-icon svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.memori-content-preview-modal--heading-copy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.memori-content-preview-modal--heading-title {
+    min-width: 0;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.memori-content-preview-modal--heading-subtitle {
+    color: color-mix(in srgb, var(--memori-text-color) 58%, transparent);
+    font-size: var(--memori-text-size-sm);
+    font-weight: 400;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .memori-modal__viewport.memori-content-preview-modal .memori-modal__close {
@@ -47,14 +125,16 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    /* background: var(--memori-content-preview-image-bg, #f3f4f6); */
 }
 
 .memori-content-preview-modal--body--content {
+    display: flex;
     min-width: 0;
     max-width: 100%;
-    padding: 1rem 1.25rem;
-    overflow-x: auto;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0;
 }
 
 /* Image */
@@ -80,31 +160,62 @@
     background: var(--memori-main-background);
 }
 
-@media (max-width: 768px) {
-    .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
-        width: min(92vw, 100%) !important;
-        min-width: 0 !important;
-        max-width: 100vw;
-        min-height: auto;
-        max-height: 85vh;
-    }
+.memori-content-preview-modal--scroll-shell {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
 
-    .memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
-        min-width: min(92vw, 600px);
-    }
+.memori-content-preview-modal--scroll-cue {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.75rem 1rem 0.85rem;
+    border: 0;
+    background: linear-gradient(
+        to top,
+        var(--memori-secondary-background) 0%,
+        var(--memori-secondary-background) 38%,
+        color-mix(in srgb, var(--memori-secondary-background) 55%, transparent) 72%,
+        transparent 100%
+    );
+    color: color-mix(in srgb, var(--memori-text-color) 52%, transparent);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--memori-text-size-sm);
+    font-weight: 500;
+    gap: 0.35rem;
+    letter-spacing: -0.01em;
+}
 
-    .memori-content-preview-modal--image-wrap {
-        width: min(84vw, 520px);
-        height: min(48vh, 320px);
-    }
+.memori-content-preview-modal--scroll-cue:hover,
+.memori-content-preview-modal--scroll-cue:focus-visible {
+    color: color-mix(in srgb, var(--memori-text-color) 78%, transparent);
+}
 
-    .memori-content-preview-modal--body--content {
-        padding: 0.75rem;
-    }
+.memori-content-preview-modal--scroll-cue:focus-visible {
+    outline: 2px solid var(--memori-primary);
+    outline-offset: -2px;
+}
 
-    .memori-content-preview-modal--snippet-wrap .memori-snippet {
-        min-width: 0;
-        max-width: 100%;
+.memori-content-preview-modal--scroll-cue-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-content-preview-modal--scroll-cue-icon {
+        animation: none;
     }
 }
 
@@ -113,16 +224,172 @@
     min-width: 0;
     max-width: 100%;
     min-height: 120px;
+    flex: 1 1 auto;
+    padding: 1rem 1.25rem;
     border: 1px solid var(--memori-border-color);
     border-radius: var(--memori-radius-surface);
+    margin: 1rem 1.25rem;
     background: var(--memori-main-background);
     color: var(--memori-text-color);
     font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-relaxed);
     overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
+    scrollbar-width: thin;
     white-space: pre-wrap;
     word-break: break-word;
+}
+
+.memori-content-preview-modal--snippet-wrap--document {
+    padding: 1.25rem 1.5rem 2rem;
+    border: 0;
+    margin: 0;
+    background: transparent;
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-md);
+    line-height: 1.65;
+    white-space: normal;
+}
+
+.memori-content-preview-modal--scroll-shell--cue .memori-content-preview-modal--snippet-wrap {
+    padding-bottom: 3.75rem;
+}
+
+/* Rendered markdown */
+.memori-content-preview-modal--markdown {
+    min-width: 0;
+    max-width: 100%;
+    color: var(--memori-text-color);
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-md);
+    line-height: 1.65;
+}
+
+.memori-content-preview-modal--markdown > :first-child {
+    margin-top: 0;
+}
+
+.memori-content-preview-modal--markdown > :last-child {
+    margin-bottom: 0;
+}
+
+.memori-content-preview-modal--markdown h1,
+.memori-content-preview-modal--markdown h2,
+.memori-content-preview-modal--markdown h3,
+.memori-content-preview-modal--markdown h4,
+.memori-content-preview-modal--markdown h5,
+.memori-content-preview-modal--markdown h6 {
+    margin: 1.35rem 0 0.55rem;
+    color: var(--memori-text-color);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.memori-content-preview-modal--markdown h1 {
+    margin-top: 0;
+    margin-bottom: 0.65rem;
+    font-size: 1.75rem;
+}
+
+.memori-content-preview-modal--markdown h2 {
+    font-size: 1.15rem;
+    font-weight: 650;
+}
+
+.memori-content-preview-modal--markdown h3 {
+    font-size: 1.05rem;
+}
+
+.memori-content-preview-modal--markdown p {
+    margin: 0 0 0.9rem;
+}
+
+.memori-content-preview-modal--markdown strong,
+.memori-content-preview-modal--markdown b {
+    font-weight: 650;
+}
+
+.memori-content-preview-modal--markdown em {
+    font-style: italic;
+}
+
+.memori-content-preview-modal--markdown a {
+    color: var(--memori-primary);
+    text-decoration: none;
+}
+
+.memori-content-preview-modal--markdown a:hover,
+.memori-content-preview-modal--markdown a:focus-visible {
+    text-decoration: underline;
+}
+
+.memori-content-preview-modal--markdown code {
+    padding: 0.12em 0.4em;
+    border-radius: 0.4rem;
+    background: color-mix(in srgb, var(--memori-text-color) 8%, transparent);
+    font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875em;
+}
+
+.memori-content-preview-modal--markdown pre {
+    padding: 0.9rem 1rem;
+    border-radius: var(--memori-radius-surface);
+    margin: 0 0 1rem;
+    background: color-mix(in srgb, var(--memori-text-color) 6%, transparent);
+    overflow-x: auto;
+}
+
+.memori-content-preview-modal--markdown pre code {
+    padding: 0;
+    background: none;
+    font-size: 0.85em;
+    white-space: pre;
+}
+
+.memori-content-preview-modal--markdown ul,
+.memori-content-preview-modal--markdown ol {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+}
+
+.memori-content-preview-modal--markdown li + li {
+    margin-top: 0.25rem;
+}
+
+.memori-content-preview-modal--markdown blockquote {
+    padding: 0.15rem 0 0.15rem 0.9rem;
+    border-left: 3px solid color-mix(in srgb, var(--memori-text-color) 18%, transparent);
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--memori-text-color) 78%, transparent);
+}
+
+.memori-content-preview-modal--markdown hr {
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--memori-text-color) 12%, transparent);
+    margin: 1.25rem 0;
+}
+
+.memori-content-preview-modal--markdown table {
+    width: 100%;
+    margin: 0 0 1rem;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+
+.memori-content-preview-modal--markdown th,
+.memori-content-preview-modal--markdown td {
+    padding: 0.4rem 0.65rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--memori-text-color) 10%, transparent);
+    text-align: left;
+    vertical-align: top;
+}
+
+.memori-content-preview-modal--markdown th {
+    color: color-mix(in srgb, var(--memori-text-color) 62%, transparent);
+    font-weight: 500;
 }
 
 /* When Snippet component is used inside, give it consistent spacing */
@@ -145,4 +412,42 @@
     overflow-wrap: break-word;
     white-space: pre-wrap !important;
     word-break: break-word;
+}
+
+@media (max-width: 768px) {
+    .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
+        width: min(92vw, 100%) !important;
+        min-width: 0 !important;
+        max-width: 100vw;
+        min-height: auto;
+        max-height: 85vh;
+    }
+
+    .memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
+        min-width: min(92vw, 600px);
+    }
+
+    .memori-content-preview-modal--image-wrap {
+        width: min(84vw, 520px);
+        height: min(48vh, 320px);
+    }
+
+    .memori-content-preview-modal--snippet-wrap {
+        padding: 0.75rem;
+        margin: 0.75rem;
+    }
+
+    .memori-content-preview-modal--snippet-wrap--document {
+        padding: 1rem 1.1rem 2rem;
+        margin: 0;
+    }
+
+    .memori-content-preview-modal--snippet-wrap .memori-snippet {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .memori-content-preview-modal--markdown h1 {
+        font-size: 1.45rem;
+    }
 }
