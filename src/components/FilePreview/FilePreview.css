@@ -204,7 +204,7 @@
 }
 
 .memori--preview-content {
-    padding: var(--memori-spacing-md);
+    padding: 0;
     border-radius: var(--memori-radius-surface);
     font-family: monospace;
     font-size: var(--memori-text-size-sm);
