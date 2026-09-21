@@ -453,7 +453,12 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     ) : null;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div
+      className={`memori-chat--artifact-block${
+        isChatlogPanel ? ' memori-chat--artifact-block--chatlog' : ''
+      }`}
+      style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+    >
       {artifacts.map(artifact => {
         const isSelected =
           state.isDrawerOpen && state.currentArtifact?.id === artifact.id;

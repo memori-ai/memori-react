@@ -110,12 +110,6 @@ exports[`renders Chat unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -333,12 +327,6 @@ exports[`renders Chat unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -602,12 +590,6 @@ exports[`renders Chat unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -825,12 +807,6 @@ exports[`renders Chat unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -1062,12 +1038,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -1285,12 +1255,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -1554,12 +1518,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -1792,12 +1750,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -2044,12 +1996,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -2248,12 +2194,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -2498,12 +2438,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -2702,12 +2636,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -2939,12 +2867,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -3145,12 +3067,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -3397,12 +3313,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -3603,12 +3513,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -3854,12 +3758,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -4091,12 +3989,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -4374,12 +4266,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -4611,12 +4497,6 @@ exports[`renders Chat with dates unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -4848,12 +4728,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -5071,12 +4945,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -5340,12 +5208,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -5563,12 +5425,6 @@ exports[`renders Chat with hints unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -5834,12 +5690,6 @@ exports[`renders Chat with media unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -6057,12 +5907,6 @@ exports[`renders Chat with media unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -6542,12 +6386,6 @@ exports[`renders Chat with media unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -6765,12 +6603,6 @@ exports[`renders Chat with media unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -7002,12 +6834,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -7225,12 +7051,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -7494,12 +7314,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -7717,12 +7531,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -7977,12 +7785,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -8200,12 +8002,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -8469,12 +8265,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -8692,12 +8482,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -8842,12 +8626,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -9079,12 +8857,6 @@ exports[`renders Chat with user unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -9285,12 +9057,6 @@ exports[`renders Chat with user unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -9537,12 +9303,6 @@ exports[`renders Chat with user unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>
@@ -9743,12 +9503,6 @@ exports[`renders Chat with user unchanged 1`] = `
                       </span>
                     </div>
                   </div>
-                  <div
-                    class="memori-chat--artifact-block"
-                  />
-                  <div
-                    class="memori-media-widget"
-                  />
                 </div>
               </div>
             </div>

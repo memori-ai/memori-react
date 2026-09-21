@@ -851,6 +851,54 @@ it('shows the source count on the why-this-answer button when the backend expose
   expect(screen.getByText('whyThisAnswerSourcesCount')).toBeInTheDocument();
 });
 
+it('does not mount empty artifact or code media slots on assistant messages', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: 'Hello from the agent.',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-chat--artifact-block')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector('.memori-media-widget')
+  ).not.toBeInTheDocument();
+});
+
+it('mounts the code media widget only when the assistant message has code media', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      codeMimeTypes={['text/x-python']}
+      message={{
+        fromUser: false,
+        text: 'Here is the snippet.',
+        initial: false,
+        media: [
+          {
+            mediumID: 'py-1',
+            mimeType: 'text/x-python',
+            title: 'hello.py',
+            content: 'print("hello")',
+          },
+        ],
+      }}
+    />
+  );
+
+  expect(container.querySelector('.memori-media-widget')).toBeInTheDocument();
+});
+
 it('does not enter-animate unless animateEnter is set', () => {
   const { container, rerender } = render(
     <ChatBubble
@@ -883,7 +931,7 @@ it('does not enter-animate unless animateEnter is set', () => {
     />
   );
 
-  expect(
-    container.querySelector('.memori-chat--bubble-container')
-  ).toHaveClass('memori-motion-enter-up');
+  expect(container.querySelector('.memori-chat--bubble-container')).toHaveClass(
+    'memori-motion-enter-up'
+  );
 });

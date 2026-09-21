@@ -483,14 +483,21 @@
     padding-bottom: calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
 }
 
+/* Artifact chips sit in the shell under the bubble: drop the addon slot so
+   copy/feedback does not float in a hole above the card. */
+.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor--has-addon {
+    padding-bottom: 0;
+}
+
 .memori-chat--bubble-anchor--from-user .memori-chat--bubble-addon {
     right: 0;
     left: auto;
 }
 
 .memori-chat--artifact-block {
-    width: 100%;
-    margin-bottom: var(--memori-spacing-sm);
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 0;
 }
 
 .memori-chat--artifact-block--chatlog {
@@ -521,12 +528,6 @@
     min-width: 0;
 }
 
-.memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble-addon {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate3d(0, -8px, 0) scale(1);
-}
-
 @media (hover: hover) and (pointer: fine) {
     .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble-addon {
         opacity: 1;
@@ -536,14 +537,6 @@
 }
 
 .memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble.memori-chat--user-bubble {
-    box-shadow: var(--memori-chat-addon-elevation);
-}
-
-.memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble {
-    box-shadow: var(--memori-chat-addon-elevation);
-}
-
-.memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble.memori-chat--user-bubble {
     box-shadow: var(--memori-chat-addon-elevation);
 }
 

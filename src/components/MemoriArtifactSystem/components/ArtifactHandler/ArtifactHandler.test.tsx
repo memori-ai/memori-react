@@ -22,6 +22,26 @@ const renderCard = (isChatlogPanel = false) =>
     </I18nWrapper>
   );
 
+it('wraps visible artifacts in the chat artifact block', async () => {
+  const { container } = renderCard(false);
+
+  await screen.findByRole('button', { name: 'Hello notes' });
+
+  const block = container.querySelector('.memori-chat--artifact-block');
+  expect(block).toBeInTheDocument();
+  expect(block).not.toHaveClass('memori-chat--artifact-block--chatlog');
+});
+
+it('marks the artifact block as chatlog when rendered in the chatlog panel', async () => {
+  const { container } = renderCard(true);
+
+  await screen.findByRole('button', { name: 'Hello notes' });
+
+  expect(container.querySelector('.memori-chat--artifact-block')).toHaveClass(
+    'memori-chat--artifact-block--chatlog'
+  );
+});
+
 it('points the side chevron at the column and flips it when expanded', async () => {
   renderCard(false);
 

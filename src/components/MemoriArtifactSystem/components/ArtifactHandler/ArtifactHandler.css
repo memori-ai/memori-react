@@ -12,7 +12,8 @@
 }
 
 button.memori-artifact-handler {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     color: inherit;
     font: inherit;
     text-align: left;
@@ -22,22 +23,20 @@ button.memori-artifact-handler {
     --memori-artifact-chevron-rest: -90deg;
 
     display: flex;
-    min-width: 300px;
+    min-width: 0;
     align-items: center;
     justify-content: space-between;
-    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    padding: 1.5rem;
+    padding: 12px 14px;
     border: var(--memori-border) solid var(--memori-border-color);
     border-radius: var(--memori-radius-surface);
     animation: fadeInUp 0.5s ease forwards;
     backdrop-filter: blur(4px);
     background: var(--memori-main-background);
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); */
     cursor: pointer;
-    gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    gap: 8px;
     opacity: 0;
     transform: translateY(10px);
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .memori-artifact-handler-wrapper {
@@ -51,9 +50,7 @@ button.memori-artifact-handler {
 
 .memori-artifact-handler:hover {
     border-color: var(--memori-primary);
-    /* background: #f8fafc; */
-    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); */
-    transform: translateY(-2px);
+    transform: translateY(0);
 }
 
 .memori-artifact-handler--active {
@@ -77,7 +74,7 @@ button.memori-artifact-handler {
 
 .memori-artifact-handler-icon {
     flex-shrink: 0;
-    font-size: var(--memori-text-size-2xl);
+    font-size: 1.25rem;
     line-height: 1;
 }
 
@@ -249,7 +246,7 @@ button.memori-artifact-handler {
 @media (max-width: 768px) {
     .memori-artifact-handler {
         min-width: 0;
-        margin: 0.5rem 0;
+        margin: 0;
     }
 
     .memori-artifact-handler-content {

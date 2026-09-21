@@ -406,12 +406,6 @@ exports[`renders ChatBubble unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -3036,12 +3030,6 @@ M834 80h400000v40h-400000z"
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -4330,12 +4318,6 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -5358,12 +5340,6 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -5925,12 +5901,6 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -6754,12 +6724,6 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7061,12 +7025,6 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7110,12 +7068,6 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7379,12 +7331,6 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7484,12 +7430,6 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7666,12 +7606,6 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -7822,12 +7756,6 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -8036,12 +7964,6 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -8413,12 +8335,6 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -8924,12 +8840,6 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -9106,12 +9016,6 @@ end
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -9305,12 +9209,6 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -9451,12 +9349,6 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>
@@ -9653,12 +9545,6 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="memori-chat--artifact-block"
-        />
-        <div
-          class="memori-media-widget"
-        />
       </div>
     </div>
   </div>

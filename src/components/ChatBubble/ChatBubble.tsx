@@ -808,9 +808,7 @@ const ChatBubble: React.FC<Props> = ({
                       )}
 
                       {message.generatedByAI && showAIicon && (
-                        <GeneratedByAIMark
-                          label={String(t('generatedByAI'))}
-                        />
+                        <GeneratedByAIMark label={String(t('generatedByAI'))} />
                       )}
 
                       {showTranslationOriginal &&
@@ -1079,9 +1077,7 @@ const ChatBubble: React.FC<Props> = ({
                     )}
 
                     {message.generatedByAI && showAIicon && (
-                      <GeneratedByAIMark
-                        label={String(t('generatedByAI'))}
-                      />
+                      <GeneratedByAIMark label={String(t('generatedByAI'))} />
                     )}
 
                     {showTranslationOriginal &&
@@ -1155,28 +1151,24 @@ const ChatBubble: React.FC<Props> = ({
               </div>
 
               {!message.fromUser && (
-                <div
-                  className={cx('memori-chat--artifact-block', {
-                    'memori-chat--artifact-block--chatlog': isChatlogPanel,
-                  })}
-                >
-                  <ArtifactHandler
-                    isChatlogPanel={isChatlogPanel}
-                    message={message}
-                  />
-                </div>
+                <ArtifactHandler
+                  isChatlogPanel={isChatlogPanel}
+                  message={message}
+                />
               )}
 
-              <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
-                media={codeMediaWidgetMedia}
-                sessionID={sessionID}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                translateTo={translateTo}
-                customMediaRenderer={customMediaRenderer}
-                fromUser={message.fromUser}
-              />
+              {codeMediaWidgetMedia.length > 0 && (
+                <MediaWidget
+                  simulateUserPrompt={simulateUserPrompt}
+                  media={codeMediaWidgetMedia}
+                  sessionID={sessionID}
+                  baseUrl={baseUrl}
+                  apiUrl={apiUrl}
+                  translateTo={translateTo}
+                  customMediaRenderer={customMediaRenderer}
+                  fromUser={message.fromUser}
+                />
+              )}
             </div>
           )}
 
