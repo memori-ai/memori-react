@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '../../testUtils';
+import { fireEvent, render, screen, waitFor } from '../../testUtils';
 import Memori from '../MemoriWidget/MemoriWidget';
 import FullPageLayout from './FullPage';
 import { integration, memori, tenant } from '../../mocks/data';
@@ -203,4 +203,66 @@ it('overlays the artifact panel under 1200px instead of compressing chat', async
   expect(container.querySelector('.memori--grid-column-left')).toHaveAttribute(
     'hidden'
   );
+});
+
+it('keeps AI consumption in the mobile session panel, not the header', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query: string) => ({
+      matches: query.includes('max-width: 768px'),
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
+  const HeaderProbe = (props: {
+    showMessageConsumption?: boolean;
+    extraActions?: React.ReactNode;
+  }) => (
+    <div>
+      <div data-testid="header-show-consumption">
+        {String(!!props.showMessageConsumption)}
+      </div>
+      {props.extraActions}
+    </div>
+  );
+
+  render(
+    <I18nWrapper>
+      <ArtifactProvider>
+        <FullPageLayout
+          Avatar={Dummy as any}
+          StartPanel={Dummy as any}
+          Chat={ChatStub as any}
+          chatProps={{} as any}
+          Header={HeaderProbe as any}
+          headerProps={
+            {
+              showMessageConsumption: true,
+              memori: {},
+              history: [],
+              setVenue: jest.fn(),
+              setShowLoginDrawer: jest.fn(),
+              setShowKnownFactsDrawer: jest.fn(),
+              setShowChatHistoryDrawer: jest.fn(),
+            } as any
+          }
+          sessionId="session-1"
+          hasUserActivatedSpeak
+        />
+      </ArtifactProvider>
+    </I18nWrapper>
+  );
+
+  expect(screen.getByTestId('header-show-consumption')).toHaveTextContent(
+    'false'
+  );
+
+  fireEvent.click(screen.getByLabelText('widget.moreActions'));
+  expect(screen.getByText('widget.aiConsumption')).toBeInTheDocument();
 });

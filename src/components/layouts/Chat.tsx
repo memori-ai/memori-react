@@ -129,6 +129,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
       showShare: false,
       showLogin: false,
       showFullscreen: false,
+      showMessageConsumption: false,
       memori: {
         ...headerProps.memori,
         needsPosition: false,
