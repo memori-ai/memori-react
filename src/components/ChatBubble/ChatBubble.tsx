@@ -40,7 +40,6 @@ import {
   sanitizeMsg,
   stripAttachmentTags,
   stripAllInternalTags,
-  truncateMessage,
 } from '../../helpers/message';
 import { getExposedSourcesCount } from '../../helpers/sourcesCount';
 import { Expandable, Modal } from '@memori.ai/ui';
@@ -211,7 +210,8 @@ const ChatBubble: React.FC<Props> = ({
     ? {
         content: '',
         complete: true,
-        remaining: truncateMessage(cleanText),
+        // Expandable handles length for user messages.
+        remaining: cleanText,
         hasReasoning: false,
       }
     : extractReasoning(cleanText);
@@ -221,10 +221,11 @@ const ChatBubble: React.FC<Props> = ({
     t('reasoning') || 'Reasoning...',
     false
   );
+  // User bubbles stay plain text (exact typed content); only assistant uses markdown HTML.
   const plainText = message.fromUser
-    ? sanitizeMsg(truncateMessage(cleanText))
+    ? cleanText
     : stripHTML(stripOutputTags(renderedText));
-  const copyText = message.fromUser ? cleanText : plainText;
+  const copyText = plainText;
   const shouldShowCopyButtons =
     showCopyButton &&
     (!!plainText?.length ||

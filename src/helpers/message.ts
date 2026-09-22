@@ -10,6 +10,7 @@ import markedExtendedTables from './markedExtendedTables';
 marked.use({
   async: false,
   gfm: true,
+  breaks: true,
   pedantic: false,
   renderer: {
     link: ({

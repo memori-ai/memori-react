@@ -44,7 +44,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r21:"
+                  id="base-ui-:r25:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"
@@ -148,7 +148,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r1p:"
+                  id="base-ui-:r1t:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"
@@ -254,7 +254,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r1t:"
+                  id="base-ui-:r21:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"
@@ -941,7 +941,8 @@ M1001 80h400000v40h-400000z"
                       </span>
                     </strong>
                     :
-I cateti sono i due lati che formano l'angolo retto.
+                    <br />
+                    I cateti sono i due lati che formano l'angolo retto.
                   </p>
                   
 
@@ -954,7 +955,8 @@ I cateti sono i due lati che formano l'angolo retto.
                       Calcola i quadrati dei cateti
                     </strong>
                     :
-Eleva al quadrato entrambe le misure dei cateti: 
+                    <br />
+                    Eleva al quadrato entrambe le misure dei cateti: 
                     <span
                       class="katex"
                     >
@@ -1127,7 +1129,8 @@ Eleva al quadrato entrambe le misure dei cateti:
                       Somma i quadrati dei cateti
                     </strong>
                     :
-Somma i risultati ottenuti: 
+                    <br />
+                    Somma i risultati ottenuti: 
                     <span
                       class="katex"
                     >
@@ -1295,7 +1298,8 @@ Somma i risultati ottenuti:
                       Calcola la radice quadrata della somma
                     </strong>
                     :
-Prendi la radice quadrata della somma per trovare l'ipotenusa: 
+                    <br />
+                    Prendi la radice quadrata della somma per trovare l'ipotenusa: 
                     <span
                       class="katex"
                     >
@@ -2940,7 +2944,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r42:"
+                id="base-ui-:r46:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2989,7 +2993,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r44:"
+                id="base-ui-:r48:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3080,8 +3084,8 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                     <strong>
                       Determinazione della resistenza dei materiali:
                     </strong>
-                    
-La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
+                    <br />
+                    La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
                   </p>
                   
 
@@ -3093,8 +3097,8 @@ La resistenza dei materiali da utilizzare nelle verifiche accurate si determina 
                     <strong>
                       Calcolo della resistenza:
                     </strong>
-                    
-Il valore della resistenza dei materiali 
+                    <br />
+                    Il valore della resistenza dei materiali 
                     <span
                       class="katex"
                     >
@@ -4178,8 +4182,8 @@ Il valore della resistenza dei materiali
                     <strong>
                       Caratterizzazione dei materiali:
                     </strong>
-                    
-I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
+                    <br />
+                    I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
                   </p>
                   
 
@@ -4191,8 +4195,8 @@ I valori medi, caratteristici e di progetto delle resistenze a compressione e tr
                     <strong>
                       Stima della resistenza da prove non distruttive:
                     </strong>
-                    
-Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
+                    <br />
+                    Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
                   </p>
                   
 
@@ -4204,8 +4208,8 @@ Per valutare le resistenze dei materiali, si possono anche utilizzare prove non 
                     <strong>
                       Analisi dei risultati delle indagini:
                     </strong>
-                    
-Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
+                    <br />
+                    Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
                   </p>
                   
 
@@ -4228,7 +4232,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r48:"
+                id="base-ui-:r4c:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4277,7 +4281,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4a:"
+                id="base-ui-:r4e:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4419,8 +4423,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 
                   <p>
                      $$
- F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
- $$
+                    <br />
+                     F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
+                    <br />
+                     $$
                   </p>
                   
 
@@ -5182,8 +5188,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 
                   <p>
                      $$
- M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
- $$
+                    <br />
+                     M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
+                    <br />
+                     $$
                   </p>
                   
 
@@ -5250,7 +5258,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4e:"
+                id="base-ui-:r4i:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5299,7 +5307,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4g:"
+                id="base-ui-:r4k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5435,12 +5443,16 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                     <strong>
                       Calcolo dell'energia cinetica:
                     </strong>
-                    
- L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
- $$
- E_k = \\frac{1}{2} m v^2
- $$
- dove 
+                    <br />
+                     L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
+                    <br />
+                     $$
+                    <br />
+                     E_k = \\frac{1}{2} m v^2
+                    <br />
+                     $$
+                    <br />
+                     dove 
                     <span
                       class="katex"
                     >
@@ -5624,8 +5636,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                     <strong>
                       Calcolo della forza d'impatto:
                     </strong>
-                    
- La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
+                    <br />
+                     La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
                     <span
                       class="katex"
                     >
@@ -5664,10 +5676,14 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                       </span>
                     </span>
                      è:
- $$
- F = \\frac{m \\Delta v}{\\Delta t}
- $$
- dove 
+                    <br />
+                     $$
+                    <br />
+                     F = \\frac{m \\Delta v}{\\Delta t}
+                    <br />
+                     $$
+                    <br />
+                     dove 
                     <span
                       class="katex"
                     >
@@ -5774,8 +5790,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                     <strong>
                       Considerazioni sulla barriera:
                     </strong>
-                    
- Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
+                    <br />
+                     Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
                   </p>
                   
 
@@ -5787,8 +5803,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                     <strong>
                       Normative e standard:
                     </strong>
-                    
- È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
+                    <br />
+                     È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
                   </p>
                   
 
@@ -5811,7 +5827,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4k:"
+                id="base-ui-:r4o:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5860,7 +5876,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4m:"
+                id="base-ui-:r4q:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6634,7 +6650,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4q:"
+                id="base-ui-:r4u:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6683,7 +6699,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4s:"
+                id="base-ui-:r50:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6811,7 +6827,8 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
                       Misura o identifica i cateti $ a $ e $ b $
                     </strong>
                     :
-I cateti sono i due lati che formano l'angolo retto.
+                    <br />
+                    I cateti sono i due lati che formano l'angolo retto.
                   </p>
                   
 
@@ -6824,7 +6841,8 @@ I cateti sono i due lati che formano l'angolo retto.
                       Calcola i quadrati dei cateti
                     </strong>
                     :
-Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
+                    <br />
+                    Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
                   </p>
                   
 
@@ -6837,7 +6855,8 @@ Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
                       Somma i quadrati dei cateti
                     </strong>
                     :
-Somma i risultati ottenuti: $ a^2 + b^2 $.
+                    <br />
+                    Somma i risultati ottenuti: $ a^2 + b^2 $.
                   </p>
                   
 
@@ -6850,7 +6869,8 @@ Somma i risultati ottenuti: $ a^2 + b^2 $.
                       Calcola la radice quadrata della somma
                     </strong>
                     :
-Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
+                    <br />
+                    Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
                   </p>
                   
 
@@ -6935,7 +6955,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3s:"
+                id="base-ui-:r40:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6984,7 +7004,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3u:"
+                id="base-ui-:r42:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7164,7 +7184,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1h:"
+                id="base-ui-:r1l:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7213,7 +7233,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1j:"
+                id="base-ui-:r1n:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7283,7 +7303,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1l:"
+                id="base-ui-:r1p:"
               >
                 <span
                   aria-label="generatedByAI"
@@ -7516,7 +7536,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3a:"
+                id="base-ui-:r3e:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7565,7 +7585,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3c:"
+                id="base-ui-:r3g:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7666,7 +7686,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3g:"
+                id="base-ui-:r3k:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7715,7 +7735,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3i:"
+                id="base-ui-:r3m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7874,7 +7894,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3m:"
+                id="base-ui-:r3q:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7923,7 +7943,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3o:"
+                id="base-ui-:r3s:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8245,7 +8265,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r34:"
+                id="base-ui-:r38:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8294,7 +8314,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r36:"
+                id="base-ui-:r3a:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8385,7 +8405,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r1b:"
+                  id="base-ui-:r1f:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8434,7 +8454,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r1d:"
+                  id="base-ui-:r1h:"
                 >
                   <span
                     aria-label="generatedByAI"
@@ -8559,7 +8579,7 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:rn:"
+                  id="base-ui-:rr:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8608,7 +8628,7 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:rp:"
+                  id="base-ui-:rt:"
                 >
                   <span
                     aria-label="generatedByAI"
@@ -8750,7 +8770,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r25:"
+                id="base-ui-:r29:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8799,7 +8819,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r27:"
+                id="base-ui-:r2b:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8926,7 +8946,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r50:"
+                id="base-ui-:r54:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8975,7 +8995,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r52:"
+                id="base-ui-:r56:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9050,7 +9070,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             class="memori-reasoning"
           >
             <button
-              aria-controls=":r2g:"
+              aria-controls=":r2k:"
               aria-expanded="false"
               class="memori-reasoning__trigger"
               type="button"
@@ -9081,7 +9101,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             <div
               aria-hidden="true"
               class="memori-reasoning__collapsible"
-              id=":r2g:"
+              id=":r2k:"
               role="region"
             >
               <div
@@ -9119,7 +9139,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2i:"
+                id="base-ui-:r2m:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9168,7 +9188,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2k:"
+                id="base-ui-:r2o:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9259,7 +9279,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2b:"
+                id="base-ui-:r2f:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9308,7 +9328,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2d:"
+                id="base-ui-:r2h:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9399,7 +9419,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r13:"
+                id="base-ui-:r17:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9448,7 +9468,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r15:"
+                id="base-ui-:r19:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9492,7 +9512,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r17:"
+                id="base-ui-:r1b:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9846,7 +9866,7 @@ exports[`shows copy button for user messages 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:rh:"
+                  id="base-ui-:rl:"
                 >
                   <span
                     class="memori-chat--bubble-addon-tooltip-trigger"

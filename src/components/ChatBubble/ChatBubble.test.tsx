@@ -122,6 +122,30 @@ it('renders ChatBubble with user msg with newlines unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('keeps user messages as plain text (does not render markdown)', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: true,
+        text: 'Serve:\n\n- URL del **webhook**\n- Esempio di `POST`',
+        initial: false,
+      }}
+    />
+  );
+
+  const content = container.querySelector(
+    '.memori-chat--user-bubble .memori-chat--bubble-content'
+  );
+  expect(content?.querySelector('ul')).toBeNull();
+  expect(content?.querySelector('strong')).toBeNull();
+  expect(content?.querySelector('code')).toBeNull();
+  expect(content?.innerHTML).toContain('**webhook**');
+  expect(content?.innerHTML).toContain('`POST`');
+});
+
 it('shows copy button for user messages', () => {
   const { container } = render(
     <ChatBubble
