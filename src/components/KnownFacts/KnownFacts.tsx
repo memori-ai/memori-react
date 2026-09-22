@@ -314,11 +314,6 @@ const KnownFacts = ({
           >
             {t('knownFacts.select')}
           </Button>
-          {hasFacts && (
-            <span className="memori-known-facts-total">
-              {t('knownFacts.factsCount', { count: knownFactsCount })}
-            </span>
-          )}
         </div>
       )}
 

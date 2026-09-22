@@ -608,13 +608,6 @@ const ChatHistoryDrawer = ({
                   onValueChange={setSearchInput}
                 />
               </div>
-              {totalItems > 0 && (
-                <span className="memori-chat-history-drawer--total">
-                  {t('write_and_speak.conversationsCount', {
-                    count: totalItems,
-                  })}
-                </span>
-              )}
             </div>
             <Button
               variant="ghost"

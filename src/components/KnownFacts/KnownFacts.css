@@ -28,7 +28,6 @@
     padding-left: calc(var(--memori-spacing-md) * 2 + 0.5rem);
 }
 
-.memori-known-facts-total,
 .memori-known-facts-count {
     color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
     font-size: var(--memori-text-size-sm);
