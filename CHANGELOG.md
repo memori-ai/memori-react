@@ -1,5 +1,59 @@
 # Changelog
 
+## [9.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.25...v9.0.0-rc.0) (2026-09-22)
+
+
+### Features
+
+* add a resizable artifact column ([78c0a64](https://github.com/memori-ai/memori-react/commit/78c0a6432c362e113ddd7069869520131bcf06e5))
+* add jump-to-latest chat scroll ([42be086](https://github.com/memori-ai/memori-react/commit/42be0865d79c12e299c93e0ae8019a99cc6af88a))
+* **ArtifactDrawer:** enhance chatlog panel functionality with responsive design ([2892f6e](https://github.com/memori-ai/memori-react/commit/2892f6ee4b47547c852fc9771e431f6e7344e2aa))
+* **Chat:** add session status messages and improve attachment handling in chat history ([538426b](https://github.com/memori-ai/memori-react/commit/538426b87ad2e69a0047dd21847f2c2a25902856))
+* **ChatBubble:** add status messages for user login and session expiration, enhance styling and animations ([11e4a5e](https://github.com/memori-ai/memori-react/commit/11e4a5e44a8e6a53f87171f03379d73acbe7808a))
+* **ChatBubble:** integrate ReasoningBlock component for enhanced reasoning display ([5bc0c6e](https://github.com/memori-ai/memori-react/commit/5bc0c6ecc183600cd6076eef7427ef9773ddd25d))
+* **chat:** enhance layout handling and scrolling behavior in Chat component ([400beca](https://github.com/memori-ai/memori-react/commit/400becafb1b005a688b13b546b216770c209d9b1))
+* **chat:** enhance layout handling and scrolling behavior in Chat component ([3b450ae](https://github.com/memori-ai/memori-react/commit/3b450ae58341c29c3be0caa6d2ffb8fde8c20713))
+* **ContentPreviewModal:** enhance modal functionality with scroll cues, markdown rendering, and improved layout ([85e7860](https://github.com/memori-ai/memori-react/commit/85e7860c6bdcfb70ced221ca4fec95c160ac1b86))
+* enhance animations across components with motion effects and improve chat bubble rendering ([a1d4402](https://github.com/memori-ai/memori-react/commit/a1d4402b94c24b7080a0bc22174df058156482fc))
+* enhance UI components with new SideDrawer and improved styling ([cdedfcc](https://github.com/memori-ai/memori-react/commit/cdedfccccec1c79a8967d6493290969a44fbeb5f))
+* ensure 'Powered by' message displays correctly ([7c985f6](https://github.com/memori-ai/memori-react/commit/7c985f6e3b6ce54703bee6e4c4c05ed35e169f6a))
+* **FilePreview:** enhance document preview with markdown rendering ([369b4ee](https://github.com/memori-ai/memori-react/commit/369b4eec3ad2113b4dc2f0a82a229b95ecc4ef5f))
+* **FullPageLayout:** add showMessageConsumption prop to manage AI consumption visibility ([1613b46](https://github.com/memori-ai/memori-react/commit/1613b46c57860453e342444731cf1158432b2a5f))
+* implement resizable artifact column with overlay support and responsive adjustments ([549f6c0](https://github.com/memori-ai/memori-react/commit/549f6c04de92fdd4ae1439bd0699b56bd1d4c70b))
+* **MediaWidget:** add support for HTML file attachments and improve document badge rendering ([56dabae](https://github.com/memori-ai/memori-react/commit/56dabaea9a1bf01bfa37f152ae07b4fb71f35abf))
+* rewrite chat history drawer ([a9130c3](https://github.com/memori-ai/memori-react/commit/a9130c3dc75b7357ee9d7a15c2adbc557e0198a9))
+
+
+### Bug Fixes
+
+* **ChatBubble:** adjust max-width and add margin for artifact block styling ([2c2d48c](https://github.com/memori-ai/memori-react/commit/2c2d48c42e19cf70d98d8ec7774cf1750867dcd1))
+* linting ([87159a6](https://github.com/memori-ai/memori-react/commit/87159a60f8038c72d0012d9e9dce3896c3e48922))
+
+
+### Maintenance
+
+* bump [@memori](https://github.com/memori).ai/ui to 2.0 and remap CSS tokens ([2faf2d4](https://github.com/memori-ai/memori-react/commit/2faf2d48569851aaf34687df8c9d0c1d16f3da64))
+* **package.json:** update cleanup scripts to use -delete for improved efficiency ([b4d2c33](https://github.com/memori-ai/memori-react/commit/b4d2c334ac4dde378084b6b2c113cf4d8133d879))
+* release v8.45.3 ([9d678d7](https://github.com/memori-ai/memori-react/commit/9d678d7febe85b0c0f84244883ff390c378f173f))
+* release v8.45.3 ([95438fb](https://github.com/memori-ai/memori-react/commit/95438fb67cab5ce69545149d3fa613292598286a))
+* release v8.45.4 ([875ff69](https://github.com/memori-ai/memori-react/commit/875ff694349c420d3c93328eb11e73affce9abbf))
+* update .npmignore and package.json for improved cleanup scripts and file exclusions ([cf0c961](https://github.com/memori-ai/memori-react/commit/cf0c961454475a1b365754e06e69ff248023d7dc))
+* update .npmignore and package.json for improved cleanup scripts and file exclusions ([fc85f9e](https://github.com/memori-ai/memori-react/commit/fc85f9e16814536b95cce2e42b66f6c46900770b))
+* update [@memori](https://github.com/memori).ai/ui dependency to version 2.0.2 and enhance CSS styles for Chat and ChatBubble components ([d6d4939](https://github.com/memori-ai/memori-react/commit/d6d49394cbbbdaf9b4709e6de5df01ff62ed84c6))
+* upgrade postcss and @babel/core ([0d88f5b](https://github.com/memori-ai/memori-react/commit/0d88f5b4a6cc29ca4c5e5e14c3042884e3101557))
+
+
+### Changes
+
+* **AvatarStories:** remove Avatar stories file and clean up ([0711b89](https://github.com/memori-ai/memori-react/commit/0711b893b89c0fce3fc6c2fcc970cf367f75c77c))
+* **ChatBubble:** remove unused artifact and media widget elements ([521fe9a](https://github.com/memori-ai/memori-react/commit/521fe9aebf36f1638826a358d198960c4d3de05b))
+* **ChatBubble:** simplify styling for status messages by removing unused CSS rules and adjusting layout properties ([d3e19d3](https://github.com/memori-ai/memori-react/commit/d3e19d3df737e7eb4e36e29181cab9ae5fea0d6c))
+* **ChatConsumptionDropdown:** replace dropdown with modal for chat consumption details ([f30b81f](https://github.com/memori-ai/memori-react/commit/f30b81fcaef2c0bf415bb79047f341b5009089ae))
+* **ChatHistoryDrawer:** replace Button with IconButton for download action and update CSS styles ([563d231](https://github.com/memori-ai/memori-react/commit/563d2315760210003ac55ae84a3817ca7dfbbb21))
+* **KnownFacts:** remove inline editing functionality and associated styles, update localization for fact deletion ([a6296a8](https://github.com/memori-ai/memori-react/commit/a6296a8ed90172410961028883d62347324c47d5))
+* **styles:** clean up CSS by removing redundant height rules and improving layout definitions ([30526d5](https://github.com/memori-ai/memori-react/commit/30526d583025dfbe49ea83743da96a0532743e4a))
+* **styles:** clean up CSS by removing redundant height rules and improving layout definitions ([70a9fab](https://github.com/memori-ai/memori-react/commit/70a9fabfd732a94a8b21151de1a29258d46353f2))
+
 ## [9.0.0-alpha.25](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.24...v9.0.0-alpha.25) (2026-09-16)
 
 
