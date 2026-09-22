@@ -160,6 +160,7 @@
   },
   "auth": {
     "title": "Autenticación",
+    "description": "Este agente está protegido. Introduce la contraseña para continuar.",
     "useRecoveryTokens": "Utilice tokens de recuperación",
     "tokens": "Fichas",
     "addToken": "Agregar token",

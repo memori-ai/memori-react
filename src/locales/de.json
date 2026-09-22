@@ -160,6 +160,7 @@
   },
   "auth": {
     "title": "Authentifizierung",
+    "description": "Dieser Agent ist geschützt. Gib das Passwort ein, um fortzufahren.",
     "useRecoveryTokens": "Verwenden Sie Wiederherstellungstoken",
     "tokens": "Token",
     "addToken": "Token hinzufügen",

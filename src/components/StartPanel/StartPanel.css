@@ -34,14 +34,15 @@
         100dvw - 2 * var(--memori-spacing-md) - env(safe-area-inset-left, 0px) -
             env(safe-area-inset-right, 0px)
     );
-    max-height: min(50dvh, 18rem);
     box-sizing: border-box;
     box-shadow: var(--memori-shadow-lg);
+    overflow: hidden;
     overflow-x: hidden;
 }
 
 .memori-combobox__list {
     max-height: min(40dvh, 14rem);
+    overflow-y: auto;
 }
 
 /* Disabled items are used as non-selectable section headers in the language
@@ -217,7 +218,7 @@
     margin-bottom: var(--memori-spacing-sm);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-2xl);
-    font-weight: var(--memori-text-weight-semibold);
+    font-weight: var(--memori-text-weight-bold);
     line-height: var(--memori-text-line-tight);
     text-overflow: ellipsis;
     white-space: nowrap;

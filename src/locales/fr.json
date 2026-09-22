@@ -159,6 +159,7 @@
   },
   "auth": {
     "title": "Authentification",
+    "description": "Cet agent est protégé. Saisissez le mot de passe pour continuer.",
     "useRecoveryTokens": "Utiliser des jetons de récupération",
     "tokens": "Jetons",
     "addToken": "Ajouter un jeton",

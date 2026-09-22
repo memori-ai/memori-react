@@ -163,6 +163,7 @@
   },
   "auth": {
     "title": "Autenticazione",
+    "description": "Questo agente è protetto. Inserisci la password per continuare.",
     "useRecoveryTokens": "Utilizza i token di recupero",
     "tokens": "Token",
     "addToken": "Aggiungi token",

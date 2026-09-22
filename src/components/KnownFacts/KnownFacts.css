@@ -59,15 +59,20 @@
 }
 
 .memori-known-facts-selection-bar__delete {
-    border-color: color-mix(in oklch, var(--memori-error) 40%, transparent);
+    border-color: var(--memori-error);
     border-radius: var(--memori-radius-control);
-    background: color-mix(in oklch, var(--memori-error) 10%, transparent);
-    color: var(--memori-error);
+    background: var(--memori-error);
+    color: #fff !important;
 }
 
 .memori-known-facts-selection-bar__delete:hover,
 .memori-known-facts-selection-bar__delete:focus-visible {
-    background: color-mix(in oklch, var(--memori-error) 20%, transparent);
+    background: color-mix(in oklch, var(--memori-error) 85%, #000);
+    color: #fff !important;
+}
+
+.memori-known-facts-selection-bar__delete svg {
+    color: currentColor;
 }
 
 .memori-known-facts-list {
@@ -133,6 +138,17 @@
 .memori-known-facts-card__delete:focus-visible {
     background: color-mix(in oklch, var(--memori-error) 10%, transparent);
     color: var(--memori-error);
+}
+
+/* Confirm-delete danger CTAs: force white label on solid error */
+.memori-known-facts-modal .memori-button--danger,
+.memori-known-facts-modal .memori-button.memori-button--danger {
+    color: #fff !important;
+}
+
+.memori-known-facts-modal .memori-button--danger svg,
+.memori-known-facts-modal .memori-button.memori-button--danger svg {
+    color: currentColor;
 }
 
 .memori-sr-only {

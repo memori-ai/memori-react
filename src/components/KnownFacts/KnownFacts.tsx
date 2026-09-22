@@ -333,7 +333,7 @@ const KnownFacts = ({
           </span>
           <div className="memori-known-facts-selection-bar__actions">
             <Button
-              variant="outline"
+              variant="danger"
               className="memori-known-facts-selection-bar__delete"
               icon={<Trash2 aria-hidden />}
               onClick={() => setBulkDeleteModalVisible(true)}

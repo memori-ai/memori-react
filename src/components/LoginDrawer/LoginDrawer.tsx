@@ -50,6 +50,7 @@ const LoginDrawer = ({
   apiClient,
   __TEST__signup = false,
   __TEST__needMissingData = false,
+  drawerClassName,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
@@ -494,10 +495,14 @@ const LoginDrawer = ({
     <Drawer
       open={open}
       onClose={onClose}
-      className={cx('memori--login-drawer', {
-        'memori--login-drawer--logged': isUserLoggedIn,
-        'memori--login-drawer--signup': showSignup,
-      })}
+      className={cx(
+        'memori--login-drawer',
+        {
+          'memori--login-drawer--logged': isUserLoggedIn,
+          'memori--login-drawer--signup': showSignup,
+        },
+        drawerClassName
+      )}
       size="lg"
       title={t('login.title')}
     >

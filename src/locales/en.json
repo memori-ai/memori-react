@@ -162,6 +162,7 @@
   },
   "auth": {
     "title": "Authentication",
+    "description": "This agent is protected. Enter the password to continue.",
     "useRecoveryTokens": "Use recovery tokens",
     "tokens": "Tokens",
     "addToken": "Add token",
