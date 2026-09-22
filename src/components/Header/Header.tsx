@@ -658,19 +658,32 @@ const Header: React.FC<Props> = ({
         >
           {null}
         </Popover>
-      ) : (
+      ) : isFullPageChrome ? (
         <Tooltip title={t('login.login') || 'Login'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <Button
-              variant={isFullPageChrome ? 'primary' : buttonVariant}
+              variant="primary"
               className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}
               title={t('login.login') || 'Login'}
               aria-label={t('login.login') || 'Login'}
               onClick={() => setShowLoginDrawer(true)}
             >
-              {isFullPageChrome ? fullpageHeaderLoginLabel : null}
+              {fullpageHeaderLoginLabel}
             </Button>
+          </span>
+        </Tooltip>
+      ) : (
+        <Tooltip title={t('login.login') || 'Login'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <IconButton
+              variant={buttonVariant}
+              className="memori-header--button memori-header--button-login"
+              icon={<UserIcon />}
+              title={t('login.login') || 'Login'}
+              aria-label={t('login.login') || 'Login'}
+              onClick={() => setShowLoginDrawer(true)}
+            />
           </span>
         </Tooltip>
       )}

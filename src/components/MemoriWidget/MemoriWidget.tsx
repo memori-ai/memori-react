@@ -449,6 +449,8 @@ export interface LayoutProps {
   /** TOTEM only: max-width of the shared content axis (avatar + panel + status).
    * Accepts a number (px) or a CSS length string; enables vertical-kiosk widths. */
   totemContentMaxWidth?: number | string;
+  /** WEBSITE_ASSISTANT: true when login / history / known facts / experts drawer is open. */
+  sideDrawerOpen?: boolean;
 }
 
 export interface Props {
@@ -3857,6 +3859,12 @@ const MemoriWidget = ({
                 avatar3dHidden ?? integrationConfig?.avatar_3d_hidden
               }
               totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
+              sideDrawerOpen={
+                !!showLoginDrawer ||
+                !!showChatHistoryDrawer ||
+                !!showKnownFactsDrawer ||
+                !!showExpertsDrawer
+              }
             />
 
             <ArtifactAPIBridge
