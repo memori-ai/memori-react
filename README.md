@@ -8,6 +8,14 @@ Library to integrate an Agent from [Memori](https://memori.ai) in a React app.
 
 Web Platform: [AIsuru](https://aisuru.com)
 
+Storybook (live demo of components and layouts): [memori-ai.github.io/memori-react](https://memori-ai.github.io/memori-react/)
+
+## Requirements
+
+- React `>=16` (peer dependency)
+- TypeScript `>=4.8` (peer dependency, optional)
+- Node `>=16` for local development
+
 ## Installation
 
 ```bash
@@ -65,15 +73,20 @@ const App = () => (
 | `integrationID`            |                | `string`                                    |                             | Integration ID, UUID which refers to the public page layout                                                                                                                                                                                                                                                                                                                                                                             |
 | `integration`              |                | `Integration`                               |                             | Integration object                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `secretToken`              |                | `string`                                    |                             | Secret token, the password of a private or secret Memori                                                                                                                                                                                                                                                                                                                                                                                |
-| `height`                   |                | `string`                                    | "100%"                      | Height of the Memori                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `height`                   |                | `string \| number`                          | "100%"                      | Height of the Memori. Pass `"100vh"` for a full-page fallback when the host has no definite height.                                                                                                                                                                                                                                                                                                                                     |
 | `showShare`                |                | `bool`                                      | `true`                      | Show the share button                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `showCopyButton`           |                | `bool`                                      | `true`                      | Show the copy button on messages                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `showTranslationOriginal`  |                | `bool`                                      | `false`                     | Show button to see original text when translated                                                                                                                                                                                                                                                                                                                                                                                        |
 | `showSettings`             |                | `bool`                                      | `true`                      | Show the settings panel button                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `showChatHistory`          |                | `bool`                                      | `true`                      | Show the chat history drawer button (past sessions). Can also be set via integration config.                                                                                                                                                                                                                                                                                                                                             |
 | `showTypingText`           |                | `bool`                                      | `false`                     | Show default sentences while loading text (see: Typing stories)                                                                                                                                                                                                                                                                                                                                                                         |
 | `showLogin`                |                | `bool`                                      | `true`                      | Show the login button                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `showClear`                |                | `bool`                                      | `false`                     | Show clear chat history button                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `showOnlyLastMessages`     |                | `bool`                                      | `true` or `false` \*        | Show only last 2 messages. (\*) Defaults to `true` for `TOTEM` and `WEBSITE_ASSISTANT` layouts, `false` otherwise                                                                                                                                                                                                                                                                                                                       |
+| `showInputs`               |                | `bool`                                      | `true`                      | Show the chat inputs (textarea, send and microphone buttons). Set to `false` for read-only / scripted conversations driven by `typeMessage`.                                                                                                                                                                                                                                                                                             |
+| `showDates`                |                | `bool`                                      | `false`                     | Show the timestamp on the Agent's messages                                                                                                                                                                                                                                                                                                                                                                                              |
+| `showContextPerLine`       |                | `bool`                                      | `false`                     | Show the context variables active for each message                                                                                                                                                                                                                                                                                                                                                                                      |
+| `showMessageConsumption`   |                | `bool`                                      | `false`                     | Show the AI consumption (LLM usage) per message. Can also be set via integration config.                                                                                                                                                                                                                                                                                                                                                 |
 | `showUpload`               |                | `bool`                                      | `true`                      | Show the upload button within the chat                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `maxTotalMessagePayload`   |                | `number`                                   | 300000                      | Max **per-document** content length (character count). Kept for backward compatibility: it no longer applies to the sum of all attached documents.                                                                                                                                                                                                                                                                                         |
 | `disablePastedText`        |                | `boolean`                                  | `false`                     | When true, pasted text is not added as a document attachment; only normal textarea paste occurs.                                                                                                                                                                                                                                                                       |
@@ -84,9 +97,9 @@ const App = () => (
 | `engineURL`                |                | `string`                                    | "https://engine.memori.ai"  | URL of the Memori Engine API                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `tag`                      |                | `string`                                    |                             | Tag of the person opening the session to the Memori, could be the giver or a receiver                                                                                                                                                                                                                                                                                                                                                   |
 | `pin`                      |                | `string`                                    |                             | PIN of the person opening the session to the Memori, could be the giver or a receiver                                                                                                                                                                                                                                                                                                                                                   |
-| `context`                  |                | `string`                                    |                             | Initial context of the conversation, dictionary with "key: value" pairs as context variables                                                                                                                                                                                                                                                                                                                                            |
+| `context`                  |                | `{ [key: string]: string }`                 |                             | Initial context of the conversation, object of context variables, example: `{ SOURCE: 'website' }`. If omitted, `contextVars` from the integration config is used.                                                                                                                                                                                                                                                                       |
 | `initialQuestion`          |                | `string`                                    |                             | Initial question to ask to the Memori, starts the conversation as this would be sent to the Memori                                                                                                                                                                                                                                                                                                                                      |
-| `uiLang`                   |                | `'en' \| 'it' \| 'es' \| 'fr' \| 'de'`      | "en"                        | Language of the UI, es: "en" or "it"                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `uiLang`                   |                | `'en' \| 'it' \| 'es' \| 'fr' \| 'de'`      | browser language            | Language of the UI, es: "en" or "it". Uppercase variants (`'IT'`, `'EN'`, ...) are accepted. Falls back to the browser language, then `"en"`.                                                                                                                                                                                                                                                                                             |
 | `multilingual`             |                | `bool`                                      | `false`                     | Enable multilingual mode, if enabled the user can switch between spoken languages                                                                                                                                                                                                                                                                                                                                                       |
 | `spokenLang`               |                | `string`                                    |                             | Language of the spoken text, as defaults to user selection. Example: "en" or "it"                                                                                                                                                                                                                                                                                                                                                       |
 | `onStateChange`            |                | `function`                                  |                             | Callback function called when the state of the Memori changes                                                                                                                                                                                                                                                                                                                                                                           |
@@ -94,12 +107,15 @@ const App = () => (
 | `defaultSpeakerActive`     |                | `boolean`                                   | `true`                      | Default value for the speaker activation                                                                                                                                                                                                                                                                                                                                                                                                |
 | `disableTextEnteredEvents` |                | `boolean`                                   | `false`                     | Disable MemoriTextEntered events listeners for `typeMessage` functions, useful to avoid issues with multiple widgets in page.                                                                                                                                                                                                                                                                                                           |
 | `useMathFormatting`        |                | `boolean`                                   | `false`                     | Apply math formatting to the messages, defaults to false if otherwise indicated by props or integration config.                                                                                                                                                                                                                                                                                                                         |
-| `layout`                   |                | `string`                                    |                             | Layout of the Memori: `"FULLPAGE"` (default), `"CHAT"`, `"WEBSITE_ASSISTANT"`, `"TOTEM"`, `"HIDDEN_CHAT"`, or `"ZOOMED_FULL_BODY"`. [PII detection](#pii-detection) is only available via integration config, not as a prop. See [Layouts](#layouts).                                                                                                                                                                 |
+| `layout`                   |                | `string`                                    |                             | Layout of the Memori: `"FULLPAGE"` (default, alias `"DEFAULT"`), `"CHAT"`, `"WEBSITE_ASSISTANT"`, `"TOTEM"`, `"HIDDEN_CHAT"`, or `"ZOOMED_FULL_BODY"`. [PII detection](#pii-detection) is only available via integration config, not as a prop. See [Layouts](#layouts).                                                                                                                                                             |
 | `customLayout`             |                | `React.FC<LayoutProps>`                     |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
+| `avatar3dHidden`           |                | `boolean`                                   | `true` for `WEBSITE_ASSISTANT` | Hide the 3D avatar. Defaults to `true` for the `WEBSITE_ASSISTANT` layout (expanded panel); set to `false` to show it there.                                                                                                                                                                                                                                                                                                         |
 | `customMediaRenderer`      |                | `(mimeType: string) => JSX.Element \| null` |                             | Custom media renderer, see [below](#custom-media-renderer)                                                                                                                                                                                                                                                                                                                                                                              |
 | `additionalSettings`       |                | `JSX.Element`                               |                             | Custom JSX or component to render within the settings drawer                                                                                                                                                                                                                                                                                                                                                                            |
-| `userAvatar`               |                | `string`                                    |                             | Custom URL or React element to use as user avatar                                                                                                                                                                                                                                                                                                                                                                                       |
-| `autoStart`                |                | `boolean`                                   | `false`                     | Automatically start the conversation when the component is mounted.                                                                                                                                                                                                                                                                                                                                                                     |
+| `additionalInfo`           |                | `{ [key: string]: string }`                 |                             | Additional info sent when opening the session (`additionalInfo` of the Engine `openSession` call). A `loginToken` key here takes precedence over `authToken`.                                                                                                                                                                                                                                                                             |
+| `userAvatar`               |                | `string \| JSX.Element`                     |                             | Custom URL or React element to use as user avatar                                                                                                                                                                                                                                                                                                                                                                                       |
+| `autoStart`                |                | `boolean`                                   | `false` \*\*                | Automatically start the conversation when the component is mounted. (\*\*) Defaults to `true` for `HIDDEN_CHAT`; always `false` for `WEBSITE_ASSISTANT`.                                                                                                                                                                                                                                                                                 |
+| `applyVarsToRoot`          |                | `boolean`                                   | `false`                     | Also apply the integration CSS variables (brand color, etc.) to `:root`, not only to the widget scopes. Useful when rendering Memori UI elements outside the widget container.                                                                                                                                                                                                                                                             |
 
 \*: one of these pairs is required: `memoriName` + `ownerUserName`, `memoriID` + `ownerUserID`
 
@@ -219,9 +235,30 @@ Invalid or empty regex patterns are skipped; missing translations fall back to `
 
 You can override the default layout by passing a custom layout component to the `customLayout` prop.
 
-The custom layout component must be a React functional component that accepts a [LayoutProps](https://github.com/memori-ai/memori-react/blob/a6e0de73f3610f763bcd8e28deb7626fea91f0d1/src/components/MemoriWidget/MemoriWidget.tsx#LL148C21-L148C21) object as props.
+The custom layout component must be a React functional component that accepts a [LayoutProps](https://github.com/memori-ai/memori-react/blob/main/src/components/MemoriWidget/MemoriWidget.tsx) object as props (search for `export interface LayoutProps`).
+
+Available `LayoutProps`:
+
+| Prop                    | Type                        | Description                                                                                      |
+| ----------------------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Header` / `headerProps`         | component / props  | Header with share, settings, chat history, login buttons                                          |
+| `Avatar` / `avatarProps`         | component / props  | 2D/3D avatar                                                                                     |
+| `Chat` / `chatProps`             | component / props  | Chat (history, inputs, attachments)                                                              |
+| `StartPanel` / `startPanelProps` | component / props  | Panel shown before the session starts                                                            |
+| `integrationStyle`      | `JSX.Element \| null`       | `<style>` element with integration CSS variables, render it once                                 |
+| `integrationBackground` | `JSX.Element \| null`       | Background element from integration config                                                       |
+| `poweredBy`             | `JSX.Element \| null`       | "Powered by" badge                                                                               |
+| `sessionId`             | `string`                    | Current session ID, `undefined` before the session starts                                        |
+| `hasUserActivatedSpeak` | `boolean`                   | `true` once the user has started the conversation                                                |
+| `showUpload`            | `boolean`                   | Whether the upload button is enabled                                                             |
+| `loading`               | `boolean`                   | Widget is loading (session opening, memori loading)                                              |
+| `autoStart`             | `boolean`                   | Resolved `autoStart` value                                                                       |
+| `onSidebarToggle`       | `(isOpen: boolean) => void` | Callback to notify the widget when a sidebar is opened/closed                                    |
+| `avatar3dHidden`        | `boolean \| string`         | Resolved `avatar3dHidden` value                                                                  |
+| `totemContentMaxWidth`  | `number \| string`          | `TOTEM` only: max-width of the content axis (avatar + panel + status), px or CSS length          |
 
 ```tsx
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '@memori.ai/memori-react/dist/components/MemoriWidget/MemoriWidget';
 
 const MyCustomLayout: React.FC<LayoutProps> = ({
@@ -235,8 +272,6 @@ const MyCustomLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   loading = false,
@@ -272,36 +307,85 @@ And then pass it to the `customLayout` prop:
 
 ## Styling
 
-You can override the default styles of the Memori by customizing the following CSS custom properties:
+The widget is built on the [@memori.ai/ui](https://www.npmjs.com/package/@memori.ai/ui) design system and its CSS is organized in cascade layers, in this order: `memori.theme` < `memori.components` < `memori.overrides`. Your own overrides should live in `@layer memori.overrides` (or outside any layer, which always wins over layered styles).
+
+### Brand color
+
+The main brand hook is `--memori-primary-color`. All primary-derived tokens (`hover`, `active`, `disabled`, `subtle`, borders, focus ring, shadows) are computed from it with `color-mix()`, so you usually only need to set this one:
 
 ```css
 memori-client,
-#headlessui-portal-root,
-.memori-widget {
-  --memori-primary: rgb(102, 103, 171);
-  --memori-primary-text: #fff;
-  --memori-inner-content-pad: 1rem;
-  --memori-inner-bg: transparent;
-  --memori-chat-bubble-bg: #ffffff60;
-  --memori-text-color: #000;
-  --memori-button-bg: #fff;
-  --memori-button-text: #000;
-  --memori-button-padding: 0.5rem 1.5rem;
-  --memori-button-border-color: #d9d9d9;
-  --memori-button-radius: 5px;
-  --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-  --memori-blur-background: 0px;
-  --memori-drawer--width: 100%;
-  --memori-drawer--width--md: 80%;
-  --memori-drawer--width--lg: 60%;
-  --memori-modal--width: 100%;
-  --memori-modal--width--md: 80%;
-  --memori-error-color: #ff4d4f;
-  --memori-button-disabled-bg: #f9f9f9;
+.memori-widget,
+#headlessui-portal-root {
+  --memori-primary-color: rgb(102, 103, 171);
+  --memori-primary-content: #fff; /* text/icon color on primary backgrounds */
 }
 ```
 
-You can review the default styles in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/src/styles.css) file.
+Set it on the widget scopes (`.memori-widget`, `memori-client`, portal roots), not only on `:root`: derived tokens are resolved where they are declared, so a `:root`-only override would leave disabled/subtle UI on the default brand. When an integration is passed, the widget already injects `buttonBgColor` / `buttonTextColor` from `customData` as these two variables (see `applyVarsToRoot` to also apply them to `:root`).
+
+### Design tokens
+
+The most commonly used tokens you may override:
+
+```css
+.memori-widget {
+  /* Brand */
+  --memori-primary-color: rgb(130 70 175);
+  --memori-primary-content: #fff;
+
+  /* Surfaces & text */
+  --memori-main-background: oklch(97.1% 0 0deg);
+  --memori-secondary-background: oklch(100% 0 0deg);
+  --memori-text-color: oklch(20% 0.05 240deg);
+  --memori-border-color: color-mix(in oklch, oklch(45% 0.05 240deg), transparent 84%);
+
+  /* Typography */
+  --memori-font-family: 'Lexend Deca', sans-serif;
+  --memori-text-size-sm: 0.875rem;
+  --memori-text-size-md: 1rem;
+
+  /* Shape & spacing */
+  --memori-radius-control: 0.75rem; /* buttons, inputs */
+  --memori-radius-surface: 1.25rem; /* cards, bubbles, drawers */
+  --memori-spacing-xs: 4px;
+  --memori-spacing-sm: 8px;
+  --memori-spacing-md: 16px;
+  --memori-spacing-lg: 24px;
+
+  /* Layout */
+  --memori-layout-max-width: 1280px;
+  --memori-conversation-max-width: 48rem;
+  --memori-conversation-inline-padding: var(--memori-spacing-md);
+
+  /* Motion */
+  --memori-motion-duration-fast: 0.15s;
+  --memori-motion-duration-normal: 0.2s;
+  --memori-motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+}
+```
+
+Values shown are the light-theme defaults.
+
+Derived tokens that are rebound automatically from `--memori-primary-color` (override only if you need a specific value): `--memori-primary`, `--memori-primary-hover`, `--memori-primary-active`, `--memori-primary-disabled`, `--memori-primary-subtle`, `--memori-primary-subtle-hover`, `--memori-primary-alpha`, `--memori-border-primary`, `--memori-border-primary-hover`, `--memori-focus-ring-color`, `--memori-focus-ring`, `--memori-shadow-primary`.
+
+Semantic colors from `@memori.ai/ui`: `--memori-error`, `--memori-success`, `--memori-info`, `--memori-neutral`, `--memori-secondary`.
+
+### Dark theme
+
+The theme is resolved from the integration config (`customData.theme: 'light' | 'dark'`, default `light`) and stamped as `data-theme` on the widget root and on portaled popups. You can also force it from the host:
+
+```html
+<div data-theme="dark">
+  <!-- Memori widget here -->
+</div>
+```
+
+Dark-specific primary-derived tokens are recomputed automatically; override them under `[data-theme='dark'] .memori-widget` if needed.
+
+### Reference
+
+You can review the default styles and the full list of tokens in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/src/styles.css) file and in the `@memori.ai/ui` stylesheet (`node_modules/@memori.ai/ui/dist/memori-ai-ui.css`). Per-component classes follow the `memori-<component>` naming (e.g. `.memori-chat--wrapper`, `.memori-chat--bubble`, `.memori-header`, `.memori--start-panel`); the widget root also gets `memori-layout-<layout>` and `memori-controls-<position>` modifiers.
 
 ## Component overrides
 
@@ -403,17 +487,56 @@ Additional parameters:
 const waitForPrevious = true; // waits for previous message to be read, default: true
 const hidden = true; // message is not visible to the user, only the response is, default: false
 const typingText = "Asking the unicorns' opinion..."; // text to show in the loader while the Agent is answering, defaults to none
-typeMessage('Hello World!', waitForPrevious, hidden, typingText);
+const useLoaderTextAsMsg = false; // when true, the Agent's answer is replaced in the chat by typingText (useful for hidden "action" messages), default: false
+typeMessage('Hello World!', waitForPrevious, hidden, typingText, useLoaderTextAsMsg);
 ```
 
 There is also an alias function that does not show the message sent to the user, but only the Agent's response:
 
 ```js
 const waitForPrevious = true; // waits for previous message to be read, default: true
-typeMessageHidden('Hello World!', waitForPrevious);
+typeMessageHidden('Hello World!', waitForPrevious, typingText, useLoaderTextAsMsg);
 
 // alias to
-typeMessage('Hello World!', waitForPrevious, true);
+typeMessage('Hello World!', waitForPrevious, true, typingText, useLoaderTextAsMsg);
+```
+
+Set the `disableTextEnteredEvents` prop to `true` on widgets that should ignore these calls (e.g. when multiple widgets are on the same page).
+
+### Send a batch of messages
+
+`typeBatchMessages` sends a sequence of messages one after the other, waiting for the Agent to finish answering (and speaking) each one before sending the next. Chat inputs are disabled while the batch is running.
+
+```js
+typeBatchMessages([
+  { message: 'Hello!', waitForPrevious: true },
+  { message: 'Tell me about yourself', hidden: true, typingText: 'Thinking...' },
+  { message: 'Thanks', useLoaderTextAsMsg: false },
+]);
+```
+
+Each item accepts the same options as `typeMessage`: `message`, `waitForPrevious`, `hidden`, `typingText`, `useLoaderTextAsMsg`.
+
+### DOM events
+
+The widget dispatches and listens to the following `CustomEvent`s on `document`:
+
+| Event                  | Direction       | `event.detail`                                                                 | Description                                                                                                 |
+| ---------------------- | --------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `MemoriNewDialogState` | widget → host   | `DialogState`                                                                  | Fired at every state change of the conversation, see [below](#conversation-state-change-event)              |
+| `MemoriEndSpeak`       | widget → host   | none                                                                           | Fired when the Agent has finished answering (and speaking, if audio is enabled)                             |
+| `artifactCreated`      | widget → host   | `{ artifact: ArtifactData, message: Message }`                                 | Fired when an artifact is generated from an Agent message, see [Artifact API](#artifact-api)                |
+| `MemoriTextEntered`    | host → widget   | `{ text, waitForPrevious, hidden, typingText, useLoaderTextAsMsg, hasBatchQueued }` | Sends a message to the Agent. This is what `typeMessage` dispatches under the hood                     |
+| `MemoriResetUIEffects` | host → widget   | none                                                                           | Stops TTS playback and resets pending UI timers                                                             |
+
+```js
+document.addEventListener('MemoriEndSpeak', () => {
+  console.log('Agent finished speaking');
+});
+
+document.addEventListener('artifactCreated', e => {
+  console.log('New artifact:', e.detail.artifact);
+});
 ```
 
 ## Artifact API
@@ -438,11 +561,27 @@ console.log('Drawer open?', state.isDrawerOpen);
 ### Available Methods
 
 - `createAndOpenArtifact(content, mimeType?, title?)` - Create and open an artifact with simple parameters
-- `openArtifact(artifact)` - Open an artifact with a complete ArtifactData object
-- `createFromOutputElement(outputElement)` - Process a single `<output>` element from DOM
+- `openArtifact(artifact)` - Open an artifact with a complete `ArtifactData` object
+- `createFromOutputElement(outputElement)` - Process a single `<output>` element from DOM, returns the artifact id
 - `closeArtifact()` - Close the current artifact drawer
 - `toggleFullscreen()` - Toggle fullscreen mode
-- `getState()` - Get the current state of the artifact system
+- `getState()` - Get the current state of the artifact system: `{ currentArtifact, isDrawerOpen, isFullscreen, isChatLogPanelPresentation }`
+
+`ArtifactData` shape:
+
+```ts
+interface ArtifactData {
+  id: string; // unique id of this version
+  artifactId: string; // stable id across versions of the same artifact
+  content: string;
+  mimeType: string; // e.g. 'html', 'markdown', 'javascript', 'json', ...
+  title: string;
+  timestamp: Date;
+  size: number;
+}
+```
+
+Artifacts generated by the Agent are announced with the `artifactCreated` DOM event (see [DOM events](#dom-events)). On desktop, the artifact drawer opens as a resizable side column next to the chat; on mobile it takes the full width.
 
 ## Conversation state change event
 
@@ -465,9 +604,29 @@ document.addEventListener('MemoriNewDialogState', e => {
 });
 ```
 
-where `e.details` is the new state of the Memori. This is useful to use when working with [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent).
+where `e.detail` is the new state of the Memori. This is useful to use when working with [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent).
+
+## Development
+
+```bash
+corepack enable && yarn install --immutable
+
+yarn storybook   # run Storybook on http://localhost:6006
+yarn test        # run tests in watch mode
+yarn test:ci     # run tests once (CI)
+yarn lint        # eslint + stylelint
+yarn typecheck   # tsc --noEmit
+yarn build       # build dist/ (CJS) and esm/ (ESM) + styles.css
+```
+
+Commits follow the [Conventional Commits](https://www.conventionalcommits.org/) spec (enforced by commitlint via husky); the [CHANGELOG](./CHANGELOG.md) is generated from them with release-it.
 
 ## See also
 
 - [memori-api-client](https://github.com/memori-ai/memori-api-client) - API client for Memori
 - [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent) - Web component for Memori, uses this library
+- [@memori.ai/ui](https://www.npmjs.com/package/@memori.ai/ui) - Design system used by this library
+
+## License
+
+[Apache-2.0](./LICENSE) © Memori Srl
