@@ -25,11 +25,13 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   avatar3dHidden = true,
+  sideDrawerOpen = false,
 }) => {
   const { t } = useTranslation();
   const { state: artifactState } = useArtifact();
   const useSideArtifactChrome =
     artifactState.isDrawerOpen && !artifactState.isChatLogPanelPresentation;
+  const useSideDrawerChrome = useSideArtifactChrome || sideDrawerOpen;
   const [collapsed, _setCollapsed] = useState(true);
   const [expandedKey, setExpandedKey] = useState<string>();
   const [fullScreen, setFullScreen] = useState(false);
@@ -181,8 +183,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
         className={`memori-website_assistant--${
           collapsed ? 'collapsed' : 'expanded'
         }${
-          useSideArtifactChrome
-            ? ' memori-website_assistant--artifact-open'
+          useSideDrawerChrome
+            ? ' memori-website_assistant--drawer-open memori-website_assistant--artifact-open'
             : ''
         }${fullScreen ? ` ${FULLSCREEN_CLASS}` : ''}`}
       >
