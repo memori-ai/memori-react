@@ -471,7 +471,13 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       }${
         hasExpandedChatlogPanel ? ' memori-chat--artifact-block--expanded' : ''
       }`}
-      style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        paddingBottom:
+          'calc(var(--memori-spacing-md) + var(--memori-spacing-xs))',
+      }}
     >
       {artifacts.map(artifact => {
         const isSelected =
