@@ -11,6 +11,7 @@
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-chat--history {
+    border-radius: 0;
     background: var(--memori-secondary-background);
 }
 
