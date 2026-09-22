@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '../../testUtils';
+import { render, screen, waitFor } from '../../testUtils';
 import Memori from '../MemoriWidget/MemoriWidget';
 import ZoomedFullBodyLayout from './ZoomedFullBody';
 import { integration, memori, tenant } from '../../mocks/data';
@@ -135,4 +135,49 @@ it('hides the avatar column while the artifact is open so chat stays on the left
   expect(
     container.querySelector('.memori-chat-layout--main')
   ).toBeInTheDocument();
+});
+
+it('shows a resizable artifact column with name in the toolbar', async () => {
+  const { container } = renderZoomedWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori--grid-column-artifact--open')
+    ).not.toBeNull();
+  });
+
+  expect(
+    screen.getByRole('separator', { name: 'artifact.resizeHandle' })
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('.memori-artifact-toolbar--title')
+  ).toHaveTextContent('Hello');
+});
+
+it('overlays the artifact panel under 1200px instead of compressing chat', async () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query: string) => ({
+      matches: query.includes('1199'),
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
+  const { container } = renderZoomedWithArtifact();
+
+  await waitFor(() => {
+    expect(
+      container.querySelector('.memori-fullpage-content-row--artifact-overlay')
+    ).not.toBeNull();
+  });
+
+  expect(container.querySelector('.memori--grid-column-left')).toHaveAttribute(
+    'hidden'
+  );
 });

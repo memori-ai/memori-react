@@ -217,9 +217,11 @@ button.memori-chat-textarea--expand-button:focus {
 
 /* Layout-scoped dark pills: keep exact text/placeholder colors */
 .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input,
+.memori-widget.memori-layout-zoomed_full_body textarea.memori-chat-textarea--input,
 .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input,
 .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input,
 [data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input,
+[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body textarea.memori-chat-textarea--input,
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input,
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input {
     background: transparent;
@@ -227,9 +229,11 @@ button.memori-chat-textarea--expand-button:focus {
 }
 
 .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,
+.memori-widget.memori-layout-zoomed_full_body textarea.memori-chat-textarea--input::placeholder,
 .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
 .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input::placeholder,
+[data-theme='dark'] .memori-widget.memori-layout-zoomed_full_body textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-hidden_chat textarea.memori-chat-textarea--input::placeholder,
 [data-theme='dark'] .memori-widget.memori-layout-website_assistant textarea.memori-chat-textarea--input::placeholder {
     color: #7d7a86;
