@@ -841,6 +841,54 @@
     overflow-y: auto;
 }
 
+.memori-chat--function-cache-toolbar {
+    display: flex;
+    margin-bottom: var(--memori-spacing-md);
+}
+
+.memori-chat--function-cache-entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--memori-spacing-lg);
+}
+
+.memori-chat--function-cache-entry {
+    padding-top: var(--memori-spacing-md);
+    border-top: var(--memori-border) solid var(--memori-border-color);
+}
+
+.memori-chat--function-cache-entry:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.memori-chat--function-cache-entry-title {
+    margin: 0 0 var(--memori-spacing-sm);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-chat--function-cache-entry-pre {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: var(--memori-spacing-md);
+    margin: 0;
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-surface);
+    background: color-mix(in oklch, var(--memori-text-color) 4%, var(--memori-secondary-background));
+    color: var(--memori-text-color);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+    font-size: var(--memori-text-size-sm);
+    line-height: var(--memori-text-line-normal, 1.5);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
 details.memori-think {
     display: block;
     width: 100%;

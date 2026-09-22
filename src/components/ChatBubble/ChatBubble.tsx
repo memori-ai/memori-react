@@ -1197,7 +1197,7 @@ const ChatBubble: React.FC<Props> = ({
         closable={true}
         onOpenChange={setOpenFunctionCache}
       >
-        <div style={{ marginBottom: '1rem' }}>
+        <div className="memori-chat--function-cache-toolbar">
           <Button
             icon={<Copy aria-hidden />}
             onClick={() =>
@@ -1209,30 +1209,18 @@ const ChatBubble: React.FC<Props> = ({
               : t('copy') || 'Copy'}
           </Button>
         </div>
-        {functionCacheData?.map((f, i) => (
-          <div
-            key={f.mediumID}
-            style={
-              i > 0
-                ? {
-                    marginTop: '1.5rem',
-                    paddingTop: '1.5rem',
-                    borderTop: '1px solid #e0e0e0',
-                  }
-                : {
-                    paddingTop: '1.5rem',
-                  }
-            }
-          >
-            <h3 style={{ marginTop: 0 }}>{f.title}</h3>
-            <pre
-              key={f.mediumID}
-              style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
-            >
-              {f.content}
-            </pre>
-          </div>
-        ))}
+        <div className="memori-chat--function-cache-entries">
+          {functionCacheData?.map(f => (
+            <div key={f.mediumID} className="memori-chat--function-cache-entry">
+              <h3 className="memori-chat--function-cache-entry-title">
+                {f.title}
+              </h3>
+              <pre className="memori-chat--function-cache-entry-pre">
+                {f.content}
+              </pre>
+            </div>
+          ))}
+        </div>
       </Modal>
     </>
   );
