@@ -1,5 +1,24 @@
 # Changelog
 
+## [9.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.0...v9.0.0-rc.1) (2026-09-22)
+
+
+### Features
+
+* **AuthWidget:** add description to authentication modal for improved user guidance ([0b85fff](https://github.com/memori-ai/memori-react/commit/0b85fffda8116aec4370f5c517114d4c926daf82))
+* **ChatHistoryDrawer:** add active filters count display and enhance filter toggle styling ([d5c8b8f](https://github.com/memori-ai/memori-react/commit/d5c8b8faef98c2b5d1b6a5489cc847a406a08429))
+
+
+### Bug Fixes
+
+* linting ([94553d4](https://github.com/memori-ai/memori-react/commit/94553d40db8411592da113ec754d10ae7029af0d))
+* linting ([cdc7ba0](https://github.com/memori-ai/memori-react/commit/cdc7ba093bd6894f05b44d83a06340e2ece016ef))
+
+
+### Changes
+
+* **Header:** update login button implementation for better responsiveness and consistency ([a82b4cf](https://github.com/memori-ai/memori-react/commit/a82b4cf35861ffc2bacf26550f2d48588098070c))
+
 ## [9.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-alpha.25...v9.0.0-rc.0) (2026-09-22)
 
 
