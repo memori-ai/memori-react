@@ -126,6 +126,28 @@
     color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
 }
 
+.memori-chat-history-drawer--filters-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-chat-history-drawer--filters-count {
+    display: inline-flex;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--memori-primary);
+    color: var(--memori-primary-content, #fff);
+    font-size: var(--memori-text-size-xs);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: 1;
+}
+
 .memori-chat-history-drawer--filters-chevron {
     width: 1rem;
     height: 1rem;

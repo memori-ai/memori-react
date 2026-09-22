@@ -229,6 +229,13 @@ const ChatHistoryDrawer = ({
   const [error, setError] = useState<string | null>(null);
   const [totalItems, setTotalItems] = useState(0);
 
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (dateRange !== 'all') count += 1;
+    if (minimumMessagesPerChat !== DEFAULT_MINIMUM_MESSAGES) count += 1;
+    return count;
+  }, [dateRange, minimumMessagesPerChat]);
+
   const fetchChatLogs = useCallback(
     async ({
       from = 0,
@@ -627,7 +634,17 @@ const ChatHistoryDrawer = ({
               iconPosition="right"
               onClick={() => setFiltersOpen(openFilters => !openFilters)}
             >
-              {t('write_and_speak.filters')}
+              <span className="memori-chat-history-drawer--filters-toggle-label">
+                {t('write_and_speak.filters')}
+                {activeFiltersCount > 0 && (
+                  <span
+                    className="memori-chat-history-drawer--filters-count"
+                    aria-label={String(activeFiltersCount)}
+                  >
+                    {activeFiltersCount}
+                  </span>
+                )}
+              </span>
             </Button>
             {filtersOpen && (
               <div className="memori-chat-history-drawer--filters">
