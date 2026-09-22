@@ -213,6 +213,10 @@ export const AuthWidget = ({
     <Modal
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
+      description={
+        t('auth.description') ||
+        'This agent is protected. Enter the password to continue.'
+      }
       closable={true}
       onOpenChange={open => {
         if (!open) setPwdOrTokens(null);
