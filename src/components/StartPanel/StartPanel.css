@@ -28,6 +28,7 @@
 /* Combobox options are rendered in a portal, so they are not descendants of
    .memori-combobox--language-chooser. Target the popup and disabled items globally. */
 .memori-combobox__popup {
+    overflow: hidden;
     width: min(var(--anchor-width, 100%), calc(100dvw - 2 * var(--memori-spacing-md)));
     min-width: 0;
     max-width: calc(
@@ -36,7 +37,6 @@
     );
     box-sizing: border-box;
     box-shadow: var(--memori-shadow-lg);
-    overflow: hidden;
     overflow-x: hidden;
 }
 

@@ -871,22 +871,22 @@
 }
 
 .memori-chat--function-cache-entry-pre {
-    overflow-x: auto;
     max-width: 100%;
     box-sizing: border-box;
     padding: var(--memori-spacing-md);
-    margin: 0;
     border: var(--memori-border) solid var(--memori-border-color);
     border-radius: var(--memori-radius-surface);
+    margin: 0;
     background: color-mix(in oklch, var(--memori-text-color) 4%, var(--memori-secondary-background));
     color: var(--memori-text-color);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
         'Courier New', monospace;
     font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal, 1.5);
+    overflow-wrap: anywhere;
+    overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
-    overflow-wrap: anywhere;
 }
 
 details.memori-think {
