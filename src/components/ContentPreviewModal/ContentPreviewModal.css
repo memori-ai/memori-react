@@ -64,7 +64,7 @@
     max-width: 100%;
     flex-shrink: 0;
     padding: 1rem 1.25rem 0.75rem;
-    padding-right: calc(var(--memori-icon-button-size, 40px) + 1.5rem);
+    padding-right: calc(var(--memori-icon-button-size, 44px) + 1.5rem);
     border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
     margin-bottom: 0;
     color: var(--memori-text-color);

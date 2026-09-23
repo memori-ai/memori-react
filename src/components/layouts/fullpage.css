@@ -48,7 +48,7 @@
     border-bottom: 1px solid var(--memori-border-color);
     background: transparent;
     gap: var(--memori-spacing-md);
-    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
+    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
 }
 
 /* FULLPAGE header shares the same content axis as .memori--grid, so brand,
@@ -334,7 +334,7 @@
     width: 0;
     min-width: 0;
     flex-shrink: 0;
-    transition: width var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
+    transition: width var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
 }
 
 .memori-widget.memori-layout-fullpage .memori--grid-column-artifact--open {
@@ -379,7 +379,7 @@
     background: transparent;
     content: '';
     transform: translateX(-50%);
-    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
+    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
 }
 
 .memori-widget.memori-layout-fullpage .memori-artifact-resize-handle:hover::after,

@@ -96,6 +96,16 @@
     word-break: break-word;
 }
 
+/*
+ * Code blocks use a fixed dark chrome so background never tracks
+ * --memori-text-color (which is light in dark mode and caused white-on-white).
+ */
+.memori-chat--bubble,
+.memori-chat--code-block {
+    --memori-chat-code-bg: #161b22;
+    --memori-chat-code-fg: #e6edf3;
+}
+
 .memori-chat--bubble-timestamp-container {
     display: flex;
     flex-shrink: 0;
@@ -424,16 +434,6 @@
     font-size: 0.9em;
 }
 
-/*
- * Code blocks use a fixed dark chrome so background never tracks
- * --memori-text-color (which is light in dark mode and caused white-on-white).
- */
-.memori-chat--bubble,
-.memori-chat--code-block {
-    --memori-chat-code-bg: #161b22;
-    --memori-chat-code-fg: #e6edf3;
-}
-
 .memori-chat--bubble pre {
     max-width: 100%;
     box-sizing: border-box;
@@ -458,25 +458,25 @@
 
 .memori-chat--code-block {
     position: relative;
+    overflow: hidden;
     max-width: 100%;
     box-sizing: border-box;
     border-radius: var(--memori-radius-surface, 8px);
     margin: 0.65em 0;
     background: var(--memori-chat-code-bg);
     color: var(--memori-chat-code-fg);
-    overflow: hidden;
 }
 
 .memori-chat--code-block-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
     padding: 6px 8px 0 12px;
     color: color-mix(in srgb, var(--memori-chat-code-fg) 72%, transparent);
     font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
     font-size: 11px;
     font-weight: 500;
+    gap: 8px;
     letter-spacing: 0.02em;
     text-transform: lowercase;
 }
@@ -487,11 +487,11 @@
 
 .memori-chat--code-block-copy {
     display: inline-flex;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
     padding: 0;
     border: 1px solid color-mix(in srgb, var(--memori-chat-code-fg) 16%, transparent);
     border-radius: var(--memori-radius-control, 6px);
@@ -518,8 +518,8 @@
 }
 
 .memori-chat--code-block pre {
-    margin: 0;
     border-radius: 0;
+    margin: 0;
     background: transparent !important;
     color: inherit;
 }

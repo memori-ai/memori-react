@@ -117,7 +117,7 @@ button.memori-artifact-handler {
 .memori-artifact-handler-chevron {
     transform: rotate(var(--memori-artifact-chevron-rest));
     transform-origin: center;
-    transition: transform var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
+    transition: transform var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
 }
 
 .memori-artifact-handler[aria-expanded='true'] .memori-artifact-handler-chevron {

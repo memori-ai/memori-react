@@ -194,7 +194,7 @@
     min-width: 0;
     max-width: none;
     height: auto;
-    min-height: var(--memori-icon-button-size, 36px);
+    min-height: var(--memori-icon-button-size, 44px);
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
@@ -257,8 +257,8 @@
 
 /* Accedi / login CTA — ~1.8:1 horizontal:vertical padding, height aligned to icon tools */
 .memori-header .memori-header--button-login.memori-button {
-    height: var(--memori-icon-button-size, 40px);
-    min-height: var(--memori-icon-button-size, 40px);
+    height: var(--memori-icon-button-size, 44px);
+    min-height: var(--memori-icon-button-size, 44px);
     padding: 0.5rem 0.9rem;
     gap: 0.4rem;
 }
@@ -743,7 +743,7 @@
 
 .memori-header--auth-icon-button:has(.memori-header--action-label) {
     width: auto;
-    min-width: var(--memori-icon-button-size, 36px);
+    min-width: var(--memori-icon-button-size, 44px);
     gap: 0.35rem;
     padding-inline: 10px;
 }

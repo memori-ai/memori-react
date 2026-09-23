@@ -26,8 +26,8 @@
     gap: var(--memori-spacing-xs, 0.375rem);
     line-height: 1.2;
     transition:
-        background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease),
-        color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease, ease);
+        background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease),
+        color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
 }
 
 .memori-tab-switch__icon {

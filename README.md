@@ -53,7 +53,7 @@ Library to integrate an Agent from [Memori](https://memori.ai) in a React app.
 
 ### Requirements
 
-- React `>=16` (peer dependency)
+- React `>=17` (peer dependency)
 - TypeScript `>=4.8` (peer dependency, optional)
 - Node `>=16` for local development
 
