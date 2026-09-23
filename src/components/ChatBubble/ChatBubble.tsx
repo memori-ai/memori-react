@@ -41,6 +41,7 @@ import {
   stripAttachmentTags,
   stripAllInternalTags,
 } from '../../helpers/message';
+import { enhanceBubbleCodeBlocks } from '../../helpers/enhanceBubbleCodeBlocks';
 import { getExposedSourcesCount } from '../../helpers/sourcesCount';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -183,6 +184,7 @@ const ChatBubble: React.FC<Props> = ({
   });
   const [addonOpen, setAddonOpen] = useState(false);
   const bubbleContainerRef = useRef<HTMLDivElement>(null);
+  const assistantContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!addonOpen) return;
@@ -309,6 +311,14 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [cleanText, message.fromUser, renderedText]);
+
+  useEffect(() => {
+    if (message.fromUser || !assistantContentRef.current) return;
+    return enhanceBubbleCodeBlocks(assistantContentRef.current, {
+      copy: t('copy') || 'Copy',
+      copied: t('copied') || 'Copied',
+    });
+  }, [renderedText, message.fromUser, t]);
 
   useEffect(() => {
     return () => {
@@ -894,6 +904,7 @@ const ChatBubble: React.FC<Props> = ({
                     })}
                   >
                     <div
+                      ref={assistantContentRef}
                       dir="auto"
                       className="memori-chat--bubble-content"
                       dangerouslySetInnerHTML={{ __html: renderedText }}

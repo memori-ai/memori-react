@@ -424,14 +424,24 @@
     font-size: 0.9em;
 }
 
+/*
+ * Code blocks use a fixed dark chrome so background never tracks
+ * --memori-text-color (which is light in dark mode and caused white-on-white).
+ */
+.memori-chat--bubble,
+.memori-chat--code-block {
+    --memori-chat-code-bg: #161b22;
+    --memori-chat-code-fg: #e6edf3;
+}
+
 .memori-chat--bubble pre {
     max-width: 100%;
     box-sizing: border-box;
     padding: 10px 12px;
     border-radius: var(--memori-radius-surface, 8px);
     margin: 0.65em 0;
-    background: color-mix(in oklch, var(--memori-text-color) 88%, #0a0a0a);
-    color: #fafafa;
+    background: var(--memori-chat-code-bg);
+    color: var(--memori-chat-code-fg);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
         'Courier New', monospace;
     font-size: 0.85em;
@@ -444,6 +454,92 @@
     background: transparent;
     color: inherit;
     font-size: inherit;
+}
+
+.memori-chat--code-block {
+    position: relative;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--memori-radius-surface, 8px);
+    margin: 0.65em 0;
+    background: var(--memori-chat-code-bg);
+    color: var(--memori-chat-code-fg);
+    overflow: hidden;
+}
+
+.memori-chat--code-block-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px 0 12px;
+    color: color-mix(in srgb, var(--memori-chat-code-fg) 72%, transparent);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+}
+
+.memori-chat--code-block-lang--empty {
+    flex: 1;
+}
+
+.memori-chat--code-block-copy {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--memori-chat-code-fg) 16%, transparent);
+    border-radius: var(--memori-radius-control, 6px);
+    background: color-mix(in srgb, var(--memori-chat-code-fg) 8%, transparent);
+    color: var(--memori-chat-code-fg);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.memori-chat--code-block-copy:hover,
+.memori-chat--code-block-copy:focus-visible {
+    border-color: color-mix(in srgb, var(--memori-chat-code-fg) 28%, transparent);
+    background: color-mix(in srgb, var(--memori-chat-code-fg) 14%, transparent);
+    outline: none;
+}
+
+.memori-chat--code-block-copy:active {
+    transform: scale(0.96);
+}
+
+.memori-chat--code-block-copy--copied {
+    border-color: color-mix(in srgb, #22c55e 50%, transparent);
+    color: #4ade80;
+}
+
+.memori-chat--code-block pre {
+    margin: 0;
+    border-radius: 0;
+    background: transparent !important;
+    color: inherit;
+}
+
+/* Beat Prism theme defaults that force white-space: pre / own backgrounds */
+.memori-chat--bubble pre[class*='language-'],
+.memori-chat--bubble code[class*='language-'],
+.memori-chat--code-block pre[class*='language-'],
+.memori-chat--code-block code[class*='language-'] {
+    max-width: 100%;
+    background: transparent !important;
+    color: inherit;
+    overflow-wrap: anywhere;
+    text-shadow: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.memori-chat--code-block pre[class*='language-'] {
+    padding: 8px 12px 12px;
 }
 
 .memori-chat--bubble.memori-chat--user-bubble code {
@@ -623,7 +719,7 @@
 
 /* Wide markdown code blocks and tables scroll inside the bubble instead of
    stretching the conversation column. */
-.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table) {
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table, .memori-chat--code-block) {
     min-width: 0;
 }
 

@@ -491,6 +491,100 @@ WithMarkdownCode.args = {
   },
 };
 
+/** Demonstrates Prism highlight, language label, and per-block copy on fenced code. */
+export const CodeBlockHighlightAndCopy = Template.bind({});
+CodeBlockHighlightAndCopy.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showCopyButton: true,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Ecco un esempio in **JavaScript** e uno in **Python**.
+
+\`\`\`javascript
+async function fetchStock(productId) {
+  const res = await fetch(\`/api/stock/\${productId}\`);
+  if (!res.ok) throw new Error('Stock unavailable');
+  return res.json();
+}
+
+await fetchStock('SKU-42');
+\`\`\`
+
+\`\`\`python
+def fetch_stock(product_id: str) -> dict:
+    response = requests.get(f"/api/stock/{product_id}")
+    response.raise_for_status()
+    return response.json()
+
+print(fetch_stock("SKU-42"))
+\`\`\`
+
+Usa il pulsante copia in alto a destra di ogni blocco.`,
+  },
+};
+CodeBlockHighlightAndCopy.parameters = {
+  docs: {
+    description: {
+      story:
+        'Markdown fenced code blocks get a language label, Prism syntax highlighting, and a copy button after render.',
+    },
+  },
+};
+
+/** Same code chrome on a dark surface — verifies no white-on-white contrast bug. */
+export const CodeBlockOnDarkBackground: Story<Props> = args => (
+  <div
+    className="memori-widget"
+    data-theme="dark"
+    style={{
+      padding: '1.25rem',
+      borderRadius: 12,
+      background: '#0b0f14',
+      color: '#e8eaed',
+      ['--memori-text-color' as string]: '#f3f4f6',
+      ['--memori-main-background' as string]: '#1a1f26',
+      ['--memori-secondary-background' as string]: '#242b33',
+    }}
+  >
+    <Template {...args} />
+  </div>
+);
+CodeBlockOnDarkBackground.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showCopyButton: true,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `In dark mode i code block devono restare leggibili (sfondo scuro, testo chiaro).
+
+\`\`\`typescript
+type Stock = { productId: string; qty: number };
+
+export function formatStock(item: Stock): string {
+  return \`\${item.productId}: \${item.qty} available\`;
+}
+\`\`\`
+
+Se vedi testo bianco su bianco, il fix del chrome fisso non sta applicandosi.`,
+  },
+};
+CodeBlockOnDarkBackground.parameters = {
+  backgrounds: { default: 'dark' },
+  docs: {
+    description: {
+      story:
+        'Renders the same code-block chrome against a dark theme surface to catch white-on-white regressions.',
+    },
+  },
+};
+
 export const WithOutputCode = Template.bind({});
 WithOutputCode.args = {
   memori,
@@ -1060,7 +1154,27 @@ FormattingDetectionDemo.args = {
   tenant,
   message: {
     fromUser: false,
-    text: 'This message demonstrates how the formatting detection works.\n\nBelow are some examples of content that will be detected as requiring formatting:\n\n1. HTML tags: <div>Example</div>\n2. Markdown tables: | Header | Content |\n3. Code blocks: ```javascript\nconst x = 1;\n```\n4. Math formulas: $E = mc^2$\n5. Tabbed data: Name\tAge\tLocation\n\nThe requiresFormatting function will detect these patterns and show a loading spinner.',
+    text: `This message demonstrates how the formatting detection works.
+
+Below are some examples of content that will be detected as requiring formatting:
+
+1. HTML tags: <div>Example</div>
+2. Markdown tables:
+
+| Header | Content |
+| ------ | ------- |
+| A      | B       |
+
+3. Code blocks:
+
+\`\`\`javascript
+const x = 1;
+\`\`\`
+
+4. Math formulas: $E = mc^2$
+5. Tabbed data: Name\tAge\tLocation
+
+The requiresFormatting function will detect these patterns and show a loading spinner.`,
     initial: false,
   },
 };
@@ -1068,7 +1182,7 @@ FormattingDetectionDemo.parameters = {
   docs: {
     description: {
       story:
-        'A demonstration of different content patterns that trigger the loading spinner.',
+        'A demonstration of different content patterns that trigger the loading spinner. Code fences must be on their own lines or marked treats the closing ``` as an opening fence.',
     },
   },
 };
