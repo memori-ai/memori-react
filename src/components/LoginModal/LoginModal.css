@@ -27,11 +27,11 @@
 
 .memori--login-modal--missing .memori-modal__content {
     display: flex;
+    overflow: hidden;
     min-height: 0;
     max-height: none;
     flex: 1 1 auto;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .memori--login-modal--title,
@@ -210,10 +210,10 @@ form.memori--login-modal--form--missing {
     flex: 1 1 auto;
     flex-direction: column;
     padding: 0.25rem 0.375rem 0.75rem;
-    overflow-x: hidden;
-    overflow-y: auto;
     gap: 0.875rem;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .memori--login-modal--form-footer {
