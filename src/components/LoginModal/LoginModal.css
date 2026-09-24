@@ -18,6 +18,22 @@
     overflow: visible;
 }
 
+.memori--login-modal--missing.memori--login-modal .memori-modal__popup {
+    display: flex;
+    max-width: min(480px, calc(100vw - 2rem));
+    max-height: min(90vh, 40rem);
+    flex-direction: column;
+}
+
+.memori--login-modal--missing .memori-modal__content {
+    display: flex;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 .memori--login-modal--title,
 .memori--login-modal .memori-modal__title {
     margin: 0;
@@ -163,14 +179,10 @@
 
 .memori--login-modal--missing-data {
     display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
     flex-direction: column;
     gap: 0.75rem;
-}
-
-.memori--login-modal--missing-title {
-    margin: 0;
-    font-size: 1.125rem;
-    font-weight: var(--memori-text-weight-semibold, 600);
 }
 
 .memori--login-modal--missing-helper {
@@ -186,9 +198,51 @@ form.memori--login-modal--form {
     gap: 0.75rem;
 }
 
+form.memori--login-modal--form--missing {
+    min-height: 0;
+    flex: 1 1 auto;
+    gap: 0;
+}
+
+.memori--login-modal--form-body {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0.25rem 0.375rem 0.75rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    gap: 0.875rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.memori--login-modal--form-footer {
+    flex-shrink: 0;
+    padding: 0.75rem 0.375rem 0.125rem;
+}
+
+.memori--login-modal--consent-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
 .memori-login-modal--consent {
     width: 100%;
-    margin: 0.25rem 0;
+    margin: 0;
+}
+
+.memori--login-modal--consent-note {
+    margin: 0;
+    color: color-mix(in oklch, var(--memori-text-color, #1a1a2e), transparent 35%);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.memori--login-modal--deep-thought {
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--memori-login-box-radius);
+    background: color-mix(in oklch, var(--memori-text-color, #1a1a2e), transparent 96%);
 }
 
 @media (max-width: 480px) {

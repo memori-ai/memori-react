@@ -565,104 +565,112 @@ const LoginModal = ({
 
   const missingDataStep = (
     <div className="memori--login-modal--missing-data">
-      <h3 className="memori--login-modal--missing-title">
-        {t('login.missingData')}
-      </h3>
       <p className="memori--login-modal--missing-helper">
         {t('login.missingDataHelper')}
       </p>
 
       <Form
         name="updateMissingData"
-        className="memori--login-modal--form"
+        className="memori--login-modal--form memori--login-modal--form--missing"
         onSubmit={updateMissingData}
       >
-        {needsMissingData.birthDate && (
-          <Field.Root className="memori--login-modal--field">
-            <Field.Label htmlFor="birthDate">
-              {t('login.birthDate')}
-            </Field.Label>
-            <Input
-              id="birthDate"
-              name="birthDate"
-              type={
-                isMobileViewport && !birthDate && !isBirthDateFocused
-                  ? 'text'
-                  : 'date'
-              }
-              required
-              onChange={e => setBirthDate(e.target.value)}
-              value={birthDate}
-              placeholder={
-                isMobileViewport
-                  ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY'
-                  : undefined
-              }
-              onFocus={() => setIsBirthDateFocused(true)}
-              onBlur={() => setIsBirthDateFocused(false)}
-              autoComplete="bday"
-            />
-            <Field.Description>{t('login.birthDateHelper')}</Field.Description>
-          </Field.Root>
-        )}
+        <div className="memori--login-modal--form-body">
+          {needsMissingData.birthDate && (
+            <Field.Root className="memori--login-modal--field">
+              <Field.Label htmlFor="birthDate">
+                {t('login.birthDate')}
+              </Field.Label>
+              <Input
+                id="birthDate"
+                name="birthDate"
+                type={
+                  isMobileViewport && !birthDate && !isBirthDateFocused
+                    ? 'text'
+                    : 'date'
+                }
+                required
+                onChange={e => setBirthDate(e.target.value)}
+                value={birthDate}
+                placeholder={
+                  isMobileViewport
+                    ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY'
+                    : undefined
+                }
+                onFocus={() => setIsBirthDateFocused(true)}
+                onBlur={() => setIsBirthDateFocused(false)}
+                autoComplete="bday"
+              />
+              <Field.Description>{t('login.birthDateHelper')}</Field.Description>
+            </Field.Root>
+          )}
 
-        {needsMissingData?.tnCAndPPAccepted && (
-          <>
-            <Checkbox
-              name="tnCAndPPAccepted"
-              className="memori-login-modal--consent"
-              checked={tnCAndPPAccepted}
-              onChange={checked => setTnCAndPPAccepted(checked)}
-              label={
-                <>
-                  {t('login.privacyLabel')}{' '}
-                  <a
-                    href={`https://memori.ai/${lang}/privacy_and_cookie`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t('login.privacyAndCookiePolicy')}
-                  </a>{' '}
-                  {t('login.and')}{' '}
-                  <a
-                    href={`https://memori.ai/${lang}/tos`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t('login.termsOfService')}
-                  </a>
-                </>
-              }
-            />
+          {needsMissingData?.tnCAndPPAccepted && (
+            <div className="memori--login-modal--consent-block">
+              <Checkbox
+                name="tnCAndPPAccepted"
+                className="memori-login-modal--consent"
+                checked={tnCAndPPAccepted}
+                onChange={checked => setTnCAndPPAccepted(checked)}
+                label={
+                  <>
+                    {t('login.privacyLabel')}{' '}
+                    <a
+                      href={`https://memori.ai/${lang}/privacy_and_cookie`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('login.privacyAndCookiePolicy')}
+                    </a>{' '}
+                    {t('login.and')}{' '}
+                    <a
+                      href={`https://memori.ai/${lang}/tos`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('login.termsOfService')}
+                    </a>
+                  </>
+                }
+              />
 
-            <Checkbox
-              name="pAndCUAccepted"
-              className="memori-login-modal--consent"
-              checked={pAndCUAccepted}
-              onChange={checked => setPAndCUAccepted(checked)}
-              label={
-                <>
-                  {t('login.pAndCUAccepted')}{' '}
-                  <small>
-                    <em>({t('login.optional')})</em>
-                  </small>
-                </>
-              }
-            />
-            <p>
-              <small>{t('login.goToAccountToChangeYourPreferences')}</small>
-            </p>
-            <p>
-              <small>{t('login.deepThoughtExplaination')}</small>
-            </p>
-          </>
-        )}
+              <Checkbox
+                name="pAndCUAccepted"
+                className="memori-login-modal--consent"
+                checked={pAndCUAccepted}
+                onChange={checked => setPAndCUAccepted(checked)}
+                label={
+                  <>
+                    {t('login.pAndCUAccepted')}{' '}
+                    <small>
+                      <em>({t('login.optional')})</em>
+                    </small>
+                  </>
+                }
+              />
+              <p className="memori--login-modal--consent-note">
+                {t('login.goToAccountToChangeYourPreferences')}
+              </p>
+              <p className="memori--login-modal--consent-note memori--login-modal--deep-thought">
+                {t('login.deepThoughtExplaination')}
+              </p>
+            </div>
+          )}
 
-        {error && <p className="memori--login-modal--inline-error">{error}</p>}
+          {error && (
+            <p className="memori--login-modal--inline-error">{error}</p>
+          )}
+        </div>
 
-        <Button type="submit" variant="primary" loading={loading}>
-          {t('login.save')}
-        </Button>
+        <div className="memori--login-modal--form-footer">
+          <Button
+            type="submit"
+            variant="primary"
+            className="memori--login-modal--primary"
+            loading={loading}
+          >
+            {t('login.save')}
+          </Button>
+        </div>
       </Form>
     </div>
   );
@@ -674,13 +682,17 @@ const LoginModal = ({
       onOpenChange={nextOpen => {
         if (!nextOpen) onClose();
       }}
-      className={cx('memori--login-modal', modalClassName)}
+      className={cx(
+        'memori--login-modal',
+        { 'memori--login-modal--missing': isMissingDataStep },
+        modalClassName
+      )}
       contentClassName="memori--login-modal--content"
       titleClassName="memori--login-modal--title"
-      title={loginTitle}
+      title={isMissingDataStep ? t('login.missingData') : loginTitle}
       size="sm"
-      width="420px"
-      widthMd="420px"
+      width={isMissingDataStep ? '480px' : '420px'}
+      widthMd={isMissingDataStep ? '480px' : '420px'}
       centered
       closable
     >
