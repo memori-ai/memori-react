@@ -60,7 +60,7 @@ import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
-import LoginDrawer from '../LoginDrawer/LoginDrawer';
+import LoginModal from '../LoginModal/LoginModal';
 import { Button } from '@memori.ai/ui';
 import { X } from 'lucide-react';
 
@@ -3860,7 +3860,6 @@ const MemoriWidget = ({
               }
               totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
               sideDrawerOpen={
-                !!showLoginDrawer ||
                 !!showChatHistoryDrawer ||
                 !!showKnownFactsDrawer ||
                 !!showExpertsDrawer
@@ -4070,16 +4069,17 @@ const MemoriWidget = ({
             )}
 
             {showLoginDrawer && tenant?.name && (
-              <LoginDrawer
+              <LoginModal
                 tenant={tenant}
                 apiClient={client}
                 open={!!showLoginDrawer}
                 user={user}
                 loginToken={loginToken}
+                memoriName={memori?.name}
                 onClose={() => setShowLoginDrawer(false)}
-                drawerClassName={
+                modalClassName={
                   selectedLayout === 'WEBSITE_ASSISTANT'
-                    ? 'memori-drawer--above-website-assistant'
+                    ? 'memori-modal--above-website-assistant'
                     : undefined
                 }
                 onLogin={(user, token) => {
@@ -4131,7 +4131,10 @@ const MemoriWidget = ({
                         initial: t('login.successfullyLoggedIn', {
                           username,
                         }) as any,
-                        contextVars: state.dialogState.contextVars,
+                        contextVars: {
+                          ...(state.dialogState.contextVars || {}),
+                          LOGIN_STATUS: 'success',
+                        },
                         date: state.dialogState.currentDate,
                         placeName: state.dialogState.currentPlaceName,
                         placeLatitude: state.dialogState.currentLatitude,

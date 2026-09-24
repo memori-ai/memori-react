@@ -424,6 +424,15 @@ const Header: React.FC<Props> = ({
     ? t('fullscreenExit') || 'Exit fullscreen'
     : t('fullscreenEnter') || 'Full screen';
   const isAuthenticated = !!loginToken && !!user?.userID;
+  const userDisplayName = user?.userName || user?.eMail || t('login.user');
+  const userInitials = (() => {
+    const source = (user?.userName || user?.eMail || 'U').trim();
+    const parts = source.split(/[\s._@-]+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    }
+    return source.slice(0, 2).toUpperCase();
+  })();
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
   const showKnownFacts =
     !!memori.enableDeepThought && !!loginToken && !!user?.pAndCUAccepted;
@@ -543,19 +552,40 @@ const Header: React.FC<Props> = ({
             trigger: {
               className: cx(
                 'memori-dropdown--user-trigger',
+                'memori-dropdown--user-trigger--identity',
                 isFullPageChrome && 'memori-dropdown--user-trigger--fullpage'
               ),
               render: (props: React.ComponentProps<typeof Button>) => (
-                <Tooltip title={t('login.user') || 'User'} placement="bottom">
+                <Tooltip title={userDisplayName} placement="bottom">
                   <span style={{ display: 'inline-flex' }}>
                     <IconButton
                       {...props}
                       active={userPopoverOpen}
                       variant={buttonVariant}
-                      className="memori-dropdown--user-trigger-button"
-                      aria-label={t('login.user') || 'User'}
-                      icon={<UserIcon />}
-                    />
+                      className={cx(
+                        'memori-dropdown--user-trigger-button',
+                        'memori-dropdown--user-trigger-button--identity'
+                      )}
+                      aria-label={String(userDisplayName)}
+                    >
+                      <span className="memori-dropdown--user-trigger-name">
+                        {user?.userName || t('login.welcomeUser')}
+                      </span>
+                      {user?.avatarURL ? (
+                        <img
+                          src={user.avatarURL}
+                          alt=""
+                          className="memori-dropdown--user-trigger-avatar"
+                        />
+                      ) : (
+                        <span
+                          className="memori-dropdown--user-trigger-initials"
+                          aria-hidden
+                        >
+                          {userInitials}
+                        </span>
+                      )}
+                    </IconButton>
                   </span>
                 </Tooltip>
               ),

@@ -39,7 +39,7 @@ import AgeVerificationModal from './components/AgeVerificationModal/AgeVerificat
 import SendOnEnterMenu from './components/SendOnEnterMenu/SendOnEnterMenu';
 import ExpertsDrawer from './components/ExpertsDrawer/ExpertsDrawer';
 import SettingsDrawer from './components/SettingsDrawer/SettingsDrawer';
-import LoginDrawer from './components/LoginDrawer/LoginDrawer';
+import LoginModal from './components/LoginModal/LoginModal';
 import MediaWidget from './components/MediaWidget/MediaWidget';
 import MediaItemWidget from './components/MediaWidget/MediaItemWidget';
 
@@ -62,7 +62,7 @@ import './components/ChangeMode/ChangeMode.css';
 import './components/SendOnEnterMenu/SendOnEnterMenu.css';
 import './components/ExpertsDrawer/ExpertsDrawer.css';
 import './components/SettingsDrawer/SettingsDrawer.css';
-import './components/LoginDrawer/LoginDrawer.css';
+import './components/LoginModal/LoginModal.css';
 import './components/MediaWidget/MediaWidget.css';
 import './components/MediaWidget/MediaItemWidget.css';
 
@@ -557,18 +557,18 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
               />
             </section>
 
-            {/* LoginDrawer */}
+            {/* LoginModal */}
             <section style={sectionStyle}>
-              <h2 style={titleStyle}>LoginDrawer</h2>
+              <h2 style={titleStyle}>LoginModal</h2>
               <div style={{ marginBottom: '1rem' }}>
                 <Button
                   variant="primary"
                   onClick={() => setShowLoginDrawer(true)}
                 >
-                  Open Login Drawer
+                  Open Login Modal
                 </Button>
               </div>
-              <LoginDrawer
+              <LoginModal
                 setUser={() => {}}
                 tenant={tenant}
                 open={showLoginDrawer}
@@ -579,6 +579,7 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
                 }}
                 onLogout={() => setShowLoginDrawer(false)}
                 apiClient={memoriApiClient()}
+                memoriName={memori.name}
               />
             </section>
 

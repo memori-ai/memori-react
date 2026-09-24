@@ -1058,38 +1058,26 @@ exports[`renders Header with deep thought logged but without permission flag unc
             <button
               aria-expanded="false"
               aria-haspopup="dialog"
-              aria-label="login.user"
-              class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-dropdown--user-trigger-button"
+              aria-label="nzambello"
+              class="memori-button memori-button--toolbar memori-button--sm memori-icon-button memori-icon-button--labeled memori-dropdown--user-trigger-button memori-dropdown--user-trigger-button--identity"
               data-base-ui-click-trigger=""
               id="base-ui-:r1n:"
               tabindex="0"
               type="button"
             >
               <span
-                class="memori-button__icon"
+                class="memori-button__content"
               >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-user"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <span
+                  class="memori-dropdown--user-trigger-name"
                 >
-                  <path
-                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                  />
-                  <circle
-                    cx="12"
-                    cy="7"
-                    r="4"
-                  />
-                </svg>
+                  nzambello
+                </span>
+                <img
+                  alt=""
+                  class="memori-dropdown--user-trigger-avatar"
+                  src="https://avatars.githubusercontent.com/u/21101435?v=4"
+                />
               </span>
             </button>
           </span>
@@ -1228,38 +1216,26 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
             <button
               aria-expanded="false"
               aria-haspopup="dialog"
-              aria-label="login.user"
-              class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-dropdown--user-trigger-button"
+              aria-label="nzambello"
+              class="memori-button memori-button--toolbar memori-button--sm memori-icon-button memori-icon-button--labeled memori-dropdown--user-trigger-button memori-dropdown--user-trigger-button--identity"
               data-base-ui-click-trigger=""
               id="base-ui-:r20:"
               tabindex="0"
               type="button"
             >
               <span
-                class="memori-button__icon"
+                class="memori-button__content"
               >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-user"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <span
+                  class="memori-dropdown--user-trigger-name"
                 >
-                  <path
-                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                  />
-                  <circle
-                    cx="12"
-                    cy="7"
-                    r="4"
-                  />
-                </svg>
+                  nzambello
+                </span>
+                <img
+                  alt=""
+                  class="memori-dropdown--user-trigger-avatar"
+                  src="https://avatars.githubusercontent.com/u/21101435?v=4"
+                />
               </span>
             </button>
           </span>

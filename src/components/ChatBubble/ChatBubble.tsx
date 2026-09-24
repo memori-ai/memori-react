@@ -471,9 +471,24 @@ const ChatBubble: React.FC<Props> = ({
   };
 
   if (initialStatus) {
+    const isLoginSuccess =
+      message.contextVars?.LOGIN_STATUS === 'success';
     return (
-      <div className="memori-chat--bubble-status-message" role="status">
+      <div
+        className={cx('memori-chat--bubble-status-message', {
+          'memori-chat--bubble-status-message--success': isLoginSuccess,
+        })}
+        role="status"
+      >
         <span className="memori-chat--bubble-status-message-content">
+          {isLoginSuccess && (
+            <Check
+              className="memori-chat--bubble-status-message-check"
+              size={16}
+              strokeWidth={2.5}
+              aria-hidden
+            />
+          )}
           {initialStatus}
         </span>
       </div>

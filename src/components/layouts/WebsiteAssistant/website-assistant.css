@@ -162,19 +162,14 @@
 }
 
 /*
- * Split-panel width for side drawers (login / history / known facts / experts)
+ * Split-panel width for side drawers (history / known facts / experts)
  * — keep in sync with ArtifactDrawer and panel shift (`right: 55%`).
+ * Login is a centered modal gate (not a drawer), so it is excluded.
  */
-.memori-widget.memori-layout-website_assistant
-    .memori-drawer--right.memori--login-drawer,
-.memori-widget.memori-layout-website_assistant
-    .memori-drawer--right.memori-chat-history-drawer,
-.memori-widget.memori-layout-website_assistant
-    .memori-drawer--right.memori-known-facts-drawer,
-.memori-widget.memori-layout-website_assistant
-    .memori-drawer--right.memori--experts-drawer,
-.memori-widget.memori-layout-website_assistant
-    .memori-drawer--right.memori-side-drawer {
+.memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-chat-history-drawer,
+.memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-known-facts-drawer,
+.memori-widget.memori-layout-website_assistant .memori-drawer--right.memori--experts-drawer,
+.memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-side-drawer {
     --memori-modal-size-sm: 55%;
     --memori-modal-size-md: 55%;
     --memori-modal-size-lg: 55%;
@@ -182,17 +177,15 @@
     max-width: 100vw;
 }
 
+.memori-widget.memori-layout-website_assistant .memori-modal.memori-modal--above-website-assistant {
+    z-index: calc(var(--memori-z-index-base, 0) + 1600);
+}
+
 @media (max-width: 1260px) {
-    .memori-widget.memori-layout-website_assistant
-        .memori-drawer--right.memori--login-drawer,
-    .memori-widget.memori-layout-website_assistant
-        .memori-drawer--right.memori-chat-history-drawer,
-    .memori-widget.memori-layout-website_assistant
-        .memori-drawer--right.memori-known-facts-drawer,
-    .memori-widget.memori-layout-website_assistant
-        .memori-drawer--right.memori--experts-drawer,
-    .memori-widget.memori-layout-website_assistant
-        .memori-drawer--right.memori-side-drawer {
+    .memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-chat-history-drawer,
+    .memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-known-facts-drawer,
+    .memori-widget.memori-layout-website_assistant .memori-drawer--right.memori--experts-drawer,
+    .memori-widget.memori-layout-website_assistant .memori-drawer--right.memori-side-drawer {
         --memori-modal-size-sm: 100%;
         --memori-modal-size-md: 100%;
         --memori-modal-size-lg: 100%;

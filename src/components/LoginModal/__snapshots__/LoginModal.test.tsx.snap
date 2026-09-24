@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders LoginModal closed unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal logged in unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal logged with missing data unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal on signup unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal open unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal unlogged unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders LoginModal with OTP form unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;

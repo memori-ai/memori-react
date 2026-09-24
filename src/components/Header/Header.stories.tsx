@@ -4,7 +4,7 @@ import { memori, tenant, history, user } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import LoginDrawer from '../LoginDrawer/LoginDrawer';
+import LoginModal from '../LoginModal/LoginModal';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -99,7 +99,7 @@ const Template: Story<Props> = args => {
             setAvatarType={() => {}}
             setEnablePositionControls={() => {}}
           />
-          <LoginDrawer
+          <LoginModal
             setUser={() => {}}
             tenant={tenant}
             open={!!showLoginDrawer}
@@ -110,6 +110,7 @@ const Template: Story<Props> = args => {
             }}
             onLogout={() => setShowLoginDrawer(false)}
             apiClient={memoriApiClient()}
+            memoriName={args.memori?.name}
           />
           {showKnownFactsDrawer && args.sessionID && (
             <KnownFacts

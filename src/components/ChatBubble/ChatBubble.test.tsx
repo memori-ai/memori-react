@@ -55,6 +55,7 @@ it('renders login and session resume as a status tag', () => {
           fromUser: false,
           text: '',
           initial: 'nzambello has successfully logged in',
+          contextVars: { LOGIN_STATUS: 'success' },
         } as never
       }
     />
@@ -62,7 +63,11 @@ it('renders login and session resume as a status tag', () => {
 
   const status = screen.getByRole('status');
   expect(status).toHaveClass('memori-chat--bubble-status-message');
+  expect(status).toHaveClass('memori-chat--bubble-status-message--success');
   expect(status).toHaveTextContent('nzambello has successfully logged in');
+  expect(
+    container.querySelector('.memori-chat--bubble-status-message-check')
+  ).toBeInTheDocument();
   expect(
     container.querySelector('.memori-chat--bubble-container')
   ).not.toBeInTheDocument();
@@ -83,8 +88,12 @@ it('renders login and session resume as a status tag', () => {
     />
   );
 
-  expect(screen.getByRole('status')).toHaveTextContent(
+  const resumeStatus = screen.getByRole('status');
+  expect(resumeStatus).toHaveTextContent(
     'Session expired, reopening session'
+  );
+  expect(resumeStatus).not.toHaveClass(
+    'memori-chat--bubble-status-message--success'
   );
 });
 
