@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2026-09-24)
+
+
+### Features
+
+* **ChatBubble:** enhance code block rendering with toolbar and copy functionality ([20f0641](https://github.com/memori-ai/memori-react/commit/20f064134e33c284c8702e80d0568c6292bebb41))
+
+
+### Maintenance
+
+*  enhance CSS transitions for smoother animations ([e9626a9](https://github.com/memori-ai/memori-react/commit/e9626a901589734e6dde1cdde5fb6b581f92da13))
+
+
+### Changes
+
+* replace LoginDrawer with LoginModal and update related styles and tests ([ba81550](https://github.com/memori-ai/memori-react/commit/ba8155086cd5ec4cd18daef441c5b6e8c3487872))
+
 ## [9.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.0...v9.0.0-rc.1) (2026-09-22)
 
 
