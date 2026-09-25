@@ -18,6 +18,7 @@ import {
   localTextExtensions,
   officeNativeExtensions,
 } from '../../helpers/constants';
+import { DialogState } from '@memori.ai/memori-api-client/dist/types';
 // Props interface
 interface UploadManagerProps {
   authToken?: string;
@@ -44,6 +45,8 @@ interface UploadManagerProps {
   onUploadLoadingChange?: (loading: boolean, fileCount?: number) => void;
   /** When true, the control does not open the file picker and ignores paste/drop for uploads. */
   disabled?: boolean;
+  /** Sync engine dialog state after MediumSelected. */
+  onMediumSelectedState?: (state: DialogState) => void;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -60,6 +63,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   maxDocumentContentLength = 300000,
   onUploadLoadingChange,
   disabled = false,
+  onMediumSelectedState,
 }) => {
   // Per-document character limit for the inlined `<document_attachment>`
   // content. Does NOT affect the full text uploaded as an asset.
@@ -687,6 +691,7 @@ ${file.textAssetUrl || ''}
           memoriID={memoriID}
           onImageError={handleImageError}
           onValidateImageFile={validateImageFile}
+          onMediumSelectedState={onMediumSelectedState}
         />
       </div>
     </div>
