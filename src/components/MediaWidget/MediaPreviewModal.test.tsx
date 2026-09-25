@@ -175,7 +175,7 @@ describe('MediaPreviewModal', () => {
   });
 
   describe('plain text and markdown', () => {
-    it('renders plain text in Snippet', () => {
+    it('renders plain text in the document reader', () => {
       const medium: Medium = {
         mediumID: 'txt-1',
         mimeType: 'text/plain',
@@ -188,7 +188,7 @@ describe('MediaPreviewModal', () => {
       expect(screen.getByText(/Some plain text/)).toBeInTheDocument();
     });
 
-    it('renders markdown in Snippet', () => {
+    it('renders markdown with headings instead of raw syntax', () => {
       const medium: Medium = {
         mediumID: 'md-1',
         mimeType: 'text/markdown',
@@ -198,7 +198,8 @@ describe('MediaPreviewModal', () => {
       render(
         <MediaPreviewModal medium={medium} onClose={onClose} />
       );
-      expect(screen.getByText(/# Title/)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: 'Title' })).toBeInTheDocument();
+      expect(screen.getByText('Paragraph.')).toBeInTheDocument();
     });
   });
 
@@ -233,7 +234,7 @@ describe('MediaPreviewModal', () => {
   });
 
   describe('document attachment content', () => {
-    it('renders document attachment text in Snippet', () => {
+    it('renders document attachment text in the document reader', () => {
       const medium: Medium = {
         mediumID: 'att-1',
         mimeType: 'text/plain',
@@ -259,9 +260,8 @@ describe('MediaPreviewModal', () => {
       render(
         <MediaPreviewModal medium={medium} onClose={onClose} />
       );
-      const closeWrapper = document.querySelector('.memori-modal--close');
-      expect(closeWrapper).toBeInTheDocument();
-      const closeButton = closeWrapper?.querySelector('button');
+      const closeButton = document.querySelector('.memori-modal__close');
+      expect(closeButton).toBeInTheDocument();
       if (closeButton) {
         fireEvent.click(closeButton);
         expect(onClose).toHaveBeenCalled();

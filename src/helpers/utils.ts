@@ -101,7 +101,8 @@ export const isSafari = (): boolean => {
   if (typeof navigator === 'undefined') return false;
 
   const userAgent = navigator.userAgent;
-  const isSafariUA = userAgent.includes('Safari') && !userAgent.includes('Chrome');
+  const isSafariUA =
+    userAgent.includes('Safari') && !userAgent.includes('Chrome');
   const isWebKit = 'WebKit' in window && !('Chrome' in window);
 
   return isSafariUA || isWebKit;
@@ -305,7 +306,8 @@ export const extractAttachmentLink = (content: string): string | null => {
 };
 
 export const stripDocumentAttachmentTags = (text: string): string => {
-  const documentAttachmentTagRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+  const documentAttachmentTagRegex =
+    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
   return text
     .replace(documentAttachmentTagRegex, '$3')
     .replace(/<attachment_source>\s*[\s\S]*?\s*<\/attachment_source>/g, '')
@@ -355,17 +357,16 @@ export const stripOutputTags = (text: string): string => {
   return stripOutputTags(strippedText);
 };
 
-export const stripReasoningTags = (text: string) => {
-  const reasoningTagRegex = /<think.*?<\/think>/gs;
+export const stripReasoningTags = (text: string): string => {
+  const strippedText = text
+    .replace(/<think\b[^>]*>[\s\S]*?<\/think>/gi, '')
+    .replace(/<think\b[^>]*>[\s\S]*$/gi, '');
 
-  if (!reasoningTagRegex.test(text)) {
+  if (strippedText === text) {
     return text;
   }
 
-  const strippedText = text.replace(reasoningTagRegex, '');
-
-  // Recursively strip nested reasoning tags
-  return strippedText;
+  return stripReasoningTags(strippedText);
 };
 
 /**
@@ -417,7 +418,6 @@ const MAX_MSG_CHARS = 4000;
 const MAX_MSG_WORDS = 300;
 
 export const truncateMessage = (message: string) => {
-
   let truncatedMessage = message;
 
   if (message.length > MAX_MSG_CHARS) {
@@ -589,3 +589,19 @@ export const safeParseJSON = (jsonString: string, fallbackString = false) => {
     return fallbackString ? jsonString : null;
   }
 };
+
+/**
+ * Resolve a boolean widget flag from an explicit client prop, falling back to
+ * the integration config. An explicit `false` still disables the feature.
+ */
+export const resolveOptionalBoolean = (
+  clientValue?: boolean,
+  integrationValue?: boolean
+): boolean => !!(clientValue ?? integrationValue);
+
+export const imgMimeTypes = [
+  'image/jpeg',
+  'image/png',
+  'image/jpg',
+  'image/gif',
+];

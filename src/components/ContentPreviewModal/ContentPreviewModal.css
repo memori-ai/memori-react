@@ -1,128 +1,485 @@
 /* ContentPreviewModal – modern preview modal for files and media */
+/* Stacking above drawers: Modal stacking="stacked" (library z-index 1600). */
 
-/* Stack above Chat History Drawer (z-index: 10000) and other drawers */
-.memori-content-preview-modal.memori-modal {
-  z-index: 10001;
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
+    --memori-content-preview-max-height: calc(
+        100dvh - 2 * var(--memori-spacing-md) - env(safe-area-inset-top, 0px) -
+            env(safe-area-inset-bottom, 0px)
+    );
+
+    display: flex;
+    overflow: hidden;
+    width: min(90vw, 800px);
+    min-width: 0;
+    max-width: min(90vw, 800px);
+    /* Flex item in a centered viewport: content-based min-height grows the
+       popup past the screen and hides the close button. Keep it shrinkable. */
+    min-height: 0;
+    max-height: var(--memori-content-preview-max-height);
+    box-sizing: border-box;
+    flex-direction: column;
+    border-radius: var(--memori-radius-overlay);
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-.memori-content-preview-modal.memori-modal .memori-modal--backdrop,
-.memori-content-preview-modal.memori-modal .memori-modal--container {
-  z-index: 10001;
+@media (min-width: 769px) {
+    .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
+        min-height: min(500px, var(--memori-content-preview-max-height));
+    }
 }
 
-.memori-content-preview-modal.memori-modal .memori-modal--panel {
-  z-index: 10001;
-  overflow: hidden;
-  min-width: 500px;
-  min-height: 500px;
-  border-radius: 16px;
-  background: var(--memori-content-preview-bg, #fafafa);
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
-  overflow-y: auto;
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__popup > .memori-spin {
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__content {
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+    flex-direction: column;
 }
 
 /* Image variant: modal at least 600px wide (capped by viewport on small screens) */
-.memori-content-preview-modal--image.memori-modal .memori-modal--panel {
-  min-width: min(600px, 100vw);
+.memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
+    overflow: hidden;
+    min-width: min(600px, 100%);
+    max-width: min(90vw, 760px);
+    min-height: 0;
 }
 
-.memori-content-preview-modal .memori-modal--title {
-  padding: 1rem 1.25rem 0.75rem;
-  border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
-  color: var(--memori-content-preview-title, #1f2937);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__title {
+    overflow: visible;
+    min-width: 0;
+    max-width: 100%;
+    flex-shrink: 0;
+    padding: 1rem 1.25rem 0.75rem;
+    padding-right: calc(var(--memori-icon-button-size, 44px) + 1.5rem);
+    border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
+    margin-bottom: 0;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: var(--memori-text-weight-semibold);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
 }
 
-.memori-content-preview-modal .memori-modal--close {
-  top: 0.75rem;
-  right: 0.75rem;
+.memori-content-preview-modal--heading {
+    display: flex;
+    min-width: 0;
+    align-items: flex-start;
+    gap: 0.75rem;
 }
 
-.memori-content-preview-modal .memori-modal--close button {
-  border-radius: 10px;
-  background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
-  transition: background 0.2s ease, transform 0.15s ease;
+.memori-content-preview-modal--heading-icon {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--memori-primary-subtle);
+    color: var(--memori-primary);
 }
 
-.memori-content-preview-modal .memori-modal--close button:hover {
-  background: var(--memori-content-preview-close-hover, rgba(0, 0, 0, 0.1));
-  transform: scale(1.05);
+.memori-content-preview-modal--heading-icon svg {
+    width: 1.125rem;
+    height: 1.125rem;
 }
 
-/* Body area */
-.memori-content-preview-modal--body {
-  overflow: auto;
-  max-height: 70vh;
-  padding: 1.25rem;
+.memori-content-preview-modal--heading-copy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.memori-content-preview-modal--heading-title {
+    min-width: 0;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.memori-content-preview-modal--heading-subtitle {
+    color: color-mix(in srgb, var(--memori-text-color) 58%, transparent);
+    font-size: var(--memori-text-size-sm);
+    font-weight: 400;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__close {
+    top: 0.75rem;
+    right: 0.75rem;
 }
 
 .memori-content-preview-modal--body--image {
-  display: flex;
-  min-height: 400px;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  background: var(--memori-content-preview-image-bg, #f3f4f6);
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
 
 .memori-content-preview-modal--body--content {
-  padding: 1rem 1.25rem;
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0;
 }
 
 /* Image */
 .memori-content-preview-modal--image-wrap {
-  display: flex;
-  width: 100%;
-  min-width: 0;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    width: min(72vw, 640px);
+    min-width: 0;
+    max-width: 100%;
+    height: min(56vh, 420px);
+    height: min(56dvh, 420px);
+    min-height: 0;
+    max-height: 100%;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .memori-content-preview-modal--image {
-  width: 100%;
-  height: 100%;
-  max-height: 70vh;
-  border-radius: 8px;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--memori-radius-surface);
+    object-fit: contain;
+}
+
+.memori-file-preview-modal.memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
+    overflow: hidden;
+    background: var(--memori-main-background);
+}
+
+.memori-content-preview-modal--scroll-shell {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.memori-content-preview-modal--scroll-cue {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.75rem 1rem 0.85rem;
+    border: 0;
+    background: linear-gradient(
+        to top,
+        var(--memori-secondary-background) 0%,
+        var(--memori-secondary-background) 38%,
+        color-mix(in srgb, var(--memori-secondary-background) 55%, transparent) 72%,
+        transparent 100%
+    );
+    color: color-mix(in srgb, var(--memori-text-color) 52%, transparent);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--memori-text-size-sm);
+    font-weight: 500;
+    gap: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.memori-content-preview-modal--scroll-cue:hover,
+.memori-content-preview-modal--scroll-cue:focus-visible {
+    color: color-mix(in srgb, var(--memori-text-color) 78%, transparent);
+}
+
+.memori-content-preview-modal--scroll-cue:focus-visible {
+    outline: 2px solid var(--memori-primary);
+    outline-offset: -2px;
+}
+
+.memori-content-preview-modal--scroll-cue-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-content-preview-modal--scroll-cue-icon {
+        animation: none;
+    }
 }
 
 /* Snippet / text content area */
 .memori-content-preview-modal--snippet-wrap {
-  min-height: 120px;
-  border: 1px solid var(--memori-content-preview-snippet-border, #e2e8f0);
-  border-radius: 12px;
-  background: var(--memori-content-preview-snippet-bg, #f8fafc);
-  color: var(--memori-content-preview-snippet-text, #334155);
-  font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-surface);
+    margin: 1rem 1.25rem;
+    background: var(--memori-main-background);
+    color: var(--memori-text-color);
+    font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: var(--memori-text-size-sm);
+    line-height: var(--memori-text-line-relaxed);
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
+    scrollbar-width: thin;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.memori-content-preview-modal--snippet-wrap--document {
+    padding: 1.25rem 1.5rem 2rem;
+    border: 0;
+    margin: 0;
+    background: transparent;
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-md);
+    line-height: 1.65;
+    white-space: normal;
+}
+
+.memori-content-preview-modal--scroll-shell--cue .memori-content-preview-modal--snippet-wrap {
+    padding-bottom: 3.75rem;
+}
+
+/* Rendered markdown */
+.memori-content-preview-modal--markdown {
+    min-width: 0;
+    max-width: 100%;
+    color: var(--memori-text-color);
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-md);
+    line-height: 1.65;
+}
+
+.memori-content-preview-modal--markdown > :first-child {
+    margin-top: 0;
+}
+
+.memori-content-preview-modal--markdown > :last-child {
+    margin-bottom: 0;
+}
+
+.memori-content-preview-modal--markdown h1,
+.memori-content-preview-modal--markdown h2,
+.memori-content-preview-modal--markdown h3,
+.memori-content-preview-modal--markdown h4,
+.memori-content-preview-modal--markdown h5,
+.memori-content-preview-modal--markdown h6 {
+    margin: 1.35rem 0 0.55rem;
+    color: var(--memori-text-color);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.memori-content-preview-modal--markdown h1 {
+    margin-top: 0;
+    margin-bottom: 0.65rem;
+    font-size: 1.75rem;
+}
+
+.memori-content-preview-modal--markdown h2 {
+    font-size: 1.15rem;
+    font-weight: 650;
+}
+
+.memori-content-preview-modal--markdown h3 {
+    font-size: 1.05rem;
+}
+
+.memori-content-preview-modal--markdown p {
+    margin: 0 0 0.9rem;
+}
+
+.memori-content-preview-modal--markdown strong,
+.memori-content-preview-modal--markdown b {
+    font-weight: 650;
+}
+
+.memori-content-preview-modal--markdown em {
+    font-style: italic;
+}
+
+.memori-content-preview-modal--markdown a {
+    color: var(--memori-primary);
+    text-decoration: none;
+}
+
+.memori-content-preview-modal--markdown a:hover,
+.memori-content-preview-modal--markdown a:focus-visible {
+    text-decoration: underline;
+}
+
+.memori-content-preview-modal--markdown code {
+    padding: 0.12em 0.4em;
+    border-radius: 0.4rem;
+    background: color-mix(in srgb, var(--memori-text-color) 8%, transparent);
+    font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875em;
+}
+
+.memori-content-preview-modal--markdown pre {
+    padding: 0.9rem 1rem;
+    border-radius: var(--memori-radius-surface);
+    margin: 0 0 1rem;
+    background: color-mix(in srgb, var(--memori-text-color) 6%, transparent);
+    overflow-x: auto;
+}
+
+.memori-content-preview-modal--markdown pre code {
+    padding: 0;
+    background: none;
+    font-size: 0.85em;
+    white-space: pre;
+}
+
+.memori-content-preview-modal--markdown ul,
+.memori-content-preview-modal--markdown ol {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+}
+
+.memori-content-preview-modal--markdown li + li {
+    margin-top: 0.25rem;
+}
+
+.memori-content-preview-modal--markdown blockquote {
+    padding: 0.15rem 0 0.15rem 0.9rem;
+    border-left: 3px solid color-mix(in srgb, var(--memori-text-color) 18%, transparent);
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, var(--memori-text-color) 78%, transparent);
+}
+
+.memori-content-preview-modal--markdown hr {
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--memori-text-color) 12%, transparent);
+    margin: 1.25rem 0;
+}
+
+.memori-content-preview-modal--markdown table {
+    width: 100%;
+    margin: 0 0 1rem;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+
+.memori-content-preview-modal--markdown th,
+.memori-content-preview-modal--markdown td {
+    padding: 0.4rem 0.65rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--memori-text-color) 10%, transparent);
+    text-align: left;
+    vertical-align: top;
+}
+
+.memori-content-preview-modal--markdown th {
+    color: color-mix(in srgb, var(--memori-text-color) 62%, transparent);
+    font-weight: 500;
 }
 
 /* When Snippet component is used inside, give it consistent spacing */
 .memori-content-preview-modal--snippet-wrap .memori-snippet {
-  border: none;
-  border-radius: 12px;
-  background: transparent;
-  box-shadow: none;
+    border: none;
+    border-radius: var(--memori-radius-surface);
+    background: transparent;
+    box-shadow: none;
 }
 
 .memori-content-preview-modal--snippet-wrap .memori-snippet--content pre {
-  padding: 1rem 1.25rem;
-  overflow-wrap: break-word;
-  /* Override Prism theme so PDF/text content wraps instead of one long line */
-  white-space: pre-wrap !important;
-  word-break: break-word;
+    padding: 1rem 1.25rem;
+    overflow-wrap: break-word;
+    /* Override Prism theme so PDF/text content wraps instead of one long line */
+    white-space: pre-wrap !important;
+    word-break: break-word;
 }
 
 .memori-content-preview-modal--snippet-wrap .memori-snippet--content pre code {
-  overflow-wrap: break-word;
-  white-space: pre-wrap !important;
-  word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap !important;
+    word-break: break-word;
+}
+
+.memori-content-preview-modal .memori-media-item-preview--content,
+.memori-content-preview-modal .memori-media-item--modal-iframe-wrap,
+.memori-content-preview-modal .memori-media-item--modal-iframe {
+    min-height: 0;
+    max-height: none;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 768px) {
+    .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
+        width: min(92vw, 100%) !important;
+        min-width: 0 !important;
+        max-width: 100%;
+        min-height: 0;
+        max-height: var(--memori-content-preview-max-height);
+    }
+
+    .memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
+        min-width: 0;
+    }
+
+    .memori-content-preview-modal--image-wrap {
+        width: min(84vw, 520px);
+        height: min(48vh, 320px);
+        height: min(48dvh, 320px);
+        max-height: 100%;
+    }
+
+    .memori-content-preview-modal--snippet-wrap {
+        padding: 0.75rem;
+        margin: 0.75rem;
+    }
+
+    .memori-content-preview-modal--snippet-wrap--document {
+        padding: 1rem 1.1rem 2rem;
+        margin: 0;
+    }
+
+    .memori-content-preview-modal--snippet-wrap .memori-snippet {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .memori-content-preview-modal--markdown h1 {
+        font-size: 1.45rem;
+    }
 }

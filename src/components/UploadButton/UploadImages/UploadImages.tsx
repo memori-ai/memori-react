@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Spin from '../../ui/Spin';
-import Alert from '../../ui/Alert';
-import { ImageIcon } from '../../icons/Image';
-import Modal from '../../ui/Modal';
+import { Field, FieldGroup, Input, Spin } from '@memori.ai/ui';
+import { Image as ImageIcon } from 'lucide-react';
+import { Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Asset, DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import Button from '../../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { compressImage } from '../../../helpers/imageCompression';
 
 // Types
@@ -34,7 +33,10 @@ interface UploadImagesProps {
   onLoadingChange?: (loading: boolean, fileCount?: number) => void;
   maxImages?: number;
   memoriID?: string;
-  onImageError?: (error: { message: string; severity: 'error' | 'warning' | 'info' }) => void;
+  onImageError?: (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => void;
   onValidateImageFile?: (file: File) => boolean;
   /** Sync engine dialog state after MediumSelected. */
   onMediumSelectedState?: (state: DialogState) => void;
@@ -104,7 +106,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             count: skipped,
             max: maxImages,
             defaultValue: `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
-          }) ?? `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
+          }) ??
+          `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
         severity: 'warning',
       });
     }
@@ -136,11 +139,11 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       const file = validFiles[0];
       setSelectedFile(file);
       setFilePreview(URL.createObjectURL(file));
-      
+
       // Set initial title as filename without extension
       const fileName = file.name.split('.').slice(0, -1).join('.');
       setImageTitle(fileName);
-      
+
       // Show upload modal with preview
       setShowUploadModal(true);
     } else {
@@ -158,7 +161,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     setIsLoading(true);
 
     try {
-      const uploadPromises = files.map(async (file) => {
+      const uploadPromises = files.map(async file => {
         // Compress image before upload
         let fileToUpload = file;
         try {
@@ -177,13 +180,16 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           mediumID: string | undefined;
           url: string;
           mimeType: string;
-        } | null>((resolve) => {
+        } | null>(resolve => {
           const reader = new FileReader();
-          
-          reader.onload = async (e) => {
+
+          reader.onload = async e => {
             const fileDataUrl = e.target?.result as string;
             const fileId = Math.random().toString(36).substr(2, 9);
-            const fileName = fileToUpload.name.split('.').slice(0, -1).join('.');
+            const fileName = fileToUpload.name
+              .split('.')
+              .slice(0, -1)
+              .join('.');
 
             if (client) {
               try {
@@ -196,7 +202,11 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                     fileDataUrl,
                     authToken
                   );
-                } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
+                } else if (
+                  memoriID &&
+                  sessionID &&
+                  backend?.uploadAssetUnlogged
+                ) {
                   response = await backend.uploadAssetUnlogged(
                     fileToUpload.name,
                     fileDataUrl,
@@ -330,7 +340,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               response = await backend.uploadAsset(
                 fileToUpload.name,
                 fileDataUrl,
-                authToken,
+                authToken
                 // memoriID
               );
             } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
@@ -460,6 +470,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
       {/* Upload image button */}
       <button
+        type="button"
         className={cx(
           'memori-button',
           'memori-button--circle',
@@ -467,6 +478,9 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           'memori-share-button--button',
           'memori--conversation-button',
           'memori--image-upload-button'
+        )}
+        aria-label={String(
+          t('upload.addImage', { defaultValue: 'Upload image' })
         )}
         onClick={() => imageInputRef.current?.click()}
         disabled={
@@ -476,70 +490,59 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
         ) : (
-          <ImageIcon className="memori--upload-icon" />
+          <ImageIcon className="memori--upload-icon" aria-hidden />
         )}
       </button>
 
       {/* Upload Modal with Title Input */}
       <Modal
-        width="80%"
-        widthMd="80%"
         open={showUploadModal && !!selectedFile}
-        className="memori--modal-preview-file"
+        className="memori--modal-preview-file memori--upload-image-preview-modal"
         onClose={handleCancelUpload}
-        closable
-        // title={t('upload.titleImage', { title: imageTitle })}
-        // description={t('upload.imageTitleDescription')}
-      >
-        <div
-          className="memori--preview-content"
-          style={{
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            textAlign: 'center',
-          }}
-        >
-          {filePreview && (
-            <img
-              src={filePreview}
-              alt={selectedFile?.name || 'Preview'}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '40vh',
-                marginBottom: '20px',
-              }}
-            />
-          )}
-
+        footer={
           <div
-            style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'left' }}
+            style={{
+              display: 'flex',
+              gap: 'var(--memori-spacing-sm)',
+              justifyContent: 'end',
+              alignItems: 'center',
+            }}
           >
-            <p style={{ marginBottom: '10px', color: '#666' }}>
-              {t('upload.titleHelp')}
-            </p>
-            <input
-              value={imageTitle}
-              onChange={e => setImageTitle(e.target.value)}
-              placeholder={t('upload.titlePlaceholder') ?? 'Enter image title'}
-              style={{ width: '90%', marginBottom: '20px' }}
-              className="memori--upload-title-input"
-            />
-            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+            <Button onClick={handleCancelUpload} variant="outline">
+              {t('cancel') ?? 'Cancel'}
+            </Button>
             <Button
-                onClick={handleCancelUpload}
-                className="memori-button memori-button--outline memori--upload-image"
-              >
-                {t('cancel') ?? 'Cancel'}
-              </Button>
-              <Button
-                onClick={handleTitleSubmit}
-                disabled={!selectedFile || !imageTitle.trim()}
-                className="memori-button memori-button--primary memori-button--image-confirm memori--upload-image"
-              >
-                {t('confirm') ?? 'Confirm'}
-              </Button>
-            </div>
+              onClick={handleTitleSubmit}
+              disabled={!selectedFile || !imageTitle.trim()}
+            >
+              {t('confirm') ?? 'Confirm'}
+            </Button>
           </div>
+        }
+        closable
+        title={t('upload.titleImage') || 'Image title'}
+        description={t('upload.titleHelp')}
+      >
+        <div className="memori--preview-content memori--upload-image-preview-content">
+          {filePreview && (
+            <div className="memori--upload-image-preview-frame">
+              <img
+                src={filePreview}
+                alt={selectedFile?.name || 'Preview'}
+                className="memori--upload-image-preview"
+              />
+            </div>
+          )}
+          <FieldGroup
+            label={t('upload.titlePlaceholder') ?? 'Enter image title'}
+          >
+            <Input
+              value={imageTitle}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setImageTitle(e.target.value)
+              }
+            />
+          </FieldGroup>
         </div>
       </Modal>
     </div>

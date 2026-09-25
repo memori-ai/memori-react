@@ -8,6 +8,7 @@ esm
 storybook-static
 tsconfig.tsbuildinfo
 coverage
+.superpowers/
 /.pnp
 .pnp.*
 .yarn/*

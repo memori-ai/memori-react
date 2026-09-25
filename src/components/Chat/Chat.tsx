@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   memo,
   useMemo,
   useRef,
@@ -16,10 +17,7 @@ import {
   Tenant,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import {
-  hasTouchscreen,
-  parseDocumentAttachmentsFromMessage,
-} from '../../helpers/utils';
+import { hasTouchscreen } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import MediaWidget, {
@@ -30,12 +28,19 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
-import { DocumentIcon } from '../icons/Document';
+import { ChevronDown, FileText as DocumentIcon } from 'lucide-react';
+import {
+  isChatScrolledToBottom,
+  scrollChatToBottom,
+} from '../../helpers/chatScroll';
 import { useTranslation } from 'react-i18next';
-import { maxDocumentsPerMessage, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
-import Modal from '../ui/Modal';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip, Modal } from '@memori.ai/ui';
+import {
+  maxDocumentsPerMessage,
+  maxDocumentContentLength,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
+} from '../../helpers/constants';
 import {
   BADGE_EMOJI,
   buildLlmUsageHtml,
@@ -48,6 +53,20 @@ import {
   LlmUsageOnLine,
   UsageBadgeType,
 } from '../../helpers/llmUsage';
+
+const CODE_MIME_TYPES = [
+  'text/javascript',
+  'text/ecmascript',
+  'application/json',
+  'text/css',
+  'application/xml',
+  'application/x-sh',
+  'text/x-python',
+  'text/x-c++src',
+  'application/x-php',
+  'text/x-ruby',
+  'text/x-sql',
+];
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -107,7 +126,12 @@ export interface Props {
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
   /** Max attachments (docs + images) per message. */
-
+  /** Integration global background image URL applied to `.memori-chat--content`. */
+  globalBackground?: string;
+  /** Optional branding node for the conversation footer row. */
+  footerBrand?: React.ReactNode;
+  /** When false, hides the AI disclaimer in the footer. */
+  showAiGeneratedNote?: boolean;
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -169,13 +193,19 @@ const Chat: React.FC<Props> = ({
   showFunctionCache = false,
   maxTotalMessagePayload,
   maxTextareaCharacters,
+  globalBackground,
+  footerBrand,
+  showAiGeneratedNote = true,
 }) => {
-
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
   const [activeUsageBadge, setActiveUsageBadge] =
     useState<UsageBadgeModalState | null>(null);
   const chatWrapperRef = useRef<HTMLDivElement>(null);
+  const chatContentRef = useRef<HTMLDivElement>(null);
+  const pendingScrollToBottomRef = useRef(false);
+  const prevHistoryLengthRef = useRef(history.length);
   const { t } = useTranslation();
   const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
 
@@ -197,7 +227,7 @@ const Chat: React.FC<Props> = ({
         defaultValue: 'Click one of these buttons to show more information',
       }),
     }),
-    [t],
+    [t]
   );
 
   const usageHtmlByIndex = useMemo(
@@ -211,67 +241,89 @@ const Chat: React.FC<Props> = ({
               messageWithUsage.llmUsage,
               llmUsageLabels,
               index,
-              locale,
+              locale
             )
           : '';
       }),
-    [history, llmUsageLabels, locale, showMessageConsumption],
+    [history, llmUsageLabels, locale, showMessageConsumption]
   );
+
+  const enteringMessageIndexRef = useRef<number | null>(null);
+  if (history.length === prevHistoryLengthRef.current + 1) {
+    enteringMessageIndexRef.current =
+      isHistoryView || isChatlogPanel || preview ? null : history.length - 1;
+  } else if (history.length !== prevHistoryLengthRef.current) {
+    enteringMessageIndexRef.current = null;
+  }
+
+  useLayoutEffect(() => {
+    prevHistoryLengthRef.current = history.length;
+  }, [history.length]);
+
+  const enteringMessageIndex = enteringMessageIndexRef.current;
+
   const scrollToBottom = useCallback(() => {
-    if (isHistoryView) return;
-    setTimeout(() => {
-      let userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
-      userMsgs[userMsgs.length - 1]?.scrollIntoView?.({
-        block: 'nearest',
-        inline: 'nearest',
-      });
-    }, 200);
-  }, [isHistoryView]);
-
-  // Avoid re-scrolling when `history` is recreated with same content (e.g. on every keystroke).
-  const lastAutoscrollSignatureRef = useRef<string | null>(null);
-  const lastMessage = history?.[history.length - 1];
-  const lastMessageSignature = `${history?.length ?? 0}|${
-    lastMessage?.timestamp ?? ''
-  }|${lastMessage?.fromUser ? 'u' : 'm'}|${lastMessage?.text?.length ?? 0}|${
-    lastMessage?.translatedText?.length ?? 0
-  }`;
-  useEffect(() => {
-    // if we are in preview mode or in history view, don't scroll to the bottom
     if (preview || isHistoryView) return;
-    // if the last message signature is the same as the previous one, don't scroll to the bottom
-    if (lastAutoscrollSignatureRef.current === lastMessageSignature) return;
-    // set the last autoscroll signature to the current one
-    lastAutoscrollSignatureRef.current = lastMessageSignature;
-    // scroll to the bottom
-    scrollToBottom();
-  }, [preview, isHistoryView, lastMessageSignature, scrollToBottom]);
+    const content = chatContentRef.current;
+    if (!content) return;
+    scrollChatToBottom(content);
+  }, [isHistoryView, preview]);
 
-  // Scroll to bottom when textarea is expanded
-  // useEffect(() => {
-  //   if (isTextareaExpanded && !isHistoryView) {
-  //     setTimeout(() => {
-  //       scrollToBottom();
-  //     }, 250);
-  //   }
-  // }, [isTextareaExpanded, isHistoryView]);
+  const requestScrollToBottom = useCallback(() => {
+    pendingScrollToBottomRef.current = true;
+    scrollToBottom();
+  }, [scrollToBottom]);
+
+  const handleSendMessage = useCallback(
+    (msg: string, media?: (Medium & { type: string })[]) => {
+      requestScrollToBottom();
+      sendMessage(msg, media);
+    },
+    [requestScrollToBottom, sendMessage]
+  );
+
+  const handleSimulateUserPrompt = useCallback(
+    (text: string, translatedText?: string) => {
+      requestScrollToBottom();
+      simulateUserPrompt(text, translatedText);
+    },
+    [requestScrollToBottom, simulateUserPrompt]
+  );
+
+  const updateJumpToLatestVisibility = useCallback(() => {
+    const content = chatContentRef.current;
+    if (!content || preview || isHistoryView) {
+      setShowJumpToLatest(false);
+      return;
+    }
+    setShowJumpToLatest(!isChatScrolledToBottom(content));
+  }, [isHistoryView, preview]);
+
+  useLayoutEffect(() => {
+    if (!pendingScrollToBottomRef.current) return;
+    pendingScrollToBottomRef.current = false;
+    scrollToBottom();
+    updateJumpToLatestVisibility();
+  }, [history, scrollToBottom, updateJumpToLatestVisibility]);
+
+  useEffect(() => {
+    const content = chatContentRef.current;
+    if (!content) return;
+    const onScroll = () => updateJumpToLatestVisibility();
+    content.addEventListener('scroll', onScroll, { passive: true });
+    updateJumpToLatestVisibility();
+    return () => content.removeEventListener('scroll', onScroll);
+  }, [updateJumpToLatestVisibility]);
+
+  useLayoutEffect(() => {
+    updateJumpToLatestVisibility();
+  }, [history, memoriTyping, updateJumpToLatestVisibility]);
 
   const onTextareaFocus = () => {
     stopListening();
     const hasTouch = hasTouchscreen();
 
     if (hasTouch) setEnableFocusChatInput(true);
-    // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
-    // if (hasTouch && window.innerWidth <= 768) {
-    //   document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
-    //   // add the chat-focused class to the memori widget
-    //   document
-    //     .querySelector('.memori.memori-widget')
-    //     ?.classList?.add('chat-focused');
-    //   setTimeout(() => {
-    //     scrollToBottom();
-    //   }, 300);
-    // }
   };
   const onTextareaBlur = () => {
     if (
@@ -283,7 +335,6 @@ const Chat: React.FC<Props> = ({
       document
         .querySelector('.memori.memori-widget')
         ?.classList?.remove('chat-focused');
-      scrollToBottom();
     }
   };
 
@@ -357,12 +408,14 @@ const Chat: React.FC<Props> = ({
     const handleUsageBadgeClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       const button = target?.closest<HTMLElement>(
-        '[data-llm-badge-type][data-line-index]',
+        '[data-llm-badge-type][data-line-index]'
       );
       if (!button) return;
 
       const lineIndex = Number(button.dataset.lineIndex);
-      const badgeType = button.dataset.llmBadgeType as UsageBadgeType | undefined;
+      const badgeType = button.dataset.llmBadgeType as
+        | UsageBadgeType
+        | undefined;
       if (!Number.isInteger(lineIndex) || !badgeType) return;
 
       const line = (history?.[lineIndex] as MessageWithLlmUsage) ?? null;
@@ -404,13 +457,27 @@ const Chat: React.FC<Props> = ({
         </div>
       )}
       <div
+        className={cx({ 'memori-conversation-column': showInputs })}
+        style={showInputs ? undefined : { display: 'contents' }}
+      >
+      <div
         className={cx('memori-chat--history', {
           'memori-chat--history-touch': hasTouchscreen(),
+          'memori-chat--history--has-global-background': !!globalBackground,
         })}
+        style={
+          globalBackground
+            ? ({
+                ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
+              } as React.CSSProperties)
+            : undefined
+        }
       >
         <div
+          ref={chatContentRef}
           className={cx('memori-chat--content', {
             'memori-chat--content-touch': hasTouchscreen(),
+            'memori-chat--content--has-global-background': !!globalBackground,
           })}
         >
           <div
@@ -439,134 +506,80 @@ const Chat: React.FC<Props> = ({
                   : 'no-attachments'
               }-${message.timestamp}`}
             >
-              <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
-                links={
-                  (message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
-                    []) as Medium[]
-                }
-                media={[
-                  // Non-function-cache media items (exclude HTML links; those go into `links`)
-                  ...(message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
-                    []),
-
-                  // Extract document attachments from the original message text.
-                  // Use message.text (not translatedText) so internal tags stay intact.
-                  ...parseDocumentAttachmentsFromMessage(
-                    message.text || ''
-                  ).map((attachment, attachmentIndex) => ({
-                    mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-                      .toString(36)
-                      .substr(2, 9)}`,
-                    url: attachment.url,
-                    mimeType: attachment.type,
-                    title: attachment.filename,
-                    content: attachment.content,
-                    properties: { isDocumentAttachment: true },
-                    type: 'document' as const,
-                  })),
-                ]}
-                sessionID={sessionID}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                translateTo={translateTo}
-                customMediaRenderer={customMediaRenderer}
-                fromUser={message.fromUser}
-              />
-
-              <ChatBubble
-                key={`chatbubble-${index}-${
-                  message.text?.includes('<document_attachment')
-                    ? 'has-attachments'
-                    : 'no-attachments'
-                }-${message.timestamp}`}
-                isFirst={index === 0}
-                message={message}
-                memori={memori}
-                tenant={tenant}
-                client={client}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                sessionID={sessionID}
-                simulateUserPrompt={simulateUserPrompt}
-                showAIicon={showAIicon}
-                showWhyThisAnswer={showWhyThisAnswer}
-                showTranslationOriginal={showTranslationOriginal}
-                showFeedback={
-                  index === history.length - 1 &&
-                  !message.fromUser &&
-                  dialogState?.acceptsFeedback
-                }
-                user={user}
-                userAvatar={userAvatar}
-                experts={experts}
-                showCopyButton={showCopyButton}
-                useMathFormatting={useMathFormatting}
-                showFunctionCache={showFunctionCache}
-                showReasoning={showReasoning}
-                usageHtml={usageHtmlByIndex[index]}
-              />
-
-              {showDates && !!message.timestamp && (
-                <small
-                  className={`memori-chat--timestamp ${
-                    message.fromUser ? 'text-right' : 'text-left'
-                  }`}
-                >
-                  {new Intl.DateTimeFormat('it', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  }).format(
-                    new Date(
-                      message.timestamp.endsWith('Z')
-                        ? message.timestamp
-                        : `${message.timestamp}Z`
-                    )
-                  )}
-                </small>
-              )}
-
-              {showContextPerLine &&
-                !!Object.keys(message.contextVars ?? {}).length && (
-                  <div className="memori-chat--context-vars">
-                    {Object.keys(message.contextVars ?? {}).map(key =>
-                      message.contextVars?.[key] === '-' ? (
-                        <div
-                          className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
-                          key={key}
-                        >
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : message.contextVars?.[key] === '✔️' ? (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}: {message.contextVars?.[key]}
-                          </span>
-                        </div>
-                      )
-                    )}
-                  </div>
-                )}
-
-              {!isHistoryView && !message.fromUser && (
-                <ArtifactHandler
-                  isChatlogPanel={isChatlogPanel}
+              <div
+                style={{
+                  marginBottom: index === history.length - 1 ? '24px' : 0,
+                }}
+              >
+                <ChatBubble
+                  key={`chatbubble-${index}-${
+                    message.text?.includes('<document_attachment')
+                      ? 'has-attachments'
+                      : 'no-attachments'
+                  }-${message.timestamp}`}
+                  isFirst={index === 0}
                   message={message}
+                  memori={memori}
+                  tenant={tenant}
+                  client={client}
+                  customMediaRenderer={customMediaRenderer}
+                  translateTo={translateTo}
+                  baseUrl={baseUrl}
+                  apiUrl={apiUrl}
+                  sessionID={sessionID}
+                  simulateUserPrompt={handleSimulateUserPrompt}
+                  showAIicon={showAIicon}
+                  showWhyThisAnswer={showWhyThisAnswer}
+                  codeMimeTypes={CODE_MIME_TYPES}
+                  showTranslationOriginal={showTranslationOriginal}
+                  showFeedback={
+                    index === history.length - 1 &&
+                    !message.fromUser &&
+                    dialogState?.acceptsFeedback
+                  }
+                  user={user}
+                  userAvatar={userAvatar}
+                  experts={experts}
+                  showCopyButton={showCopyButton}
+                  useMathFormatting={useMathFormatting}
+                  showFunctionCache={showFunctionCache}
+                  showReasoning={showReasoning}
+                  usageHtml={usageHtmlByIndex[index]}
+                  isChatlogPanel={isChatlogPanel}
+                  showDates={showDates}
+                  animateEnter={index === enteringMessageIndex}
                 />
-              )}
+
+                {showContextPerLine &&
+                  !!Object.keys(message.contextVars ?? {}).length && (
+                    <div className="memori-chat--context-vars">
+                      {Object.keys(message.contextVars ?? {}).map(key =>
+                        message.contextVars?.[key] === '-' ? (
+                          <div
+                            className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
+                            key={key}
+                          >
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : message.contextVars?.[key] === '✔️' ? (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}: {message.contextVars?.[key]}
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+              </div>
             </React.Fragment>
           ))}
 
@@ -574,7 +587,7 @@ const Chat: React.FC<Props> = ({
             dialogState.hints.length > 0 &&
             !memoriTyping && (
               <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
+                simulateUserPrompt={handleSimulateUserPrompt}
                 hints={
                   dialogState.translatedHints
                     ? dialogState.translatedHints
@@ -599,6 +612,11 @@ const Chat: React.FC<Props> = ({
                   : 'en'
               }
               sentence={typingText}
+              memori={memori}
+              tenant={tenant}
+              baseUrl={baseUrl}
+              apiUrl={apiUrl}
+              experts={experts}
               sentences={
                 memori.enableBoardOfExperts
                   ? boardOfExpertsLoadingSentences
@@ -609,6 +627,26 @@ const Chat: React.FC<Props> = ({
           )}
           <div id="end-messages-ref" />
         </div>
+        {showJumpToLatest && (
+          <div className="memori-chat--jump-to-latest">
+            <button
+              type="button"
+              className="memori-chat--jump-to-latest-btn"
+              data-testid="memori-chat-jump-to-latest"
+              aria-label={
+                t('scrollToLatest', {
+                  defaultValue: 'Scroll to latest',
+                }) || 'Scroll to latest'
+              }
+              onClick={() => {
+                scrollToBottom();
+                updateJumpToLatestVisibility();
+              }}
+            >
+              <ChevronDown aria-hidden size={20} />
+            </button>
+          </div>
+        )}
       </div>
 
       {showInputs && (
@@ -618,7 +656,7 @@ const Chat: React.FC<Props> = ({
           dialogState={dialogState}
           instruct={instruct}
           authToken={authToken}
-          sendMessage={sendMessage}
+          sendMessage={handleSendMessage}
           isTyping={memoriTyping}
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
@@ -646,8 +684,11 @@ const Chat: React.FC<Props> = ({
           maxDocumentContentLength={maxDocumentContentLength}
           pasteAsCardLineThreshold={pasteAsCardLineThreshold}
           pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+          showAiGeneratedNote={showAiGeneratedNote}
+          footerBrand={footerBrand}
         />
       )}
+      </div>
 
       <Modal
         open={!!activeUsageBadge}
@@ -660,6 +701,7 @@ const Chat: React.FC<Props> = ({
             : undefined
         }
         className="memori-chat--usage-modal"
+        stacking="stacked"
       >
         {activeUsageBadge?.type === 'llm' && (
           <dl className="memori-chat--usage-details">
@@ -678,7 +720,7 @@ const Chat: React.FC<Props> = ({
               <dd>
                 {formatIntegerValue(
                   activeUsageBadge.usage.totalInputTokens ?? 0,
-                  locale,
+                  locale
                 )}
               </dd>
             </div>
@@ -687,7 +729,10 @@ const Chat: React.FC<Props> = ({
                 {llmUsageLabels.tokens} {llmUsageLabels.output}
               </dt>
               <dd>
-                {formatIntegerValue(activeUsageBadge.usage.outputTokens ?? 0, locale)}
+                {formatIntegerValue(
+                  activeUsageBadge.usage.outputTokens ?? 0,
+                  locale
+                )}
               </dd>
             </div>
           </dl>
@@ -697,11 +742,12 @@ const Chat: React.FC<Props> = ({
           <div className="memori-chat--usage-educational-content">
             <strong className="memori-chat--usage-metric-value">
               {formatImpactWithApiUnit(
-                getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ??
+                  0,
                 activeUsageBadge.usage.energyImpact?.energyUnit,
                 'kWh',
                 'energy',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -711,10 +757,11 @@ const Chat: React.FC<Props> = ({
             >
               <p className="memori-chat--usage-comparable">
                 {getImpactComparison(
-                  getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                  getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ??
+                    0,
                   'energy',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>
@@ -729,7 +776,7 @@ const Chat: React.FC<Props> = ({
                 activeUsageBadge.usage.energyImpact?.gwpUnit,
                 'kgCO2eq',
                 'co2',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -742,7 +789,7 @@ const Chat: React.FC<Props> = ({
                   getMetricValue(activeUsageBadge.usage.energyImpact?.gwp) ?? 0,
                   'co2',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>
@@ -757,7 +804,7 @@ const Chat: React.FC<Props> = ({
                 activeUsageBadge.usage.energyImpact?.wcfUnit,
                 'L',
                 'water',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -770,7 +817,7 @@ const Chat: React.FC<Props> = ({
                   getMetricValue(activeUsageBadge.usage.energyImpact?.wcf) ?? 0,
                   'water',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>

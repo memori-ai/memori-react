@@ -6,9 +6,12 @@ import ChatBubble, { Props } from './ChatBubble';
 import { installMathJax } from '../../helpers/utils';
 
 import './ChatBubble.css';
+import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Widget/Chat bubble',
+  title: 'Internals/Chat bubble',
   component: ChatBubble,
   argTypes: {
     fromUser: {
@@ -46,25 +49,27 @@ const Template: Story<Props> = args => {
   }, [args.useMathFormatting]);
 
   return (
-    <I18nWrapper>
-      <ChatBubble {...args} />
-    </I18nWrapper>
+    <VisemeProvider>
+      <ArtifactProvider>
+        <I18nWrapper>
+          <AlertProvider defaultDuration={5000}>
+            {/* Addons (copy, feedback, …) are hover-only in product UI.
+                Keep them visible here so Storybook can document them. */}
+            <div className="memori-storybook-chat-bubble">
+              <style>{`
+                .memori-storybook-chat-bubble .memori-chat--bubble-addon {
+                  opacity: 1;
+                  pointer-events: auto;
+                  transform: none;
+                }
+              `}</style>
+              <ChatBubble {...args} />
+            </div>
+          </AlertProvider>
+        </I18nWrapper>
+      </ArtifactProvider>
+    </VisemeProvider>
   );
-};
-
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
-Default.args = {
-  memori,
-  tenant,
-  message: {
-    fromUser: false,
-    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
-    initial: false,
-    translatedText:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
-  },
 };
 
 export const Test = Template.bind({});
@@ -105,6 +110,17 @@ FromUser.args = {
   },
 };
 
+export const FromUserWithNewlines = Template.bind({});
+FromUserWithNewlines.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet.\nTurpis a, pretium condimentum dolor.\n\n[Vedi altro](https://memori.ai)',
+    initial: false,
+  },
+};
+
 export const FromUserWithLink = Template.bind({});
 FromUserWithLink.args = {
   memori,
@@ -126,6 +142,29 @@ Initial.args = {
     initial: true,
     translatedText:
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const StatusLoggedIn = Template.bind({});
+StatusLoggedIn.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: '',
+    initial: 'nzambello has successfully logged in',
+  },
+};
+
+export const StatusSessionExpired = Template.bind({});
+StatusSessionExpired.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: '',
+    emitter: 'system',
+    initial: 'Session expired, reopening session',
   },
 };
 
@@ -199,13 +238,14 @@ export const WithAllAddonsContents = Template.bind({});
 WithAllAddonsContents.args = {
   memori,
   tenant,
+  apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
     text: 'Proin libero ante.',
     initial: false,
-    translatedText:
-      'Proin libero ter.',
+    translatedText: 'Proin libero ter.',
     generatedByAI: true,
+    questionAnswered: 'What does this answer use?',
   },
   showFeedback: true,
   simulateUserPrompt: () => {},
@@ -451,6 +491,100 @@ WithMarkdownCode.args = {
   },
 };
 
+/** Demonstrates Prism highlight, language label, and per-block copy on fenced code. */
+export const CodeBlockHighlightAndCopy = Template.bind({});
+CodeBlockHighlightAndCopy.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showCopyButton: true,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Ecco un esempio in **JavaScript** e uno in **Python**.
+
+\`\`\`javascript
+async function fetchStock(productId) {
+  const res = await fetch(\`/api/stock/\${productId}\`);
+  if (!res.ok) throw new Error('Stock unavailable');
+  return res.json();
+}
+
+await fetchStock('SKU-42');
+\`\`\`
+
+\`\`\`python
+def fetch_stock(product_id: str) -> dict:
+    response = requests.get(f"/api/stock/{product_id}")
+    response.raise_for_status()
+    return response.json()
+
+print(fetch_stock("SKU-42"))
+\`\`\`
+
+Usa il pulsante copia in alto a destra di ogni blocco.`,
+  },
+};
+CodeBlockHighlightAndCopy.parameters = {
+  docs: {
+    description: {
+      story:
+        'Markdown fenced code blocks get a language label, Prism syntax highlighting, and a copy button after render.',
+    },
+  },
+};
+
+/** Same code chrome on a dark surface — verifies no white-on-white contrast bug. */
+export const CodeBlockOnDarkBackground: Story<Props> = args => (
+  <div
+    className="memori-widget"
+    data-theme="dark"
+    style={{
+      padding: '1.25rem',
+      borderRadius: 12,
+      background: '#0b0f14',
+      color: '#e8eaed',
+      ['--memori-text-color' as string]: '#f3f4f6',
+      ['--memori-main-background' as string]: '#1a1f26',
+      ['--memori-secondary-background' as string]: '#242b33',
+    }}
+  >
+    <Template {...args} />
+  </div>
+);
+CodeBlockOnDarkBackground.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showCopyButton: true,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `In dark mode i code block devono restare leggibili (sfondo scuro, testo chiaro).
+
+\`\`\`typescript
+type Stock = { productId: string; qty: number };
+
+export function formatStock(item: Stock): string {
+  return \`\${item.productId}: \${item.qty} available\`;
+}
+\`\`\`
+
+Se vedi testo bianco su bianco, il fix del chrome fisso non sta applicandosi.`,
+  },
+};
+CodeBlockOnDarkBackground.parameters = {
+  backgrounds: { default: 'dark' },
+  docs: {
+    description: {
+      story:
+        'Renders the same code-block chrome against a dark theme surface to catch white-on-white regressions.',
+    },
+  },
+};
+
 export const WithOutputCode = Template.bind({});
 WithOutputCode.args = {
   memori,
@@ -639,6 +773,23 @@ WithMarkdownTable.args = {
   message: {
     fromUser: false,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n| Header 1 | Header 2 | Header 3 |\n| -------- | -------- | -------- |\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
+export const WithReasoningStreaming = Template.bind({});
+WithReasoningStreaming.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showReasoning: true,
+  message: {
+    fromUser: false,
+    text: `<think>
+The user is asking whether I'm available. I should greet them warmly, confirm that I'm here, and invite them to tell me what they need.
+
+I will keep the reply short and in the same language as the question.`,
     initial: false,
     generatedByAI: true,
   },
@@ -1003,7 +1154,27 @@ FormattingDetectionDemo.args = {
   tenant,
   message: {
     fromUser: false,
-    text: 'This message demonstrates how the formatting detection works.\n\nBelow are some examples of content that will be detected as requiring formatting:\n\n1. HTML tags: <div>Example</div>\n2. Markdown tables: | Header | Content |\n3. Code blocks: ```javascript\nconst x = 1;\n```\n4. Math formulas: $E = mc^2$\n5. Tabbed data: Name\tAge\tLocation\n\nThe requiresFormatting function will detect these patterns and show a loading spinner.',
+    text: `This message demonstrates how the formatting detection works.
+
+Below are some examples of content that will be detected as requiring formatting:
+
+1. HTML tags: <div>Example</div>
+2. Markdown tables:
+
+| Header | Content |
+| ------ | ------- |
+| A      | B       |
+
+3. Code blocks:
+
+\`\`\`javascript
+const x = 1;
+\`\`\`
+
+4. Math formulas: $E = mc^2$
+5. Tabbed data: Name\tAge\tLocation
+
+The requiresFormatting function will detect these patterns and show a loading spinner.`,
     initial: false,
   },
 };
@@ -1011,7 +1182,7 @@ FormattingDetectionDemo.parameters = {
   docs: {
     description: {
       story:
-        'A demonstration of different content patterns that trigger the loading spinner.',
+        'A demonstration of different content patterns that trigger the loading spinner. Code fences must be on their own lines or marked treats the closing ``` as an opening fence.',
     },
   },
 };

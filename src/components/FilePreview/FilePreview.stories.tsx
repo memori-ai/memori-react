@@ -1,63 +1,60 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import FilePreview from './FilePreview';
 
-import './FilePreview.css';
+const MARKDOWN = `# Artifact Targeted Edits
+
+Documentazione tecnica
+
+**Data** 22 giu 2026  
+**Autore** AI Agent (Cursor)
+
+## Obiettivo
+
+Eliminare la riscrittura integrale degli artifact quando l'utente richiede una modifica puntuale (\`cambia questa frase\`, \`aggiorna il colore\`, \`modifica l'emoji dei pinoli\`).
+
+Prima di questa modifica il Memori riscriveva l'intero documento anche per un cambiamento minimo. Questo rendeva lenta la revisione e perdeva il contesto intorno alla modifica.
+
+## Approccio
+
+1. Individuare il frammento da aggiornare
+2. Applicare la patch in-place
+3. Conservare il resto del documento
+
+Il titolo del file deve restare **sempre leggibile**, anche quando è lungo come \`artifact-targeted-edits-with-a-very-long-filename.md\`.
+
+## Note
+
+- heading, **grassetto** e \`codice inline\` devono restare visibili
+- se il contenuto è più alto del popup, mostrare un cue di scroll invece di un taglio secco
+`;
 
 const meta: Meta = {
-  title: 'Widget/File Preview',
+  title: 'Widget/FilePreview',
   component: FilePreview,
-  argTypes: {
-    disabled: {
-      control: {
-        type: 'boolean',
-      },
-    },
-  },
-  parameters: {
-    controls: { expanded: true },
-  },
-};
-
-
-type Props = {
-  onUpload: (text: string) => void;
 };
 
 export default meta;
 
-const Template: Story<Props> = args => {
-    const [previewFiles, setPreviewFiles] = useState<{ name: string; id: string; content: string; }[]>([]);
+const Template: Story = args => (
+  <I18nWrapper>
+    <div style={{ maxWidth: 480, padding: 16 }}>
+      <FilePreview {...args} />
+    </div>
+  </I18nWrapper>
+);
 
-  return (
-    <I18nWrapper>
-      <div
-        style={{
-          minHeight: '200px',
-          display: 'flex',
-          alignItems: 'flex-end',
-        }}
-      >
-        <FilePreview {...args} previewFiles={previewFiles} removeFile={
-            (id: string) => {
-                setPreviewFiles(previewFiles.filter(file => file.id !== id));
-            }
-        } />
-      </div>
-    </I18nWrapper>
-  );
-};
-
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
-Default.args = {
-  onUpload: () => {},
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  onUpload: () => {},
-  disabled: true,
+export const MarkdownDocument = Template.bind({});
+MarkdownDocument.args = {
+  previewFiles: [
+    {
+      name: 'artifact-targeted-edits.md',
+      id: '1',
+      mimeType: 'text/markdown',
+      type: 'document',
+      content: MARKDOWN,
+    },
+  ],
+  removeFile: () => undefined,
 };

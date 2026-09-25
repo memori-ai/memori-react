@@ -9,7 +9,7 @@ import {
   ANIMATION_URLS,
   AVATAR_POSITION,
   AVATAR_ROTATION,
-  MALE_EXCLUDED_ANIMATIONS,
+  isMaleExcludedAnimation,
   SCALE_LERP_FACTOR,
 } from '../../constants';
 import DynamicShadow from '../../Shadow/DynamicShadow';
@@ -74,7 +74,7 @@ export function FullbodyAvatar({
 
     if (sex !== 'MALE') return clips;
 
-    return clips.filter(clip => !MALE_EXCLUDED_ANIMATIONS.has(clip.name));
+    return clips.filter(clip => !isMaleExcludedAnimation(clip.name));
   }, [baseAnimations, additionalAnimations, needsAdditionalAnimations, sex]);
 
   // Create animation actions from the merged animations

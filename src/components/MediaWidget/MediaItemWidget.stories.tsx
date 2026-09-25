@@ -6,7 +6,7 @@ import MediaItemWidget, { Props } from './MediaItemWidget';
 import './MediaItemWidget.css';
 
 const meta: Meta = {
-  title: 'Media Widget/Media',
+  title: 'Internals/Media',
   component: MediaItemWidget,
   argTypes: {
     translateTo: {
@@ -56,20 +56,6 @@ Default.args = {
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
     {
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5974',
-      mimeType: 'video/mp4',
-      title: 'Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      content: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    {
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5975',
-      mimeType: 'audio/mpeg',
-      title: 'Audio',
-      url: 'https://www.w3schools.com/html/horse.mp3',
-      content: 'https://www.w3schools.com/html/horse.mp3',
-    },
-    {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5976',
       mimeType: 'application/msword',
       title: 'Word',
@@ -84,12 +70,6 @@ Default.args = {
       url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    },
-    {
-      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
-      mimeType: 'image/png',
-      title: 'Verde',
-      url: 'rgb(0, 255, 0)',
     },
   ],
 };
@@ -327,30 +307,6 @@ WithCustomMediaRenderer.args = {
       return <div>Custom Image Renderer</div>;
     }
   },
-};
-
-export const WithRGBColors = Template.bind({});
-WithRGBColors.args = {
-  items: [
-    {
-      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247927',
-      mimeType: 'image/png',
-      title: 'Rosso',
-      url: 'rgb(255, 0, 0)',
-    },
-    {
-      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
-      mimeType: 'image/png',
-      title: 'Verde',
-      url: 'rgb(0, 255, 0)',
-    },
-    {
-      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247929',
-      mimeType: 'image/png',
-      title: 'Blu',
-      url: 'rgb(0, 0, 255)',
-    },
-  ],
 };
 
 export const AllImageTypes = Template.bind({});

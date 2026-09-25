@@ -1,19 +1,170 @@
-.memori-known-facts-modal {
-    z-index: 10000;
-}
-
-.memori-known-facts-actions {
+.memori-known-facts-toolbar {
     display: flex;
-    flex-wrap: wrap;
+    flex-shrink: 0;
     align-items: center;
-    justify-content: flex-end;
-    margin: 1rem 0;
+    gap: var(--memori-spacing-sm);
 }
 
-.memori-known-facts-actions .memori-button[disabled] {
-    opacity: 0.4;
+.memori-known-facts-search {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    align-items: center;
 }
 
-.memori-known-facts-delete-selected {
+.memori-known-facts-search__icon {
+    position: absolute;
+    z-index: 1;
+    left: var(--memori-spacing-md);
+    width: 1.05rem;
+    height: 1.05rem;
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+    pointer-events: none;
+}
+
+.memori-known-facts-search .memori-input,
+.memori-known-facts-search input {
+    padding-left: calc(var(--memori-spacing-md) * 2 + 0.5rem);
+}
+
+.memori-known-facts-count {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-sm);
+    white-space: nowrap;
+}
+
+.memori-known-facts-selection-bar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: var(--memori-border) solid color-mix(in oklch, var(--memori-primary) 28%, var(--memori-border-color));
+    border-radius: var(--memori-radius-surface);
+    background: color-mix(in oklch, var(--memori-primary) 8%, var(--memori-secondary-background));
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-known-facts-selection-bar__count {
+    color: var(--memori-primary);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-known-facts-selection-bar__actions {
+    display: flex;
     margin-left: auto;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-known-facts-selection-bar__delete {
+    border-color: var(--memori-error);
+    border-radius: var(--memori-radius-control);
+    background: var(--memori-error);
+    color: #fff !important;
+}
+
+.memori-known-facts-selection-bar__delete:hover,
+.memori-known-facts-selection-bar__delete:focus-visible {
+    background: color-mix(in oklch, var(--memori-error) 85%, #000);
+    color: #fff !important;
+}
+
+.memori-known-facts-selection-bar__delete svg {
+    color: currentColor;
+}
+
+.memori-known-facts-list {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: var(--memori-spacing-sm);
+    list-style: none;
+}
+
+.memori-known-facts-card {
+    display: flex;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: var(--memori-spacing-md);
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-surface);
+    background: var(--memori-secondary-background);
+    gap: var(--memori-spacing-md);
+}
+
+.memori-known-facts-card--selected {
+    border-color: var(--memori-primary);
+    background: color-mix(in oklch, var(--memori-primary) 6%, var(--memori-secondary-background));
+}
+
+.memori-known-facts-card__content {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-known-facts-card__text {
+    min-width: 0;
+    margin: 0;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-sm);
+    line-height: var(--memori-text-line-normal);
+    overflow-wrap: anywhere;
+}
+
+.memori-known-facts-card__date {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-xs);
+}
+
+.memori-known-facts-card__actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2px;
+}
+
+.memori-known-facts-card__delete {
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+}
+
+.memori-known-facts-card__delete:hover,
+.memori-known-facts-card__delete:focus-visible {
+    background: color-mix(in oklch, var(--memori-error) 10%, transparent);
+    color: var(--memori-error);
+}
+
+/* Confirm-delete danger CTAs: force white label on solid error */
+.memori-known-facts-modal .memori-button--danger,
+.memori-known-facts-modal .memori-button.memori-button--danger {
+    color: #fff !important;
+}
+
+.memori-known-facts-modal .memori-button--danger svg,
+.memori-known-facts-modal .memori-button.memori-button--danger svg {
+    color: currentColor;
+}
+
+.memori-sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .memori-known-facts-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .memori-known-facts-search {
+        flex-basis: 100%;
+    }
 }

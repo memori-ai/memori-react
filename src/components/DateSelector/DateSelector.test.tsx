@@ -110,18 +110,47 @@ describe('DateSelector', () => {
   });
 
   describe('Mobile View', () => {
-    it('renders native date input on mobile', () => {
+    const originalInnerWidth = window.innerWidth;
+
+    beforeEach(() => {
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      });
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: originalInnerWidth,
+      });
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    it('renders native date input on mobile', async () => {
       render(<DateSelector onChange={mockOnChange} />);
 
-      const dateInput = screen.getByLabelText(/date/i);
+      const dateInput = await screen.findByLabelText(/birth date/i);
       expect(dateInput).toBeInTheDocument();
       expect(dateInput).toHaveAttribute('type', 'date');
+    });
+
+    it('shows a placeholder hint when the date is empty', async () => {
+      render(<DateSelector onChange={mockOnChange} />);
+
+      await screen.findByLabelText(/birth date/i);
+      expect(
+        screen.getByText('DD/MM/YYYY')
+      ).toBeInTheDocument();
     });
 
     it('calls onChange when mobile date input changes', async () => {
       render(<DateSelector onChange={mockOnChange} />);
 
-      const dateInput = screen.getByLabelText(/date/i);
+      const dateInput = await screen.findByLabelText(/birth date/i);
       fireEvent.change(dateInput, { target: { value: '1995-06-15' } });
 
       await waitFor(() => {
@@ -138,7 +167,7 @@ describe('DateSelector', () => {
     it('calls onChange with undefined when mobile input is cleared', async () => {
       render(<DateSelector defaultDate="1995-06-15" onChange={mockOnChange} />);
 
-      const dateInput = screen.getByLabelText(/date/i);
+      const dateInput = await screen.findByLabelText(/birth date/i);
       fireEvent.change(dateInput, { target: { value: '' } });
 
       await waitFor(() => {

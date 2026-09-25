@@ -55,7 +55,7 @@ const getStatusMessage = (status: string): string => {
 };
 
 const meta: Meta = {
-  title: 'Completion Provider Status',
+  title: 'Internals/Completion Provider Status',
   component: CompletionProviderStatus as React.ComponentType<any>,
   parameters: {
     layout: 'centered',

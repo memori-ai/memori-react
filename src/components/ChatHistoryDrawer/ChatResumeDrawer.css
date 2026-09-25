@@ -1,0 +1,78 @@
+.memori-chat-resume-drawer--embedded-shell {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+}
+
+.memori-chat-resume-drawer--thread {
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+}
+
+.memori-chat-resume-drawer--embedded-chat {
+    min-height: 0;
+    flex: 1;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--wrapper {
+    height: 100%;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--history {
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--content {
+    padding: 0;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--cover {
+    display: none;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container {
+    padding-right: var(--memori-spacing-md);
+    padding-left: 0;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-message-row {
+    align-items: flex-start;
+}
+
+.memori-chat-resume-drawer--skeletons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-chat-resume-drawer--skeleton-bubble {
+    width: 72%;
+    height: 54px;
+    border-radius: var(--memori-radius-surface);
+    animation: memori-chat-resume-shimmer 1.2s infinite;
+    background: linear-gradient(
+        90deg,
+        color-mix(in oklch, var(--memori-text-color) 6%, transparent) 0%,
+        color-mix(in oklch, var(--memori-text-color) 12%, transparent) 50%,
+        color-mix(in oklch, var(--memori-text-color) 6%, transparent) 100%
+    );
+    background-size: 200% 100%;
+}
+
+@keyframes memori-chat-resume-shimmer {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}

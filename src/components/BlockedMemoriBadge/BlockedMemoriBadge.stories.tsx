@@ -6,7 +6,7 @@ import BlockedMemoriBadge, { Props } from './BlockedMemoriBadge';
 import './BlockedMemoriBadge.css';
 
 const meta: Meta = {
-  title: 'Blocked Memori Badge',
+  title: 'Internals/Blocked Memori Badge',
   component: BlockedMemoriBadge,
   argTypes: {},
   parameters: {
