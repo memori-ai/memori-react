@@ -21,6 +21,8 @@ export interface Props {
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
+  /** Sync engine dialog state after MediumSelected (keeps catch-up fingerprints accurate). */
+  onMediumSelectedState?: (state: DialogState) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
   listening?: boolean;
@@ -58,6 +60,7 @@ const ChatInputs: React.FC<Props> = ({
   sendOnEnter,
   onChangeUserMessage,
   sendMessage,
+  onMediumSelectedState,
   onTextareaFocus,
   onTextareaBlur,
   showMicrophone = false,
@@ -378,6 +381,7 @@ ${text}
                   maxDocumentsPerMessage={maxDocumentsPerMessage}
                   maxDocumentContentLength={maxDocumentContentLength}
                   onUploadLoadingChange={handleUploadLoadingChange}
+                  onMediumSelectedState={onMediumSelectedState}
                 />
               </div>
             )}

@@ -5,7 +5,7 @@ import Alert from '../../ui/Alert';
 import { ImageIcon } from '../../icons/Image';
 import Modal from '../../ui/Modal';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';
+import { Asset, DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import Button from '../../ui/Button';
 import { compressImage } from '../../../helpers/imageCompression';
@@ -36,6 +36,8 @@ interface UploadImagesProps {
   memoriID?: string;
   onImageError?: (error: { message: string; severity: 'error' | 'warning' | 'info' }) => void;
   onValidateImageFile?: (file: File) => boolean;
+  /** Sync engine dialog state after MediumSelected. */
+  onMediumSelectedState?: (state: DialogState) => void;
 }
 
 const UploadImages: React.FC<UploadImagesProps> = ({
@@ -50,6 +52,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   memoriID = '',
   onImageError,
   onValidateImageFile,
+  onMediumSelectedState,
 }) => {
   const { t, i18n } = useTranslation();
   // Client
@@ -221,6 +224,10 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                   } as Medium);
                 }
 
+                if (medium?.currentState) {
+                  onMediumSelectedState?.(medium.currentState);
+                }
+
                 let finalMediumID: string | undefined = undefined;
                 if (medium?.currentState?.currentMedia) {
                   const existingMediumIDs = new Set(
@@ -352,6 +359,10 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                 url: asset.assetURL,
                 mimeType: asset.mimeType,
               } as Medium);
+            }
+
+            if (medium?.currentState) {
+              onMediumSelectedState?.(medium.currentState);
             }
 
             let finalMediumID: string | undefined = undefined;

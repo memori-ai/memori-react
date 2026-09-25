@@ -85,6 +85,8 @@ export interface Props {
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
+  /** Sync engine dialog state after MediumSelected (keeps catch-up fingerprints accurate). */
+  onMediumSelectedState?: (state: DialogState) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
@@ -149,6 +151,7 @@ const Chat: React.FC<Props> = ({
   userMessage = '',
   onChangeUserMessage,
   sendMessage,
+  onMediumSelectedState,
   listening,
   setEnableFocusChatInput,
   isPlayingAudio,
@@ -624,6 +627,7 @@ const Chat: React.FC<Props> = ({
           sessionID={sessionID}
           baseUrl={baseUrl}
           showUpload={showUpload}
+          onMediumSelectedState={onMediumSelectedState}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
           onTextareaFocus={onTextareaFocus}

@@ -95,6 +95,15 @@ import {
   isSessionExpiredNatsError,
   isSessionExpiredNatsResponse,
 } from '../../helpers/nats/isSessionExpiredError';
+import {
+  dialogStateFingerprint,
+  isEnterTextCatchUpReady,
+} from '../../helpers/nats/dialogStateCatchUp';
+
+export {
+  dialogStateFingerprint,
+  isEnterTextCatchUpReady,
+} from '../../helpers/nats/dialogStateCatchUp';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -157,22 +166,6 @@ function readCorrelationID(response: {
 }): string | undefined {
   const value = response.correlationID;
   return typeof value === 'string' && value.length > 0 ? value : undefined;
-}
-
-/** Stable engine-owned fields used to tell whether a pending turn completed. */
-export function dialogStateFingerprint(state: DialogState | undefined): string {
-  if (!state) return '';
-  return JSON.stringify({
-    state: state.state,
-    previousState: state.previousState,
-    emission: state.emission,
-    emitter: state.emitter,
-    lastMatchedMemoryID: state.lastMatchedMemoryID,
-    currentDate: state.currentDate,
-    currentMemoryID: state.currentMemoryID,
-    contextVars: state.contextVars,
-    emittedMedia: state.emittedMedia,
-  });
 }
 
 type MemoriTextEnteredEvent = CustomEvent<{
@@ -2426,7 +2419,7 @@ const MemoriWidget = ({
         return;
       }
 
-      if (dialogStateFingerprint(currentState) === pending.stateBeforeRequest) {
+      if (!isEnterTextCatchUpReady(pending.stateBeforeRequest, currentState)) {
         console.info('[NATS] catch-up: pending turn has not completed yet');
         return;
       }
@@ -3525,6 +3518,12 @@ const MemoriWidget = ({
       setHasUserTypedMessage(true); // Mark that user has typed a message
       sendMessage(msg, media);
       setUserMessage('');
+    },
+    onMediumSelectedState: (state: DialogState) => {
+      // Keep local dialog state in sync for NATS catch-up fingerprints, but do
+      // not surface MediumSelected emissions (e.g. "Ho aggiunto il contenuto.")
+      // as chat bubbles.
+      void translateDialogState(state, userLang, undefined, true);
     },
     stopListening: stopRecording,
     startListening: () => {
