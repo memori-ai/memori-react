@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.2...v9.0.0-rc.3) (2026-09-25)
+
+
+### Bug Fixes
+
+* not updating currentDialogState when uploading media, LLM mesage lost ([5f94ac3](https://github.com/memori-ai/memori-react/commit/5f94ac319151f65413309c0b825aaf5f8d16f0a3))
+
 ## [9.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2026-09-24)
 
 
