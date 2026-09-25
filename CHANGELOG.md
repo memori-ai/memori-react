@@ -1,5 +1,12 @@
 
 
+## [8.45.5](https://github.com/memori-ai/memori-react/compare/v8.45.4...v8.45.5) (2026-09-25)
+
+
+### Bug Fixes
+
+* not updating currentDialogState when uploading media, LLM mesage lost ([5f94ac3](https://github.com/memori-ai/memori-react/commit/5f94ac319151f65413309c0b825aaf5f8d16f0a3))
+
 ## [8.45.4](https://github.com/memori-ai/memori-react/compare/v8.45.3...v8.45.4) (2026-09-18)
 
 
