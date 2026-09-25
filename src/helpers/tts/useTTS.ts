@@ -19,6 +19,8 @@ export interface TTSConfig {
   model?: string;
   region?: string; // richiesto per Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
+  /** Active Memori dialog session — required by the speech API for authorization */
+  sessionId?: string;
   layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULLPAGE' | 'TOTEM';
 }
 
@@ -279,6 +281,10 @@ export function useTTS(
   // Helper function to handle text-to-speech for a single chunk of text
   const speakChunk = useCallback(
     async (chunkText: string): Promise<void> => {
+      if (!config.sessionId) {
+        throw new Error('Missing sessionId for TTS request');
+      }
+
       // Make API request to TTS endpoint
       const response = await fetch(options.apiUrl || '/api/tts', {
         method: 'POST',
@@ -288,6 +294,7 @@ export function useTTS(
         body: JSON.stringify({
           text: chunkText,
           tenant: config.tenant || 'www.aisuru.com',
+          sessionId: config.sessionId,
           voice: config.voice,
           model: config.model || 'tts-1',
           region: config.region,
