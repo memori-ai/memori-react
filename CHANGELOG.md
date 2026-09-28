@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.3...v9.0.0-rc.4) (2026-09-28)
+
+
+### Features
+
+* add session ID support to TTS and STT configurations for enhanced authorization ([28c677f](https://github.com/memori-ai/memori-react/commit/28c677f0d2baa7db98e368fa3438184ce8bf973c))
+* implement speech error handling and session management in TTS and STT components ([fcc11c0](https://github.com/memori-ai/memori-react/commit/fcc11c07ba745abee3f882e96ac0c1f258862d72))
+* **speech:** implement speech error handling and session management in TTS and STT ([c607801](https://github.com/memori-ai/memori-react/commit/c6078014b6ba1465a89a11632968b5e4d6c62223))
+
+
+### Maintenance
+
+* release v8.45.5 ([3531f47](https://github.com/memori-ai/memori-react/commit/3531f472ae0ac68d3ec3dcd3dc2c289308394bd7))
+* release v8.45.6 ([0850370](https://github.com/memori-ai/memori-react/commit/08503700580c14994fb59d60d01ef45619a78d09))
+
 ## [9.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.2...v9.0.0-rc.3) (2026-09-25)
 
 
