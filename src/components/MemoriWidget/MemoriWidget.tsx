@@ -99,6 +99,10 @@ import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
+import {
+  SpeechRequestError,
+  speechErrorI18nKey,
+} from '../../helpers/speech/speechRequest';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
 import { useNats } from '../../helpers/nats/useNats';
@@ -1437,9 +1441,14 @@ const MemoriWidget = ({
   /**
    * Sessione
    */
-  const [sessionId, setSessionId] = useState<string | undefined>(
+  const [sessionId, setSessionIdState] = useState<string | undefined>(
     initialSessionID
   );
+  const sessionIdRef = useRef<string | undefined>(initialSessionID);
+  const setSessionId = (id: string | undefined) => {
+    sessionIdRef.current = id;
+    setSessionIdState(id);
+  };
   const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
   const setCurrentDialogState = (state?: DialogState) => {
     _setCurrentDialogState(state);
@@ -2108,6 +2117,7 @@ const MemoriWidget = ({
       ),
       tenant: tenantID,
       sessionId,
+      sessionIdRef,
       region: 'westeurope',
       voiceType: memori.voiceType,
       layout: selectedLayout,
@@ -2120,6 +2130,7 @@ const MemoriWidget = ({
       selectedLayout,
       tenantID,
       sessionId,
+      sessionIdRef,
     ]
   );
 
@@ -2129,9 +2140,23 @@ const MemoriWidget = ({
       language: getCultureCodeByLanguage(userLang),
       tenant: tenantID,
       sessionId,
+      sessionIdRef,
     }),
-    [ttsProvider, userLang, tenantID, sessionId]
+    [ttsProvider, userLang, tenantID, sessionId, sessionIdRef]
   );
+
+  const reportSpeechError = useCallback((error: Error) => {
+    const key = speechErrorI18nKey(error);
+    add(
+      createAlertOptions({
+        description: key ? t(key) : error.message,
+        severity:
+          error instanceof SpeechRequestError && error.code === 'rate_limited'
+            ? 'warning'
+            : 'error',
+      })
+    );
+  }, [add, t]);
 
   const resolvedDefaultSpeakerActive =
     defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true;
@@ -2151,6 +2176,7 @@ const MemoriWidget = ({
       apiUrl: `${baseUrl}/api/tts`,
       continuousSpeech: continuousSpeech,
       preview: preview,
+      onError: reportSpeechError,
     },
     autoStart,
     defaultEnableAudio,
@@ -2209,6 +2235,7 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
+      onError: reportSpeechError,
     },
     defaultEnableAudio
   );
