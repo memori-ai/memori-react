@@ -5,6 +5,11 @@
 // - OpenAI: Supports multiple formats including webm, mp4, ogg
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { getLocalConfig } from '../configuration';
+import {
+  resolveSpeechSessionId,
+  speechErrorFromResponse,
+  speechTenantForRequest,
+} from '../speech/speechRequest';
 
 /**
  * Configuration for STT
@@ -15,6 +20,13 @@ export interface STTConfig {
   model?: string;
   region?: string; // required for Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
+  /** Active Memori dialog session. Required by `/api/stt` on every request. */
+  sessionId?: string;
+  /**
+   * Latest session id, read when the request is sent. Updated as soon as the
+   * session opens, before the next React render.
+   */
+  sessionIdRef?: { current: string | undefined };
 }
 
 /**
@@ -162,6 +174,8 @@ export function useSTT(
   const isRecordingRef = useRef<boolean>(false);
   const isMountedRef = useRef<boolean>(true);
   const apiUrl = options.apiUrl || '/api/stt';
+  const onErrorRef = useRef(options.onError);
+  onErrorRef.current = options.onError;
 
   const initializeRecording = useCallback(async (): Promise<boolean> => {
     try {
@@ -254,8 +268,8 @@ export function useSTT(
           const errorMsg = err instanceof Error ? err : new Error(String(err));
           setRecordingState('error');
 
-          if (options.onError) {
-            options.onError(errorMsg);
+          if (onErrorRef.current) {
+            onErrorRef.current(errorMsg);
           }
         } finally {
           chunksRef.current = [];
@@ -268,8 +282,8 @@ export function useSTT(
         setRecordingState('error');
         isRecordingRef.current = false;
 
-        if (options.onError) {
-          options.onError(errorMsg);
+        if (onErrorRef.current) {
+          onErrorRef.current(errorMsg);
         }
       };
 
@@ -280,8 +294,8 @@ export function useSTT(
         err instanceof Error ? err : new Error('Failed to access microphone');
       setRecordingState('error');
 
-      if (options.onError) {
-        options.onError(errorMsg);
+      if (onErrorRef.current) {
+        onErrorRef.current(errorMsg);
       }
 
       return false;
@@ -294,6 +308,9 @@ export function useSTT(
    */
   const transcribeAudio = useCallback(
     async (audioBlob: Blob): Promise<STTResult> => {
+      const sessionId = resolveSpeechSessionId(config);
+      const tenant = speechTenantForRequest(apiUrl, config.tenant);
+
       const formData = new FormData();
       let fileExtension = 'webm';
 
@@ -311,7 +328,10 @@ export function useSTT(
 
       formData.append('audio', audioBlob, `recording.${fileExtension}`);
       formData.append('provider', config.provider);
-      formData.append('tenant', config.tenant || 'www.aisuru.com');
+      formData.append('sessionId', sessionId);
+      if (tenant) {
+        formData.append('tenant', tenant);
+      }
 
       if (config.language) {
         formData.append('language', config.language);
@@ -331,8 +351,7 @@ export function useSTT(
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `API error: ${response.status}`);
+        throw await speechErrorFromResponse(response);
       }
 
       const data = await response.json();
@@ -384,8 +403,8 @@ export function useSTT(
       setRecordingState('error');
       isRecordingRef.current = false;
 
-      if (options.onError) {
-        options.onError(errorMsg);
+      if (onErrorRef.current) {
+        onErrorRef.current(errorMsg);
       }
     }
   }, [
@@ -419,8 +438,8 @@ export function useSTT(
       setRecordingState('error');
       isRecordingRef.current = false;
 
-      if (options.onError) {
-        options.onError(errorMsg);
+      if (onErrorRef.current) {
+        onErrorRef.current(errorMsg);
       }
     }
   }, [recordingState, options]);

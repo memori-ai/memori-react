@@ -477,6 +477,10 @@
     "SESSION_NOT_FOUND": "Sitzung nicht gefunden",
     "SESSION_IS_NOT_ADMINISTRATIVE": "Nicht-administrative Sitzung",
     "SESSION_EXPIRED": "Sitzung abgelaufen",
+    "speechMissingSession": "Sprache benötigt eine aktive Sitzung",
+    "speechInvalidSession": "Sitzung ungültig",
+    "speechTenantMismatch": "Sprache ist auf dieser Website nicht verfügbar",
+    "speechRateLimited": "Zu viele Sprachanfragen. Bitte kurz warten und erneut versuchen.",
 
     "MEMORI_MISSING_CONFIGURATION": "Zwilling: fehlende Konfiguration",
     "MEMORI_CONFIGURATION_NOT_FOUND": "Zwilling: Konfiguration nicht gefunden",

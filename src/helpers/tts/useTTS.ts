@@ -5,6 +5,11 @@ import { getLocalConfig, setLocalConfig } from '../configuration';
 import { useViseme } from '../../context/visemeContext';
 import { IAudioContext } from 'standardized-audio-context';
 import { isAndroid } from '../utils';
+import {
+  resolveSpeechSessionId,
+  speechErrorFromResponse,
+  speechTenantForRequest,
+} from '../speech/speechRequest';
 
 /**
  * Configurazione per il TTS
@@ -15,6 +20,13 @@ export interface TTSConfig {
   model?: string;
   region?: string; // richiesto per Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
+  /** Active Memori dialog session. Required by `/api/tts` on every request. */
+  sessionId?: string;
+  /**
+   * Latest session id, read when the request is sent. Updated as soon as the
+   * session opens, before the next React render.
+   */
+  sessionIdRef?: { current: string | undefined };
   layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULLPAGE' | 'TOTEM';
 }
 
@@ -32,6 +44,7 @@ export interface UseTTSOptions {
   onEndSpeakStartListen?: () => void;
   preview?: boolean;
   disableSpeaker?: boolean;
+  onError?: (error: Error) => void;
 }
 
 // Create our own simplified audio context interface for better typing
@@ -91,6 +104,8 @@ export function useTTS(
   const isMountedRef = useRef<boolean>(true);
   const currentChunkAudioRef = useRef<HTMLAudioElement | null>(null);
   const apiUrl = options.apiUrl || '/api/tts';
+  const onErrorRef = useRef(options.onError);
+  onErrorRef.current = options.onError;
 
   // Load viseme data into the queue
   const loadVisemeData = useCallback(
@@ -273,15 +288,19 @@ export function useTTS(
   // Helper function to handle text-to-speech for a single chunk of text
   const speakChunk = useCallback(
     async (chunkText: string): Promise<void> => {
+      const sessionId = resolveSpeechSessionId(config);
+      const tenant = speechTenantForRequest(apiUrl, config.tenant);
+
       // Make API request to TTS endpoint
-      const response = await fetch(options.apiUrl || '/api/tts', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           text: chunkText,
-          tenant: config.tenant || 'www.aisuru.com',
+          ...(tenant ? { tenant } : {}),
+          sessionId,
           voice: config.voice,
           model: config.model || 'tts-1',
           region: config.region,
@@ -297,8 +316,7 @@ export function useTTS(
 
       // Handle API errors
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `API error: ${response.status}`);
+        throw await speechErrorFromResponse(response);
       }
 
       // Get audio blob from response and create URL
@@ -427,6 +445,7 @@ export function useTTS(
     [
       config,
       options,
+      apiUrl,
       loadVisemeData,
       createAudioWrapper,
       startProcessing,
@@ -513,6 +532,9 @@ export function useTTS(
         document.dispatchEvent(e);
       } catch (err) {
         console.error('[speak] Error during playback:', err);
+        onErrorRef.current?.(
+          err instanceof Error ? err : new Error(String(err))
+        );
         setIsPlaying(false);
         isSpeakingRef.current = false;
 

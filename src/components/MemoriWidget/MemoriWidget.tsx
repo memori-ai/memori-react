@@ -83,6 +83,10 @@ import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
+import {
+  SpeechRequestError,
+  speechErrorI18nKey,
+} from '../../helpers/speech/speechRequest';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
 import { useNats } from '../../helpers/nats/useNats';
@@ -1338,9 +1342,14 @@ const MemoriWidget = ({
   /**
    * Sessione
    */
-  const [sessionId, setSessionId] = useState<string | undefined>(
+  const [sessionId, setSessionIdState] = useState<string | undefined>(
     initialSessionID
   );
+  const sessionIdRef = useRef<string | undefined>(initialSessionID);
+  const setSessionId = (id: string | undefined) => {
+    sessionIdRef.current = id;
+    setSessionIdState(id);
+  };
   const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
   const setCurrentDialogState = (state?: DialogState) => {
     _setCurrentDialogState(state);
@@ -1977,11 +1986,22 @@ const MemoriWidget = ({
         memori.voiceType as 'MALE' | 'FEMALE' | 'NEUTRAL'
       ),
       tenant: tenantID,
+      sessionId,
+      sessionIdRef,
       region: 'westeurope',
       voiceType: memori.voiceType,
       layout: selectedLayout,
     }),
-    [ttsProvider, userLang, memori.culture, memori.voiceType, selectedLayout]
+    [
+      ttsProvider,
+      userLang,
+      memori.culture,
+      memori.voiceType,
+      selectedLayout,
+      tenantID,
+      sessionId,
+      sessionIdRef,
+    ]
   );
 
   const sttConfig = useMemo(
@@ -1989,8 +2009,26 @@ const MemoriWidget = ({
       provider: ttsProvider,
       language: getCultureCodeByLanguage(userLang),
       tenant: tenantID,
+      sessionId,
+      sessionIdRef,
     }),
-    [ttsProvider, userLang]
+    [ttsProvider, userLang, tenantID, sessionId, sessionIdRef]
+  );
+
+  const reportSpeechError = useCallback(
+    (error: Error) => {
+      const key = speechErrorI18nKey(error);
+      const message = key ? String(t(key)) : error.message;
+      if (
+        error instanceof SpeechRequestError &&
+        error.code === 'rate_limited'
+      ) {
+        toast(message);
+        return;
+      }
+      toast.error(message);
+    },
+    [t]
   );
 
   // Initialize TTS hook with basic options first
@@ -2008,6 +2046,7 @@ const MemoriWidget = ({
       apiUrl: `${baseUrl}/api/tts`,
       continuousSpeech: continuousSpeech,
       preview: preview,
+      onError: reportSpeechError,
     },
     autoStart,
     defaultEnableAudio,
@@ -2063,6 +2102,7 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
+      onError: reportSpeechError,
       // continuousRecording: continuousSpeech,
       // silenceTimeout: continuousSpeechTimeout,
       // autoStart: autoStart,
