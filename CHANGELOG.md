@@ -1,5 +1,12 @@
 
 
+## [8.45.6](https://github.com/memori-ai/memori-react/compare/v8.45.5...v8.45.6) (2026-09-28)
+
+
+### Features
+
+* **speech:** implement speech error handling and session management in TTS and STT ([c607801](https://github.com/memori-ai/memori-react/commit/c6078014b6ba1465a89a11632968b5e4d6c62223))
+
 ## [8.45.5](https://github.com/memori-ai/memori-react/compare/v8.45.4...v8.45.5) (2026-09-25)
 
 
