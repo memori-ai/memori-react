@@ -69,6 +69,82 @@ const MIME_TO_EXT: Record<string, string> = {
   'text/markdown': 'MD',
 };
 
+const EXT_TO_MIME: Record<string, string> = {
+  pdf: 'application/pdf',
+  html: 'text/html',
+  htm: 'text/html',
+  xhtml: 'text/html',
+  txt: 'text/plain',
+  csv: 'text/csv',
+  tsv: 'text/tab-separated-values',
+  json: 'application/json',
+  xml: 'application/xml',
+  md: 'text/markdown',
+  log: 'text/plain',
+  yml: 'text/yaml',
+  yaml: 'text/yaml',
+  css: 'text/css',
+  js: 'text/javascript',
+  doc: 'application/msword',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  docm: 'application/vnd.ms-word.document.macroEnabled.12',
+  dotx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+  xls: 'application/vnd.ms-excel',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  xlsm: 'application/vnd.ms-excel.sheet.macroEnabled.12',
+  xltx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
+  pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  pptm: 'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
+  potx: 'application/vnd.openxmlformats-officedocument.presentationml.template',
+  ods: 'application/vnd.oasis.opendocument.spreadsheet',
+};
+
+const HTML_FILENAME_RE = /\.(html?|xhtml)$/i;
+
+type HtmlAttachmentLike = {
+  mimeType?: string | null;
+  title?: string | null;
+  content?: string | null;
+  url?: string | null;
+  properties?: {
+    isDocumentAttachment?: boolean;
+    isAttachedFile?: boolean;
+  } | null;
+};
+
+export function getOriginalMimeType(
+  filename: string,
+  reportedMime?: string | null
+): string {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  const fromName = ext ? EXT_TO_MIME[ext] : undefined;
+  const reported = (reportedMime || '').split(';')[0].trim();
+
+  if (fromName) {
+    return fromName;
+  }
+
+  return reported || 'application/octet-stream';
+}
+
+export function isHtmlFileAttachment(item: HtmlAttachmentLike): boolean {
+  if (HTML_FILENAME_RE.test(item.title || '')) return true;
+  if (item.mimeType !== 'text/html') return false;
+  if (
+    item.properties?.isDocumentAttachment ||
+    item.properties?.isAttachedFile
+  ) {
+    return true;
+  }
+  return !!item.content?.trim();
+}
+
+export function isHtmlWebLink(item: HtmlAttachmentLike): boolean {
+  return (
+    item.mimeType === 'text/html' && !!item.url && !isHtmlFileAttachment(item)
+  );
+}
+
 export const FALLBACK_IMAGE_BASE64 =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
 
@@ -115,14 +191,21 @@ export function getDocumentBadgeLabel(
   filename?: string | null,
   url?: string | null
 ): string {
-  const fromUrl = getFileExtensionFromUrl(url || undefined);
-  if (fromUrl) {
-    return officeExtensionShortLabels[fromUrl] || fromUrl;
-  }
-
   const fromFilename = getFileExtensionFromUrl(filename || undefined);
   if (fromFilename) {
     return officeExtensionShortLabels[fromFilename] || fromFilename;
+  }
+
+  if (mimeType) {
+    const fromMime = getFileExtensionFromMime(mimeType);
+    if (fromMime && fromMime !== 'FILE') {
+      return fromMime;
+    }
+  }
+
+  const fromUrl = getFileExtensionFromUrl(url || undefined);
+  if (fromUrl) {
+    return officeExtensionShortLabels[fromUrl] || fromUrl;
   }
 
   return getFileExtensionFromMime(mimeType);

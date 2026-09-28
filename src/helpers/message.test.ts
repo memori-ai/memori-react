@@ -123,4 +123,12 @@ describe('stripAllInternalTags', () => {
   it('handles empty string', () => {
     expect(stripAllInternalTags('')).toBe('');
   });
+
+  it('strips output tags including their content', () => {
+    expect(
+      stripAllInternalTags(
+        'We use DJI Mic Mini.\n<output class="memori-emotion">["gioia"]</output>'
+      )
+    ).toBe('We use DJI Mic Mini.');
+  });
 });

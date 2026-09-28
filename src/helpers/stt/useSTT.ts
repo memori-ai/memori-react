@@ -302,7 +302,6 @@ export function useSTT(
     }
   }, [config.provider, options]);
 
-
   /**
    * Transcribe audio blob using the API
    */

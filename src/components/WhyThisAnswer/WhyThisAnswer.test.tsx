@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '../../testUtils';
 import WhyThisAnswer from './WhyThisAnswer';
 import { sessionID } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -14,97 +14,55 @@ beforeEach(() => {
   }));
 });
 
-it('renders WhyThisAnswer hidden unchanged', () => {
-  const { container } = render(
+const message = {
+  questionAnswered: 'Quali microfoni usiamo in produzione?',
+  text: 'Per l\'audio in produzione usiamo il DJI Mic Mini, abbinato al kit luci ULANZI e altro materiale di ripresa per interni, esterni e interviste lunghe che richiedono un registratore di backup.',
+  date: '2021-01-01',
+  placeName: 'Test Place',
+  placeLatitude: 0,
+  placeLongitude: 0,
+  placeUncertaintyKm: 0,
+  contextVars: {
+    KEY: 'value',
+  },
+};
+
+it('does not show the drawer when hidden', () => {
+  render(
     <WhyThisAnswer
       client={memoriApiClient()}
       sessionID={sessionID}
       visible={false}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
+      message={message}
       closeDrawer={jest.fn()}
     />
   );
-  expect(container).toMatchSnapshot();
-});
-
-it('renders WhyThisAnswer visible unchanged', () => {
-  const { container } = render(
-    <WhyThisAnswer
-      client={memoriApiClient()}
-      sessionID={sessionID}
-      visible={true}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
-      closeDrawer={jest.fn()}
-    />
-  );
-  expect(container).toMatchSnapshot();
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 });
 
 it('renders WhyThisAnswer loading unchanged', () => {
-  const { container } = render(
+  render(
     <WhyThisAnswer
       client={memoriApiClient()}
       sessionID={sessionID}
-      visible={true}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
+      visible
+      message={message}
       closeDrawer={jest.fn()}
-      _TEST_loading={true}
+      _TEST_loading
     />
   );
-  expect(container).toMatchSnapshot();
+  expect(document.querySelector('.memori-whythisanswer-skeleton')).toBeInTheDocument();
 });
 
-it('renders WhyThisAnswer with data unchanged', () => {
-  const { container } = render(
+it('shows the question/answer pair and source cards', () => {
+  render(
     <WhyThisAnswer
       client={memoriApiClient()}
       sessionID={sessionID}
-      visible={true}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
+      visible
+      disableFetch
+      message={message}
+      closeDrawer={jest.fn()}
       initialMatches={[
         {
           confidence: 0.8,
@@ -112,134 +70,90 @@ it('renders WhyThisAnswer with data unchanged', () => {
           memory: {
             memoryID: '1',
             memoryType: 'Question',
-            title: 'This is the title of the content',
-            titleVariants: [
-              "This is a variant of the content's title",
-              'This is a test content',
-            ],
+            title: 'Che attrezzatura serve per girare',
             answers: [
               {
-                text: 'This is a test answer',
-              },
-              {
-                text: 'This is another answer',
+                text: 'Il kit base comprende ULANZI MT-44 e DJI Mic Mini.',
               },
             ],
-          },
-        },
-        {
-          confidence: 0.5,
-          confidenceLevel: 'LOW',
-          memory: {
-            memoryID: '2',
-            memoryType: 'Question',
-            title: 'Content with a long answer',
-            titleVariants: undefined,
-            answers: [
-              {
-                text: 'Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi.',
-              },
-            ],
-          },
-        },
-        {
-          confidence: 0.5,
-          confidenceLevel: 'LOW',
-          memory: {
-            memoryID: '3',
-            title: 'Content with sources',
-            titleVariants: undefined,
-            memoryType: 'Question',
-            answers: [
-              {
-                text: 'This is a test answer',
-              },
-            ],
-            media: [
-              {
-                mediumID: '1',
-                mimeType: 'text/plain',
-                content:
-                  'This is a source. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi.',
-              },
-              {
-                mediumID: '2',
-                mimeType: 'text/plain',
-                content:
-                  'This is a source.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit.\nCras lobortis volutpat nunc.\nProin tincidunt enim in felis aliquet, a ultricies purus bibendum.\n\nQuisque in ultrices lectus.\nNulla at urna diam.\n\nProin sodales lobortis libero eu facilisis.',
-              },
-            ],
-          },
-        },
-        {
-          confidence: 0.7,
-          confidenceLevel: 'MEDIUM',
-          memory: {
-            memoryID: '4',
-            title: 'Content with links',
-            memoryType: 'Question',
-            titleVariants: undefined,
-            answers: [
-              {
-                text: 'This is a an answer',
-              },
-            ],
-            media: [
-              {
-                mediumID: '1',
-                mimeType: 'text/html',
-                url: 'https://memori.ai',
-                title: 'Memori.AI',
-              },
-              {
-                mediumID: '2',
-                mimeType: 'text/html',
-                url: 'https://nzambello.dev',
-                title: 'Nicola Zambello',
-              },
-            ],
-          },
-        },
-        {
-          confidence: 0.7,
-          confidenceLevel: 'MEDIUM',
-          memory: {
-            memoryID: '5',
-            memoryType: 'Question',
-            title: 'Content with receiver',
-            titleVariants: undefined,
-            receiverName: 'receiver',
-            receiverTag: '🧑‍💻',
-            answers: [
-              {
-                text: 'This is a an answer',
-              },
-            ],
-            media: [],
-          },
-        },
-        {
-          confidence: 0.5,
-          confidenceLevel: 'MEDIUM',
-          memory: {
-            memoryID: '5',
-            memoryType: 'Question',
-            title: 'Content with context',
-            titleVariants: undefined,
-            contextVars: {
-              KEY: 'VALUE',
-            },
-            answers: [
-              {
-                text: 'This is a an answer',
-              },
-            ],
-            media: [],
           },
         },
       ]}
-      closeDrawer={jest.fn()}
     />
   );
-  expect(container).toMatchSnapshot();
+
+  expect(screen.getByText('whyThisAnswerYouAsked')).toBeInTheDocument();
+  expect(
+    screen.getByText('Quali microfoni usiamo in produzione?')
+  ).toBeInTheDocument();
+  expect(screen.getByText('whyThisAnswerShowFull')).toBeInTheDocument();
+  expect(
+    screen.getByText('Che attrezzatura serve per girare?')
+  ).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'whyThisAnswerOpen' })).toBeInTheDocument();
+  expect(document.querySelector('.memori--whythisanswer-no-results')).toBeNull();
+});
+
+it('hides output tags from the agent reply', () => {
+  render(
+    <WhyThisAnswer
+      client={memoriApiClient()}
+      sessionID={sessionID}
+      visible
+      disableFetch
+      message={{
+        ...message,
+        text: 'Usiamo il DJI Mic Mini.\n<output class="memori-emotion">["gioia"]</output>',
+      }}
+      closeDrawer={jest.fn()}
+      initialMatches={[]}
+    />
+  );
+
+  expect(screen.getByText('Usiamo il DJI Mic Mini.')).toBeInTheDocument();
+  expect(screen.queryByText(/<output/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/memori-emotion/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/gioia/)).not.toBeInTheDocument();
+});
+
+it('shows a neutral empty state for visitors', () => {
+  render(
+    <WhyThisAnswer
+      client={memoriApiClient()}
+      sessionID={sessionID}
+      visible
+      disableFetch
+      message={message}
+      closeDrawer={jest.fn()}
+      initialMatches={[]}
+    />
+  );
+
+  expect(screen.getByText('whyThisAnswerEmptyTitle')).toBeInTheDocument();
+  expect(screen.getByText('whyThisAnswerEmptyDescription')).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: 'whyThisAnswerAddContent' })
+  ).not.toBeInTheDocument();
+});
+
+it('adds the missing-content action for the agent author', () => {
+  const onAddMissingContent = jest.fn();
+  const closeDrawer = jest.fn();
+  render(
+    <WhyThisAnswer
+      client={memoriApiClient()}
+      sessionID={sessionID}
+      visible
+      disableFetch
+      isAgentAuthor
+      onAddMissingContent={onAddMissingContent}
+      message={message}
+      closeDrawer={closeDrawer}
+      initialMatches={[]}
+    />
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'whyThisAnswerAddContent' }));
+  expect(onAddMissingContent).toHaveBeenCalled();
+  expect(closeDrawer).toHaveBeenCalled();
 });

@@ -7,9 +7,12 @@ import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './WhyThisAnswer.css';
+import '../SideDrawer/SideDrawer.css';
+import '../DrawerFooter/DrawerFooter.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'Why This Answer',
+  title: 'Surfaces/Why This Answer',
   component: WhyThisAnswer,
   argTypes: {
     visible: {
@@ -25,26 +28,30 @@ const meta: Meta = {
 
 export default meta;
 
+const defaultMessage = {
+  questionAnswered: 'Test message',
+  text: 'This is a test content',
+  date: '2021-01-01',
+  placeName: 'Test Place',
+  placeLatitude: 0,
+  placeLongitude: 0,
+  placeUncertaintyKm: 0,
+  contextVars: {
+    KEY: 'value',
+  },
+};
+
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <WhyThisAnswer
-      {...args}
-      client={memoriApiClient()}
-      sessionID={sessionID}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
-      closeDrawer={() => {}}
-    />
+    <AlertProvider defaultDuration={5000}>
+      <WhyThisAnswer
+        client={memoriApiClient()}
+        sessionID={sessionID}
+        closeDrawer={() => {}}
+        {...args}
+        message={args.message ?? defaultMessage}
+      />
+    </AlertProvider>
   </I18nWrapper>
 );
 
@@ -53,6 +60,7 @@ const Template: Story<Props> = args => (
 export const Default = Template.bind({});
 Default.args = {
   visible: true,
+  disableFetch: true,
 };
 
 export const Loading = Template.bind({});
@@ -61,9 +69,31 @@ Loading.args = {
   _TEST_loading: true,
 };
 
+export const Empty = Template.bind({});
+Empty.args = {
+  visible: true,
+  disableFetch: true,
+  initialMatches: [],
+};
+
+export const EmptyForAuthor = Template.bind({});
+EmptyForAuthor.args = {
+  visible: true,
+  disableFetch: true,
+  isAgentAuthor: true,
+  initialMatches: [],
+};
+
 export const WithDocumentTagsInQuestion = Template.bind({});
 WithDocumentTagsInQuestion.args = {
   visible: true,
+  disableFetch: true,
+  message: {
+    questionAnswered:
+      '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
+    text: 'Answer text',
+    date: '2021-01-01',
+  },
   initialMatches: [
     {
       confidence: 0.9,
@@ -77,36 +107,6 @@ WithDocumentTagsInQuestion.args = {
     } as SearchMatches,
   ],
 };
-WithDocumentTagsInQuestion.decorators = [
-  (Story: any) => (
-    <I18nWrapper>
-      <WhyThisAnswer
-        visible
-        client={memoriApiClient()}
-        sessionID={sessionID}
-        message={{
-          questionAnswered:
-            '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
-          text: 'Answer text',
-          date: '2021-01-01',
-        }}
-        closeDrawer={() => {}}
-        initialMatches={[
-          {
-            confidence: 0.9,
-            confidenceLevel: 'HIGH',
-            memory: {
-              memoryID: 'tag-1',
-              memoryType: 'Question',
-              title: 'Question with tags',
-              answers: [{ text: 'Clean answer' }],
-            },
-          } as SearchMatches,
-        ]}
-      />
-    </I18nWrapper>
-  ),
-];
 WithDocumentTagsInQuestion.parameters = {
   docs: {
     description: {
@@ -119,6 +119,7 @@ WithDocumentTagsInQuestion.parameters = {
 export const WithDocumentTagsInAnswers = Template.bind({});
 WithDocumentTagsInAnswers.args = {
   visible: true,
+  disableFetch: true,
   initialMatches: [
     {
       confidence: 0.85,
@@ -148,6 +149,7 @@ WithDocumentTagsInAnswers.parameters = {
 export const WithData = Template.bind({});
 WithData.args = {
   visible: true,
+  disableFetch: true,
   initialMatches: [
     {
       confidence: 0.8,

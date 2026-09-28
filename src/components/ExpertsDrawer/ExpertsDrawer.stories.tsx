@@ -6,7 +6,7 @@ import { tenant, expertReference } from '../../mocks/data';
 import './ExpertsDrawer.css';
 
 const meta: Meta = {
-  title: 'Widget/ExpertsDrawer',
+  title: 'Surfaces/ExpertsDrawer',
   component: ExpertsDrawer,
   argTypes: {
     open: {

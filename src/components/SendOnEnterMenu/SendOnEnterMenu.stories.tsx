@@ -6,7 +6,7 @@ import SendOnEnterMenu, { Props } from './SendOnEnterMenu';
 import './SendOnEnterMenu.css';
 
 const meta: Meta = {
-  title: 'Widget/Send On Enter Menu',
+  title: 'Internals/Send On Enter Menu',
   component: SendOnEnterMenu,
   argTypes: {
     sendOnEnter: {

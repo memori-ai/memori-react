@@ -1,9 +1,31 @@
+@import url('../ReasoningBlock/ReasoningBlock.css');
+
 .memori-chat--bubble-container {
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-right: var(--memori-spacing-md);
+    padding-left: var(--memori-spacing-md);
+    /* margin-bottom: 8px; */
+    gap: 8px;
+}
+
+.memori-chat--bubble-container.memori-chat--bubble-from-user {
     align-items: flex-end;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-bottom: 1rem;
+}
+
+.memori-chat--bubble-message-row {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-message-row {
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 
 .memori-chat--bubble-initial {
@@ -11,7 +33,7 @@
     height: 1px;
     flex-shrink: 0;
     margin: 1rem auto;
-    background: #c5c6d1;
+    background: var(--memori-border-color);
 }
 
 .memori-chat--bubble-status-message {
@@ -19,8 +41,8 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem;
-    margin: 1.5rem auto;
+    padding: 0 var(--memori-spacing-md);
+    margin: var(--memori-spacing-md) auto;
 }
 
 .memori-chat--bubble-status-message-content {
@@ -28,19 +50,31 @@
     max-width: 90%;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(76, 111, 255, 0.2);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    background: linear-gradient(135deg, rgba(76, 111, 255, 0.1) 0%, rgba(76, 111, 255, 0.05) 100%);
-    box-shadow: 0 2px 8px rgba(76, 111, 255, 0.1);
-    color: var(--memori-primary, #4c6fff);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--memori-main-background, #fff) 92%, transparent);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-medium);
+    gap: 0.375rem;
     line-height: 1.4;
     text-align: center;
     word-wrap: break-word;
+}
+
+.memori-chat--bubble-status-message--success .memori-chat--bubble-status-message-content {
+    border-color: color-mix(in srgb, var(--memori-success, #16a34a) 35%, transparent);
+    background: color-mix(in srgb, var(--memori-success, #16a34a) 14%, var(--memori-main-background, #fff));
+    color: color-mix(in srgb, var(--memori-success, #15803d) 85%, var(--memori-text-color, #111827));
+}
+
+.memori-chat--bubble-status-message-check {
+    flex-shrink: 0;
+    color: var(--memori-success, #16a34a);
 }
 
 .memori-chat--bubble-status-message-error {
@@ -52,38 +86,198 @@
 
 .memori-chat--bubble {
     display: inline-flex;
-    max-width: 90%;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 16px;
-    border-radius: 12px 12px 12px 0;
-    margin: 10px auto 5px 10px;
-    margin-bottom: 5px;
-    background: var(--memori-chat-bubble-bg, #ffffff60);
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    color: #141515;
-    font-size: 0.85em;
-    line-height: 1.33;
+    padding: 12px 14px;
+    border: none;
+    border-radius: var(--memori-radius-surface);
+    /* margin-top: 1.5rem; */
+    background: var(--memori-main-background);
+    border-top-left-radius: var(--memori-radius-tail);
+    box-shadow: none;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-sm);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    transition: box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Markdown block elements own newlines; pre-wrap caused double vertical gaps. */
+    white-space: normal;
+    word-break: break-word;
 }
 
-
-
-.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
-    min-width: 9rem;
+/*
+ * Code blocks use a fixed dark chrome so background never tracks
+ * --memori-text-color (which is light in dark mode and caused white-on-white).
+ */
+.memori-chat--bubble,
+.memori-chat--code-block {
+    --memori-chat-code-bg: #161b22;
+    --memori-chat-code-fg: #e6edf3;
 }
 
+.memori-chat--bubble-timestamp-container {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.memori-chat--bubble-timestamp-separator {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.memori-chat--bubble-shell {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.memori-chat--bubble-shell--from-user {
+    max-width: min(70%, 42rem);
+    align-items: flex-end;
+}
+
+.memori-chat--user-block {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    /* max-width: min(70%, 42rem); */
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.memori-chat--user-block .memori-chat--bubble-shell--from-user {
+    width: auto;
+    max-width: 100%;
+}
+
+/*
+ * Compact media cluster for both sides: hug content, 8px gaps, 120px tiles.
+ * User (inside .memori-chat--user-block): right-aligned.
+ * Agent (inside .memori-chat--bubble-shell): left-aligned.
+ * No chrome by default — subtle fill only when chat has a custom background.
+ */
+.memori-chat--attachment-strip {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+.memori-chat--user-block .memori-chat--attachment-strip {
+    align-items: flex-end;
+}
+
+.memori-chat--content--has-global-background .memori-chat--attachment-strip,
+.memori-chat--history--has-global-background .memori-chat--attachment-strip {
+    padding: 8px;
+    border-radius: var(--memori-radius-surface);
+    background: color-mix(in oklch, var(--memori-main-background) 22%, transparent);
+    border-top-left-radius: var(--memori-radius-tail);
+}
+
+.memori-chat--content--has-global-background .memori-chat--user-block .memori-chat--attachment-strip,
+.memori-chat--history--has-global-background .memori-chat--user-block .memori-chat--attachment-strip {
+    border-top-left-radius: var(--memori-radius-surface);
+    border-top-right-radius: var(--memori-radius-tail);
+}
+
+.memori-chat--attachment-strip .memori-media-items {
+    width: fit-content;
+    max-width: 100%;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid {
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    justify-content: start;
+    padding: 0;
+    margin: 0;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--agent {
+    justify-content: start;
+    margin-inline: 0;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--user {
+    width: fit-content;
+    max-width: 100%;
+    justify-content: end;
+    margin-inline: 0;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--single {
+    grid-template-columns: 120px;
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--few {
+    grid-template-columns: repeat(2, 120px);
+}
+
+.memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+    grid-template-columns: repeat(2, 120px);
+}
+
+@media (min-width: 1025px) {
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+        grid-template-columns: repeat(3, 120px);
+    }
+}
+
+/* @media (max-width: 640px) {
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--single,
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--few,
+    .memori-chat--attachment-strip .memori-media-items--grid.memori-media-items--many {
+        padding: 0;
+        grid-template-columns: 120px;
+    }
+} */
+
+/* Fixed 120px tiles in the attachment cluster */
+.memori-chat--attachment-strip .memori-media-item {
+    width: 120px;
+    max-width: 120px;
+    height: 120px;
+    min-height: 120px;
+}
+
+.memori-chat--attachment-strip .memori-media-item--document-link,
+.memori-chat--attachment-strip .memori-media-item--document {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: 100%;
+    min-height: 120px;
+}
 
 .memori-chat--bubble-avatar svg {
-    width: 40px;
-    height: 40px;
-    padding: 0.33rem;
-    fill: #666;
-    font-size: 1.5rem;
+    fill: #000;
+    font-size: var(--memori-text-size-2xl);
 }
 
-
 .memori-chat--bubble-action-icon--from-user > span > svg {
-    color: #fff !important;
+    color: var(--memori-text-color) !important;
 }
 
 .memori-chat--bubble-action-icon--from-user:focus {
@@ -103,22 +297,30 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    margin-right: 3px;
-    animation: wave 1.5s linear infinite;
+    margin-right: calc(var(--memori-spacing-xs) / 2);
     background: var(--memori-primary);
 }
 
-.memori-chat--bubble #wave .dot:nth-child(2) {
-    animation-delay: -1.3s;
+[data-theme='dark'] .memori-chat--bubble #wave .dot {
+    background: #fff;
 }
 
-.memori-chat--bubble #wave .dot:nth-child(3) {
-    animation-delay: -1.1s;
+.memori-chat--bubble-container.memori-chat--bubble-container--typing {
+    margin-bottom: var(--memori-spacing-sm, 8px);
+}
+
+.memori-chat--bubble-container--typing .memori-chat--bubble {
+    width: fit-content;
+    max-width: 90%;
+    white-space: normal;
 }
 
 .memori-chat--bubble-typing {
     display: flex;
+    width: fit-content;
+    max-width: 100%;
     align-items: center;
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble p {
@@ -126,15 +328,38 @@
     margin-bottom: 0;
 }
 
+.memori-chat--bubble p + p {
+    margin-top: 0.65em;
+}
+
 .memori-chat--bubble ul,
 .memori-chat--bubble ol {
-    padding-left: 1rem;
-    margin: 1em 0;
+    padding-left: 1.1rem;
+    margin: 0.55em 0;
+}
+
+.memori-chat--bubble p + ul,
+.memori-chat--bubble p + ol {
+    margin-top: 0.4em;
+}
+
+.memori-chat--bubble li + li {
+    margin-top: 0.25em;
 }
 
 .memori-chat--bubble ul br,
 .memori-chat--bubble ol br {
     display: none;
+}
+
+.memori-chat--bubble pre,
+.memori-chat--bubble .memori--responsive-table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.memori-chat--bubble table {
+    max-width: 100%;
 }
 
 .memori-chat--bubble a {
@@ -151,7 +376,7 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble a {
-    color: var(--memori-primary-text);
+    color: var(--memori-primary-content, var(--memori-text-color));
 }
 
 .memori-chat--bubble h1,
@@ -160,26 +385,208 @@
 .memori-chat--bubble h4,
 .memori-chat--bubble h5,
 .memori-chat--bubble h6 {
+    margin: 0.9em 0 0.35em;
+    color: inherit;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.memori-chat--bubble h1 {
+    font-size: 1.15em;
+}
+
+.memori-chat--bubble h2 {
+    font-size: 1.1em;
+}
+
+.memori-chat--bubble h3 {
+    font-size: 1.05em;
+}
+
+.memori-chat--bubble h4,
+.memori-chat--bubble h5,
+.memori-chat--bubble h6 {
+    font-size: 1em;
+}
+
+.memori-chat--bubble h1:first-child,
+.memori-chat--bubble h2:first-child,
+.memori-chat--bubble h3:first-child,
+.memori-chat--bubble h4:first-child,
+.memori-chat--bubble h5:first-child,
+.memori-chat--bubble h6:first-child {
+    margin-top: 0;
+}
+
+.memori-chat--bubble blockquote {
+    padding-left: 0.75em;
+    border-left: 3px solid color-mix(in oklch, var(--memori-text-color) 28%, transparent);
+    margin: 0.65em 0;
+    color: color-mix(in oklch, var(--memori-text-color) 78%, transparent);
+}
+
+.memori-chat--bubble.memori-chat--user-bubble blockquote {
+    border-left-color: color-mix(in oklch, var(--memori-primary-content, #fff) 45%, transparent);
+    color: color-mix(in oklch, var(--memori-primary-content, #fff) 88%, transparent);
+}
+
+.memori-chat--bubble hr {
+    height: 1px;
+    border: 0;
+    margin: 0.75em 0;
+    background: color-mix(in oklch, var(--memori-text-color) 18%, transparent);
+}
+
+.memori-chat--bubble code {
+    padding: 0.1em 0.35em;
+    border-radius: var(--memori-radius-control, 4px);
+    background: color-mix(in oklch, var(--memori-text-color) 8%, var(--memori-secondary-background, transparent));
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.memori-chat--bubble pre {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: var(--memori-radius-surface, 8px);
+    margin: 0.65em 0;
+    background: var(--memori-chat-code-bg);
+    color: var(--memori-chat-code-fg);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+    font-size: 0.85em;
+    line-height: 1.45;
+    overflow-x: auto;
+}
+
+.memori-chat--bubble pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+}
+
+.memori-chat--code-block {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--memori-radius-surface, 8px);
+    margin: 0.65em 0;
+    background: var(--memori-chat-code-bg);
+    color: var(--memori-chat-code-fg);
+}
+
+.memori-chat--code-block-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px 0 12px;
+    color: color-mix(in srgb, var(--memori-chat-code-fg) 72%, transparent);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    gap: 8px;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+}
+
+.memori-chat--code-block-lang--empty {
+    flex: 1;
+}
+
+.memori-chat--code-block-copy {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--memori-chat-code-fg) 16%, transparent);
+    border-radius: var(--memori-radius-control, 6px);
+    background: color-mix(in srgb, var(--memori-chat-code-fg) 8%, transparent);
+    color: var(--memori-chat-code-fg);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.memori-chat--code-block-copy:hover,
+.memori-chat--code-block-copy:focus-visible {
+    border-color: color-mix(in srgb, var(--memori-chat-code-fg) 28%, transparent);
+    background: color-mix(in srgb, var(--memori-chat-code-fg) 14%, transparent);
+    outline: none;
+}
+
+.memori-chat--code-block-copy:active {
+    transform: scale(0.96);
+}
+
+.memori-chat--code-block-copy--copied {
+    border-color: color-mix(in srgb, #22c55e 50%, transparent);
+    color: #4ade80;
+}
+
+.memori-chat--code-block pre {
+    border-radius: 0;
+    margin: 0;
+    background: transparent !important;
+    color: inherit;
+}
+
+/* Beat Prism theme defaults that force white-space: pre / own backgrounds */
+.memori-chat--bubble pre[class*='language-'],
+.memori-chat--bubble code[class*='language-'],
+.memori-chat--code-block pre[class*='language-'],
+.memori-chat--code-block code[class*='language-'] {
+    max-width: 100%;
+    background: transparent !important;
+    color: inherit;
+    overflow-wrap: anywhere;
+    text-shadow: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.memori-chat--code-block pre[class*='language-'] {
+    padding: 8px 12px 12px;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble code {
+    background: color-mix(in oklch, var(--memori-primary-content, #fff) 18%, transparent);
     color: inherit;
 }
 
 @media (max-width: 600px) {
-    .memori-chat--bubble p {
-        font-size: 12px;
-        line-height: 1.25;
+    .memori-chat--bubble-shell {
+        gap: 4px;
+    }
+
+    /* Keep the 8px attachment-to-bubble gap used on the user side */
+    .memori-chat--bubble-shell > .memori-chat--attachment-strip {
+        margin-bottom: 4px;
     }
 }
 
-.memori-chat--bubble p + p {
-    margin-top: 0.5em;
+.memori-chat--bubble.memori-chat--user-bubble {
+    max-width: 100%;
+    border: none;
+    border-radius: var(--memori-radius-surface);
+    /* Prefer --memori-primary-color: dark theme remaps --memori-primary to
+       --memori-primary-hover, which circularly resolves and drops the fill. */
+    background: var(--memori-primary-color, var(--memori-primary)) !important;
+    border-top-right-radius: var(--memori-radius-tail);
+    box-shadow: none;
+    color: var(--memori-primary-content);
+    font-size: var(--memori-text-size-sm);
+    font-weight: 400;
 }
 
-.memori-chat--bubble.memori-chat--user-bubble {
-    border-radius: 12px 12px 0 12px;
-    margin: 10px 10px 5px auto;
-    background: var(--memori-chat-user-bubble-bg);
-    box-shadow: 0 1px 6px 0 #d1d3de, 0 1px 3px 0 #c5c6d1;
-    color: var(--memori-primary-text);
+[data-theme='dark'] .memori-chat--bubble.memori-chat--user-bubble,
+.memori-widget[data-theme='dark'] .memori-chat--bubble.memori-chat--user-bubble {
+    background: var(--memori-primary-color, var(--memori-primary)) !important;
 }
 
 .memori-chat--bubble-avatar {
@@ -195,24 +602,256 @@
     box-shadow: inset 0 0 0.25rem rgba(100, 100, 100, 0.2);
 }
 
+.memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar {
+    align-self: flex-start;
+}
+
+.memori-chat--bubble-timestamp {
+    margin: 0;
+    color: var(--memori-text-color);
+    font-size: 0.8em;
+    font-weight: var(--memori-text-weight-medium);
+    line-height: 1;
+    white-space: nowrap;
+}
+
 .memori-chat--bubble-avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.memori-chat--bubble-addon {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 0.5em;
-    margin-left: auto;
+/* Shared elevation for the floating addon and the highlighted message bubble. */
+.memori-chat--bubble-container.memori-chat--with-addon {
+    --memori-chat-addon-elevation: 0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
+        0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
 }
 
+/* The addon row sits outside the bubble, directly over the chat background, which
+   can be a dark image or colour: it carries its own surface so the icons and the
+   timestamp keep contrast whatever is painted behind them. */
+.memori-chat--bubble-addon {
+    position: absolute;
+    z-index: 5;
+    top: 100%;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    display: flex;
+    width: max-content;
+    max-width: none;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--memori-spacing-xs);
+    border-radius: var(--memori-radius-full);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    background: color-mix(in srgb, var(--memori-main-background) 92%, transparent);
+    box-shadow: var(--memori-chat-addon-elevation);
+    color: var(--memori-text-color);
+    gap: calc(var(--memori-spacing-xs) * 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, -6px, 0) scale(0.98);
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    white-space: nowrap;
+    will-change: opacity, transform;
+}
+
+.memori-chat--bubble-addon:has(.memori-chat--bubble-timestamp-container) {
+    padding-left: var(--memori-spacing-sm);
+}
+
+/* Anchor bubble + addon so the action row sits directly under the message,
+   not under artifacts/media rendered below in the shell. */
+.memori-chat--bubble-anchor {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.memori-chat--bubble-anchor:has(.memori-reasoning) {
+    gap: 6px;
+}
+
+.memori-chat--bubble-anchor--from-user {
+    align-items: flex-end;
+}
+
+.memori-chat--bubble-anchor--has-addon {
+    /* Keep the translated addon inside the hover hit area on desktop. */
+    padding-bottom: calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
+}
+
+/* Artifact chips sit in the shell under the bubble: drop the addon slot so
+   copy/feedback does not float in a hole above the card. */
+.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor--has-addon {
+    padding-bottom: 0;
+}
+
+.memori-chat--bubble-anchor--from-user .memori-chat--bubble-addon {
+    right: 0;
+    left: auto;
+}
+
+.memori-chat--artifact-block {
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 0;
+}
+
+.memori-chat--artifact-block--chatlog {
+    max-width: 100%;
+}
+
+.memori-chat--artifact-block--chatlog.memori-chat--artifact-block--expanded {
+    width: 100%;
+}
+
+.memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble-addon,
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble-addon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, -8px, 0) scale(1);
+}
+
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.memori-chat--bubble-anchor--has-addon:focus-within .memori-chat--bubble,
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+/* Wide markdown code blocks and tables scroll inside the bubble instead of
+   stretching the conversation column. */
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble:has(pre, table, .memori-chat--code-block) {
+    min-width: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble-addon {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate3d(0, -8px, 0) scale(1);
+    }
+}
+
+.memori-chat--bubble-container.memori-chat--addon-open .memori-chat--bubble.memori-chat--user-bubble {
+    box-shadow: var(--memori-chat-addon-elevation);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble {
+        box-shadow: var(--memori-chat-addon-elevation);
+    }
+
+    .memori-chat--bubble-anchor--has-addon:hover .memori-chat--bubble.memori-chat--user-bubble {
+        box-shadow: var(--memori-chat-addon-elevation);
+    }
+}
+
+.memori-chat--bubble-addon-tooltip-trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+/* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform.
+   Hide during enter/exit so the popup never flashes at 0,0 (top of the page) when
+   Floating UI hasn't applied coordinates yet, or when the trigger loses focus. */
+.memori-chat--bubble-addon-tooltip-positioner {
+    z-index: 1300;
+}
+
+.memori-chat--bubble-addon-tooltip-positioner[data-starting-style],
+.memori-chat--bubble-addon-tooltip-positioner[data-ending-style] {
+    opacity: 0 !important;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.memori-chat--bubble-ai-icon {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--memori-text-color);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* stylelint-disable-next-line no-descending-specificity -- icon size scoped after action-icon rules */
+.memori-chat--bubble-ai-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.memori-chat--bubble-addon button {
+    flex-shrink: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ShareButton copy affordances on circular bubble actions (see ShareButton.css) */
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--success:hover {
+    background-color: color-mix(in srgb, var(--memori-primary, #3b82f6) 12%, transparent);
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--error:hover {
+    background-color: color-mix(in srgb, #ef4444 10%, transparent);
+}
+
+.memori-chat--bubble-addon button.memori-share-button--copy-item--error .memori-share-button--copy-icon {
+    color: #b91c1c;
+}
+
+.memori-chat--bubble-action-button:hover {
+    background-color: var(--memori-secondary-background) !important;
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button .memori-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button--sources {
+    width: auto;
+    min-width: 1.875rem;
+    height: 1.875rem;
+    align-items: center;
+    padding: 0 0.75rem;
+    border-radius: var(--memori-radius-xs);
+    background: color-mix(in oklch, var(--memori-primary) 12%, transparent);
+    color: var(--memori-primary);
+    font-size: var(--memori-text-size-xs);
+    font-weight: var(--memori-text-weight-medium);
+    gap: 6px;
+    line-height: 1;
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button--sources-empty {
+    background: transparent;
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+}
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;
-    padding: 2px;
+    padding: calc(var(--memori-spacing-xs) / 2);
     text-align: right;
 }
 
@@ -220,11 +859,11 @@
     overflow: visible;
     width: 1rem;
     height: 1rem;
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied {
-    border-color: var(--memori-primary, #4c6fff) !important;
+    border-color: var(--memori-primary) !important;
     background-color: rgba(76, 111, 255, 0.08);
 }
 
@@ -233,13 +872,11 @@
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
-    padding: 3px;
+    padding: calc(var(--memori-spacing-xs) * 0.75);
 }
 
-
-
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
-    color: var(--memori-error-color);
+    color: var(--memori-error);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug svg {
@@ -248,6 +885,7 @@
 
 .memori-chat--bubble-addon .memori-chat--feedback {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     padding: 0;
     margin: 0;
@@ -259,7 +897,10 @@
     height: auto;
     min-height: 0;
     padding: 0;
-    color: #333;
+    padding: var(--memori-spacing-sm);
+    border: 0;
+    border-radius: var(--memori-radius-xs);
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai svg {
@@ -268,20 +909,21 @@
 }
 
 .memori-chat--bubble-addon button.memori-chat--bubble-action-icon {
-    padding: 2.5px;
+    padding: calc(var(--memori-spacing-xs) / 2);
+    border-radius: var(--memori-radius-xs);
 }
 
 .memori-chat--bubble-action-feedback {
-    margin-left: 0.35rem;
-    color: var(--memori-primary, #4c6fff);
-    font-size: 0.65rem;
-    font-weight: 600;
+    margin-left: var(--memori-spacing-xs);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.03em;
     text-transform: uppercase;
 }
 
 .memori-chat--bubble-action-feedback--from-user {
-    color: var(--memori-primary-text, #fff);
+    color: var(--memori-primary-content);
 }
 
 .memori-chat--bubble-addon .memori-chat--feedback button .memori-button--icon svg {
@@ -304,10 +946,10 @@
 .memori-chat--bubble-addon .memori-tooltip .memori-tooltip--trigger {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding: 3px;
+    justify-content: center;
+    padding: 0;
     line-height: 0;
-    text-align: right;
+    text-align: center;
 }
 
 .transition {
@@ -358,20 +1000,18 @@
     transform: translateX(0);
 }
 
-@keyframes wave {
-    0%,
-    60%,
-    100% {
-        transform: initial;
-    }
-
-    30% {
-        transform: translateY(-10px);
-    }
-}
-
 .memori-chat--bubble-content {
     width: 100%;
+    font-weight: 400;
+}
+
+.memori-chat--user-bubble .memori-chat--bubble-content,
+.memori-chat--user-bubble .memori-chat--bubble-content p,
+.memori-chat--user-bubble .memori-chat--bubble-content div,
+.memori-chat--user-bubble .memori-expandable {
+    font-size: var(--memori-text-size-sm);
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 .memori-chat--bubble output {
@@ -383,48 +1023,107 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
-    color: var(--memori-primary-text);
+    color: transparent;
+    font-size: 0;
 }
 
+.memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button::after {
+    color: var(--memori-text-color);
+    content: 'Espandi';
+    font-size: 0.8rem;
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-chat--function-cache-modal.memori-modal__viewport .memori-modal__popup,
 .memori-chat--function-cache-modal .memori-modal--panel {
     width: 80%;
     height: 100%;
-    /* padding: 20px; */
     max-height: 80vh;
-    border-radius: 10px;
-    background-color: #fff;
+    border-radius: var(--memori-radius-overlay);
+    background-color: var(--memori-main-background, #fff);
     overflow-y: auto;
+}
+
+.memori-chat--function-cache-toolbar {
+    display: flex;
+    margin-bottom: var(--memori-spacing-md);
+}
+
+.memori-chat--function-cache-entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--memori-spacing-lg);
+}
+
+.memori-chat--function-cache-entry {
+    padding-top: var(--memori-spacing-md);
+    border-top: var(--memori-border) solid var(--memori-border-color);
+}
+
+.memori-chat--function-cache-entry:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.memori-chat--function-cache-entry-title {
+    margin: 0 0 var(--memori-spacing-sm);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-md);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-chat--function-cache-entry-pre {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: var(--memori-spacing-md);
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-surface);
+    margin: 0;
+    background: color-mix(in oklch, var(--memori-text-color) 4%, var(--memori-secondary-background));
+    color: var(--memori-text-color);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+    font-size: var(--memori-text-size-sm);
+    line-height: var(--memori-text-line-normal, 1.5);
+    overflow-wrap: anywhere;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 details.memori-think {
     display: block;
-    width: calc(100% - 1.5rem);
-    max-width: 500px;
-    padding: 0.75rem;
-    border-radius: var(--memori-border-radius);
-    margin-bottom: 0.75rem;
-    background-color: #f6f6f6;
-    font-size: 0.85em;
-    font-style: italic;
-    line-height: 1.33;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: var(--memori-spacing-sm);
+    background: transparent;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.65;
 }
 
 details.memori-think summary {
+    display: list-item;
+    color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
     cursor: pointer;
-    font-weight: bold;
-    opacity: 0.6;
+    font-weight: 500;
+    list-style: none;
+}
+
+details.memori-think summary::-webkit-details-marker {
+    display: none;
 }
 
 details.memori-think summary:hover {
-    color: var(--memori-primary);
-    opacity: 1;
+    color: color-mix(in oklch, var(--memori-text-color) 82%, transparent);
 }
 
 details.memori-think[open] {
-    color: rgba(0, 0, 0, 0.6);
+    color: color-mix(in oklch, var(--memori-text-color) 62%, transparent);
 }
 
 details.memori-think[open] summary {
-    margin-bottom: 0.5rem;
-    color: #000;
+    margin-bottom: var(--memori-spacing-xs);
+    color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
 }

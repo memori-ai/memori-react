@@ -4,9 +4,10 @@ import I18nWrapper from '../../I18nWrapper';
 import AgeVerificationModal, { Props } from './AgeVerificationModal';
 
 import './AgeVerificationModal.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
-  title: 'AgeVerificationModal',
+  title: 'Surfaces/AgeVerificationModal',
   component: AgeVerificationModal,
   parameters: {
     controls: { expanded: true },
@@ -18,7 +19,9 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <AgeVerificationModal {...args} />
+    <AlertProvider defaultDuration={5000}>
+      <AgeVerificationModal {...args} />
+    </AlertProvider>
   </I18nWrapper>
 );
 

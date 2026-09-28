@@ -1,16 +1,18 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import { AlertProvider } from '@memori.ai/ui';
 import { memori, integration, tenant } from '../../mocks/data';
-import I18nWrapper from '../../I18nWrapper';
-import MemoriWidget, { Props } from './MemoriWidget';
+import Memori, { Props } from '../../index';
+import MemoriWidget, { Props as WidgetProps } from './MemoriWidget';
+import { withWidgetProviders } from '../../../.storybook/decorators';
+import { removeLocalConfig } from '../../helpers/configuration';
 
 import './MemoriWidget.css';
-import { VisemeProvider } from '../../context/visemeContext';
-import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const meta: Meta = {
-  title: 'Widget/Default',
-  component: MemoriWidget,
+  title: 'Compositions/MemoriWidget',
+  component: Memori,
+  decorators: [withWidgetProviders],
   argTypes: {
     AZURE_COGNITIVE_SERVICES_TTS_KEY: {
       control: {
@@ -36,72 +38,129 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
-  <I18nWrapper>
-    <ArtifactProvider>
-      <VisemeProvider>
-        <MemoriWidget {...args} />
-      </VisemeProvider>
-    </ArtifactProvider>
-  </I18nWrapper>
-);
+/** Same live agent as Layouts / Full Page. */
+const fixtureBase: Partial<Props> = {
+  memori,
+  tenant,
+  memoriName: memori.name,
+  memoriID: memori.memoriID,
+  ownerUserName: 'memoridev',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  showSettings: true,
+  showShare: true,
+};
+
+const Template: Story<Props> = args => <Memori {...args} />;
+
+/**
+ * Fixture stories that must set `memori` flags (`needsPosition`,
+ * `requireLoginToken`, `needsDateTime`). `<Memori>` always refetches the
+ * agent from the API and would overwrite those flags.
+ */
+const widgetFixtureBase: Partial<WidgetProps> = {
+  memori,
+  tenant,
+  tenantID: 'www.aisuru.com',
+  ownerUserName: 'memoridev',
+  apiURL: 'https://backend.memori.ai',
+  engineURL: 'https://engine.memori.ai',
+  baseUrl: 'https://www.aisuru.com',
+  showSettings: true,
+  showShare: true,
+  layout: 'FULLPAGE',
+};
+
+/**
+ * Position/login gates persist in localStorage across stories. Clear leftover
+ * `position` before mount so autostart is held until this story collects it.
+ */
+const IsolatedWidget: React.FC<WidgetProps> = args => {
+  const didReset = React.useRef(false);
+  if (!didReset.current) {
+    removeLocalConfig('position');
+    didReset.current = true;
+  }
+
+  return (
+    <AlertProvider defaultDuration={5000}>
+      <MemoriWidget {...args} />
+    </AlertProvider>
+  );
+};
+
+const WidgetTemplate: Story<WidgetProps> = args => <IsolatedWidget {...args} />;
+
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
 Default.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
+  layout: 'FULLPAGE',
 };
 
 export const WithAutoStart = Template.bind({});
 WithAutoStart.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   autoStart: true,
+  layout: 'FULLPAGE',
 };
 
-export const WithPosition = Template.bind({});
+export const WithPosition = WidgetTemplate.bind({});
 WithPosition.args = {
+  ...widgetFixtureBase,
   memori: {
     ...memori,
     needsPosition: true,
   },
-  tenant,
 };
 
-export const WithLoginRequired = Template.bind({});
+export const WithAutoStartAndRequiredPosition = WidgetTemplate.bind({});
+WithAutoStartAndRequiredPosition.args = {
+  ...widgetFixtureBase,
+  autoStart: true,
+  memori: {
+    ...memori,
+    needsPosition: true,
+  },
+};
+
+export const WithLoginRequired = WidgetTemplate.bind({});
 WithLoginRequired.args = {
+  ...widgetFixtureBase,
   memori: {
     ...memori,
     requireLoginToken: true,
   },
-  tenant,
 };
 
-export const WithDates = Template.bind({});
+export const WithDates = WidgetTemplate.bind({});
 WithDates.args = {
+  ...widgetFixtureBase,
   memori: {
     ...memori,
     needsDateTime: true,
   },
-  tenant,
 };
 
 /** To test dateUTC/place in Enter Text: open DevTools → Network, start chat, set position (header position icon) if testing place, then send a message. Inspect the request to your backend/engine for body.dateUTC (ISO) and body.place (placeName, latitude, longitude, uncertaintyKm). */
-export const WithDateAndPlaceForEnterText = Template.bind({});
+export const WithDateAndPlaceForEnterText = WidgetTemplate.bind({});
 WithDateAndPlaceForEnterText.args = {
+  ...widgetFixtureBase,
   memori: {
     ...memori,
     needsDateTime: true,
     needsPosition: true,
   },
-  tenant,
 };
 
 export const WithPublicPageIntegration = Template.bind({});
 WithPublicPageIntegration.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   integration: {
     ...integration,
     customData: JSON.stringify({
@@ -112,12 +171,12 @@ WithPublicPageIntegration.args = {
         new Date(Date.now()).getTime(),
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithPublicPageIntegrationAndFullbodyAvatar = Template.bind({});
 WithPublicPageIntegrationAndFullbodyAvatar.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   integration: {
     ...integration,
     customData: JSON.stringify({
@@ -128,12 +187,12 @@ WithPublicPageIntegrationAndFullbodyAvatar.args = {
         new Date(Date.now()).getTime(),
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithPublicPageIntegrationAndNonDefaultLang = Template.bind({});
 WithPublicPageIntegrationAndNonDefaultLang.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   integration: {
     ...integration,
     customData: JSON.stringify({
@@ -141,40 +200,40 @@ WithPublicPageIntegrationAndNonDefaultLang.args = {
       lang: 'es',
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const ShowShare = Template.bind({});
 ShowShare.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showShare: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowSettings = Template.bind({});
 ShowSettings.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showSettings: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowClear = Template.bind({});
 ShowClear.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showClear: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowUpload = Template.bind({});
 ShowUpload.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showUpload: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowUploadFromIntegration = Template.bind({});
 ShowUploadFromIntegration.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showUpload: false,
   integration: {
     ...integration,
@@ -183,20 +242,20 @@ ShowUploadFromIntegration.args = {
       showUpload: true,
     }),
   },
+  layout: 'FULLPAGE',
 };
 
 export const WithoutAudio = Template.bind({});
 WithoutAudio.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   enableAudio: false,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const WithoutAudioFromIntegrationConfig = Template.bind({});
 WithoutAudioFromIntegrationConfig.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   integration: {
     ...integration,
     customData: JSON.stringify({
@@ -204,42 +263,41 @@ WithoutAudioFromIntegrationConfig.args = {
     }),
   },
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const DefautSpeakerDisabled = Template.bind({});
 DefautSpeakerDisabled.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   defaultSpeakerActive: false,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const ShowOnlyLastMessages = Template.bind({});
 ShowOnlyLastMessages.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showOnlyLastMessages: true,
+  layout: 'FULLPAGE',
 };
 
 export const ShowOnlyLastMessagesWithAnotherDefault = Template.bind({});
 ShowOnlyLastMessagesWithAnotherDefault.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   showOnlyLastMessages: false,
-  layout: 'WEBSITE_ASSISTANT',
+  layout: 'FULLPAGE',
 };
 
 export const WithAzureSpeechKey = Template.bind({});
 WithAzureSpeechKey.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+  layout: 'FULLPAGE',
 };
 
 export const WithCustomMediaRenderer = Template.bind({});
 WithCustomMediaRenderer.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   customMediaRenderer: (mimeType: string) => (
     <div
       style={{
@@ -259,16 +317,15 @@ WithCustomMediaRenderer.args = {
 
 export const WithUserAvatar = Template.bind({});
 WithUserAvatar.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   userAvatar: 'https://picsum.photos/200',
+  layout: 'FULLPAGE',
 };
 
 export const WithUserAvatarAsElement = Template.bind({});
 WithUserAvatarAsElement.args = {
-  memori,
-  tenant,
+  ...fixtureBase,
   userAvatar: <span>USER</span>,
+  layout: 'FULLPAGE',
 };
-
 

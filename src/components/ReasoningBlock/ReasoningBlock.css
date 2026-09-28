@@ -1,0 +1,156 @@
+.memori-reasoning {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0;
+}
+
+.memori-reasoning__trigger {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 4px 2px 0;
+    border: 0;
+    border-radius: 6px;
+    margin: 0;
+    background: transparent;
+    color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    gap: 4px;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    transition: color 0.16s ease;
+}
+
+.memori-reasoning__trigger:hover,
+.memori-reasoning__trigger:focus-visible {
+    color: color-mix(in oklch, var(--memori-text-color) 82%, transparent);
+}
+
+.memori-reasoning__trigger:focus-visible {
+    outline: 2px solid var(--memori-primary, currentColor);
+    outline-offset: 2px;
+}
+
+.memori-reasoning__chevron {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.85;
+    transform: rotate(0deg);
+    transform-origin: 50% 50%;
+    transition: transform 0.2s ease;
+}
+
+.memori-reasoning--open .memori-reasoning__chevron {
+    transform: rotate(90deg);
+}
+
+.memori-reasoning__label {
+    min-width: 0;
+}
+
+.memori-reasoning__label--thinking {
+    animation: memori-reasoning-shimmer 1.8s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(
+        90deg,
+        color-mix(in oklch, var(--memori-text-color) 38%, transparent) 0%,
+        color-mix(in oklch, var(--memori-text-color) 38%, transparent) 36%,
+        var(--memori-text-color) 50%,
+        color-mix(in oklch, var(--memori-text-color) 38%, transparent) 64%,
+        color-mix(in oklch, var(--memori-text-color) 38%, transparent) 100%
+    );
+    background-size: 220% 100%;
+    color: transparent;
+}
+
+.memori-reasoning__collapsible {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+        grid-template-rows 0.22s ease,
+        opacity 0.18s ease;
+}
+
+.memori-reasoning--open .memori-reasoning__collapsible {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.memori-reasoning__clip {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.memori-reasoning__panel {
+    display: grid;
+    width: 100%;
+    padding: 4px 0 8px;
+    grid-template-columns: 12px minmax(0, 1fr);
+}
+
+.memori-reasoning__panel::before {
+    width: 1px;
+    border-radius: 1px;
+    margin: 2px 0;
+    background: color-mix(in oklch, var(--memori-text-color) 16%, transparent);
+    content: '';
+    justify-self: center;
+}
+
+.memori-reasoning__body {
+    min-width: 0;
+    color: color-mix(in oklch, var(--memori-text-color) 62%, transparent);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.memori-reasoning--streaming.memori-reasoning--overflow .memori-reasoning__body {
+    overflow: hidden;
+    max-height: 9.5rem;
+    -webkit-mask-image: linear-gradient(to bottom, #000 48%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 48%, transparent 100%);
+}
+
+.memori-reasoning--open:not(.memori-reasoning--streaming) .memori-reasoning__body {
+    max-height: min(40vh, 22rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@keyframes memori-reasoning-shimmer {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-reasoning__chevron,
+    .memori-reasoning__collapsible {
+        transition: none;
+    }
+
+    .memori-reasoning__label--thinking {
+        animation: none;
+        background: none;
+        color: color-mix(in oklch, var(--memori-text-color) 58%, transparent);
+        -webkit-text-fill-color: unset;
+    }
+}

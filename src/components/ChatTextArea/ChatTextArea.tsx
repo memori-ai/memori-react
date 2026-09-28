@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Button from '../ui/Button';
-import Expand from '../icons/Expand';
-import FullscreenExit from '../icons/FullscreenExit';
+import { Button } from '@memori.ai/ui';
+import { Maximize2, Minimize } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { isMobileOrTablet } from '../../helpers/utils';
 
 export interface Props {
+  /** When true, the field is not editable (e.g. dialog states R2–X3 or no session yet — see ChatInputs). */
   disabled?: boolean;
   value: string;
   onChange: (value: string) => void;
@@ -48,35 +48,12 @@ const ChatTextArea: React.FC<Props> = ({
         if (onExpandedChange) {
           onExpandedChange(false);
         }
-        //reset the padding bottom of the chat
-        const chat = document.getElementsByClassName('memori-chat--content');
-        if (chat) {
-          const lastChild = chat[chat.length - 1];
-          if (lastChild) {
-            (lastChild as HTMLElement).style.paddingBottom = '0px';
-          }
-        }
       } else {
         textarea.style.height = 'auto';
         const scrollHeight = textarea.scrollHeight;
         const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT);
         textarea.style.height = `${newHeight}px`;
         inner.style.height = `${newHeight}px`;
-
-        //set the padding bottom to the chat in order to keep the whole chat visible
-        // take last child of chat wrapper and set the padding bottom to the height of the textarea
-        const chat = document.getElementsByClassName('memori-chat--content');
-        if (chat) {
-        const lastChild = chat[chat.length - 1];
-          if (lastChild) {
-            // (lastChild as HTMLElement).style.paddingBottom = `${newHeight}px`;
-            //then scroll to the bottom of the chat
-            (chat[0] as HTMLElement).scrollTo({
-              top: (chat[0] as HTMLElement).scrollHeight,
-              behavior: 'smooth'
-            });
-          }
-        }
       }
     }
   }, [value]);
@@ -112,9 +89,13 @@ const ChatTextArea: React.FC<Props> = ({
       <div ref={innerRef} className="memori-chat-textarea--inner">
         <textarea
           ref={textareaRef}
+          id="memori-chat-message"
           className="memori-chat-textarea--input"
           disabled={disabled}
           value={displayValue}
+          aria-label={String(
+            t('placeholder', 'Ask a question') || 'Ask a question'
+          )}
           placeholder={t('placeholder', 'Ask a question') || 'Ask a question'}
           onChange={e => {
             const next = e.target.value;

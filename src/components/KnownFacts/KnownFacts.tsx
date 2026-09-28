@@ -1,375 +1,526 @@
 import { KnownFact, Memori } from '@memori.ai/memori-api-client/dist/types';
-import { useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Button from '../ui/Button';
-import Drawer from '../ui/Drawer';
-import Spin from '../ui/Spin';
-import Modal from '../ui/Modal';
-import toast from 'react-hot-toast';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Modal,
+  Tooltip,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
+import {
+  Check,
+  ChevronDown,
+  Lightbulb,
+  Search,
+  Trash2,
+} from 'lucide-react';
 import { getErrori18nKey } from '../../helpers/error';
+import { useDebounce } from '../../helpers/utils';
+import {
+  formatExactDateTime,
+  formatRelativeTime,
+} from '../../helpers/relativeTime';
 import { useTranslation } from 'react-i18next';
-import Delete from '../icons/Delete';
-import Checkbox from '../ui/Checkbox';
-import Select from '../ui/Select';
-import ChevronLeft from '../icons/ChevronLeft';
-import ChevronRight from '../icons/ChevronRight';
+import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
+import DrawerFooter from '../DrawerFooter/DrawerFooter';
+import cx from 'classnames';
+
+const PAGE_SIZE = 8;
 
 export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
   sessionID: string;
   memori: Memori;
   initialKnownFacts?: KnownFact[];
+  /** When true, skips API fetching and only shows `initialKnownFacts` (useful for Storybook/mock UIs). */
+  disableFetch?: boolean;
   visible?: boolean;
   closeDrawer: () => void;
 }
+
+const filterFacts = (facts: KnownFact[], query: string): KnownFact[] => {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return facts;
+  return facts.filter(fact => fact.text.toLowerCase().includes(needle));
+};
 
 const KnownFacts = ({
   apiClient,
   sessionID,
   memori,
+  disableFetch = false,
   visible = true,
   initialKnownFacts = [],
   closeDrawer,
 }: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { add } = useAlertManager();
+  const { getKnownFacts, getKnownFactsPaginated, deleteKnownFact } =
+    apiClient.knownFacts;
+  const initialKnownFactsRef = useRef(initialKnownFacts);
+  initialKnownFactsRef.current = initialKnownFacts;
 
-  const { getKnownFactsPaginated, deleteKnownFact } = apiClient.knownFacts;
-
-  const [knownFacts, setKnownFacts] = useState<KnownFact[]>(initialKnownFacts);
-  const [numberOfResults, setNumberOfResults] = useState(25);
-  const [pageIndex, setPageIndex] = useState(0);
+  const [knownFacts, setKnownFacts] = useState<KnownFact[]>(
+    initialKnownFacts.slice(0, PAGE_SIZE)
+  );
   const [knownFactsCount, setKnownFactsCount] = useState(
-    initialKnownFacts?.length ?? 0
+    initialKnownFacts.length
+  );
+  const [loadedCount, setLoadedCount] = useState(
+    Math.min(PAGE_SIZE, initialKnownFacts.length)
   );
   const [loading, setLoading] = useState(false);
-
-  /**
-   * Fetch known facts
-   */
-  const fetchKnownFacts = async (
-    sessionId?: string,
-    from?: number,
-    howMany?: number
-  ) => {
-    if (!sessionID && !sessionId) return;
-    setLoading(true);
-    try {
-      const { knownFacts, count, ...response } = await getKnownFactsPaginated(
-        sessionId ?? sessionID,
-        from ?? pageIndex,
-        howMany ?? numberOfResults
-      );
-
-      setKnownFacts(knownFacts ?? initialKnownFacts);
-      setKnownFactsCount(count ?? 0);
-
-      if (response.resultCode !== 0) {
-        console.error(response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
-      }
-    } catch (err) {
-      console.error('KNOWN_FACTS/FETCH', err);
-      setKnownFacts(initialKnownFacts ?? []);
-    }
-
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchKnownFacts();
-  }, []);
-
-  /**
-   * Table selection
-   */
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const searchQuery = useDebounce(searchInput, 300);
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [bulkDeleteModalVisible, setBulkDeleteModalVisible] = useState(false);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
   const [deleteModalVisibleFor, setDeleteModalVisibleFor] = useState<string>();
-  const [selectedRowKeys, setSelectedRowKeys] = useState<(string | number)[]>(
-    []
+  const [singleDeleting, setSingleDeleting] = useState(false);
+
+  const applyLocalPage = useCallback(
+    (from: number, append: boolean) => {
+      const filtered = filterFacts(initialKnownFactsRef.current, searchQuery);
+      const next = filtered.slice(0, from + PAGE_SIZE);
+      setKnownFacts(next);
+      setKnownFactsCount(filtered.length);
+      setLoadedCount(next.length);
+      if (!append) {
+        setSelectedIds(ids => ids.filter(id => next.some(f => f.knownFactID === id)));
+      }
+    },
+    [searchQuery]
   );
 
+  const fetchKnownFacts = useCallback(
+    async ({
+      from = 0,
+      append = false,
+    }: { from?: number; append?: boolean } = {}) => {
+      if (disableFetch) {
+        applyLocalPage(from, append);
+        return;
+      }
+      if (!sessionID) return;
+
+      append ? setLoadingMore(true) : setLoading(true);
+      try {
+        if (searchQuery.trim()) {
+          const { knownFacts: allFacts, count, ...response } =
+            await getKnownFacts(sessionID);
+          if (response.resultCode !== 0) {
+            add(
+              createAlertOptions({
+                description: t(getErrori18nKey(response.resultCode)),
+                severity: 'error',
+              })
+            );
+          }
+          const filtered = filterFacts(
+            Array.isArray(allFacts) ? allFacts : [],
+            searchQuery
+          );
+          const next = filtered.slice(0, from + PAGE_SIZE);
+          setKnownFacts(next);
+          setKnownFactsCount(filtered.length || count || 0);
+          setLoadedCount(next.length);
+        } else {
+          const { knownFacts: page, count, ...response } =
+            await getKnownFactsPaginated(sessionID, from, PAGE_SIZE);
+          if (response.resultCode !== 0) {
+            add(
+              createAlertOptions({
+                description: t(getErrori18nKey(response.resultCode)),
+                severity: 'error',
+              })
+            );
+          }
+          const items = Array.isArray(page) ? page : [];
+          setKnownFacts(prev => (append ? [...prev, ...items] : items));
+          setKnownFactsCount(count ?? 0);
+          setLoadedCount(from + items.length);
+        }
+      } catch (err) {
+        console.error('KNOWN_FACTS/FETCH', err);
+        if (!append) {
+          setKnownFacts([]);
+          setKnownFactsCount(0);
+          setLoadedCount(0);
+        }
+      } finally {
+        setLoading(false);
+        setLoadingMore(false);
+      }
+    },
+    [
+      add,
+      applyLocalPage,
+      disableFetch,
+      getKnownFacts,
+      getKnownFactsPaginated,
+      searchQuery,
+      sessionID,
+      t,
+    ]
+  );
+
+  useEffect(() => {
+    void fetchKnownFacts({ from: 0, append: false });
+    // Fetch when the query or session changes, not when the callback identity changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionID, searchQuery, disableFetch]);
+
+  useEffect(() => {
+    setSelectMode(false);
+    setSelectedIds([]);
+  }, [searchQuery]);
+
+  const selectedRowsLabel = useMemo(
+    () =>
+      t('knownFacts.selected', {
+        count: selectedIds.length,
+        defaultValue: t('knownFacts.selectedRows', {
+          count: selectedIds.length,
+        }),
+      }),
+    [selectedIds.length, t]
+  );
+
+  const hasFacts = knownFactsCount > 0 || knownFacts.length > 0;
+  const hasMore = loadedCount < knownFactsCount;
+  const isEmpty = !loading && !searchQuery.trim() && knownFacts.length === 0;
+  const noSearchResults =
+    !loading && !!searchQuery.trim() && knownFacts.length === 0;
+
+  const toggleSelected = (id: string) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const deleteFacts = async (ids: string[]) => {
+    if (ids.length === 0) return;
+    if (disableFetch) {
+      const remaining = initialKnownFactsRef.current.filter(
+        fact => !ids.includes(fact.knownFactID)
+      );
+      initialKnownFactsRef.current = remaining;
+      applyLocalPage(0, false);
+      return true;
+    }
+
+    const responses = await Promise.all(
+      ids.map(id => deleteKnownFact(sessionID, id))
+    );
+    if (responses.every(r => r.resultCode === 0)) {
+      add(
+        createAlertOptions({
+          description: t('knownFacts.deleteSuccess'),
+          severity: 'success',
+        })
+      );
+      await fetchKnownFacts({ from: 0, append: false });
+      return true;
+    }
+    const errored = responses.find(r => r.resultCode !== 0);
+    if (errored?.resultCode !== undefined) {
+      add(
+        createAlertOptions({
+          description: t(getErrori18nKey(errored.resultCode)),
+          severity: 'error',
+        })
+      );
+    }
+    return false;
+  };
+
+  const footer =
+    hasFacts && !isEmpty ? (
+      <DrawerFooter
+        start={
+          <span className="memori-known-facts-count">
+            {t('knownFacts.shownOfTotal', {
+              shown: knownFacts.length,
+              total: knownFactsCount,
+            })}
+          </span>
+        }
+        end={
+          hasMore ? (
+            <Button
+              variant="outline"
+              loading={loadingMore}
+              disabled={loadingMore}
+              icon={<ChevronDown aria-hidden />}
+              iconPosition="right"
+              onClick={() =>
+                void fetchKnownFacts({ from: loadedCount, append: true })
+              }
+            >
+              {t('knownFacts.loadMore')}
+            </Button>
+          ) : undefined
+        }
+      />
+    ) : undefined;
+
   return (
-    <Drawer
+    <SideDrawer
       open={visible}
-      width="80%"
+      size="md"
       className="memori-known-facts-drawer"
-      onClose={() => closeDrawer()}
       title={t('knownFacts.title')}
+      description={t('knownFacts.description', {
+        memoriName: memori.name,
+      })}
+      closeLabel={t('close') || 'Close'}
+      footer={footer}
+      onClose={closeDrawer}
     >
-      <p>
-        {t('knownFacts.description', {
-          memoriName: memori.name,
-        })}
-      </p>
-
-      <Spin spinning={loading}>
-        <div className="memori-known-facts-actions">
-          <Button
-            primary
-            danger
-            onClick={() => {
-              setBulkDeleteModalVisible(true);
-            }}
-            className="memori-known-facts-delete-selected"
-            disabled={selectedRowKeys?.length === 0}
-            icon={<Delete />}
-            loading={loading}
-          >
-            {t('selected')} ({selectedRowKeys?.length})
-          </Button>
-          <Modal
-            className="memori-known-facts-modal"
-            open={bulkDeleteModalVisible}
-            closable
-            title={
-              selectedRowKeys.length > 1
-                ? t('knownFacts.deleteSelectedConfirmTitle')
-                : t('knownFacts.deleteConfirmTitle')
-            }
-            description={
-              selectedRowKeys.length > 1
-                ? t('knownFacts.deleteSelectedConfirmMessage', {
-                    number: selectedRowKeys.length,
-                  })
-                : t('knownFacts.deleteConfirmMessage')
-            }
-            onClose={() => {
-              setBulkDeleteModalVisible(false);
-            }}
-            footer={
-              <>
-                <Button
-                  ghost
-                  onClick={() => {
-                    setBulkDeleteModalVisible(false);
-                  }}
-                >
-                  {t('cancel')}
-                </Button>
-                <Button
-                  primary
-                  danger
-                  onClick={async () => {
-                    try {
-                      const mutations = selectedRowKeys.map(key => {
-                        let knownFactID = key as string;
-                        return deleteKnownFact(sessionID, knownFactID);
-                      });
-                      Promise.all(mutations).then(responses => {
-                        if (responses.every(r => r.resultCode === 0)) {
-                          toast.success(t('knownFacts.deleteSuccess'));
-                          setSelectedRowKeys([]);
-                          fetchKnownFacts();
-                          setBulkDeleteModalVisible(false);
-                        } else {
-                          let errored = responses.find(r => r.resultCode !== 0);
-                          console.error(errored);
-                          if (errored?.resultCode !== undefined)
-                            toast.error(
-                              t(getErrori18nKey(errored?.resultCode))
-                            );
-                        }
-                      });
-                    } catch (_e) {
-                      let error = _e as Error;
-                      toast.error(t('Error') + error.message);
-                    }
-                  }}
-                >
-                  {t('confirm')}
-                </Button>
-              </>
-            }
-          />
-        </div>
-
-        {knownFactsCount > 25 && (
-          <nav className="memori--table--pagination">
-            {knownFactsCount > numberOfResults && (
-              <div className="memori--table--pagination--pages">
-                <Button
-                  shape="circle"
-                  disabled={pageIndex === 0 || pageIndex < numberOfResults}
-                  padded={false}
-                  title={t('previous') || 'Previous'}
-                  icon={<ChevronLeft />}
-                  onClick={() => {
-                    let from =
-                      (pageIndex / numberOfResults - 1) * numberOfResults;
-                    setPageIndex(from);
-                    fetchKnownFacts(undefined, from, numberOfResults);
-                  }}
-                />
-                <span className="memori--table--pagination--pages--current">
-                  {Math.ceil(pageIndex / numberOfResults) + 1} /{' '}
-                  {Math.ceil(knownFactsCount / numberOfResults)}
-                </span>
-                <Button
-                  shape="circle"
-                  padded={false}
-                  title={t('next') || 'Next'}
-                  icon={<ChevronRight />}
-                  disabled={
-                    (pageIndex / numberOfResults + 1) * numberOfResults >=
-                    knownFactsCount
-                  }
-                  onClick={() => {
-                    let from =
-                      (pageIndex / numberOfResults + 1) * numberOfResults;
-                    setPageIndex(from);
-                    fetchKnownFacts(undefined, from, numberOfResults);
-                  }}
-                />
-              </div>
-            )}
-
-            <Select
-              options={[
-                { label: `25 / ${t('page') || 'page'}`, value: 25 },
-                { label: `50 / ${t('page') || 'page'}`, value: 50 },
-                { label: `100 / ${t('page') || 'page'}`, value: 100 },
-              ]}
-              value={numberOfResults}
-              displayValue={`${numberOfResults} / ${t('page') || 'page'}`}
-              onChange={value => {
-                setNumberOfResults(value);
-                setPageIndex(0);
-                fetchKnownFacts(undefined, 0, value);
-              }}
+      {!isEmpty && (
+        <div className="memori-known-facts-toolbar">
+          <div className="memori-known-facts-search">
+            <Search aria-hidden className="memori-known-facts-search__icon" />
+            <label className="memori-sr-only" htmlFor="memori-known-facts-search">
+              {t('knownFacts.searchPlaceholder')}
+            </label>
+            <Input
+              id="memori-known-facts-search"
+              fullWidth
+              value={searchInput}
+              placeholder={t('knownFacts.searchPlaceholder') || ''}
+              onValueChange={setSearchInput}
             />
-          </nav>
-        )}
-        <table className="memori--table">
-          <thead>
-            <tr>
-              <th className="memori--table--column-centered">
-                <Checkbox
-                  checked={
-                    !!knownFacts?.length &&
-                    selectedRowKeys?.length === knownFacts.length
-                  }
-                  indeterminate={
-                    !!knownFacts?.length &&
-                    !!selectedRowKeys?.length &&
-                    selectedRowKeys?.length !== knownFacts?.length
-                  }
-                  onChange={e => {
-                    if (e.target.checked) {
-                      setSelectedRowKeys(knownFacts.map(kf => kf.knownFactID));
-                    } else {
-                      setSelectedRowKeys([]);
-                    }
-                  }}
-                />
-              </th>
-              <th>{t('knownFacts.text')}</th>
-              <th className="mobile-hidden">{t('createdAt')}</th>
-              <th className="memori--table--column-right">{t('actions')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {knownFacts.map(kf => (
-              <tr key={kf.knownFactID}>
-                <th className="memori--table--column-centered">
-                  <Checkbox
-                    checked={selectedRowKeys?.includes(kf.knownFactID)}
-                    onChange={e => {
-                      if (e.target.checked) {
-                        setSelectedRowKeys(srk => [
-                          ...new Set([...srk, kf.knownFactID]),
-                        ]);
-                      } else {
-                        setSelectedRowKeys(
-                          srk =>
-                            srk.filter(
-                              key => key !== kf.knownFactID
-                            ) as string[]
-                        );
-                      }
-                    }}
-                  />
-                </th>
-                <td>{kf.text}</td>
-                <td className="mobile-hidden">
-                  <span className="memori--table--date">
-                    {kf.creationTimestamp
-                      ? new Intl.DateTimeFormat('it', {
-                          dateStyle: 'short',
-                          timeStyle: 'short',
-                        }).format(new Date(kf.creationTimestamp))
-                      : '-'}
-                  </span>
-                </td>
-                <td className="memori--table--column-right">
-                  <div className="memori--table--action-column">
-                    <Button
-                      danger
-                      ghost
-                      shape="circle"
-                      icon={<Delete />}
-                      disabled={selectedRowKeys?.length > 0}
-                      title={t('delete') || 'Delete'}
-                      onClick={() => setDeleteModalVisibleFor(kf.knownFactID)}
+          </div>
+          <Button
+            variant="outline"
+            active={selectMode}
+            icon={<Check aria-hidden />}
+            onClick={() => {
+              setSelectMode(on => !on);
+              setSelectedIds([]);
+            }}
+          >
+            {t('knownFacts.select')}
+          </Button>
+        </div>
+      )}
+
+      {selectMode && selectedIds.length > 0 && (
+        <div
+          className="memori-known-facts-selection-bar"
+          role="region"
+          aria-label={selectedRowsLabel}
+        >
+          <span className="memori-known-facts-selection-bar__count">
+            {selectedRowsLabel}
+          </span>
+          <div className="memori-known-facts-selection-bar__actions">
+            <Button
+              variant="danger"
+              className="memori-known-facts-selection-bar__delete"
+              icon={<Trash2 aria-hidden />}
+              onClick={() => setBulkDeleteModalVisible(true)}
+            >
+              {t('delete')}
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setSelectedIds([]);
+                setSelectMode(false);
+              }}
+            >
+              {t('cancel')}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {isEmpty && (
+        <SideDrawerEmpty
+          icon={<Lightbulb />}
+          title={t('knownFacts.emptyTitle')}
+          description={t('knownFacts.emptyDescription')}
+        />
+      )}
+
+      {noSearchResults && (
+        <SideDrawerEmpty
+          icon={<Search />}
+          title={t('write_and_speak.noResultsFound', {
+            searchText: searchQuery,
+          })}
+        />
+      )}
+
+      {!isEmpty && !noSearchResults && (
+        <ul
+          className="memori-known-facts-list"
+          aria-busy={loading || undefined}
+        >
+          {knownFacts.map(fact => {
+            const isSelected = selectedIds.includes(fact.knownFactID);
+            const relative = fact.creationTimestamp
+              ? formatRelativeTime(fact.creationTimestamp, i18n.language)
+              : '';
+            const exact = fact.creationTimestamp
+              ? formatExactDateTime(fact.creationTimestamp, i18n.language)
+              : '';
+
+            return (
+              <li key={fact.knownFactID}>
+                {selectMode ? (
+                  <label
+                    className={cx('memori-known-facts-card', {
+                      'memori-known-facts-card--selected': isSelected,
+                    })}
+                  >
+                    <Checkbox
+                      checked={isSelected}
+                      onChange={() => toggleSelected(fact.knownFactID)}
+                      aria-label={t('selected') || undefined}
                     />
-                    <Modal
-                      className="memori-known-facts-modal"
-                      open={deleteModalVisibleFor === kf.knownFactID}
-                      closable
-                      title={t('knownFacts.deleteConfirmTitle')}
-                      description={t('knownFacts.deleteConfirmMessage')}
-                      onClose={() => {
-                        setDeleteModalVisibleFor(undefined);
-                      }}
-                      footer={
-                        <>
-                          <Button
-                            ghost
-                            onClick={() => {
-                              setDeleteModalVisibleFor(undefined);
-                            }}
+                    <span className="memori-known-facts-card__text">
+                      {fact.text}
+                    </span>
+                  </label>
+                ) : (
+                  <article className="memori-known-facts-card">
+                    <div className="memori-known-facts-card__content">
+                      <p className="memori-known-facts-card__text">{fact.text}</p>
+                      {relative && (
+                        <Tooltip title={exact} placement="bottom">
+                          <time
+                            className="memori-known-facts-card__date"
+                            dateTime={fact.creationTimestamp}
                           >
-                            {t('cancel')}
-                          </Button>
-                          <Button
-                            primary
-                            danger
-                            onClick={async () => {
-                              try {
-                                const response = await deleteKnownFact(
-                                  sessionID,
-                                  kf.knownFactID
-                                );
-                                if (response.resultCode === 0) {
-                                  toast.success(t('knownFacts.deleteSuccess'));
-                                  setSelectedRowKeys([]);
-                                  fetchKnownFacts();
-                                  setDeleteModalVisibleFor(undefined);
-                                } else {
-                                  console.error(response);
-                                  toast.error(
-                                    t(getErrori18nKey(response.resultCode), {
-                                      ns: 'common',
-                                    })
-                                  );
-                                }
-                              } catch (_e) {
-                                let error = _e as Error;
-                                toast.error(t('Error') + error.message);
-                              }
-                            }}
-                          >
-                            {t('confirm')}
-                          </Button>
-                        </>
-                      }
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Spin>
-    </Drawer>
+                            {relative}
+                          </time>
+                        </Tooltip>
+                      )}
+                    </div>
+                    <div className="memori-known-facts-card__actions">
+                      <Button
+                        variant="ghost"
+                        shape="circle"
+                        size="sm"
+                        className="memori-known-facts-card__delete"
+                        aria-label={t('knownFacts.deleteLabel') || undefined}
+                        title={t('delete') || ''}
+                        icon={<Trash2 aria-hidden />}
+                        onClick={() =>
+                          setDeleteModalVisibleFor(fact.knownFactID)
+                        }
+                      />
+                    </div>
+                  </article>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      <Modal
+        className="memori-known-facts-modal"
+        stacking="stacked"
+        open={bulkDeleteModalVisible}
+        closable
+        title={
+          selectedIds.length > 1
+            ? t('knownFacts.deleteSelectedConfirmTitle')
+            : t('knownFacts.deleteConfirmTitle')
+        }
+        description={`${selectedRowsLabel}. ${t(
+          'knownFacts.deleteSelectedConfirmMessage',
+          { number: selectedIds.length }
+        )}`}
+        onOpenChange={(open: boolean) => {
+          if (!open) setBulkDeleteModalVisible(false);
+        }}
+        footer={
+          <>
+            <Button
+              variant="ghost"
+              onClick={() => setBulkDeleteModalVisible(false)}
+            >
+              {t('cancel')}
+            </Button>
+            <Button
+              variant="danger"
+              loading={bulkDeleting}
+              disabled={bulkDeleting}
+              onClick={async () => {
+                setBulkDeleting(true);
+                try {
+                  const ok = await deleteFacts(selectedIds);
+                  if (ok) {
+                    setSelectedIds([]);
+                    setSelectMode(false);
+                    setBulkDeleteModalVisible(false);
+                  }
+                } finally {
+                  setBulkDeleting(false);
+                }
+              }}
+            >
+              {t('confirm')}
+            </Button>
+          </>
+        }
+      />
+
+      <Modal
+        className="memori-known-facts-modal"
+        stacking="stacked"
+        open={deleteModalVisibleFor !== undefined}
+        closable
+        title={t('knownFacts.deleteConfirmTitle')}
+        description={t('knownFacts.deleteConfirmMessage')}
+        onOpenChange={(open: boolean) => {
+          if (!open) setDeleteModalVisibleFor(undefined);
+        }}
+        footer={
+          <>
+            <Button
+              variant="ghost"
+              onClick={() => setDeleteModalVisibleFor(undefined)}
+            >
+              {t('cancel')}
+            </Button>
+            <Button
+              variant="danger"
+              loading={singleDeleting}
+              disabled={singleDeleting}
+              onClick={async () => {
+                if (!deleteModalVisibleFor) return;
+                setSingleDeleting(true);
+                try {
+                  const ok = await deleteFacts([deleteModalVisibleFor]);
+                  if (ok) setDeleteModalVisibleFor(undefined);
+                } finally {
+                  setSingleDeleting(false);
+                }
+              }}
+            >
+              {t('confirm')}
+            </Button>
+          </>
+        }
+      />
+    </SideDrawer>
   );
 };
 

@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import Memori, { Props } from './index';
 
 const meta: Meta = {
-  title: 'General/Functionalities',
+  title: 'Live/Functionalities',
   component: Memori,
   argTypes: {
     AZURE_COGNITIVE_SERVICES_TTS_KEY: {
@@ -32,6 +32,7 @@ WithInitialContextAndQuestion.args = {
   baseURL: 'https://www.aisuru.com',
   uiLang: 'IT',
   spokenLang: 'IT',
+  layout: 'FULLPAGE',
   enableAudio: true,
   autoStart: true,
   initialQuestion: 'Ciao',
@@ -46,6 +47,7 @@ WithInitialContextAndQuestionFromIntegration.args = {
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
@@ -68,6 +70,7 @@ WithPreviousSession.args = {
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
   sessionID: '1234567890',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
 };
@@ -85,20 +88,6 @@ WithChatHistory.args = {
   showChatHistory: true,
 };
 
-export const WithUploadNoTotalPayloadLimit = Template.bind({});
-WithUploadNoTotalPayloadLimit.args = {
-  ownerUserName: 'nzambello',
-  memoriName: 'Nicola',
-  tenantID: 'www.aisuru.com',
-  engineURL: 'https://engine.memori.ai',
-  apiURL: 'https://backend.memori.ai',
-  baseURL: 'https://www.aisuru.com',
-  uiLang: 'IT',
-  spokenLang: 'IT',
-  enableAudio: true,
-  showUpload: true,
-};
-
 export const WithMaxTextareaCharacters = Template.bind({});
 WithMaxTextareaCharacters.args = {
   ownerUserName: 'nzambello',
@@ -107,6 +96,7 @@ WithMaxTextareaCharacters.args = {
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
@@ -114,8 +104,8 @@ WithMaxTextareaCharacters.args = {
   maxTextareaCharacters: 500,
 };
 
-export const WithPrivateAgent = Template.bind({});
-WithPrivateAgent.args = {
+export const TestingAgent = Template.bind({});
+TestingAgent.args = {
   memoriName: 'Test Private',
   ownerUserName: 'Andrea-Patini',
   memoriID: 'c58cd5f9-43c4-4a3b-9fb6-56aedf58ff7a',
@@ -168,6 +158,7 @@ export const WithPiiDetection = Template.bind({});
 WithPiiDetection.args = {
   memoriName: 'Layout Storybook',
   ownerUserName: 'andrea.patini',
+  layout: 'FULLPAGE',
   memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
   tenantID: 'aisuru-staging.aclambda.online',
@@ -187,34 +178,3 @@ WithPiiDetection.args = {
   },
 };
 
-export const WithLocalNats = Template.bind({});
-WithLocalNats.args = {
-  memoriName: 'test324',
-  ownerUserName: 'andrea.patini',
-  memoriID: 'd661a9ca-e907-4396-a986-5095ccd582d6',
-  ownerUserID: '69fcc557-9cb6-4e5e-b8ab-140cff975492',
-  tenantID: 'localhost:3000',
-  engineURL: 'http://localhost:7778/memori/v2',
-  apiURL: 'http://localhost:7778/api/v2',
-  baseURL: 'http://localhost:3000',
-  layout: 'FULLPAGE',
-  uiLang: 'IT',
-  spokenLang: 'IT',
-  integrationID: 'ee1c3d98-7819-4506-ba28-818e79ba86cb',
-};
-
-export const WithFunctionalities = Template.bind({});
-WithFunctionalities.args = {
-  memoriName: 'test324',
-  ownerUserName: 'andrea.patini',
-  memoriID: 'd661a9ca-e907-4396-a986-5095ccd582d6',
-  ownerUserID: '69fcc557-9cb6-4e5e-b8ab-140cff975492',
-  tenantID: 'localhost:3000',
-  engineURL: 'http://localhost:7778/memori/v2',
-  apiURL: 'http://localhost:7778/api/v2',
-  baseURL: 'http://localhost:3000',
-  layout: 'FULLPAGE',
-  uiLang: 'IT',
-  spokenLang: 'IT',
-  integrationID: 'ee1c3d98-7819-4506-ba28-818e79ba86cb',
-};

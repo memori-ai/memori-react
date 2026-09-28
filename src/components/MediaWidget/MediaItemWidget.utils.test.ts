@@ -3,6 +3,9 @@ import {
   getFileExtensionFromUrl,
   getFileExtensionFromMime,
   getDocumentBadgeLabel,
+  getOriginalMimeType,
+  isHtmlFileAttachment,
+  isHtmlWebLink,
   countLines,
   shouldUseDarkFileCard,
   fetchLinkPreview,
@@ -90,19 +93,26 @@ describe('MediaItemWidget.utils', () => {
   });
 
   describe('getDocumentBadgeLabel', () => {
-    it('prefers URL extension, then filename, then mime type', () => {
+    it('prefers original filename, then original mime, not the converted asset URL', () => {
       expect(
         getDocumentBadgeLabel(
           'application/pdf',
-          'report.docx',
-          'https://example.com/file.pdf'
+          'report.pdf',
+          'https://assets.example.com/report.txt'
         )
       ).toBe('PDF');
       expect(
         getDocumentBadgeLabel(
+          'text/html',
+          'page.html',
+          'https://assets.example.com/page.txt'
+        )
+      ).toBe('HTML');
+      expect(
+        getDocumentBadgeLabel(
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           'report.docx',
-          'https://example.com/asset/123'
+          'https://assets.example.com/report.txt'
         )
       ).toBe('Word');
       expect(
@@ -111,6 +121,64 @@ describe('MediaItemWidget.utils', () => {
           'budget.xlsx'
         )
       ).toBe('Excel');
+      expect(
+        getDocumentBadgeLabel(
+          'application/pdf',
+          'Attachment',
+          'https://assets.example.com/file.txt'
+        )
+      ).toBe('PDF');
+    });
+  });
+
+  describe('getOriginalMimeType', () => {
+    it('keeps the original file mime instead of the converted text/plain asset', () => {
+      expect(getOriginalMimeType('page.html', 'text/plain')).toBe('text/html');
+      expect(getOriginalMimeType('report.pdf', 'text/plain')).toBe(
+        'application/pdf'
+      );
+      expect(getOriginalMimeType('notes.docx', '')).toBe(
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      );
+      expect(getOriginalMimeType('notes.txt', 'text/plain')).toBe('text/plain');
+    });
+  });
+
+  describe('isHtmlWebLink / isHtmlFileAttachment', () => {
+    it('treats html+url without file metadata as a web link', () => {
+      expect(
+        isHtmlWebLink({
+          mimeType: 'text/html',
+          title: 'Memori',
+          url: 'https://memori.ai',
+        })
+      ).toBe(true);
+      expect(
+        isHtmlFileAttachment({
+          mimeType: 'text/html',
+          title: 'Memori',
+        })
+      ).toBe(false);
+    });
+
+    it('treats uploaded HTML files as file attachments, not links', () => {
+      expect(
+        isHtmlFileAttachment({
+          mimeType: 'text/html',
+          title: 'page.html',
+          content: '<html></html>',
+          properties: { isAttachedFile: true },
+        })
+      ).toBe(true);
+      expect(
+        isHtmlWebLink({
+          mimeType: 'text/html',
+          title: 'page.html',
+          url: 'https://assets.example.com/page.txt',
+          content: '<html></html>',
+          properties: { isAttachedFile: true },
+        })
+      ).toBe(false);
     });
   });
 

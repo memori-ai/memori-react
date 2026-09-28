@@ -1,13 +1,8 @@
-/**
- * TabSwitch Component
- * Modern animated switch for toggling between code and preview tabs
- */
-
 import React from 'react';
-import { ArtifactTab } from '../../../types/artifact.types';
+import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
-import Code from '../../../../icons/Code';
-import { PreviewIcon } from '../../../../icons/Preview';
+import { Code, Eye } from 'lucide-react';
+import { ArtifactTab } from '../../../types/artifact.types';
 
 interface TabSwitchProps {
   activeTab: ArtifactTab;
@@ -20,58 +15,48 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
   onTabChange,
   hasPreview,
 }) => {
-  const tabs = [
+  const { t } = useTranslation();
+
+  if (!hasPreview) {
+    return null;
+  }
+
+  const tabs: { id: ArtifactTab; label: string; icon: React.ReactNode }[] = [
     {
-      id: 'code' as ArtifactTab,
-      icon: Code,
-    //   label: 'Code',
+      id: 'preview',
+      label: t('artifact.preview') || 'Preview',
+      icon: <Eye className="memori-tab-switch__icon" aria-hidden />,
     },
-    ...(hasPreview
-      ? [
-          {
-            id: 'preview' as ArtifactTab,
-            icon: PreviewIcon,
-            // label: 'Preview',
-          },
-        ]
-      : []),
+    {
+      id: 'code',
+      label: t('artifact.source') || t('artifact.code') || 'Source',
+      icon: <Code className="memori-tab-switch__icon" aria-hidden />,
+    },
   ];
 
   return (
-    <div className="memori-tab-switch">
-      <div className="memori-tab-switch__container">
-        <div
-          className="memori-tab-switch__track"
-          style={{
-            '--tab-count': tabs.length,
-          } as React.CSSProperties}
-        >
-          <div
-            className="memori-tab-switch__indicator"
-            style={{
-              '--active-index': tabs.findIndex(tab => tab.id === activeTab),
-            } as React.CSSProperties}
-          />
-          {tabs.map((tab) => {
-            const IconComponent = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                className={cx('memori-tab-switch__button', {
-                  'memori-tab-switch__button--active': activeTab === tab.id,
-                })}
-                onClick={() => onTabChange(tab.id)}
-                aria-pressed={activeTab === tab.id}
-                // title={tab.label}
-              >
-                <IconComponent className="memori-tab-switch__icon" />
-                {/* <span className="memori-tab-switch__label">{tab.label}</span> */}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+    <div
+      className="memori-tab-switch"
+      role="group"
+      aria-label={t('artifact.viewMode') || 'View mode'}
+    >
+      {tabs.map(tab => {
+        const pressed = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            className={cx('memori-tab-switch__tab', {
+              'memori-tab-switch__tab--pressed': pressed,
+            })}
+            aria-pressed={pressed}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.icon}
+            <span className="memori-tab-switch__label">{tab.label}</span>
+          </button>
+        );
+      })}
     </div>
   );
 };

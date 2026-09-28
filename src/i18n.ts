@@ -1,4 +1,5 @@
 import { createInstance } from 'i18next';
+import { addMemoriTableToI18n } from '@memori.ai/ui';
 import it from './locales/it.json';
 import en from './locales/en.json';
 import fr from './locales/fr.json';
@@ -35,5 +36,6 @@ const i18n = createInstance({
 });
 
 i18n.init();
+addMemoriTableToI18n(i18n);
 
 export default i18n;

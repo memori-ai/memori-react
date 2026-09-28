@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
-import Button from '../ui/Button';
-import Copy from '../icons/Copy';
+import { Button } from '@memori.ai/ui';
+import { Check, Copy } from 'lucide-react';
 import { prismSyntaxLangs } from '../../helpers/constants';
+import { highlightUnder, loadPrism } from '../../helpers/prism';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
-import { stripDocumentAttachmentTags, stripOutputTags } from '../../helpers/utils';
+import { stripDocumentAttachmentTags } from '../../helpers/utils';
 
 export interface Props {
   medium: Medium;
@@ -13,49 +14,6 @@ export interface Props {
   preview?: boolean;
   showCopyButton?: boolean;
 }
-
-const loadPrismScripts = (): Promise<void> => {
-  return new Promise((resolve) => {
-    const existingScript = document.getElementById('memori-prism-script');
-    if (existingScript) {
-      resolve();
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
-    script.async = true;
-    script.id = 'memori-prism-script';
-    script.onload = () => {
-      // Load autoloader after main Prism script is loaded
-      const autoloaderScript = document.createElement('script');
-      autoloaderScript.src =
-        'https://cdn.jsdelivr.net/npm/prismjs@v1.29.0/plugins/autoloader/prism-autoloader.min.js';
-      autoloaderScript.async = true;
-      autoloaderScript.id = 'memori-prism-autoloader-script';
-      autoloaderScript.onload = () => {
-        // Configure autoloader to use the same CDN
-        // @ts-ignore
-        // eslint-disable-next-line no-undef
-        if (window.Prism && window.Prism.plugins && window.Prism.plugins.autoloader) {
-          // @ts-ignore
-          // eslint-disable-next-line no-undef
-          window.Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
-        }
-        resolve();
-      };
-      document.head.appendChild(autoloaderScript);
-    };
-
-    const prismCss = document.createElement('link');
-    prismCss.rel = 'stylesheet';
-    prismCss.href =
-      'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-
-    document.head.appendChild(prismCss);
-    document.head.appendChild(script);
-  });
-};
 
 const Snippet = ({
   medium,
@@ -65,22 +23,16 @@ const Snippet = ({
 }: Props) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
   const highlightCode = () => {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    if ('Prism' in window && window.Prism.highlightAll) {
-      // Small delay to ensure DOM is updated
-      setTimeout(() => {
-        // @ts-ignore
-        // eslint-disable-next-line no-undef
-        Prism.highlightAll();
-      }, 100);
+    if (contentRef.current) {
+      highlightUnder(contentRef.current);
     }
   };
 
   useEffect(() => {
-    loadPrismScripts().then(() => {
+    loadPrism().then(() => {
       highlightCode();
     });
   }, []);
@@ -104,7 +56,7 @@ const Snippet = ({
 
   return (
     <div className={cx('memori-snippet', { 'memori-snippet--preview': preview })}>
-      <div className="memori-snippet--content">
+      <div className="memori-snippet--content" ref={contentRef}>
         <pre
           className={cx('line-numbers', className)}
           aria-labelledby={
@@ -127,16 +79,15 @@ const Snippet = ({
 
         {showCopyButton && (
           <div className="memori-snippet--copy-wrapper">
-            {copied && (
-              <span className="memori-snippet--copied-text">{t('copied') || 'Copied!'}</span>
-            )}
             <Button
-              padded={false}
-              ghost
-              className="memori-snippet--copy-button"
-              title={t('copy') || 'Copy'}
-              icon={<Copy />}
-              onClick={handleCopy}
+              variant="ghost"
+              shape="circle"
+              className={cx('memori-snippet--copy-button', {
+                'memori-snippet--copy-button--copied': copied,
+              })}
+              title={copied ? t('copied') || 'Copied' : t('copy') || 'Copy'}
+              icon={copied ? <Check /> : <Copy />}
+              onMouseDown={handleCopy}
             />
           </div>
         )}

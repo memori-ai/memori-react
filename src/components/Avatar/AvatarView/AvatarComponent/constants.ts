@@ -113,11 +113,14 @@ export const ANIMATION_URLS = {
     'https://assets.memori.ai/api/v2/asset/2adc934b-24b2-45bd-94ad-ffec58d3cb32.glb',
 };
 
-/** Idle clips excluded from the male animation pack. */
-export const MALE_EXCLUDED_ANIMATIONS = new Set([
-  'Idle',
-  'Idle2'
-]);
+/**
+ * Unnumbered Idle clips excluded from the male animation pack.
+ * Matches `Idle` and Blender duplicates like `Idle_Armature.003`,
+ * but not numbered variants (`Idle1`, `Idle3`, `Idle 1_Armature.003`, ...).
+ */
+export function isMaleExcludedAnimation(clipName: string): boolean {
+  return /^Idle(?!\d| \d)/.test(clipName);
+}
 
 // Blink configuration
 export const BLINK_CONFIG = {

@@ -1,0 +1,401 @@
+import { Venue } from '@memori.ai/memori-api-client/dist/types';
+import { Button, Popover, Tooltip } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
+import { MapPin, Pencil } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getUncertaintyByViewport } from '../../helpers/venue';
+import { useDebounceFn } from '../../helpers/utils';
+import {
+  VenueCombobox,
+  VenueMapPreview,
+  getPlaceName,
+  type NominatimItem,
+} from '../VenueWidget/VenueWidget';
+import cx from 'classnames';
+
+const GEOCODE_TIMEOUT_MS = 8000;
+
+function hasShareableCoords(v?: Venue): boolean {
+  return !!(v?.latitude && v?.longitude);
+}
+
+export interface PositionPopoverProps {
+  venue?: Venue;
+  setVenue: (venue?: Venue) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  triggerClassName?: string;
+  triggerButtonVariant?: React.ComponentProps<typeof Button>['variant'];
+  triggerAriaLabel: string;
+  positionerClassName?: string;
+  /** When true, start browser geolocation as soon as the popover opens. */
+  autoStartGeolocation?: boolean;
+}
+
+export interface PositionPopoverContentProps {
+  venue?: Venue;
+  setVenue: (venue?: Venue) => void;
+  /** When true, start browser geolocation as soon as the panel mounts (e.g. StartPanel CTA). */
+  autoStartGeolocation?: boolean;
+}
+
+export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
+  venue,
+  setVenue,
+  autoStartGeolocation = false,
+}) => {
+  const { t } = useTranslation();
+  const [geolocationLoading, setGeolocationLoading] = useState(false);
+  const [editingLocation, setEditingLocation] = useState(false);
+  const [permissionDeniedMessage, setPermissionDeniedMessage] = useState<
+    string | null
+  >(null);
+  const [geocodingError, setGeocodingError] = useState<string | null>(null);
+  const [fetching, setFetching] = useState(false);
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<NominatimItem[]>([]);
+  const geoGenRef = useRef(0);
+  const autocompleteInputRef = useRef<HTMLInputElement>(null);
+  const autoStartedRef = useRef(false);
+
+  const sharingActive = geolocationLoading || hasShareableCoords(venue);
+
+  const handleSearch = useDebounceFn(async (value: string) => {
+    setFetching(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          value
+        )}&format=jsonv2&limit=5&addressdetails=1`
+      );
+      const data = await response.json();
+      setSuggestions(data);
+    } catch {
+      setGeocodingError(String(t('widget.geocodingFailed')));
+    } finally {
+      setFetching(false);
+    }
+  }, 1000);
+
+  const onQueryChange = useCallback(
+    (value: string, opts?: { skipSearch?: boolean }) => {
+      setQuery(value);
+      if (opts?.skipSearch) return;
+      if (!value.trim()) {
+        setSuggestions([]);
+        return;
+      }
+      handleSearch(value);
+    },
+    [handleSearch]
+  );
+
+  const handleAutocompletePick = useCallback(
+    (value: NominatimItem) => {
+      const placeName = getPlaceName(value);
+      setVenue({
+        latitude: value.lat,
+        longitude: value.lon,
+        placeName,
+        uncertainty: value?.boundingbox
+          ? getUncertaintyByViewport(value.boundingbox)
+          : 2,
+      } as Venue);
+      setEditingLocation(false);
+      setQuery('');
+      setSuggestions([]);
+      setGeocodingError(null);
+      setPermissionDeniedMessage(null);
+    },
+    [setVenue, t]
+  );
+
+  const startGeolocation = useCallback(() => {
+    const gen = ++geoGenRef.current;
+    setPermissionDeniedMessage(null);
+    setGeocodingError(null);
+
+    if (!navigator.geolocation) {
+      setGeolocationLoading(false);
+      setPermissionDeniedMessage(String(t('widget.positionUnavailableManual')));
+      setEditingLocation(true);
+      return;
+    }
+
+    setGeolocationLoading(true);
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        if (gen !== geoGenRef.current) return;
+        const next: Venue = {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+          placeName: '',
+          uncertainty: pos.coords.accuracy / 1000,
+        };
+        setVenue(next);
+        setGeolocationLoading(false);
+
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(
+          () => controller.abort(),
+          GEOCODE_TIMEOUT_MS
+        );
+
+        void (async () => {
+          try {
+            const result = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=jsonv2&addressdetails=1`,
+              { signal: controller.signal }
+            );
+            if (gen !== geoGenRef.current) return;
+            const response = (await result.json()) as NominatimItem;
+            const placeName = getPlaceName(response);
+            setVenue({
+              ...next,
+              placeName,
+            });
+          } catch (e) {
+            if (gen !== geoGenRef.current) return;
+            if ((e as { name?: string }).name === 'AbortError') return;
+            console.error('[PositionPopover] reverse geocode failed', e);
+            setGeocodingError(String(t('widget.geocodingFailed')));
+          } finally {
+            window.clearTimeout(timeoutId);
+          }
+        })();
+      },
+      err => {
+        if (gen !== geoGenRef.current) return;
+        setGeolocationLoading(false);
+        setVenue(undefined);
+        const code = (err as { code?: number }).code;
+        if (code === 1) {
+          setPermissionDeniedMessage(
+            String(t('widget.positionUnavailableManual'))
+          );
+          setEditingLocation(true);
+        } else {
+          setGeocodingError(String(t('widget.geocodingFailed')));
+        }
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  }, [setVenue, t]);
+
+  const toggleSharing = useCallback(() => {
+    setPermissionDeniedMessage(null);
+    setGeocodingError(null);
+
+    if (sharingActive && !geolocationLoading) {
+      geoGenRef.current += 1;
+      setVenue({
+        latitude: 0,
+        longitude: 0,
+        placeName: '',
+        uncertainty: 0,
+      });
+      setEditingLocation(false);
+      setQuery('');
+      setSuggestions([]);
+      return;
+    }
+
+    if (geolocationLoading) {
+      geoGenRef.current += 1;
+      setGeolocationLoading(false);
+      setVenue(undefined);
+      return;
+    }
+
+    startGeolocation();
+  }, [geolocationLoading, setVenue, sharingActive, startGeolocation]);
+
+  useEffect(() => {
+    if (!autoStartGeolocation) {
+      autoStartedRef.current = false;
+      return;
+    }
+    if (autoStartedRef.current) return;
+    if (hasShareableCoords(venue) || geolocationLoading) return;
+    autoStartedRef.current = true;
+    startGeolocation();
+  }, [autoStartGeolocation, geolocationLoading, startGeolocation, venue]);
+
+  useEffect(() => {
+    if (!editingLocation) return;
+    const id = requestAnimationFrame(() => {
+      autocompleteInputRef.current?.focus();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [editingLocation]);
+
+  const inlineError = permissionDeniedMessage || geocodingError;
+  const shareLocationHint =
+    t('widget.shareLocationHint') || 'Get answers tailored to where you are';
+
+  return (
+    <>
+      <div className="memori-position-popover__row memori-position-popover__switch-row">
+        <button
+          type="button"
+          className="memori-dropdown--auth-row"
+          onClick={() => {
+            toggleSharing();
+          }}
+        >
+          <span className="memori-dropdown--auth-icon-wrap">
+            <MapPin size={16} />
+          </span>
+          <span className="memori-dropdown--auth-copy">
+            <span className="memori-dropdown--auth-title">
+              {t('widget.shareLocation') || 'Share my location'}
+            </span>
+            <Tooltip title={shareLocationHint} placement="top">
+              <span className="memori-dropdown--auth-subtitle">
+                {shareLocationHint}
+              </span>
+            </Tooltip>
+          </span>
+          <span
+            className={cx(
+              'memori-dropdown--switch',
+              sharingActive && 'memori-dropdown--switch--on'
+            )}
+            aria-hidden
+          />
+        </button>
+      </div>
+
+      {(sharingActive || geolocationLoading || editingLocation) && (
+        <div className="memori-position-popover__tag-block">
+          {geolocationLoading ? (
+            <div
+              className="memori-position-popover__tag memori-position-popover__tag--loading"
+              aria-busy="true"
+              aria-live="polite"
+            >
+              <span className="memori-position-popover__spinner" aria-hidden />
+              <span className="memori-position-popover__tag-skeleton" />
+            </div>
+          ) : editingLocation ? (
+            <div className="memori-position-popover__autocomplete-wrap">
+              <VenueCombobox
+                venue={venue}
+                query={query}
+                fetching={fetching}
+                suggestions={suggestions}
+                onQueryChange={onQueryChange}
+                onChange={handleAutocompletePick}
+                getPlaceName={getPlaceName}
+                t={t}
+                autocompleteRootId="memori-position-popover-venue-search"
+                inputRef={autocompleteInputRef}
+              />
+            </div>
+          ) : (
+            <div className="memori-position-popover__tag">
+              <span className="memori-position-popover__tag-text">
+                {venue?.placeName?.trim()
+                  ? venue.placeName
+                  : t('widget.positionResolving')}
+              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                icon={<Pencil size={16} strokeWidth={2} aria-hidden />}
+                size="sm"
+                className="memori-position-popover__tag-edit"
+                aria-label={String(t('widget.editPositionAria'))}
+                onClick={() => {
+                  setEditingLocation(true);
+                  setPermissionDeniedMessage(null);
+                }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {inlineError && (
+        <p className="memori-position-popover__error" role="alert">
+          {inlineError}
+        </p>
+      )}
+
+      {hasShareableCoords(venue) && !geolocationLoading && (
+        <div className="memori-position-popover__map">
+          <VenueMapPreview venue={venue} />
+        </div>
+      )}
+    </>
+  );
+};
+
+const PositionPopover: React.FC<PositionPopoverProps> = ({
+  venue,
+  setVenue,
+  open,
+  onOpenChange,
+  triggerClassName,
+  triggerButtonVariant = 'toolbar',
+  triggerAriaLabel,
+  positionerClassName,
+  autoStartGeolocation = false,
+}) => {
+  const sharingActive = hasShareableCoords(venue);
+
+  return (
+    <Popover
+      open={open}
+      onOpenChange={onOpenChange}
+      modal={false}
+      closable={false}
+      placement="bottom-end"
+      sideOffset={8}
+      contentClassName="memori-position-popover__popup"
+      slotProps={{
+        trigger: {
+          className: triggerClassName,
+          render: (props: React.ComponentProps<typeof Button>) => {
+            return (
+              <IconButton
+                {...props}
+                type="button"
+                variant={triggerButtonVariant}
+                active={open}
+                className={cx(
+                  'memori-header--button',
+                  'memori-header--button--position',
+                  sharingActive && 'memori-header--button--position--active',
+                  triggerClassName
+                )}
+                aria-label={triggerAriaLabel}
+                aria-expanded={open}
+                icon={<MapPin aria-hidden />}
+              />
+            );
+          },
+        },
+        positioner: {
+          className: cx(
+            'memori-position-popover__positioner',
+            positionerClassName
+          ),
+        },
+      }}
+      content={
+        <PositionPopoverContent
+          venue={venue}
+          setVenue={setVenue}
+          autoStartGeolocation={open && autoStartGeolocation}
+        />
+      }
+    >
+      {null}
+    </Popover>
+  );
+};
+
+export default PositionPopover;

@@ -20,13 +20,9 @@ import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
-import Card from '../ui/Card';
-import Modal from '../ui/Modal';
-import File from '../icons/File';
-import { Transition } from '@headlessui/react';
+import { Card, Modal } from '@memori.ai/ui';
+import { File, Volume2, Link as LinkIcon } from 'lucide-react';
 import cx from 'classnames';
-import Sound from '../icons/Sound';
-import Link from '../icons/Link';
 import { ellipsis } from 'ellipsed';
 
 import type {
@@ -48,7 +44,7 @@ import {
   getImageDisplaySource,
   FALLBACK_IMAGE_BASE64,
   TEXT_FILE_EXTENSIONS,
-  IMAGE_MIME_TYPES,
+  isHtmlWebLink,
 } from './MediaItemWidget.utils';
 import { DocumentCard } from './DocumentCard';
 import { MediaPreviewModal } from './MediaPreviewModal';
@@ -115,7 +111,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // Fetch link preview info for HTML links, only if relevant and not already loaded
   useEffect(() => {
     if (
-      item.mimeType !== 'text/html' ||
+      !isHtmlWebLink(item) ||
       !normURL ||
       normURL === link?.urlKey ||
       !baseURL
@@ -139,7 +135,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     return () => {
       cancelled = true;
     };
-  }, [item?.url, baseURL, item.mimeType, normURL, link?.urlKey]);
+  }, [item, baseURL, normURL, link?.urlKey]);
 
   // Custom renderer for media type, overrides our logic
   const customRenderer = customMediaRenderer?.(item.mimeType);
@@ -197,6 +193,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
                 <source srcSet={imageSrc} type={medium.mimeType} />
               )}
               <img
+                className="memori-motion-fade-in"
                 alt={medium.title}
                 src={imageError || !imageSrc ? FALLBACK_IMAGE_BASE64 : imageSrc}
                 onError={() => setImageError(true)}
@@ -244,7 +241,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           return (
             <div className="memori-media-item--audio-container">
               <div className="memori-media-item--audio-icon">
-                <Sound />
+                <Volume2 />
               </div>
               <audio
                 className="memori-media-item--audio-player"
@@ -296,7 +293,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
                 const size = getContentSize(medium);
                 return size != null && size > 0 ? formatBytes(size) : null;
               })()}
-              icon={<Link className="memori-media-item--document-icon-svg" />}
+              icon={<File className="memori-media-item--document-icon-svg" />}
             />
           );
 
@@ -345,6 +342,13 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   const isTextFile = (TEXT_FILE_EXTENSIONS as readonly string[]).includes(
     fileExtension || ''
   );
+  const isWebLink = isHtmlWebLink(item);
+  const documentBadge = isWebLink ? 'Link' : fileExtension;
+  const documentIcon = isWebLink ? (
+    <LinkIcon className="memori-media-item--document-icon-svg" />
+  ) : (
+    <File className="memori-media-item--document-icon-svg" />
+  );
 
   // Derive line count and line label for text files
   const lineCount =
@@ -383,6 +387,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={displayName}
           role="button"
           tabIndex={0}
+          aria-label={displayName}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -392,19 +397,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         >
           <DocumentCard
             title={displayName}
-            badge={
-              item.mimeType === 'text/html' && !!item.url
-                ? 'Link'
-                : fileExtension
-            }
+            badge={documentBadge}
             meta={metaLine}
-            icon={
-              item.mimeType === 'text/html' ? (
-                <Link className="memori-media-item--document-icon-svg" />
-              ) : (
-                <File className="memori-media-item--document-icon-svg" />
-              )
-            }
+            icon={documentIcon}
           />
         </div>
       );
@@ -462,17 +457,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       >
         <DocumentCard
           title={displayName}
-          badge={
-            item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
-          }
+          badge={documentBadge}
           meta={metaLine}
-          icon={
-            item.mimeType === 'text/html' ? (
-              <Link className="memori-media-item--document-icon-svg" />
-            ) : (
-              <File className="memori-media-item--document-icon-svg" />
-            )
-          }
+          icon={documentIcon}
         />
       </a>
     );
@@ -490,6 +477,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         title={item.title}
         role="button"
         tabIndex={0}
+        aria-label={item.title || 'Open preview'}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -503,7 +491,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   }
 
   // HTML file with link info / preview or video/image: render card with link preview (image, video, description)
-  if (isHTML && (linkImage || linkVideo || linkDescription)) {
+  if (isWebLink && (linkImage || linkVideo || linkDescription)) {
     // Compute card cover image/video src
     const coverSrc =
       linkImage?.includes('data:image') === true
@@ -542,13 +530,13 @@ export const RenderMediaItem = memo(function RenderMediaItem({
               />
             ) : linkImage ? (
               <img
-                className="memori-media-item--card-cover-img"
+                className="memori-media-item--card-cover-img memori-motion-fade-in"
                 src={coverSrc}
                 alt={linkTitle}
               />
             ) : (
               <div className="memori-media-item--card-cover-icon">
-                <Link className="memori-media-item--icon" />
+                <LinkIcon className="memori-media-item--icon" />
               </div>
             )
           }
@@ -592,6 +580,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={item.title}
           role="button"
           tabIndex={0}
+          aria-label={item.title || 'Open image preview'}
           onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
@@ -737,6 +726,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
       style={{ cursor: 'pointer' }}
       role="button"
       tabIndex={0}
+      aria-label={item.title || 'Open snippet preview'}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -846,14 +836,9 @@ const MediaItemWidget: React.FC<Props> = ({
     [media]
   );
 
-  // How many images are present for determining layout
-  const imageCount = useMemo(
-    () =>
-      nonCodeDisplayMedia.filter(m =>
-        (IMAGE_MIME_TYPES as readonly string[]).includes(m.mimeType)
-      ).length,
-    [nonCodeDisplayMedia]
-  );
+  // Tile count drives Claude-like row/column grid for images AND documents.
+  // (Previously only imageCount was used, so file cards stayed in a flex column.)
+  const tileCount = nonCodeDisplayMedia.length;
 
   // Media "card open"/preview modal: pass the clicked item so the correct one opens
   // (avoids wrong image when multiple items share the same mediumID)
@@ -881,29 +866,22 @@ const MediaItemWidget: React.FC<Props> = ({
 
   // Render transitions and the main grid layouts for media
   return (
-    <Transition appear show as="div" className="memori-media-items">
+    <div className="memori-media-items">
       {/* Main media grid: non-code media (images, files, html, video, etc) */}
       {nonCodeDisplayMedia.length > 0 && (
         <div
           className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
-            'memori-media-items--single': imageCount === 1,
-            'memori-media-items--few': imageCount >= 2 && imageCount <= 4,
-            'memori-media-items--many': imageCount >= 5,
+            'memori-media-items--single': tileCount === 1,
+            'memori-media-items--few': tileCount >= 2 && tileCount <= 4,
+            'memori-media-items--many': tileCount >= 5,
           })}
         >
           {nonCodeDisplayMedia.map((item, index) => (
-            <Transition.Child
+            <div
               key={`media-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderMediaItem
                 isChild
@@ -923,7 +901,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 descriptionOneLine={descriptionOneLine}
                 onLinkPreviewInfo={onLinkPreviewInfo}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -937,16 +915,9 @@ const MediaItemWidget: React.FC<Props> = ({
           })}
         >
           {codeSnippets.map((item, index) => (
-            <Transition.Child
+            <div
               key={`snippet-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderSnippetItem
                 sessionID={sessionID}
@@ -962,7 +933,7 @@ const MediaItemWidget: React.FC<Props> = ({
                   type: 'document',
                 }}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -990,7 +961,7 @@ const MediaItemWidget: React.FC<Props> = ({
           onMediumClick={handleModalNavigate}
         />
       )}
-    </Transition>
+    </div>
   );
 };
 

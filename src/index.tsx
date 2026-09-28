@@ -13,9 +13,7 @@ import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
 import { VisemeProvider } from './context/visemeContext';
-
-import { Toaster } from 'react-hot-toast';
-import toast from 'react-hot-toast';
+import { AlertProvider } from '@memori.ai/ui';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
@@ -49,11 +47,11 @@ export interface Props {
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
-  showTypingText?: boolean; 
+  showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
   showReasoning?: boolean;
-  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  /** When true (default for WEBSITE_ASSISTANT), hide the 3D avatar in the expanded panel. Set false to show it. */
   avatar3dHidden?: boolean;
   height?: number | string;
   baseURL?: string;
@@ -132,7 +130,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showMessageConsumption = false,
+  showMessageConsumption,
   showUpload,
   showLogin,
   showReasoning,
@@ -441,78 +439,79 @@ const Memori: React.FC<Props> = ({
 
   return (
     <I18nWrapper>
-      <VisemeProvider>
-        <ArtifactProvider>
-          <Toaster position="top-center" reverseOrder={true} />
-          {memori ? (
-            <MemoriWidget
-              // General props
-              layout={layout}
-              customLayout={customLayout}
-              height={height}
-              baseUrl={
-                baseURL ||
-                (tenantID.startsWith('https://') ||
-                tenantID.startsWith('http://')
-                  ? tenantID
-                  : `https://${tenantID}`)
-              }
-              apiURL={apiURL}
-              engineURL={engineURL}
-              memori={{
-                ...memori,
-                secretToken,
-              }}
-              __WEBCOMPONENT__={__WEBCOMPONENT__}
-              ownerUserName={ownerUserName ?? memori.ownerUserName}
-              ownerUserID={ownerUserID ?? memori.ownerUserID}
-              tenant={tenant}
-              tenantID={tenantID}
-              sessionID={sessionID ?? sessionId}
-              secret={secretToken}
-              ttsProvider={
-                provider ? (provider as 'azure' | 'openai') : 'azure'
-              }
-              integration={layoutIntegration}
-              authToken={authToken}
-              onStateChange={onStateChange}
-              additionalInfo={additionalInfo}
-              customMediaRenderer={customMediaRenderer}
-              additionalSettings={additionalSettings}
-              userAvatar={userAvatar}
-              applyVarsToRoot={applyVarsToRoot}
-              maxTotalMessagePayload={maxTotalMessagePayload}
-              maxTextareaCharacters={maxTextareaCharacters}
-              disableTextEnteredEvents={disableTextEnteredEvents}
-              avatar3dHidden={avatar3dHidden}
-              // From layout, from client if allowed
-              {...clientAttributes}
-              // Client only
-              showOnlyLastMessages={showOnlyLastMessages}
-              showInputs={showInputs}
-              showDates={showDates}
-            />
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <p
+      <AlertProvider defaultDuration={5000}>
+        <VisemeProvider>
+          <ArtifactProvider>
+            {memori ? (
+              <MemoriWidget
+                // General props
+                layout={layout}
+                customLayout={customLayout}
+                height={height}
+                baseUrl={
+                  baseURL ||
+                  (tenantID.startsWith('https://') ||
+                  tenantID.startsWith('http://')
+                    ? tenantID
+                    : `https://${tenantID}`)
+                }
+                apiURL={apiURL}
+                engineURL={engineURL}
+                memori={{
+                  ...memori,
+                  secretToken,
+                }}
+                __WEBCOMPONENT__={__WEBCOMPONENT__}
+                ownerUserName={ownerUserName ?? memori.ownerUserName}
+                ownerUserID={ownerUserID ?? memori.ownerUserID}
+                tenant={tenant}
+                tenantID={tenantID}
+                sessionID={sessionID ?? sessionId}
+                secret={secretToken}
+                ttsProvider={
+                  provider ? (provider as 'azure' | 'openai') : 'azure'
+                }
+                integration={layoutIntegration}
+                authToken={authToken}
+                onStateChange={onStateChange}
+                additionalInfo={additionalInfo}
+                customMediaRenderer={customMediaRenderer}
+                additionalSettings={additionalSettings}
+                userAvatar={userAvatar}
+                applyVarsToRoot={applyVarsToRoot}
+                maxTotalMessagePayload={maxTotalMessagePayload}
+                maxTextareaCharacters={maxTextareaCharacters}
+                disableTextEnteredEvents={disableTextEnteredEvents}
+                avatar3dHidden={avatar3dHidden}
+                // From layout, from client if allowed
+                {...clientAttributes}
+                // Client only
+                showOnlyLastMessages={showOnlyLastMessages}
+                showInputs={showInputs}
+                showDates={showDates}
+              />
+            ) : (
+              <div
                 style={{
-                  textAlign: 'center',
-                  margin: '2rem auto',
-                  textTransform: 'capitalize',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                {t('loading') || 'Loading'}...
-              </p>
-            </div>
-          )}
-        </ArtifactProvider>
-      </VisemeProvider>
+                <p
+                  style={{
+                    textAlign: 'center',
+                    margin: '2rem auto',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {t('loading') || 'Loading'}...
+                </p>
+              </div>
+            )}
+          </ArtifactProvider>
+        </VisemeProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };

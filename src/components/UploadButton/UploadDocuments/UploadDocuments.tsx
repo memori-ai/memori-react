@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import cx from 'classnames';
-import Spin from '../../ui/Spin';
-import { DocumentIcon } from '../../icons/Document';
-import Modal from '../../ui/Modal';
+import { Spin } from '@memori.ai/ui';
+import { FileText as DocumentIcon } from 'lucide-react';
+import { Modal } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import {
@@ -14,6 +14,7 @@ import {
   isLocalTextFilename,
   isOfficeNativeFilename,
 } from '../../../helpers/utils';
+import { getOriginalMimeType } from '../../MediaWidget/MediaItemWidget.utils';
 import { convertDocument } from '../../../helpers/convertDocument';
 // Types
 type PreviewFile = {
@@ -284,7 +285,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               name: file.name,
               id: fileId,
               content: '',
-              mimeType: file.type,
+              mimeType: getOriginalMimeType(file.name, file.type),
               textAssetUrl: assetUrl,
             });
           } else if (text) {
@@ -312,7 +313,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               name: file.name,
               id: fileId,
               content: text,
-              mimeType: file.type,
+              mimeType: getOriginalMimeType(file.name, file.type),
               textAssetUrl,
             });
           } else {
@@ -366,6 +367,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       {/* Upload document button */}
       <button
+        type="button"
         className={cx(
           'memori-button',
           'memori-button--circle',
@@ -375,19 +377,21 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           'memori--document-upload-button',
           { 'memori--error': false } // Removed errors.length > 0
         )}
+        aria-label={String(
+          t('upload.addDocument', { defaultValue: 'Upload document' })
+        )}
         onClick={() => documentInputRef.current?.click()}
         disabled={
           isLoading ||
           (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
           false
         }
-        title="Upload documents"
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
         ) : (
           <React.Fragment>
-            <DocumentIcon className="memori--upload-icon" />
+            <DocumentIcon className="memori--upload-icon" aria-hidden />
           </React.Fragment>
         )}
       </button>

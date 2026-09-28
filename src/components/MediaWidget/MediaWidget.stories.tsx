@@ -10,7 +10,7 @@ import {
 import './MediaWidget.css';
 
 const meta: Meta = {
-  title: 'Media Widget/Wrapper',
+  title: 'Internals/Media Wrapper',
   component: MediaWidget,
   argTypes: {
     hints: {
@@ -152,50 +152,6 @@ AllMediaTypes.args = {
       mimeType: 'image/gif',
       title: 'GIF Image',
       url: 'https://picsum.photos/300/200?random=4',
-    },
-    // Videos
-    {
-      mediumID: 'video-mp4-1',
-      mimeType: 'video/mp4',
-      title: 'MP4 Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    {
-      mediumID: 'video-quicktime-1',
-      mimeType: 'video/quicktime',
-      title: 'QuickTime Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    {
-      mediumID: 'video-avi-1',
-      mimeType: 'video/avi',
-      title: 'AVI Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    {
-      mediumID: 'video-mpeg-1',
-      mimeType: 'video/mpeg',
-      title: 'MPEG Video',
-      url: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    },
-    // Audio
-    {
-      mediumID: 'audio-mpeg-1',
-      mimeType: 'audio/mpeg',
-      title: 'MPEG Audio',
-      url: 'https://www.w3schools.com/html/horse.mp3',
-    },
-    {
-      mediumID: 'audio-mpeg3-1',
-      mimeType: 'audio/mpeg3',
-      title: 'MPEG3 Audio',
-      url: 'https://www.w3schools.com/html/horse.mp3',
-    },
-    {
-      mediumID: 'audio-wav-1',
-      mimeType: 'audio/wav',
-      title: 'WAV Audio',
-      url: 'https://www.w3schools.com/html/horse.mp3',
     },
     // Documents
     {

@@ -1,6 +1,7 @@
 import { useEffect, useState, memo, useMemo, useRef, ChangeEvent } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
+import { Calendar } from 'lucide-react';
 
 export interface Props {
   defaultDate?: string | Date;
@@ -168,22 +169,48 @@ const DateSelector = memo(
       const currentDate = (day && month && year)
         ? DateTime.fromObject({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
         : null;
+      const dateValue =
+        currentDate?.isValid ? currentDate.toISODate() || '' : '';
+      const isEmpty = !dateValue;
+      const placeholder =
+        t('login.birthDatePlaceholder') || 'DD/MM/YYYY';
 
       return (
         <div className="memori--date-selector memori--date-selector--mobile">
-          <label className="memori--date-selector__mobile-label">
+          <label htmlFor="birth-date-mobile" className="memori--date-selector__mobile-label">
             {t('birthDate') || 'Birth Date'}:
           </label>
-          <input
-            type="date"
-            className="memori--date-selector__mobile-input"
-            value={currentDate?.isValid ? currentDate.toISODate() || '' : ''}
-            onChange={handleMobileChange}
-            disabled={disabled}
-            min={minDate.toISODate() || '1900-01-01'}
-            max={maxDate.toISODate() || ''}
-            aria-label={String(t('dateOfBirth') || t('date'))}
-          />
+          <div
+            className={`memori--date-selector__mobile-input-wrap${
+              isEmpty ? ' memori--date-selector__mobile-input-wrap--empty' : ''
+            }`}
+          >
+            <input
+              id="birth-date-mobile"
+              type="date"
+              className="memori--date-selector__mobile-input"
+              value={dateValue}
+              onChange={handleMobileChange}
+              disabled={disabled}
+              min={minDate.toISODate() || '1900-01-01'}
+              max={maxDate.toISODate() || ''}
+              aria-label={String(t('birthDate') || t('date'))}
+            />
+            {isEmpty && (
+              <span
+                className="memori--date-selector__mobile-placeholder"
+                aria-hidden
+              >
+                {placeholder}
+              </span>
+            )}
+            <Calendar
+              className="memori--date-selector__mobile-icon"
+              aria-hidden
+              size={20}
+              strokeWidth={1.75}
+            />
+          </div>
         </div>
       );
     }
@@ -192,12 +219,14 @@ const DateSelector = memo(
     return (
       <div className="memori--date-selector memori--date-selector--desktop">
         <div className="memori--date-selector__input-group">
-          <label className="memori--date-selector__label">
+          <label htmlFor="birth-day" className="memori--date-selector__label">
             {t('day') || 'Day'}
           </label>
           <input
+            id="birth-day"
             ref={dayRef}
             type="number"
+            inputMode="numeric"
             className="memori--date-selector__input"
             value={day}
             onChange={handleDayChange}
@@ -209,12 +238,14 @@ const DateSelector = memo(
         </div>
 
         <div className="memori--date-selector__input-group">
-          <label className="memori--date-selector__label">
+          <label htmlFor="birth-month" className="memori--date-selector__label">
             {t('month') || 'Month'}
           </label>
           <input
+            id="birth-month"
             ref={monthRef}
             type="number"
+            inputMode="numeric"
             className="memori--date-selector__input"
             value={month}
             onChange={handleMonthChange}
@@ -226,12 +257,14 @@ const DateSelector = memo(
         </div>
 
         <div className="memori--date-selector__input-group memori--date-selector__input-group--year">
-          <label className="memori--date-selector__label">
+          <label htmlFor="birth-year" className="memori--date-selector__label">
             {t('year') || 'Year'}
           </label>
           <input
+            id="birth-year"
             ref={yearRef}
             type="number"
+            inputMode="numeric"
             className="memori--date-selector__input"
             value={year}
             onChange={handleYearChange}

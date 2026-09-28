@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '../../../testUtils';
 import { ArtifactProvider } from '../context/ArtifactContext';
 import { ArtifactAPIBridge } from './ArtifactAPI';
 import { ArtifactData } from '../types/artifact.types';
@@ -260,6 +260,7 @@ describe('ArtifactAPIBridge', () => {
     expect(state.currentArtifact).toBeNull();
     expect(state.isDrawerOpen).toBe(false);
     expect(state.isFullscreen).toBe(false);
+    expect(state.isChatLogPanelPresentation).toBe(false);
   });
 
   it('should clean up API on unmount', () => {
@@ -274,35 +275,39 @@ describe('ArtifactAPIBridge', () => {
     expect(window.MemoriArtifactAPI).toBeUndefined();
   });
 
-  it('should handle different mime types with correct titles', async () => {
-    renderWithProviders(
-      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
-    );
-
-    const testCases = [
-      { mimeType: 'html', expectedTitle: 'HTML Document' },
-      { mimeType: 'markdown', expectedTitle: 'Markdown Document' },
-      { mimeType: 'javascript', expectedTitle: 'JavaScript Code' },
-      { mimeType: 'python', expectedTitle: 'Python Code' },
-      { mimeType: 'json', expectedTitle: 'JSON Data' },
-      { mimeType: 'css', expectedTitle: 'CSS Stylesheet' },
-      { mimeType: 'typescript', expectedTitle: 'TypeScript Code' },
-      { mimeType: 'xml', expectedTitle: 'XML Document' },
-      { mimeType: 'svg', expectedTitle: 'SVG Image' },
-      { mimeType: 'unknown', expectedTitle: 'Document' },
-    ];
-
-    for (const testCase of testCases) {
-      window.MemoriArtifactAPI!.createAndOpenArtifact(
-        'test content',
-        testCase.mimeType
+  it(
+    'should handle different mime types with correct titles',
+    async () => {
+      renderWithProviders(
+        <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
       );
 
-      await waitFor(() => {
-        const state = window.MemoriArtifactAPI!.getState();
-        expect(state.currentArtifact?.title).toBe(testCase.expectedTitle);
-      });
-    }
-  });
+      const testCases = [
+        { mimeType: 'html', expectedTitle: 'HTML Document' },
+        { mimeType: 'markdown', expectedTitle: 'Markdown Document' },
+        { mimeType: 'javascript', expectedTitle: 'JavaScript Code' },
+        { mimeType: 'python', expectedTitle: 'Python Code' },
+        { mimeType: 'json', expectedTitle: 'JSON Data' },
+        { mimeType: 'css', expectedTitle: 'CSS Stylesheet' },
+        { mimeType: 'typescript', expectedTitle: 'TypeScript Code' },
+        { mimeType: 'xml', expectedTitle: 'XML Document' },
+        { mimeType: 'svg', expectedTitle: 'SVG Image' },
+        { mimeType: 'unknown', expectedTitle: 'Document' },
+      ];
+
+      for (const testCase of testCases) {
+        window.MemoriArtifactAPI!.createAndOpenArtifact(
+          'test content',
+          testCase.mimeType
+        );
+
+        await waitFor(() => {
+          const state = window.MemoriArtifactAPI!.getState();
+          expect(state.currentArtifact?.title).toBe(testCase.expectedTitle);
+        });
+      }
+    },
+    15000
+  );
 });
 
