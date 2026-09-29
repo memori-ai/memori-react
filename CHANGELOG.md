@@ -1,5 +1,12 @@
 
 
+## [8.46.0](https://github.com/memori-ai/memori-react/compare/v8.45.6...v8.46.0) (2026-09-29)
+
+
+### Bug Fixes
+
+* **nats:** avoid re-applying stale dialog state on tab resume ([7336d45](https://github.com/memori-ai/memori-react/commit/7336d4517ca0b9e68d348188b3903005bd0356fc))
+
 ## [8.45.6](https://github.com/memori-ai/memori-react/compare/v8.45.5...v8.45.6) (2026-09-28)
 
 
