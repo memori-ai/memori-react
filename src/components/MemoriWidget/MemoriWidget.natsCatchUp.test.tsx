@@ -145,6 +145,9 @@ async function resumeTab(times: number) {
   }
 }
 
+// Real timers: snippets run 1s after a state is applied and resumes wait 1.5s each.
+jest.setTimeout(20000);
+
 describe('MemoriWidget NATS catch-up', () => {
   beforeEach(() => {
     natsOptions = undefined;
