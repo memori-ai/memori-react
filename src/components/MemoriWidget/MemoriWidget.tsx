@@ -172,6 +172,8 @@ function readCorrelationID(response: {
   return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
+const MAX_WAIT_FOR_PREVIOUS_RETRIES = 30;
+
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
   waitForPrevious?: boolean;
@@ -1090,7 +1092,7 @@ const MemoriWidget = ({
       if (response.resultCode === 0 && correlationID) {
         registerPendingEnterText(correlationID, {
           msg,
-          stateBeforeRequest: dialogStateFingerprint(currentDialogState),
+          stateBeforeRequest: engineStateFingerprintRef.current,
           text,
           media,
           translate,
@@ -1149,7 +1151,8 @@ const MemoriWidget = ({
     state: DialogState,
     userLang: string,
     msg?: string,
-    avoidPushingMessage: boolean = false
+    avoidPushingMessage: boolean = false,
+    engineState: DialogState = state
   ) => {
     const emission = state?.emission ?? currentDialogState?.emission;
 
@@ -1259,7 +1262,7 @@ const MemoriWidget = ({
       }
     }
 
-    setCurrentDialogState(translatedState);
+    setCurrentDialogState(translatedState, engineState);
     if (!avoidPushingMessage && translatedMsg) {
       pushMessage(translatedMsg);
     }
@@ -1351,7 +1354,15 @@ const MemoriWidget = ({
     setSessionIdState(id);
   };
   const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
-  const setCurrentDialogState = (state?: DialogState) => {
+  // Fingerprint of the untranslated engine state currently applied: the local
+  // state may carry a translated or fallback emission that never matches the
+  // engine's, so NATS catch-up must compare against this instead.
+  const engineStateFingerprintRef = useRef('');
+  const setCurrentDialogState = (
+    state?: DialogState,
+    engineState: DialogState | undefined = state
+  ) => {
+    engineStateFingerprintRef.current = dialogStateFingerprint(engineState);
     _setCurrentDialogState(state);
     if (onStateChange) {
       onStateChange(state);
@@ -2247,19 +2258,26 @@ const MemoriWidget = ({
         emission &&
         isMultilanguageEnabled
       ) {
-        currentState.emission = emission;
-
-        translateDialogState(currentState, userLang, msg).then(ts => {
+        translateDialogState(
+          { ...currentState, emission },
+          userLang,
+          msg,
+          false,
+          currentState
+        ).then(ts => {
           const text = ts.translatedEmission || ts.emission;
           if (text && shouldPlayAudio(text)) {
             handleSpeak(text);
           }
         });
       } else {
-        setCurrentDialogState({
-          ...currentState,
-          emission,
-        });
+        setCurrentDialogState(
+          {
+            ...currentState,
+            emission,
+          },
+          currentState
+        );
 
         if (emission) {
           pushMessage({
@@ -2417,7 +2435,7 @@ const MemoriWidget = ({
         }, timeoutMs);
 
         registerPendingEnterText(correlationID, {
-          stateBeforeRequest: dialogStateFingerprint(currentDialogState),
+          stateBeforeRequest: engineStateFingerprintRef.current,
           waitForResponse: {
             resolve: event => {
               clearTimeout(timeoutId);
@@ -2431,7 +2449,7 @@ const MemoriWidget = ({
           },
         });
       }),
-    [registerPendingEnterText, clearEnterTextPending, currentDialogState]
+    [registerPendingEnterText, clearEnterTextPending]
   );
 
   const catchUpPendingEnterText = useCallback(async () => {
@@ -2459,7 +2477,11 @@ const MemoriWidget = ({
         return;
       }
 
-      if (!isEnterTextCatchUpReady(pending.stateBeforeRequest, currentState)) {
+      if (
+        !isEnterTextCatchUpReady(pending.stateBeforeRequest, currentState) ||
+        dialogStateFingerprint(currentState) ===
+          engineStateFingerprintRef.current
+      ) {
         console.info('[NATS] catch-up: pending turn has not completed yet');
         return;
       }
@@ -2714,73 +2736,63 @@ const MemoriWidget = ({
 
   // listen to events from browser
   // to use in integrations or snippets
-  const memoriTextEnteredHandler = useCallback(
-    (e: MemoriTextEnteredEvent) => {
-      if (disableTextEnteredEvents) {
-        return;
-      }
-
-      const {
-        text,
-        waitForPrevious,
-        hidden,
-        typingText,
-        useLoaderTextAsMsg,
-        hasBatchQueued,
-      } = e.detail;
-
-      if (text) {
-        // wait to finish reading previous emission
-        if (
-          waitForPrevious &&
-          !speakerMuted &&
-          (memoriSpeaking || !!memoriTyping)
-        ) {
-          setTimeout(() => {
-            memoriTextEnteredHandler(e);
-          }, 1000);
-        } else {
-          ttsStop();
-          sendMessage(
-            text,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            hidden,
-            typingText,
-            useLoaderTextAsMsg,
-            hasBatchQueued
-          );
-        }
-      }
-    },
-    [
-      sessionId,
-      isPlayingAudio,
-      memoriTyping,
-      userLang,
-      disableTextEnteredEvents,
-      speakerMuted,
-    ]
-  );
-  useEffect(() => {
-    if (!disableTextEnteredEvents) {
-      document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
-    } else {
-      document.removeEventListener(
-        'MemoriTextEntered',
-        memoriTextEnteredHandler
-      );
+  const memoriTextEnteredHandler = (e: MemoriTextEnteredEvent, retries = 0) => {
+    if (disableTextEnteredEvents) {
+      return;
     }
 
+    const {
+      text,
+      waitForPrevious,
+      hidden,
+      typingText,
+      useLoaderTextAsMsg,
+      hasBatchQueued,
+    } = e.detail;
+
+    if (text) {
+      // wait for the previous request to be answered; memoriTyping is not
+      // used because batches keep it on between steps. Bounded so a turn whose
+      // response never arrives cannot block later messages forever.
+      if (
+        waitForPrevious &&
+        !speakerMuted &&
+        (memoriSpeaking || pendingEnterTextRef.current.size > 0) &&
+        retries < MAX_WAIT_FOR_PREVIOUS_RETRIES
+      ) {
+        setTimeout(() => {
+          memoriTextEnteredHandlerRef.current(e, retries + 1);
+        }, 1000);
+      } else {
+        ttsStop();
+        sendMessage(
+          text,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued
+        );
+      }
+    }
+  };
+  // The document listener is registered once; it must reach the latest render's
+  // handler, otherwise sendMessage sees a stale dialog state and session.
+  const memoriTextEnteredHandlerRef = useRef(memoriTextEnteredHandler);
+  memoriTextEnteredHandlerRef.current = memoriTextEnteredHandler;
+  useEffect(() => {
+    if (disableTextEnteredEvents) return;
+
+    const listener = (e: MemoriTextEnteredEvent) =>
+      memoriTextEnteredHandlerRef.current(e);
+    document.addEventListener('MemoriTextEntered', listener);
     return () => {
-      document.removeEventListener(
-        'MemoriTextEntered',
-        memoriTextEnteredHandler
-      );
+      document.removeEventListener('MemoriTextEntered', listener);
     };
-  }, [sessionId, userLang, disableTextEnteredEvents]);
+  }, [disableTextEnteredEvents]);
 
   /**
    * Handles clicking the start button to begin or resume a session
