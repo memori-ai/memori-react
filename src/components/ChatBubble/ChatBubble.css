@@ -301,6 +301,36 @@
     background: var(--memori-primary);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    .memori-chat--bubble #wave.memori-motion-loop {
+        animation: none;
+    }
+
+    .memori-chat--bubble #wave .dot {
+        animation: memori-wave 1.5s linear infinite;
+    }
+
+    .memori-chat--bubble #wave .dot:nth-child(2) {
+        animation-delay: -1.3s;
+    }
+
+    .memori-chat--bubble #wave .dot:nth-child(3) {
+        animation-delay: -1.1s;
+    }
+}
+
+@keyframes memori-wave {
+    0%,
+    60%,
+    100% {
+        transform: initial;
+    }
+
+    30% {
+        transform: translateY(-0.5em);
+    }
+}
+
 [data-theme='dark'] .memori-chat--bubble #wave .dot {
     background: #fff;
 }
@@ -441,8 +471,7 @@
     padding: 0.1em 0.35em;
     border-radius: var(--memori-radius-control, 4px);
     background: color-mix(in oklch, var(--memori-text-color) 8%, var(--memori-secondary-background, transparent));
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-        'Courier New', monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     font-size: 0.9em;
 }
 
@@ -454,8 +483,7 @@
     margin: 0.65em 0;
     background: var(--memori-chat-code-bg);
     color: var(--memori-chat-code-fg);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-        'Courier New', monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     font-size: 0.85em;
     line-height: 1.45;
     overflow-x: auto;
@@ -1082,8 +1110,7 @@
     margin: 0;
     background: color-mix(in oklch, var(--memori-text-color) 4%, var(--memori-secondary-background));
     color: var(--memori-text-color);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-        'Courier New', monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     font-size: var(--memori-text-size-sm);
     line-height: var(--memori-text-line-normal, 1.5);
     overflow-wrap: anywhere;
