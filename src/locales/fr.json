@@ -204,6 +204,7 @@
     "moreActions": "Plus d'actions",
     "mobileSession": {
       "session": "Session",
+      "sessionInfo": "Infos de session",
       "copyLinkOrDownload": "Copier le lien ou télécharger",
       "currentlyOff": "Actuellement désactivé",
       "whatIKnowAboutYou": "Détails des informations partagées entre vous et {{memoriName}}",

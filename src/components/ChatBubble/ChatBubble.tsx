@@ -268,8 +268,10 @@ const ChatBubble: React.FC<Props> = ({
 
   // Format function cache content
   const functionCacheData = message.media?.filter(
-    m => m.properties?.functionCache === 'true'
+    m => String(m.properties?.functionCache) === 'true'
   );
+  const shouldShowFunctionCacheButton =
+    !message.fromUser && showFunctionCache && !!functionCacheData?.length;
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
@@ -535,6 +537,7 @@ const ChatBubble: React.FC<Props> = ({
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
+    shouldShowFunctionCacheButton ||
     (message.generatedByAI && showAIicon) ||
     (showFeedback && simulateUserPrompt) ||
     (showTranslationOriginal &&
@@ -597,6 +600,7 @@ const ChatBubble: React.FC<Props> = ({
 
   const hasAddonAfterTimestamp =
     shouldShowCopyButtons ||
+    shouldShowFunctionCacheButton ||
     (message.generatedByAI && showAIicon) ||
     (showFeedback && simulateUserPrompt) ||
     (showTranslationOriginal &&
@@ -1060,13 +1064,7 @@ const ChatBubble: React.FC<Props> = ({
                       </Tooltip>
                     )}
 
-                    {!message.fromUser &&
-                      showFunctionCache &&
-                      message.media?.some(
-                        m =>
-                          Boolean(m.properties?.functionCache) ||
-                          m.properties?.functionCache === 'true'
-                      ) && (
+                    {shouldShowFunctionCacheButton && (
                         <Tooltip
                           {...bubbleAddonTooltipProps}
                           placement="bottom"

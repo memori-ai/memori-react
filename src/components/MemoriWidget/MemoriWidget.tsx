@@ -571,16 +571,16 @@ const MemoriWidget = ({
   showShare,
   preview = false,
   embed = false,
-  showCopyButton = true,
-  showTranslationOriginal = false,
+  showCopyButton,
+  showTranslationOriginal,
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
   showMessageConsumption,
   showSettings,
-  showTypingText = false,
-  showClear = false,
-  showLogin = false,
+  showTypingText,
+  showClear,
+  showLogin,
   showUpload,
   showOnlyLastMessages,
   showChatHistory,
@@ -692,8 +692,17 @@ const MemoriWidget = ({
     }
   }, [additionalInfo?.loginToken, authToken]);
 
+  const integrationConfig = integration?.customData
+    ? JSON.parse(integration.customData)
+    : null;
+  const loginEnabled = !!(
+    showLogin ??
+    integrationConfig?.showLogin ??
+    memori.requireLoginToken
+  );
+
   useEffect(() => {
-    if (!loginToken || !(showLogin || memori.requireLoginToken)) {
+    if (!loginToken || !(loginEnabled || memori.requireLoginToken)) {
       return;
     }
 
@@ -724,7 +733,7 @@ const MemoriWidget = ({
     return () => {
       cancelled = true;
     };
-  }, [loginToken, showLogin, memori.requireLoginToken]);
+  }, [loginToken, loginEnabled, memori.requireLoginToken]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -739,9 +748,6 @@ const MemoriWidget = ({
       ?.find(c => c.memoriConfigID === memori.memoriConfigurationID)
       ?.culture?.split('-')?.[0]
       ?.toUpperCase()!;
-  const integrationConfig = integration?.customData
-    ? JSON.parse(integration.customData)
-    : null;
 
   const isMultilanguageEnabled =
     multilingual !== undefined
@@ -3598,9 +3604,7 @@ const MemoriWidget = ({
     showOnlyLastMessages === undefined
       ? selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
-  const canShowLoginButton =
-    !tenant?.ssoLogin &&
-    (showLogin ?? integrationConfig?.showLogin ?? memori.requireLoginToken);
+  const canShowLoginButton = !tenant?.ssoLogin && loginEnabled;
 
   const headerProps: HeaderProps = {
     memori: {

@@ -417,6 +417,8 @@ const Header: React.FC<Props> = ({
     layout === 'TOTEM' ? undefined : t('widget.headerHistory') || 'History';
   const fullpageHeaderLoginLabel =
     t('widget.headerLogin') || t('login.login') || 'Login';
+  const sessionInfoLabel =
+    t('widget.mobileSession.sessionInfo') || 'Session info';
   const soundLabel = speakerMuted
     ? t('widget.soundOff', { defaultValue: 'Audio off' })
     : t('widget.sound', { defaultValue: 'Audio' });
@@ -473,6 +475,9 @@ const Header: React.FC<Props> = ({
   }, [isFullPageChrome, memori, tenant, baseUrl]);
 
   const fullpagePrimaryHasContent = showChatHistory && !!loginToken;
+  const showSettingsButton = !!(
+    showSettings && hasSettingsContent(layout, additionalSettings)
+  );
 
   const fullpageSecondaryHasContent =
     !!memori.needsPosition ||
@@ -483,7 +488,7 @@ const Header: React.FC<Props> = ({
     (showKnownFacts && isConversationStarted) ||
     !!memori.enableBoardOfExperts ||
     enableAudio ||
-    !!(showSettings && hasSettingsContent(layout, additionalSettings)) ||
+    showSettingsButton ||
     showShare;
 
   const loggedInSecondaryHasActions =
@@ -491,6 +496,10 @@ const Header: React.FC<Props> = ({
     (showFullscreen && fullScreenAvailable) ||
     enableAudio ||
     !!memori.needsPosition ||
+    showReload ||
+    showClear ||
+    !!memori.enableBoardOfExperts ||
+    showSettingsButton ||
     showShare;
 
   const showHistoryDivider =
@@ -720,6 +729,92 @@ const Header: React.FC<Props> = ({
     </>
   );
 
+  type HeaderButtonPlacement = 'bottom' | 'left';
+
+  const renderReloadButton = (
+    className?: string,
+    placement: HeaderButtonPlacement = 'bottom'
+  ) => (
+    <Tooltip title={t('reload') || 'Reload'} placement={placement}>
+      <span style={{ display: 'inline-flex' }}>
+        <IconButton
+          variant={buttonVariant}
+          className={className}
+          aria-label={t('reload') || 'Reload'}
+          icon={<RefreshCw />}
+          onClick={() => {
+            window.location.reload();
+          }}
+        />
+      </span>
+    </Tooltip>
+  );
+
+  const renderClearButton = (
+    className?: string,
+    placement: HeaderButtonPlacement = 'bottom'
+  ) => (
+    <Tooltip title={t('clearHistory') || 'Clear chat'} placement={placement}>
+      <span style={{ display: 'inline-flex' }}>
+        <IconButton
+          variant={buttonVariant}
+          className={className}
+          aria-label={t('clearHistory') || 'Clear chat'}
+          icon={<Trash2 />}
+          onClick={() => {
+            clearHistory();
+            add(
+              createAlertOptions({
+                description: t('clearHistoryDone'),
+                severity: 'success',
+              })
+            );
+          }}
+        />
+      </span>
+    </Tooltip>
+  );
+
+  const renderExpertsButton = (
+    className?: string,
+    placement: HeaderButtonPlacement = 'bottom'
+  ) => (
+    <Tooltip
+      title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
+      placement={placement}
+    >
+      <span style={{ display: 'inline-flex' }}>
+        <IconButton
+          variant={buttonVariant}
+          className={className}
+          icon={<Users />}
+          disabled={!hasUserActivatedSpeak || !sessionID}
+          aria-label={
+            t('widget.showExpertsInTheBoard') || 'Experts in this board'
+          }
+          onClick={() => setShowExpertsDrawer(true)}
+        />
+      </span>
+    </Tooltip>
+  );
+
+  const renderSettingsButton = (
+    className?: string,
+    placement: HeaderButtonPlacement = 'bottom'
+  ) => (
+    <Tooltip title={t('widget.settings') || 'Settings'} placement={placement}>
+      <span style={{ display: 'inline-flex' }}>
+        <IconButton
+          variant={buttonVariant}
+          className={className}
+          icon={<Settings />}
+          aria-label={t('widget.settings') || 'Settings'}
+          onClick={() => setShowSettingsDrawer(true)}
+        />
+      </span>
+    </Tooltip>
+  );
+
   const headerActionsBeforeChatHistory = (
     <>
       {memori.needsPosition && (
@@ -753,40 +848,8 @@ const Header: React.FC<Props> = ({
           </Tooltip>
         </div>
       )}
-      {showReload && (
-        <Tooltip title={t('reload') || 'Reload'} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              aria-label={t('reload') || 'Reload'}
-              icon={<RefreshCw />}
-              onClick={() => {
-                window.location.reload();
-              }}
-            />
-          </span>
-        </Tooltip>
-      )}
-      {showClear && (
-        <Tooltip title={t('clearHistory') || 'Clear chat'} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              aria-label={t('clearHistory') || 'Clear chat'}
-              icon={<Trash2 />}
-              onClick={() => {
-                clearHistory();
-                add(
-                  createAlertOptions({
-                    description: t('clearHistoryDone'),
-                    severity: 'success',
-                  })
-                );
-              }}
-            />
-          </span>
-        </Tooltip>
-      )}
+      {showReload && renderReloadButton()}
+      {showClear && renderClearButton()}
     </>
   );
 
@@ -805,7 +868,7 @@ const Header: React.FC<Props> = ({
               variant={buttonVariant}
               title={fullscreenLabel}
               aria-label={fullscreenLabel}
-              icon={fullScreen ? <Maximize /> : <Minimize />}
+              icon={fullScreen ? <Minimize /> : <Maximize />}
               onClick={
                 fullScreenHandler ||
                 (() => {
@@ -885,24 +948,7 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {memori.enableBoardOfExperts && (
-        <Tooltip
-          title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
-          placement="bottom"
-        >
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              icon={<Users />}
-              disabled={!hasUserActivatedSpeak || !sessionID}
-              aria-label={
-                t('widget.showExpertsInTheBoard') || 'Experts in this board'
-              }
-              onClick={() => setShowExpertsDrawer(true)}
-            />
-          </span>
-        </Tooltip>
-      )}
+      {memori.enableBoardOfExperts && renderExpertsButton()}
       {enableAudio && (
         <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
@@ -928,18 +974,7 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings && hasSettingsContent(layout, additionalSettings) && (
-        <Tooltip title={t('widget.settings') || 'Settings'} placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <IconButton
-              variant={buttonVariant}
-              icon={<Settings />}
-              aria-label={t('widget.settings') || 'Settings'}
-              onClick={() => setShowSettingsDrawer(true)}
-            />
-          </span>
-        </Tooltip>
-      )}
+      {showSettingsButton && renderSettingsButton()}
       {showShare && (
         <ShareButton
           title={memori.name}
@@ -989,14 +1024,14 @@ const Header: React.FC<Props> = ({
             slotProps={{
               trigger: {
                 render: (props: React.ComponentProps<typeof Button>) => (
-                  <Tooltip title="Info sessione" placement="bottom">
+                  <Tooltip title={sessionInfoLabel} placement="bottom">
                     <span style={{ display: 'inline-flex' }}>
                       <IconButton
                         {...props}
                         active={infoPopoverOpen}
                         variant={buttonVariant}
                         className="memori-header--auth-icon-button"
-                        aria-label="Info sessione"
+                        aria-label={sessionInfoLabel}
                         icon={<MoreVertical />}
                       />
                     </span>
@@ -1201,6 +1236,12 @@ const Header: React.FC<Props> = ({
             </span>
           </Tooltip>
         )}
+        {showReload && renderReloadButton('memori-header--auth-icon-button')}
+        {showClear && renderClearButton('memori-header--auth-icon-button')}
+        {memori.enableBoardOfExperts &&
+          renderExpertsButton('memori-header--auth-icon-button')}
+        {showSettingsButton &&
+          renderSettingsButton('memori-header--auth-icon-button')}
         {showShare && (
           <span className="memori-header--auth-share-button-wrap">
             <ShareButton
@@ -1254,8 +1295,7 @@ const Header: React.FC<Props> = ({
   const totemKnownFactsLabel = t('knownFacts.title') || 'Known facts';
   const totemChatHistoryLabel =
     t('write_and_speak.chatHistory') || 'Chat history';
-  const totemShowSettings =
-    showSettings && hasSettingsContent(layout, additionalSettings);
+  const totemShowSettings = showSettingsButton;
   const totemShowKnownFacts = showKnownFacts && isConversationStarted;
   const totemAccountMenuHasContent = Boolean(showLogin || totemShowKnownFacts);
 
@@ -1338,6 +1378,9 @@ const Header: React.FC<Props> = ({
             </span>
           </Tooltip>
         )}
+        {showClear && renderClearButton('memori-totem-rail--button', 'left')}
+        {memori.enableBoardOfExperts &&
+          renderExpertsButton('memori-totem-rail--button', 'left')}
         {totemShowSettings && (
           <Tooltip title={totemSettingsLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>

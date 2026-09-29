@@ -208,6 +208,7 @@
     "moreActions": "More actions",
     "mobileSession": {
       "session": "Session",
+      "sessionInfo": "Session info",
       "copyLinkOrDownload": "Copy link or download",
       "currentlyOff": "Currently off",
       "whatIKnowAboutYou": "Details of the information shared between you and {{memoriName}}",
