@@ -1,12 +1,27 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { Spin, Button } from '@memori.ai/ui';
+import {
+  Spin,
+  Button,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { LayoutProps } from '../../MemoriWidget/MemoriWidget';
 import Blob from '../../Blob/Blob';
-import { X } from 'lucide-react';
+import {
+  X,
+  EllipsisVertical,
+  MapPin,
+  Share2,
+  Trash2,
+  Users,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../../MemoriArtifactSystem/context/ArtifactContext';
 import ArtifactDrawer from '../../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { getResourceUrl } from '../../../helpers/media';
+import IconButton from '../../IconButton/IconButton';
+import MobileSessionPanel from '../../MobileSessionPanel/MobileSessionPanel';
+import ShareButton from '../../ShareButton/ShareButton';
 
 const PANEL_SELECTOR = '.memori-website_assistant--expanded';
 const FULLSCREEN_CLASS = 'memori-website_assistant--fullscreen';
@@ -24,8 +39,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   sessionId,
   hasUserActivatedSpeak,
   loading = false,
-  avatar3dHidden = true,
+  show3dAvatar = false,
   sideDrawerOpen = false,
+  onSidebarToggle,
 }) => {
   const { t } = useTranslation();
   const { state: artifactState } = useArtifact();
@@ -68,6 +84,110 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
           apiURL: '',
         })
     : undefined;
+
+  const { add } = useAlertManager();
+  const [sessionPanelOpen, setSessionPanelOpen] = useState(false);
+
+  const loggedUser =
+    headerProps?.loginToken && headerProps?.user?.userID
+      ? headerProps.user
+      : undefined;
+  const loggedUserDisplayName =
+    loggedUser?.userName || loggedUser?.eMail || memori?.name || 'User';
+  const showKnownFacts =
+    !!memori?.enableDeepThought &&
+    !!headerProps?.loginToken &&
+    !!headerProps?.user?.pAndCUAccepted;
+  const positionRequested =
+    !!memori?.needsPosition && !!headerProps?.positionPopoverOpen;
+
+  const closeSessionPanel = () => {
+    setSessionPanelOpen(false);
+    if (headerProps?.positionPopoverOpen) {
+      headerProps.setPositionPopoverOpen(false);
+    }
+  };
+
+  // The header no longer mounts PositionPopover, so StartPanel position
+  // requests are served by the session panel's location view.
+  useEffect(() => {
+    if (positionRequested) setSessionPanelOpen(true);
+  }, [positionRequested]);
+
+  const sessionActions = useMemo(() => {
+    if (!headerProps) return [];
+    return [
+      ...(headerProps.showShare
+        ? [
+            {
+              key: 'share',
+              icon: <Share2 size={18} />,
+              title: t('widget.share') || 'Share chat',
+              subtitle:
+                t('widget.mobileSession.copyLinkOrDownload') ||
+                'Copy link or download',
+              view: 'share' as const,
+            },
+          ]
+        : []),
+      ...(headerProps.memori?.needsPosition
+        ? [
+            {
+              key: 'location',
+              icon: <MapPin size={18} />,
+              title:
+                t('widget.mobileSession.locationTracking') ||
+                'Location tracking',
+              subtitle:
+                headerProps.position?.placeName ||
+                t('widget.mobileSession.currentlyOff') ||
+                'Currently off',
+              view: 'location' as const,
+            },
+          ]
+        : []),
+      ...(headerProps.memori?.enableBoardOfExperts
+        ? [
+            {
+              key: 'experts',
+              icon: <Users size={18} />,
+              title:
+                t('widget.showExpertsInTheBoard') || 'Experts in this board',
+              disabled: !isSessionStarted,
+              onClick: () => {
+                headerProps.setShowExpertsDrawer(true);
+                setSessionPanelOpen(false);
+              },
+            },
+          ]
+        : []),
+      ...(headerProps.showClear
+        ? [
+            {
+              key: 'clear',
+              icon: <Trash2 size={18} />,
+              title: t('clearHistory') || 'Clear chat',
+              onClick: () => {
+                headerProps.clearHistory();
+                add(
+                  createAlertOptions({
+                    description: t('clearHistoryDone'),
+                    severity: 'success',
+                  })
+                );
+                setSessionPanelOpen(false);
+              },
+            },
+          ]
+        : []),
+    ];
+  }, [headerProps, isSessionStarted, t, add]);
+
+  const hasSessionPanelContent =
+    sessionActions.length > 0 ||
+    !!headerProps?.showLogin ||
+    (isSessionStarted &&
+      (showKnownFacts || !!headerProps?.showMessageConsumption));
 
   const restoreFromFullscreen = () => {
     const panelElement = document.querySelector(PANEL_SELECTOR);
@@ -153,7 +273,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
       }
       restoreFromFullscreen();
     }
+    if (nextCollapsed) closeSessionPanel();
     _setCollapsed(nextCollapsed);
+    onSidebarToggle?.(!nextCollapsed);
     setExpandedKey(nextCollapsed ? undefined : new Date().toISOString());
     try {
       stopAudio?.();
@@ -220,12 +342,39 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 <div className="memori-website_assistant-layout--header-actions">
                   {Header && headerProps && (
                     <Header
-                      buttonVariant="outline"
                       {...headerProps}
+                      buttonVariant="outline"
+                      memori={{
+                        ...headerProps.memori,
+                        needsPosition: false,
+                        enableDeepThought: false,
+                        enableBoardOfExperts: false,
+                      }}
                       showSettings={false}
                       showReload={false}
                       showChatHistory={false}
+                      showShare={false}
+                      showClear={false}
+                      showLogin={false}
+                      showMessageConsumption={false}
                       fullScreenHandler={handleFullscreenToggle}
+                      extraActions={
+                        hasSessionPanelContent ? (
+                          <IconButton
+                            className="memori-chat-layout--overflow-trigger"
+                            active={sessionPanelOpen}
+                            aria-label={
+                              t('widget.moreActions') || 'More actions'
+                            }
+                            icon={<EllipsisVertical />}
+                            onClick={() =>
+                              sessionPanelOpen
+                                ? closeSessionPanel()
+                                : setSessionPanelOpen(true)
+                            }
+                          />
+                        ) : undefined
+                      }
                     />
                   )}
                   <button
@@ -240,7 +389,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 </div>
               </div>
 
-              {!(avatar3dHidden === true || avatar3dHidden === 'true') && (
+              {show3dAvatar && (
                 <div className="memori-website_assistant-layout--avatar">
                   {Avatar && avatarProps && (
                     <Avatar
@@ -280,6 +429,71 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 ) : null}
               </div>
             </Spin>
+
+            {headerProps && hasSessionPanelContent && (
+              <MobileSessionPanel
+                open={sessionPanelOpen}
+                presentation="popover"
+                onClose={closeSessionPanel}
+                initialView={positionRequested ? 'location' : 'session'}
+                autoStartGeolocation={
+                  positionRequested && !!headerProps.autoStartPositionGeolocation
+                }
+                title={t('widget.mobileSession.session') || 'Session'}
+                loginToken={headerProps.loginToken}
+                user={headerProps.user}
+                apiClient={headerProps.apiClient}
+                userName={loggedUserDisplayName}
+                userEmail={loggedUser?.eMail}
+                userInitial={loggedUserDisplayName.charAt(0).toUpperCase()}
+                avatarURL={loggedUser?.avatarURL}
+                birthDate={loggedUser?.birthDate}
+                actions={sessionActions}
+                knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
+                sharePageTitle={t('widget.share') || 'Share'}
+                locationPageTitle={
+                  t('widget.mobileSession.locationTracking') ||
+                  'Location tracking'
+                }
+                backLabel={t('back') || 'Back'}
+                shareContent={
+                  <ShareButton
+                    tenant={headerProps.tenant}
+                    memori={headerProps.memori}
+                    sessionID={headerProps.sessionID}
+                    title={headerProps.memori?.name}
+                    baseUrl={headerProps.baseUrl}
+                    align="left"
+                    history={headerProps.history}
+                    renderMode="inline"
+                  />
+                }
+                knownFactsDisabled={!isSessionStarted}
+                showSessionInfo={isSessionStarted}
+                showKnownFacts={showKnownFacts}
+                showMessageConsumption={!!headerProps.showMessageConsumption}
+                history={headerProps.history ?? []}
+                isLoggedIn={!!loggedUser}
+                showLogin={!!headerProps.showLogin}
+                loginLabel={t('login.login') || 'Log in'}
+                onLogin={() => {
+                  headerProps.setShowLoginDrawer(true);
+                  closeSessionPanel();
+                }}
+                onKnownFactsOpen={() => {
+                  if (!isSessionStarted) return;
+                  headerProps.setShowKnownFactsDrawer(true);
+                  closeSessionPanel();
+                }}
+                venue={headerProps.position}
+                setVenue={headerProps.setVenue}
+                logoutLabel={t('login.logout') || 'Log out'}
+                onLogout={() => {
+                  headerProps.onLogout?.();
+                  closeSessionPanel();
+                }}
+              />
+            )}
           </>
         )}
       </div>

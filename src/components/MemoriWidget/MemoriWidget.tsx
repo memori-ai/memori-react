@@ -28,6 +28,7 @@ import {
   shouldHoldAutoStartForPosition,
   shouldRestartSessionOnPositionPopoverClose,
 } from '../../helpers/positionPopover';
+import { shouldHoldAutoStartForLogin } from '../../helpers/autoStart';
 
 // Libraries
 import React, {
@@ -442,8 +443,9 @@ export interface LayoutProps {
   loading?: boolean;
   autoStart?: boolean;
   onSidebarToggle?: (isOpen: boolean) => void;
-  /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar.
-   * WEBSITE_ASSISTANT defaults to hidden when this is unset. */
+  /** WEBSITE_ASSISTANT: resolved flag to show the 3D avatar in the expanded panel. */
+  show3dAvatar?: boolean;
+  /** @deprecated Use `show3dAvatar`. Always the inverse of `show3dAvatar`. */
   avatar3dHidden?: boolean | string;
   /** TOTEM only: max-width of the shared content axis (avatar + panel + status).
    * Accepts a number (px) or a CSS length string; enables vertical-kiosk widths. */
@@ -483,7 +485,9 @@ export interface Props {
   showUpload?: boolean;
   showChatHistory?: boolean;
   showReasoning?: boolean;
-  /** When true (default for WEBSITE_ASSISTANT), hide the 3D avatar in the expanded panel. Set false to show it. */
+  /** WEBSITE_ASSISTANT: show the 3D avatar in the expanded panel. Defaults to false. */
+  show3dAvatar?: boolean;
+  /** @deprecated Use `show3dAvatar`. */
   avatar3dHidden?: boolean;
   preview?: boolean;
   embed?: boolean;
@@ -585,6 +589,7 @@ const MemoriWidget = ({
   showOnlyLastMessages,
   showChatHistory,
   showReasoning,
+  show3dAvatar,
   avatar3dHidden,
   height: heightProp,
   secret,
@@ -695,6 +700,13 @@ const MemoriWidget = ({
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
+  const legacyAvatar3dHidden: boolean | string | undefined =
+    avatar3dHidden ?? integrationConfig?.avatar_3d_hidden;
+  const resolvedShow3dAvatar =
+    show3dAvatar ??
+    (legacyAvatar3dHidden === undefined
+      ? false
+      : !(legacyAvatar3dHidden === true || legacyAvatar3dHidden === 'true'));
   const loginEnabled = !!(
     showLogin ??
     integrationConfig?.showLogin ??
@@ -734,6 +746,7 @@ const MemoriWidget = ({
       cancelled = true;
     };
   }, [loginToken, loginEnabled, memori.requireLoginToken]);
+  const isUserLoggedIn = !!loginToken && !!user?.userID;
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -1624,9 +1637,7 @@ const MemoriWidget = ({
         } as any;
       }
       // Handle age restriction error
-      else if (
-        session?.resultMessage.startsWith('This Memori is aged restricted')
-      ) {
+      else if (/aged? ?-?restricted/i.test(session?.resultMessage ?? '')) {
         console.warn(session);
         add(
           createAlertOptions({
@@ -2162,18 +2173,21 @@ const MemoriWidget = ({
     [ttsProvider, userLang, tenantID, sessionId, sessionIdRef]
   );
 
-  const reportSpeechError = useCallback((error: Error) => {
-    const key = speechErrorI18nKey(error);
-    add(
-      createAlertOptions({
-        description: key ? t(key) : error.message,
-        severity:
-          error instanceof SpeechRequestError && error.code === 'rate_limited'
-            ? 'warning'
-            : 'error',
-      })
-    );
-  }, [add, t]);
+  const reportSpeechError = useCallback(
+    (error: Error) => {
+      const key = speechErrorI18nKey(error);
+      add(
+        createAlertOptions({
+          description: key ? t(key) : error.message,
+          severity:
+            error instanceof SpeechRequestError && error.code === 'rate_limited'
+              ? 'warning'
+              : 'error',
+        })
+      );
+    },
+    [add, t]
+  );
 
   const resolvedDefaultSpeakerActive =
     defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true;
@@ -2970,13 +2984,17 @@ const MemoriWidget = ({
         'position',
         undefined
       );
-      // Wait on the start panel for location share/skip; do not open the header popover.
+      // Wait on the start panel for location share/skip and login; do not open the header popover.
       if (
         autoStart &&
-        shouldHoldAutoStartForPosition(
+        (shouldHoldAutoStartForPosition(
           !!memori.needsPosition,
           Boolean(position || localPosition)
-        )
+        ) ||
+          shouldHoldAutoStartForLogin(
+            !!memori.requireLoginToken,
+            isUserLoggedIn
+          ))
       ) {
         setClickedStart(false);
         return;
@@ -3378,7 +3396,16 @@ const MemoriWidget = ({
         setClickedStart(false);
       }
     },
-    [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
+    [
+      memoriPwd,
+      memori,
+      memoriTokens,
+      birthDate,
+      sessionId,
+      userLang,
+      position,
+      isUserLoggedIn,
+    ]
   );
 
   const setPositionPopoverOpen = useCallback(
@@ -3413,6 +3440,14 @@ const MemoriWidget = ({
     [autoStart, onClickStart, sessionId, hasUserActivatedSpeak, position]
   );
 
+  // Collapsible layouts autostart when first opened, not on mount.
+  const [layoutOpen, setLayoutOpen] = useState(false);
+  const isCollapsibleLayout =
+    selectedLayout === 'WEBSITE_ASSISTANT' || selectedLayout === 'HIDDEN_CHAT';
+  // A failed open resets `clickedStart`; without this guard the effect below
+  // would retry forever.
+  const autoStartAttemptedRef = useRef(false);
+
   useEffect(() => {
     const storedPosition = getLocalConfig<Venue | undefined>(
       'position',
@@ -3420,25 +3455,31 @@ const MemoriWidget = ({
     );
     const hasPosition = Boolean(position || storedPosition);
     if (
+      !autoStartAttemptedRef.current &&
       !clickedStart &&
       !sessionStartingRef.current &&
       !sessionId &&
       autoStart &&
-      selectedLayout !== 'HIDDEN_CHAT' &&
+      (!isCollapsibleLayout || layoutOpen) &&
       (!needsCredits || hasEnoughCredits) &&
-      !shouldHoldAutoStartForPosition(!!memori.needsPosition, hasPosition)
+      !shouldHoldAutoStartForPosition(!!memori.needsPosition, hasPosition) &&
+      !shouldHoldAutoStartForLogin(!!memori.requireLoginToken, isUserLoggedIn)
     ) {
+      autoStartAttemptedRef.current = true;
       onClickStart();
     }
   }, [
     clickedStart,
     autoStart,
-    selectedLayout,
+    isCollapsibleLayout,
+    layoutOpen,
     sessionId,
     needsCredits,
     hasEnoughCredits,
     position,
     memori.needsPosition,
+    memori.requireLoginToken,
+    isUserLoggedIn,
   ]);
 
   useEffect(() => {
@@ -3602,7 +3643,7 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? selectedLayout !== 'WEBSITE_ASSISTANT'
+      ? !(selectedLayout === 'WEBSITE_ASSISTANT' && resolvedShow3dAvatar)
       : !showOnlyLastMessages;
   const canShowLoginButton = !tenant?.ssoLogin && loginEnabled;
 
@@ -3614,7 +3655,10 @@ const MemoriWidget = ({
     apiClient: client,
     tenant,
     history,
-    showShare: showShare ?? integrationConfig?.showShare ?? true,
+    showShare:
+      showShare ??
+      integrationConfig?.showShare ??
+      selectedLayout !== 'WEBSITE_ASSISTANT',
     position,
     layout: selectedLayout,
     additionalSettings,
@@ -3702,7 +3746,7 @@ const MemoriWidget = ({
     clickedStart: clickedStart,
     isMultilanguageEnabled: isMultilanguageEnabled,
     onClickStart: onClickStart,
-    isUserLoggedIn: !!loginToken && !!user?.userID,
+    isUserLoggedIn,
     hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin: canShowLoginButton,
@@ -3884,78 +3928,136 @@ const MemoriWidget = ({
         container={widgetRootEl}
         clipContainer={widgetSurfaceEl}
         theme={widgetTheme}
-        zIndexBase={
-          selectedLayout === 'WEBSITE_ASSISTANT' ? 10000 : 0
-        }
+        zIndexBase={selectedLayout === 'WEBSITE_ASSISTANT' ? 10000 : 0}
       >
         {/* Inside themed root so alert text uses dark-theme tokens (white). */}
         <AlertViewport placement="top-end" />
         <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
-            <Layout
-              Header={Header}
-              headerProps={headerProps}
-              Avatar={Avatar}
-              avatarProps={avatarProps}
-              Chat={Chat}
-              chatProps={chatProps}
-              StartPanel={StartPanel}
-              startPanelProps={startPanelProps}
-              integrationStyle={integrationStyle}
-              integrationBackground={integrationBackground}
-              poweredBy={poweredBy}
-              autoStart={autoStart}
-              sessionId={sessionId}
-              hasUserActivatedSpeak={hasUserActivatedSpeak}
-              loading={loading}
-              avatar3dHidden={
-                avatar3dHidden ?? integrationConfig?.avatar_3d_hidden
-              }
-              totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
-              sideDrawerOpen={
-                !!showChatHistoryDrawer ||
-                !!showKnownFactsDrawer ||
-                !!showExpertsDrawer
-              }
-            />
+          <Layout
+            Header={Header}
+            headerProps={headerProps}
+            Avatar={Avatar}
+            avatarProps={avatarProps}
+            Chat={Chat}
+            chatProps={chatProps}
+            StartPanel={StartPanel}
+            startPanelProps={startPanelProps}
+            integrationStyle={integrationStyle}
+            integrationBackground={integrationBackground}
+            poweredBy={poweredBy}
+            autoStart={autoStart}
+            onSidebarToggle={setLayoutOpen}
+            sessionId={sessionId}
+            hasUserActivatedSpeak={hasUserActivatedSpeak}
+            loading={loading}
+            show3dAvatar={resolvedShow3dAvatar}
+            avatar3dHidden={!resolvedShow3dAvatar}
+            totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
+            sideDrawerOpen={
+              !!showChatHistoryDrawer ||
+              !!showKnownFactsDrawer ||
+              !!showExpertsDrawer
+            }
+          />
 
-            <ArtifactAPIBridge
-              pushMessage={(message: Message) => {
-                setHistory(history => {
-                  if (!history.length) return history;
-                  const lastMessage = history[history.length - 1];
-                  if (!lastMessage || lastMessage.fromUser) return history;
-                  // Create a new message object with the updated text
-                  const updatedLastMessage = {
-                    ...lastMessage,
-                    text: lastMessage.text + message.text,
-                  };
-                  return [...history.slice(0, -1), updatedLastMessage];
-                });
+          <ArtifactAPIBridge
+            pushMessage={(message: Message) => {
+              setHistory(history => {
+                if (!history.length) return history;
+                const lastMessage = history[history.length - 1];
+                if (!lastMessage || lastMessage.fromUser) return history;
+                // Create a new message object with the updated text
+                const updatedLastMessage = {
+                  ...lastMessage,
+                  text: lastMessage.text + message.text,
+                };
+                return [...history.slice(0, -1), updatedLastMessage];
+              });
+            }}
+          />
+
+          <audio
+            id="memori-audio"
+            style={{ display: 'none' }}
+            src="https://aisuru.com/intro.mp3"
+          />
+
+          {isClient && (
+            <MemoriAuth
+              withModal
+              pwdOrTokens={authModalState}
+              openModal={!!authModalState}
+              setPwdOrTokens={setAuthModalState}
+              showTokens={memori.privacyType === 'SECRET'}
+              onFinish={(values: any) => {
+                if (values['password']) setMemoriPwd(values['password']);
+                if (values['password']) memoriPassword = values['password'];
+                if (values['tokens']) setMemoriTokens(values['tokens']);
+
+                return reopenSession(
+                  !sessionId,
+                  values['password'],
+                  values['tokens'],
+                  personification?.tag,
+                  personification?.pin,
+                  {
+                    LANG: userLang,
+                    PATHNAME: window.location.pathname?.toUpperCase(),
+                    ROUTE:
+                      window.location.pathname
+                        ?.split('/')
+                        ?.pop()
+                        ?.toUpperCase() || '',
+                    ...(initialContextVars || {}),
+                  },
+                  initialQuestion,
+                  birthDate
+                )
+                  .then(state => {
+                    if (!state?.sessionID) {
+                      throw new Error('AUTH_FAILED');
+                    }
+
+                    setAuthModalState(null);
+                    // If we got a valid state from reopenSession, don't call onClickStart again
+                    // to avoid duplicate snippet execution
+                    if (state?.dialogState) {
+                      setHasUserActivatedSpeak(true);
+                    } else {
+                      // Only call onClickStart if reopenSession didn't return a valid state
+                      onClickStart(state);
+                    }
+                  })
+                  .catch(error => {
+                    if (
+                      !(error instanceof Error) ||
+                      error.message !== 'AUTH_FAILED'
+                    ) {
+                      setGotErrorInOpening(true);
+                    }
+                    throw error;
+                  });
               }}
+              minimumNumberOfRecoveryTokens={
+                memori?.minimumNumberOfRecoveryTokens ?? 1
+              }
             />
+          )}
 
-            <audio
-              id="memori-audio"
-              style={{ display: 'none' }}
-              src="https://aisuru.com/intro.mp3"
-            />
+          {isClient && (
+            <AgeVerificationModal
+              visible={showAgeVerification}
+              minAge={minAge}
+              onClose={birthDate => {
+                if (birthDate) {
+                  setBirthDate(birthDate);
 
-            {isClient && (
-              <MemoriAuth
-                withModal
-                pwdOrTokens={authModalState}
-                openModal={!!authModalState}
-                setPwdOrTokens={setAuthModalState}
-                showTokens={memori.privacyType === 'SECRET'}
-                onFinish={(values: any) => {
-                  if (values['password']) setMemoriPwd(values['password']);
-                  if (values['password']) memoriPassword = values['password'];
-                  if (values['tokens']) setMemoriTokens(values['tokens']);
+                  setLocalConfig('birthDate', birthDate);
 
-                  return reopenSession(
+                  reopenSession(
                     !sessionId,
-                    values['password'],
-                    values['tokens'],
+                    memoriPassword || memoriPwd || memori?.secretToken,
+                    memoriTokens,
                     personification?.tag,
                     personification?.pin,
                     {
@@ -3972,249 +4074,187 @@ const MemoriWidget = ({
                     birthDate
                   )
                     .then(state => {
-                      if (!state?.sessionID) {
-                        throw new Error('AUTH_FAILED');
-                      }
-
+                      setShowAgeVerification(false);
                       setAuthModalState(null);
-                      // If we got a valid state from reopenSession, don't call onClickStart again
-                      // to avoid duplicate snippet execution
-                      if (state?.dialogState) {
-                        setHasUserActivatedSpeak(true);
-                      } else {
-                        // Only call onClickStart if reopenSession didn't return a valid state
-                        onClickStart(state);
-                      }
+                      onClickStart(state || undefined);
                     })
-                    .catch(error => {
-                      if (
-                        !(error instanceof Error) ||
-                        error.message !== 'AUTH_FAILED'
-                      ) {
-                        setGotErrorInOpening(true);
-                      }
-                      throw error;
+                    .catch(() => {
+                      setShowAgeVerification(false);
+                      setGotErrorInOpening(true);
                     });
-                }}
-                minimumNumberOfRecoveryTokens={
-                  memori?.minimumNumberOfRecoveryTokens ?? 1
+                } else {
+                  setShowAgeVerification(false);
+                  setClickedStart(false);
                 }
-              />
-            )}
+              }}
+            />
+          )}
 
-            {isClient && (
-              <AgeVerificationModal
-                visible={showAgeVerification}
-                minAge={minAge}
-                onClose={birthDate => {
-                  if (birthDate) {
-                    setBirthDate(birthDate);
+          {showSettingsDrawer && (
+            <SettingsDrawer
+              layout={selectedLayout}
+              open={!!showSettingsDrawer}
+              onClose={() => setShowSettingsDrawer(false)}
+              microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
+              continuousSpeechTimeout={continuousSpeechTimeout}
+              setMicrophoneMode={mode =>
+                setContinuousSpeech(mode === 'CONTINUOUS')
+              }
+              setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+              controlsPosition={controlsPosition}
+              setControlsPosition={setControlsPosition}
+              hideEmissions={hideEmissions}
+              setHideEmissions={setHideEmissions}
+              avatarType={avatarType}
+              setAvatarType={setAvatarType}
+              enablePositionControls={enablePositionControls}
+              setEnablePositionControls={setEnablePositionControls}
+              isAvatar3d={!!integrationConfig?.avatarURL}
+              additionalSettings={additionalSettings}
+              speakerMuted={speakerMuted}
+            />
+          )}
 
-                    setLocalConfig('birthDate', birthDate);
+          {showChatHistoryDrawer && (
+            <ChatHistoryDrawer
+              open={!!showChatHistoryDrawer}
+              onClose={() => setShowChatHistoryDrawer(false)}
+              resumeSession={chatLog => {
+                setChatLogID(chatLog.chatLogID);
+                onClickStart(undefined, false, chatLog);
+                setShowChatHistoryDrawer(false);
+              }}
+              apiClient={client}
+              sessionId={sessionId || ''}
+              memori={memori}
+              baseUrl={baseUrl}
+              history={history}
+              apiUrl={client.constants.BACKEND_URL}
+              loginToken={loginToken}
+              language={language}
+              userLang={userLang}
+              isMultilanguageEnabled={isMultilanguageEnabled}
+              showFunctionCache={showFunctionCache}
+              showMessageConsumption={enableMessageConsumption}
+            />
+          )}
 
-                    reopenSession(
-                      !sessionId,
-                      memoriPassword || memoriPwd || memori?.secretToken,
-                      memoriTokens,
-                      personification?.tag,
-                      personification?.pin,
-                      {
-                        LANG: userLang,
-                        PATHNAME: window.location.pathname?.toUpperCase(),
-                        ROUTE:
-                          window.location.pathname
-                            ?.split('/')
-                            ?.pop()
-                            ?.toUpperCase() || '',
-                        ...(initialContextVars || {}),
+          {showKnownFactsDrawer && sessionId && (
+            <KnownFacts
+              apiClient={client}
+              memori={memori}
+              sessionID={sessionId}
+              visible={showKnownFactsDrawer}
+              closeDrawer={() => setShowKnownFactsDrawer(false)}
+            />
+          )}
+
+          {showExpertsDrawer && !!experts && (
+            <ExpertsDrawer
+              apiUrl={client.constants.BACKEND_URL}
+              baseUrl={baseUrl}
+              tenant={tenant}
+              experts={experts}
+              open={showExpertsDrawer}
+              onClose={() => setShowExpertsDrawer(false)}
+            />
+          )}
+
+          {showLoginDrawer && tenant?.name && (
+            <LoginModal
+              tenant={tenant}
+              apiClient={client}
+              open={!!showLoginDrawer}
+              user={user}
+              loginToken={loginToken}
+              memoriName={memori?.name}
+              onClose={() => setShowLoginDrawer(false)}
+              modalClassName={
+                selectedLayout === 'WEBSITE_ASSISTANT'
+                  ? 'memori-modal--above-website-assistant'
+                  : undefined
+              }
+              onLogin={(user, token) => {
+                //The user is logged in, so we need to set open a new session with the new token
+                reopenSession(
+                  false,
+                  memoriPassword || memoriPwd || memori?.secretToken,
+                  [],
+                  personification?.tag,
+                  personification?.pin,
+                  {
+                    LANG: userLang,
+                    PATHNAME: window.location.pathname?.toUpperCase(),
+                    ROUTE:
+                      window.location.pathname
+                        ?.split('/')
+                        ?.pop()
+                        ?.toUpperCase() || '',
+                    ...(initialContextVars || {}),
+                  },
+                  undefined, // Don't send initialQuestion after login, only show the login status chip
+                  birthDate,
+                  { loginToken: token } as any,
+                  undefined,
+                  sessionId
+                ).then(state => {
+                  setShowLoginDrawer(false);
+                  setUser(user);
+                  setLoginToken(token);
+                  userTokenRef.current = token;
+                  setLocalConfig('loginToken', token);
+                  // Push a message with initial status to show status message when a new session is created after login
+                  if (
+                    state?.sessionID &&
+                    state.sessionID !== sessionId &&
+                    state?.dialogState
+                  ) {
+                    // Push a message with initial status message showing successful login
+                    // Only show the chip component, not the emission text
+                    const username = user?.userName || t('login.user');
+                    pushMessage({
+                      text: '', // Empty text so only the chip is visible
+                      emitter: state.dialogState.emitter,
+                      media:
+                        state.dialogState.emittedMedia ??
+                        state.dialogState.media ??
+                        [],
+                      fromUser: false,
+                      initial: t('login.successfullyLoggedIn', {
+                        username,
+                      }) as any,
+                      contextVars: {
+                        ...(state.dialogState.contextVars || {}),
+                        LOGIN_STATUS: 'success',
                       },
-                      initialQuestion,
-                      birthDate
-                    )
-                      .then(state => {
-                        setShowAgeVerification(false);
-                        setAuthModalState(null);
-                        onClickStart(state || undefined);
-                      })
-                      .catch(() => {
-                        setShowAgeVerification(false);
-                        setGotErrorInOpening(true);
-                      });
-                  } else {
-                    setShowAgeVerification(false);
-                    setClickedStart(false);
+                      date: state.dialogState.currentDate,
+                      placeName: state.dialogState.currentPlaceName,
+                      placeLatitude: state.dialogState.currentLatitude,
+                      placeLongitude: state.dialogState.currentLongitude,
+                      placeUncertaintyKm:
+                        state.dialogState.currentUncertaintyKm,
+                      tag: state.dialogState.currentTag,
+                      memoryTags: state.dialogState.memoryTags,
+                    });
+                    // Update the dialog state so the UI reflects the new session
+                    setCurrentDialogState(state.dialogState);
                   }
-                }}
-              />
-            )}
-
-            {showSettingsDrawer && (
-              <SettingsDrawer
-                layout={selectedLayout}
-                open={!!showSettingsDrawer}
-                onClose={() => setShowSettingsDrawer(false)}
-                microphoneMode={
-                  continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'
-                }
-                continuousSpeechTimeout={continuousSpeechTimeout}
-                setMicrophoneMode={mode =>
-                  setContinuousSpeech(mode === 'CONTINUOUS')
-                }
-                setContinuousSpeechTimeout={setContinuousSpeechTimeout}
-                controlsPosition={controlsPosition}
-                setControlsPosition={setControlsPosition}
-                hideEmissions={hideEmissions}
-                setHideEmissions={setHideEmissions}
-                avatarType={avatarType}
-                setAvatarType={setAvatarType}
-                enablePositionControls={enablePositionControls}
-                setEnablePositionControls={setEnablePositionControls}
-                isAvatar3d={!!integrationConfig?.avatarURL}
-                additionalSettings={additionalSettings}
-                speakerMuted={speakerMuted}
-              />
-            )}
-
-            {showChatHistoryDrawer && (
-              <ChatHistoryDrawer
-                open={!!showChatHistoryDrawer}
-                onClose={() => setShowChatHistoryDrawer(false)}
-                resumeSession={chatLog => {
-                  setChatLogID(chatLog.chatLogID);
-                  onClickStart(undefined, false, chatLog);
-                  setShowChatHistoryDrawer(false);
-                }}
-                apiClient={client}
-                sessionId={sessionId || ''}
-                memori={memori}
-                baseUrl={baseUrl}
-                history={history}
-                apiUrl={client.constants.BACKEND_URL}
-                loginToken={loginToken}
-                language={language}
-                userLang={userLang}
-                isMultilanguageEnabled={isMultilanguageEnabled}
-                showFunctionCache={showFunctionCache}
-                showMessageConsumption={enableMessageConsumption}
-              />
-            )}
-
-            {showKnownFactsDrawer && sessionId && (
-              <KnownFacts
-                apiClient={client}
-                memori={memori}
-                sessionID={sessionId}
-                visible={showKnownFactsDrawer}
-                closeDrawer={() => setShowKnownFactsDrawer(false)}
-              />
-            )}
-
-            {showExpertsDrawer && !!experts && (
-              <ExpertsDrawer
-                apiUrl={client.constants.BACKEND_URL}
-                baseUrl={baseUrl}
-                tenant={tenant}
-                experts={experts}
-                open={showExpertsDrawer}
-                onClose={() => setShowExpertsDrawer(false)}
-              />
-            )}
-
-            {showLoginDrawer && tenant?.name && (
-              <LoginModal
-                tenant={tenant}
-                apiClient={client}
-                open={!!showLoginDrawer}
-                user={user}
-                loginToken={loginToken}
-                memoriName={memori?.name}
-                onClose={() => setShowLoginDrawer(false)}
-                modalClassName={
-                  selectedLayout === 'WEBSITE_ASSISTANT'
-                    ? 'memori-modal--above-website-assistant'
-                    : undefined
-                }
-                onLogin={(user, token) => {
-                  //The user is logged in, so we need to set open a new session with the new token
-                  reopenSession(
-                    false,
-                    memoriPassword || memoriPwd || memori?.secretToken,
-                    [],
-                    personification?.tag,
-                    personification?.pin,
-                    {
-                      LANG: userLang,
-                      PATHNAME: window.location.pathname?.toUpperCase(),
-                      ROUTE:
-                        window.location.pathname
-                          ?.split('/')
-                          ?.pop()
-                          ?.toUpperCase() || '',
-                      ...(initialContextVars || {}),
-                    },
-                    undefined, // Don't send initialQuestion after login, only show the login status chip
-                    birthDate,
-                    { loginToken: token } as any,
-                    undefined,
-                    sessionId
-                  ).then(state => {
-                    setShowLoginDrawer(false);
-                    setUser(user);
-                    setLoginToken(token);
-                    userTokenRef.current = token;
-                    setLocalConfig('loginToken', token);
-                    // Push a message with initial status to show status message when a new session is created after login
-                    if (
-                      state?.sessionID &&
-                      state.sessionID !== sessionId &&
-                      state?.dialogState
-                    ) {
-                      // Push a message with initial status message showing successful login
-                      // Only show the chip component, not the emission text
-                      const username = user?.userName || t('login.user');
-                      pushMessage({
-                        text: '', // Empty text so only the chip is visible
-                        emitter: state.dialogState.emitter,
-                        media:
-                          state.dialogState.emittedMedia ??
-                          state.dialogState.media ??
-                          [],
-                        fromUser: false,
-                        initial: t('login.successfullyLoggedIn', {
-                          username,
-                        }) as any,
-                        contextVars: {
-                          ...(state.dialogState.contextVars || {}),
-                          LOGIN_STATUS: 'success',
-                        },
-                        date: state.dialogState.currentDate,
-                        placeName: state.dialogState.currentPlaceName,
-                        placeLatitude: state.dialogState.currentLatitude,
-                        placeLongitude: state.dialogState.currentLongitude,
-                        placeUncertaintyKm:
-                          state.dialogState.currentUncertaintyKm,
-                        tag: state.dialogState.currentTag,
-                        memoryTags: state.dialogState.memoryTags,
-                      });
-                      // Update the dialog state so the UI reflects the new session
-                      setCurrentDialogState(state.dialogState);
-                    }
-                  });
-                }}
-                setUser={setUser}
-                onLogout={() => {
-                  if (!loginToken) return;
-                  client.backend.pwlUserLogout(loginToken).then(() => {
-                    setShowLoginDrawer(false);
-                    setUser(undefined);
-                    setLoginToken(undefined);
-                    userTokenRef.current = undefined;
-                    removeLocalConfig('loginToken');
-                  });
-                }}
-              />
-            )}
-          </div>
+                });
+              }}
+              setUser={setUser}
+              onLogout={() => {
+                if (!loginToken) return;
+                client.backend.pwlUserLogout(loginToken).then(() => {
+                  setShowLoginDrawer(false);
+                  setUser(undefined);
+                  setLoginToken(undefined);
+                  userTokenRef.current = undefined;
+                  removeLocalConfig('loginToken');
+                });
+              }}
+            />
+          )}
+        </div>
       </MemoriUIProvider>
     </div>
   );

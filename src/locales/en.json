@@ -291,6 +291,7 @@
     "requirePosition": "Insert your position before start",
     "requirePositionHelp": "To talk to {{name}} you have to decide whether to provide your position or not. This is because different answers that it can provide you may depend on where you are.",
     "dontWantToProvidePosition": "Skip location",
+    "requireLoginHelp": "To talk to {{name}} you need to log in with your account first.",
     "skipLocationTitle": "No map location will be saved.",
     "locationSaved": "Your location was saved.",
     "locationSavedWithPlace": "Your location was saved: {{place}}",

@@ -278,6 +278,7 @@
     "requirePosition": "Geben Sie vor dem Start Ihre Position ein",
     "requirePositionHelp": "Zum Reden {{name}} Sie müssen entscheiden, ob Sie Ihre Position angeben oder nicht. ",
     "dontWantToProvidePosition": "Ohne Standort fortfahren",
+    "requireLoginHelp": "Um mit {{name}} zu sprechen, musst du dich zuerst mit deinem Konto anmelden.",
     "skipLocationTitle": "Es wird kein Standort auf der Karte gespeichert.",
     "locationSaved": "Ihr Standort wurde gespeichert.",
     "locationSavedWithPlace": "Ihr Standort wurde gespeichert: {{place}}",

@@ -277,6 +277,7 @@
     "requirePosition": "Insérez votre position avant de commencer",
     "requirePositionHelp": "Pour parler à {{name}} vous devez décider si vous souhaitez ou non fournir votre poste. ",
     "dontWantToProvidePosition": "Continuer sans lieu",
+    "requireLoginHelp": "Pour parler à {{name}}, vous devez d'abord vous connecter à votre compte.",
     "skipLocationTitle": "Aucune position ne sera enregistrée sur la carte.",
     "locationSaved": "Votre position a été enregistrée.",
     "locationSavedWithPlace": "Votre position a été enregistrée : {{place}}",

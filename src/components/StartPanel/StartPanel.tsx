@@ -417,7 +417,7 @@ const StartPanel: React.FC<Props> = ({
           !isUserLoggedIn && (
             <div className="memori--needsLogin">
               <p>
-                {t('write_and_speak.requirePositionHelp', {
+                {t('write_and_speak.requireLoginHelp', {
                   name: memori.name,
                 })}
               </p>

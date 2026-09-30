@@ -104,25 +104,6 @@ WithMaxTextareaCharacters.args = {
   maxTextareaCharacters: 500,
 };
 
-export const TestingAgent = Template.bind({});
-TestingAgent.args = {
-  memoriName: 'Test Private',
-  ownerUserName: 'Andrea-Patini',
-  memoriID: 'c58cd5f9-43c4-4a3b-9fb6-56aedf58ff7a',
-  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
-  tenantID: 'aisuru-staging.aclambda.online',
-  apiURL: 'https://backend-staging.memori.ai/api/v2',
-  engineURL: 'https://engine-staging.memori.ai/memori/v2',
-  baseURL: 'https://aisuru-staging.aclambda.online',
-  uiLang: 'EN',
-  spokenLang: 'IT',
-  layout: 'FULLPAGE',
-  multilingual: true,
-  showSettings: true,
-  showShare: true,
-  integrationID: '19f95abe-3493-4568-971d-14471480e5bc',
-};
-
 // PII detection: only via integration customData (layout as object with piiDetection). Try sending an email or IBAN to see the error bubble.
 const piiDetectionConfig = {
   enabled: true,
@@ -177,4 +158,3 @@ WithPiiDetection.args = {
     }),
   },
 };
-

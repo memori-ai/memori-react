@@ -293,6 +293,7 @@
     "placeNotFound": "Luogo sconosciuto!",
     "requirePositionHelp": "Per parlare con {{name}} devi decidere se fornire o meno la tua posizione. Questo perchè diverse risposte che potrà fornirti potrebbero dipendere da dove ti trovi.",
     "dontWantToProvidePosition": "Continua senza posizione",
+    "requireLoginHelp": "Per parlare con {{name}} devi prima accedere con il tuo account.",
     "skipLocationTitle": "Non verrà salvata alcuna posizione sulla mappa.",
     "locationSaved": "La tua posizione è stata salvata.",
     "locationSavedWithPlace": "La tua posizione è stata salvata: {{place}}",

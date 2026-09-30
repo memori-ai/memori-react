@@ -3,34 +3,34 @@
     height: 24px;
     cursor: pointer;
     font-size: var(--memori-text-size-md);
-  }
-  
-  .memori--completion-provider-status--loading {
+}
+
+.memori--completion-provider-status--loading {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .memori--completion-provider-status--icon-error {
+}
+
+.memori--completion-provider-status--icon-error {
     color: var(--memori-error);
-  }
-  
-  .memori--completion-provider-status--icon-warning {
+}
+
+.memori--completion-provider-status--icon-warning {
     color: var(--memori-warning);
-  }
-  
-  .memori--completion-provider-status--icon-info {
-    color: var(--memori-info);
-  }
-  
-  .memori--completion-provider-status--tooltip {
+}
+
+.memori--completion-provider-status--icon-info {
+    color: var(--memori-warning-content);
+}
+
+.memori--completion-provider-status--tooltip {
     max-width: 300px;
-  }
-  
-  .memori--completion-provider-status--tooltip p {
+}
+
+.memori--completion-provider-status--tooltip p {
     margin-bottom: var(--memori-spacing-sm);
-  }
-  
-  .memori--completion-provider-status--tooltip p:last-child {
+}
+
+.memori--completion-provider-status--tooltip p:last-child {
     margin-bottom: 0;
-  }
+}

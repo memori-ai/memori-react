@@ -85,6 +85,8 @@ export interface MobileSessionPanelProps {
   showLogin?: boolean;
   loginLabel?: string;
   onLogin?: () => void;
+  initialView?: 'session' | 'location';
+  autoStartGeolocation?: boolean;
 }
 
 type ImpactMetricType = 'energy' | 'co2' | 'water';
@@ -190,6 +192,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   onLogin,
   venue,
   setVenue,
+  initialView = 'session',
+  autoStartGeolocation = false,
 }) => {
   const showAuthControls = showLogin;
   const showProfileControls = showAuthControls && isLoggedIn;
@@ -262,8 +266,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
 
   useEffect(() => {
-    if (open) setActiveView('session');
-  }, [open]);
+    if (open) setActiveView(initialView);
+  }, [open, initialView]);
 
   const updateAvatar = async (avatar: any) => {
     if (!uploadAsset || !pwlUpdateUser) {
@@ -676,6 +680,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                   <PositionPopoverContent
                     venue={venue}
                     setVenue={setVenue}
+                    autoStartGeolocation={autoStartGeolocation}
                   />
                 ) : (
                   <>

@@ -48,6 +48,38 @@ export const StagingZoomedFullBody: Story = {
   },
 };
 
+const halfBodyAvatarURL =
+  'https://assets.memori.ai/api/v2/asset/acc38f4a-e4c3-4a21-9818-c3d1672820ea.glb#1762875973109';
+
+/** WEBSITE_ASSISTANT only shows the 3D avatar when `show3dAvatar` is true. */
+export const StagingWebsiteAssistantWith3DAvatar: Story = {
+  args: {
+    ...stagingBase,
+    layout: 'WEBSITE_ASSISTANT',
+    autoStart: false,
+    show3dAvatar: true,
+    avatar3DURL: halfBodyAvatarURL,
+    integration: {
+      integrationID: stagingBase.integrationID,
+      memoriID: stagingBase.memoriID,
+      type: 'LANDING_EXPERIENCE',
+      state: 'NEW',
+      publish: true,
+      creationTimestamp: '2022-06-13T14:44:52.833573Z',
+      lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
+      customData: JSON.stringify({
+        textColor: '#000000',
+        buttonBgColor: '#007eb6',
+        buttonTextColor: '#ffffff',
+        innerBgColor: 'light',
+        avatar: 'readyplayerme',
+        avatarURL: halfBodyAvatarURL,
+        name: 'Layout Storybook',
+      }),
+    },
+  },
+};
+
 export const StagingWithConsumption: Story = {
   args: {
     ...stagingBase,

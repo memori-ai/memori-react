@@ -15,6 +15,8 @@ import {
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
 import type { LayoutName } from '../../types/layout';
+import { shouldHoldAutoStartForPosition } from '../../helpers/positionPopover';
+import { shouldHoldAutoStartForLogin } from '../../helpers/autoStart';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -31,13 +33,11 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-  const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
 
   const { state, closeArtifact } = useArtifact();
   const useSideArtifactChrome =
     state.isDrawerOpen && !state.isChatLogPanelPresentation;
 
-  const { onClickStart, hasInitialSession } = startPanelProps || {};
   const memori = headerProps?.memori;
   const tenant = headerProps?.tenant;
   const baseUrl = headerProps?.baseUrl;
@@ -64,6 +64,17 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   }, [headerProps]);
 
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
+  // Autostart is held on these gates, and only the StartPanel can resolve them.
+  const autoStartHeld =
+    !!startPanelProps &&
+    (shouldHoldAutoStartForPosition(
+      !!startPanelProps.memori.needsPosition,
+      !!startPanelProps.position
+    ) ||
+      shouldHoldAutoStartForLogin(
+        !!startPanelProps.memori.requireLoginToken,
+        !!startPanelProps.isUserLoggedIn
+      ));
 
   const brandAvatarSrc = memori
     ? memori.avatarURL && memori.avatarURL.length > 0
@@ -145,18 +156,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   }, [isOpen, fullScreen]);
 
   const handleSidebarToggle = () => {
-    // Only trigger autostart when opening the sidebar for the first time
-    // and when we haven't already triggered it
-    if (
-      !isOpen &&
-      !hasTriggeredAutostart &&
-      (autoStart || autoStart === undefined) &&
-      (!sessionId || hasInitialSession)
-    ) {
-      setHasTriggeredAutostart(true);
-      onClickStart?.();
-    }
-
     // If we're in fullscreen mode and trying to close the sidebar
     if (fullScreen && isOpen) {
       // Exit fullscreen first
@@ -317,7 +316,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             <div className="memori-chat-layout--body">
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                 <Chat {...chatProps} />
-              ) : !autoStart && startPanelProps ? (
+              ) : (!autoStart || autoStartHeld) && startPanelProps ? (
                 <div className="memori-chat-layout--start-shell">
                   <div className="memori-chat-layout--start-panel-wrap">
                     <StartPanel {...startPanelProps} />

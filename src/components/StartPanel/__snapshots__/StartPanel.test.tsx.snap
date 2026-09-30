@@ -2608,7 +2608,7 @@ exports[`renders StartPanel with login required unchanged 1`] = `
         class="memori--needsLogin"
       >
         <p>
-          write_and_speak.requirePositionHelp
+          write_and_speak.requireLoginHelp
         </p>
         <button
           class="memori-button memori-button--primary memori-button--md"
