@@ -32,8 +32,7 @@
     width: min(var(--anchor-width, 100%), calc(100dvw - 2 * var(--memori-spacing-md)));
     min-width: 0;
     max-width: calc(
-        100dvw - 2 * var(--memori-spacing-md) - env(safe-area-inset-left, 0px) -
-            env(safe-area-inset-right, 0px)
+        100dvw - 2 * var(--memori-spacing-md) - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)
     );
     box-sizing: border-box;
     box-shadow: var(--memori-shadow-lg);
@@ -404,6 +403,8 @@
     min-width: 0;
     flex: 1;
     flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .memori--language-row {
@@ -688,8 +689,7 @@
 
     .memori-combobox__positioner {
         max-width: calc(
-            100dvw - 2 * var(--memori-spacing-sm) - env(safe-area-inset-left, 0px) -
-                env(safe-area-inset-right, 0px)
+            100dvw - 2 * var(--memori-spacing-sm) - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)
         );
     }
 }

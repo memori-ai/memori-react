@@ -8,6 +8,7 @@ import React, { useCallback } from 'react';
 import cx from 'classnames';
 import { CopyButtonWithDropdownProps, CopyFormat } from '../types';
 import { useCopyArtifact } from '../hooks/useCopyArtifact';
+import { useArtifactDrawerMenuContainer } from '../../../useArtifactDrawerMenuContainer';
 import { Button, Dropdown } from '@memori.ai/ui';
 import {
   Copy,
@@ -53,6 +54,8 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     onPrint
   );
   const { t } = useTranslation();
+  const { ref: menuContainerRef, container: menuContainer } =
+    useArtifactDrawerMenuContainer();
 
   /**
    * Handle format selection from dropdown
@@ -384,7 +387,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   };
 
   return (
-    <div className="memori-copy-button-wrapper">
+    <div className="memori-copy-button-wrapper" ref={menuContainerRef}>
       <div className="memori-copy-button-group">
         {/* Main copy button */}
         <Button
@@ -423,7 +426,12 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
                 </Button>
               )}
             />
-            <Dropdown.Menu placement="bottom" align="end" sideOffset={8}>
+            <Dropdown.Menu
+              placement="bottom"
+              align="end"
+              sideOffset={8}
+              container={menuContainer ?? undefined}
+            >
               {formats.map(format => (
                 <Dropdown.Item
                   key={format.id}

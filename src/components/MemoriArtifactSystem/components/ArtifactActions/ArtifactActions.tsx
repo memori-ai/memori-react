@@ -14,6 +14,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { CopyButtonWithDropdown } from './';
+import { useArtifactDrawerMenuContainer } from '../../useArtifactDrawerMenuContainer';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -33,6 +34,8 @@ const ArtifactActions: React.FC<{
   isMobile = false,
 }) => {
   const { t } = useTranslation();
+  const { ref: menuContainerRef, container: menuContainer } =
+    useArtifactDrawerMenuContainer();
 
   /**
    * Get file extension for download
@@ -183,7 +186,7 @@ const ArtifactActions: React.FC<{
           className="memori-artifact-action-btn"
         />
         {isMobile && (
-          <Dropdown className="memori-copy-menu-wrapper">
+          <Dropdown className="memori-copy-menu-wrapper" ref={menuContainerRef}>
             <Dropdown.Trigger
               showChevron={false}
               className="memori-copy-button-trigger"
@@ -198,7 +201,12 @@ const ArtifactActions: React.FC<{
                 </Button>
               )}
             />
-            <Dropdown.Menu placement="bottom" align="end" sideOffset={8}>
+            <Dropdown.Menu
+              placement="bottom"
+              align="end"
+              sideOffset={8}
+              container={menuContainer ?? undefined}
+            >
               <Dropdown.Item
                 onClick={handlePrint}
                 disabled={loading}

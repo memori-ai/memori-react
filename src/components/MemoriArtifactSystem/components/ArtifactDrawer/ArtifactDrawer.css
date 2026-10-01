@@ -41,17 +41,22 @@
         border-left: none;
         box-shadow: none;
     }
+}
 
-    .memori-artifact-panel-drawer .memori-drawer__body,
-    .memori-artifact-panel-drawer-fullscreen .memori-drawer__body {
-        display: flex;
-        overflow: hidden;
-        height: 100%;
-        min-height: 0;
-        flex: 1 1 auto;
-        flex-direction: column;
-        padding: 0;
-    }
+/*
+ * UI Drawer body is a flex item, not a column. Without this,
+ * `.memori-artifact-panel--content { flex: 1 }` stays content-sized.
+ * Website assistant and hidden chat mount the artifact in this drawer.
+ */
+.memori-artifact-panel-drawer .memori-drawer__body,
+.memori-artifact-panel-drawer-fullscreen .memori-drawer__body {
+    display: flex;
+    overflow: hidden;
+    height: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 0;
 }
 
 .memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
@@ -94,7 +99,7 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    padding: var(--memori-spacing-md) var(--memori-spacing-md);
     border-bottom: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 10%, transparent);
     background: inherit;
     gap: var(--memori-spacing-sm);
@@ -327,6 +332,21 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
+}
+
+/* Overlay drawer: fill the drawer body. Base rules above stay content-sized
+   without these overrides. */
+.memori-artifact-panel-drawer .memori-artifact-panel--content,
+.memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--content {
+    width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+.memori-artifact-panel-drawer .memori-artifact-panel--main,
+.memori-artifact-panel-drawer-fullscreen .memori-artifact-panel--main {
+    height: 100%;
+    min-height: 0;
 }
 
 .memori-artifact-panel--chatlog .memori-artifact-panel--main {

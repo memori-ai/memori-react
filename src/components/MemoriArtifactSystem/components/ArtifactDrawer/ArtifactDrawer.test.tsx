@@ -77,6 +77,31 @@ it('keeps tabs and the compact actions control in the chatlog toolbar on mobile'
   expect(screen.getByTitle('artifact.actions')).toBeInTheDocument();
 });
 
+it('opens the copy menu inside the artifact drawer', async () => {
+  Object.defineProperty(window, 'innerWidth', {
+    configurable: true,
+    writable: true,
+    value: 1400,
+  });
+  window.dispatchEvent(new Event('resize'));
+
+  render(
+    <I18nWrapper>
+      <ArtifactProvider>
+        <OpenArtifact>
+          <ArtifactDrawer />
+        </OpenArtifact>
+      </ArtifactProvider>
+    </I18nWrapper>
+  );
+
+  const trigger = await screen.findByTitle('More copy options');
+  fireEvent.click(trigger);
+
+  const menu = await screen.findByRole('menu');
+  expect(document.querySelector('.memori-drawer')).toContainElement(menu);
+});
+
 it('toggles preview and source with aria-pressed', async () => {
   renderDrawer();
 

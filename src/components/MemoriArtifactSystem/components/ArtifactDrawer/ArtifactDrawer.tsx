@@ -24,6 +24,7 @@ import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
 import IconButton from '../../../IconButton/IconButton';
 import { formatArtifactType } from '../../../../helpers/artifactPanel';
+import { useArtifactDrawerMenuContainer } from '../../useArtifactDrawerMenuContainer';
 
 const ArtifactDrawer: React.FC<{
   isChatLogPanel?: boolean;
@@ -33,6 +34,8 @@ const ArtifactDrawer: React.FC<{
 }> = ({ isChatLogPanel = false, isLayoutColumn = false }) => {
   const { state, closeArtifact } = useArtifact();
   const { t } = useTranslation();
+  const { ref: menuContainerRef, container: menuContainer } =
+    useArtifactDrawerMenuContainer();
   const [isCompactToolbar, setIsCompactToolbar] = useState(false);
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
 
@@ -236,7 +239,7 @@ const ArtifactDrawer: React.FC<{
 
           {isCompactToolbar ? (
             <div className="memori-artifact-toolbar--mobile-actions">
-              <Dropdown className="memori-mobile-actions-menu">
+              <Dropdown className="memori-mobile-actions-menu" ref={menuContainerRef}>
                 <Dropdown.Trigger
                   showChevron={false}
                   className="memori-mobile-actions-trigger"
@@ -262,6 +265,7 @@ const ArtifactDrawer: React.FC<{
                   placement="bottom"
                   align="end"
                   sideOffset={8}
+                  container={menuContainer ?? undefined}
                 >
                   <Dropdown.Item
                     className="memori-artifact-action-btn"
