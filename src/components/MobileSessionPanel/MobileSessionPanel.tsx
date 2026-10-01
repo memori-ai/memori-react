@@ -394,6 +394,15 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
           isPopover
             ? undefined
             : event => {
+                const scroller = panelRef.current?.closest(
+                  '.memori-drawer__body'
+                );
+                if (
+                  scroller instanceof HTMLElement &&
+                  scroller.scrollTop > 0
+                ) {
+                  return;
+                }
                 const delta = event.touches[0].clientY - touchStartYRef.current;
                 if (delta > 0) setDragOffset(delta);
               }

@@ -521,20 +521,43 @@
 }
 
 .memori-mobile-session-panel-drawer.memori-drawer--bottom {
+    display: flex;
+    overflow: hidden;
     width: 100%;
     max-width: 100%;
     height: auto;
     max-height: 90vh;
+    flex-direction: column;
     padding: 0;
     border-radius: var(--memori-radius-overlay) var(--memori-radius-overlay) 0 0;
 }
 
+/*
+ * The drawer body is a flex item. Without min-height: 0 it stays as tall as
+ * the share screen, so the sheet clips the QR download button and the inner
+ * overflow:auto panel swallows the touch without scrolling.
+ */
 .memori-mobile-session-panel-drawer .memori-drawer__body {
-    overflow: auto;
+    min-height: 0;
+    max-height: 90vh;
+    flex: 1 1 auto;
     padding: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
 }
 
 .memori-mobile-session-panel-drawer .memori-mobile-session-panel {
+    overflow: visible;
     max-height: none;
     border-radius: 0;
+}
+
+@supports (height: 100dvh) {
+    .memori-mobile-session-panel-drawer.memori-drawer--bottom,
+    .memori-mobile-session-panel-drawer .memori-drawer__body {
+        max-height: min(90dvh, 100svh);
+    }
 }

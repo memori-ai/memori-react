@@ -3802,7 +3802,7 @@ __metadata:
     classnames: 2.5.1
     copyfiles: 2.4.1
     cssnano: 5.1.14
-    dompurify: ^3.4.13
+    dompurify: ^3.4.16
     ellipsed: 1.6.0
     eslint: 8.29.0
     eslint-config-prettier: 8.5.0
@@ -10377,15 +10377,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^3.4.13":
-  version: 3.4.14
-  resolution: "dompurify@npm:3.4.14"
+"dompurify@npm:^3.4.16":
+  version: 3.4.16
+  resolution: "dompurify@npm:3.4.16"
   dependencies:
     "@types/trusted-types": ^2.0.7
   dependenciesMeta:
     "@types/trusted-types":
       optional: true
-  checksum: b33560cfe33df810449ab31d216d37d5d33aaa21843650bc9fc8e0a52b2f9c3e92d3574b3272b6ed701ac7f74e19ee0983689469a36fab68472528f568decb1d
+  checksum: 8960f22f22ca06368772e52b2f97fb7270caa453711d027e99924d49974cb3d463d47539b9f7d45ee80c335efd26f73558f0dca09dd3cba0d4081600f1d762e6
   languageName: node
   linkType: hard
 
