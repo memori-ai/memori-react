@@ -1,5 +1,31 @@
 # Changelog
 
+## [9.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.4...v9.0.0-rc.5) (2026-10-01)
+
+
+### Features
+
+* **artifact:** add useArtifactDrawerMenuContainer hook and integrate with artifact dropdown menu ([5128c77](https://github.com/memori-ai/memori-react/commit/5128c77ea149d07fa22a47afa1cbe7cdf9aac99b))
+* **AudioWave:** add AudioWave component for visualizing microphone input ([4bae8f5](https://github.com/memori-ai/memori-react/commit/4bae8f54fa175a41c2241fb1b54349b973502f79))
+* **ChatInputs:** implement click-to-record functionality and update microphone button behavior ([b23b0d3](https://github.com/memori-ai/memori-react/commit/b23b0d325b1ff99641fd4782311215b6eb08eaa3))
+
+
+### Bug Fixes
+
+* **nats:** avoid re-applying stale dialog state on tab resume ([44cfcc8](https://github.com/memori-ai/memori-react/commit/44cfcc890451f64cc599dbbfd50cd30b9d25a390))
+
+
+### Changes
+
+* enhance auto-start logic and update props for login handling ([c2cebd9](https://github.com/memori-ai/memori-react/commit/c2cebd9313d95172264313a3d9d6829a75211393))
+* restore wave animation for typing ([fc16b93](https://github.com/memori-ai/memori-react/commit/fc16b93f5ee563b6abc654073174c0eb088556f0))
+* update props handling in Memori and ChatBubble components ([cc14f8b](https://github.com/memori-ai/memori-react/commit/cc14f8bc8ddf0e3ce55a7f6243c17905096c5d2a))
+
+
+### Maintenance
+
+* remove bun.lock file and update dompurify version in package.json ([4c56dab](https://github.com/memori-ai/memori-react/commit/4c56dab46c1d6355e52b3f2d6184a0f9eb7ee735))
+
 ## [9.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.3...v9.0.0-rc.4) (2026-09-28)
 
 
