@@ -114,10 +114,12 @@
 
 .memori-website_assistant--close-button {
     display: inline-flex;
-    width: 2.5rem;
-    min-width: 2.5rem;
-    height: 2.5rem;
-    min-height: 2.5rem;
+    width: var(--memori-icon-button-size, 44px);
+    min-width: var(--memori-icon-button-size, 44px);
+    height: var(--memori-icon-button-size, 44px);
+    min-height: var(--memori-icon-button-size, 44px);
+    box-sizing: border-box;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -136,8 +138,9 @@
 }
 
 .memori-website_assistant--close-button .memori-icon-close {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: var(--memori-icon-button-icon-size, 20px);
+    height: var(--memori-icon-button-icon-size, 20px);
+    flex-shrink: 0;
     fill: none;
     stroke: currentColor;
 }

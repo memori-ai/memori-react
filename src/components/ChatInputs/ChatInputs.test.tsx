@@ -1,4 +1,5 @@
 import React from 'react';
+import { fireEvent } from '@testing-library/react';
 import { render } from '../../testUtils';
 import ChatInputs from './ChatInputs';
 import { dialogState, sessionID } from '../../mocks/data';
@@ -31,6 +32,22 @@ it('keeps the microphone enabled when the agent is idle', () => {
   const { container } = render(<ChatInputs {...baseProps} isTyping={false} />);
   const mic = container.querySelector('.memori-chat-inputs--mic-btn');
   expect(mic).not.toBeDisabled();
+});
+
+it('shows the stop icon as soon as the microphone is clicked', () => {
+  const startListening = jest.fn();
+  const { getByRole } = render(
+    <ChatInputs {...baseProps} startListening={startListening} />
+  );
+
+  fireEvent.click(
+    getByRole('button', { name: 'write_and_speak.micButtonPopover' })
+  );
+
+  expect(startListening).toHaveBeenCalledTimes(1);
+  expect(
+    getByRole('button', { name: 'write_and_speak.micButtonPopoverListening' })
+  ).toHaveAttribute('aria-pressed', 'true');
 });
 
 it('stops listening when the agent starts typing', () => {

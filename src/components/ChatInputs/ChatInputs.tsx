@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import { Button, Tooltip } from '@memori.ai/ui';
 import { useAlertManager } from '@memori.ai/ui';
-import { Send, Mic } from 'lucide-react';
+import { Send, Mic, Square } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
@@ -361,6 +361,29 @@ ${text}
     !hasActiveSession ||
     !hasChatStarted ||
     isTyping;
+  const [micArmed, setMicArmed] = useState(!!listening);
+  const wasListeningRef = useRef(false);
+  const micStoppingRef = useRef(false);
+  const micActive = micArmed;
+
+  useEffect(() => {
+    if (listening) {
+      if (micStoppingRef.current) return;
+      wasListeningRef.current = true;
+      setMicArmed(true);
+      return;
+    }
+
+    micStoppingRef.current = false;
+    if (wasListeningRef.current) {
+      wasListeningRef.current = false;
+      setMicArmed(false);
+    }
+  }, [listening]);
+
+  useEffect(() => {
+    if (microphoneDisabled && !listening) setMicArmed(false);
+  }, [microphoneDisabled, listening]);
 
   useEffect(() => {
     if (isTyping && listening) {
@@ -436,33 +459,49 @@ ${text}
                 <IconButton
                   type="button"
                   className="memori-chat-inputs--mic-btn"
-                  recording={!!listening}
+                  recording={micActive}
                   title={
-                    listening
+                    micActive
                       ? t('write_and_speak.micButtonPopoverListening') ||
-                        'Listening'
+                        'Press to stop recording'
                       : t('write_and_speak.micButtonPopover') ||
-                        'Start listening'
+                        'Press to speak'
                   }
                   onClick={() => {
                     if (microphoneDisabled) return;
-                    if (listening) {
+                    if (micActive) {
+                      micStoppingRef.current = true;
+                      wasListeningRef.current = false;
+                      setMicArmed(false);
                       stopListening();
-                    } else {
-                      stopAudio();
-                      startListening();
+                      return;
                     }
+                    micStoppingRef.current = false;
+                    setMicArmed(true);
+                    stopAudio();
+                    startListening();
                   }}
                   disabled={microphoneDisabled}
                   aria-label={
-                    listening
+                    micActive
                       ? t('write_and_speak.micButtonPopoverListening') ||
-                        'Listening'
+                        'Press to stop recording'
                       : t('write_and_speak.micButtonPopover') ||
-                        'Start listening'
+                        'Press to speak'
                   }
-                  aria-pressed={!!listening}
-                  icon={<Mic className="icon" aria-hidden />}
+                  aria-pressed={micActive}
+                  icon={
+                    micActive ? (
+                      <Square
+                        className="memori-chat-inputs--mic-stop"
+                        aria-hidden
+                        fill="currentColor"
+                        strokeWidth={0}
+                      />
+                    ) : (
+                      <Mic className="icon" aria-hidden />
+                    )
+                  }
                 />
               )}
               {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (

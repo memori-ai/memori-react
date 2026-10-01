@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
-import { Mic } from 'lucide-react';
+import { Mic, Square } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import { useTranslation } from 'react-i18next';
@@ -22,44 +22,61 @@ const MicrophoneButton = ({
   disabled = false,
 }: Props) => {
   const { t } = useTranslation();
-  const [micBtnTooltip, setMicBtnTooltip] = useState<string | undefined>();
+  const [showStop, setShowStop] = useState(!!listening);
+  const wasListeningRef = useRef(false);
+  const stoppingRef = useRef(false);
+  const stopListeningRef = useRef(stopListening);
+  stopListeningRef.current = stopListening;
 
-  const intervalRef = useRef<any>(null);
+  useEffect(() => {
+    if (listening) {
+      if (stoppingRef.current) return;
+      wasListeningRef.current = true;
+      setShowStop(true);
+      return;
+    }
 
-  const startHold = (
-    e:
-      | React.TouchEvent<HTMLButtonElement>
-      | React.MouseEvent<Element, MouseEvent>
-  ) => {
-    if (disabled) return;
+    stoppingRef.current = false;
+    if (wasListeningRef.current) {
+      wasListeningRef.current = false;
+      setShowStop(false);
+    }
+  }, [listening]);
+
+  useEffect(() => {
+    if (disabled && !listening) setShowStop(false);
+  }, [disabled, listening]);
+
+  useEffect(() => {
+    return () => {
+      stopListeningRef.current();
+    };
+  }, []);
+
+  const idleHint =
+    t('write_and_speak.micButtonPopover') || 'Press to speak';
+  const stopHint =
+    t('write_and_speak.micButtonPopoverListening') ||
+    'Press to stop recording';
+  const isRecording = showStop;
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    if (disabled) return;
 
-    setMicBtnTooltip(t('write_and_speak.holdToSpeak') || 'Hold to record');
-
-    if (intervalRef.current) return;
-    intervalRef.current = setTimeout(() => {
-      stopAudio();
-      setMicBtnTooltip(
-        t('write_and_speak.releaseToEndListening') || 'Release to end listening'
-      );
-      startListening();
-    }, 300);
-  };
-
-  const stopHold = (e?: React.MouseEvent | React.TouchEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+    if (isRecording) {
+      stoppingRef.current = true;
+      wasListeningRef.current = false;
+      setShowStop(false);
+      stopListening();
+      return;
     }
 
-    if (intervalRef.current) {
-      clearTimeout(intervalRef.current);
-      intervalRef.current = null;
-    }
-
-    stopListening();
-    setMicBtnTooltip(undefined);
+    stoppingRef.current = false;
+    setShowStop(true);
+    stopAudio();
+    startListening();
   };
 
   const handleContextMenu = (e: React.MouseEvent) => {
@@ -67,40 +84,9 @@ const MicrophoneButton = ({
     e.stopPropagation();
   };
 
-  const handleTouchStart = (
-    e:
-      | React.TouchEvent<HTMLButtonElement>
-      | React.MouseEvent<Element, MouseEvent>
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    startHold(e);
-  };
-
-  const handleTouchEnd = (
-    e:
-      | React.TouchEvent<HTMLButtonElement>
-      | React.MouseEvent<Element, MouseEvent>
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    stopHold(e);
-  };
-
-  useEffect(() => {
-    return () => stopHold();
-  }, []);
-
-  const idleHint =
-    t('write_and_speak.pressAndHoldToSpeak') || 'Press and hold to speak';
-  const listeningHint =
-    t('write_and_speak.releaseToEndListening') || 'Release to stop listening';
-
-  const tooltipLabel = micBtnTooltip ?? (listening ? listeningHint : idleHint);
-
   return (
     <Tooltip
-      title={tooltipLabel}
+      title={isRecording ? stopHint : idleHint}
       placement="top-end"
       className="memori-chat-inputs--mic-tooltip"
       slotProps={{
@@ -116,16 +102,23 @@ const MicrophoneButton = ({
         <IconButton
           size="sm"
           className="memori-chat-inputs--mic"
-          recording={!!listening}
-          aria-label={listening ? listeningHint : idleHint}
-          aria-pressed={!!listening}
+          recording={isRecording}
+          aria-label={isRecording ? stopHint : idleHint}
+          aria-pressed={isRecording}
           disabled={disabled}
-          onMouseDown={startHold}
-          onTouchStart={handleTouchStart}
-          onMouseUp={stopHold}
-          onTouchEnd={handleTouchEnd}
-          onMouseLeave={stopHold}
-          icon={<Mic />}
+          onClick={handleClick}
+          icon={
+            isRecording ? (
+              <Square
+                className="memori-chat-inputs--mic-stop"
+                aria-hidden
+                fill="currentColor"
+                strokeWidth={0}
+              />
+            ) : (
+              <Mic aria-hidden />
+            )
+          }
         />
       </div>
     </Tooltip>
