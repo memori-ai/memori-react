@@ -123,7 +123,6 @@
 }
 
 .memori-widget .memori-chat-inputs--upload-wrapper .memori-icon-button.memori-button,
-.memori-widget .memori-chat-inputs--mic-btn.memori-icon-button.memori-button,
 .memori-widget .memori-chat-inputs--mic.memori-icon-button.memori-button {
     border-color: transparent;
     background: transparent;
@@ -132,8 +131,6 @@
 .memori-widget
     .memori-chat-inputs--upload-wrapper
     .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
-.memori-widget
-    .memori-chat-inputs--mic-btn.memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
 .memori-widget
     .memori-chat-inputs--mic.memori-icon-button.memori-button:hover:not(
         :disabled,
@@ -167,13 +164,7 @@
     text-align: center;
 }
 
-/* Microphone button styling (CONTINUOUS mode) — chrome owned by IconButton */
-.memori-chat-inputs--mic-btn {
-    flex-shrink: 0;
-}
-
-.memori-chat-inputs--mic-btn svg,
-.memori-chat-inputs--mic-btn .icon,
+/* Microphone button — chrome owned by IconButton */
 .memori-chat-inputs--mic svg {
     width: 18px;
     height: 18px;
@@ -207,7 +198,7 @@
     font-size: 100%;
 }
 
-/* HOLD_TO_TALK mic in trailing — size owned by IconButton */
+/* Mic in trailing — size owned by IconButton */
 .memori-chat-inputs--trailing .memori-chat-inputs--mic {
     margin-left: 0;
 }

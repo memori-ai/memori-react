@@ -2233,6 +2233,12 @@ const MemoriWidget = ({
       storedMute: getLocalConfig('muteSpeaker', muteSpeakerFallback),
     });
 
+  // Set when the chat input wants the transcription back instead of sending it
+  const transcriptHandlerRef = useRef<((text: string) => void) | null>(null);
+  // Read through a ref: the recorder keeps the first render's speech callback
+  const showInputsRef = useRef(showInputs);
+  showInputsRef.current = showInputs;
+
   // Create a single, centralized function to process and send messages
   const processSpeechAndSendMessage = (text: string) => {
     // Skip if already processing or no text
@@ -2243,8 +2249,18 @@ const MemoriWidget = ({
     try {
       // Process the text
       const message = stripDuplicates(text);
+      const transcriptHandler = transcriptHandlerRef.current;
+      transcriptHandlerRef.current = null;
 
-      if (message.length > 0) {
+      if (transcriptHandler) {
+        if (message.length > 0) transcriptHandler(message);
+      } else if (message.length > 0 && showInputsRef.current) {
+        // Stopped by the system (agent speaking, typing, unmount…): keep the
+        // text in the composer so typed text and attachments go with it
+        setUserMessage(prev =>
+          [prev.trim(), message].filter(Boolean).join(' ')
+        );
+      } else if (message.length > 0) {
         setUserMessage('');
 
         // Send the message
@@ -2257,6 +2273,8 @@ const MemoriWidget = ({
 
   const {
     isListening,
+    audioStream,
+    recordingState,
 
     // Actions
     startRecording,
@@ -2270,6 +2288,10 @@ const MemoriWidget = ({
     },
     defaultEnableAudio
   );
+
+  useEffect(() => {
+    if (isListening) transcriptHandlerRef.current = null;
+  }, [isListening]);
 
   /**
    * Enhanced handleSpeak that integrates with the improved useTTS hook
@@ -3824,13 +3846,20 @@ const MemoriWidget = ({
       // as chat bubbles.
       void translateDialogState(state, userLang, undefined, true);
     },
-    stopListening: stopRecording,
+    stopListening: (onTranscript?: (text: string) => void) => {
+      if (onTranscript && isListening) {
+        transcriptHandlerRef.current = onTranscript;
+      }
+      stopRecording();
+    },
+    audioStream,
     startListening: () => {
       setHasUserTypedMessage(false); // Reset typing flag when user starts listening
-      startRecording();
+      return startRecording();
     },
     stopAudio: ttsStop,
     listening: isListening,
+    transcribing: recordingState === 'processing',
     setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,

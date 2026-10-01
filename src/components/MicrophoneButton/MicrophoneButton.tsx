@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
 import { Mic, Square } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
@@ -9,7 +9,7 @@ export interface Props {
   listening?: ChatInputProps['listening'];
   stopAudio: ChatInputProps['stopAudio'];
   startListening: ChatInputProps['startListening'];
-  stopListening: ChatInputProps['stopListening'];
+  stopListening: () => void;
   /** When true, recording cannot be started (e.g. no session yet — see ChatInputs). */
   disabled?: boolean;
 }
@@ -22,43 +22,10 @@ const MicrophoneButton = ({
   disabled = false,
 }: Props) => {
   const { t } = useTranslation();
-  const [showStop, setShowStop] = useState(!!listening);
-  const wasListeningRef = useRef(false);
-  const stoppingRef = useRef(false);
-  const stopListeningRef = useRef(stopListening);
-  stopListeningRef.current = stopListening;
+  const isRecording = !!listening;
 
-  useEffect(() => {
-    if (listening) {
-      if (stoppingRef.current) return;
-      wasListeningRef.current = true;
-      setShowStop(true);
-      return;
-    }
-
-    stoppingRef.current = false;
-    if (wasListeningRef.current) {
-      wasListeningRef.current = false;
-      setShowStop(false);
-    }
-  }, [listening]);
-
-  useEffect(() => {
-    if (disabled && !listening) setShowStop(false);
-  }, [disabled, listening]);
-
-  useEffect(() => {
-    return () => {
-      stopListeningRef.current();
-    };
-  }, []);
-
-  const idleHint =
-    t('write_and_speak.micButtonPopover') || 'Press to speak';
-  const stopHint =
-    t('write_and_speak.micButtonPopoverListening') ||
-    'Press to stop recording';
-  const isRecording = showStop;
+  const idleHint = t('write_and_speak.micButtonPopover') || 'Press to speak';
+  const stopHint = t('write_and_speak.stopRecording') || 'Stop recording';
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -66,15 +33,10 @@ const MicrophoneButton = ({
     if (disabled) return;
 
     if (isRecording) {
-      stoppingRef.current = true;
-      wasListeningRef.current = false;
-      setShowStop(false);
       stopListening();
       return;
     }
 
-    stoppingRef.current = false;
-    setShowStop(true);
     stopAudio();
     startListening();
   };

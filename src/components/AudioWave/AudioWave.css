@@ -1,0 +1,26 @@
+/* Shrinks to the free space; when narrower than the bars, keeps the newest
+   (right) bars visible and clips the oldest on the left. */
+.memori-audio-wave {
+    display: flex;
+    overflow: hidden;
+    width: fit-content;
+    max-width: calc(100% - 2 * var(--memori-spacing-sm, 8px));
+    height: 36px;
+    box-sizing: border-box;
+    flex-shrink: 1;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto;
+    gap: 3px;
+}
+
+.memori-audio-wave--bar {
+    width: 3px;
+    height: 100%;
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: var(--memori-primary);
+    transform: scaleY(0.12);
+    transform-origin: center;
+    transition: transform 70ms linear;
+}

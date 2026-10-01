@@ -4,9 +4,9 @@ import { render } from '../../testUtils';
 import MicrophoneButton from './MicrophoneButton';
 
 const idleLabel = 'write_and_speak.micButtonPopover';
-const stopLabel = 'write_and_speak.micButtonPopoverListening';
+const stopLabel = 'write_and_speak.stopRecording';
 
-it('starts recording on a single click and shows the stop icon immediately', () => {
+it('starts recording on a single click', () => {
   const startListening = jest.fn();
   const stopListening = jest.fn();
   const stopAudio = jest.fn();
@@ -19,19 +19,14 @@ it('starts recording on a single click and shows the stop icon immediately', () 
     />
   );
 
-  const button = getByRole('button', { name: idleLabel });
-  fireEvent.click(button);
+  fireEvent.click(getByRole('button', { name: idleLabel }));
 
   expect(stopAudio).toHaveBeenCalledTimes(1);
   expect(startListening).toHaveBeenCalledTimes(1);
   expect(stopListening).not.toHaveBeenCalled();
-  expect(getByRole('button', { name: stopLabel })).toHaveAttribute(
-    'aria-pressed',
-    'true'
-  );
 });
 
-it('stops recording on the next click and restores the microphone icon', () => {
+it('shows the stop icon while recording and stops on click', () => {
   const startListening = jest.fn();
   const stopListening = jest.fn();
 
@@ -44,12 +39,12 @@ it('stops recording on the next click and restores the microphone icon', () => {
     />
   );
 
-  fireEvent.click(getByRole('button', { name: stopLabel }));
+  const button = getByRole('button', { name: stopLabel });
+  expect(button).toHaveAttribute('aria-pressed', 'true');
+  expect(button.querySelector('.memori-chat-inputs--mic-stop')).not.toBeNull();
+
+  fireEvent.click(button);
 
   expect(stopListening).toHaveBeenCalledTimes(1);
   expect(startListening).not.toHaveBeenCalled();
-  expect(getByRole('button', { name: idleLabel })).toHaveAttribute(
-    'aria-pressed',
-    'false'
-  );
 });

@@ -110,8 +110,10 @@ export interface Props {
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
   stopAudio: () => void;
-  startListening: () => void;
-  stopListening: () => void;
+  startListening: () => void | Promise<boolean>;
+  stopListening: (onTranscript?: (text: string) => void) => void;
+  audioStream?: MediaStream | null;
+  transcribing?: boolean;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
   layout?: MemoriProps['layout'];
   userAvatar?: MemoriProps['userAvatar'];
@@ -182,6 +184,8 @@ const Chat: React.FC<Props> = ({
   stopAudio,
   startListening,
   stopListening,
+  audioStream,
+  transcribing,
   customMediaRenderer,
   user,
   userAvatar,
@@ -673,6 +677,8 @@ const Chat: React.FC<Props> = ({
           onTextareaExpanded={onTextareaExpanded}
           startListening={startListening}
           stopListening={stopListening}
+          audioStream={audioStream}
+          transcribing={transcribing}
           stopAudio={stopAudio}
           listening={listening}
           isPlayingAudio={isPlayingAudio}

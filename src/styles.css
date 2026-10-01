@@ -25,6 +25,7 @@
 @import url('./components/ReasoningBlock/ReasoningBlock.css');
 @import url('./components/ChatInputs/ChatInputs.css');
 @import url('./components/MicrophoneButton/MicrophoneButton.css');
+@import url('./components/AudioWave/AudioWave.css');
 @import url('./components/ChatTextArea/ChatTextArea.css');
 @import url('./components/CustomGLBModelViewer/ModelViewer.css');
 @import url('./components/SettingsDrawer/SettingsDrawer.css');

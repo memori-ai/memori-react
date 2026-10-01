@@ -392,6 +392,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   onTextareaExpanded={() => {}}
                   startListening={chatProps.startListening}
                   stopListening={chatProps.stopListening}
+                  audioStream={chatProps.audioStream}
+                  transcribing={chatProps.transcribing}
                   stopAudio={chatProps.stopAudio}
                   listening={chatProps.listening}
                   isPlayingAudio={chatProps.isPlayingAudio}

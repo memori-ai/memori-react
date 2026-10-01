@@ -231,6 +231,9 @@
   "write_and_speak": {
     "micButtonPopover": "Premi il pulsante per parlare",
     "micButtonPopoverListening": "Premi il pulsante per smettere di parlare",
+    "stopRecording": "Interrompi registrazione",
+    "sendRecording": "Invia messaggio vocale",
+    "recordingInProgress": "Registrazione in corso",
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per iniziare a conversare clicca sul pulsante INIZIAMO",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",

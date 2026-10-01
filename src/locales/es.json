@@ -228,6 +228,9 @@
   "write_and_speak": {
     "micButtonPopover": "Haga clic en el botón para hablar",
     "micButtonPopoverListening": "Haga clic en el botón para dejar de hablar.",
+    "stopRecording": "Detener grabación",
+    "sendRecording": "Enviar mensaje de voz",
+    "recordingInProgress": "Grabación en curso",
     "pageInstructExplanation": "Para enseñarme cosas nuevas, haga clic en el botón INSTRUIRME para comenzar.",
     "pageTryMeExplanation": "Para empezar a conversar conmigo haga clic en el botón INICIO",
     "pagePrivacyExplanation": "Las conversaciones son visibles por el autor del agente",

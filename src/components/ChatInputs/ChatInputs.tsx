@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import { Button, Tooltip } from '@memori.ai/ui';
 import { useAlertManager } from '@memori.ai/ui';
-import { Send, Mic, Square } from 'lucide-react';
+import { Send } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
-import IconButton from '../IconButton/IconButton';
+import AudioWave from '../AudioWave/AudioWave';
 import cx from 'classnames';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
@@ -29,8 +29,17 @@ export interface Props {
   listening?: boolean;
   isPlayingAudio?: boolean;
   stopAudio: () => void;
-  startListening: () => void;
-  stopListening: () => void;
+  /** May resolve to false when recording could not start (e.g. permission denied). */
+  startListening: () => void | Promise<boolean>;
+  /**
+   * Ends the recording. With `onTranscript`, the transcription is handed back
+   * instead of being sent directly.
+   */
+  stopListening: (onTranscript?: (text: string) => void) => void;
+  /** Live microphone stream, drives the recording wave. */
+  audioStream?: MediaStream | null;
+  /** True while the last recording is being transcribed. */
+  transcribing?: boolean;
   showMicrophone?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
@@ -69,11 +78,12 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaFocus,
   onTextareaBlur,
   showMicrophone = false,
-  microphoneMode = 'HOLD_TO_TALK',
   listening = false,
   stopAudio,
   startListening,
   stopListening,
+  audioStream,
+  transcribing = false,
   showUpload = false,
   isTyping = false,
   sessionID,
@@ -133,7 +143,8 @@ const ChatInputs: React.FC<Props> = ({
       mimeType: string;
       type: string;
       url?: string;
-    }[]
+    }[],
+    message: string = userMessage
   ) => {
     if (isTyping) return;
 
@@ -154,7 +165,7 @@ const ChatInputs: React.FC<Props> = ({
       };
     });
 
-    sendMessage(userMessage, mediaWithIds);
+    sendMessage(message, mediaWithIds);
 
     // Reset states after sending
     setDocumentPreviewFiles([]);
@@ -174,8 +185,8 @@ const ChatInputs: React.FC<Props> = ({
     // Prevent default newline on Enter to keep behavior consistent
     e.preventDefault();
 
-    // While the agent is typing, ignore Enter (no send, no newline)
-    if (isTyping) return;
+    // While the agent is typing or speech is transcribing, ignore Enter (no send, no newline)
+    if (isTyping || transcribing) return;
 
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
@@ -360,30 +371,77 @@ ${text}
     textareaDisabled ||
     !hasActiveSession ||
     !hasChatStarted ||
-    isTyping;
-  const [micArmed, setMicArmed] = useState(!!listening);
+    isTyping ||
+    transcribing;
+  const [micActive, setMicActive] = useState(!!listening);
   const wasListeningRef = useRef(false);
-  const micStoppingRef = useRef(false);
-  const micActive = micArmed;
+  const pendingTranscriptRef = useRef<((text: string) => void) | null>(null);
+  const userMessageRef = useRef(userMessage);
+  userMessageRef.current = userMessage;
+  const previewFilesRef = useRef(documentPreviewFiles);
+  previewFilesRef.current = documentPreviewFiles;
+  const listeningRef = useRef(listening);
+  listeningRef.current = listening;
+  const stopListeningRef = useRef(stopListening);
+  stopListeningRef.current = stopListening;
+
+  useEffect(() => {
+    return () => {
+      if (listeningRef.current) stopListeningRef.current();
+    };
+  }, []);
 
   useEffect(() => {
     if (listening) {
-      if (micStoppingRef.current) return;
+      if (pendingTranscriptRef.current) {
+        stopListening(pendingTranscriptRef.current);
+        return;
+      }
       wasListeningRef.current = true;
-      setMicArmed(true);
+      setMicActive(true);
       return;
     }
 
-    micStoppingRef.current = false;
+    pendingTranscriptRef.current = null;
     if (wasListeningRef.current) {
       wasListeningRef.current = false;
-      setMicArmed(false);
+      setMicActive(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listening]);
 
   useEffect(() => {
-    if (microphoneDisabled && !listening) setMicArmed(false);
+    if (microphoneDisabled && !listening) setMicActive(false);
   }, [microphoneDisabled, listening]);
+
+  const startRecording = () => {
+    if (microphoneDisabled) return;
+    pendingTranscriptRef.current = null;
+    setMicActive(true);
+    stopAudio();
+    Promise.resolve(startListening()).then(started => {
+      if (started === false) setMicActive(false);
+    });
+  };
+
+  const endRecording = (send: boolean) => {
+    const onTranscript = (text: string) => {
+      const message = [userMessageRef.current.trim(), text]
+        .filter(Boolean)
+        .join(' ');
+      if (send) onSendMessage(previewFilesRef.current, message);
+      else onChangeUserMessage(message);
+    };
+    pendingTranscriptRef.current = onTranscript;
+    wasListeningRef.current = false;
+    setMicActive(false);
+    stopListening(onTranscript);
+  };
+
+  const canSend = micActive || userMessage.length > 0;
+  const sendLabel = micActive
+    ? t('write_and_speak.sendRecording') || 'Send voice message'
+    : t('send') || 'Send';
 
   useEffect(() => {
     if (isTyping && listening) {
@@ -437,80 +495,41 @@ ${text}
             )}
           </div>
 
-          {/* Primary area - Textarea */}
+          {/* Primary area - Textarea, or live wave while recording */}
           <div className="memori-chat-inputs--primary">
-            <ChatTextArea
-              value={userMessage}
-              onChange={onChangeUserMessage}
-              onPressEnter={onTextareaPressEnter}
-              onPaste={handleTextareaPaste}
-              onFocus={onTextareaFocus}
-              onBlur={onTextareaBlur}
-              onExpandedChange={handleTextareaExpanded}
-              disabled={textareaDisabled}
-              maxTextareaCharacters={maxTextareaCharacters}
-            />
+            {micActive ? (
+              <AudioWave
+                stream={audioStream}
+                label={
+                  t('write_and_speak.recordingInProgress') ||
+                  'Recording in progress'
+                }
+              />
+            ) : (
+              <ChatTextArea
+                value={userMessage}
+                onChange={onChangeUserMessage}
+                onPressEnter={onTextareaPressEnter}
+                onPaste={handleTextareaPaste}
+                onFocus={onTextareaFocus}
+                onBlur={onTextareaBlur}
+                onExpandedChange={handleTextareaExpanded}
+                disabled={textareaDisabled}
+                maxTextareaCharacters={maxTextareaCharacters}
+              />
+            )}
           </div>
 
           {/* Trailing area - Microphone and Send button */}
           <div className="memori-chat-inputs--trailing">
             <div className="memori-chat-inputs--trailing-inner">
-              {showMicrophone && microphoneMode === 'CONTINUOUS' && (
-                <IconButton
-                  type="button"
-                  className="memori-chat-inputs--mic-btn"
-                  recording={micActive}
-                  title={
-                    micActive
-                      ? t('write_and_speak.micButtonPopoverListening') ||
-                        'Press to stop recording'
-                      : t('write_and_speak.micButtonPopover') ||
-                        'Press to speak'
-                  }
-                  onClick={() => {
-                    if (microphoneDisabled) return;
-                    if (micActive) {
-                      micStoppingRef.current = true;
-                      wasListeningRef.current = false;
-                      setMicArmed(false);
-                      stopListening();
-                      return;
-                    }
-                    micStoppingRef.current = false;
-                    setMicArmed(true);
-                    stopAudio();
-                    startListening();
-                  }}
-                  disabled={microphoneDisabled}
-                  aria-label={
-                    micActive
-                      ? t('write_and_speak.micButtonPopoverListening') ||
-                        'Press to stop recording'
-                      : t('write_and_speak.micButtonPopover') ||
-                        'Press to speak'
-                  }
-                  aria-pressed={micActive}
-                  icon={
-                    micActive ? (
-                      <Square
-                        className="memori-chat-inputs--mic-stop"
-                        aria-hidden
-                        fill="currentColor"
-                        strokeWidth={0}
-                      />
-                    ) : (
-                      <Mic className="icon" aria-hidden />
-                    )
-                  }
-                />
-              )}
-              {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
+              {showMicrophone && (
                 <MicrophoneButton
-                  listening={listening}
-                  startListening={startListening}
-                  stopListening={stopListening}
+                  listening={micActive}
+                  startListening={startRecording}
+                  stopListening={() => endRecording(false)}
                   stopAudio={stopAudio}
-                  disabled={microphoneDisabled}
+                  disabled={microphoneDisabled && !micActive}
                 />
               )}
               <Tooltip
@@ -522,30 +541,30 @@ ${text}
                       'memori-chat-inputs--send-btn-tooltip-positioner',
                   },
                 }}
-                title={t('send') || 'Send'}
+                title={sendLabel}
               >
                 <Button
                   variant="primary"
                   className={cx('memori-chat-inputs--send-btn', {
-                    'memori-chat-inputs--send-btn--active':
-                      !!userMessage?.length,
-                    'memori-chat-inputs--send-btn--disabled':
-                      !userMessage || userMessage.length === 0,
+                    'memori-chat-inputs--send-btn--active': canSend,
+                    'memori-chat-inputs--send-btn--disabled': !canSend,
                   })}
                   onClick={() => {
+                    if (micActive) {
+                      endRecording(true);
+                      return;
+                    }
                     onSendMessage(documentPreviewFiles);
                   }}
                   disabled={
-                    !userMessage ||
-                    userMessage.length === 0 ||
-                    isTyping ||
-                    uploadingCount > 0
+                    !canSend || isTyping || transcribing || uploadingCount > 0
                   }
-                  title={t('send') || 'Send'}
+                  title={sendLabel}
                   size="sm"
-                  aria-label={t('send') || 'Send'}
+                  aria-label={sendLabel}
+                  aria-busy={transcribing || undefined}
                 >
-                  {isTyping ? (
+                  {isTyping || transcribing ? (
                     <div className="memori-chat-inputs--send-btn--loading" />
                   ) : (
                     <Send className="icon" />

@@ -166,6 +166,7 @@ export function useSTT(
     null
   );
   const [isListening, setIsListening] = useState(false);
+  const [audioStream, setAudioStream] = useState<MediaStream | null>(null);
 
   // References
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -193,6 +194,7 @@ export function useSTT(
       });
 
       audioStreamRef.current = stream;
+      setAudioStream(stream);
 
       let mimeType = '';
 
@@ -365,11 +367,14 @@ export function useSTT(
   );
 
   /**
-   * Start recording audio
+   * Start recording audio. Resolves to false when recording could not start.
    */
-  const startRecording = useCallback(async (): Promise<void> => {
-    if (microphoneMuted || recordingState === 'recording') {
-      return;
+  const startRecording = useCallback(async (): Promise<boolean> => {
+    if (microphoneMuted) {
+      return false;
+    }
+    if (recordingState === 'recording') {
+      return true;
     }
 
     if (!hasUserActivatedRecord) {
@@ -382,7 +387,7 @@ export function useSTT(
       if (!mediaRecorderRef.current) {
         const initialized = await initializeRecording();
         if (!initialized) {
-          return;
+          return false;
         }
       }
 
@@ -396,6 +401,7 @@ export function useSTT(
         mediaRecorderRef.current.start();
         setIsListening(true);
       }
+      return true;
     } catch (err) {
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to start recording');
@@ -405,6 +411,7 @@ export function useSTT(
       if (onErrorRef.current) {
         onErrorRef.current(errorMsg);
       }
+      return false;
     }
   }, [
     microphoneMuted,
@@ -486,6 +493,7 @@ export function useSTT(
       audioStreamRef.current.getTracks().forEach(track => track.stop());
       audioStreamRef.current = null;
     }
+    setAudioStream(null);
 
     chunksRef.current = [];
     setIsListening(false);
@@ -518,6 +526,7 @@ export function useSTT(
     hasUserActivatedRecord,
     lastTranscription,
     isListening,
+    audioStream,
 
     // Actions
     startRecording,
