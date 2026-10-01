@@ -699,6 +699,9 @@
     max-width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    /* Same rhythm between messages whether or not the action row is rendered;
+       with an addon this also keeps the translated row inside the hover hit area. */
+    padding-bottom: calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
 }
 
 .memori-chat--bubble-anchor:has(.memori-reasoning) {
@@ -709,14 +712,9 @@
     align-items: flex-end;
 }
 
-.memori-chat--bubble-anchor--has-addon {
-    /* Keep the translated addon inside the hover hit area on desktop. */
-    padding-bottom: calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
-}
-
 /* Artifact chips sit in the shell under the bubble: drop the addon slot so
    copy/feedback does not float in a hole above the card. */
-.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor--has-addon {
+.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor {
     padding-bottom: 0;
 }
 

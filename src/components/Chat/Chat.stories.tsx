@@ -633,6 +633,35 @@ WithDatesAndContext.args = {
   showContextPerLine: true,
 };
 
+/**
+ * Every bubble-addon option is off, so no anchor gets
+ * `.memori-chat--bubble-anchor--has-addon`: messages must stay spaced anyway.
+ */
+export const WithoutBubbleAddon = Template.bind({});
+WithoutBubbleAddon.args = {
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState: {
+    ...dialogState,
+    acceptsFeedback: false,
+  },
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  showCopyButton: false,
+  showDates: false,
+  showAIicon: false,
+  showWhyThisAnswer: false,
+  showTranslationOriginal: false,
+  showFunctionCache: false,
+};
+
 export const OnX3State = Template.bind({});
 OnX3State.args = {
   memori,
