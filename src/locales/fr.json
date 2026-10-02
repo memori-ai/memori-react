@@ -18,7 +18,7 @@
   "delete": "Supprimer",
   "loading": "Chargement",
   "expand": "Développer",
-  "collapse": "Effondrement",
+  "collapse": "Réduire",
   "expandable": {
     "expand": "Développer"
   },

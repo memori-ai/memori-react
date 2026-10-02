@@ -19,6 +19,7 @@ import {
   Code,
   Bug,
   Check,
+  ChevronDown,
 } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
@@ -678,7 +679,26 @@ const ChatBubble: React.FC<Props> = ({
                   >
                     <Expandable
                       className="memori-chat--bubble-content"
+                      btnClassName="memori-chat--bubble-expand-toggle"
                       mode="characters"
+                      expandSymbol={() => (
+                        <>
+                          {t('expand')}
+                          <ChevronDown
+                            className="memori-chat--bubble-expand-chevron"
+                            aria-hidden
+                          />
+                        </>
+                      )}
+                      collapseSymbol={() => (
+                        <>
+                          {t('collapse')}
+                          <ChevronDown
+                            className="memori-chat--bubble-expand-chevron memori-chat--bubble-expand-chevron--up"
+                            aria-hidden
+                          />
+                        </>
+                      )}
                     >
                       <div
                         dir="auto"
