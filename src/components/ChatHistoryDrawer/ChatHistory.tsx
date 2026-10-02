@@ -1,11 +1,4 @@
-import {
-  useAlertManager,
-  createAlertOptions,
-  Button,
-  Input,
-  SelectBox,
-  Spin,
-} from '@memori.ai/ui';
+import { Button, Input, SelectBox, Spin } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -211,7 +204,6 @@ const ChatHistoryDrawer = ({
   loginToken,
 }: Props) => {
   const { t, i18n } = useTranslation();
-  const { add } = useAlertManager();
   const { getUserChatLogsByTokenPaged } = apiClient.chatLogs;
 
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
@@ -358,13 +350,6 @@ const ChatHistoryDrawer = ({
   const handleResumeChat = () => {
     if (!selectedChatLog) return;
     resumeSession(selectedChatLog);
-    add(
-      createAlertOptions({
-        description:
-          t('write_and_speak.chatResumed') || 'Conversation resumed.',
-        severity: 'success',
-      })
-    );
     onClose();
   };
 

@@ -3110,7 +3110,6 @@ const MemoriWidget = ({
                     llmUsage: (l as any).llmUsage,
                     timestamp: l.timestamp,
                     emitter: l.emitter,
-                    initial: i === 0,
                   } as Message)
               );
 
@@ -3302,7 +3301,6 @@ const MemoriWidget = ({
                   llmUsage: (l as any).llmUsage,
                   timestamp: l.timestamp,
                   emitter: l.emitter,
-                  initial: i === 0,
                 } as Message)
             );
 
