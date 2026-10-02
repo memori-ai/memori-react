@@ -93,7 +93,12 @@
     overflow: hidden;
     width: 100%;
     min-width: 0;
-    max-width: var(--memori-conversation-max-width, 48rem);
+    /* Inline padding sits outside the reading width, as on the input wrapper,
+       so the message scrollbar lines up with the input's right edge. */
+    max-width: calc(
+        var(--memori-conversation-max-width, 48rem) + 2 *
+            var(--memori-conversation-inline-padding, var(--memori-spacing-md))
+    );
     min-height: 0;
     box-sizing: border-box;
     flex: 1;
@@ -101,6 +106,7 @@
     align-items: stretch;
     background: var(--memori-secondary-background);
     margin-inline: auto;
+    padding-block: var(--memori-spacing-sm);
     padding-inline: var(--memori-conversation-inline-padding, var(--memori-spacing-md));
 }
 
@@ -547,7 +553,6 @@
 
     .memori-widget.memori-layout-chat .memori-chat-layout--main,
     .memori-widget.memori-layout-chat .memori-chat-layout--controls,
-    .memori-widget.memori-layout-chat .memori-chat-layout--body,
     .memori-widget.memori-layout-chat .memori-chat--wrapper {
         min-height: 0;
         padding-bottom: 0;

@@ -79,7 +79,11 @@
 
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat--history {
     min-height: 0;
+    box-sizing: border-box;
     flex: 1 1 auto;
+    /* Inset the scroller so the rounded corners don't clip the scrollbar track;
+       4px inline matches the input wrapper so both share the same right edge. */
+    padding: calc(var(--memori-radius-surface) / 2) 4px;
     border: none;
     border-radius: var(--memori-radius-surface);
     margin-bottom: 0;
