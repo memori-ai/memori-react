@@ -230,6 +230,38 @@
     outline-offset: 2px;
 }
 
+.memori-chat--jump-to-latest-typing {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.5rem;
+    gap: 3px;
+}
+
+.memori-chat--jump-to-latest-typing-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--memori-primary);
+}
+
+[data-theme='dark'] .memori-chat--jump-to-latest-typing-dot {
+    background: #fff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .memori-chat--jump-to-latest-typing-dot {
+        animation: memori-wave 1.5s linear infinite;
+    }
+
+    .memori-chat--jump-to-latest-typing-dot:nth-child(2) {
+        animation-delay: -1.3s;
+    }
+
+    .memori-chat--jump-to-latest-typing-dot:nth-child(3) {
+        animation-delay: -1.1s;
+    }
+}
+
 /* Ensure smooth scrolling on mobile */
 /* @media (max-width: 768px) {
     .memori-chat--content {

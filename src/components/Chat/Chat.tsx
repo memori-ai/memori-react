@@ -30,6 +30,7 @@ import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import { ChevronDown, FileText as DocumentIcon } from 'lucide-react';
 import {
+  getNextPinnedToBottom,
   isChatScrolledToBottom,
   scrollChatToBottom,
 } from '../../helpers/chatScroll';
@@ -208,7 +209,8 @@ const Chat: React.FC<Props> = ({
     useState<UsageBadgeModalState | null>(null);
   const chatWrapperRef = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
-  const pendingScrollToBottomRef = useRef(false);
+  const isPinnedToBottomRef = useRef(true);
+  const lastScrollTopRef = useRef(0);
   const prevHistoryLengthRef = useRef(history.length);
   const { t } = useTranslation();
   const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
@@ -271,10 +273,11 @@ const Chat: React.FC<Props> = ({
     const content = chatContentRef.current;
     if (!content) return;
     scrollChatToBottom(content);
+    lastScrollTopRef.current = content.scrollTop;
   }, [isHistoryView, preview]);
 
   const requestScrollToBottom = useCallback(() => {
-    pendingScrollToBottomRef.current = true;
+    isPinnedToBottomRef.current = true;
     scrollToBottom();
   }, [scrollToBottom]);
 
@@ -303,25 +306,66 @@ const Chat: React.FC<Props> = ({
     setShowJumpToLatest(!isChatScrolledToBottom(content));
   }, [isHistoryView, preview]);
 
-  useLayoutEffect(() => {
-    if (!pendingScrollToBottomRef.current) return;
-    pendingScrollToBottomRef.current = false;
-    scrollToBottom();
+  const followLatestIfPinned = useCallback(() => {
+    if (isPinnedToBottomRef.current) scrollToBottom();
     updateJumpToLatestVisibility();
-  }, [history, scrollToBottom, updateJumpToLatestVisibility]);
+  }, [scrollToBottom, updateJumpToLatestVisibility]);
+
+  useLayoutEffect(() => {
+    followLatestIfPinned();
+  }, [history, memoriTyping, typingText, followLatestIfPinned]);
 
   useEffect(() => {
     const content = chatContentRef.current;
     if (!content) return;
-    const onScroll = () => updateJumpToLatestVisibility();
+    const onScroll = () => {
+      isPinnedToBottomRef.current = getNextPinnedToBottom(
+        isPinnedToBottomRef.current,
+        lastScrollTopRef.current,
+        content
+      );
+      lastScrollTopRef.current = content.scrollTop;
+      updateJumpToLatestVisibility();
+    };
     content.addEventListener('scroll', onScroll, { passive: true });
     updateJumpToLatestVisibility();
     return () => content.removeEventListener('scroll', onScroll);
   }, [updateJumpToLatestVisibility]);
 
-  useLayoutEffect(() => {
-    updateJumpToLatestVisibility();
-  }, [history, memoriTyping, updateJumpToLatestVisibility]);
+  // Content keeps growing after render (images, markdown, typing text, hints),
+  // so keep following it while the user is pinned to the bottom.
+  useEffect(() => {
+    const content = chatContentRef.current;
+    if (
+      !content ||
+      typeof ResizeObserver === 'undefined' ||
+      typeof MutationObserver === 'undefined'
+    )
+      return;
+
+    const resizeObserver = new ResizeObserver(() => followLatestIfPinned());
+    resizeObserver.observe(content);
+    Array.from(content.children).forEach(child =>
+      resizeObserver.observe(child)
+    );
+
+    const mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node instanceof Element) resizeObserver.observe(node);
+        });
+        mutation.removedNodes.forEach(node => {
+          if (node instanceof Element) resizeObserver.unobserve(node);
+        });
+      });
+    });
+    mutationObserver.observe(content, { childList: true });
+
+    return () => {
+      mutationObserver.disconnect();
+      resizeObserver.disconnect();
+    };
+  }, [followLatestIfPinned]);
 
   const onTextareaFocus = () => {
     stopListening();
@@ -464,236 +508,248 @@ const Chat: React.FC<Props> = ({
         className={cx({ 'memori-conversation-column': showInputs })}
         style={showInputs ? undefined : { display: 'contents' }}
       >
-      <div
-        className={cx('memori-chat--history', {
-          'memori-chat--history-touch': hasTouchscreen(),
-          'memori-chat--history--has-global-background': !!globalBackground,
-        })}
-        style={
-          globalBackground
-            ? ({
-                ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
-              } as React.CSSProperties)
-            : undefined
-        }
-      >
         <div
-          ref={chatContentRef}
-          className={cx('memori-chat--content', {
-            'memori-chat--content-touch': hasTouchscreen(),
-            'memori-chat--content--has-global-background': !!globalBackground,
+          className={cx('memori-chat--history', {
+            'memori-chat--history-touch': hasTouchscreen(),
+            'memori-chat--history--has-global-background': !!globalBackground,
           })}
+          style={
+            globalBackground
+              ? ({
+                  ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
+                } as React.CSSProperties)
+              : undefined
+          }
         >
           <div
-            className={cx('memori-chat--cover')}
-            style={{
-              backgroundImage: `url("${getResourceUrl({
-                type: 'cover',
-                tenantID: tenant?.name,
-                resourceURI: memori.coverURL,
-                baseURL: baseUrl,
-                apiURL: apiUrl,
-              })}"), url("${getResourceUrl({
-                type: 'cover',
-                tenantID: tenant?.name,
-                baseURL: baseUrl || 'https://www.aisuru.com',
-                apiURL: apiUrl,
-              })}")`,
-            }}
-          />
+            ref={chatContentRef}
+            className={cx('memori-chat--content', {
+              'memori-chat--content-touch': hasTouchscreen(),
+              'memori-chat--content--has-global-background': !!globalBackground,
+            })}
+          >
+            <div
+              className={cx('memori-chat--cover')}
+              style={{
+                backgroundImage: `url("${getResourceUrl({
+                  type: 'cover',
+                  tenantID: tenant?.name,
+                  resourceURI: memori.coverURL,
+                  baseURL: baseUrl,
+                  apiURL: apiUrl,
+                })}"), url("${getResourceUrl({
+                  type: 'cover',
+                  tenantID: tenant?.name,
+                  baseURL: baseUrl || 'https://www.aisuru.com',
+                  apiURL: apiUrl,
+                })}")`,
+              }}
+            />
 
-          {history.map((message, index) => (
-            <React.Fragment
-              key={`${index}-${
-                message.text?.includes('<document_attachment')
-                  ? 'has-attachments'
-                  : 'no-attachments'
-              }-${message.timestamp}`}
-            >
-              <div
-                style={{
-                  marginBottom: index === history.length - 1 ? '24px' : 0,
-                }}
+            {history.map((message, index) => (
+              <React.Fragment
+                key={`${index}-${
+                  message.text?.includes('<document_attachment')
+                    ? 'has-attachments'
+                    : 'no-attachments'
+                }-${message.timestamp}`}
               >
-                <ChatBubble
-                  key={`chatbubble-${index}-${
-                    message.text?.includes('<document_attachment')
-                      ? 'has-attachments'
-                      : 'no-attachments'
-                  }-${message.timestamp}`}
-                  isFirst={index === 0}
-                  message={message}
-                  memori={memori}
-                  tenant={tenant}
-                  client={client}
-                  customMediaRenderer={customMediaRenderer}
-                  translateTo={translateTo}
-                  baseUrl={baseUrl}
-                  apiUrl={apiUrl}
-                  sessionID={sessionID}
+                <div
+                // style={{
+                //   marginBottom: index === history.length - 1 ? '24px' : 0,
+                // }}
+                >
+                  <ChatBubble
+                    key={`chatbubble-${index}-${
+                      message.text?.includes('<document_attachment')
+                        ? 'has-attachments'
+                        : 'no-attachments'
+                    }-${message.timestamp}`}
+                    isFirst={index === 0}
+                    message={message}
+                    memori={memori}
+                    tenant={tenant}
+                    client={client}
+                    customMediaRenderer={customMediaRenderer}
+                    translateTo={translateTo}
+                    baseUrl={baseUrl}
+                    apiUrl={apiUrl}
+                    sessionID={sessionID}
+                    simulateUserPrompt={handleSimulateUserPrompt}
+                    showAIicon={showAIicon}
+                    showWhyThisAnswer={showWhyThisAnswer}
+                    codeMimeTypes={CODE_MIME_TYPES}
+                    showTranslationOriginal={showTranslationOriginal}
+                    showFeedback={
+                      index === history.length - 1 &&
+                      !message.fromUser &&
+                      dialogState?.acceptsFeedback
+                    }
+                    user={user}
+                    userAvatar={userAvatar}
+                    experts={experts}
+                    showCopyButton={showCopyButton}
+                    useMathFormatting={useMathFormatting}
+                    showFunctionCache={showFunctionCache}
+                    showReasoning={showReasoning}
+                    usageHtml={usageHtmlByIndex[index]}
+                    isChatlogPanel={isChatlogPanel}
+                    showDates={showDates}
+                    animateEnter={index === enteringMessageIndex}
+                  />
+
+                  {showContextPerLine &&
+                    !!Object.keys(message.contextVars ?? {}).length && (
+                      <div className="memori-chat--context-vars">
+                        {Object.keys(message.contextVars ?? {}).map(key =>
+                          message.contextVars?.[key] === '-' ? (
+                            <div
+                              className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
+                              key={key}
+                            >
+                              <span className="memori-chat--context-tag-text">
+                                {key}
+                              </span>
+                            </div>
+                          ) : message.contextVars?.[key] === '✔️' ? (
+                            <div className="memori-chat--context-tag" key={key}>
+                              <span className="memori-chat--context-tag-text">
+                                {key}
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="memori-chat--context-tag" key={key}>
+                              <span className="memori-chat--context-tag-text">
+                                {key}: {message.contextVars?.[key]}
+                              </span>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )}
+                </div>
+              </React.Fragment>
+            ))}
+
+            {dialogState?.hints &&
+              dialogState.hints.length > 0 &&
+              !memoriTyping && (
+                <MediaWidget
                   simulateUserPrompt={handleSimulateUserPrompt}
-                  showAIicon={showAIicon}
-                  showWhyThisAnswer={showWhyThisAnswer}
-                  codeMimeTypes={CODE_MIME_TYPES}
-                  showTranslationOriginal={showTranslationOriginal}
-                  showFeedback={
-                    index === history.length - 1 &&
-                    !message.fromUser &&
-                    dialogState?.acceptsFeedback
+                  hints={
+                    dialogState.translatedHints
+                      ? dialogState.translatedHints
+                      : dialogState.hints.map(h => ({
+                          text: h,
+                          originalText: h,
+                        }))
                   }
-                  user={user}
-                  userAvatar={userAvatar}
-                  experts={experts}
-                  showCopyButton={showCopyButton}
-                  useMathFormatting={useMathFormatting}
-                  showFunctionCache={showFunctionCache}
-                  showReasoning={showReasoning}
-                  usageHtml={usageHtmlByIndex[index]}
-                  isChatlogPanel={isChatlogPanel}
-                  showDates={showDates}
-                  animateEnter={index === enteringMessageIndex}
                 />
+              )}
 
-                {showContextPerLine &&
-                  !!Object.keys(message.contextVars ?? {}).length && (
-                    <div className="memori-chat--context-vars">
-                      {Object.keys(message.contextVars ?? {}).map(key =>
-                        message.contextVars?.[key] === '-' ? (
-                          <div
-                            className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
-                            key={key}
-                          >
-                            <span className="memori-chat--context-tag-text">
-                              {key}
-                            </span>
-                          </div>
-                        ) : message.contextVars?.[key] === '✔️' ? (
-                          <div className="memori-chat--context-tag" key={key}>
-                            <span className="memori-chat--context-tag-text">
-                              {key}
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="memori-chat--context-tag" key={key}>
-                            <span className="memori-chat--context-tag-text">
-                              {key}: {message.contextVars?.[key]}
-                            </span>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  )}
-              </div>
-            </React.Fragment>
-          ))}
-
-          {dialogState?.hints &&
-            dialogState.hints.length > 0 &&
-            !memoriTyping && (
-              <MediaWidget
-                simulateUserPrompt={handleSimulateUserPrompt}
-                hints={
-                  dialogState.translatedHints
-                    ? dialogState.translatedHints
-                    : dialogState.hints.map(h => ({
-                        text: h,
-                        originalText: h,
-                      }))
-                }
-              />
-            )}
-
-          {!!memoriTyping && (
-            <Typing
-              useDefaultSentences={showTypingText}
-              lang={
-                translateTo
-                  ? translateTo.toLowerCase() === 'it'
+            {!!memoriTyping && (
+              <Typing
+                useDefaultSentences={showTypingText}
+                lang={
+                  translateTo
+                    ? translateTo.toLowerCase() === 'it'
+                      ? 'it'
+                      : 'en'
+                    : memori.culture?.split('-')?.[0]?.toLowerCase() === 'it'
                     ? 'it'
                     : 'en'
-                  : memori.culture?.split('-')?.[0]?.toLowerCase() === 'it'
-                  ? 'it'
-                  : 'en'
-              }
-              sentence={typingText}
-              memori={memori}
-              tenant={tenant}
-              baseUrl={baseUrl}
-              apiUrl={apiUrl}
-              experts={experts}
-              sentences={
-                memori.enableBoardOfExperts
-                  ? boardOfExpertsLoadingSentences
-                  : undefined
-              }
-              key={typingText}
-            />
-          )}
-          <div id="end-messages-ref" />
-        </div>
-        {showJumpToLatest && (
-          <div className="memori-chat--jump-to-latest">
-            <button
-              type="button"
-              className="memori-chat--jump-to-latest-btn"
-              data-testid="memori-chat-jump-to-latest"
-              aria-label={
-                t('scrollToLatest', {
-                  defaultValue: 'Scroll to latest',
-                }) || 'Scroll to latest'
-              }
-              onClick={() => {
-                scrollToBottom();
-                updateJumpToLatestVisibility();
-              }}
-            >
-              <ChevronDown aria-hidden size={20} />
-            </button>
+                }
+                sentence={typingText}
+                memori={memori}
+                tenant={tenant}
+                baseUrl={baseUrl}
+                apiUrl={apiUrl}
+                experts={experts}
+                sentences={
+                  memori.enableBoardOfExperts
+                    ? boardOfExpertsLoadingSentences
+                    : undefined
+                }
+                key={typingText}
+              />
+            )}
+            <div id="end-messages-ref" />
           </div>
-        )}
-      </div>
+          {showJumpToLatest && (
+            <div className="memori-chat--jump-to-latest">
+              <button
+                type="button"
+                className="memori-chat--jump-to-latest-btn"
+                data-testid="memori-chat-jump-to-latest"
+                aria-label={
+                  t('scrollToLatest', {
+                    defaultValue: 'Scroll to latest',
+                  }) || 'Scroll to latest'
+                }
+                onClick={() => {
+                  requestScrollToBottom();
+                  updateJumpToLatestVisibility();
+                }}
+              >
+                {memoriTyping ? (
+                  <span
+                    className="memori-chat--jump-to-latest-typing"
+                    data-testid="memori-chat-jump-to-latest-typing"
+                    aria-hidden
+                  >
+                    <span className="memori-chat--jump-to-latest-typing-dot" />
+                    <span className="memori-chat--jump-to-latest-typing-dot" />
+                    <span className="memori-chat--jump-to-latest-typing-dot" />
+                  </span>
+                ) : (
+                  <ChevronDown aria-hidden size={20} />
+                )}
+              </button>
+            </div>
+          )}
+        </div>
 
-      {showInputs && (
-        <ChatInputs
-          userMessage={userMessage}
-          onChangeUserMessage={onChangeUserMessage}
-          dialogState={dialogState}
-          instruct={instruct}
-          authToken={authToken}
-          sendMessage={handleSendMessage}
-          isTyping={memoriTyping}
-          microphoneMode={microphoneMode}
-          sendOnEnter={sendOnEnter}
-          setSendOnEnter={setSendOnEnter}
-          client={client}
-          sessionID={sessionID}
-          baseUrl={baseUrl}
-          showUpload={showUpload}
-          onMediumSelectedState={onMediumSelectedState}
-          attachmentsMenuOpen={attachmentsMenuOpen}
-          setAttachmentsMenuOpen={setAttachmentsMenuOpen}
-          onTextareaFocus={onTextareaFocus}
-          onTextareaBlur={onTextareaBlur}
-          onTextareaExpanded={onTextareaExpanded}
-          startListening={startListening}
-          stopListening={stopListening}
-          audioStream={audioStream}
-          transcribing={transcribing}
-          stopAudio={stopAudio}
-          listening={listening}
-          isPlayingAudio={isPlayingAudio}
-          showMicrophone={showMicrophone}
-          memoriID={memori?.memoriID}
-          maxTotalMessagePayload={maxTotalMessagePayload}
-          maxTextareaCharacters={maxTextareaCharacters}
-          maxDocumentsPerMessage={maxDocumentsPerMessage}
-          maxDocumentContentLength={maxDocumentContentLength}
-          pasteAsCardLineThreshold={pasteAsCardLineThreshold}
-          pasteAsCardCharThreshold={pasteAsCardCharThreshold}
-          showAiGeneratedNote={showAiGeneratedNote}
-          footerBrand={footerBrand}
-        />
-      )}
+        {showInputs && (
+          <ChatInputs
+            userMessage={userMessage}
+            onChangeUserMessage={onChangeUserMessage}
+            dialogState={dialogState}
+            instruct={instruct}
+            authToken={authToken}
+            sendMessage={handleSendMessage}
+            isTyping={memoriTyping}
+            microphoneMode={microphoneMode}
+            sendOnEnter={sendOnEnter}
+            setSendOnEnter={setSendOnEnter}
+            client={client}
+            sessionID={sessionID}
+            baseUrl={baseUrl}
+            showUpload={showUpload}
+            onMediumSelectedState={onMediumSelectedState}
+            attachmentsMenuOpen={attachmentsMenuOpen}
+            setAttachmentsMenuOpen={setAttachmentsMenuOpen}
+            onTextareaFocus={onTextareaFocus}
+            onTextareaBlur={onTextareaBlur}
+            onTextareaExpanded={onTextareaExpanded}
+            startListening={startListening}
+            stopListening={stopListening}
+            audioStream={audioStream}
+            transcribing={transcribing}
+            stopAudio={stopAudio}
+            listening={listening}
+            isPlayingAudio={isPlayingAudio}
+            showMicrophone={showMicrophone}
+            memoriID={memori?.memoriID}
+            maxTotalMessagePayload={maxTotalMessagePayload}
+            maxTextareaCharacters={maxTextareaCharacters}
+            maxDocumentsPerMessage={maxDocumentsPerMessage}
+            maxDocumentContentLength={maxDocumentContentLength}
+            pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+            pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+            showAiGeneratedNote={showAiGeneratedNote}
+            footerBrand={footerBrand}
+          />
+        )}
       </div>
 
       <Modal

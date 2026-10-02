@@ -161,16 +161,26 @@ const Typing = ({
     return (
       <picture
         className="memori-chat--bubble-avatar"
-        title={!!emitter?.length && !!memori.enableBoardOfExperts ? emitter : memori.name}
+        title={
+          !!emitter?.length && !!memori.enableBoardOfExperts
+            ? emitter
+            : memori.name
+        }
       >
         <img
           className="memori-chat--bubble-avatar-img"
-          alt={!!emitter?.length && !!memori.enableBoardOfExperts ? emitter : memori.name}
+          alt={
+            !!emitter?.length && !!memori.enableBoardOfExperts
+              ? emitter
+              : memori.name
+          }
           src={
             !!emitter?.length &&
             !!memori.enableBoardOfExperts &&
             experts?.find(e => e.name === emitter)
-              ? `${new URL(apiUrl ?? '/').origin}/api/v1/memoriai/memori/avatar/${
+              ? `${
+                  new URL(apiUrl ?? '/').origin
+                }/api/v1/memoriai/memori/avatar/${
                   experts.find(e => e.name === emitter)?.expertMemoriID
                 }`
               : memori.avatarURL && memori.avatarURL.length > 0

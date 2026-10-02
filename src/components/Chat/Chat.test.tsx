@@ -535,6 +535,7 @@ it('scrolls to the latest message when the user sends, but not when a reply arri
   expect(content.scrollTop).toBe(1000);
 
   content.scrollTop = 0;
+  fireEvent.scroll(content);
   const agentMessage: Message = {
     text: 'A long incoming reply that should not yank the viewport.',
     fromUser: false,
@@ -546,6 +547,123 @@ it('scrolls to the latest message when the user sends, but not when a reply arri
     history: [...history, userMessage, agentMessage],
   });
   expect(content.scrollTop).toBe(0);
+});
+
+it('follows an incoming reply when the conversation is at the bottom', () => {
+  const { container, rerenderChat } = renderChat();
+  const content = container.querySelector(
+    '.memori-chat--content'
+  ) as HTMLElement;
+  const metrics = { scrollHeight: 1000, clientHeight: 400, scrollTop: 600 };
+  mockChatOverflow(content, metrics);
+  fireEvent.scroll(content);
+
+  metrics.scrollHeight = 1400;
+  rerenderChat({
+    history: [
+      ...history,
+      {
+        text: 'A new reply',
+        fromUser: false,
+        timestamp: FIXED_TEST_DATE.toISOString(),
+      },
+    ],
+  });
+
+  expect(content.scrollTop).toBe(1400);
+});
+
+it('follows the typing indicator when the conversation is at the bottom', () => {
+  const { container, rerenderChat } = renderChat();
+  const content = container.querySelector(
+    '.memori-chat--content'
+  ) as HTMLElement;
+  const metrics = { scrollHeight: 1000, clientHeight: 400, scrollTop: 600 };
+  mockChatOverflow(content, metrics);
+  fireEvent.scroll(content);
+
+  metrics.scrollHeight = 1200;
+  rerenderChat({ memoriTyping: true });
+
+  expect(content.scrollTop).toBe(1200);
+});
+
+it('stops following after a small upward scroll within the bottom threshold', () => {
+  const { container, rerenderChat } = renderChat();
+  const content = container.querySelector(
+    '.memori-chat--content'
+  ) as HTMLElement;
+  const metrics = { scrollHeight: 1000, clientHeight: 400, scrollTop: 600 };
+  mockChatOverflow(content, metrics);
+  fireEvent.scroll(content);
+
+  content.scrollTop = 570;
+  fireEvent.scroll(content);
+
+  metrics.scrollHeight = 1200;
+  rerenderChat({ memoriTyping: true });
+
+  expect(content.scrollTop).toBe(570);
+});
+
+it('does not follow the typing indicator after the user scrolled up', () => {
+  const { container, rerenderChat } = renderChat();
+  const content = container.querySelector(
+    '.memori-chat--content'
+  ) as HTMLElement;
+  const metrics = { scrollHeight: 1000, clientHeight: 400, scrollTop: 600 };
+  mockChatOverflow(content, metrics);
+  fireEvent.scroll(content);
+
+  content.scrollTop = 0;
+  fireEvent.scroll(content);
+
+  metrics.scrollHeight = 1200;
+  rerenderChat({ memoriTyping: true });
+
+  expect(content.scrollTop).toBe(0);
+});
+
+it('shows the typing indicator in the jump-to-latest button while waiting for a reply', () => {
+  const { container, rerenderChat } = renderChat();
+  const content = container.querySelector(
+    '.memori-chat--content'
+  ) as HTMLElement;
+  mockChatOverflow(content, {
+    scrollHeight: 1000,
+    clientHeight: 400,
+    scrollTop: 600,
+  });
+  fireEvent.scroll(content);
+  content.scrollTop = 0;
+  fireEvent.scroll(content);
+
+  rerenderChat({ memoriTyping: true });
+  const button = screen.getByTestId('memori-chat-jump-to-latest');
+  expect(
+    screen.getByTestId('memori-chat-jump-to-latest-typing')
+  ).toBeInTheDocument();
+  expect(button.querySelector('.lucide-chevron-down')).toBeNull();
+
+  rerenderChat({
+    memoriTyping: false,
+    history: [
+      ...history,
+      {
+        text: 'The reply',
+        fromUser: false,
+        timestamp: FIXED_TEST_DATE.toISOString(),
+      },
+    ],
+  });
+  expect(
+    screen.queryByTestId('memori-chat-jump-to-latest-typing')
+  ).not.toBeInTheDocument();
+  expect(
+    screen
+      .getByTestId('memori-chat-jump-to-latest')
+      .querySelector('.lucide-chevron-down')
+  ).not.toBeNull();
 });
 
 it('does not play enter motion on history present at first render', () => {
