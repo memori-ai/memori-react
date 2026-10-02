@@ -104,6 +104,45 @@ WithLongDescription.args = {
   onClickStart: () => {},
 };
 
+export const WithLongTitle = Template.bind({});
+WithLongTitle.args = {
+  memori: {
+    ...memori,
+    enableCompletions: false,
+    name: 'Assistente Virtuale del Museo Nazionale di Arte Contemporanea e Design Industriale',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'it',
+  setUserLang: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
+export const WithLongTitleBlocked = Template.bind({});
+WithLongTitleBlocked.args = {
+  memori: {
+    ...memori,
+    enableCompletions: false,
+    name: 'Assistente Virtuale del Museo Nazionale di Arte Contemporanea e Design Industriale',
+    blockedUntil: '2099-12-31T23:59:59.000Z',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'it',
+  setUserLang: () => {},
+  setVenue: () => {},
+  openPositionPopover: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const WithExistingSession = Template.bind({});
 WithExistingSession.args = {
   memori: {

@@ -211,7 +211,6 @@
 
 .memori--title {
     display: block;
-    overflow: hidden;
     min-width: 0;
     margin: 0;
     margin-bottom: var(--memori-spacing-sm);
@@ -219,15 +218,15 @@
     font-size: var(--memori-text-size-2xl);
     font-weight: var(--memori-text-weight-bold);
     line-height: var(--memori-text-line-tight);
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .memori--title-row {
     display: inline-flex;
     min-width: 0;
     max-width: 100%;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: var(--memori-spacing-sm);
     gap: var(--memori-spacing-sm);
 }
@@ -236,8 +235,11 @@
     margin-bottom: 0;
 }
 
-.memori--title-row .blocked-memori-badge--wrapper {
+/* One title line tall, so the badge stays centered on the first line when the title wraps. */
+.memori--title-row .blocked-memori-badge--tooltip {
+    height: calc(var(--memori-text-size-2xl) * var(--memori-text-line-tight));
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .memori--description,
