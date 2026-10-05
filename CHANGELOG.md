@@ -1,5 +1,17 @@
 # Changelog
 
+## [9.0.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.6...v9.0.0) (2026-10-05)
+
+
+### Features
+
+* **LoginModal:** add loading state with spinner and localized messages for login process ([a9b66d4](https://github.com/memori-ai/memori-react/commit/a9b66d4ab38d698c90761e59b8bdc1fec098639a))
+
+
+### Changes
+
+* **ShareButton:** remove unused alert options for PDF export success ([b6a951b](https://github.com/memori-ai/memori-react/commit/b6a951bef0658d6816073d9edffcbf3d01f21d6f))
+
 ## [9.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.5...v9.0.0-rc.6) (2026-10-05)
 
 
