@@ -2649,6 +2649,18 @@ const MemoriWidget = ({
                     ? '0, 0, 0'
                     : '255, 255, 255'
                 }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
+                '--memori-chat-inputs-surface':
+                  integrationConfig.innerBgColor === 'dark'
+                    ? '#141414'
+                    : '#ffffff',
+                '--memori-chat-inputs-disclaimer':
+                  integrationConfig.innerBgColor === 'dark'
+                    ? 'rgba(255, 255, 255, 0.72)'
+                    : 'rgba(0, 0, 0, 0.6)',
+                '--memori-chat-inputs-disclaimer-link':
+                  integrationConfig.innerBgColor === 'dark'
+                    ? 'rgba(255, 255, 255, 0.88)'
+                    : 'rgba(0, 0, 0, 0.8)',
                 '--memori-inner-content-pad': '1.5rem',
                 '--memori-nav-bg-image': 'none',
                 '--memori-nav-bg': `rgba(${

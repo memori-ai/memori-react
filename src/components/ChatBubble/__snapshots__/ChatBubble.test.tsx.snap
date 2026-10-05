@@ -808,7 +808,8 @@ M1001 80h400000v40h-400000z"
                 </span>
               </strong>
               :
-I cateti sono i due lati che formano l'angolo retto.
+              <br />
+              I cateti sono i due lati che formano l'angolo retto.
             </p>
             
 
@@ -821,7 +822,8 @@ I cateti sono i due lati che formano l'angolo retto.
                 Calcola i quadrati dei cateti
               </strong>
               :
-Eleva al quadrato entrambe le misure dei cateti: 
+              <br />
+              Eleva al quadrato entrambe le misure dei cateti: 
               <span
                 class="katex"
               >
@@ -994,7 +996,8 @@ Eleva al quadrato entrambe le misure dei cateti:
                 Somma i quadrati dei cateti
               </strong>
               :
-Somma i risultati ottenuti: 
+              <br />
+              Somma i risultati ottenuti: 
               <span
                 class="katex"
               >
@@ -1162,7 +1165,8 @@ Somma i risultati ottenuti:
                 Calcola la radice quadrata della somma
               </strong>
               :
-Prendi la radice quadrata della somma per trovare l'ipotenusa: 
+              <br />
+              Prendi la radice quadrata della somma per trovare l'ipotenusa: 
               <span
                 class="katex"
               >
@@ -2910,8 +2914,8 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
               <strong>
                 Determinazione della resistenza dei materiali:
               </strong>
-              
-La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
+              <br />
+              La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
             </p>
             
 
@@ -2923,8 +2927,8 @@ La resistenza dei materiali da utilizzare nelle verifiche accurate si determina 
               <strong>
                 Calcolo della resistenza:
               </strong>
-              
-Il valore della resistenza dei materiali 
+              <br />
+              Il valore della resistenza dei materiali 
               <span
                 class="katex"
               >
@@ -4008,8 +4012,8 @@ Il valore della resistenza dei materiali
               <strong>
                 Caratterizzazione dei materiali:
               </strong>
-              
-I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
+              <br />
+              I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
             </p>
             
 
@@ -4021,8 +4025,8 @@ I valori medi, caratteristici e di progetto delle resistenze a compressione e tr
               <strong>
                 Stima della resistenza da prove non distruttive:
               </strong>
-              
-Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
+              <br />
+              Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
             </p>
             
 
@@ -4034,8 +4038,8 @@ Per valutare le resistenze dei materiali, si possono anche utilizzare prove non 
               <strong>
                 Analisi dei risultati delle indagini:
               </strong>
-              
-Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
+              <br />
+              Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
             </p>
             
 
@@ -4212,8 +4216,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 
             <p>
                $$
- F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
- $$
+              <br />
+               F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
+              <br />
+               $$
             </p>
             
 
@@ -4975,8 +4981,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 
             <p>
                $$
- M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
- $$
+              <br />
+               M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
+              <br />
+               $$
             </p>
             
 
@@ -5191,12 +5199,16 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               <strong>
                 Calcolo dell'energia cinetica:
               </strong>
-              
- L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
- $$
- E_k = \\frac{1}{2} m v^2
- $$
- dove 
+              <br />
+               L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
+              <br />
+               $$
+              <br />
+               E_k = \\frac{1}{2} m v^2
+              <br />
+               $$
+              <br />
+               dove 
               <span
                 class="katex"
               >
@@ -5380,8 +5392,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               <strong>
                 Calcolo della forza d'impatto:
               </strong>
-              
- La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
+              <br />
+               La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
               <span
                 class="katex"
               >
@@ -5420,10 +5432,14 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 </span>
               </span>
                è:
- $$
- F = \\frac{m \\Delta v}{\\Delta t}
- $$
- dove 
+              <br />
+               $$
+              <br />
+               F = \\frac{m \\Delta v}{\\Delta t}
+              <br />
+               $$
+              <br />
+               dove 
               <span
                 class="katex"
               >
@@ -5530,8 +5546,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               <strong>
                 Considerazioni sulla barriera:
               </strong>
-              
- Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
+              <br />
+               Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
             </p>
             
 
@@ -5543,8 +5559,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               <strong>
                 Normative e standard:
               </strong>
-              
- È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
+              <br />
+               È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
             </p>
             
 
@@ -6493,7 +6509,8 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
                 Misura o identifica i cateti $ a $ e $ b $
               </strong>
               :
-I cateti sono i due lati che formano l'angolo retto.
+              <br />
+              I cateti sono i due lati che formano l'angolo retto.
             </p>
             
 
@@ -6506,7 +6523,8 @@ I cateti sono i due lati che formano l'angolo retto.
                 Calcola i quadrati dei cateti
               </strong>
               :
-Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
+              <br />
+              Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
             </p>
             
 
@@ -6519,7 +6537,8 @@ Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
                 Somma i quadrati dei cateti
               </strong>
               :
-Somma i risultati ottenuti: $ a^2 + b^2 $.
+              <br />
+              Somma i risultati ottenuti: $ a^2 + b^2 $.
             </p>
             
 
@@ -6532,7 +6551,8 @@ Somma i risultati ottenuti: $ a^2 + b^2 $.
                 Calcola la radice quadrata della somma
               </strong>
               :
-Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
+              <br />
+              Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
             </p>
             
 

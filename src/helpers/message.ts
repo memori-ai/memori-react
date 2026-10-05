@@ -1,4 +1,4 @@
-import { marked } from 'marked';
+import { marked, Token } from 'marked';
 import DOMPurify from 'dompurify';
 import { MAX_MSG_CHARS, MAX_MSG_WORDS } from './constants';
 import { cleanUrl } from './utils';
@@ -87,6 +87,71 @@ export const truncateMessage = (message: string) => {
 
 export const sanitizeMsg = (msg: string) =>
   DOMPurify.sanitize(msg, { ADD_ATTR: ['target'] });
+
+const CODE_SEGMENT_RE = /(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]+`)/g;
+
+/**
+ * Fullwidth lookalikes that models sometimes emit instead of ASCII markdown
+ * markers. Only matched pairs on one line are converted, and code is skipped,
+ * so a lone `＊` (CJK notes) or `∗` (math operators) stays as written.
+ */
+const normalizeMarkdownMarkers = (text: string) => {
+  if (!/[\uFF0A\uFE61\u204E\uFF3F]/.test(text)) return text;
+
+  const normalize = (chunk: string) =>
+    chunk
+      .replace(
+        /([\uFF0A\uFE61\u204E]{1,2})(?=\S)([^\n]*?\S)\1/g,
+        (_, marker: string, inner: string) =>
+          `${'*'.repeat(marker.length)}${inner}${'*'.repeat(marker.length)}`
+      )
+      .replace(
+        /(\uFF3F{1,2})(?=\S)([^\n]*?\S)\1/g,
+        (_, marker: string, inner: string) =>
+          `${'_'.repeat(marker.length)}${inner}${'_'.repeat(marker.length)}`
+      );
+
+  return text
+    .split(CODE_SEGMENT_RE)
+    .map((part, index) => (index % 2 === 1 ? part : normalize(part)))
+    .join('');
+};
+
+const INLINE_MARKDOWN_RE = /\*\*?\S|__?\S|`[^`]+`|~~\S/;
+// Text in these tags is literal or already linked; inline markdown would corrupt it.
+const RAW_TEXT_TAG_RE = /^<(\/?)(a|pre|code|script|style|textarea)\b/i;
+
+/**
+ * Marked leaves the contents of HTML blocks untouched, so `<p>**bold**</p>`
+ * shows raw asterisks. Render inline markdown inside the text nodes of those
+ * blocks and keep every tag (attributes, nesting, list numbering) as is.
+ */
+const renderInlineMarkdownInHtml = (html: string) => {
+  if (!INLINE_MARKDOWN_RE.test(html)) return html;
+
+  let rawTextDepth = 0;
+  return html.replace(
+    /(<!--[\s\S]*?-->|<\/?[a-zA-Z][^>]*>)|([^<]+)/g,
+    (match, tag: string | undefined, text: string | undefined) => {
+      if (tag) {
+        const raw = RAW_TEXT_TAG_RE.exec(tag);
+        if (raw) rawTextDepth = Math.max(0, rawTextDepth + (raw[1] ? -1 : 1));
+        return tag;
+      }
+      if (!text || rawTextDepth > 0 || !INLINE_MARKDOWN_RE.test(text)) {
+        return match;
+      }
+      const [, lead, core, trail] = /^(\s*)([\s\S]*?)(\s*)$/.exec(text)!;
+      return `${lead}${marked.parseInline(core, { breaks: false })}${trail}`;
+    }
+  );
+};
+
+const renderMarkdownInHtmlBlocks = (token: Token) => {
+  if (token.type === 'html' && token.block) {
+    token.text = renderInlineMarkdownInHtml(token.text);
+  }
+};
 
 export const renderMsg = (
   text: string,
@@ -189,8 +254,16 @@ export const renderMsg = (
       '$1\n\n$2'
     );
 
+    preprocessedText = normalizeMarkdownMarkers(preprocessedText);
+
     // Ora procedi con il parsing markdown
-    let parsedText = marked.parse(preprocessedText).toString().trim();
+    let parsedText = marked
+      .parse(preprocessedText, {
+        breaks: true,
+        walkTokens: renderMarkdownInHtmlBlocks,
+      })
+      .toString()
+      .trim();
 
     // Restore output tags from placeholders (after markdown processing)
     outputTags.forEach((tag, index) => {

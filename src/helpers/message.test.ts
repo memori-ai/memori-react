@@ -38,6 +38,143 @@ describe('renderMsg', () => {
     const result = renderMsg(payload, false, 'Reasoning...', false);
     expect(result.text).not.toMatch(/onerror/i);
   });
+
+  it('renders bold, italic, lists, links and code blocks', () => {
+    const text = [
+      '**bold** and *italic*',
+      '',
+      '- first',
+      '- second',
+      '',
+      '[docs](https://example.com)',
+      '',
+      '`inline`',
+      '',
+      '```js',
+      'const x = 1;',
+      '```',
+    ].join('\n');
+
+    const result = renderMsg(text, false, 'Reasoning...', false);
+
+    expect(result.text).toContain('<strong>bold</strong>');
+    expect(result.text).toContain('<em>italic</em>');
+    expect(result.text).toContain('<li>first</li>');
+    expect(result.text).toContain('<li>second</li>');
+    expect(result.text).toContain(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer">docs</a>'
+    );
+    expect(result.text).toContain('<code>inline</code>');
+    expect(result.text).toContain('<pre><code class="language-js">');
+    expect(result.text).not.toContain('**bold**');
+  });
+
+  it('keeps single newlines as line breaks', () => {
+    const result = renderMsg(
+      '**12/10** — Qualità\n**13/10** — Logistica',
+      false,
+      'Reasoning...',
+      false
+    );
+
+    expect(result.text).toContain('<strong>12/10</strong>');
+    expect(result.text).toContain('<strong>13/10</strong>');
+    expect(result.text).toContain('<br>');
+    expect(result.text).not.toContain('**');
+  });
+
+  it('renders markdown that was wrapped in HTML blocks', () => {
+    const result = renderMsg(
+      '<p>**12/10** — Qualità</p><p>*italic* item</p><ul><li>**bold item**</li></ul>',
+      false,
+      'Reasoning...',
+      false
+    );
+
+    expect(result.text).toContain('<strong>12/10</strong>');
+    expect(result.text).toContain('<em>italic</em>');
+    expect(result.text).toContain('<strong>bold item</strong>');
+    expect(result.text).not.toContain('**');
+  });
+
+  it('keeps styled HTML layout intact', () => {
+    const html =
+      '<div style="width: 30%"><h3>Lenovo</h3><p>Prezzo: €194</p></div>';
+    const result = renderMsg(html, false, 'Reasoning...', false);
+
+    expect(result.text).toContain('style="width: 30%"');
+    expect(result.text).toContain('<h3>Lenovo</h3>');
+    expect(result.text).toContain('Prezzo: €194');
+  });
+
+  it('keeps HTML structure when rendering markdown inside it', () => {
+    const result = renderMsg(
+      '<ol><li>**uno**<ul><li>a</li></ul></li><li>due</li></ol>',
+      false,
+      'Reasoning...',
+      false
+    );
+
+    expect(result.text).toBe(
+      '<ol><li><strong>uno</strong><ul><li>a</li></ul></li><li>due</li></ol>'
+    );
+  });
+
+  it('leaves tables, code and links untouched', () => {
+    const table = renderMsg(
+      '| A | B |\n|---|---|\n| riga1<br>riga2 | x |',
+      false,
+      'Reasoning...',
+      false
+    );
+    expect(table.text).toContain('<td>riga1<br>riga2</td>');
+    expect(table.text).toContain('<td>x</td>');
+
+    const inlineCode = renderMsg(
+      'Usa `<p>Ciao</p>` e `a＊b＊c`',
+      false,
+      'Reasoning...',
+      false
+    );
+    expect(inlineCode.text).toContain('<code>&lt;p&gt;Ciao&lt;/p&gt;</code>');
+    expect(inlineCode.text).toContain('<code>a＊b＊c</code>');
+
+    const tildeFence = renderMsg(
+      '~~~html\n<p>ciao</p>\n~~~',
+      false,
+      'Reasoning...',
+      false
+    );
+    expect(tildeFence.text).toContain('&lt;p&gt;ciao&lt;/p&gt;');
+
+    const anchor = renderMsg(
+      '<p><a href="https://x.com/a_b_c">https://x.com/a_b_c</a> **ok**</p>',
+      false,
+      'Reasoning...',
+      false
+    );
+    expect(anchor.text).toContain('>https://x.com/a_b_c</a> <strong>ok</strong>');
+  });
+
+  it('does not turn math operators into emphasis', () => {
+    const result = renderMsg('f∗g∗h e 5 * 3 * 2', false, 'Reasoning...', false);
+
+    expect(result.text).toContain('f∗g∗h');
+    expect(result.text).toContain('5 * 3 * 2');
+    expect(result.text).not.toContain('<em>');
+  });
+
+  it('renders fullwidth emphasis markers', () => {
+    const result = renderMsg(
+      '＊＊bold＊＊ and ＿italic＿',
+      false,
+      'Reasoning...',
+      false
+    );
+
+    expect(result.text).toContain('<strong>bold</strong>');
+    expect(result.text).toContain('<em>italic</em>');
+  });
 });
 
 describe('stripAttachmentTags', () => {

@@ -131,6 +131,8 @@
 
 .memori-totem-layout--controls {
     z-index: 100;
+    /* The composer floats over the full-screen avatar; history is height-capped, so nothing scrolls under it. */
+    --memori-chat-inputs-surface: transparent;
 }
 
 .memori-totem-layout--controls .memori--start-panel,

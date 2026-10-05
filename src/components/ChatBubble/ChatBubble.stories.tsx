@@ -1190,3 +1190,32 @@ WithDocumentAttachmentTag.parameters = {
     },
   },
 };
+
+export const SlackPlanningMessage = Template.bind({});
+SlackPlanningMessage.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Ecco il messaggio pronto da copiare su Slack:
+
+---
+
+Ciao Michele, ciao Daniel 👋
+
+Vi aggiorno sulla pianificazione AI Academy Bonfiglioli: con l'aggiunta dei gruppi Logistica e Acquisti, ecco le giornate in cui serve il vostro supporto a Calderara di Reno (affiancando Nunzio, Tiziana e Mattia):
+
+📅 **12/10** — Qualità/HSE + Acquisti → serve **uno dei due**
+📅 **13/10** — Logistica → serve **uno dei due**
+📅 **20/10** — Logistica + Qualità/HSE + Acquisti, i 3 gruppi insieme → servite **entrambi**
+📅 **26/10** — Qualità/HSE + Acquisti → serve **uno dei due**
+📅 **27/10** — Logistica → serve **uno dei due**
+
+In totale 5 giornate, di cui 4 potete dividervele come preferite (basta uno dei due presente), mentre il **20/10 serve la presenza di entrambi** perché ci sono tutti e tre i gruppi in contemporanea.
+
+Fatemi sapere come preferite organizzarvi sulle 4 giornate "singole", grazie! 🙏`,
+  },
+};

@@ -24,6 +24,33 @@
     pointer-events: none;
 }
 
+/*
+ * Side panel only covers the right half, so the chat column keeps wheel/touch scroll.
+ * 50% matches widthLg in ArtifactDrawer.tsx; the Drawer sets its width vars on the panel, not here.
+ */
+@media (min-width: 1025px) {
+    .memori-artifact-panel-drawer .memori-drawer--container {
+        left: auto;
+        overflow: hidden;
+        width: 50%;
+        pointer-events: none;
+    }
+
+    .memori-artifact-panel-drawer .memori-drawer--container-scrollable {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        justify-content: flex-end;
+        pointer-events: none;
+    }
+
+    .memori-artifact-panel-drawer .memori-drawer--panel {
+        width: 100%;
+        max-width: none;
+        pointer-events: auto;
+    }
+}
+
 /* Main Drawer Container (Mobile Only) */
 .memori-artifact-drawer {
     position: relative;

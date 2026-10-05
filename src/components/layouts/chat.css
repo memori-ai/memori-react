@@ -87,8 +87,9 @@
 
 .memori-chat-layout--main-with-artifact {
     display: flex;
+    min-height: 0;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     /* padding: 1rem; */
     gap: 1rem;
@@ -106,10 +107,19 @@
 }
 
 .memori-chat-layout--controls-with-artifact {
+    height: 100%;
     max-height: 100%;
     flex: 0 0 49%;
+    align-self: stretch;
     /* padding-bottom: 2.5rem; */
     margin: 0;
+}
+
+/* Keep a real scrollport in the left column while the artifact panel is open. */
+.memori-chat-layout--controls-with-artifact .memori-chat--wrapper,
+.memori-chat-layout--controls-with-artifact .memori-chat--history,
+.memori-chat-layout--controls-with-artifact .memori-chat--content {
+    min-height: 0;
 }
 
 .memori-chat-layout--artifact-panel {

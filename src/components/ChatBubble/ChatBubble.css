@@ -126,6 +126,100 @@
     margin-bottom: 0;
 }
 
+.memori-chat--bubble strong,
+.memori-chat--bubble b {
+    font-weight: 700;
+}
+
+.memori-chat--bubble em,
+.memori-chat--bubble i {
+    font-style: italic;
+}
+
+.memori-chat--bubble h1,
+.memori-chat--bubble h2,
+.memori-chat--bubble h3,
+.memori-chat--bubble h4,
+.memori-chat--bubble h5,
+.memori-chat--bubble h6 {
+    margin: 0.75em 0 0.35em;
+    color: inherit;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.memori-chat--bubble h1 {
+    font-size: 1.25em;
+}
+
+.memori-chat--bubble h2 {
+    font-size: 1.15em;
+}
+
+.memori-chat--bubble h3 {
+    font-size: 1.05em;
+}
+
+.memori-chat--bubble h1:first-child,
+.memori-chat--bubble h2:first-child,
+.memori-chat--bubble h3:first-child,
+.memori-chat--bubble h4:first-child,
+.memori-chat--bubble h5:first-child,
+.memori-chat--bubble h6:first-child {
+    margin-top: 0;
+}
+
+.memori-chat--bubble blockquote {
+    padding-left: 0.75em;
+    border-left: 3px solid rgba(20, 21, 21, 0.25);
+    margin: 0.65em 0;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble blockquote {
+    border-left-color: rgba(255, 255, 255, 0.55);
+}
+
+.memori-chat--bubble code {
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: rgba(20, 21, 21, 0.06);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.memori-chat--bubble pre {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin: 0.65em 0;
+    background: #161b22;
+    color: #e6edf3;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: 0.85em;
+    line-height: 1.45;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.memori-chat--bubble pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble code {
+    background: rgba(255, 255, 255, 0.18);
+    color: inherit;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble pre code {
+    background: transparent;
+    color: inherit;
+}
+
 .memori-chat--bubble ul,
 .memori-chat--bubble ol {
     padding-left: 1rem;
@@ -152,15 +246,6 @@
 
 .memori-chat--bubble.memori-chat--user-bubble a {
     color: var(--memori-primary-text);
-}
-
-.memori-chat--bubble h1,
-.memori-chat--bubble h2,
-.memori-chat--bubble h3,
-.memori-chat--bubble h4,
-.memori-chat--bubble h5,
-.memori-chat--bubble h6 {
-    color: inherit;
 }
 
 @media (max-width: 600px) {

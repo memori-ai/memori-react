@@ -93,6 +93,9 @@ body.sb-show-main #root,
     --memori-inner-content-pad: 1rem;
     --memori-inner-bg: transparent;
     --memori-chat-bubble-bg: #fff;
+    --memori-chat-inputs-surface: #fff;
+    --memori-chat-inputs-disclaimer: rgba(0, 0, 0, 0.6);
+    --memori-chat-inputs-disclaimer-link: rgba(0, 0, 0, 0.8);
     --memori-chat-user-bubble-bg: var(--memori-primary);
     --memori-text-color: #000;
     --memori-border-radius: 8px;
@@ -114,8 +117,24 @@ body.sb-show-main #root,
     --memori-error-color: #ff4d4f;
     --memori-warning-color: #faad14;
 
+    /* Light UI. Stops forced dark modes from repainting text and native controls. */
+    color-scheme: only light;
     font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
     font-size: 16px;
+}
+
+/*
+ * No custom backdrop: keep a light surface so dark text stays readable when the host page goes dark.
+ * Floating layouts are excluded: their .memori-widget box is not the visible panel.
+ */
+@media (prefers-color-scheme: dark) {
+    .memori-widget:not(.memori-layout-website_assistant, .memori-layout-hidden_chat):has(
+            .memori--global-background.no-background-image
+        ) {
+        background-color: var(--memori-chat-inputs-surface, #fff);
+        color: var(--memori-text-color, #000);
+        color-scheme: only light;
+    }
 }
 
 @media (max-width: 768px) {

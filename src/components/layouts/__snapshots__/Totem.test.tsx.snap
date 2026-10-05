@@ -21,6 +21,9 @@ exports[`renders Totem layout unchanged 1`] = `
 --memori-button-text: #ffffff;
 --memori-blur-background: 5px;
 --memori-inner-bg: rgba(255, 255, 255, 0.8);
+--memori-chat-inputs-surface: #ffffff;
+--memori-chat-inputs-disclaimer: rgba(0, 0, 0, 0.6);
+--memori-chat-inputs-disclaimer-link: rgba(0, 0, 0, 0.8);
 --memori-inner-content-pad: 1.5rem;
 --memori-nav-bg-image: none;
 --memori-nav-bg: rgba(255, 255, 255, 0.8);
