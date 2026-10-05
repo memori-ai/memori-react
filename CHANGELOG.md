@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.1](https://github.com/memori-ai/memori-react/compare/v9.0.0...v9.0.1) (2026-10-05)
+
+
+### Features
+
+* **HostIsolation:** add host isolation styles ([5b869d0](https://github.com/memori-ai/memori-react/commit/5b869d05858d0a60fdee84ea3486d0a682dec91e))
+
 ## [9.0.0](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.6...v9.0.0) (2026-10-05)
 
 
