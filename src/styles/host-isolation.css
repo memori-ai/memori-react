@@ -1,0 +1,57 @@
+/*
+ * Host-page isolation.
+ * @memori.ai/ui ships its rules inside `@layer memori.*`, and any unlayered
+ * host rule beats a layered one regardless of specificity: bare resets such as
+ * `button { font: inherit }` or `h2 { text-transform: uppercase }` would win
+ * over `.memori-button` / `.memori--title`.
+ * This unlayered rule (specificity of one class) beats host element selectors
+ * and rolls their declarations back to the memori layers. It must stay right
+ * after the @memori.ai/ui import so equal-specificity widget rules still win.
+ * Replaced elements keep their width/height attributes; MathJax styles its
+ * own elements with element selectors, and katex.css is unlayered and loaded
+ * before this rule, so both math renderers are left out.
+ * Not covered: rem-based tokens still follow the host `html { font-size }`.
+ */
+.memori-widget,
+.memori-widget
+    :where(
+        :not(
+                svg,
+                svg *,
+                img,
+                picture,
+                video,
+                audio,
+                canvas,
+                iframe,
+                object,
+                mjx-container,
+                mjx-container *,
+                .katex-display,
+                .katex,
+                .katex *
+            )
+    ) {
+    all: revert-layer;
+}
+
+/* What the rule above rolls back to when no memori rule sets a value. */
+@layer memori.theme {
+    /* Inherited text properties the host body would otherwise pass down */
+    .memori-widget {
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: normal;
+        line-height: normal;
+        text-align: start;
+        text-indent: 0;
+        text-transform: none;
+        word-spacing: normal;
+    }
+
+    /* Inherit the widget typography instead of the UA system font */
+    .memori-widget :where(button, input, select, textarea) {
+        font: inherit;
+        letter-spacing: inherit;
+    }
+}

@@ -1,41 +1,58 @@
-/** Display names in English (used in language picker; filter matches these strings). */
+/**
+ * Display names for the language picker.
+ * `label` is English; `labelIt` is Italian. The picker shows the one that matches the UI language.
+ */
 export const chatLanguages = [
-  { value: 'AR', label: 'Arabic' },
-  { value: 'BG', label: 'Bulgarian' },
-  { value: 'CS', label: 'Czech' },
-  { value: 'DA', label: 'Danish' },
-  { value: 'DE', label: 'German' },
-  { value: 'EL', label: 'Greek' },
-  { value: 'EN', label: 'English' },
-  { value: 'ES', label: 'Spanish' },
-  { value: 'ET', label: 'Estonian' },
-  { value: 'FI', label: 'Finnish' },
-  { value: 'FR', label: 'French' },
-  { value: 'HR', label: 'Croatian' },
-  { value: 'HU', label: 'Hungarian' },
-  { value: 'IT', label: 'Italian' },
-  { value: 'JA', label: 'Japanese' },
-  { value: 'LT', label: 'Lithuanian' },
-  { value: 'LV', label: 'Latvian' },
-  { value: 'NL', label: 'Dutch' },
-  { value: 'PL', label: 'Polish' },
-  { value: 'PT', label: 'Portuguese' },
-  { value: 'RO', label: 'Romanian' },
-  { value: 'RU', label: 'Russian' },
-  { value: 'SK', label: 'Slovak' },
-  { value: 'SL', label: 'Slovenian' },
-  { value: 'SV', label: 'Swedish' },
-  { value: 'UK', label: 'Ukrainian' },
-  { value: 'ZH', label: 'Chinese' },
+  { value: 'AR', label: 'Arabic', labelIt: 'Arabo' },
+  { value: 'BG', label: 'Bulgarian', labelIt: 'Bulgaro' },
+  { value: 'CS', label: 'Czech', labelIt: 'Ceco' },
+  { value: 'DA', label: 'Danish', labelIt: 'Danese' },
+  { value: 'DE', label: 'German', labelIt: 'Tedesco' },
+  { value: 'EL', label: 'Greek', labelIt: 'Greco' },
+  { value: 'EN', label: 'English', labelIt: 'Inglese' },
+  { value: 'ES', label: 'Spanish', labelIt: 'Spagnolo' },
+  { value: 'ET', label: 'Estonian', labelIt: 'Estone' },
+  { value: 'FI', label: 'Finnish', labelIt: 'Finlandese' },
+  { value: 'FR', label: 'French', labelIt: 'Francese' },
+  { value: 'HR', label: 'Croatian', labelIt: 'Croato' },
+  { value: 'HU', label: 'Hungarian', labelIt: 'Ungherese' },
+  { value: 'IT', label: 'Italian', labelIt: 'Italiano' },
+  { value: 'JA', label: 'Japanese', labelIt: 'Giapponese' },
+  { value: 'LT', label: 'Lithuanian', labelIt: 'Lituano' },
+  { value: 'LV', label: 'Latvian', labelIt: 'Lettone' },
+  { value: 'NL', label: 'Dutch', labelIt: 'Olandese' },
+  { value: 'PL', label: 'Polish', labelIt: 'Polacco' },
+  { value: 'PT', label: 'Portuguese', labelIt: 'Portoghese' },
+  { value: 'RO', label: 'Romanian', labelIt: 'Rumeno' },
+  { value: 'RU', label: 'Russian', labelIt: 'Russo' },
+  { value: 'SK', label: 'Slovak', labelIt: 'Slovacco' },
+  { value: 'SL', label: 'Slovenian', labelIt: 'Sloveno' },
+  { value: 'SV', label: 'Swedish', labelIt: 'Svedese' },
+  { value: 'UK', label: 'Ukrainian', labelIt: 'Ucraino' },
+  { value: 'ZH', label: 'Chinese', labelIt: 'Cinese' },
 ];
 
 export const popularLanguageCodes = ['IT', 'EN'];
 
-export const getGroupedChatLanguages = () => {
-  const popular = chatLanguages.filter(lang =>
-    popularLanguageCodes.includes(lang.value)
-  );
-  const all = chatLanguages.filter(lang => !popularLanguageCodes.includes(lang.value));
+export const getChatLanguageLabel = (
+  lang: (typeof chatLanguages)[number],
+  uiLanguage?: string
+) => {
+  const code = (uiLanguage ?? 'en').toLowerCase().split('-')[0];
+  return code === 'it' ? lang.labelIt : lang.label;
+};
+
+export const getGroupedChatLanguages = (uiLanguage?: string) => {
+  const withLabel = (lang: (typeof chatLanguages)[number]) => ({
+    value: lang.value,
+    label: getChatLanguageLabel(lang, uiLanguage),
+  });
+  const popular = chatLanguages
+    .filter(lang => popularLanguageCodes.includes(lang.value))
+    .map(withLabel);
+  const all = chatLanguages
+    .filter(lang => !popularLanguageCodes.includes(lang.value))
+    .map(withLabel);
   return {
     popular,
     all,

@@ -314,6 +314,7 @@
     gap: 0.4rem;
 }
 
+.memori-header .memori-header--button-login.memori-button .memori-button__icon,
 .memori-header .memori-header--button-login.memori-button svg {
     width: var(--memori-icon-button-icon-size, 20px);
     height: var(--memori-icon-button-icon-size, 20px);

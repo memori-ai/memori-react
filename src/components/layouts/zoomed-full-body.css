@@ -107,6 +107,9 @@
     min-width: 0;
     flex: 1 1 auto;
     flex-direction: column;
+    /* See the same rule in fullpage.css: stop the nowrap description from
+       inflating a host flex column. */
+    contain: inline-size;
     gap: 0.125rem;
 }
 

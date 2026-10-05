@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { venue } from '../../../mocks/data';
+import { integration, venue } from '../../../mocks/data';
 import { withWidgetProviders } from '../../../../.storybook/decorators';
 import {
   FlowWidget,
@@ -59,6 +59,21 @@ export const HeaderOverflowActions: Story = {
 /** No session while collapsed; opening the bubble starts it. */
 export const AutoStart: Story = {
   args: { autoStart: true },
+};
+
+/** Integration with a global background behind the chat messages. */
+export const AutoStartWithGlobalBackground: Story = {
+  args: {
+    autoStart: true,
+    integration: {
+      ...integration,
+      customData: JSON.stringify({
+        ...JSON.parse(integration.customData || '{}'),
+        avatar: undefined,
+        avatarURL: undefined,
+      }),
+    },
+  },
 };
 
 /** StartPanel asks to share or skip position before the start button. */

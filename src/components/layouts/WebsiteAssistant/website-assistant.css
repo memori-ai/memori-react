@@ -200,6 +200,8 @@
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     position: fixed;
+    /* Must float above the host page but stay below portaled dropdowns (+1100), drawers (+1400) and modals (+1600) */
+    z-index: calc(var(--memori-z-index-base, 0) + 1000);
     right: 0;
     bottom: 0;
     overflow: hidden;
@@ -663,6 +665,11 @@
 
 .memori-website_assistant-layout--controls .memori-chat--content {
     padding: 0;
+}
+
+/* The global background is a rounded card around the messages: inset them from its edges */
+.memori-website_assistant-layout--controls .memori-chat--content.memori-chat--content--has-global-background {
+    padding: var(--memori-spacing-md);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--bubble-initial + .memori-chat--bubble-container {

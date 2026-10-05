@@ -109,7 +109,7 @@ const StartPanel: React.FC<Props> = ({
   };
 
   const languageComboboxOptions = useMemo(() => {
-    const { popular, all } = getGroupedChatLanguages();
+    const { popular, all } = getGroupedChatLanguages(i18n.language);
     return [
       {
         groupLabel: String(t('popularLanguages') || 'Popular'),
@@ -126,7 +126,7 @@ const StartPanel: React.FC<Props> = ({
         })),
       },
     ];
-  }, [t]);
+  }, [t, i18n.language]);
 
   const selectedChatLangCode = useMemo(() => {
     const raw = userLang ?? i18n.language ?? 'EN';

@@ -49,12 +49,20 @@
     white-space: nowrap;
 }
 
+/* The @memori.ai/ui wrapper is 1em wide: size it with the svg, otherwise host
+   resets like `svg { max-width: 100% }` squash the icon to the font size. */
+.memori-widget .memori-icon-button.memori-button .memori-button__icon,
 .memori-widget .memori-icon-button.memori-button svg,
 .memori-widget .memori-icon-button.memori-button .icon {
     width: var(--memori-icon-button-icon-size, 20px);
     height: var(--memori-icon-button-icon-size, 20px);
     flex-shrink: 0;
     color: inherit;
+}
+
+.memori-widget .memori-icon-button.memori-button .memori-button__icon:has(svg.lucide-volume-x) {
+    width: calc(var(--memori-icon-button-icon-size, 20px) + 1px);
+    height: calc(var(--memori-icon-button-icon-size, 20px) + 1px);
 }
 
 .memori-widget .memori-icon-button.memori-button svg.lucide-volume-x {

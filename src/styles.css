@@ -9,6 +9,7 @@
    Published `dist/styles.css` and `esm/styles.css` are bundled by PostCSS
    (`postcss-import`) so this import is inlined before publishing. */
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
+@import url('./styles/host-isolation.css');
 
 /* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
 @import url('./styles/motion.css');

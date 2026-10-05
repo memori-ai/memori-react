@@ -187,6 +187,7 @@
     stroke: currentColor;
 }
 
+.memori-chat-inputs--upload-wrapper .memori-button .memori-button__icon,
 .memori-chat-inputs--upload-wrapper .memori-button svg,
 .memori-chat-inputs--upload-wrapper .memori-button .icon {
     width: 18px;

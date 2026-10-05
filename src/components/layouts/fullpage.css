@@ -110,6 +110,11 @@
     min-width: 0;
     flex: 1 1 auto;
     flex-direction: column;
+    /* nowrap on the title/description makes their min-content the full string.
+       A host flex column (min-width: auto) would grow to that width and the
+       ellipsis would never run. Inline-size containment keeps that min-content
+       inside the widget. */
+    contain: inline-size;
     gap: 0.125rem;
 }
 
