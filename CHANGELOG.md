@@ -1,5 +1,17 @@
 
 
+## [8.46.1](https://github.com/memori-ai/memori-react/compare/v8.46.0...v8.46.1) (2026-10-05)
+
+
+### Features
+
+* **chat:** enhance chat UI with new styles and markdown rendering improvements ([30e9aac](https://github.com/memori-ai/memori-react/commit/30e9aacf6f4dfc79b5c102ac4973893e383280ee))
+
+
+### Maintenance
+
+* update dompurify to version 3.4.16 ([c0b4aa5](https://github.com/memori-ai/memori-react/commit/c0b4aa568b0f29a11afdc2cf36efe9215205ea9b))
+
 ## [8.46.0](https://github.com/memori-ai/memori-react/compare/v8.45.6...v8.46.0) (2026-09-29)
 
 
