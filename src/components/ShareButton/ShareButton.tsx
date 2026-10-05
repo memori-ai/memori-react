@@ -363,14 +363,6 @@ const ShareButton: React.FC<Props> = ({
         }
       }, 500);
 
-      add(
-        createAlertOptions({
-          description:
-            t('exportChatHistory.success') ||
-            'Chat exported to PDF successfully',
-          severity: 'success',
-        })
-      );
       flashMenuItem('export-pdf');
     } catch (error) {
       console.error('PDF export error:', error);
