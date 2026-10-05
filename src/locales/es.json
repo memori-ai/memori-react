@@ -434,6 +434,7 @@
   "login": {
     "login": "Acceso",
     "title": "Iniciar sesión en tu cuenta",
+    "loggingIn": "Iniciando sesión…",
     "logout": "Cerrar sesión",
     "user": "Usuario",
     "loggedDrawerTitle": "Hola, {{name}}!",

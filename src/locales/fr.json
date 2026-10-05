@@ -434,6 +434,7 @@
   "login": {
     "login": "Se connecter",
     "title": "Se connecter à votre compte",
+    "loggingIn": "Connexion en cours…",
     "logout": "Déconnexion",
     "user": "Utilisateur",
     "loggedDrawerTitle": "Salut, {{name}}!",

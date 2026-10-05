@@ -460,6 +460,7 @@
   "login": {
     "login": "Accedi",
     "title": "Accedi al tuo account",
+    "loggingIn": "Accesso in corso…",
     "logout": "Esci",
     "userNameRequired": "Il nome utente è obbligatorio",
     "userName": "Nome utente",

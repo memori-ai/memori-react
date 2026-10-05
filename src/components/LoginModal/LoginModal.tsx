@@ -67,6 +67,7 @@ const LoginModal = ({
     null
   );
   const [isResending, setIsResending] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(false);
   const [otpFocusedIndex, setOtpFocusedIndex] = useState(0);
   const [birthDate, setBirthDate] = useState<string>('');
   const [isBirthDateFocused, setIsBirthDateFocused] = useState(false);
@@ -106,6 +107,10 @@ const LoginModal = ({
       setOtpResendCooldown(null);
     }
   }, [otpResendCooldown]);
+
+  useEffect(() => {
+    if (!open) setLoggingIn(false);
+  }, [open]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -201,6 +206,7 @@ const LoginModal = ({
             setShowOtpCodeForm(false);
             setOtpCode('');
           } else {
+            setLoggingIn(true);
             setShowOtpCodeForm(false);
             setOtpCode('');
             setOtpEmail('');
@@ -563,6 +569,19 @@ const LoginModal = ({
     </div>
   );
 
+  const loggingInStep = (
+    <div
+      className="memori--login-modal--step memori--login-modal--logging-in"
+      role="status"
+      aria-live="polite"
+    >
+      <span className="memori--login-modal--spinner" aria-hidden="true" />
+      <p className="memori--login-modal--logging-in-text">
+        {t('login.loggingIn')}
+      </p>
+    </div>
+  );
+
   const missingDataStep = (
     <div className="memori--login-modal--missing-data">
       <p className="memori--login-modal--missing-helper">
@@ -696,7 +715,9 @@ const LoginModal = ({
       centered
       closable
     >
-      {isMissingDataStep
+      {loggingIn
+        ? loggingInStep
+        : isMissingDataStep
         ? missingDataStep
         : showOtpCodeForm
         ? codeStep

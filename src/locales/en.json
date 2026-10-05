@@ -461,6 +461,7 @@
   "login": {
     "login": "Login",
     "title": "Login to your account",
+    "loggingIn": "Logging you in…",
     "logout": "Logout",
     "user": "User",
     "loggedDrawerTitle": "Hi, {{name}}!",

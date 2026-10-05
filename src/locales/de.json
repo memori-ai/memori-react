@@ -435,6 +435,7 @@
   "login": {
     "login": "Login",
     "title": "Login zu Ihrem Konto",
+    "loggingIn": "Anmeldung läuft…",
     "logout": "Abmelden",
     "user": "Benutzer",
     "loggedDrawerTitle": "Hallo, {{name}}!",

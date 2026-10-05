@@ -452,6 +452,81 @@ Seleziona le personalizzazioni che desideri applicare.
   },
 };
 
+/**
+ * A full assistant reply — headings, table, code, quote, checklist —
+ * so the chat markdown looks like a Claude / ChatGPT answer.
+ */
+export const RichMarkdownAnswer: Story<Props> = args => (
+  <div style={{ maxWidth: 680 }}>
+    <Template {...args} />
+  </div>
+);
+RichMarkdownAnswer.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showCopyButton: true,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Certo. La differenza pratica tra **cookie**, **localStorage** e **cache** è *dove* vivono i dati e *per quanto* restano disponibili.
+
+## In sintesi
+
+| Meccanismo | Chi lo legge | Quanto dura | Uso tipico |
+| --- | --- | --- | --- |
+| Cookie | Browser e server | Fino alla scadenza | Sessione e preferenze inviate al backend |
+| localStorage | Solo il browser | Finché non lo cancelli | Tema, bozza, stato dell'interfaccia |
+| Cache HTTP | Browser | Secondo gli header | File statici, immagini, font |
+
+### localStorage
+
+Resta sul dispositivo e non parte da solo verso il server. Una bozza del messaggio può stare qui:
+
+\`\`\`javascript
+const key = 'chat-draft';
+const draft = localStorage.getItem(key) ?? '';
+
+localStorage.setItem(key, draft.trim());
+\`\`\`
+
+Il codice inline, come \`localStorage.getItem\`, resta nel flusso del testo. Un dato che *non* ti serve più si può segnare come ~~da tenere per sempre~~ e cancellare.
+
+### Cache
+
+La cache evita di riscaricare ciò che non è cambiato. Non è un posto dove salvare lo stato dell'utente.
+
+> Se un dato deve sopravvivere al refresh ma non deve arrivare al server, **localStorage** è la scelta più semplice. Se deve essere letto dal backend a ogni richiesta, usa un **cookie**.
+
+---
+
+## Cosa evitare
+
+1. Salvare token sensibili in \`localStorage\` se la pagina carica script di terze parti.
+2. Usare i cookie come database: hanno un limite di pochi kilobyte.
+3. Dare per scontato che la cache sia aggiornata. Un file può restare vecchio finché non cambia l'URL o l'header.
+
+Prima di scegliere, controlla tre cose:
+
+- [x] Il dato serve anche al server?
+- [x] Deve restare dopo la chiusura del tab?
+- [ ] Contiene informazioni che l'utente non vorrebbe lasciare sul dispositivo?
+
+Per il dettaglio sugli header, il riferimento è la guida [HTTP caching su MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching).
+
+Se vuoi, nel prossimo messaggio applico lo stesso schema al widget della chat.`,
+  },
+};
+RichMarkdownAnswer.parameters = {
+  docs: {
+    description: {
+      story:
+        'Assistant-style markdown in one bubble: headings, a comparison table, a highlighted code block, a quote, a checklist, and a link.',
+    },
+  },
+};
+
 export const WithMarkdownAndBreakLine = Template.bind({});
 WithMarkdownAndBreakLine.args = {
   memori,

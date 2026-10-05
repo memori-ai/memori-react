@@ -51,6 +51,35 @@
     gap: 1rem;
 }
 
+.memori--login-modal--logging-in {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0 1.5rem;
+}
+
+.memori--login-modal--spinner {
+    width: 2.25rem;
+    height: 2.25rem;
+    box-sizing: border-box;
+    border: 3px solid color-mix(in oklch, var(--memori-primary, #3182ce), transparent 80%);
+    border-radius: 50%;
+    border-top-color: var(--memori-primary, #3182ce);
+    animation: memori-login-modal-spin 0.7s linear infinite;
+}
+
+.memori--login-modal--logging-in-text {
+    margin: 0;
+    color: color-mix(in oklch, var(--memori-text-color, #1a1a2e), transparent 35%);
+    font-size: 0.9375rem;
+    text-align: center;
+}
+
+@keyframes memori-login-modal-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .memori--login-modal--benefit,
 .memori--login-modal--sent-copy,
 .memori--login-modal--footnote,
