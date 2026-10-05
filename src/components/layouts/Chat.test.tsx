@@ -22,7 +22,12 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 const renderChatWidget = (
-  extraProps: { layout?: 'CHAT' | 'FULLPAGE'; height?: string } = {}
+  extraProps: {
+    layout?: 'CHAT' | 'FULLPAGE';
+    height?: string;
+    enableAudio?: boolean;
+    ttsProvider?: 'azure' | 'openai';
+  } = {}
 ) =>
   render(
     <I18nWrapper>
@@ -78,6 +83,60 @@ it('defaults every layout to 100% when height is omitted', () => {
   const { container } = renderChatWidget({ layout: 'FULLPAGE' });
   const widget = container.querySelector('.memori-widget') as HTMLElement;
   expect(widget).toHaveStyle({ height: '100%' });
+});
+
+describe('speaker toggle on mobile', () => {
+  const mobileMatchMedia = (query: string) => ({
+    matches: query.includes('max-width: 768px'),
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  });
+  const originalMatchMedia = window.matchMedia;
+
+  beforeEach(() => {
+    window.matchMedia = jest.fn().mockImplementation(mobileMatchMedia);
+  });
+
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
+  });
+
+  // i18n returns raw keys in tests; the speaker button is labelled widget.sound
+  const querySpeakerButton = (container: HTMLElement) =>
+    container.querySelector('button[aria-label="widget.sound"]');
+
+  it.each(['CHAT', 'FULLPAGE'] as const)(
+    'shows the speaker toggle in %s when audio is enabled',
+    layout => {
+      const { container } = renderChatWidget({
+        layout,
+        ttsProvider: 'azure',
+      });
+      expect(querySpeakerButton(container)).toBeInTheDocument();
+    }
+  );
+
+  it.each(['CHAT', 'FULLPAGE'] as const)(
+    'hides the speaker toggle in %s when enableAudio is false',
+    layout => {
+      const { container } = renderChatWidget({
+        layout,
+        ttsProvider: 'azure',
+        enableAudio: false,
+      });
+      expect(querySpeakerButton(container)).not.toBeInTheDocument();
+    }
+  );
+
+  it('hides the speaker toggle when no TTS provider is configured', () => {
+    const { container } = renderChatWidget({ layout: 'CHAT' });
+    expect(querySpeakerButton(container)).not.toBeInTheDocument();
+  });
 });
 
 it('fills a 400px host through webcomponent wrappers instead of using 100vh', () => {

@@ -1,7 +1,9 @@
 .memori-drawer--right.memori-drawer--size-md.memori-chat-history-drawer {
     --memori-modal-size-md: 45rem;
     width: 45rem;
-    max-width: 100vw;
+    /* % not vw: inside a contained widget surface the drawer must not grow
+       past the embed; outside containment 100% is the viewport anyway. */
+    max-width: 100%;
 }
 
 .memori-chat-history-drawer .memori-drawer__title {

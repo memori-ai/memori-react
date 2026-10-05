@@ -180,6 +180,10 @@
         --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 55%);
         --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
         --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
+        /* Text-derived: @memori.ai/ui computes this on :root only, so a dark
+           widget inside a light page would inherit the light ink. Rebind here
+           so it follows the widget's own --memori-text-color. */
+        --memori-icon-button-icon: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
         --memori-layout-max-width: 1280px;
         /* Shared conversation axis (message list, empty state, input) */
         --memori-conversation-max-width: 48rem; /* 768px */
@@ -218,6 +222,7 @@
         --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 30%);
         --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 40%);
         --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 55%);
+        --memori-icon-button-icon: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
     }
 }
 

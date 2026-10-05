@@ -35,6 +35,28 @@ describe('brand token cascade (styles.css)', () => {
     );
   });
 
+  // @memori.ai/ui computes --memori-icon-button-icon from --memori-text-color
+  // on :root only; a dark widget hosted in a light page (e.g. the platform
+  // preview iframe) would inherit the light ink and header icons vanish.
+  it('rebinds the text-derived icon-button token on both host scopes', () => {
+    const iconToken =
+      /--memori-icon-button-icon\s*:\s*color-mix\(in oklch,\s*var\(--memori-text-color\)/;
+    const lightBlock = overridesBlocks.find(
+      block =>
+        block.includes('.memori-widget') &&
+        block.includes('--memori-primary:') &&
+        !block.includes("data-theme='dark'")
+    );
+    const darkBlock = overridesBlocks.find(
+      block =>
+        block.includes("data-theme='dark'") &&
+        block.includes('.memori-widget')
+    );
+
+    expect(lightBlock).toMatch(iconToken);
+    expect(darkBlock).toMatch(iconToken);
+  });
+
   it('rebinds dark primary-derived tokens on dark host scopes', () => {
     const darkBlock = overridesBlocks.find(
       block =>

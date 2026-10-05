@@ -3689,7 +3689,10 @@ const MemoriWidget = ({
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
-    enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
+    // Hide the speaker toggle when audio is disabled or no TTS provider is
+    // configured: TTS playback is gated on the same conditions.
+    enableAudio:
+      !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     speakerMuted: speakerMuted ?? false,
     setSpeakerMuted: (mute: boolean) => {
       toggleMute(mute);

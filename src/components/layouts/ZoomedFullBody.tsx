@@ -273,7 +273,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         enableDeepThought: false,
       },
       showChatHistory: false,
-      enableAudio: true,
     };
   }, [headerProps, isMobile]);
 
