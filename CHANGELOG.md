@@ -1,5 +1,25 @@
 # Changelog
 
+## [9.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.5...v9.0.0-rc.6) (2026-10-05)
+
+
+### Features
+
+* **Chat:** add WithoutBubbleAddon story and update layout args ([8f57ed4](https://github.com/memori-ai/memori-react/commit/8f57ed423286796de467e2952d926ae0815aed3d))
+* **ChatBubble:** enhance expandable chat bubble with new styles and localization updates ([ea80fe0](https://github.com/memori-ai/memori-react/commit/ea80fe042d398a70eb39f9ae1bd20325c6daa48e))
+* **Chat:** implement scrolling behavior for incoming replies and typing indicator ([c52fa8e](https://github.com/memori-ai/memori-react/commit/c52fa8e6e957153d2fa79bc36d5a11692f7449f7))
+* **IconButton:** update drawer max-width for better containment ([851b62b](https://github.com/memori-ai/memori-react/commit/851b62b45901889a897b5a2cf572e33a6f409fa8))
+
+
+### Bug Fixes
+
+* fullscreen drawers for HiddenChat and WebsiteAssistant layouts ([0bf47a2](https://github.com/memori-ai/memori-react/commit/0bf47a2f4af16e0ac74f416739306bf246ebc05c))
+
+
+### Changes
+
+* **ChatHistory:** remove unused alert manager and clean up imports ([6dbbe1d](https://github.com/memori-ai/memori-react/commit/6dbbe1dd291f1aaedb2e14a970fe662bbaeaa238))
+
 ## [9.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v9.0.0-rc.4...v9.0.0-rc.5) (2026-10-01)
 
 
