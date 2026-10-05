@@ -70,54 +70,6 @@ exports[`renders Chat layout unchanged 1`] = `
                 <div
                   class="memori-header--fullpage-secondary"
                 >
-                  <span
-                    class="memori-tooltip"
-                  >
-                    <span
-                      class="memori-tooltip__trigger"
-                      id="base-ui-:r1:"
-                    >
-                      <span
-                        style="display: inline-flex;"
-                      >
-                        <button
-                          aria-label="widget.sound"
-                          class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                          tabindex="0"
-                          title="widget.sound"
-                          type="button"
-                        >
-                          <span
-                            class="memori-button__icon"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              class="lucide lucide-volume2 lucide-volume-2"
-                              fill="none"
-                              height="20"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              viewBox="0 0 24 24"
-                              width="20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-                              />
-                              <path
-                                d="M16 9a5 5 0 0 1 0 6"
-                              />
-                              <path
-                                d="M19.364 18.364a9 9 0 0 0 0-12.728"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </span>
                   <div
                     class="memori-dropdown memori-share-button memori-share-button--align-left"
                   >
@@ -126,14 +78,14 @@ exports[`renders Chat layout unchanged 1`] = `
                     >
                       <span
                         class="memori-tooltip__trigger"
-                        id="base-ui-:r7:"
+                        id="base-ui-:r5:"
                       >
                         <button
                           aria-expanded="false"
                           aria-haspopup="menu"
                           aria-label="widget.share"
                           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                          id="base-ui-:r8:"
+                          id="base-ui-:r6:"
                           tabindex="0"
                           title="widget.share"
                           type="button"
@@ -351,7 +303,7 @@ exports[`renders Chat layout unchanged 1`] = `
                               </button>
                               <input
                                 aria-hidden="true"
-                                id="base-ui-:ra:"
+                                id="base-ui-:r8:"
                                 name="user-lang-pref"
                                 style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                                 tabindex="-1"
@@ -421,7 +373,7 @@ exports[`renders Chat layout unchanged 1`] = `
                                   >
                                     <span
                                       class="memori-tooltip__trigger"
-                                      id="base-ui-:rd:"
+                                      id="base-ui-:rb:"
                                     >
                                       <button
                                         aria-label="privacyPolicy"
@@ -534,7 +486,7 @@ exports[`renders Chat layout unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:rh:"
+                            id="base-ui-:rf:"
                           >
                             <button
                               aria-label="send"

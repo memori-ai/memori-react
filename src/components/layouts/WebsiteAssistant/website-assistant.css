@@ -177,7 +177,7 @@
     --memori-modal-size-md: 55%;
     --memori-modal-size-lg: 55%;
     width: 55%;
-    max-width: 100vw;
+    max-width: 100%;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-modal.memori-modal--above-website-assistant {
@@ -239,8 +239,19 @@
 
 /*
  * Fullscreen: same approach as HiddenChat — class + inline styles expand the
- * docked panel to the full window; browser Fullscreen API is requested on the panel.
+ * docked panel to the full window. The browser Fullscreen API is requested on
+ * the widget root (see helpers/fullscreen.ts) so portaled drawers/modals stay
+ * inside the fullscreen element; the root paints the canvas, the panel fills it.
  */
+.memori-widget.memori-layout-website_assistant.memori-widget--fullscreen,
+.memori-widget.memori-layout-website_assistant:fullscreen,
+.memori-widget.memori-layout-website_assistant:-webkit-full-screen {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: var(--memori-secondary-background);
+}
+
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded.memori-website_assistant--fullscreen,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded:fullscreen,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded:-webkit-full-screen {

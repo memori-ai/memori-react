@@ -191,6 +191,21 @@
     flex-shrink: 0;
 }
 
+/*
+ * Fullscreen is requested on the widget root (see helpers/fullscreen.ts) so
+ * portaled drawers/modals/tooltips stay inside the fullscreen element. The
+ * root must then paint its own canvas: outside fullscreen it is a zero-height
+ * host for the fixed sidebar.
+ */
+.memori-widget.memori-layout-hidden_chat.memori-widget--fullscreen,
+.memori-widget.memori-layout-hidden_chat:fullscreen,
+.memori-widget.memori-layout-hidden_chat:-webkit-full-screen {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: var(--memori-secondary-background);
+}
+
 /* Fullscreen styles — cover the full window width (browser FS or class toggle) */
 .memori-sidebar-fullscreen,
 .memori-sidebar:fullscreen,

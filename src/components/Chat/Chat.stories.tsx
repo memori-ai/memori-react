@@ -50,9 +50,7 @@ const ChatStoryLayout: React.FC<{
 }> = ({ isChatlogPanel, children }) => {
   const { state } = useArtifact();
   const showSideDrawer =
-    !isChatlogPanel &&
-    state.isDrawerOpen &&
-    !state.isChatLogPanelPresentation;
+    !isChatlogPanel && state.isDrawerOpen && !state.isChatLogPanelPresentation;
 
   return (
     <div
@@ -243,17 +241,23 @@ ArtifactWithoutClosingTag.args = {
       media: [],
     },
     {
-      text: `<output class="memori-artifact" data-mimetype="markdown">
-# Proposta Tecnica
+      text: `Ecco il messaggio pronto da copiare su Slack:
 
-## Sommario
-- Piano A: On-premise + Cloud
-- Piano B: Solo on-premise
+---
 
-## Raccomandazione
-Per workload critici, preferire on-premise.
+Ciao Michele, ciao Daniel 👋
 
-Questa risposta riproduce il caso reale in cui manca il tag di chiusura`,
+Vi aggiorno sulla pianificazione AI Academy Bonfiglioli: con l'aggiunta dei gruppi Logistica e Acquisti, ecco le giornate in cui serve il vostro supporto a Calderara di Reno (affiancando Nunzio, Tiziana e Mattia):
+
+📅 **12/10** — Qualità/HSE + Acquisti → serve **uno dei due**
+📅 **13/10** — Logistica → serve **uno dei due**
+📅 **20/10** — Logistica + Qualità/HSE + Acquisti, i 3 gruppi insieme → servite **entrambi**
+📅 **26/10** — Qualità/HSE + Acquisti → serve **uno dei due**
+📅 **27/10** — Logistica → serve **uno dei due**
+
+In totale 5 giornate, di cui 4 potete dividervele come preferite (basta uno dei due presente), mentre il **20/10 serve la presenza di entrambi** perché ci sono tutti e tre i gruppi in contemporanea.
+
+Fatemi sapere come preferite organizzarvi sulle 4 giornate "singole", grazie! 🙏`,
       fromUser: false,
       timestamp: '2026-04-27T14:18:16.846760Z',
       media: [],

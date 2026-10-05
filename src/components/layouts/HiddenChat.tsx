@@ -17,6 +17,10 @@ import {
 import type { LayoutName } from '../../types/layout';
 import { shouldHoldAutoStartForPosition } from '../../helpers/positionPopover';
 import { shouldHoldAutoStartForLogin } from '../../helpers/autoStart';
+import {
+  clearWidgetFullscreen,
+  requestWidgetFullscreen,
+} from '../../helpers/fullscreen';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -33,6 +37,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const { state, closeArtifact } = useArtifact();
   const useSideArtifactChrome =
@@ -59,7 +64,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       },
       layout: 'HIDDEN_CHAT' as LayoutName,
       showChatHistory: false,
-      enableAudio: true,
     };
   }, [headerProps]);
 
@@ -178,10 +182,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   };
 
   const restoreFromFullscreen = () => {
-    const sidebarElement = document.querySelector('.memori-sidebar');
-    if (sidebarElement) {
+    const sidebar = sidebarRef.current;
+    if (sidebar) {
       // Restore original styles
-      const sidebar = sidebarElement as HTMLElement;
       sidebar.style.left = originalSidebarStyles.current.left;
       sidebar.style.right = originalSidebarStyles.current.right;
       sidebar.style.width = originalSidebarStyles.current.width;
@@ -191,6 +194,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
       // Remove the fullscreen class
       sidebar.classList.remove('memori-sidebar-fullscreen');
+      clearWidgetFullscreen(sidebar);
     }
     setFullScreen(false);
   };
@@ -198,10 +202,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const handleFullscreenToggle = () => {
     if (!document.fullscreenElement) {
       // Enter fullscreen
-      const sidebarElement = document.querySelector('.memori-sidebar');
-      if (sidebarElement) {
-        const sidebar = sidebarElement as HTMLElement;
-
+      const sidebar = sidebarRef.current;
+      if (sidebar) {
         // Store original styles before modifying
         originalSidebarStyles.current = {
           left: sidebar.style.left,
@@ -219,8 +221,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         sidebar.style.backgroundColor = '';
         sidebar.classList.add('memori-sidebar-fullscreen');
 
-        // Request fullscreen
-        sidebar.requestFullscreen().catch(err => {
+        // Request fullscreen on the widget root, not on the sidebar: drawers
+        // and modals portal into the root and would otherwise be hidden.
+        requestWidgetFullscreen(sidebar, err => {
           console.warn('[HiddenChatLayout] Error enabling fullscreen:', err);
         });
       }
@@ -259,6 +262,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         </label>
 
         <aside
+          ref={sidebarRef}
           className={`memori-sidebar memori-chat-layout ${
             fullScreen ? 'memori-sidebar-fullscreen' : ''
           }`}

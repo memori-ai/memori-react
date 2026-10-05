@@ -22,8 +22,11 @@ import { getResourceUrl } from '../../../helpers/media';
 import IconButton from '../../IconButton/IconButton';
 import MobileSessionPanel from '../../MobileSessionPanel/MobileSessionPanel';
 import ShareButton from '../../ShareButton/ShareButton';
+import {
+  clearWidgetFullscreen,
+  requestWidgetFullscreen,
+} from '../../../helpers/fullscreen';
 
-const PANEL_SELECTOR = '.memori-website_assistant--expanded';
 const FULLSCREEN_CLASS = 'memori-website_assistant--fullscreen';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
@@ -51,6 +54,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   const [collapsed, _setCollapsed] = useState(true);
   const [expandedKey, setExpandedKey] = useState<string>();
   const [fullScreen, setFullScreen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const originalPanelStyles = useRef({
     left: '',
@@ -190,9 +194,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
       (showKnownFacts || !!headerProps?.showMessageConsumption));
 
   const restoreFromFullscreen = () => {
-    const panelElement = document.querySelector(PANEL_SELECTOR);
-    if (panelElement) {
-      const panel = panelElement as HTMLElement;
+    const panel = panelRef.current;
+    if (panel) {
       panel.style.left = originalPanelStyles.current.left;
       panel.style.right = originalPanelStyles.current.right;
       panel.style.width = originalPanelStyles.current.width;
@@ -200,6 +203,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
       panel.style.height = originalPanelStyles.current.height;
       panel.style.backgroundColor = originalPanelStyles.current.backgroundColor;
       panel.classList.remove(FULLSCREEN_CLASS);
+      clearWidgetFullscreen(panel);
     }
     setFullScreen(false);
   };
@@ -219,10 +223,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
 
   const handleFullscreenToggle = () => {
     if (!document.fullscreenElement) {
-      const panelElement = document.querySelector(PANEL_SELECTOR);
-      if (panelElement) {
-        const panel = panelElement as HTMLElement;
-
+      const panel = panelRef.current;
+      if (panel) {
         originalPanelStyles.current = {
           left: panel.style.left,
           right: panel.style.right,
@@ -240,7 +242,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
         panel.style.backgroundColor = '';
         panel.classList.add(FULLSCREEN_CLASS);
 
-        panel.requestFullscreen().catch(err => {
+        // Request fullscreen on the widget root, not on the panel: drawers
+        // and modals portal into the root and would otherwise be hidden.
+        requestWidgetFullscreen(panel, err => {
           console.warn(
             '[WebsiteAssistantLayout] Error enabling fullscreen:',
             err
@@ -302,6 +306,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
         </div>
       )}
       <div
+        ref={panelRef}
         className={`memori-website_assistant--${
           collapsed ? 'collapsed' : 'expanded'
         }${
