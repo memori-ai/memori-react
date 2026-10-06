@@ -139,7 +139,7 @@ export const WithPiiDetection = Template.bind({});
 WithPiiDetection.args = {
   memoriName: 'Layout Storybook',
   ownerUserName: 'andrea.patini',
-  layout: 'FULLPAGE',
+  layout: 'CHAT',
   memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
   tenantID: 'aisuru-staging.aclambda.online',

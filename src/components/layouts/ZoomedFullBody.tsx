@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Spin } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import { useTranslation } from 'react-i18next';
@@ -17,12 +11,7 @@ import MobileSessionPanel, {
   useSessionPanelEntries,
 } from '../MobileSessionPanel/MobileSessionPanel';
 import ShareButton from '../ShareButton/ShareButton';
-import {
-  ARTIFACT_COLUMN_DEFAULT_WIDTH,
-  ARTIFACT_COLUMN_MIN_WIDTH,
-  ARTIFACT_OVERLAY_BREAKPOINT,
-  clampArtifactColumnWidth,
-} from '../../helpers/artifactPanel';
+import { useArtifactColumnResize } from '../MemoriArtifactSystem/useArtifactColumnResize';
 
 function isFullscreenAllowedOnDevice(): boolean {
   if (typeof document === 'undefined') return false;
@@ -55,30 +44,21 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   const useSideArtifactChrome =
     state.isDrawerOpen && !state.isChatLogPanelPresentation;
   const [isMobile, setIsMobile] = useState(false);
-  const [isArtifactOverlay, setIsArtifactOverlay] = useState(false);
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
-  const [artifactColumnWidth, setArtifactColumnWidth] = useState(
-    ARTIFACT_COLUMN_DEFAULT_WIDTH
-  );
-  const [isResizingArtifact, setIsResizingArtifact] = useState(false);
-  const contentRowRef = useRef<HTMLDivElement>(null);
+  const {
+    contentRowRef,
+    isArtifactOverlay,
+    isResizingArtifact,
+    columnWidthStyle,
+    resizeHandleProps,
+  } = useArtifactColumnResize(useSideArtifactChrome);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const overlayQuery = window.matchMedia(
-      `(max-width: ${ARTIFACT_OVERLAY_BREAKPOINT - 1}px)`
-    );
-    const update = () => {
-      setIsMobile(mediaQuery.matches);
-      setIsArtifactOverlay(overlayQuery.matches);
-    };
+    const update = () => setIsMobile(mediaQuery.matches);
     update();
     mediaQuery.addEventListener('change', update);
-    overlayQuery.addEventListener('change', update);
-    return () => {
-      mediaQuery.removeEventListener('change', update);
-      overlayQuery.removeEventListener('change', update);
-    };
+    return () => mediaQuery.removeEventListener('change', update);
   }, []);
   const memori = headerProps?.memori;
   const tenant = headerProps?.tenant;
@@ -188,70 +168,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       uncertainty: 0,
     });
   };
-
-  const clampToContentRow = useCallback(
-    (requestedWidth: number) => {
-      const containerWidth =
-        contentRowRef.current?.getBoundingClientRect().width ||
-        window.innerWidth;
-      return clampArtifactColumnWidth(
-        requestedWidth,
-        containerWidth,
-        isArtifactOverlay
-      );
-    },
-    [isArtifactOverlay]
-  );
-
-  useEffect(() => {
-    if (!useSideArtifactChrome) return;
-    setArtifactColumnWidth(current => clampToContentRow(current));
-  }, [useSideArtifactChrome, isArtifactOverlay, clampToContentRow]);
-
-  const handleArtifactResizeStart = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      const handle = event.currentTarget;
-      handle.setPointerCapture(event.pointerId);
-      setIsResizingArtifact(true);
-    },
-    []
-  );
-
-  const handleArtifactResizeMove = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!isResizingArtifact) return;
-      const row = contentRowRef.current;
-      if (!row) return;
-      const nextWidth = row.getBoundingClientRect().right - event.clientX;
-      setArtifactColumnWidth(clampToContentRow(nextWidth));
-    },
-    [clampToContentRow, isResizingArtifact]
-  );
-
-  const handleArtifactResizeEnd = useCallback(() => {
-    setIsResizingArtifact(false);
-  }, []);
-
-  const handleArtifactResizeKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      const step = event.shiftKey ? 40 : 16;
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        setArtifactColumnWidth(current => clampToContentRow(current + step));
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        setArtifactColumnWidth(current => clampToContentRow(current - step));
-      } else if (event.key === 'Home') {
-        event.preventDefault();
-        setArtifactColumnWidth(current => clampToContentRow(current + 200));
-      } else if (event.key === 'End') {
-        event.preventDefault();
-        setArtifactColumnWidth(current => clampToContentRow(current - 200));
-      }
-    },
-    [clampToContentRow]
-  );
 
   const mobileHeaderProps = useMemo(() => {
     if (!headerProps) return undefined;
@@ -496,13 +412,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
           }${
             isResizingArtifact ? ' memori-fullpage-content-row--resizing' : ''
           }`}
-          style={
-            useSideArtifactChrome
-              ? ({
-                  ['--memori-artifact-column-width' as string]: `${artifactColumnWidth}px`,
-                } as React.CSSProperties)
-              : undefined
-          }
+          style={columnWidthStyle}
         >
           <div className="memori--grid">
             {/* Avatar column — hidden when artifact is open so chat stays on the left */}
@@ -571,25 +481,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                 {!isMobile && (
                   <div
                     className="memori-artifact-resize-handle"
-                    role="separator"
-                    aria-orientation="vertical"
-                    aria-label={
-                      t('artifact.resizeHandle') || 'Resize artifact panel'
-                    }
-                    aria-valuemin={ARTIFACT_COLUMN_MIN_WIDTH}
-                    aria-valuemax={
-                      Math.round(
-                        contentRowRef.current?.getBoundingClientRect().width ||
-                          0
-                      ) || undefined
-                    }
-                    aria-valuenow={Math.round(artifactColumnWidth)}
-                    tabIndex={0}
-                    onPointerDown={handleArtifactResizeStart}
-                    onPointerMove={handleArtifactResizeMove}
-                    onPointerUp={handleArtifactResizeEnd}
-                    onPointerCancel={handleArtifactResizeEnd}
-                    onKeyDown={handleArtifactResizeKeyDown}
+                    {...resizeHandleProps}
                   />
                 )}
                 <ArtifactDrawer isLayoutColumn />

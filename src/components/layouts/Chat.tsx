@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { MapPin, Share2, MessageCircle } from 'lucide-react';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { useArtifactColumnResize } from '../MemoriArtifactSystem/useArtifactColumnResize';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import MobileSessionPanel, {
   MobileSessionPanelTrigger,
@@ -38,6 +39,12 @@ const ChatLayout: React.FC<LayoutProps> = ({
     state.isDrawerOpen && !state.isChatLogPanelPresentation;
   const [isMobile, setIsMobile] = useState(false);
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+  const {
+    contentRowRef,
+    isResizingArtifact,
+    columnWidthStyle,
+    resizeHandleProps,
+  } = useArtifactColumnResize(useSideArtifactChrome);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -338,16 +345,18 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
         {/* Content row: chat + artifact as full-height siblings (FULLPAGE pattern) */}
         <div
+          ref={contentRowRef}
           className={`memori-chat-layout--main${
             globalBackground ? ' memori-chat-layout--main--has-background' : ''
-          }`}
-          style={
-            globalBackground
+          }${isResizingArtifact ? ' memori-chat-layout--main--resizing' : ''}`}
+          style={{
+            ...(globalBackground
               ? ({
                   ['--memori-chat-global-background' as string]: `url(${globalBackground})`,
                 } as React.CSSProperties)
-              : undefined
-          }
+              : {}),
+            ...columnWidthStyle,
+          }}
         >
           <div
             className={
@@ -423,7 +432,17 @@ const ChatLayout: React.FC<LayoutProps> = ({
               useSideArtifactChrome ? ' memori--grid-column-artifact--open' : ''
             }`}
           >
-            {useSideArtifactChrome && <ArtifactDrawer isLayoutColumn />}
+            {useSideArtifactChrome && (
+              <>
+                {!isMobile && (
+                  <div
+                    className="memori-artifact-resize-handle"
+                    {...resizeHandleProps}
+                  />
+                )}
+                <ArtifactDrawer isLayoutColumn />
+              </>
+            )}
           </div>
         </div>
       </Spin>

@@ -418,6 +418,7 @@
 
 /* Artifact drawer column — flex sibling of chat controls inside --main */
 .memori-widget.memori-layout-chat .memori--grid-column-artifact {
+    position: relative;
     overflow: hidden;
     width: 0;
     min-width: 0;
@@ -428,9 +429,54 @@
 }
 
 .memori-widget.memori-layout-chat .memori--grid-column-artifact--open {
-    width: min(620px, 55%);
+    width: var(--memori-artifact-column-width, 720px);
     border-left: 1px solid var(--memori-border-color);
     background: var(--memori-secondary-background);
+}
+
+.memori-widget.memori-layout-chat .memori-artifact-resize-handle {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 10px;
+    margin-left: -5px;
+    background: transparent;
+    cursor: col-resize;
+    touch-action: none;
+}
+
+.memori-widget.memori-layout-chat .memori-artifact-resize-handle::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: transparent;
+    content: '';
+    transform: translateX(-50%);
+    transition: background-color var(--memori-motion-duration-fast, 0.15s) var(--memori-motion-ease-out, ease);
+}
+
+.memori-widget.memori-layout-chat .memori-artifact-resize-handle:hover::after,
+.memori-widget.memori-layout-chat .memori-artifact-resize-handle:focus-visible::after,
+.memori-widget.memori-layout-chat .memori-chat-layout--main--resizing .memori-artifact-resize-handle::after {
+    background: var(--memori-primary);
+}
+
+.memori-widget.memori-layout-chat .memori-artifact-resize-handle:focus-visible {
+    outline: none;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--main--resizing,
+.memori-widget.memori-layout-chat .memori-chat-layout--main--resizing * {
+    cursor: col-resize !important;
+    user-select: none !important;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--main--resizing .memori--grid-column-artifact {
+    transition: none;
 }
 
 @media (max-width: 1199px) {
@@ -444,8 +490,18 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: min(620px, 100%);
+        width: min(var(--memori-artifact-column-width, 720px), 100%);
         box-shadow: var(--memori-shadow-lg, 0 10px 28px rgba(0, 0, 0, 0.12));
+    }
+}
+
+@media (max-width: 768px) {
+    .memori-widget.memori-layout-chat .memori--grid-column-artifact--open {
+        width: 100%;
+    }
+
+    .memori-widget.memori-layout-chat .memori-artifact-resize-handle {
+        display: none;
     }
 }
 
