@@ -384,6 +384,7 @@ it('renders Header for board of experts unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={false}
       showSettings={false}
+      showExperts={true}
       clearHistory={jest.fn()}
       loginToken="abcd"
       setShowLoginDrawer={jest.fn()}
@@ -413,6 +414,7 @@ it('renders Header for board of experts with session open unchanged', () => {
       hasUserActivatedSpeak={true}
       showShare={false}
       showSettings={false}
+      showExperts={true}
       clearHistory={jest.fn()}
       sessionID="1234"
       loginToken="abcd"
@@ -422,6 +424,35 @@ it('renders Header for board of experts with session open unchanged', () => {
     />
   );
   expect(container).toMatchSnapshot();
+});
+
+it('hides the experts button for board of experts by default', () => {
+  render(
+    <Header
+      memori={{
+        ...memori,
+        enableBoardOfExperts: true,
+      }}
+      history={history}
+      setVenue={jest.fn()}
+      positionPopoverOpen={false}
+      setPositionPopoverOpen={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={true}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      sessionID="1234"
+      setShowLoginDrawer={jest.fn()}
+      apiClient={memoriApiClient()}
+      setShowChatHistoryDrawer={jest.fn()}
+    />
+  );
+  expect(screen.queryByLabelText('widget.showExpertsInTheBoard')).toBeNull();
 });
 
 it('hides the session menu when deep thought and AI consumption are off', () => {

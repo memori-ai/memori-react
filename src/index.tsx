@@ -46,6 +46,7 @@ export interface Props {
   showSettings?: boolean;
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
+  showExperts?: boolean;
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   showLogin?: boolean;
@@ -128,6 +129,7 @@ const Memori: React.FC<Props> = ({
   showSettings,
   showTypingText,
   showClear,
+  showExperts,
   showOnlyLastMessages,
   showInputs = true,
   showDates = false,
@@ -371,6 +373,7 @@ const Memori: React.FC<Props> = ({
         showShare,
         showTypingText,
         showClear,
+        showExperts,
         showLogin: showLogin ?? (memori?.enableDeepThought || undefined),
         showUpload,
         showReasoning,
@@ -549,6 +552,7 @@ Memori.propTypes = {
   showMessageConsumption: PropTypes.bool,
   showSettings: PropTypes.bool,
   showClear: PropTypes.bool,
+  showExperts: PropTypes.bool,
   showOnlyLastMessages: PropTypes.bool,
   showTypingText: PropTypes.bool,
   showLogin: PropTypes.bool,

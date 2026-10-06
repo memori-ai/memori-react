@@ -72,6 +72,7 @@ export interface Props {
   showChatHistory?: boolean;
   showReload?: boolean;
   showClear?: boolean;
+  showExperts?: boolean;
   showLogin?: boolean;
   setShowLoginDrawer: (show: boolean) => void;
   clearHistory: () => void;
@@ -112,6 +113,7 @@ const Header: React.FC<Props> = ({
   showSettings = true,
   showReload = false,
   showClear = false,
+  showExperts = false,
   showLogin = true,
   setShowLoginDrawer,
   clearHistory,
@@ -478,6 +480,7 @@ const Header: React.FC<Props> = ({
   const showSettingsButton = !!(
     showSettings && hasSettingsContent(layout, additionalSettings)
   );
+  const showExpertsButton = showExperts && !!memori.enableBoardOfExperts;
 
   const fullpageSecondaryHasContent =
     !!memori.needsPosition ||
@@ -486,7 +489,7 @@ const Header: React.FC<Props> = ({
     showMessageConsumption ||
     (showFullscreen && fullScreenAvailable) ||
     (showKnownFacts && isConversationStarted) ||
-    !!memori.enableBoardOfExperts ||
+    showExpertsButton ||
     enableAudio ||
     showSettingsButton ||
     showShare;
@@ -498,7 +501,7 @@ const Header: React.FC<Props> = ({
     !!memori.needsPosition ||
     showReload ||
     showClear ||
-    !!memori.enableBoardOfExperts ||
+    showExpertsButton ||
     showSettingsButton ||
     showShare;
 
@@ -948,7 +951,7 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {memori.enableBoardOfExperts && renderExpertsButton()}
+      {showExpertsButton && renderExpertsButton()}
       {enableAudio && (
         <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
@@ -1238,7 +1241,7 @@ const Header: React.FC<Props> = ({
         )}
         {showReload && renderReloadButton('memori-header--auth-icon-button')}
         {showClear && renderClearButton('memori-header--auth-icon-button')}
-        {memori.enableBoardOfExperts &&
+        {showExpertsButton &&
           renderExpertsButton('memori-header--auth-icon-button')}
         {showSettingsButton &&
           renderSettingsButton('memori-header--auth-icon-button')}
@@ -1379,7 +1382,7 @@ const Header: React.FC<Props> = ({
           </Tooltip>
         )}
         {showClear && renderClearButton('memori-totem-rail--button', 'left')}
-        {memori.enableBoardOfExperts &&
+        {showExpertsButton &&
           renderExpertsButton('memori-totem-rail--button', 'left')}
         {totemShowSettings && (
           <Tooltip title={totemSettingsLabel} placement="left">

@@ -145,7 +145,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
             },
           ]
         : []),
-      ...(headerProps.memori?.enableBoardOfExperts
+      ...(headerProps.showExperts && headerProps.memori?.enableBoardOfExperts
         ? [
             {
               key: 'experts',

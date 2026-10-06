@@ -482,6 +482,7 @@ export interface Props {
   showMessageConsumption?: boolean;
   showSettings?: boolean;
   showClear?: boolean;
+  showExperts?: boolean;
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   showLogin?: boolean;
@@ -566,7 +567,6 @@ const MemoriWidget = ({
   memori,
   memoriConfigs,
   ownerUserID,
-  ownerUserName,
   tenantID,
   memoriLang,
   uiLang,
@@ -587,6 +587,7 @@ const MemoriWidget = ({
   showSettings,
   showTypingText,
   showClear,
+  showExperts,
   showLogin,
   showUpload,
   showOnlyLastMessages,
@@ -3658,14 +3659,15 @@ const MemoriWidget = ({
       })
     );
   }, [add, t]);
+  const creditsOwnerUserID = ownerUserID ?? memori.ownerUserID;
   const checkCredits = useCallback(
     async (options?: { notify?: boolean }) => {
       if (!tenant?.billingDelegation) return true;
 
       // Billing delegation is active: credits MUST be verified.
-      // Without either owner identifier we cannot call the API, so we fail closed
+      // Without the owner user ID we cannot call the API, so we fail closed
       // instead of silently letting the session start unverified.
-      if (!ownerUserID && !ownerUserName) {
+      if (!creditsOwnerUserID) {
         if (options?.notify) {
           handleNotEnoughCredits();
         } else {
@@ -3680,8 +3682,7 @@ const MemoriWidget = ({
             ? 'dt_session_creation'
             : 'session_creation',
           baseUrl: baseUrl,
-          userID: ownerUserID,
-          userName: ownerUserName,
+          userID: creditsOwnerUserID,
           tenant: tenantID,
         });
 
@@ -3705,8 +3706,7 @@ const MemoriWidget = ({
       baseUrl,
       deepThoughtEnabled,
       handleNotEnoughCredits,
-      ownerUserID,
-      ownerUserName,
+      creditsOwnerUserID,
       tenant?.billingDelegation,
       tenantID,
     ]
@@ -3779,6 +3779,7 @@ const MemoriWidget = ({
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
     showClear: showClear ?? integrationConfig?.showClear ?? false,
+    showExperts: showExperts ?? integrationConfig?.showExperts ?? false,
     clearHistory: () => setHistory(h => h.slice(-1)),
     showLogin: canShowLoginButton,
     setShowLoginDrawer,
