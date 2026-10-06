@@ -1,6 +1,6 @@
 export const ARTIFACT_COLUMN_DEFAULT_WIDTH = 720;
 export const ARTIFACT_CHAT_MIN_WIDTH = 400;
-export const ARTIFACT_COLUMN_MIN_WIDTH = 360;
+export const ARTIFACT_COLUMN_MIN_WIDTH = 460;
 export const ARTIFACT_OVERLAY_BREAKPOINT = 1200;
 
 const MIME_LABELS: Record<string, string> = {

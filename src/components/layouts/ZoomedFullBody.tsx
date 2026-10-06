@@ -19,6 +19,7 @@ import MobileSessionPanel, {
 import ShareButton from '../ShareButton/ShareButton';
 import {
   ARTIFACT_COLUMN_DEFAULT_WIDTH,
+  ARTIFACT_COLUMN_MIN_WIDTH,
   ARTIFACT_OVERLAY_BREAKPOINT,
   clampArtifactColumnWidth,
 } from '../../helpers/artifactPanel';
@@ -575,7 +576,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                     aria-label={
                       t('artifact.resizeHandle') || 'Resize artifact panel'
                     }
-                    aria-valuemin={360}
+                    aria-valuemin={ARTIFACT_COLUMN_MIN_WIDTH}
                     aria-valuemax={
                       Math.round(
                         contentRowRef.current?.getBoundingClientRect().width ||
