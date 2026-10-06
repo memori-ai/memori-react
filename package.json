@@ -101,7 +101,7 @@
   "resolutions": {
     "eslint-scope": "5.1.1",
     "esbuild": "^0.24.0",
-    "marked-katex-extension": "5.1.10",
+    "marked-katex-extension": "5.1.13",
     "lucide-react": "0.555.0"
   },
   "eslintIgnore": [
@@ -272,13 +272,13 @@
     "dompurify": "^3.4.16",
     "ellipsed": "1.6.0",
     "i18next": "22.0.6",
-    "katex": "^0.16.11",
+    "katex": "0.18.10",
     "leaflet": "^1.9.4",
     "lil-gui": "^0.19.2",
     "lucide-react": "^0.460.0",
     "luxon": "^3.5.0",
     "marked": "^15.0.2",
-    "marked-katex-extension": "5.1.10",
+    "marked-katex-extension": "5.1.13",
     "marked-linkify-it": "^3.1.12",
     "qrcode.react": "3.1.0",
     "react-hook-form": "7.39.5",

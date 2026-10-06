@@ -506,10 +506,10 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -532,10 +532,10 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.24em;vertical-align:-0.1777em;"
                         />
                         <span
@@ -592,7 +592,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -648,7 +648,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -755,10 +755,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -796,10 +796,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -833,10 +833,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.6944em;"
                         />
                         <span
@@ -888,10 +888,10 @@ M1001 80h400000v40h-400000z"
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.4306em;"
                             />
                             <span
@@ -925,10 +925,10 @@ M1001 80h400000v40h-400000z"
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.6944em;"
                             />
                             <span
@@ -984,10 +984,10 @@ M1001 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8141em;"
                           />
                           <span
@@ -1019,7 +1019,7 @@ M1001 80h400000v40h-400000z"
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -1064,10 +1064,10 @@ M1001 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8141em;"
                           />
                           <span
@@ -1099,7 +1099,7 @@ M1001 80h400000v40h-400000z"
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -1169,10 +1169,10 @@ M1001 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8974em;vertical-align:-0.0833em;"
                           />
                           <span
@@ -1204,7 +1204,7 @@ M1001 80h400000v40h-400000z"
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -1233,10 +1233,10 @@ M1001 80h400000v40h-400000z"
                           />
                         </span>
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8141em;"
                           />
                           <span
@@ -1268,7 +1268,7 @@ M1001 80h400000v40h-400000z"
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -1348,10 +1348,10 @@ M1001 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.4306em;"
                           />
                           <span
@@ -1374,10 +1374,10 @@ M1001 80h400000v40h-400000z"
                           />
                         </span>
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:1.04em;vertical-align:-0.1266em;"
                           />
                           <span
@@ -1434,7 +1434,7 @@ M1001 80h400000v40h-400000z"
                                                     style="height:2.7em;"
                                                   />
                                                   <span
-                                                    class="sizing reset-size6 size3 mtight"
+                                                    class="katex-sizing reset-size6 size3 mtight"
                                                   >
                                                     <span
                                                       class="mord mtight"
@@ -1490,7 +1490,7 @@ M1001 80h400000v40h-400000z"
                                                     style="height:2.7em;"
                                                   />
                                                   <span
-                                                    class="sizing reset-size6 size3 mtight"
+                                                    class="katex-sizing reset-size6 size3 mtight"
                                                   >
                                                     <span
                                                       class="mord mtight"
@@ -1611,10 +1611,10 @@ M834 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.4306em;"
                           />
                           <span
@@ -1655,10 +1655,10 @@ M834 80h400000v40h-400000z"
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.6944em;"
                           />
                           <span
@@ -1735,10 +1735,10 @@ M834 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -1761,10 +1761,10 @@ M834 80h400000v40h-400000z"
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.24em;vertical-align:-0.1777em;"
                         />
                         <span
@@ -1821,7 +1821,7 @@ M834 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -1877,7 +1877,7 @@ M834 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2038,10 +2038,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -2064,10 +2064,10 @@ M1001 80h400000v40h-400000z"
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.24em;vertical-align:-0.2561em;"
                         />
                         <span
@@ -2147,7 +2147,7 @@ M1001 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2226,7 +2226,7 @@ M1001 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2367,10 +2367,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -2393,10 +2393,10 @@ M1001 80h400000v40h-400000z"
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.24em;vertical-align:-0.1777em;"
                         />
                         <span
@@ -2466,7 +2466,7 @@ M1001 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2535,7 +2535,7 @@ M1001 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2659,10 +2659,10 @@ M1001 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -2685,10 +2685,10 @@ M1001 80h400000v40h-400000z"
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.04em;vertical-align:-0.0361em;"
                         />
                         <span
@@ -2758,7 +2758,7 @@ M1001 80h400000v40h-400000z"
                                                   style="height:2.7em;"
                                                 />
                                                 <span
-                                                  class="sizing reset-size6 size3 mtight"
+                                                  class="katex-sizing reset-size6 size3 mtight"
                                                 >
                                                   <span
                                                     class="mord mtight"
@@ -2874,10 +2874,10 @@ M834 80h400000v40h-400000z"
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -2900,10 +2900,10 @@ M834 80h400000v40h-400000z"
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.6444em;"
                         />
                         <span
@@ -3126,10 +3126,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8889em;vertical-align:-0.1944em;"
                           />
                           <span
@@ -3137,7 +3137,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.10764em;"
+                              style="margin-right:0.1076em;"
                             >
                               f
                             </span>
@@ -3162,7 +3162,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mathnormal mtight"
@@ -3312,10 +3312,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8889em;vertical-align:-0.1944em;"
                           />
                           <span
@@ -3323,7 +3323,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.10764em;"
+                              style="margin-right:0.1076em;"
                             >
                               f
                             </span>
@@ -3348,7 +3348,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mathnormal mtight"
@@ -3392,10 +3392,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           />
                         </span>
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:2.4em;vertical-align:-0.95em;"
                           />
                           <span
@@ -3451,12 +3451,18 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.1389em;"
                                           >
-                                            FC
+                                            F
                                           </span>
                                           <span
-                                            class="mspace newline"
+                                            class="mord mathnormal"
+                                            style="margin-right:0.0715em;"
+                                          >
+                                            C
+                                          </span>
+                                          <span
+                                            class="mspace katex-newline"
                                           />
                                           <span
                                             class="mord mathnormal"
@@ -3483,7 +3489,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.05556em;"
+                                              style="margin-right:0.0556em;"
                                             >
                                               γ
                                             </span>
@@ -3508,11 +3514,11 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                                         style="height:2.7em;"
                                                       />
                                                       <span
-                                                        class="sizing reset-size6 size3 mtight"
+                                                        class="katex-sizing reset-size6 size3 mtight"
                                                       >
                                                         <span
                                                           class="mord mathnormal mtight"
-                                                          style="margin-right:0.10903em;"
+                                                          style="margin-right:0.109em;"
                                                         >
                                                           M
                                                         </span>
@@ -3567,7 +3573,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.10764em;"
+                                              style="margin-right:0.1076em;"
                                             >
                                               f
                                             </span>
@@ -3592,7 +3598,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                                         style="height:2.7em;"
                                                       />
                                                       <span
-                                                        class="sizing reset-size6 size3 mtight"
+                                                        class="katex-sizing reset-size6 size3 mtight"
                                                       >
                                                         <span
                                                           class="mord mathnormal mtight"
@@ -3686,9 +3692,15 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                         >
                                           <span
                                             class="mord mathnormal"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.1389em;"
                                           >
-                                            FC
+                                            F
+                                          </span>
+                                          <span
+                                            class="mord mathnormal"
+                                            style="margin-right:0.0715em;"
+                                          >
+                                            C
                                           </span>
                                         </span>
                                       </span>
@@ -3719,7 +3731,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           >
                                             <span
                                               class="mord mathnormal"
-                                              style="margin-right:0.10764em;"
+                                              style="margin-right:0.1076em;"
                                             >
                                               f
                                             </span>
@@ -3744,11 +3756,11 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                                         style="height:2.7em;"
                                                       />
                                                       <span
-                                                        class="sizing reset-size6 size3 mtight"
+                                                        class="katex-sizing reset-size6 size3 mtight"
                                                       >
                                                         <span
                                                           class="mord mathnormal mtight"
-                                                          style="margin-right:0.03148em;"
+                                                          style="margin-right:0.0315em;"
                                                         >
                                                           k
                                                         </span>
@@ -3852,10 +3864,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8889em;vertical-align:-0.1944em;"
                             />
                             <span
@@ -3863,7 +3875,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10764em;"
+                                style="margin-right:0.1076em;"
                               >
                                 f
                               </span>
@@ -3888,7 +3900,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
@@ -3952,10 +3964,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8889em;vertical-align:-0.1944em;"
                             />
                             <span
@@ -3963,7 +3975,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10764em;"
+                                style="margin-right:0.1076em;"
                               >
                                 f
                               </span>
@@ -3988,11 +4000,11 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.03148em;"
+                                            style="margin-right:0.0315em;"
                                           >
                                             k
                                           </span>
@@ -4051,17 +4063,23 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.6833em;"
                             />
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.07153em;"
+                              style="margin-right:0.1389em;"
                             >
-                              FC
+                              F
+                            </span>
+                            <span
+                              class="mord mathnormal"
+                              style="margin-right:0.0715em;"
+                            >
+                              C
                             </span>
                           </span>
                         </span>
@@ -4098,10 +4116,10 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.625em;vertical-align:-0.1944em;"
                             />
                             <span
@@ -4109,7 +4127,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.05556em;"
+                                style="margin-right:0.0556em;"
                               >
                                 γ
                               </span>
@@ -4134,11 +4152,11 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.10903em;"
+                                            style="margin-right:0.109em;"
                                           >
                                             M
                                           </span>
@@ -4466,10 +4484,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.9694em;vertical-align:-0.2861em;"
                             />
                             <span
@@ -4477,7 +4495,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                             >
                               <span
                                 class="mord mathnormal"
-                                style="margin-right:0.10903em;"
+                                style="margin-right:0.109em;"
                               >
                                 M
                               </span>
@@ -4502,7 +4520,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mtight"
@@ -4602,10 +4620,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.6944em;"
                             />
                             <span
@@ -4637,7 +4655,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mbin mtight"
@@ -4666,10 +4684,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                             />
                           </span>
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.7778em;vertical-align:-0.0833em;"
                             />
                             <span
@@ -4692,10 +4710,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                             />
                           </span>
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8444em;vertical-align:-0.15em;"
                             />
                             <span
@@ -4727,11 +4745,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.00773em;"
+                                            style="margin-right:0.0077em;"
                                           >
                                             R
                                           </span>
@@ -4772,10 +4790,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                             />
                           </span>
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8444em;vertical-align:-0.15em;"
                             />
                             <span
@@ -4807,11 +4825,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.0715em;"
                                           >
                                             C
                                           </span>
@@ -4866,10 +4884,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.6944em;"
                             />
                             <span
@@ -4908,10 +4926,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8444em;vertical-align:-0.15em;"
                             />
                             <span
@@ -4943,11 +4961,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.05017em;"
+                                            style="margin-right:0.0502em;"
                                           >
                                             B
                                           </span>
@@ -5004,10 +5022,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8444em;vertical-align:-0.15em;"
                             />
                             <span
@@ -5039,11 +5057,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.07153em;"
+                                            style="margin-right:0.0715em;"
                                           >
                                             C
                                           </span>
@@ -5100,10 +5118,10 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                           class="katex-html"
                         >
                           <span
-                            class="base"
+                            class="katex-base"
                           >
                             <span
-                              class="strut"
+                              class="katex-strut"
                               style="height:0.8444em;vertical-align:-0.15em;"
                             />
                             <span
@@ -5135,11 +5153,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                                           style="height:2.7em;"
                                         />
                                         <span
-                                          class="sizing reset-size6 size3 mtight"
+                                          class="katex-sizing reset-size6 size3 mtight"
                                         >
                                           <span
                                             class="mord mathnormal mtight"
-                                            style="margin-right:0.00773em;"
+                                            style="margin-right:0.0077em;"
                                           >
                                             R
                                           </span>
@@ -5480,10 +5498,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.8333em;vertical-align:-0.15em;"
                           />
                           <span
@@ -5491,7 +5509,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           >
                             <span
                               class="mord mathnormal"
-                              style="margin-right:0.05764em;"
+                              style="margin-right:0.0576em;"
                             >
                               E
                             </span>
@@ -5516,11 +5534,11 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mathnormal mtight"
-                                          style="margin-right:0.03148em;"
+                                          style="margin-right:0.0315em;"
                                         >
                                           k
                                         </span>
@@ -5572,10 +5590,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.4306em;"
                           />
                           <span
@@ -5609,15 +5627,15 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.4306em;"
                           />
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.03588em;"
+                            style="margin-right:0.0359em;"
                           >
                             v
                           </span>
@@ -5660,15 +5678,15 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.6833em;"
                           />
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.13889em;"
+                            style="margin-right:0.1389em;"
                           >
                             F
                           </span>
@@ -5711,10 +5729,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.6833em;"
                           />
                           <span
@@ -5724,7 +5742,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                           </span>
                           <span
                             class="mord mathnormal"
-                            style="margin-right:0.03588em;"
+                            style="margin-right:0.0359em;"
                           >
                             v
                           </span>
@@ -5759,10 +5777,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                         class="katex-html"
                       >
                         <span
-                          class="base"
+                          class="katex-base"
                         >
                           <span
-                            class="strut"
+                            class="katex-strut"
                             style="height:0.6833em;"
                           />
                           <span
@@ -6023,10 +6041,10 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -6045,13 +6063,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                       </span>
                       <span
-                        class="mspace newline"
+                        class="mspace katex-newline"
                       />
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.0585em;vertical-align:-0.1944em;"
                         />
                         <span
@@ -6061,13 +6079,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6108,7 +6126,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -6164,7 +6182,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -6328,10 +6346,10 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                       class="katex-html"
                     >
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.4306em;"
                         />
                         <span
@@ -6350,13 +6368,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                       </span>
                       <span
-                        class="mspace newline"
+                        class="mspace katex-newline"
                       />
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:1.0585em;vertical-align:-0.1944em;"
                         />
                         <span
@@ -6366,13 +6384,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6413,7 +6431,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -6469,7 +6487,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                                         style="height:2.7em;"
                                       />
                                       <span
-                                        class="sizing reset-size6 size3 mtight"
+                                        class="katex-sizing reset-size6 size3 mtight"
                                       >
                                         <span
                                           class="mord mtight"
@@ -6495,13 +6513,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                       </span>
                       <span
-                        class="mspace newline"
+                        class="mspace katex-newline"
                       />
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.8389em;vertical-align:-0.1944em;"
                         />
                         <span
@@ -6511,13 +6529,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6564,13 +6582,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                       </span>
                       <span
-                        class="mspace newline"
+                        class="mspace katex-newline"
                       />
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.8389em;vertical-align:-0.1944em;"
                         />
                         <span
@@ -6580,13 +6598,13 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.03588em;"
+                          style="margin-right:0.0359em;"
                         >
                           q
                         </span>
                         <span
                           class="mord mathnormal"
-                          style="margin-right:0.02778em;"
+                          style="margin-right:0.0278em;"
                         >
                           r
                         </span>
@@ -6619,10 +6637,10 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                         />
                       </span>
                       <span
-                        class="base"
+                        class="katex-base"
                       >
                         <span
-                          class="strut"
+                          class="katex-strut"
                           style="height:0.6444em;"
                         />
                         <span

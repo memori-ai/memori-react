@@ -73,7 +73,7 @@
 
 /* --- 3. Risorse esterne: font e KaTeX (formule matematiche) --- */
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
-@import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
+@import url('https://cdn.jsdelivr.net/npm/katex@0.18.10/dist/katex.min.css');
 
 /* --- 4. Utility: testo visibile solo agli screen reader (accessibilità) --- */
 .sr-only {
