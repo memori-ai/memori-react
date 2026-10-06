@@ -224,9 +224,11 @@ const truncateTitle = (title: string, maxLength = TITLE_MAX_LENGTH): string => {
  */
 export const getConversationTitle = ({
   lines,
+  truncate = true,
 }: {
   title?: string | null;
   lines: ConversationTitleLine[];
+  truncate?: boolean;
 }): string => {
   const userMessages = lines.filter(line => line.inbound);
   if (userMessages.length === 0) return '';
@@ -265,11 +267,12 @@ export const getConversationTitle = ({
     if (meaningfulMessages.length > 1) {
       const combinedText = meaningfulMessages
         .map(msg => msg.text)
-        .join(' - ')
-        .substring(0, 80);
-      return combinedText.length > 80 ? `${combinedText}...` : combinedText;
+        .join(' - ');
+      if (!truncate) return combinedText;
+      const truncatedText = combinedText.substring(0, 80);
+      return truncatedText.length > 80 ? `${truncatedText}...` : truncatedText;
     }
   }
 
-  return truncateTitle(bestMessage.text);
+  return truncate ? truncateTitle(bestMessage.text) : bestMessage.text;
 };

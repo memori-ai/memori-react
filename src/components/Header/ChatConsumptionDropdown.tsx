@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import { Button, Modal } from '@memori.ai/ui';
+import { Button, Modal, Tooltip } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import GasStation from '../icons/GasStation';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
@@ -294,22 +294,25 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   const renderDefaultTrigger = (
     triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => (
-    <IconButton
-      {...triggerButtonProps}
-      variant={triggerVariant}
-      shape="default"
-      active={open}
-      disabled={triggerButtonProps.disabled ?? !hasConsumptionData}
-      className={cx(
-        'memori-header--button memori-header--button--sustainability',
-        triggerButtonProps.className
-      )}
-      aria-label={triggerLabel}
-      title={triggerLabel}
-      icon={
-        <GasStation className="memori-header--button--sustainability-icon" />
-      }
-    />
+    <Tooltip title={triggerLabel} placement="bottom">
+      <span style={{ display: 'inline-flex' }}>
+        <IconButton
+          {...triggerButtonProps}
+          variant={triggerVariant}
+          shape="default"
+          active={open}
+          disabled={triggerButtonProps.disabled ?? !hasConsumptionData}
+          className={cx(
+            'memori-header--button memori-header--button--sustainability',
+            triggerButtonProps.className
+          )}
+          aria-label={triggerLabel}
+          icon={
+            <GasStation className="memori-header--button--sustainability-icon" />
+          }
+        />
+      </span>
+    </Tooltip>
   );
 
   const handleTriggerClick: React.MouseEventHandler<

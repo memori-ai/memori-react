@@ -81,7 +81,7 @@ describe('ChatConsumptionDropdown', () => {
     render(<ChatConsumptionDropdown history={history} />);
 
     expect(
-      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+      screen.getByLabelText('write_and_speak.showMessageConsumptionLabel')
     ).toBeDisabled();
   });
 
@@ -89,7 +89,7 @@ describe('ChatConsumptionDropdown', () => {
     render(<ChatConsumptionDropdown history={historyWithUsage} />);
 
     expect(
-      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+      screen.getByLabelText('write_and_speak.showMessageConsumptionLabel')
     ).toBeTruthy();
   });
 
@@ -99,7 +99,7 @@ describe('ChatConsumptionDropdown', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
 
     fireEvent.click(
-      screen.getByTitle('write_and_speak.showMessageConsumptionLabel')
+      screen.getByLabelText('write_and_speak.showMessageConsumptionLabel')
     );
 
     expect(screen.getByRole('dialog')).toBeTruthy();

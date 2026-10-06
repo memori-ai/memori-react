@@ -1,4 +1,4 @@
-import { Button, Input, SelectBox, Spin } from '@memori.ai/ui';
+import { Button, Input, SelectBox, Spin, Tooltip } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -185,8 +185,15 @@ const downloadFile = (text: string, filename: string) => {
   URL.revokeObjectURL(url);
 };
 
-const conversationTitleOf = (chatLog: ChatLogWithOptionalTitle): string =>
-  getConversationTitle({ title: chatLog.title, lines: chatLog.lines });
+const conversationTitleOf = (
+  chatLog: ChatLogWithOptionalTitle,
+  truncate = true
+): string =>
+  getConversationTitle({
+    title: chatLog.title,
+    lines: chatLog.lines,
+    truncate,
+  });
 
 const ChatHistoryDrawer = ({
   open,
@@ -371,7 +378,7 @@ const ChatHistoryDrawer = ({
   };
 
   const selectedTitle = selectedChatLog
-    ? conversationTitleOf(selectedChatLog) ||
+    ? conversationTitleOf(selectedChatLog, false) ||
       `Chat-${selectedChatLog.chatLogID.substring(0, 4)}`
     : '';
 
@@ -520,12 +527,11 @@ const ChatHistoryDrawer = ({
         onClick={() => setSelectedChatLog(null)}
       />
       <span className="memori-chat-history-drawer--heading-text">
-        <span
-          className="memori-chat-history-drawer--heading-title"
-          title={selectedTitle}
-        >
-          {selectedTitle}
-        </span>
+        <Tooltip title={selectedTitle} placement="bottom-start">
+          <span className="memori-chat-history-drawer--heading-title">
+            {selectedTitle}
+          </span>
+        </Tooltip>
         <span className="memori-chat-history-drawer--heading-meta">
           {selectedChatSession?.subtitle}
         </span>
