@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.0.3](https://github.com/memori-ai/memori-react/compare/v9.0.2...v9.0.3) (2026-10-06)
+
+
+### Features
+
+* **ArtifactColumn:** implement resizable artifact column in chat layout with new hooks and styles ([3eced75](https://github.com/memori-ai/memori-react/commit/3eced750da55f9fc85b09660c583a13605365966))
+* **ChatLayouts:** add baseUrl prop to Chat and HiddenChat components ([45e6039](https://github.com/memori-ai/memori-react/commit/45e60396d972f64c20ec8b74dcd6a8efa35d097d))
+
+
+### Maintenance
+
+* update dependencies for KaTeX and marked-katex-extension to latest versions ([69e1708](https://github.com/memori-ai/memori-react/commit/69e170849127f575d7a10139e3c0e7f2e2794c00))
+
 ## [9.0.2](https://github.com/memori-ai/memori-react/compare/v9.0.1...v9.0.2) (2026-10-06)
 
 
