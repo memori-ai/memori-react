@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.0.2](https://github.com/memori-ai/memori-react/compare/v9.0.1...v9.0.2) (2026-10-06)
+
+
+### Features
+
+* **ChatHistoryDrawer:** improve conversation title handling ([3e54488](https://github.com/memori-ai/memori-react/commit/3e54488d5fbaab4d51dc924985fc33e49e4379d2))
+* **HostPageProxy:** update artifact column minimum width ([6e50730](https://github.com/memori-ai/memori-react/commit/6e507303013c33b88e21ccf6f8422b5047dbe796))
+* **MemoriWidget, MobileSessionPanel:** implement chat history feature and enhance logout handling ([168f9c2](https://github.com/memori-ai/memori-react/commit/168f9c2a8d82bd49b2ce68eef40e66cab4aec5d3))
+* **MemoriWidget:** enhance login/logout handling and add tests for session management ([bd8393f](https://github.com/memori-ai/memori-react/commit/bd8393f1b2c9562aab3e22eeeb86e4c87d55b053))
+* **MobileSessionPanel:** refine session action handling ([d20b085](https://github.com/memori-ai/memori-react/commit/d20b0857203b97409fda5af605fa9e8ac7f07657))
+* **StartPanel:** update loading status display and optimize component structure ([b4e5622](https://github.com/memori-ai/memori-react/commit/b4e5622da05d1bc717de62a78d9686252174f7d7))
+
+
+### Bug Fixes
+
+* **MemoriWidget:** enhance autostart behavior and add tests for login and position handling ([09fcc12](https://github.com/memori-ai/memori-react/commit/09fcc120e116093b3525a312154bc6ebeda806dd))
+
 ## [9.0.1](https://github.com/memori-ai/memori-react/compare/v9.0.0...v9.0.1) (2026-10-05)
 
 
