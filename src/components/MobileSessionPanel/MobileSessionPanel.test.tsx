@@ -31,6 +31,29 @@ it('shows Known facts when showKnownFacts is on', () => {
   expect(screen.getByText('Known facts')).toBeTruthy();
 });
 
+it('hides chat history unless showChatHistory is on', () => {
+  render(<MobileSessionPanel {...baseProps} />);
+
+  expect(screen.queryByText('write_and_speak.chatHistory')).toBeNull();
+});
+
+it('opens chat history from the session panel when showChatHistory is on', () => {
+  const onChatHistoryOpen = jest.fn();
+  render(
+    <MobileSessionPanel
+      {...baseProps}
+      showChatHistory
+      onChatHistoryOpen={onChatHistoryOpen}
+    />
+  );
+
+  fireEvent.click(
+    screen.getByRole('button', { name: /write_and_speak.chatHistory/i })
+  );
+
+  expect(onChatHistoryOpen).toHaveBeenCalledTimes(1);
+});
+
 it('hides AI usage unless showMessageConsumption is on', () => {
   render(<MobileSessionPanel {...baseProps} />);
 

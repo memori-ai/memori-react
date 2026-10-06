@@ -6,6 +6,7 @@ import {
   ChevronRight,
   LogIn,
   LogOut,
+  MessageCircle,
 } from 'lucide-react';
 import { Button, Drawer, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
@@ -77,6 +78,9 @@ export interface MobileSessionPanelProps {
   knownFactsHint?: string;
   showSessionInfo?: boolean;
   showKnownFacts?: boolean;
+  /** Opens the conversation chronology drawer. Used by WEBSITE_ASSISTANT. */
+  showChatHistory?: boolean;
+  onChatHistoryOpen?: () => void;
   history?: Message[];
   aiUsageTitle?: string;
   showMessageConsumption?: boolean;
@@ -183,6 +187,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   knownFactsHint,
   showSessionInfo = false,
   showKnownFacts = false,
+  showChatHistory = false,
+  onChatHistoryOpen,
   history = [],
   aiUsageTitle,
   showMessageConsumption = false,
@@ -264,6 +270,11 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     knownFactsHint || t('widget.knownFactsHint') || 'What I remember about you';
   const resolvedAiUsageTitle =
     aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
+  const chatHistoryTitle =
+    t('write_and_speak.chatHistory') || 'Chat history';
+  const chatHistorySubtitle =
+    t('write_and_speak.chatHistoryDescription') ||
+    'Show chat history with this agent';
 
   useEffect(() => {
     if (open) setActiveView(initialView);
@@ -576,6 +587,28 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
               </ul>
             )}
             <ul className="memori-mobile-session-panel--actions">
+              {showChatHistory && !!loginToken && (
+                <li>
+                  <Button
+                    variant="toolbar"
+                    size="sm"
+                    className="memori-mobile-session-panel--action memori-mobile-session-panel--chat-history"
+                    onClick={() => onChatHistoryOpen?.()}
+                  >
+                    <span className="memori-mobile-session-panel--action-icon">
+                      <MessageCircle size={18} />
+                    </span>
+                    <span className="memori-mobile-session-panel--action-copy">
+                      <span className="memori-mobile-session-panel--action-title">
+                        {chatHistoryTitle}
+                      </span>
+                      <span className="memori-mobile-session-panel--action-subtitle">
+                        {chatHistorySubtitle}
+                      </span>
+                    </span>
+                  </Button>
+                </li>
+              )}
               {visibleActions.map(action => (
                 <li key={action.key}>
                   {(() => {

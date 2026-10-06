@@ -397,11 +397,6 @@
     display: none !important;
 }
 
-/* Never show chat history control in this layout */
-.memori-widget.memori-layout-website_assistant .memori-header--chat-history-button {
-    display: none !important;
-}
-
 .memori-widget.memori-layout-website_assistant .memori-conversation-footer {
     flex-wrap: wrap;
     justify-content: center;

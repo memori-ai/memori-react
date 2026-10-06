@@ -3,59 +3,82 @@ import { getConversationTitle } from './conversationTitle';
 const lines = (items: Array<{ inbound: boolean; text: string }>) => items;
 
 describe('getConversationTitle', () => {
-  it('uses a short backend title when one is provided', () => {
+  it('ignores a backend title and scores the user messages', () => {
     expect(
       getConversationTitle({
-        title: '  Checklist di produzione  ',
+        title: 'Checklist di produzione',
         lines: lines([
           {
             inbound: true,
-            text: 'A very long first user message that should not be used',
+            text: 'Quali microfoni usare per le riprese in interni?',
           },
         ]),
       })
-    ).toBe('Checklist di produzione');
+    ).toBe('Quali microfoni usare per le riprese in interni?');
   });
 
-  it('falls back to the first user message, collapsed onto one line', () => {
+  it('skips greetings and uses a later significant user message', () => {
     expect(
       getConversationTitle({
         lines: lines([
+          { inbound: true, text: 'Ciao' },
           { inbound: false, text: 'Ciao, come posso aiutarti?' },
+          {
+            inbound: true,
+            text: 'Quali microfoni usare per le riprese in interni?',
+          },
+        ]),
+      })
+    ).toBe('Quali microfoni usare per le riprese in interni?');
+  });
+
+  it('prefers the earlier user message when significance scores are close', () => {
+    expect(
+      getConversationTitle({
+        lines: lines([
+          { inbound: true, text: 'Come scegliere i microfoni giusti?' },
+          { inbound: true, text: 'Come regolare le luci giuste?' },
+        ]),
+      })
+    ).toBe('Come scegliere i microfoni giusti?');
+  });
+
+  it('truncates a long user message at 100 characters on a word boundary', () => {
+    const firstUserMessage = 'word '.repeat(30).trim();
+    expect(
+      getConversationTitle({
+        lines: lines([{ inbound: true, text: firstUserMessage }]),
+      })
+    ).toBe(`${'word '.repeat(19)}word...`);
+  });
+
+  it('keeps line breaks from the chosen user message', () => {
+    expect(
+      getConversationTitle({
+        lines: lines([
           {
             inbound: true,
             text: 'Attrezzatura audio\nper le riprese in interni',
           },
         ]),
       })
-    ).toBe('Attrezzatura audio per le riprese in interni');
+    ).toBe('Attrezzatura audio\nper le riprese in interni');
   });
 
-  it('truncates a long first user message instead of keeping the full text', () => {
-    const firstUserMessage = 'Parola '.repeat(40).trim();
-    const title = getConversationTitle({
-      lines: lines([{ inbound: true, text: firstUserMessage }]),
-    });
-
-    expect(title.includes('\n')).toBe(false);
-    expect(title.length).toBeLessThan(firstUserMessage.length);
-    expect(title.endsWith('...')).toBe(true);
-  });
-
-  it('strips markup from the fallback title', () => {
+  it('strips markup from the chosen user message', () => {
     expect(
       getConversationTitle({
         lines: lines([
           {
             inbound: true,
-            text: '<p>Ciao, <strong>come va</strong>?</p>',
+            text: '<p>Quali microfoni <strong>usare</strong> in studio?</p>',
           },
         ]),
       })
-    ).toBe('Ciao, come va?');
+    ).toBe('Quali microfoni usare in studio?');
   });
 
-  it('returns an empty string when there is no title and no user message', () => {
+  it('returns an empty string when there is no user message', () => {
     expect(
       getConversationTitle({
         lines: lines([{ inbound: false, text: 'Solo la risposta del bot' }]),

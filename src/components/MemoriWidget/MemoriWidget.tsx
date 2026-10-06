@@ -28,7 +28,10 @@ import {
   shouldHoldAutoStartForPosition,
   shouldRestartSessionOnPositionPopoverClose,
 } from '../../helpers/positionPopover';
-import { shouldHoldAutoStartForLogin } from '../../helpers/autoStart';
+import {
+  shouldHoldAutoStartForLogin,
+  shouldReturnToStartPanelAfterLogout,
+} from '../../helpers/autoStart';
 
 // Libraries
 import React, {
@@ -747,6 +750,16 @@ const MemoriWidget = ({
     };
   }, [loginToken, loginEnabled, memori.requireLoginToken]);
   const isUserLoggedIn = !!loginToken && !!user?.userID;
+  // Distinguishes a real logout from the first render, when the profile
+  // has not been fetched yet.
+  const wasLoggedInRef = useRef(false);
+  // Speech callbacks can close over an older sendMessage. The ref is read
+  // at send time so a transcript that arrives after logout is dropped.
+  const loginBlocksInteractionRef = useRef(false);
+  loginBlocksInteractionRef.current = shouldHoldAutoStartForLogin(
+    !!memori.requireLoginToken,
+    isUserLoggedIn
+  );
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -1118,6 +1131,10 @@ const MemoriWidget = ({
     skipHistoryPush = false
   ) => {
     // Get the session ID from params or global state
+    if (loginBlocksInteractionRef.current) {
+      return;
+    }
+
     const sessionID =
       newSessionId ||
       sessionId ||
@@ -2290,6 +2307,40 @@ const MemoriWidget = ({
   );
 
   useEffect(() => {
+    const wasLoggedIn = wasLoggedInRef.current;
+    if (isUserLoggedIn) {
+      wasLoggedInRef.current = true;
+      return;
+    }
+
+    if (
+      shouldReturnToStartPanelAfterLogout(
+        !!memori.requireLoginToken,
+        wasLoggedIn,
+        isUserLoggedIn,
+        Boolean(sessionIdRef.current)
+      )
+    ) {
+      ttsStop();
+      stopRecording();
+      clearInteractionTimeout();
+      setMemoriTyping(false);
+      setTypingText(undefined);
+      setHasUserActivatedSpeak(false);
+      setClickedStart(false);
+      setUserMessage('');
+      setHistory([]);
+      setCurrentDialogState(undefined);
+      setSessionId(undefined);
+    }
+
+    wasLoggedInRef.current = false;
+    // Session teardown reads the latest auth/session refs; listing the
+    // setters would re-run this on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserLoggedIn, memori.requireLoginToken, sessionId]);
+
+  useEffect(() => {
     if (isListening) transcriptHandlerRef.current = null;
   }, [isListening]);
 
@@ -2746,8 +2797,13 @@ const MemoriWidget = ({
   }, []);
 
   useEffect(() => {
+    const loginBlocksInteraction = shouldHoldAutoStartForLogin(
+      !!memori.requireLoginToken,
+      isUserLoggedIn
+    );
     // if memori is speaking or generating a reply, don't start listening
     if (
+      !loginBlocksInteraction &&
       !isPlayingAudio &&
       !memoriTyping &&
       continuousSpeech &&
@@ -2756,7 +2812,10 @@ const MemoriWidget = ({
       !hasUserTypedMessage // Don't start recording if user has typed a message
     ) {
       startRecording();
-    } else if ((isPlayingAudio || memoriTyping) && isListening) {
+    } else if (
+      ((isPlayingAudio || memoriTyping) && isListening) ||
+      (loginBlocksInteraction && isListening)
+    ) {
       stopRecording();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -2765,6 +2824,9 @@ const MemoriWidget = ({
     hasUserActivatedListening,
     hasUserTypedMessage,
     memoriTyping,
+    isUserLoggedIn,
+    memori.requireLoginToken,
+    sessionId,
   ]);
 
   useEffect(() => {
@@ -3700,9 +3762,7 @@ const MemoriWidget = ({
     setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
     showChatHistory:
-      selectedLayout === 'WEBSITE_ASSISTANT'
-        ? false
-        : showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     showMessageConsumption: enableMessageConsumption,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
@@ -3828,7 +3888,12 @@ const MemoriWidget = ({
     microphoneMode: continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK',
     attachmentsMenuOpen,
     setAttachmentsMenuOpen,
-    showInputs,
+    showInputs:
+      showInputs &&
+      !shouldHoldAutoStartForLogin(
+        !!memori.requireLoginToken,
+        isUserLoggedIn
+      ),
     showMicrophone:
       !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     showFunctionCache,

@@ -187,8 +187,12 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
     ];
   }, [headerProps, isSessionStarted, t, add]);
 
+  const showChatHistoryAction =
+    !!headerProps?.showChatHistory && !!headerProps?.loginToken;
+
   const hasSessionPanelContent =
     sessionActions.length > 0 ||
+    showChatHistoryAction ||
     !!headerProps?.showLogin ||
     (isSessionStarted &&
       (showKnownFacts || !!headerProps?.showMessageConsumption));
@@ -454,6 +458,11 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 avatarURL={loggedUser?.avatarURL}
                 birthDate={loggedUser?.birthDate}
                 actions={sessionActions}
+                showChatHistory={showChatHistoryAction}
+                onChatHistoryOpen={() => {
+                  headerProps.setShowChatHistoryDrawer(true);
+                  closeSessionPanel();
+                }}
                 knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
                 sharePageTitle={t('widget.share') || 'Share'}
                 locationPageTitle={
