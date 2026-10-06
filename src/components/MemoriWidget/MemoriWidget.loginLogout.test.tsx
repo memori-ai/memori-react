@@ -156,4 +156,56 @@ describe('MemoriWidget with mandatory login', () => {
       expect(document.querySelector('.memori-chat-history-drawer')).toBeNull()
     );
   });
+
+  it.each(['HIDDEN_CHAT', 'FULLPAGE'] as const)(
+    'does not hide the start panel while autostart waits for login (%s)',
+    async layout => {
+      const { container } = render(
+        <Widget autoStart layout={layout} {...loggedOut} />
+      );
+
+      await waitFor(() =>
+        expect(container.querySelector('.memori--needsLogin')).not.toBeNull()
+      );
+      expect(container.querySelector('.memori-widget')).not.toHaveClass(
+        'memori--auto-start'
+      );
+      expect(mockEngine.initSession).not.toHaveBeenCalled();
+    }
+  );
+
+  it('does not hide the start panel while autostart waits for position', async () => {
+    const { container } = render(
+      <Widget
+        autoStart
+        layout="HIDDEN_CHAT"
+        memori={{
+          ...memori,
+          ageRestriction: 0,
+          needsPosition: true,
+          requireLoginToken: false,
+        }}
+      />
+    );
+
+    await waitFor(() =>
+      expect(container.querySelector('.memori--needsPosition')).not.toBeNull()
+    );
+    expect(container.querySelector('.memori-widget')).not.toHaveClass(
+      'memori--auto-start'
+    );
+    expect(mockEngine.initSession).not.toHaveBeenCalled();
+  });
+
+  it('hides the start panel when autostart is not gated', async () => {
+    mockEngine.initSession.mockResolvedValue(openedSession);
+
+    const { container } = render(<Widget autoStart {...loggedIn} />);
+
+    await waitFor(() =>
+      expect(container.querySelector('.memori-widget')).toHaveClass(
+        'memori--auto-start'
+      )
+    );
+  });
 });

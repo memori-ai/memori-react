@@ -4009,7 +4009,18 @@ const MemoriWidget = ({
         `memori-controls-${String(controlsPosition).toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
-          'memori--auto-start': autoStart,
+          // The class hides StartPanel, which must stay visible while
+          // autostart waits on the position/login gates.
+          'memori--auto-start':
+            autoStart &&
+            !shouldHoldAutoStartForPosition(
+              !!memori.needsPosition,
+              !!position
+            ) &&
+            !shouldHoldAutoStartForLogin(
+              !!memori.requireLoginToken,
+              isUserLoggedIn
+            ),
           'memori--preview': preview,
           'memori--embed': embed,
           'memori--with-integration': integration,
