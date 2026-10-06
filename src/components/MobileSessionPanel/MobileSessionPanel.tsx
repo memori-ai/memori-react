@@ -4,11 +4,18 @@ import {
   Camera,
   ChevronLeft,
   ChevronRight,
+  EllipsisVertical,
   LogIn,
   LogOut,
   MessageCircle,
 } from 'lucide-react';
-import { Button, Drawer, createAlertOptions, useAlertManager } from '@memori.ai/ui';
+import {
+  Button,
+  Drawer,
+  Tooltip,
+  createAlertOptions,
+  useAlertManager,
+} from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { Message, User, Venue } from '@memori.ai/memori-api-client/dist/types';
 import { getErrori18nKey } from '../../helpers/error';
@@ -16,6 +23,10 @@ import { imgMimeTypes } from '../../helpers/utils';
 import GasStation from '../icons/GasStation';
 import { ChatConsumptionContent } from '../Header/ChatConsumptionDropdown';
 import { PositionPopoverContent } from '../PositionPopover/PositionPopover';
+import IconButton from '../IconButton/IconButton';
+
+type SessionPanelView = 'location' | 'knownFacts' | 'share' | 'aiUsage';
+
 type SessionAction = {
   key: string;
   icon: React.ReactNode;
@@ -23,7 +34,7 @@ type SessionAction = {
   subtitle?: string;
   onClick?: () => void;
   trailing?: React.ReactNode;
-  view?: 'location' | 'knownFacts' | 'share';
+  view?: SessionPanelView;
   disabled?: boolean;
 };
 
@@ -76,7 +87,6 @@ export interface MobileSessionPanelProps {
   shareContent?: React.ReactNode;
   knownFactsDisabled?: boolean;
   knownFactsHint?: string;
-  showSessionInfo?: boolean;
   showKnownFacts?: boolean;
   /** Opens the conversation chronology drawer. Used by WEBSITE_ASSISTANT. */
   showChatHistory?: boolean;
@@ -89,7 +99,7 @@ export interface MobileSessionPanelProps {
   showLogin?: boolean;
   loginLabel?: string;
   onLogin?: () => void;
-  initialView?: 'session' | 'location';
+  initialView?: 'session' | SessionPanelView;
   autoStartGeolocation?: boolean;
 }
 
@@ -152,6 +162,158 @@ const formatImpactInReadableUnit = (
   return `${formatMetricValue(ml * 1000, locale)} μL`;
 };
 
+const hasLlmUsage = (history: Message[]) =>
+  history.some(
+    line =>
+      !!(
+        line as Message & {
+          llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+        }
+      ).llmUsage
+  );
+
+const getVisibleActions = (actions: SessionAction[]) =>
+  actions.filter(action => {
+    const normalizedKey = action.key.toLowerCase();
+    const normalizedTitle = action.title.toLowerCase();
+    const isKnownFactsAction = action.view === 'knownFacts';
+    const isAudioAction =
+      normalizedKey.includes('audio') ||
+      normalizedTitle.includes('audio') ||
+      normalizedTitle.includes('sound');
+
+    return !isKnownFactsAction && !isAudioAction;
+  });
+
+type SessionPanelEntriesParams = Pick<
+  MobileSessionPanelProps,
+  | 'actions'
+  | 'loginToken'
+  | 'showChatHistory'
+  | 'onChatHistoryOpen'
+  | 'showKnownFacts'
+  | 'showMessageConsumption'
+  | 'history'
+  | 'isLoggedIn'
+  | 'showLogin'
+  | 'aiUsageTitle'
+>;
+
+export type SessionPanelEntries = {
+  /** False when the panel would render no entry at all. */
+  hasContent: boolean;
+  /**
+   * The only entry the panel would list, when there is exactly one and no
+   * login / active user: the trigger shows it in place of the menu.
+   */
+  directAction?: SessionAction;
+};
+
+export const useSessionPanelEntries = ({
+  actions,
+  loginToken,
+  showChatHistory = false,
+  onChatHistoryOpen,
+  showKnownFacts = false,
+  showMessageConsumption = false,
+  history = [],
+  isLoggedIn = false,
+  showLogin = false,
+  aiUsageTitle,
+}: SessionPanelEntriesParams): SessionPanelEntries => {
+  const { t } = useTranslation();
+
+  return useMemo(() => {
+    const entries: SessionAction[] = [];
+    if (showChatHistory && !!loginToken) {
+      entries.push({
+        key: 'chatHistory',
+        icon: <MessageCircle size={18} />,
+        title: t('write_and_speak.chatHistory') || 'Chat history',
+        onClick: onChatHistoryOpen,
+      });
+    }
+    if (showMessageConsumption) {
+      entries.push({
+        key: 'aiUsage',
+        icon: <GasStation />,
+        title: aiUsageTitle || t('widget.aiConsumption') || 'AI usage',
+        view: 'aiUsage',
+        disabled: !hasLlmUsage(history),
+      });
+    }
+    entries.push(...getVisibleActions(actions));
+
+    const hasAuthEntries = showLogin || (isLoggedIn && showKnownFacts);
+    return {
+      hasContent: entries.length > 0 || hasAuthEntries,
+      directAction:
+        !showLogin && !isLoggedIn && entries.length === 1
+          ? entries[0]
+          : undefined,
+    };
+  }, [
+    actions,
+    loginToken,
+    showChatHistory,
+    onChatHistoryOpen,
+    showKnownFacts,
+    showMessageConsumption,
+    history,
+    isLoggedIn,
+    showLogin,
+    aiUsageTitle,
+    t,
+  ]);
+};
+
+export interface MobileSessionPanelTriggerProps {
+  entries: SessionPanelEntries;
+  open: boolean;
+  onToggle: () => void;
+}
+
+/**
+ * Header trigger for the session panel: the "more actions" menu, the single
+ * direct action found by `useSessionPanelEntries`, or nothing when the panel
+ * would be empty.
+ */
+export const MobileSessionPanelTrigger: React.FC<
+  MobileSessionPanelTriggerProps
+> = ({ entries: { hasContent, directAction }, open, onToggle }) => {
+  const { t } = useTranslation();
+
+  if (!hasContent) return null;
+
+  if (directAction) {
+    const opensPanelView = !!directAction.view;
+    return (
+      <Tooltip title={directAction.title} placement="bottom">
+        <span style={{ display: 'inline-flex' }}>
+          <IconButton
+            className="memori-chat-layout--overflow-trigger"
+            active={opensPanelView && open}
+            aria-label={directAction.title}
+            icon={directAction.icon}
+            disabled={directAction.disabled}
+            onClick={opensPanelView ? onToggle : directAction.onClick}
+          />
+        </span>
+      </Tooltip>
+    );
+  }
+
+  return (
+    <IconButton
+      className="memori-chat-layout--overflow-trigger"
+      active={open}
+      aria-label={t('widget.moreActions') || 'More actions'}
+      icon={<EllipsisVertical />}
+      onClick={onToggle}
+    />
+  );
+};
+
 const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   open,
   onClose,
@@ -185,7 +347,6 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   shareContent,
   knownFactsDisabled = false,
   knownFactsHint,
-  showSessionInfo = false,
   showKnownFacts = false,
   showChatHistory = false,
   onChatHistoryOpen,
@@ -241,20 +402,20 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
       ),
     [history]
   );
-  const hasChatConsumptionData = useMemo(
-    () =>
-      history.some(
-        line =>
-          !!(
-            line as Message & {
-              llmUsage?: {
-                energyImpact?: LlmUsageEnergyImpact;
-              };
-            }
-          ).llmUsage
-      ),
-    [history]
-  );
+  const hasChatConsumptionData = useMemo(() => hasLlmUsage(history), [history]);
+  const { directAction } = useSessionPanelEntries({
+    actions,
+    loginToken,
+    showChatHistory,
+    onChatHistoryOpen,
+    showKnownFacts,
+    showMessageConsumption,
+    history,
+    isLoggedIn,
+    showLogin,
+    aiUsageTitle,
+  });
+  const showBack = directAction?.view !== activeView;
   const aiUsageSubtitle = hasSustainabilityData
     ? `${formatImpactInReadableUnit(
         sustainabilityTotals.energy,
@@ -370,17 +531,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
       locationPlace.trim().length > 0 &&
       locationPlace !== locationUnknownLabel
   );
-  const visibleActions = actions.filter(action => {
-    const normalizedKey = action.key.toLowerCase();
-    const normalizedTitle = action.title.toLowerCase();
-    const isKnownFactsAction = action.view === 'knownFacts';
-    const isAudioAction =
-      normalizedKey.includes('audio') ||
-      normalizedTitle.includes('audio') ||
-      normalizedTitle.includes('sound');
-
-    return !isKnownFactsAction && !isAudioAction;
-  });
+  const visibleActions = getVisibleActions(actions);
 
   const panel = (
       <section
@@ -527,7 +678,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             >
               {title}
             </h2>
-            {showSessionInfo && (showKnownFacts || showMessageConsumption) && (
+            {((isLoggedIn && showKnownFacts) || showMessageConsumption) && (
               <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
                 {isLoggedIn && showKnownFacts && (
                   <li>
@@ -697,15 +848,17 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
         ) : (
           <div className="memori-mobile-session-panel--page">
             <div className="memori-mobile-session-panel--page-header">
-              <Button
-                variant="toolbar"
-                size="sm"
-                className="memori-mobile-session-panel--back"
-                onClick={() => setActiveView('session')}
-              >
-                <ChevronLeft size={16} />
-                {backLabel}
-              </Button>
+              {showBack && (
+                <Button
+                  variant="toolbar"
+                  size="sm"
+                  className="memori-mobile-session-panel--back"
+                  onClick={() => setActiveView('session')}
+                >
+                  <ChevronLeft size={16} />
+                  {backLabel}
+                </Button>
+              )}
               <h3 className="memori-mobile-session-panel--page-title">
                 {activeView === 'location'
                   ? locationPageTitle

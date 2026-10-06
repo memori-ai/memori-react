@@ -7,20 +7,15 @@ import {
 } from '@memori.ai/ui';
 import { LayoutProps } from '../../MemoriWidget/MemoriWidget';
 import Blob from '../../Blob/Blob';
-import {
-  X,
-  EllipsisVertical,
-  MapPin,
-  Share2,
-  Trash2,
-  Users,
-} from 'lucide-react';
+import { X, MapPin, Share2, Trash2, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../../MemoriArtifactSystem/context/ArtifactContext';
 import ArtifactDrawer from '../../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { getResourceUrl } from '../../../helpers/media';
-import IconButton from '../../IconButton/IconButton';
-import MobileSessionPanel from '../../MobileSessionPanel/MobileSessionPanel';
+import MobileSessionPanel, {
+  MobileSessionPanelTrigger,
+  useSessionPanelEntries,
+} from '../../MobileSessionPanel/MobileSessionPanel';
 import ShareButton from '../../ShareButton/ShareButton';
 import {
   clearWidgetFullscreen,
@@ -190,12 +185,23 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   const showChatHistoryAction =
     !!headerProps?.showChatHistory && !!headerProps?.loginToken;
 
-  const hasSessionPanelContent =
-    sessionActions.length > 0 ||
-    showChatHistoryAction ||
-    !!headerProps?.showLogin ||
-    (isSessionStarted &&
-      (showKnownFacts || !!headerProps?.showMessageConsumption));
+  const openChatHistory = () => {
+    headerProps?.setShowChatHistoryDrawer(true);
+    closeSessionPanel();
+  };
+
+  const sessionPanelEntries = useSessionPanelEntries({
+    actions: sessionActions,
+    loginToken: headerProps?.loginToken,
+    showChatHistory: showChatHistoryAction,
+    onChatHistoryOpen: openChatHistory,
+    showKnownFacts,
+    showMessageConsumption: !!headerProps?.showMessageConsumption,
+    history: headerProps?.history,
+    isLoggedIn: !!loggedUser,
+    showLogin: !!headerProps?.showLogin,
+  });
+  const hasSessionPanelContent = sessionPanelEntries.hasContent;
 
   const restoreFromFullscreen = () => {
     const panel = panelRef.current;
@@ -369,14 +375,10 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                       fullScreenHandler={handleFullscreenToggle}
                       extraActions={
                         hasSessionPanelContent ? (
-                          <IconButton
-                            className="memori-chat-layout--overflow-trigger"
-                            active={sessionPanelOpen}
-                            aria-label={
-                              t('widget.moreActions') || 'More actions'
-                            }
-                            icon={<EllipsisVertical />}
-                            onClick={() =>
+                          <MobileSessionPanelTrigger
+                            entries={sessionPanelEntries}
+                            open={sessionPanelOpen}
+                            onToggle={() =>
                               sessionPanelOpen
                                 ? closeSessionPanel()
                                 : setSessionPanelOpen(true)
@@ -444,7 +446,11 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 open={sessionPanelOpen}
                 presentation="popover"
                 onClose={closeSessionPanel}
-                initialView={positionRequested ? 'location' : 'session'}
+                initialView={
+                  positionRequested
+                    ? 'location'
+                    : sessionPanelEntries.directAction?.view ?? 'session'
+                }
                 autoStartGeolocation={
                   positionRequested && !!headerProps.autoStartPositionGeolocation
                 }
@@ -459,10 +465,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 birthDate={loggedUser?.birthDate}
                 actions={sessionActions}
                 showChatHistory={showChatHistoryAction}
-                onChatHistoryOpen={() => {
-                  headerProps.setShowChatHistoryDrawer(true);
-                  closeSessionPanel();
-                }}
+                onChatHistoryOpen={openChatHistory}
                 knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
                 sharePageTitle={t('widget.share') || 'Share'}
                 locationPageTitle={
@@ -483,7 +486,6 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   />
                 }
                 knownFactsDisabled={!isSessionStarted}
-                showSessionInfo={isSessionStarted}
                 showKnownFacts={showKnownFacts}
                 showMessageConsumption={!!headerProps.showMessageConsumption}
                 history={headerProps.history ?? []}

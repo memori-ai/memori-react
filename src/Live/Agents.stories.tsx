@@ -94,7 +94,8 @@ export const StagingWithConsumption: Story = {
     layout: 'FULLPAGE',
     uiLang: 'IT',
     spokenLang: 'IT',
+    autoStart: false,
     integrationID: '01a0af56-ca22-7093-805c-233a7ca482d2',
-    showMessageConsumption: false,
+    showMessageConsumption: true,
   },
 };

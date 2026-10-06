@@ -1,18 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Spin } from '@memori.ai/ui';
-import IconButton from '../IconButton/IconButton';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useTranslation } from 'react-i18next';
-import {
-  MapPin,
-  Share2,
-  EllipsisVertical,
-  MessageCircle,
-} from 'lucide-react';
+import { MapPin, Share2, MessageCircle } from 'lucide-react';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import ChatInputs from '../ChatInputs/ChatInputs';
-import MobileSessionPanel from '../MobileSessionPanel/MobileSessionPanel';
+import MobileSessionPanel, {
+  MobileSessionPanelTrigger,
+  useSessionPanelEntries,
+} from '../MobileSessionPanel/MobileSessionPanel';
 import ShareButton from '../ShareButton/ShareButton';
 import {
   maxDocumentsPerMessage,
@@ -205,6 +202,21 @@ const ChatLayout: React.FC<LayoutProps> = ({
     ];
   }, [headerProps, isMobile, t]);
 
+  const showKnownFacts =
+    !!headerProps?.memori?.enableDeepThought &&
+    !!headerProps?.loginToken &&
+    !!headerProps?.user?.pAndCUAccepted;
+
+  const sessionPanelEntries = useSessionPanelEntries({
+    actions: mobileSessionActions,
+    loginToken: headerProps?.loginToken,
+    showKnownFacts,
+    showMessageConsumption: !!headerProps?.showMessageConsumption,
+    history: headerProps?.history,
+    isLoggedIn: !!loggedUser,
+    showLogin: !!headerProps?.showLogin,
+  });
+
   return (
     <>
       {integrationStyle}
@@ -222,12 +234,10 @@ const ChatLayout: React.FC<LayoutProps> = ({
                 buttonVariant="outline"
                 extraActions={
                   isMobile ? (
-                    <IconButton
-                      className="memori-chat-layout--overflow-trigger"
-                      active={mobileSheetOpen}
-                      aria-label={t('widget.moreActions') || 'More actions'}
-                      icon={<EllipsisVertical />}
-                      onClick={() =>
+                    <MobileSessionPanelTrigger
+                      entries={sessionPanelEntries}
+                      open={mobileSheetOpen}
+                      onToggle={() =>
                         setMobileSheetOpen(currentOpen => !currentOpen)
                       }
                     />
@@ -243,6 +253,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
             open={mobileSheetOpen}
             presentation="popover"
             onClose={() => setMobileSheetOpen(false)}
+            initialView={sessionPanelEntries.directAction?.view ?? 'session'}
             title={t('widget.mobileSession.session') || 'Session'}
             loginToken={headerProps.loginToken}
             user={headerProps.user}
@@ -298,12 +309,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
               />
             }
             knownFactsDisabled={!isSessionStarted}
-            showSessionInfo={isSessionStarted}
-            showKnownFacts={
-              !!headerProps.memori?.enableDeepThought &&
-              !!headerProps.loginToken &&
-              !!headerProps.user?.pAndCUAccepted
-            }
+            showKnownFacts={showKnownFacts}
             showMessageConsumption={!!headerProps.showMessageConsumption}
             history={headerProps.history ?? []}
             isLoggedIn={!!loggedUser}
