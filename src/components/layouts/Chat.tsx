@@ -396,6 +396,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   setSendOnEnter={chatProps.setSendOnEnter}
                   client={chatProps.client}
                   sessionID={chatProps.sessionID}
+                  baseUrl={chatProps.baseUrl}
                   showUpload={chatProps.showUpload}
                   attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
                   setAttachmentsMenuOpen={chatProps.setAttachmentsMenuOpen}
