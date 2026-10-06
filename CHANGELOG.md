@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.0.4](https://github.com/memori-ai/memori-react/compare/v9.0.3...v9.0.4) (2026-10-06)
+
+
+### Features
+
+* **Header, MemoriWidget:** add showExperts prop to control visibility of experts button ([fbfa97e](https://github.com/memori-ai/memori-react/commit/fbfa97e8e3272687b739391f9eda87dc90bac2a4))
+* **MemoriWidget, StartPanel:** implement credits check with error handling and UI updates for insufficient credits ([35f2fc4](https://github.com/memori-ai/memori-react/commit/35f2fc4f6335a7120bcb0a64c2f2050fae8f4ca7))
+
 ## [9.0.3](https://github.com/memori-ai/memori-react/compare/v9.0.2...v9.0.3) (2026-10-06)
 
 
