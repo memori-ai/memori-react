@@ -910,6 +910,9 @@ const MemoriWidget = ({
     useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
+  useEffect(() => {
+    if (!loginToken) setShowChatHistoryDrawer(false);
+  }, [loginToken]);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [continuousSpeech, setContinuousSpeech] = useState(false);
@@ -3146,6 +3149,15 @@ const MemoriWidget = ({
               timeZoneOffset: new Date().getTimezoneOffset().toString(),
             },
           });
+
+          // The user can log out while the session is opening.
+          if (session?.sessionID && loginBlocksInteractionRef.current) {
+            deleteSession(session.sessionID);
+            setSessionId(undefined);
+            setLoading(false);
+            setClickedStart(false);
+            return;
+          }
 
           if (session?.dialogState) {
             // reset history

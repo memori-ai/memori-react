@@ -249,30 +249,7 @@ export const getConversationTitle = ({
     return b.score - a.score;
   });
 
-  let bestMessage = scoredMessages[0];
-
-  if (bestMessage.score < 0.3) {
-    const betterMessage = scoredMessages.find(msg => msg.score > 0.1);
-    if (betterMessage) {
-      bestMessage = betterMessage;
-    }
-  }
-
-  if (bestMessage.score < 0.2) {
-    const meaningfulMessages = scoredMessages
-      .filter(msg => msg.score > 0.1)
-      .slice(0, 3)
-      .sort((a, b) => a.index - b.index);
-
-    if (meaningfulMessages.length > 1) {
-      const combinedText = meaningfulMessages
-        .map(msg => msg.text)
-        .join(' - ');
-      if (!truncate) return combinedText;
-      const truncatedText = combinedText.substring(0, 80);
-      return truncatedText.length > 80 ? `${truncatedText}...` : truncatedText;
-    }
-  }
+  const bestMessage = scoredMessages[0];
 
   return truncate ? truncateTitle(bestMessage.text) : bestMessage.text;
 };
