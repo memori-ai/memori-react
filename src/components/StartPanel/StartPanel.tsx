@@ -20,6 +20,7 @@ import {
   MapPinOff,
   User as UserIconLucide,
   ChevronDown,
+  AlertTriangle,
 } from 'lucide-react';
 import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
@@ -59,6 +60,7 @@ export interface Props {
   showChatHistory?: boolean;
   setShowChatHistoryDrawer?: (show: boolean) => void;
   notEnoughCredits?: boolean;
+  creditsCheckFailed?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
   showFullDescriptionOnMobile?: boolean;
   footerBrand?: React.ReactNode;
@@ -85,6 +87,7 @@ const StartPanel: React.FC<Props> = ({
   showLogin = false,
   setShowLoginDrawer,
   notEnoughCredits = false,
+  creditsCheckFailed = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
   footerBrand,
@@ -287,7 +290,9 @@ const StartPanel: React.FC<Props> = ({
             <div className="memori--title-row">
               <h2 className="memori--title">{memori.name}</h2>
               <CompletionProviderStatus
-                provider={memori?.completionConfigForQuestionAnswering?.provider}
+                provider={
+                  memori?.completionConfigForQuestionAnswering?.provider
+                }
                 forceStatus={_TEST_forceProviderStatus}
               />
               {(memori.blockedUntil || notEnoughCredits) && (
@@ -660,7 +665,8 @@ const StartPanel: React.FC<Props> = ({
                   className="memori--start-actions__start"
                   disabled={
                     (!!memori.blockedUntil && !memori.isGiver) ||
-                    notEnoughCredits
+                    notEnoughCredits ||
+                    creditsCheckFailed
                   }
                   loading={clickedStart}
                   onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
@@ -710,6 +716,17 @@ const StartPanel: React.FC<Props> = ({
                     </Tooltip>
                   )} */}
               </div>
+              {(notEnoughCredits || creditsCheckFailed) && (
+                <p className="memori--start-credits-notice" role="alert">
+                  <AlertTriangle
+                    className="memori--start-credits-notice__icon"
+                    aria-hidden
+                  />
+                  {t(
+                    notEnoughCredits ? 'notEnoughCredits' : 'creditsCheckFailed'
+                  )}
+                </p>
+              )}
             </div>
           )}
       </div>

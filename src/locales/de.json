@@ -127,6 +127,7 @@
   "deepThoughtPreDisclaimerUnlogged": "Melden Sie sich an, um Deep Thought zu aktivieren.",
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought ist deaktiviert, da Sie der Nutzung nicht zugestimmt haben. Sie können dies jederzeit in Ihren Kontoeinstellungen ändern.",
   "notEnoughCredits": "Der Autor dieses Zwillings verfügt nicht über genügend Credits, um Ihre Frage zu beantworten.",
+  "creditsCheckFailed": "Die Credits dieses Agenten konnten nicht überprüft werden. Bitte versuche es später erneut oder kontaktiere den Autor.",
   "confirmDialog": {
     "title": "Möchten Sie diese Seite verlassen?",
     "message": "Die Änderungen, die Sie vorgenommen haben, werden verloren."

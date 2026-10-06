@@ -130,6 +130,7 @@
   "deepThoughtPreDisclaimerUnlogged": "Accedi per abilitare Pensiero Profondo.",
   "deepThoughtPreDisclaimerNotAllowed": "Pensiero Profondo è disabilitato poiché non hai acconsentito al suo utilizzo, puoi cambiare la tua scelta in qualsiasi momento nelle impostazioni del tuo account.",
   "notEnoughCredits": "L'autore di questo agente non ha abbastanza crediti per rispondere alla tua domanda.",
+  "creditsCheckFailed": "Non è stato possibile verificare i crediti di questo agente. Riprova più tardi o contatta il suo autore.",
   "confirmDialog": {
     "title": "Confermi di voler lasciare questa pagina?",
     "message": "Le modifiche non salvate andranno perse."

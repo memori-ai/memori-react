@@ -452,3 +452,12 @@ NotEnoughCredits.args = {
   onClickStart: () => {},
   notEnoughCredits: true,
 };
+
+/** The credits check was rejected by the API: the start button is disabled
+ * and a notice explains that credits couldn't be verified. */
+export const CreditsCheckFailed = Template.bind({});
+CreditsCheckFailed.args = {
+  ...NotEnoughCredits.args,
+  notEnoughCredits: false,
+  creditsCheckFailed: true,
+};

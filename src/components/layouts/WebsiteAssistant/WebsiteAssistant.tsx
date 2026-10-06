@@ -452,7 +452,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                     : sessionPanelEntries.directAction?.view ?? 'session'
                 }
                 autoStartGeolocation={
-                  positionRequested && !!headerProps.autoStartPositionGeolocation
+                  positionRequested &&
+                  !!headerProps.autoStartPositionGeolocation
                 }
                 title={t('widget.mobileSession.session') || 'Session'}
                 loginToken={headerProps.loginToken}

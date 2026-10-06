@@ -100,7 +100,7 @@ import {
   uiLanguages,
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
-import { getCredits } from '../../helpers/credits';
+import { CreditsCheckError, getCredits } from '../../helpers/credits';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import {
@@ -768,6 +768,9 @@ const MemoriWidget = ({
   const sessionStartingRef = useRef(false);
   const needsCredits = tenant?.billingDelegation;
   const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
+  const [creditsCheckFailed, setCreditsCheckFailed] = useState(false);
+  const creditsBlocked =
+    !!needsCredits && (!hasEnoughCredits || creditsCheckFailed);
 
   const language =
     memori.culture?.split('-')?.[0]?.toUpperCase()! ||
@@ -3556,7 +3559,7 @@ const MemoriWidget = ({
       !sessionId &&
       autoStart &&
       (!isCollapsibleLayout || layoutOpen) &&
-      (!needsCredits || hasEnoughCredits) &&
+      !creditsBlocked &&
       !shouldHoldAutoStartForPosition(!!memori.needsPosition, hasPosition) &&
       !shouldHoldAutoStartForLogin(!!memori.requireLoginToken, isUserLoggedIn)
     ) {
@@ -3569,8 +3572,7 @@ const MemoriWidget = ({
     isCollapsibleLayout,
     layoutOpen,
     sessionId,
-    needsCredits,
-    hasEnoughCredits,
+    creditsBlocked,
     position,
     memori.needsPosition,
     memori.requireLoginToken,
@@ -3659,22 +3661,20 @@ const MemoriWidget = ({
       })
     );
   }, [add, t]);
+  const handleCreditsCheckFailed = useCallback(() => {
+    setAuthModalState(null);
+    add(
+      createAlertOptions({
+        description: t('creditsCheckFailed'),
+        severity: 'error',
+      })
+    );
+  }, [add, t]);
   const creditsOwnerUserID = ownerUserID ?? memori.ownerUserID;
+  const creditsEngineMemoriID = memori.engineMemoriID;
   const checkCredits = useCallback(
     async (options?: { notify?: boolean }) => {
       if (!tenant?.billingDelegation) return true;
-
-      // Billing delegation is active: credits MUST be verified.
-      // Without the owner user ID we cannot call the API, so we fail closed
-      // instead of silently letting the session start unverified.
-      if (!creditsOwnerUserID) {
-        if (options?.notify) {
-          handleNotEnoughCredits();
-        } else {
-          setHasEnoughCredits(false);
-        }
-        return false;
-      }
 
       try {
         const resp = await getCredits({
@@ -3683,9 +3683,11 @@ const MemoriWidget = ({
             : 'session_creation',
           baseUrl: baseUrl,
           userID: creditsOwnerUserID,
+          engineMemoriID: creditsEngineMemoriID,
           tenant: tenantID,
         });
 
+        setCreditsCheckFailed(false);
         if (resp.enough) {
           setHasEnoughCredits(true);
           return true;
@@ -3699,14 +3701,27 @@ const MemoriWidget = ({
         }
       } catch (err) {
         logWidgetError('checkCredits failed', err);
-        return true;
+
+        // A rejected request (missing identifiers, 4xx) won't succeed on retry:
+        // block and tell the user. Network or server errors fail open, since
+        // the backend still enforces credits when the session is created.
+        const isRejected =
+          err instanceof CreditsCheckError &&
+          (err.status === undefined || (err.status >= 400 && err.status < 500));
+        if (!isRejected) return true;
+
+        setCreditsCheckFailed(true);
+        if (options?.notify) handleCreditsCheckFailed();
+        return false;
       }
     },
     [
       baseUrl,
       deepThoughtEnabled,
       handleNotEnoughCredits,
+      handleCreditsCheckFailed,
       creditsOwnerUserID,
+      creditsEngineMemoriID,
       tenant?.billingDelegation,
       tenantID,
     ]
@@ -3845,6 +3860,7 @@ const MemoriWidget = ({
     isUserLoggedIn,
     hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
+    creditsCheckFailed: needsCredits && creditsCheckFailed,
     showLogin: canShowLoginButton,
     setShowLoginDrawer,
     showChatHistory:
@@ -3903,10 +3919,7 @@ const MemoriWidget = ({
     setAttachmentsMenuOpen,
     showInputs:
       showInputs &&
-      !shouldHoldAutoStartForLogin(
-        !!memori.requireLoginToken,
-        isUserLoggedIn
-      ),
+      !shouldHoldAutoStartForLogin(!!memori.requireLoginToken, isUserLoggedIn),
     showMicrophone:
       !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     showFunctionCache,
@@ -4011,9 +4024,10 @@ const MemoriWidget = ({
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
           // The class hides StartPanel, which must stay visible while
-          // autostart waits on the position/login gates.
+          // autostart waits on the position/login gates or is blocked by credits.
           'memori--auto-start':
             autoStart &&
+            !creditsBlocked &&
             !shouldHoldAutoStartForPosition(
               !!memori.needsPosition,
               !!position

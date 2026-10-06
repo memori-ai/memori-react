@@ -99,3 +99,21 @@ export const StagingWithConsumption: Story = {
     showMessageConsumption: true,
   },
 };
+
+/** Agent on the `consumo` staging tenant, used for credits/consumption tests. */
+export const ConsumoTest123: Story = {
+  args: {
+    memoriName: 'test-123',
+    ownerUserName: 'memoridev',
+    memoriID: '019ebb27-45b8-7db0-a7ed-bc0e4b89ade9',
+    ownerUserID: 'c4d4e877-4ab0-40dc-ba4d-1ccffdcdb6cb',
+    tenantID: 'consumo.aclambda.online',
+    engineURL: 'https://engine-staging.memori.ai/memori/v2',
+    apiURL: 'https://backend-staging.memori.ai/api/v2',
+    baseURL: 'https://consumo.aclambda.online',
+    layout: 'FULLPAGE',
+    uiLang: 'IT',
+    spokenLang: 'IT',
+    integrationID: '019edb69-438b-727f-a29c-9789f13c74a6',
+  },
+};

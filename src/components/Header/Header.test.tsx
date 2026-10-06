@@ -458,7 +458,9 @@ it('hides the experts button for board of experts by default', () => {
 it('hides the session menu when deep thought and AI consumption are off', () => {
   render(<Header {...loggedInFullpageProps} />);
 
-  expect(screen.queryByLabelText('widget.mobileSession.sessionInfo')).toBeNull();
+  expect(
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
   expect(screen.queryByText('knownFacts.title')).toBeNull();
   expect(screen.queryByText('widget.aiConsumption')).toBeNull();
 });
@@ -474,13 +476,17 @@ it('shows the session menu when deep thought is enabled', () => {
     />
   );
 
-  expect(screen.getByLabelText('widget.mobileSession.sessionInfo')).toBeTruthy();
+  expect(
+    screen.getByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeTruthy();
 });
 
 it('shows the session menu when AI consumption is enabled', () => {
   render(<Header {...loggedInFullpageProps} showMessageConsumption />);
 
-  expect(screen.getByLabelText('widget.mobileSession.sessionInfo')).toBeTruthy();
+  expect(
+    screen.getByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeTruthy();
 });
 
 it('shows the agent description in the fullpage header', () => {

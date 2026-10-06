@@ -127,6 +127,7 @@
   "deepThoughtPreDisclaimerUnlogged": "Inicie sesión para habilitar Pensamiento profundo.",
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought está deshabilitado porque usted no dio su consentimiento para su uso; puede cambiar esto en cualquier momento en la configuración de su cuenta.",
   "notEnoughCredits": "El autor de este Gemelo no tiene suficientes créditos para responder a tu pregunta.",
+  "creditsCheckFailed": "No ha sido posible verificar los créditos de este agente. Inténtalo más tarde o contacta con su autor.",
   "confirmDialog": {
     "title": "¿Quieres salir de esta página?",
     "message": "Los cambios que has realizado se perderán."
