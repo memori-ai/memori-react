@@ -286,6 +286,10 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--title-container__content">
             <div className="memori--title-row">
               <h2 className="memori--title">{memori.name}</h2>
+              <CompletionProviderStatus
+                provider={memori?.completionConfigForQuestionAnswering?.provider}
+                forceStatus={_TEST_forceProviderStatus}
+              />
               {(memori.blockedUntil || notEnoughCredits) && (
                 <BlockedMemoriBadge
                   memoriName={memori.name}
@@ -345,10 +349,6 @@ const StartPanel: React.FC<Props> = ({
               )}
             </>
           </div>
-          <CompletionProviderStatus
-            provider={memori?.completionConfigForQuestionAnswering?.provider}
-            forceStatus={_TEST_forceProviderStatus}
-          />
         </div>
         {memori.needsPosition && !position && (
           <div className="memori--needsPosition">

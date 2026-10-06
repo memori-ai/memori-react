@@ -89,6 +89,42 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -98,42 +134,6 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -305,6 +305,42 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -314,42 +350,6 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -521,6 +521,42 @@ exports[`renders StartPanel unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -530,42 +566,6 @@ exports[`renders StartPanel unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -737,6 +737,38 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             >
               Memori
             </h2>
+            <span
+              class="memori-tooltip memori--completion-provider-status--tooltip"
+            >
+              <span
+                class="memori-tooltip__trigger"
+                id="base-ui-:r1n:"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+                  />
+                  <path
+                    d="M12 9v4"
+                  />
+                  <path
+                    d="M12 17h.01"
+                  />
+                </svg>
+              </span>
+            </span>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -749,38 +781,6 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             </div>
           </div>
         </div>
-        <span
-          class="memori-tooltip memori--completion-provider-status--tooltip"
-        >
-          <span
-            class="memori-tooltip__trigger"
-            id="base-ui-:r1n:"
-          >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
-              />
-              <path
-                d="M12 9v4"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </span>
-        </span>
       </div>
       <div
         class="memori--description"
@@ -949,6 +949,42 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -958,42 +994,6 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -1165,6 +1165,42 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -1174,42 +1210,6 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -1493,6 +1493,42 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -1502,42 +1538,6 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -1808,6 +1808,42 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -1817,42 +1853,6 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2123,6 +2123,42 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -2132,42 +2168,6 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2339,6 +2339,42 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -2348,42 +2384,6 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2555,6 +2555,42 @@ exports[`renders StartPanel with login required unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -2564,42 +2600,6 @@ exports[`renders StartPanel with login required unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2689,6 +2689,42 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -2698,42 +2734,6 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2966,6 +2966,42 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
             <span
               class="memori-tooltip blocked-memori-badge--tooltip"
             >
@@ -3020,42 +3056,6 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -3229,6 +3229,42 @@ exports[`renders StartPanel with position required unchanged 1`] = `
             >
               Memori
             </h2>
+            <div
+              class="memori--completion-provider-status--loading"
+            >
+              <div
+                class="memori-spin memori-spin--spinning"
+              >
+                <div
+                  aria-label="Loading"
+                  aria-live="polite"
+                  class="memori-spin__overlay"
+                  role="status"
+                >
+                  <div
+                    class="memori-spin__container"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-loader-circle memori-spin__icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 12a9 9 0 1 1-6.219-8.56"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="memori-expandable memori--description-text memori--description-text--collapsible"
@@ -3238,42 +3274,6 @@ exports[`renders StartPanel with position required unchanged 1`] = `
               style="max-height: 9999px;"
             >
               Lorem ipsum.
-            </div>
-          </div>
-        </div>
-        <div
-          class="memori--completion-provider-status--loading"
-        >
-          <div
-            class="memori-spin memori-spin--spinning"
-          >
-            <div
-              aria-label="Loading"
-              aria-live="polite"
-              class="memori-spin__overlay"
-              role="status"
-            >
-              <div
-                class="memori-spin__container"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-loader-circle memori-spin__icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12a9 9 0 1 1-6.219-8.56"
-                  />
-                </svg>
-              </div>
             </div>
           </div>
         </div>

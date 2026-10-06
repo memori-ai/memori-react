@@ -169,12 +169,6 @@
     backdrop-filter: blur(12px); */
 }
 
-.memori--title-container .memori--completion-provider-status--loading,
-.memori--title-container .memori--completion-provider-status--tooltip {
-    margin-top: 0.25rem;
-    margin-left: var(--memori-spacing-sm);
-}
-
 .memori--start-panel .memori--start-panel-title {
     color: var(--memori-primary) !important;
 }
@@ -236,9 +230,13 @@
 }
 
 /* One title line tall, so the badge stays centered on the first line when the title wraps. */
-.memori--title-row .blocked-memori-badge--tooltip {
+.memori--title-row .blocked-memori-badge--tooltip,
+.memori--title-row .memori--completion-provider-status--loading,
+.memori--title-row .memori--completion-provider-status--tooltip {
+    display: inline-flex;
     height: calc(var(--memori-text-size-2xl) * var(--memori-text-line-tight));
     flex-shrink: 0;
+    align-items: center;
     white-space: nowrap;
 }
 
