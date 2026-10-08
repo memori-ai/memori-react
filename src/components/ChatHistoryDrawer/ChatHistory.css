@@ -1,11 +1,3 @@
-.memori-drawer--right.memori-drawer--size-md.memori-chat-history-drawer {
-    --memori-modal-size-md: 45rem;
-    width: 45rem;
-    /* % not vw: inside a contained widget surface the drawer must not grow
-       past the embed; outside containment 100% is the viewport anyway. */
-    max-width: 100%;
-}
-
 .memori-chat-history-drawer .memori-drawer__title {
     width: 100%;
     min-width: 0;
@@ -91,26 +83,10 @@
 }
 
 .memori-chat-history-drawer--search {
-    position: relative;
     display: flex;
     min-width: 0;
     flex: 1 1 auto;
     align-items: center;
-}
-
-.memori-chat-history-drawer--search-icon {
-    position: absolute;
-    z-index: 1;
-    left: var(--memori-spacing-md);
-    width: 1.05rem;
-    height: 1.05rem;
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
-    pointer-events: none;
-}
-
-.memori-chat-history-drawer--search .memori-input,
-.memori-chat-history-drawer--search input {
-    padding-left: calc(var(--memori-spacing-md) * 2 + 0.5rem);
 }
 
 .memori-chat-history-drawer--count {

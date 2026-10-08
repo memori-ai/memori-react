@@ -1,11 +1,5 @@
 import { KnownFact, Memori } from '@memori.ai/memori-api-client/dist/types';
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import {
   Button,
@@ -16,13 +10,7 @@ import {
   useAlertManager,
   createAlertOptions,
 } from '@memori.ai/ui';
-import {
-  Check,
-  ChevronDown,
-  Lightbulb,
-  Search,
-  Trash2,
-} from 'lucide-react';
+import { Check, ChevronDown, Lightbulb, Search, Trash2 } from 'lucide-react';
 import { getErrori18nKey } from '../../helpers/error';
 import { useDebounce } from '../../helpers/utils';
 import {
@@ -97,7 +85,9 @@ const KnownFacts = ({
       setKnownFactsCount(filtered.length);
       setLoadedCount(next.length);
       if (!append) {
-        setSelectedIds(ids => ids.filter(id => next.some(f => f.knownFactID === id)));
+        setSelectedIds(ids =>
+          ids.filter(id => next.some(f => f.knownFactID === id))
+        );
       }
     },
     [searchQuery]
@@ -117,8 +107,11 @@ const KnownFacts = ({
       append ? setLoadingMore(true) : setLoading(true);
       try {
         if (searchQuery.trim()) {
-          const { knownFacts: allFacts, count, ...response } =
-            await getKnownFacts(sessionID);
+          const {
+            knownFacts: allFacts,
+            count,
+            ...response
+          } = await getKnownFacts(sessionID);
           if (response.resultCode !== 0) {
             add(
               createAlertOptions({
@@ -136,8 +129,11 @@ const KnownFacts = ({
           setKnownFactsCount(filtered.length || count || 0);
           setLoadedCount(next.length);
         } else {
-          const { knownFacts: page, count, ...response } =
-            await getKnownFactsPaginated(sessionID, from, PAGE_SIZE);
+          const {
+            knownFacts: page,
+            count,
+            ...response
+          } = await getKnownFactsPaginated(sessionID, from, PAGE_SIZE);
           if (response.resultCode !== 0) {
             add(
               createAlertOptions({
@@ -291,13 +287,16 @@ const KnownFacts = ({
       {!isEmpty && (
         <div className="memori-known-facts-toolbar">
           <div className="memori-known-facts-search">
-            <Search aria-hidden className="memori-known-facts-search__icon" />
-            <label className="memori-sr-only" htmlFor="memori-known-facts-search">
+            <label
+              className="memori-sr-only"
+              htmlFor="memori-known-facts-search"
+            >
               {t('knownFacts.searchPlaceholder')}
             </label>
             <Input
               id="memori-known-facts-search"
               fullWidth
+              prefix={<Search aria-hidden />}
               value={searchInput}
               placeholder={t('knownFacts.searchPlaceholder') || ''}
               onValueChange={setSearchInput}
@@ -399,7 +398,9 @@ const KnownFacts = ({
                 ) : (
                   <article className="memori-known-facts-card">
                     <div className="memori-known-facts-card__content">
-                      <p className="memori-known-facts-card__text">{fact.text}</p>
+                      <p className="memori-known-facts-card__text">
+                        {fact.text}
+                      </p>
                       {relative && (
                         <Tooltip title={exact} placement="bottom">
                           <time

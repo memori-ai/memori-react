@@ -559,6 +559,7 @@ const ChatHistoryDrawer = ({
     <SideDrawer
       open={open}
       size="md"
+      width="45rem"
       className={cx('memori-chat-history-drawer', {
         'memori-chat-history-drawer--detail': isDetail,
       })}
@@ -584,16 +585,13 @@ const ChatHistoryDrawer = ({
           <div className="memori-chat-history-drawer--toolbar">
             <div className="memori-chat-history-drawer--toolbar-row">
               <div className="memori-chat-history-drawer--search">
-                <Search
-                  aria-hidden
-                  className="memori-chat-history-drawer--search-icon"
-                />
                 <label className="sr-only" htmlFor="memori-chat-history-search">
                   {t('write_and_speak.searchInChatHistory')}
                 </label>
                 <Input
                   id="memori-chat-history-search"
                   fullWidth
+                  prefix={<Search aria-hidden />}
                   value={searchInput}
                   placeholder={t('write_and_speak.searchInChatHistory') || ''}
                   onValueChange={setSearchInput}

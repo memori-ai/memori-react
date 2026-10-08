@@ -6,26 +6,10 @@
 }
 
 .memori-known-facts-search {
-    position: relative;
     display: flex;
     min-width: 0;
     flex: 1 1 auto;
     align-items: center;
-}
-
-.memori-known-facts-search__icon {
-    position: absolute;
-    z-index: 1;
-    left: var(--memori-spacing-md);
-    width: 1.05rem;
-    height: 1.05rem;
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
-    pointer-events: none;
-}
-
-.memori-known-facts-search .memori-input,
-.memori-known-facts-search input {
-    padding-left: calc(var(--memori-spacing-md) * 2 + 0.5rem);
 }
 
 .memori-known-facts-count {

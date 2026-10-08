@@ -18,17 +18,10 @@
 }
 
 /*
- * Split-panel width for ArtifactDrawer.
- * Must stay in sync with HiddenChat's sidebar shift (`right: 55%`).
- * @memori.ai/ui Drawer uses `--memori-modal-size-*` (not the legacy
- * size="md" maps to `--memori-modal-size-md`.
+ * Split width is Drawer `width="55%"`, kept in sync with HiddenChat's
+ * sidebar shift (`right: 55%`). Compact and fullscreen layouts below stay
+ * product CSS.
  */
-.memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer {
-    --memori-modal-size-md: 55%;
-    width: 55%;
-    max-width: 100%;
-}
-
 @media (max-width: 1260px) {
     .memori-drawer--right.memori-drawer--size-md.memori-artifact-panel-drawer,
     .memori-drawer--right.memori-artifact-panel-drawer-fullscreen {
@@ -1257,15 +1250,6 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
     text-align: left;
-}
-
-.memori-mobile-dropdown .memori-artifact-action-btn:hover,
-.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
-.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item:hover:not([data-disabled]),
-.memori-dropdown__popup.memori-mobile-dropdown .memori-dropdown__item[data-highlighted]:not([data-disabled]) {
-    border-color: transparent;
-    background: color-mix(in srgb, var(--memori-text-color) 10%, transparent) !important;
-    color: var(--memori-text-color);
 }
 
 .memori-mobile-dropdown .memori-artifact-action-icon,

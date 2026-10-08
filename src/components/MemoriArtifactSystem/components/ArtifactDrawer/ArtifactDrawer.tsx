@@ -124,6 +124,7 @@ const ArtifactDrawer: React.FC<{
             onClose={handleClose}
             anchor="right"
             size="md"
+            width="55%"
             className={
               state.isFullscreen || isCompactToolbar
                 ? 'memori-artifact-panel-drawer-fullscreen'
@@ -239,7 +240,10 @@ const ArtifactDrawer: React.FC<{
 
           {isCompactToolbar ? (
             <div className="memori-artifact-toolbar--mobile-actions">
-              <Dropdown className="memori-mobile-actions-menu" ref={menuContainerRef}>
+              <Dropdown
+                className="memori-mobile-actions-menu"
+                ref={menuContainerRef}
+              >
                 <Dropdown.Trigger
                   showChevron={false}
                   className="memori-mobile-actions-trigger"
