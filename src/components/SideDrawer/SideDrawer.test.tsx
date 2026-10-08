@@ -22,6 +22,20 @@ it('renders the shared header, body and optional footer', () => {
   expect(screen.getByText('Footer slot')).toBeInTheDocument();
 });
 
+it('passes an explicit width through to the drawer', () => {
+  render(
+    <SideDrawer open title="Wide" width="45rem" onClose={jest.fn()}>
+      Body
+    </SideDrawer>
+  );
+
+  const dialog = screen.getByRole('dialog');
+  expect(dialog).toHaveAttribute('data-custom-width', '');
+  expect(dialog.getAttribute('style')).toContain(
+    '--memori-drawer-width: 45rem'
+  );
+});
+
 it('omits the footer when none is passed', () => {
   const { container } = render(
     <SideDrawer open title="Only header" onClose={jest.fn()}>
@@ -35,10 +49,7 @@ it('omits the footer when none is passed', () => {
 
 it('renders a neutral empty state', () => {
   render(
-    <SideDrawerEmpty
-      title="Nothing here"
-      description="This is not an error."
-    />
+    <SideDrawerEmpty title="Nothing here" description="This is not an error." />
   );
 
   expect(screen.getByRole('status')).toHaveTextContent('Nothing here');

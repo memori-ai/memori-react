@@ -19,7 +19,6 @@ import {
   MapPin,
   MapPinOff,
   User as UserIconLucide,
-  ChevronDown,
   AlertTriangle,
 } from 'lucide-react';
 import { getGroupedChatLanguages } from '../../helpers/constants';
@@ -316,24 +315,6 @@ const StartPanel: React.FC<Props> = ({
                 <Expandable
                   className="memori--description-text memori--description-text--collapsible"
                   rows={3}
-                  expandSymbol={_lang => (
-                    <span className="memori--description-text--expand-symbol">
-                      {t('expand')}
-                      <ChevronDown
-                        className="memori--description-text--toggle-chevron"
-                        aria-hidden
-                      />
-                    </span>
-                  )}
-                  collapseSymbol={_lang => (
-                    <span className="memori--description-text--collapse-symbol">
-                      {t('collapse')}
-                      <ChevronDown
-                        className="memori--description-text--toggle-chevron memori--description-text--toggle-chevron--up"
-                        aria-hidden
-                      />
-                    </span>
-                  )}
                 >
                   {translatedDescription && showTranslation
                     ? translatedDescription

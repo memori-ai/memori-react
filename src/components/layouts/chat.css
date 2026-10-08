@@ -182,18 +182,6 @@
     gap: 0.35rem;
 }
 
-/* .memori-chat-layout .memori-header .memori-button {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background: transparent;
-    box-shadow: none;
-    color: #000;
-} */
-
-/* .memori-chat-layout .memori-header .memori-button:hover {
-    border-color: rgba(0, 0, 0, 0.12);
-    background: rgba(0, 0, 0, 0.03);
-} */
-
 .memori-chat-layout .memori--avatar {
     top: 0;
 }

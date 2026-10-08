@@ -11,6 +11,10 @@ export interface SideDrawerProps {
   children?: React.ReactNode;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * Explicit panel width. Overrides `size` on the right-edge drawer.
+   */
+  width?: string | number;
   loading?: boolean;
   closeLabel?: string;
 }
@@ -29,6 +33,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
   children,
   className,
   size = 'md',
+  width,
   loading,
   closeLabel,
 }) => {
@@ -37,6 +42,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
       open={open}
       anchor="right"
       size={size}
+      width={width}
       loading={loading}
       closeLabel={closeLabel}
       className={cx('memori-side-drawer', className)}

@@ -12,6 +12,7 @@ import {
   Popover,
   Tooltip,
   useAlertManager,
+  useMemoriTheme,
   createAlertOptions,
 } from '@memori.ai/ui';
 import {
@@ -132,6 +133,10 @@ const Header: React.FC<Props> = ({
   extraActions,
 }) => {
   const { t, i18n } = useTranslation();
+  const theme = useMemoriTheme();
+  const resolvedButtonVariant = (
+    theme === 'dark' ? 'inverse' : buttonVariant
+  ) as typeof buttonVariant;
   const { add } = useAlertManager();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -526,7 +531,7 @@ const Header: React.FC<Props> = ({
     >
       <span style={{ display: 'inline-flex' }}>
         <IconButton
-          variant={buttonVariant}
+          variant={resolvedButtonVariant}
           className="memori-header--chat-history-button"
           disabled={!loginToken}
           aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
@@ -573,7 +578,7 @@ const Header: React.FC<Props> = ({
                     <IconButton
                       {...props}
                       active={userPopoverOpen}
-                      variant={buttonVariant}
+                      variant={resolvedButtonVariant}
                       className={cx(
                         'memori-dropdown--user-trigger-button',
                         'memori-dropdown--user-trigger-button--identity'
@@ -686,7 +691,7 @@ const Header: React.FC<Props> = ({
               <div className="memori-dropdown--separator" />
               <IconButton
                 type="button"
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 onClick={onLogout}
                 className="memori-dropdown--action-button memori-dropdown--action-button--logout"
                 icon={<LogOut size={18} strokeWidth={2} aria-hidden />}
@@ -719,7 +724,7 @@ const Header: React.FC<Props> = ({
         <Tooltip title={t('login.login') || 'Login'} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <IconButton
-              variant={buttonVariant}
+              variant={resolvedButtonVariant}
               className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}
               title={t('login.login') || 'Login'}
@@ -741,7 +746,7 @@ const Header: React.FC<Props> = ({
     <Tooltip title={t('reload') || 'Reload'} placement={placement}>
       <span style={{ display: 'inline-flex' }}>
         <IconButton
-          variant={buttonVariant}
+          variant={resolvedButtonVariant}
           className={className}
           aria-label={t('reload') || 'Reload'}
           icon={<RefreshCw />}
@@ -760,7 +765,7 @@ const Header: React.FC<Props> = ({
     <Tooltip title={t('clearHistory') || 'Clear chat'} placement={placement}>
       <span style={{ display: 'inline-flex' }}>
         <IconButton
-          variant={buttonVariant}
+          variant={resolvedButtonVariant}
           className={className}
           aria-label={t('clearHistory') || 'Clear chat'}
           icon={<Trash2 />}
@@ -788,7 +793,7 @@ const Header: React.FC<Props> = ({
     >
       <span style={{ display: 'inline-flex' }}>
         <IconButton
-          variant={buttonVariant}
+          variant={resolvedButtonVariant}
           className={className}
           icon={<Users />}
           disabled={!hasUserActivatedSpeak || !sessionID}
@@ -808,7 +813,7 @@ const Header: React.FC<Props> = ({
     <Tooltip title={t('widget.settings') || 'Settings'} placement={placement}>
       <span style={{ display: 'inline-flex' }}>
         <IconButton
-          variant={buttonVariant}
+          variant={resolvedButtonVariant}
           className={className}
           icon={<Settings />}
           aria-label={t('widget.settings') || 'Settings'}
@@ -839,7 +844,7 @@ const Header: React.FC<Props> = ({
                     setUserPopoverOpen(false);
                   }
                 }}
-                triggerButtonVariant={buttonVariant}
+                triggerButtonVariant={resolvedButtonVariant}
                 triggerAriaLabel={t('widget.position') || 'Position'}
                 positionerClassName={
                   layout === 'WEBSITE_ASSISTANT'
@@ -861,14 +866,14 @@ const Header: React.FC<Props> = ({
       {showMessageConsumption && (
         <ChatConsumptionDropdown
           history={history}
-          triggerVariant={buttonVariant}
+          triggerVariant={resolvedButtonVariant}
         />
       )}
       {showFullscreen && fullScreenAvailable && (
         <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <IconButton
-              variant={buttonVariant}
+              variant={resolvedButtonVariant}
               title={fullscreenLabel}
               aria-label={fullscreenLabel}
               icon={fullScreen ? <Minimize /> : <Maximize />}
@@ -943,7 +948,7 @@ const Header: React.FC<Props> = ({
         >
           <span style={{ display: 'inline-flex' }}>
             <IconButton
-              variant={buttonVariant}
+              variant={resolvedButtonVariant}
               icon={<Brain />}
               aria-label={t('knownFacts.title') || 'Known facts'}
               onClick={() => setShowKnownFactsDrawer(true)}
@@ -956,7 +961,7 @@ const Header: React.FC<Props> = ({
         <Tooltip title={soundLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <IconButton
-              variant={buttonVariant}
+              variant={resolvedButtonVariant}
               icon={
                 speakerMuted ? (
                   <VolumeX size={20} strokeWidth={2.35} aria-hidden />
@@ -988,7 +993,7 @@ const Header: React.FC<Props> = ({
           align="left"
           baseUrl={baseUrl}
           history={history}
-          triggerVariant={buttonVariant}
+          triggerVariant={resolvedButtonVariant}
         />
       )}
     </>
@@ -1032,7 +1037,7 @@ const Header: React.FC<Props> = ({
                       <IconButton
                         {...props}
                         active={infoPopoverOpen}
-                        variant={buttonVariant}
+                        variant={resolvedButtonVariant}
                         className="memori-header--auth-icon-button"
                         aria-label={sessionInfoLabel}
                         icon={<MoreVertical />}
@@ -1123,7 +1128,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={fullscreenLabel} placement="bottom">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-header--auth-icon-button"
                 title={fullscreenLabel}
                 aria-label={fullscreenLabel}
@@ -1193,7 +1198,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={soundLabel} placement="bottom">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-header--auth-icon-button"
                 title={soundLabel}
                 aria-label={soundLabel}
@@ -1227,7 +1232,7 @@ const Header: React.FC<Props> = ({
                     setUserPopoverOpen(false);
                   }
                 }}
-                triggerButtonVariant={buttonVariant}
+                triggerButtonVariant={resolvedButtonVariant}
                 triggerClassName="memori-header--auth-icon-button"
                 triggerAriaLabel={t('widget.position') || 'Position'}
                 positionerClassName={
@@ -1256,7 +1261,7 @@ const Header: React.FC<Props> = ({
               align="left"
               baseUrl={baseUrl}
               history={history}
-              triggerVariant={buttonVariant}
+              triggerVariant={resolvedButtonVariant}
               className="memori-header--auth-share-button"
             />
           </span>
@@ -1265,7 +1270,7 @@ const Header: React.FC<Props> = ({
       {showMessageConsumption && hasChatConsumptionData && (
         <ChatConsumptionDropdown
           history={history}
-          triggerVariant={buttonVariant}
+          triggerVariant={resolvedButtonVariant}
           hideTrigger
           open={consumptionModalOpen}
           onOpenChange={setConsumptionModalOpen}
@@ -1319,7 +1324,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={soundLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={
                   speakerMuted ? (
@@ -1340,7 +1345,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={fullscreenLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={fullScreen ? <Minimize /> : <Maximize />}
                 title={fullscreenLabel}
@@ -1361,7 +1366,7 @@ const Header: React.FC<Props> = ({
             align="left"
             baseUrl={baseUrl}
             history={history}
-            triggerVariant={buttonVariant}
+            triggerVariant={resolvedButtonVariant}
             className="memori-totem-rail--button"
           />
         )}
@@ -1369,7 +1374,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={totemResetLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={<RefreshCw />}
                 title={totemResetLabel}
@@ -1388,7 +1393,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={totemSettingsLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={<Settings />}
                 title={totemSettingsLabel}
@@ -1402,7 +1407,7 @@ const Header: React.FC<Props> = ({
           <Tooltip title={totemChatHistoryLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
-                variant={buttonVariant}
+                variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={<MessageCircle />}
                 title={totemChatHistoryLabel}
@@ -1441,7 +1446,7 @@ const Header: React.FC<Props> = ({
                         <IconButton
                           {...props}
                           active={userPopoverOpen}
-                          variant={buttonVariant}
+                          variant={resolvedButtonVariant}
                           className={cx(
                             'memori-totem-rail--button',
                             'memori-totem-rail--account-trigger'

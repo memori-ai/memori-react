@@ -763,6 +763,7 @@ const Chat: React.FC<Props> = ({
             : undefined
         }
         className="memori-chat--usage-modal"
+        width="30rem"
         stacking="stacked"
       >
         {activeUsageBadge?.type === 'llm' && (

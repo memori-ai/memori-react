@@ -303,7 +303,7 @@
     right: 0;
 }
 
-/* Keep in sync with ArtifactDrawer split width (55% / --memori-modal-size-md override) */
+/* Keep in sync with ArtifactDrawer width="55%" */
 .memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar {
     right: 55%;
 }
@@ -616,49 +616,6 @@
     .memori-sidebar-toggle-label:not(.memori-hidden-chat-layout--header-close) {
     background-color: var(--memori-primary-color, var(--memori-primary));
     color: var(--memori-primary-content, #fff);
-}
-
-/* Dark theme: header controls — white outline and icon (incl. share + position popover).
-   Soft-active / recording IconButtons keep primary/error chrome from IconButton.css. */
-.memori-widget.memori-layout-hidden_chat[data-theme='dark']
-    .memori-header
-    .memori-button:not(.memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
-[data-theme='dark']
-    .memori-widget.memori-layout-hidden_chat
-    .memori-header
-    .memori-button:not(.memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled) {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}
-
-.memori-widget.memori-layout-hidden_chat[data-theme='dark']
-    .memori-header
-    .memori-button:hover:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
-.memori-widget.memori-layout-hidden_chat[data-theme='dark']
-    .memori-header
-    .memori-button:active:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
-[data-theme='dark']
-    .memori-widget.memori-layout-hidden_chat
-    .memori-header
-    .memori-button:hover:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled),
-[data-theme='dark']
-    .memori-widget.memori-layout-hidden_chat
-    .memori-header
-    .memori-button:active:not(.memori-icon-button, .memori-icon-button--active, .memori-icon-button--recording, :disabled, .memori-button--disabled) {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}
-
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-header .memori-dropdown--user-trigger {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}
-
-.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover,
-[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-header .memori-dropdown--user-trigger:hover {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
 }
 
 .memori-widget.memori-layout-hidden_chat[data-theme='dark']

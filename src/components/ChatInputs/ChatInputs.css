@@ -107,7 +107,8 @@
     gap: var(--memori-spacing-xs);
 }
 
-/* Plus / upload — chrome owned by IconButton (borderless in the input bar) */
+/* Plus / upload and mic stay borderless in the input bar.
+   Active and recording keep the toolbar chrome from @memori.ai/ui. */
 .memori-chat-inputs--upload-wrapper {
     display: flex;
     align-items: center;
@@ -122,28 +123,13 @@
     flex-shrink: 0;
 }
 
-.memori-widget .memori-chat-inputs--upload-wrapper .memori-icon-button.memori-button,
-.memori-widget .memori-chat-inputs--mic.memori-icon-button.memori-button {
-    border-color: transparent;
-    background: transparent;
-}
-
 .memori-widget
     .memori-chat-inputs--upload-wrapper
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled),
+    .memori-icon-button.memori-button:not(.memori-button--active, .memori-button--recording),
 .memori-widget
-    .memori-chat-inputs--mic.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording
-    ) {
+    .memori-chat-inputs--mic.memori-icon-button.memori-button:not(.memori-button--active, .memori-button--recording) {
     border-color: transparent;
-}
-
-/* Recording mic keeps soft-error border from IconButton.css */
-.memori-chat-inputs--upload-wrapper .memori-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
+    background: transparent;
 }
 
 /* Icon class styling */
@@ -178,13 +164,9 @@
     stroke: none;
 }
 
-.memori-chat-inputs--send-btn svg,
-.memori-chat-inputs--send-btn .icon {
-    width: 18px;
-    height: 18px;
-    color: var(--memori-primary-content, #fff) !important;
-    fill: var(--memori-primary-content, #fff);
-    stroke: currentColor;
+.memori-chat-inputs--send-btn {
+    width: 42px;
+    height: 42px;
 }
 
 .memori-chat-inputs--upload-wrapper .memori-button .memori-button__icon,
@@ -202,59 +184,6 @@
 /* Mic in trailing — size owned by IconButton */
 .memori-chat-inputs--trailing .memori-chat-inputs--mic {
     margin-left: 0;
-}
-
-/* Send button — solid brand fill, high-contrast icon (all layouts) */
-.memori-chat-inputs--send-btn,
-.memori-chat-inputs--send-btn.memori-button {
-    display: flex;
-    width: 36px;
-    min-width: 36px;
-    height: 36px;
-    min-height: 36px;
-    box-sizing: border-box;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: var(--memori-radius-control);
-    aspect-ratio: 1 / 1;
-    background: var(--memori-primary) !important;
-    box-shadow: none !important;
-    color: var(--memori-primary-content, #fff) !important;
-    cursor: pointer;
-    transition: background 0.15s ease;
-}
-
-@media (max-width: 768px) {
-    .memori-chat-inputs--send-btn,
-    .memori-chat-inputs--send-btn.memori-button {
-        width: 40px;
-        min-width: 40px;
-        height: 40px;
-        min-height: 40px;
-    }
-}
-
-.memori-chat-inputs--send-btn:disabled,
-.memori-chat-inputs--send-btn.memori-button:disabled,
-.memori-chat-inputs--send-btn--disabled {
-    background: var(--memori-primary) !important;
-    color: var(--memori-primary-content, #fff) !important;
-    cursor: not-allowed;
-    opacity: 0.35;
-}
-
-.memori-chat-inputs--send-btn:hover:not(:disabled),
-.memori-chat-inputs--send-btn.memori-button:hover:not(:disabled) {
-    background: var(--memori-primary-hover) !important;
-    color: var(--memori-primary-content, #fff) !important;
-    opacity: 1;
-}
-
-.memori-chat-inputs--send-btn--active {
-    color: var(--memori-primary-content, #fff) !important;
 }
 
 .memori-chat-inputs--send-btn--loading {

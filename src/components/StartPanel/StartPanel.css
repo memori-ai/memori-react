@@ -676,26 +676,6 @@
         overflow: visible;
     }
 
-    .memori--description-text > button,
-    .memori--description-text .memori-expandable__button {
-        display: inline-flex;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        text-align: left;
-    }
-
-    .memori--description-text--expand-symbol,
-    .memori--description-text--collapse-symbol {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .memori--description-text > button svg,
-    .memori--description-text .memori-expandable__button svg {
-        margin-left: auto;
-    }
-
     .memori--settings-section__row {
         padding: 12px 14px;
     }
@@ -711,87 +691,14 @@
     }
 }
 
-.memori--description-text--collapsible > button {
-    display: inline-flex;
-    width: 100%;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    border: 0;
-    margin-top: var(--memori-spacing-xs);
-    background: transparent;
-    text-align: left;
-}
-
-.memori--description-text--collapsible > span > span > button {
-    display: inline-flex;
-    width: 100%;
-    min-height: 28px;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    border: 0;
-    margin-top: var(--memori-spacing-xs);
-    background: transparent;
-    text-align: left;
-}
-
-.memori--description-text--collapsible .memori-expandable__button,
-.memori--description-text--collapsible .memori-expandable > button {
-    display: inline-flex;
-    width: 100%;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    border: 0;
-    margin-top: var(--memori-spacing-xs);
-    background: transparent;
-    text-align: left;
-}
-
 .memori--title-container__content
-    .memori--description-text--collapsible:has(.memori--description-text--expand-symbol)
+    .memori--description-text--collapsible.memori-expandable--collapsed
     .memori-expandable__inner {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-overflow: ellipsis;
-}
-
-.memori--description-text--expand-symbol,
-.memori--description-text--collapse-symbol {
-    display: inline-flex;
-    align-items: center;
-    color: var(--memori-primary);
-    font-size: 0.8rem;
-    font-weight: var(--memori-text-weight-medium);
-    gap: var(--memori-spacing-xs);
-    line-height: 1.2;
-}
-
-.memori--description-text--toggle-chevron {
-    width: 0.85rem;
-    height: 0.85rem;
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-}
-
-.memori--description-text--toggle-chevron--up {
-    transform: rotate(180deg);
-}
-
-/* The Expandable toggle is a memori-button ghost, which inherits a global
-   `transform: scale(1.015)` on hover from @memori.ai/ui. Disable it here. */
-.memori-expandable.memori--description-text--collapsible .memori-button:hover:not(:disabled, .memori-button--disabled),
-.memori-expandable.memori--description-text--collapsible .memori-button:active:not(:disabled, .memori-button--disabled),
-.memori-expandable.memori--description-text--collapsible
-    .memori-button:focus-visible:not(:disabled, .memori-button--disabled) {
-    transform: none;
-}
-
-.memori--description-text--collapse-symbol {
-    opacity: 0.9;
 }
 
 .memori--language-chooser svg {

@@ -1052,66 +1052,15 @@
     text-align: left;
 }
 
-.memori-chat--bubble.memori-chat--user-bubble .memori-expandable .memori-chat--bubble-expand-toggle {
-    min-height: 0;
-    align-items: center;
-    padding: 2px 0;
-    border: none;
-    margin-top: var(--memori-spacing-xs);
-    background: transparent;
-    color: var(--memori-primary-content);
-    font-size: 0.8rem;
-    font-weight: var(--memori-text-weight-semibold);
-    gap: 4px;
-    line-height: 1.2;
-    opacity: 0.85;
-    text-decoration: none;
-    transform: none;
-    transition: opacity var(--memori-motion-duration-normal) var(--memori-motion-ease-out);
-}
-
-.memori-chat--bubble.memori-chat--user-bubble
-    .memori-expandable
-    .memori-chat--bubble-expand-toggle:is(:hover, :active, :focus-visible) {
-    border: none;
-    background: transparent;
-    box-shadow: none;
-    color: var(--memori-primary-content);
-    opacity: 1;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transform: none;
-}
-
-.memori-chat--bubble.memori-chat--user-bubble
-    .memori-expandable
-    .memori-chat--bubble-expand-toggle:focus-visible {
-    border-radius: 4px;
-    outline: 2px solid var(--memori-primary-content);
-    outline-offset: 2px;
-}
-
 .memori-chat--user-bubble
-    .memori-expandable:has(.memori-chat--bubble-expand-chevron:not(.memori-chat--bubble-expand-chevron--up))
+    .memori-expandable--collapsed
     .memori-expandable__inner
     > .memori-chat--bubble-content::after {
     content: '…';
 }
 
-.memori-chat--bubble-expand-chevron {
-    width: 0.9rem;
-    height: 0.9rem;
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-}
-
-.memori-chat--bubble-expand-chevron--up {
-    transform: rotate(180deg);
-}
-
 .memori-chat--function-cache-modal.memori-modal__viewport .memori-modal__popup,
 .memori-chat--function-cache-modal .memori-modal--panel {
-    width: 80%;
     height: 100%;
     max-height: 80vh;
     border-radius: var(--memori-radius-overlay);

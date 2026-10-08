@@ -19,7 +19,6 @@ import {
   Code,
   Bug,
   Check,
-  ChevronDown,
 } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
@@ -474,8 +473,7 @@ const ChatBubble: React.FC<Props> = ({
   };
 
   if (initialStatus) {
-    const isLoginSuccess =
-      message.contextVars?.LOGIN_STATUS === 'success';
+    const isLoginSuccess = message.contextVars?.LOGIN_STATUS === 'success';
     return (
       <div
         className={cx('memori-chat--bubble-status-message', {
@@ -679,26 +677,7 @@ const ChatBubble: React.FC<Props> = ({
                   >
                     <Expandable
                       className="memori-chat--bubble-content"
-                      btnClassName="memori-chat--bubble-expand-toggle"
                       mode="characters"
-                      expandSymbol={() => (
-                        <>
-                          {t('expand')}
-                          <ChevronDown
-                            className="memori-chat--bubble-expand-chevron"
-                            aria-hidden
-                          />
-                        </>
-                      )}
-                      collapseSymbol={() => (
-                        <>
-                          {t('collapse')}
-                          <ChevronDown
-                            className="memori-chat--bubble-expand-chevron memori-chat--bubble-expand-chevron--up"
-                            aria-hidden
-                          />
-                        </>
-                      )}
                     >
                       <div
                         dir="auto"
@@ -1085,30 +1064,30 @@ const ChatBubble: React.FC<Props> = ({
                     )}
 
                     {shouldShowFunctionCacheButton && (
-                        <Tooltip
-                          {...bubbleAddonTooltipProps}
-                          placement="bottom"
-                          content={t('functionCache') || 'Function cache'}
-                          className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
-                        >
-                          <span className="memori-chat--bubble-addon-tooltip-trigger">
-                            <Button
-                              variant="ghost"
-                              shape="circle"
-                              size="sm"
-                              className="memori-chat--bubble-action-button"
-                              icon={
-                                <Bug
-                                  aria-label={
-                                    t('functionCache') || 'Function cache'
-                                  }
-                                />
-                              }
-                              onClick={() => setOpenFunctionCache(true)}
-                            />
-                          </span>
-                        </Tooltip>
-                      )}
+                      <Tooltip
+                        {...bubbleAddonTooltipProps}
+                        placement="bottom"
+                        content={t('functionCache') || 'Function cache'}
+                        className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+                      >
+                        <span className="memori-chat--bubble-addon-tooltip-trigger">
+                          <Button
+                            variant="ghost"
+                            shape="circle"
+                            size="sm"
+                            className="memori-chat--bubble-action-button"
+                            icon={
+                              <Bug
+                                aria-label={
+                                  t('functionCache') || 'Function cache'
+                                }
+                              />
+                            }
+                            onClick={() => setOpenFunctionCache(true)}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
 
                     {showFeedback && !!simulateUserPrompt && (
                       <FeedbackButtons
@@ -1237,6 +1216,7 @@ const ChatBubble: React.FC<Props> = ({
       <Modal
         open={openFunctionCache}
         className="memori-chat--function-cache-modal"
+        width="80%"
         stacking="stacked"
         title={t('functionCache') || 'Function Cache'}
         closable={true}

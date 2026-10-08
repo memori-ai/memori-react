@@ -461,7 +461,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                               >
                                 <button
                                   aria-label="send"
-                                  class="memori-button memori-button--primary memori-button--sm memori-button--disabled memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                                  class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
                                   data-disabled=""
                                   disabled=""
                                   tabindex="0"

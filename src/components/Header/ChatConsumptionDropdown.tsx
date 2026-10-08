@@ -371,6 +371,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
         onClose={() => setOpen(false)}
         title={modalTitle}
         className="memori-chat--usage-modal memori-chat--consumption-modal"
+        width="30rem"
         stacking="stacked"
         closable
       >

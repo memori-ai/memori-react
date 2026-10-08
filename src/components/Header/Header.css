@@ -279,7 +279,12 @@
     justify-content: center;
 }
 
-.memori-header .memori-button:not(.memori-button--disabled),
+.memori-header .memori-button:not(
+        .memori-button--disabled,
+        .memori-button--inverse,
+        .memori-button--active,
+        .memori-button--recording
+    ),
 .memori-header .memori-dropdown--user-trigger {
     border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
 }
@@ -372,148 +377,6 @@
     pointer-events: none;
 }
 
-.memori-header
-    .memori-icon-button.memori-button.memori-icon-button--active:not(:disabled):not(.memori-button--disabled),
-.memori-header
-    .memori-dropdown--user-trigger-button.memori-icon-button.memori-button--active:not(:disabled):not(
-        .memori-button--disabled
-    ) {
-    /* Soft active owned by IconButton.css — do not use CTA ring/fill here */
-    box-shadow: none;
-}
-
-/* Header (+ mobile overflow) icon tools: primary icon on hover (not logout / recording) */
-.memori-widget
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    ),
-.memori-widget
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
-.memori-widget
-    .memori-chat-layout--header
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
-.memori-widget
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    ) {
-    color: var(--memori-primary);
-}
-
-.memori-widget
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    )
-    svg,
-.memori-widget
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
-    svg,
-.memori-widget
-    .memori-chat-layout--header
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
-    svg,
-.memori-widget
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    )
-    svg {
-    color: var(--memori-primary);
-}
-
-/* Dark: keep white at rest and on hover for icon tools */
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    ),
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    ),
-.memori-widget[data-theme='dark']
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
-[data-theme='dark']
-    .memori-widget
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording),
-.memori-widget[data-theme='dark']
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    ),
-[data-theme='dark']
-    .memori-widget
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    ) {
-    color: #fff;
-}
-
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    )
-    svg,
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled,
-        .memori-icon-button--recording,
-        .memori-dropdown--action-button--logout
-    )
-    svg,
-.memori-widget[data-theme='dark']
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
-    svg,
-[data-theme='dark']
-    .memori-widget
-    .memori-fullpage-header-row
-    .memori-icon-button.memori-button:hover:not(:disabled, .memori-button--disabled, .memori-icon-button--recording)
-    svg,
-.memori-widget[data-theme='dark']
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    )
-    svg,
-[data-theme='dark']
-    .memori-widget
-    .memori-chat-layout--overflow-trigger.memori-icon-button.memori-button:hover:not(
-        :disabled,
-        .memori-button--disabled
-    )
-    svg {
-    color: #fff;
-}
-
 .memori-dropdown--avatar-input {
     position: absolute;
     width: 100%;
@@ -533,12 +396,6 @@
 .memori-dropdown--sustainability-menu {
     margin-top: 10px;
     margin-left: -10px;
-}
-
-.memori-chat--consumption-modal.memori-modal__viewport .memori-modal__popup,
-.memori-chat--consumption-modal .memori-modal--panel {
-    min-width: 20rem;
-    max-width: 30rem;
 }
 
 .memori-chat--consumption-modal .memori-dropdown--sustainability {
@@ -688,54 +545,6 @@
     }
 }
 
-/* Dark mode: white outline on header actions (Totem, full-page, etc.; chat/hidden_chat also set #fff in layout CSS) */
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled) {
-    border-color: #fff;
-    color: #fff;
-}
-
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled) {
-    border-color: #fff;
-    color: #fff;
-}
-
-[data-theme='dark'] .memori-widget .memori-header .memori-dropdown--user-trigger,
-.memori-widget[data-theme='dark'] .memori-header .memori-dropdown--user-trigger {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}
-
-[data-theme='dark'] .memori-widget .memori-header .memori-dropdown--user-trigger:hover,
-.memori-widget[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover {
-    border: var(--memori-border) solid #fff;
-    color: #fff;
-}
 
 /* Full-page layout: labeled primary actions, utility cluster, shared control chrome */
 .memori-header.memori-header--fullpage {
@@ -950,12 +759,3 @@
     background: color-mix(in srgb, #fff 22%, transparent);
 }
 
-[data-theme='dark']
-    .memori-widget
-    .memori-header--fullpage
-    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header--fullpage
-    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled) {
-    background: color-mix(in srgb, #fff 12%, transparent);
-}

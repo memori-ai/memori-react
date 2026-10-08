@@ -545,6 +545,8 @@ ${text}
               >
                 <Button
                   variant="primary"
+                  // shape="circle"
+                  // size="md"
                   className={cx('memori-chat-inputs--send-btn', {
                     'memori-chat-inputs--send-btn--active': canSend,
                     'memori-chat-inputs--send-btn--disabled': !canSend,
@@ -560,7 +562,6 @@ ${text}
                     !canSend || isTyping || transcribing || uploadingCount > 0
                   }
                   title={sendLabel}
-                  size="sm"
                   aria-label={sendLabel}
                   aria-busy={transcribing || undefined}
                 >

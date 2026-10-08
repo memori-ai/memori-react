@@ -11,7 +11,7 @@ export type IconButtonProps = Omit<
    */
   active?: boolean;
   /**
-   * Mic (or similar) recording state. Soft error chrome — never primary.
+   * Mic stop while recording. Neutral gray chip — never primary, never error.
    */
   recording?: boolean;
   /**
@@ -69,6 +69,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         shape={shape}
         size={size}
         active={isActive}
+        recording={isRecording}
         className={cx(
           'memori-icon-button',
           isLabeled && 'memori-icon-button--labeled',
