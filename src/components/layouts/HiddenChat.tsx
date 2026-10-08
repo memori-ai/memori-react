@@ -15,8 +15,6 @@ import {
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
 import type { LayoutName } from '../../types/layout';
-import { shouldHoldAutoStartForPosition } from '../../helpers/positionPopover';
-import { shouldHoldAutoStartForLogin } from '../../helpers/autoStart';
 import {
   clearWidgetFullscreen,
   requestWidgetFullscreen,
@@ -30,7 +28,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   sessionId,
   hasUserActivatedSpeak,
-  autoStart,
   StartPanel,
   onSidebarToggle,
 }) => {
@@ -68,17 +65,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   }, [headerProps]);
 
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
-  // Autostart is held on these gates, and only the StartPanel can resolve them.
-  const autoStartHeld =
-    !!startPanelProps &&
-    (shouldHoldAutoStartForPosition(
-      !!startPanelProps.memori.needsPosition,
-      !!startPanelProps.position
-    ) ||
-      shouldHoldAutoStartForLogin(
-        !!startPanelProps.memori.requireLoginToken,
-        !!startPanelProps.isUserLoggedIn
-      ));
 
   const brandAvatarSrc = memori
     ? memori.avatarURL && memori.avatarURL.length > 0
@@ -320,7 +306,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             <div className="memori-chat-layout--body">
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                 <Chat {...chatProps} />
-              ) : (!autoStart || autoStartHeld) && startPanelProps ? (
+              ) : startPanelProps ? (
                 <div className="memori-chat-layout--start-shell">
                   <div className="memori-chat-layout--start-panel-wrap">
                     <StartPanel {...startPanelProps} />
@@ -339,7 +325,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         sendOnEnter={chatProps.sendOnEnter}
                         setSendOnEnter={chatProps.setSendOnEnter}
                         client={chatProps.client}
-                        sessionID={chatProps.sessionID}
+                        sessionID={
+                          isSessionStarted ? chatProps.sessionID : undefined
+                        }
                         baseUrl={chatProps.baseUrl}
                         showUpload={chatProps.showUpload}
                         attachmentsMenuOpen={chatProps.attachmentsMenuOpen}

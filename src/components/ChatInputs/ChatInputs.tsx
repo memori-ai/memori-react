@@ -456,7 +456,7 @@ ${text}
         className={cx('memori-chat-inputs', {
           'memori-chat-inputs--expanded': isExpanded,
         })}
-        disabled={isDisabled}
+        disabled={isDisabled || (!hasActiveSession && !micActive)}
       >
         {/* Preview for document files (only when files or uploads are present) */}
         {(documentPreviewFiles.length > 0 || uploadingCount > 0) && (

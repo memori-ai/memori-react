@@ -35,7 +35,7 @@ const TotemLayout: React.FC<LayoutProps> = ({
     {integrationBackground}
 
     <Spin
-      spinning={loading}
+      spinning={Boolean(loading && sessionId && hasUserActivatedSpeak)}
       className="memori-totem-layout"
       style={axisStyle}
     >

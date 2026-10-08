@@ -161,10 +161,6 @@
     display: none;
 }
 
-.memori.memori--auto-start .memori--start-panel {
-    display: none;
-}
-
 .memori-drawer__header {
     align-items: center;
 }

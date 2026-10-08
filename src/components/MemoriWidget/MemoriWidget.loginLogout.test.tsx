@@ -197,7 +197,23 @@ describe('MemoriWidget with mandatory login', () => {
     expect(mockEngine.initSession).not.toHaveBeenCalled();
   });
 
-  it('hides the start panel when autostart is not gated', async () => {
+  it('keeps the start panel visible while autostart opens the session', async () => {
+    mockEngine.initSession.mockReturnValue(new Promise(() => {}));
+
+    const { container } = render(
+      <Widget autoStart layout="CHAT" {...loggedIn} />
+    );
+
+    await waitFor(() => expect(mockEngine.initSession).toHaveBeenCalled());
+
+    expect(container.querySelector('.memori--start-panel')).not.toBeNull();
+    expect(container.querySelector('.memori--title')).toHaveTextContent(
+      'Memori'
+    );
+    expect(container.querySelector('textarea')).toBeDisabled();
+  });
+
+  it('marks autostart when it is not gated', async () => {
     mockEngine.initSession.mockResolvedValue(openedSession);
 
     const { container } = render(<Widget autoStart {...loggedIn} />);

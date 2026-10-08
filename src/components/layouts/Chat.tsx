@@ -229,7 +229,10 @@ const ChatLayout: React.FC<LayoutProps> = ({
       {integrationStyle}
       {integrationBackground}
 
-      <Spin spinning={loading} className="memori-chat-layout">
+      <Spin
+        spinning={Boolean(loading && isSessionStarted)}
+        className="memori-chat-layout"
+      >
         <div id="extension" />
 
         {/* Header stays full-width above the content split — same pattern as FULLPAGE */}
@@ -395,7 +398,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   sendOnEnter={chatProps.sendOnEnter}
                   setSendOnEnter={chatProps.setSendOnEnter}
                   client={chatProps.client}
-                  sessionID={chatProps.sessionID}
+                  sessionID={isSessionStarted ? chatProps.sessionID : undefined}
                   baseUrl={chatProps.baseUrl}
                   showUpload={chatProps.showUpload}
                   attachmentsMenuOpen={chatProps.attachmentsMenuOpen}

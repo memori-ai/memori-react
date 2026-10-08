@@ -293,7 +293,24 @@
     align-items: center;
     justify-content: center;
     color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
-    gap: var(--memori-spacing-sm);
+    gap: var(--memori-spacing-md);
+}
+
+/* Spin's icon is an absolute overlay, so a childless spinner collapses and the label sits on it. */
+.memori-chat-history-drawer--loading .memori-spin {
+    width: auto;
+    height: auto;
+}
+
+.memori-chat-history-drawer--loading .memori-spin__overlay {
+    position: static;
+    width: auto;
+    height: auto;
+    opacity: 1;
+}
+
+.memori-chat-history-drawer--loading p {
+    margin: 0;
 }
 
 .memori-chat-history-drawer--error {

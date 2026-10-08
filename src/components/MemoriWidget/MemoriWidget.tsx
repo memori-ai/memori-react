@@ -4023,8 +4023,9 @@ const MemoriWidget = ({
         `memori-controls-${String(controlsPosition).toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
-          // The class hides StartPanel, which must stay visible while
-          // autostart waits on the position/login gates or is blocked by credits.
+          // Marks an autostart that is actually opening a session. The start
+          // panel stays on screen until the chat replaces it. It must stay
+          // visible while autostart waits on position/login or credits.
           'memori--auto-start':
             autoStart &&
             !creditsBlocked &&

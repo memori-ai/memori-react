@@ -292,7 +292,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       {integrationStyle}
       {integrationBackground}
 
-      <Spin spinning={loading}>
+      <Spin spinning={Boolean(loading && isSessionStarted)}>
         {Header && headerProps && mobileHeaderProps && (
           <div className="memori-fullpage-top-header">
             <div className="memori-chat-layout--header">

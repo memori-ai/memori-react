@@ -330,7 +330,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
             {integrationStyle}
 
             <Spin
-              spinning={loading}
+              spinning={Boolean(loading && isSessionStarted)}
               className="memori-website_assistant-layout"
             >
               <div className="memori-website_assistant-layout--header-row">

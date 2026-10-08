@@ -415,6 +415,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   >
                     <fieldset
                       class="memori-chat-inputs"
+                      disabled=""
                       id="chat-fieldset"
                     >
                       <div

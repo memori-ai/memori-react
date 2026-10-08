@@ -11,9 +11,9 @@ import {
 
 /**
  * HIDDEN_CHAT entry flows: open the sidebar with the help button.
- * Unlike other layouts, autostart fires on first open (not on mount) and the
- * StartPanel is only rendered with `autoStart` while a position/login gate
- * is pending. The header never
+ * Unlike other layouts, autostart fires on first open (not on mount).
+ * The start panel stays visible, with the composer disabled, until the
+ * session opens. The header never
  * shows login / position controls.
  */
 const meta = {

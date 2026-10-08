@@ -26,7 +26,7 @@
 }
 
 /* Combobox options are rendered in a portal, so they are not descendants of
-   .memori-combobox--language-chooser. Target the popup and disabled items globally. */
+   .memori-combobox--language-chooser. */
 .memori-combobox__popup {
     overflow: hidden;
     width: min(var(--anchor-width, 100%), calc(100dvw - 2 * var(--memori-spacing-md)));
@@ -42,26 +42,6 @@
 .memori-combobox__list {
     max-height: min(40dvh, 14rem);
     overflow-y: auto;
-}
-
-/* Disabled items are used as non-selectable section headers in the language
-   Combobox. The grouped <Combobox.Group> API is avoided because it bypasses
-   the built-in search filter (see StartPanel.tsx for details). Style these
-   "fake group" headers to visually stand out from the actual options. */
-.memori-combobox__item[data-disabled],
-.memori-combobox__item[aria-disabled='true'],
-.memori-combobox__item.memori-combobox__item--disabled {
-    padding-top: var(--memori-spacing-sm);
-    padding-bottom: var(--memori-spacing-xs);
-    background: transparent !important;
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent) !important;
-    cursor: default !important;
-    font-size: var(--memori-text-size-xs) !important;
-    font-weight: var(--memori-text-weight-semibold);
-    letter-spacing: 0.06em;
-    line-height: var(--memori-text-line-tight);
-    pointer-events: none;
-    text-transform: uppercase;
 }
 
 .memori--start-panel {
