@@ -7837,10 +7837,10 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
               
 
               <div
-                class="memori--responsive-table-wrapper"
+                class="memori-table-scroll"
               >
                 <table
-                  class="memori--table memori--table--compact"
+                  class="memori-table"
                 >
                   <thead>
                     <tr>

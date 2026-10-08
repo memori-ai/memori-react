@@ -548,6 +548,10 @@ it('renders ChatBubble with markdown table unchanged', () => {
       }}
     />
   );
+  const table = container.querySelector('table');
+  expect(table).toHaveClass('memori-table');
+  expect(table).not.toHaveClass('memori--table', 'memori--table--compact');
+  expect(table?.parentElement).toHaveClass('memori-table-scroll');
   expect(container).toMatchSnapshot();
 });
 

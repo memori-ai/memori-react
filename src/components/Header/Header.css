@@ -546,9 +546,9 @@
     padding: 0;
 }
 
-/* Nested inside the session Popover (z-index 1300); default Dropdown is 1001. */
+/* Nested inside the session Popover (base + 1300); default Dropdown is base + 1100. */
 .memori-dropdown__positioner:has(.memori-dropdown--sustainability-menu) {
-    z-index: 1400;
+    z-index: calc(var(--memori-z-index-base, 0) + 1400);
 }
 
 .memori-dropdown--sustainability-title {

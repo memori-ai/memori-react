@@ -1,5 +1,5 @@
 .memori-position-popover__positioner {
-    z-index: 1300;
+    z-index: calc(var(--memori-z-index-base, 0) + 1300);
 }
 
 .memori-position-popover__popup {
@@ -112,9 +112,10 @@
     gap: var(--memori-spacing-xs);
 }
 
+/* Must stack above the position popover positioner (base + 1300). */
 .memori-autocomplete__portal,
 .memori-autocomplete__positioner {
-    z-index: 1301;
+    z-index: calc(var(--memori-z-index-base, 0) + 1301);
 }
 
 .memori-position-popover__tag--loading {

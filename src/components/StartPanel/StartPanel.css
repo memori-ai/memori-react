@@ -1085,12 +1085,13 @@
     outline-offset: var(--memori-focus-ring-offset);
 }
 
-/* Portal on widget root; tooltip/popover library z-index is 1300.
+/* Portal on widget root; tooltip/popover library z-index is base + 1300
+   (base is 10000 in the website assistant, whose box sits at base + 1000).
    Hide while Floating UI is still applying coordinates so click-open
    never flashes at viewport 0,0 (same pattern as ChatBubble addon tooltips). */
 .memori--privacy-popover-positioner,
 .memori--deep-thought-helper-tooltip-positioner {
-    z-index: 1300;
+    z-index: calc(var(--memori-z-index-base, 0) + 1300);
 }
 
 .memori--privacy-popover-positioner[data-starting-style],

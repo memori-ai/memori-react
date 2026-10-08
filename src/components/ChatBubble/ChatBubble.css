@@ -382,14 +382,16 @@
     display: none;
 }
 
-.memori-chat--bubble pre,
-.memori-chat--bubble .memori--responsive-table-wrapper {
+.memori-chat--bubble .memori-table-scroll {
     max-width: 100%;
+    max-height: none;
+    mask-image: none;
     overflow-x: auto;
 }
 
 .memori-chat--bubble table {
     max-width: 100%;
+    table-layout: auto;
 }
 
 .memori-chat--bubble a {
@@ -789,10 +791,12 @@
 }
 
 /* Portal to widget surface so tooltip anchoring is not thrown off by the addon transform.
+   Keep the library tooltip z-index scale (base + 1300) so the tooltip stays above the
+   website assistant box, which sits at base + 1000 with a non-zero --memori-z-index-base.
    Hide during enter/exit so the popup never flashes at 0,0 (top of the page) when
    Floating UI hasn't applied coordinates yet, or when the trigger loses focus. */
 .memori-chat--bubble-addon-tooltip-positioner {
-    z-index: 1300;
+    z-index: calc(var(--memori-z-index-base, 0) + 1300);
 }
 
 .memori-chat--bubble-addon-tooltip-positioner[data-starting-style],
