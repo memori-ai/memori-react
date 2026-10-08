@@ -1,5 +1,25 @@
 # Changelog
 
+## [9.0.5](https://github.com/memori-ai/memori-react/compare/v9.0.4...v9.0.5) (2026-10-08)
+
+
+### Bug Fixes
+
+* **markedExtendedTables:** update table wrapper class for improved styling ([0ebfcca](https://github.com/memori-ai/memori-react/commit/0ebfccafa6c02a9d68bfdb87093f1c294d3f12c8))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/ui dependency to version 2.0.4 ([2b03743](https://github.com/memori-ai/memori-react/commit/2b03743bf0cd8795a7e80865d8a49240cafe0005))
+
+
+### Changes
+
+* **Chat, ChatBubble, ChatInputs, Header:** streamline CSS and component structure, update button sizes and modal widths ([17db3b6](https://github.com/memori-ai/memori-react/commit/17db3b601a5e468356e195ec00195964d492fee7))
+* **Chat, MemoriWidget, StartPanel, layouts:** enhance loading states, clean up CSS, and improve session handling ([3f484e7](https://github.com/memori-ai/memori-react/commit/3f484e75f5adee8dbad42afa4195a54038b102b8))
+* **ChatBubble, Header, PositionPopover, StartPanel:** standardize z-index calculations ([292eba3](https://github.com/memori-ai/memori-react/commit/292eba3c8ad1e19abd44258ec036d98d2476bc2b))
+* **ChatHistoryDrawer, KnownFacts, ArtifactDrawer:** clean up CSS ([482e457](https://github.com/memori-ai/memori-react/commit/482e45749b967e7aaca173d4d49efcab10cd2a09))
+
 ## [9.0.4](https://github.com/memori-ai/memori-react/compare/v9.0.3...v9.0.4) (2026-10-06)
 
 
