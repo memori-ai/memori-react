@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.0.6](https://github.com/memori-ai/memori-react/compare/v9.0.5...v9.0.6) (2026-10-09)
+
+
+### Features
+
+* **ChatInputs, layouts:** add medium deselection handling ([e878489](https://github.com/memori-ai/memori-react/commit/e8784894e17fe5d21f632b441cf750eecefef04a))
+* **Memori, MemoriWidget:** implement private agent session handling, enhance password resolution ([b6485de](https://github.com/memori-ai/memori-react/commit/b6485de19f97482d43d823fb65c78883bd8af319))
+
 ## [9.0.5](https://github.com/memori-ai/memori-react/compare/v9.0.4...v9.0.5) (2026-10-08)
 
 
