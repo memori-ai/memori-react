@@ -146,6 +146,7 @@ WithPiiDetection.args = {
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   uiLang: 'IT',
+  showUpload: true,
   spokenLang: 'IT',
   integration: {
     integrationID: 'pii-demo',

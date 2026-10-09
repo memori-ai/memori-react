@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from './testUtils';
 import { memori, tenant } from './mocks/data';
 import Memori from './index';
+import type { Memori as MemoriAgent } from '@memori.ai/memori-api-client/dist/types';
 
 const LOGIN_TOKEN = 'login-token';
 const SECRET = 'system-secret';
@@ -71,7 +72,7 @@ const openedSession = {
   },
 };
 
-function agentResponse(agent = privateAgent) {
+function agentResponse(agent: MemoriAgent = privateAgent) {
   return { resultCode: 0, resultMessage: 'Ok', memori: agent };
 }
 

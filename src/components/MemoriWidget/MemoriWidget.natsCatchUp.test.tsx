@@ -290,6 +290,48 @@ describe('MemoriWidget NATS catch-up', () => {
     });
   });
 
+  it('does not repeat the previous emission when the reply has none', async () => {
+    const { container } = render(
+      <VisemeProvider>
+        <ArtifactProvider>
+          <MemoriWidget
+            memori={{ ...memori, ageRestriction: 0 }}
+            tenant={tenant}
+            tenantID="www.aisuru.com"
+            autoStart
+            layout="FULLPAGE"
+            enableAudio={false}
+          />
+        </ArtifactProvider>
+      </VisemeProvider>
+    );
+    await waitFor(() => expect(natsOptions?.sessionId).toBe(SESSION_ID));
+    const greetingCount = () =>
+      (container.textContent?.match(/Benvenuto!/g) ?? []).length;
+    await waitFor(() => expect(greetingCount()).toBeGreaterThan(0));
+    const before = greetingCount();
+
+    act(() => {
+      window.typeMessage(USER_TEXT);
+    });
+    await waitFor(() => expect(sentTexts()).toHaveLength(1));
+
+    act(() => {
+      natsOptions!.onDialogResponse!({
+        eventType: 'dialog_text_entered_response',
+        correlationID: 'corr-1',
+        resultCode: 0,
+        resultMessage: 'Ok',
+        currentState: baseState({ emission: undefined }),
+      } as any);
+    });
+    await act(async () => {
+      await wait(300);
+    });
+
+    expect(greetingCount()).toBe(before);
+  });
+
   it('applies the engine state on resume once the hidden turn has completed', async () => {
     const { onStateChange } = await reachPendingHiddenTurn();
     mockEngine.getSession.mockResolvedValue({

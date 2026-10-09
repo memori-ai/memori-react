@@ -2526,7 +2526,7 @@ const MemoriWidget = ({
       const emission =
         useLoaderTextAsMsg && pendingTypingText
           ? pendingTypingText
-          : currentState.emission ?? currentDialogState?.emission;
+          : currentState.emission;
 
       if (
         userLang.toLowerCase() !== language.toLowerCase() &&
@@ -2582,7 +2582,6 @@ const MemoriWidget = ({
       userLang,
       language,
       isMultilanguageEnabled,
-      currentDialogState?.emission,
       translateDialogState,
       handleSpeak,
       shouldPlayAudio,

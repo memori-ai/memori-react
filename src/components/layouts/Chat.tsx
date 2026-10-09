@@ -393,6 +393,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   instruct={chatProps.instruct}
                   authToken={chatProps.authToken}
                   sendMessage={chatProps.sendMessage}
+                  onMediumSelectedState={chatProps.onMediumSelectedState}
                   isTyping={chatProps.memoriTyping}
                   microphoneMode={chatProps.microphoneMode}
                   sendOnEnter={chatProps.sendOnEnter}

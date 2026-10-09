@@ -22,7 +22,7 @@ export interface Props {
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
-  /** Sync engine dialog state after MediumSelected (keeps catch-up fingerprints accurate). */
+  /** Sync engine dialog state after MediumSelected / MediumDeselected (keeps catch-up fingerprints accurate). */
   onMediumSelectedState?: (state: DialogState) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
@@ -220,7 +220,13 @@ const ChatInputs: React.FC<Props> = ({
   const removeFile = async (fileId: string, mediumID: string | undefined) => {
     // Call the MediumDeselected event if dialog API is available
     if (dialog.postMediumDeselectedEvent && sessionID && mediumID) {
-      await dialog.postMediumDeselectedEvent(sessionID, mediumID);
+      const response = await dialog.postMediumDeselectedEvent(
+        sessionID,
+        mediumID
+      );
+      if (response?.currentState) {
+        onMediumSelectedState?.(response.currentState);
+      }
     }
     setDocumentPreviewFiles(
       (
