@@ -165,6 +165,7 @@
     "tokens": "Jetons",
     "addToken": "Ajouter un jeton",
     "invalidCredentials": "Identifiants invalides",
+    "privateSecretMissing": "Cet agent est privé et son jeton secret n'est pas disponible. Connectez-vous avec un compte autorisé.",
     "usePassword": "Utiliser le mot de passe",
     "atLeast": "Au moins"
   },
@@ -593,6 +594,7 @@
   "error.tryAgain": "Essayer à nouveau",
   "error.unauthorized": "Vous n'êtes pas autorisé à consulter ce contenu.",
   "error.unprocessableEntity": "Erreur lors du traitement de la demande. ",
+  "error.emptyPasswordPublic": "Impossible d'ouvrir la session : le moteur exige un mot de passe, mais cet agent est public.",
   "errors": {
     "TENANT_NOT_FOUND": "Locataire introuvable",
     "TENANT_REGISTRATION_DISABLED": "L'inscription sur cette plateforme est désactivée",

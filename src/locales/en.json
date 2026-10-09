@@ -170,6 +170,7 @@
     "usePassword": "Use password",
     "passwordRequired": "Password required",
     "invalidCredentials": "Invalid credentials",
+    "privateSecretMissing": "This agent is private and its secret token is not available. Sign in with an account that can open it.",
     "atLeast": "At least"
   },
   "widget": {
@@ -638,6 +639,7 @@
   "error.tryAgain": "Try again",
   "error.unauthorized": "You are unauthorized to view this content.",
   "error.unprocessableEntity": "Error while processing the request. Check the data you entered.",
+  "error.emptyPasswordPublic": "The session could not be opened: the engine requires a password, but this agent is public.",
   "errors": {
     "TENANT_NOT_FOUND": "Tenant not found",
     "TENANT_REGISTRATION_DISABLED": "Registration on this platform is disabled",

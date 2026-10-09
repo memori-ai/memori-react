@@ -100,6 +100,10 @@ import {
   uiLanguages,
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
+import {
+  isEmptyPasswordError,
+  resolveSessionPassword,
+} from '../../helpers/sessionPassword';
 import { CreditsCheckError, getCredits } from '../../helpers/credits';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
@@ -1000,6 +1004,17 @@ const MemoriWidget = ({
    */
   const [memoriPwd, setMemoriPwd] = useState<string | undefined>(secret);
   const [memoriTokens, setMemoriTokens] = useState<string[] | undefined>();
+
+  const sessionPassword = (...candidates: Array<string | null | undefined>) =>
+    resolveSessionPassword(
+      ...candidates,
+      secret,
+      memoriPwd,
+      memoriPassword,
+      memori.secretToken,
+      memori.password
+    );
+
   const [authModalState, setAuthModalState] = useState<
     null | 'password' | 'tokens'
   >(null);
@@ -1578,12 +1593,12 @@ const MemoriWidget = ({
       return;
     }
 
+    const password = sessionPassword(params.password);
+
     // Check if authentication is needed for private Memori
     if (
       memori.privacyType !== 'PUBLIC' &&
-      !params.password &&
-      !memori.secretToken &&
-      !memoriPwd &&
+      !password &&
       !params.recoveryTokens?.length &&
       !memoriTokens
     ) {
@@ -1623,6 +1638,7 @@ const MemoriWidget = ({
       // Initialize session with parameters
       const session = await initSession({
         ...params,
+        password,
         birthDate: userBirthDate,
         tag: params.tag ?? personification?.tag,
         pin: params.pin ?? personification?.pin,
@@ -1671,10 +1687,28 @@ const MemoriWidget = ({
         );
         setGotErrorInOpening(true);
       }
-      // Handle authentication error
-      else if (session?.resultCode === 403 && memori.privacyType !== 'PUBLIC') {
+      // A private agent can still collect a password. A public agent has none:
+      // Empty password here is an engine/backend mismatch, not a prompt.
+      else if (
+        memori.privacyType !== 'PUBLIC' &&
+        (session?.resultCode === 403 ||
+          isEmptyPasswordError(session?.resultCode, session?.resultMessage))
+      ) {
         setMemoriPwd(undefined);
+        memoriPassword = undefined;
         setAuthModalState('password');
+        setLoading(false);
+        return session;
+      } else if (
+        isEmptyPasswordError(session?.resultCode, session?.resultMessage)
+      ) {
+        add(
+          createAlertOptions({
+            description: t('error.emptyPasswordPublic'),
+            severity: 'error',
+          })
+        );
+        setLoading(false);
         return session;
       }
       // Handle other errors
@@ -1749,12 +1783,12 @@ const MemoriWidget = ({
         return;
       }
 
+      const resolvedPassword = sessionPassword(password);
+
       // Check if authentication is needed based on privacy type and credentials
       if (
         memori.privacyType !== 'PUBLIC' &&
-        !password &&
-        !memori.secretToken &&
-        !memoriPwd &&
+        !resolvedPassword &&
         !recoveryTokens?.length &&
         !memoriTokens
       ) {
@@ -1781,7 +1815,7 @@ const MemoriWidget = ({
       // Initialize session with provided parameters
       const { sessionID, currentState, ...response } = await initSession({
         memoriID: memori.engineMemoriID ?? '',
-        password: password || memoriPwd || memori.secretToken,
+        password: resolvedPassword,
         recoveryTokens: recoveryTokens || memoriTokens,
         tag: tag ?? personification?.tag,
         pin: pin ?? personification?.pin,
@@ -1903,11 +1937,22 @@ const MemoriWidget = ({
       }
       // Handle authentication error
       else if (
-        response?.resultCode === 403 &&
-        memori.privacyType !== 'PUBLIC'
+        memori.privacyType !== 'PUBLIC' &&
+        (response?.resultCode === 403 ||
+          isEmptyPasswordError(response?.resultCode, response?.resultMessage))
       ) {
         setMemoriPwd(undefined);
+        memoriPassword = undefined;
         setAuthModalState('password');
+      } else if (
+        isEmptyPasswordError(response?.resultCode, response?.resultMessage)
+      ) {
+        add(
+          createAlertOptions({
+            description: t('error.emptyPasswordPublic'),
+            severity: 'error',
+          })
+        );
       }
       // Handle other errors
       else {
@@ -1953,7 +1998,7 @@ const MemoriWidget = ({
     const reopenAfterExpiry = () =>
       reopenSession(
         true,
-        memoriPwd || memori.secretToken,
+        sessionPassword(),
         memoriTokens,
         undefined,
         undefined,
@@ -2086,7 +2131,7 @@ const MemoriWidget = ({
 
           fetchSession({
             memoriID: memori.engineMemoriID ?? '',
-            password: secret || memoriPwd || memori.secretToken,
+            password: sessionPassword(),
             tag: tag ?? personification?.tag,
             pin: pin ?? personification?.pin,
             initialContextVars: {
@@ -3107,8 +3152,7 @@ const MemoriWidget = ({
       else if (
         (!sessionID &&
           memori.privacyType !== 'PUBLIC' &&
-          !memori.secretToken &&
-          !memoriPwd &&
+          !sessionPassword() &&
           !memoriTokens) ||
         (!sessionID && gotErrorInOpening)
       ) {
@@ -3126,7 +3170,7 @@ const MemoriWidget = ({
         try {
           const session = await fetchSession({
             memoriID: memori.engineMemoriID!,
-            password: secret || memoriPwd || memori.secretToken,
+            password: sessionPassword(),
             tag: personification?.tag,
             pin: personification?.pin,
             continueFromChatLogID: chatLog?.chatLogID,
@@ -3290,7 +3334,7 @@ const MemoriWidget = ({
           } catch {
             reopenSession(
               true,
-              memori?.secretToken,
+              sessionPassword(),
               undefined,
               personification.tag,
               personification.pin,
@@ -3336,7 +3380,7 @@ const MemoriWidget = ({
           } catch (e) {
             reopenSession(
               true,
-              memori?.secretToken,
+              sessionPassword(),
               undefined,
               undefined,
               undefined,
@@ -3495,6 +3539,7 @@ const MemoriWidget = ({
       }
     },
     [
+      secret,
       memoriPwd,
       memori,
       memoriTokens,
@@ -4190,7 +4235,7 @@ const MemoriWidget = ({
 
                   reopenSession(
                     !sessionId,
-                    memoriPassword || memoriPwd || memori?.secretToken,
+                    sessionPassword(),
                     memoriTokens,
                     personification?.tag,
                     personification?.pin,
@@ -4312,7 +4357,7 @@ const MemoriWidget = ({
                 //The user is logged in, so we need to set open a new session with the new token
                 reopenSession(
                   false,
-                  memoriPassword || memoriPwd || memori?.secretToken,
+                  sessionPassword(),
                   [],
                   personification?.tag,
                   personification?.pin,

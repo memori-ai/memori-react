@@ -170,6 +170,7 @@
     "addToken": "Aggiungi token",
     "usePassword": "Utilizza la password",
     "invalidCredentials": "Credenziali non valide",
+    "privateSecretMissing": "Questo agente è privato e il secret token non è disponibile. Accedi con un account autorizzato.",
     "atLeast": "Almeno"
   },
   "widget": {
@@ -630,6 +631,7 @@
   "error.generic": "Ops, qualcosa è andato storto.",
   "error.serverNotResponding": "Stiamo facendo manutenzione o rilasciando aggiornamenti. Riprova più tardi.",
   "error.unprocessableEntity": "Errore durante il salvataggio dei dati. Ricontrolla i dati inseriti.",
+  "error.emptyPasswordPublic": "Impossibile aprire la sessione: il motore richiede una password, ma questo agente è pubblico.",
   "error.goBackTo": "Prova a tornare alla",
   "error.reloadPage": "Ricarica la pagina",
   "error.tryAgain": "Riprova",

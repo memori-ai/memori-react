@@ -168,6 +168,7 @@
     "usePassword": "Usar contraseña",
     "passwordRequired": "Contraseña obligatoria",
     "invalidCredentials": "Credenciales no válidas",
+    "privateSecretMissing": "Este agente es privado y su token secreto no está disponible. Inicia sesión con una cuenta autorizada.",
     "atLeast": "Al menos"
   },
   "widget": {
@@ -593,6 +594,7 @@
   "error.tryAgain": "Intentar otra vez",
   "error.unauthorized": "No estás autorizado a ver este contenido.",
   "error.unprocessableEntity": "Error al procesar la solicitud. ",
+  "error.emptyPasswordPublic": "No se pudo abrir la sesión: el motor requiere una contraseña, pero este agente es público.",
   "errors": {
     "TENANT_NOT_FOUND": "Inquilino no encontrado",
     "TENANT_REGISTRATION_DISABLED": "El registro en esta plataforma está deshabilitado",

@@ -168,6 +168,7 @@
     "usePassword": "Passwort verwenden",
     "passwordRequired": "Passwort erforderlich",
     "invalidCredentials": "Ungültige Zugangsdaten",
+    "privateSecretMissing": "Dieser Agent ist privat und sein Secret-Token ist nicht verfügbar. Melde dich mit einem berechtigten Konto an.",
     "atLeast": "Mindestens"
   },
   "widget": {
@@ -570,6 +571,7 @@
   "error.tryAgain": "Versuchen Sie es erneut",
   "error.unauthorized": "Es ist Ihnen nicht gestattet, diesen Inhalt anzuzeigen.",
   "error.unprocessableEntity": "Fehler beim Verarbeiten der Anfrage. ",
+  "error.emptyPasswordPublic": "Die Sitzung konnte nicht geöffnet werden: die Engine verlangt ein Passwort, aber dieser Agent ist öffentlich.",
   "errors": {
     "TENANT_NOT_FOUND": "Mieter nicht gefunden",
     "TENANT_REGISTRATION_DISABLED": "Die Registrierung auf dieser Plattform ist deaktiviert",

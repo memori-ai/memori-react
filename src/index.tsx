@@ -219,7 +219,8 @@ const Memori: React.FC<Props> = ({
       const { memori, ...resp } = await client.backend.getMemoriByUserAndId(
         tenantID,
         ownerUserID,
-        memoriID
+        memoriID,
+        authToken
       );
 
       if (resp.resultCode === 0 && !!memori) {
@@ -231,7 +232,8 @@ const Memori: React.FC<Props> = ({
       const { memori, ...resp } = await client.backend.getMemori(
         tenantID,
         ownerUserName,
-        memoriName
+        memoriName,
+        authToken
       );
 
       if (resp.resultCode === 0 && !!memori) {
@@ -244,7 +246,7 @@ const Memori: React.FC<Props> = ({
         console.error('[MEMORI]', resp, memori);
       }
     }
-  }, [memoriID, ownerUserID, memoriName, ownerUserName, tenantID]);
+  }, [memoriID, ownerUserID, memoriName, ownerUserName, tenantID, authToken]);
   useEffect(() => {
     fetchMemori();
   }, [fetchMemori, tenantID]);
@@ -443,6 +445,9 @@ const Memori: React.FC<Props> = ({
     sendPulse();
   }, [sendPulse]);
 
+  const resolvedSecretToken =
+    secretToken || memori?.secretToken || memori?.password;
+
   return (
     <I18nWrapper>
       <AlertProvider defaultDuration={5000}>
@@ -465,7 +470,7 @@ const Memori: React.FC<Props> = ({
                 engineURL={engineURL}
                 memori={{
                   ...memori,
-                  secretToken,
+                  secretToken: resolvedSecretToken,
                 }}
                 __WEBCOMPONENT__={__WEBCOMPONENT__}
                 ownerUserName={ownerUserName ?? memori.ownerUserName}
@@ -473,7 +478,7 @@ const Memori: React.FC<Props> = ({
                 tenant={tenant}
                 tenantID={tenantID}
                 sessionID={sessionID ?? sessionId}
-                secret={secretToken}
+                secret={resolvedSecretToken}
                 ttsProvider={
                   provider ? (provider as 'azure' | 'openai') : 'azure'
                 }
