@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -14,12 +8,17 @@ export interface ReasoningBlockProps {
   complete: boolean;
 }
 
+// useId is React 18+, but the package supports React >=17
+let panelIdCounter = 0;
+
 const ReasoningBlock: React.FC<ReasoningBlockProps> = ({
   content,
   complete,
 }) => {
   const { t } = useTranslation();
-  const panelId = useId();
+  const [panelId] = useState(
+    () => `memori-reasoning-panel-${++panelIdCounter}`
+  );
   const userToggled = useRef(false);
   const startedAt = useRef<number | null>(null);
   const bodyRef = useRef<HTMLDivElement>(null);

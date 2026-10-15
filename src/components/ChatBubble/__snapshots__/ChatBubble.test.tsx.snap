@@ -2944,7 +2944,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r46:"
+                id="base-ui-:r43:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2993,7 +2993,7 @@ M834 80h400000v40h-400000z"
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r48:"
+                id="base-ui-:r45:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4250,7 +4250,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4c:"
+                id="base-ui-:r49:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4299,7 +4299,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4e:"
+                id="base-ui-:r4b:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5276,7 +5276,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4i:"
+                id="base-ui-:r4f:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5325,7 +5325,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4k:"
+                id="base-ui-:r4h:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5845,7 +5845,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4o:"
+                id="base-ui-:r4l:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5894,7 +5894,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4q:"
+                id="base-ui-:r4n:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6668,7 +6668,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r4u:"
+                id="base-ui-:r4r:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6717,7 +6717,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r50:"
+                id="base-ui-:r4t:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6973,7 +6973,7 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r40:"
+                id="base-ui-:r3t:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7022,7 +7022,7 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r42:"
+                id="base-ui-:r3v:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7554,7 +7554,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3e:"
+                id="base-ui-:r3b:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7603,7 +7603,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3g:"
+                id="base-ui-:r3d:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7704,7 +7704,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3k:"
+                id="base-ui-:r3h:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7753,7 +7753,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3m:"
+                id="base-ui-:r3j:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7912,7 +7912,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3q:"
+                id="base-ui-:r3n:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7961,7 +7961,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3s:"
+                id="base-ui-:r3p:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8283,7 +8283,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r38:"
+                id="base-ui-:r35:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8332,7 +8332,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r3a:"
+                id="base-ui-:r37:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8964,7 +8964,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r54:"
+                id="base-ui-:r51:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9013,7 +9013,7 @@ end
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r56:"
+                id="base-ui-:r53:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9088,7 +9088,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             class="memori-reasoning"
           >
             <button
-              aria-controls=":r2k:"
+              aria-controls="memori-reasoning-panel-1"
               aria-expanded="false"
               class="memori-reasoning__trigger"
               type="button"
@@ -9119,7 +9119,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             <div
               aria-hidden="true"
               class="memori-reasoning__collapsible"
-              id=":r2k:"
+              id="memori-reasoning-panel-1"
               role="region"
             >
               <div
@@ -9157,7 +9157,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2m:"
+                id="base-ui-:r2l:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9206,7 +9206,7 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r2o:"
+                id="base-ui-:r2n:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
