@@ -252,6 +252,8 @@ ArtifactWithInPageAnchors.args = {
     header { position: sticky; top: 0; display: flex; gap: 16px; padding: 12px; background: #0b1736; }
     header a { color: #fff; }
     section { min-height: 90vh; padding: 24px; border-bottom: 1px solid #ddd; }
+    section:target h2 { color: #2563eb; }
+    #route { color: #fff; margin-left: auto; }
   </style>
 </head>
 <body>
@@ -259,8 +261,15 @@ ArtifactWithInPageAnchors.args = {
     <a href="#obiettivo">Obiettivo</a>
     <a href="#architettura">Architettura</a>
     <a href="#piano">Piano</a>
+    <a href="#/deal/42">Route hash</a>
     <a href="https://memori.ai" target="_blank" rel="noopener">Sito esterno</a>
+    <span id="route"></span>
   </header>
+  <script>
+    window.addEventListener('hashchange', function () {
+      document.getElementById('route').textContent = location.hash;
+    });
+  </script>
   <section id="obiettivo"><h2>Obiettivo</h2></section>
   <section id="architettura"><h2>Architettura</h2></section>
   <section id="piano"><h2>Piano</h2><a href="#">Torna su</a></section>

@@ -112,4 +112,66 @@ describe('attachInPageAnchorNavigation', () => {
     expect(event.defaultPrevented).toBe(false);
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
+
+  describe('in a document with its own window', () => {
+    let detach: () => void;
+
+    beforeEach(() => {
+      window.location.hash = '';
+      document.body.innerHTML =
+        '<a id="to-piano" href="#piano">Piano</a>' +
+        '<a id="to-route" href="#/deal/42">Deal</a>' +
+        '<a id="to-spaced" href="#forma finale">Forma finale</a>' +
+        '<section id="piano"></section>' +
+        '<section id="forma finale"></section>';
+      detach = attachInPageAnchorNavigation(document);
+    });
+
+    afterEach(() => {
+      detach();
+      document.body.innerHTML = '';
+    });
+
+    it('updates the hash so :target and hashchange keep working', async () => {
+      const hashChanged = new Promise(resolve =>
+        window.addEventListener('hashchange', resolve, { once: true })
+      );
+
+      const event = click(document.getElementById('to-piano')!);
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(window.location.hash).toBe('#piano');
+      await expect(hashChanged).resolves.toBeDefined();
+    });
+
+    it('passes hash routes through even without a matching id', () => {
+      click(document.getElementById('to-route')!);
+
+      expect(window.location.hash).toBe('#/deal/42');
+    });
+
+    it('scrolls again when the hash is already current', () => {
+      click(document.getElementById('to-piano')!);
+      scrollIntoView.mockClear();
+
+      click(document.getElementById('to-piano')!);
+
+      expect(scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(scrollIntoView.mock.instances[0]).toBe(
+        document.getElementById('piano')
+      );
+    });
+
+    it('scrolls again for an unencoded hash that is already current', () => {
+      click(document.getElementById('to-spaced')!);
+      expect(window.location.hash).toBe('#forma%20finale');
+      scrollIntoView.mockClear();
+
+      click(document.getElementById('to-spaced')!);
+
+      expect(scrollIntoView.mock.instances[0]).toBe(
+        document.getElementById('forma finale')
+      );
+    });
+  });
 });

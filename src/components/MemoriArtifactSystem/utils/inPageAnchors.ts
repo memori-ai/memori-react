@@ -1,7 +1,7 @@
 /**
  * A `srcdoc` iframe resolves relative URLs against the host page, so
  * `href="#section"` would load the host app inside the preview instead of
- * scrolling. Fragment-only links are handled here within the artifact document.
+ * navigating within the artifact. Fragment-only links are handled here.
  */
 const findFragmentTarget = (doc: Document, fragment: string) => {
   let id = fragment;
@@ -33,6 +33,16 @@ export const attachInPageAnchorNavigation = (doc: Document): (() => void) => {
     if (linkTarget && linkTarget !== '_self') return;
 
     event.preventDefault();
+
+    // Assigning `location.hash` stays relative to `about:srcdoc`, so the
+    // browser scrolls, applies `:target` and fires `hashchange` natively.
+    // It does nothing when the hash is unchanged, hence the manual scroll.
+    const view = doc.defaultView;
+    if (view?.location) {
+      const previousHash = view.location.hash;
+      view.location.hash = href;
+      if (view.location.hash !== previousHash) return;
+    }
 
     const fragment = href.slice(1);
     if (!fragment || fragment.toLowerCase() === 'top') {
