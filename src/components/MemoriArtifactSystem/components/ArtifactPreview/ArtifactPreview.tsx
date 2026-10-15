@@ -4,7 +4,7 @@
  * Following the project's component patterns and design system
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { Button } from '@memori.ai/ui';
@@ -13,12 +13,25 @@ import { Code, Eye as PreviewIcon } from 'lucide-react';
 import Snippet from '../../../Snippet/Snippet';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
 import { renderMsg, sanitizeMsg } from '../../../../helpers/message';
+import { attachInPageAnchorNavigation } from '../../utils/inPageAnchors';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
   activeTab: ArtifactTab;
 }> = ({ artifact, activeTab }) => {
   const { t } = useTranslation();
+  const detachAnchorsRef = useRef<(() => void) | null>(null);
+
+  const handleIframeLoad = useCallback(
+    (event: React.SyntheticEvent<HTMLIFrameElement>) => {
+      detachAnchorsRef.current?.();
+      const doc = event.currentTarget.contentDocument;
+      detachAnchorsRef.current = doc ? attachInPageAnchorNavigation(doc) : null;
+    },
+    []
+  );
+
+  useEffect(() => () => detachAnchorsRef.current?.(), []);
 
   /**
    * Render preview content based on MIME type
@@ -38,6 +51,7 @@ const ArtifactPreview: React.FC<{
             }}
             title={`${artifact.title} Preview`}
             scrolling="auto"
+            onLoad={handleIframeLoad}
           />
         );
 
@@ -68,7 +82,7 @@ const ArtifactPreview: React.FC<{
           />
         );
     }
-  }, [artifact]);
+  }, [artifact, handleIframeLoad]);
 
   const mapArtifactMimeTypeToSnippetMimeType = useCallback(
     (mimeType: string) => {

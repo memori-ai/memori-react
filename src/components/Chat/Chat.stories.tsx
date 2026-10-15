@@ -228,6 +228,60 @@ ArtifactTagOnlyInRawText.args = {
   setSendOnEnter: () => {},
 };
 
+export const ArtifactWithInPageAnchors = Template.bind({});
+ArtifactWithInPageAnchors.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    {
+      text: 'realizzami una presentazione html con un menu nell’header',
+      fromUser: true,
+      timestamp: '2026-10-15T09:40:00.000000Z',
+      media: [],
+    },
+    {
+      text: `<output class="memori-artifact" data-artifact-id="presentazione-ancore" data-mimetype="html" data-title="Presentazione con ancore">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentazione con ancore</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    header { position: sticky; top: 0; display: flex; gap: 16px; padding: 12px; background: #0b1736; }
+    header a { color: #fff; }
+    section { min-height: 90vh; padding: 24px; border-bottom: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#obiettivo">Obiettivo</a>
+    <a href="#architettura">Architettura</a>
+    <a href="#piano">Piano</a>
+    <a href="https://memori.ai" target="_blank" rel="noopener">Sito esterno</a>
+  </header>
+  <section id="obiettivo"><h2>Obiettivo</h2></section>
+  <section id="architettura"><h2>Architettura</h2></section>
+  <section id="piano"><h2>Piano</h2><a href="#">Torna su</a></section>
+</body>
+</html>
+</output>`,
+      fromUser: false,
+      timestamp: '2026-10-15T09:40:30.000000Z',
+      media: [],
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
 export const ArtifactWithoutClosingTag = Template.bind({});
 ArtifactWithoutClosingTag.args = {
   memori,
