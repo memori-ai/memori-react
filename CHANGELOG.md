@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.0.7](https://github.com/memori-ai/memori-react/compare/v9.0.6...v9.0.7) (2026-10-15)
+
+
+### Features
+
+* **ArtifactPreview, inPageAnchors:** implement in-page anchor navigation for artifact previews ([5150a8f](https://github.com/memori-ai/memori-react/commit/5150a8fe21729c2f775ea44a4a6e06c58f5b3b46))
+* **inPageAnchors:** enhance in-page navigation with hash routing and update tests for new functionality ([557388d](https://github.com/memori-ai/memori-react/commit/557388d0fa41324e7026c682cad7156ed3f5a958))
+
+
+### Changes
+
+* **ReasoningBlock:** simplify panel ID generation and clean up imports ([51325be](https://github.com/memori-ai/memori-react/commit/51325bedd39d3006b002fdc24e5760f172850db0))
+
 ## [9.0.6](https://github.com/memori-ai/memori-react/compare/v9.0.5...v9.0.6) (2026-10-09)
 
 
