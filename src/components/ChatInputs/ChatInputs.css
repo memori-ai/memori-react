@@ -135,6 +135,7 @@
 /* Icon class styling */
 .memori-chat-inputs--container .icon {
     width: 18px;
+    max-width: none;
     height: 18px;
     flex-shrink: 0;
 }
