@@ -251,6 +251,7 @@
     "resumeButton": "CONTINUAR",
     "chatHistory": "Historial de chat",
     "chatHistoryDescription": "Mostrar el historial de chat con este agente",
+    "current": "Actual",
     "loadingChatHistory": "Cargando historial de chat...",
     "noChatHistoryAvailable": "No hay historial de chat disponible",
     "noResultsFound": "No se encontraron resultados para \"{{searchText}}\"",

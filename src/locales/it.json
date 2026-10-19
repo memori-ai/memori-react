@@ -254,6 +254,7 @@
     "resumeButton": "RIPRENDI",
     "chatHistory": "Cronologia chat",
     "chatHistoryDescription": "Mostra la cronologia chat con questo agente",
+    "current": "Corrente",
     "loadingChatHistory": "Caricamento cronologia chat...",
     "noChatHistoryAvailable": "Nessuna cronologia chat disponibile",
     "noResultsFound": "Nessun risultato trovato per \"{{searchText}}\"",

@@ -252,6 +252,7 @@
     "resumeButton": "FORTSETZEN",
     "chatHistory": "Chatverlauf",
     "chatHistoryDescription": "Chatverlauf mit diesem Agenten anzeigen",
+    "current": "Aktuell",
     "loadingChatHistory": "Chatverlauf wird geladen...",
     "noChatHistoryAvailable": "Kein Chatverlauf verfügbar",
     "noResultsFound": "Keine Ergebnisse gefunden für \"{{searchText}}\"",

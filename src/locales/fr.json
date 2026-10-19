@@ -252,6 +252,7 @@
     "resumeButton": "RÉSUMER",
     "chatHistory": "Historique des discussions",
     "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent",
+    "current": "Actuelle",
     "loadingChatHistory": "Chargement de l'historique des discussions...",
     "noChatHistoryAvailable": "Aucun historique des discussions disponible",
     "noResultsFound": "Aucun résultat trouvé pour \"{{searchText}}\"",

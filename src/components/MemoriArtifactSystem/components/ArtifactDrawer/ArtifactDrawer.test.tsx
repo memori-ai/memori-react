@@ -95,7 +95,8 @@ it('opens the copy menu inside the artifact drawer', async () => {
     </I18nWrapper>
   );
 
-  const trigger = await screen.findByTitle('More copy options');
+  expect(screen.getByTitle('artifact.copy')).toBeInTheDocument();
+  const trigger = await screen.findByTitle('artifact.moreCopyOptions');
   fireEvent.click(trigger);
 
   const menu = await screen.findByRole('menu');

@@ -366,24 +366,24 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
    */
   const getButtonTitle = () => {
     if (copyState.success) {
-      return 'Copied successfully!';
+      return t('artifact.copied') || 'Copied!';
     }
 
     if (copyState.error) {
-      return `Error: ${copyState.error}`;
+      return `${t('artifact.error') || 'Error'}: ${copyState.error}`;
     }
 
     if (copyState.loading) {
       return copyState.activeFormat === 'pdf'
-        ? 'Generating PDF...'
-        : 'Copying...';
+        ? t('artifact.generatingPdf') || 'Generating PDF...'
+        : t('artifact.copying') || 'Copying...';
     }
 
-    if (formats.length > 0) {
-      return `Copy as ${formats[0].label}`;
+    if (formats.length > 0 && formats[0].action === 'copy') {
+      return formats[0].label;
     }
 
-    return 'Copy';
+    return t('artifact.copy') || 'Copy';
   };
 
   return (
@@ -420,7 +420,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
                   disabled={disabled || loading || copyState.loading}
                   className="memori-copy-button--dropdown"
                   variant="ghost"
-                  title="More copy options"
+                  title={t('artifact.moreCopyOptions') || 'More copy options'}
                 >
                   <ChevronDown className="memori-copy-button-chevron" />
                 </Button>
