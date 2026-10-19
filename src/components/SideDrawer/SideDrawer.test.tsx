@@ -32,7 +32,7 @@ it('passes an explicit width through to the drawer', () => {
   const dialog = screen.getByRole('dialog');
   expect(dialog).toHaveAttribute('data-custom-width', '');
   expect(dialog.getAttribute('style')).toContain(
-    '--memori-drawer-width: 45rem'
+    '--memori-drawer-width: 450px'
   );
 });
 
