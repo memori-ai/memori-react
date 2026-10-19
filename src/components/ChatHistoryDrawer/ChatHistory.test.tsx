@@ -159,3 +159,20 @@ it('keeps date and minimum-message filters behind an expandable control', async 
   expect(screen.getByText('all')).toBeInTheDocument();
   expect(screen.getByText('chatLogs.atLeast3')).toBeInTheDocument();
 });
+
+it('highlights the current session item with the current badge', async () => {
+  renderDrawer(
+    mockPagedClient([
+      makeChatLog({
+        chatLogID: 'chat-current',
+        sessionID: 'test-session',
+      }),
+    ]),
+    { sessionId: 'test-session' }
+  );
+
+  expect(await screen.findByText('write_and_speak.current')).toBeInTheDocument();
+  expect(
+    document.querySelector('.memori-chat-history-drawer--list-item--current')
+  ).toBeInTheDocument();
+});

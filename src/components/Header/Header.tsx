@@ -64,6 +64,8 @@ export interface Props {
   setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
   setShowExpertsDrawer: (show: boolean) => void;
+  showChatHistoryDrawer?: boolean;
+  showKnownFactsDrawer?: boolean;
   enableAudio?: boolean;
   speakerMuted: boolean;
   setSpeakerMuted: (mute: boolean) => void;
@@ -106,6 +108,8 @@ const Header: React.FC<Props> = ({
   setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
   setShowExpertsDrawer,
+  showChatHistoryDrawer = false,
+  showKnownFactsDrawer = false,
   enableAudio = true,
   speakerMuted,
   setSpeakerMuted,
@@ -531,12 +535,13 @@ const Header: React.FC<Props> = ({
     >
       <span style={{ display: 'inline-flex' }}>
         <IconButton
+          active={showChatHistoryDrawer}
           variant={resolvedButtonVariant}
           className="memori-header--chat-history-button"
           disabled={!loginToken}
           aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageCircle />}
-          onClick={() => setShowChatHistoryDrawer(true)}
+          onClick={() => setShowChatHistoryDrawer(!showChatHistoryDrawer)}
         >
           {chatHistoryButtonLabel ? (
             <span className="memori-header--action-label">
@@ -948,10 +953,11 @@ const Header: React.FC<Props> = ({
         >
           <span style={{ display: 'inline-flex' }}>
             <IconButton
+              active={showKnownFactsDrawer}
               variant={resolvedButtonVariant}
               icon={<Brain />}
               aria-label={t('knownFacts.title') || 'Known facts'}
-              onClick={() => setShowKnownFactsDrawer(true)}
+              onClick={() => setShowKnownFactsDrawer(!showKnownFactsDrawer)}
             />
           </span>
         </Tooltip>
@@ -1036,7 +1042,7 @@ const Header: React.FC<Props> = ({
                     <span style={{ display: 'inline-flex' }}>
                       <IconButton
                         {...props}
-                        active={infoPopoverOpen}
+                        active={infoPopoverOpen || showKnownFactsDrawer}
                         variant={resolvedButtonVariant}
                         className="memori-header--auth-icon-button"
                         aria-label={sessionInfoLabel}
@@ -1052,9 +1058,14 @@ const Header: React.FC<Props> = ({
                 {showKnownFacts && (
                   <button
                     type="button"
-                    className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
+                    className={cx(
+                      'memori-dropdown--auth-row',
+                      'memori-dropdown--auth-row--navigable',
+                      showKnownFactsDrawer &&
+                        'memori-dropdown--auth-row--active'
+                    )}
                     onClick={() => {
-                      setShowKnownFactsDrawer(true);
+                      setShowKnownFactsDrawer(!showKnownFactsDrawer);
                       setInfoPopoverOpen(false);
                     }}
                   >
@@ -1407,12 +1418,13 @@ const Header: React.FC<Props> = ({
           <Tooltip title={totemChatHistoryLabel} placement="left">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
+                active={showChatHistoryDrawer}
                 variant={resolvedButtonVariant}
                 className="memori-totem-rail--button"
                 icon={<MessageCircle />}
                 title={totemChatHistoryLabel}
                 aria-label={totemChatHistoryLabel}
-                onClick={() => setShowChatHistoryDrawer(true)}
+                onClick={() => setShowChatHistoryDrawer(!showChatHistoryDrawer)}
               />
             </span>
           </Tooltip>

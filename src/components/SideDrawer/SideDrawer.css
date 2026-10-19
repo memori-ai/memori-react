@@ -1,11 +1,43 @@
 .memori-side-drawer.memori-drawer {
     display: flex;
+    width: var(--memori-drawer-width, 400px);
+    max-width: 100%;
     min-height: 0;
+    box-sizing: border-box;
     flex-direction: column;
+    border-left: 1px solid var(--memori-border-color);
+    background: var(--memori-secondary-background);
+}
+
+/* Push drawer mounted as a flex sibling inside the layout content row below the header */
+.memori-fullpage-content-row > .memori-side-drawer.memori-drawer,
+.memori-chat-layout--main > .memori-side-drawer.memori-drawer,
+.memori-side-drawer--push.memori-drawer {
+    position: relative;
+    z-index: 5;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: var(--memori-drawer-width, 400px);
+    max-width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex: 0 0 var(--memori-drawer-width, 400px);
+    border-radius: 0;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 1px solid var(--memori-border-color);
+    box-shadow: none;
+    transform: none;
 }
 
 .memori-side-drawer .memori-drawer__header {
-    align-items: flex-start;
+    align-items: center;
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg) var(--memori-spacing-xs);
+    border-bottom: none;
     gap: var(--memori-spacing-md);
 }
 
@@ -15,11 +47,27 @@
 }
 
 .memori-side-drawer .memori-drawer__title {
-    font-size: var(--memori-text-size-2xl);
+    margin: 0;
+    font-size: var(--memori-text-size-xl);
+    font-weight: var(--memori-text-weight-bold, 700);
+    line-height: var(--memori-text-line-tight);
 }
 
 .memori-side-drawer .memori-drawer__description {
+    margin: var(--memori-spacing-2xs, 0.25rem) 0 0;
     color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: var(--memori-text-size-sm);
+}
+
+.memori-side-drawer .memori-drawer__close.memori-button {
+    width: 2rem;
+    min-width: 2rem;
+    height: 2rem;
+    min-height: 2rem;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-control, 0.5rem);
 }
 
 .memori-side-drawer .memori-drawer__body {
@@ -29,7 +77,6 @@
     flex: 1 1 auto;
     flex-direction: column;
     padding: 0;
-    padding-bottom: var(--memori-spacing-lg);
 }
 
 .memori-side-drawer__body {
@@ -38,7 +85,7 @@
     min-height: 0;
     flex: 1 1 auto;
     flex-direction: column;
-    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+    padding: var(--memori-spacing-sm) var(--memori-spacing-lg) var(--memori-spacing-md);
     gap: var(--memori-spacing-md);
     scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
     scrollbar-width: thin;
@@ -63,8 +110,13 @@
 
 .memori-side-drawer .memori-drawer__footer {
     display: block;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
     justify-content: stretch;
     padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+    border-top: 1px solid color-mix(in srgb, var(--memori-text-color) 14%, var(--memori-border-color));
+    background: var(--memori-secondary-background);
 }
 
 .memori-side-drawer .memori-drawer__footer .memori-drawer-footer {
@@ -72,6 +124,19 @@
     padding: 0;
     border-top: none;
     box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .memori-fullpage-content-row > .memori-side-drawer.memori-drawer,
+    .memori-chat-layout--main > .memori-side-drawer.memori-drawer,
+    .memori-side-drawer--push.memori-drawer {
+        position: absolute;
+        z-index: 20;
+        width: 100%;
+        flex: 0 0 100%;
+        border-left: none;
+        inset: 0;
+    }
 }
 
 .memori-side-drawer-empty {

@@ -12,7 +12,6 @@ import {
 import {
   ChevronDown,
   ChevronLeft,
-  ChevronRight,
   Download,
   MessageCircle,
   Search,
@@ -559,7 +558,6 @@ const ChatHistoryDrawer = ({
     <SideDrawer
       open={open}
       size="md"
-      width="45rem"
       className={cx('memori-chat-history-drawer', {
         'memori-chat-history-drawer--detail': isDetail,
       })}
@@ -806,6 +804,8 @@ const ChatHistoryDrawer = ({
                               {
                                 'memori-chat-history-drawer--list-item--disabled':
                                   isCurrentSession,
+                                'memori-chat-history-drawer--list-item--current':
+                                  isCurrentSession,
                               }
                             )}
                           >
@@ -821,11 +821,20 @@ const ChatHistoryDrawer = ({
                               }}
                             >
                               <span className="memori-chat-history-drawer--list-item--content">
-                                <span
-                                  className="memori-chat-history-drawer--list-item--title"
-                                  title={title}
-                                >
-                                  {title}
+                                <span className="memori-chat-history-drawer--list-item--title-row">
+                                  <span
+                                    className="memori-chat-history-drawer--list-item--title"
+                                    title={title}
+                                  >
+                                    {title}
+                                  </span>
+                                  {isCurrentSession && (
+                                    <span className="memori-chat-history-drawer--list-item--badge">
+                                      {t('write_and_speak.current', {
+                                        defaultValue: 'Corrente',
+                                      })}
+                                    </span>
+                                  )}
                                 </span>
                                 <span className="memori-chat-history-drawer--list-item--meta">
                                   {lastDate && (
@@ -837,10 +846,6 @@ const ChatHistoryDrawer = ({
                                 </span>
                               </span>
                             </button>
-                            <ChevronRight
-                              aria-hidden
-                              className="memori-chat-history-drawer--list-item-chevron"
-                            />
                           </div>
                         </li>
                       );

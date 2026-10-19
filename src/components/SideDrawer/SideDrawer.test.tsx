@@ -24,7 +24,7 @@ it('renders the shared header, body and optional footer', () => {
 
 it('passes an explicit width through to the drawer', () => {
   render(
-    <SideDrawer open title="Wide" width="45rem" onClose={jest.fn()}>
+    <SideDrawer open title="Wide" width="450px" onClose={jest.fn()}>
       Body
     </SideDrawer>
   );
@@ -34,6 +34,34 @@ it('passes an explicit width through to the drawer', () => {
   expect(dialog.getAttribute('style')).toContain(
     '--memori-drawer-width: 45rem'
   );
+});
+
+it('defaults to 450px width and portals into the layout content row as a push panel', () => {
+  const layoutRoot = document.createElement('div');
+  const headerEl = document.createElement('div');
+  headerEl.className = 'memori-fullpage-top-header';
+  const contentRow = document.createElement('div');
+  contentRow.className = 'memori-fullpage-content-row';
+  layoutRoot.appendChild(headerEl);
+  layoutRoot.appendChild(contentRow);
+  document.body.appendChild(layoutRoot);
+
+  try {
+    render(
+      <SideDrawer open title="Push panel" onClose={jest.fn()}>
+        Push body
+      </SideDrawer>
+    );
+
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.getAttribute('style')).toContain(
+      '--memori-drawer-width: 450px'
+    );
+    expect(dialog).toHaveClass('memori-side-drawer--push');
+    expect(contentRow).toContainElement(dialog);
+  } finally {
+    document.body.removeChild(layoutRoot);
+  }
 });
 
 it('omits the footer when none is passed', () => {

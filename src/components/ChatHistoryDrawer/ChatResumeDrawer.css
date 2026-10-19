@@ -11,7 +11,7 @@
     min-height: 0;
     flex: 1;
     flex-direction: column;
-    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
+    padding: 0;
 }
 
 .memori-chat-resume-drawer--embedded-chat {
@@ -30,8 +30,10 @@
     background: transparent;
 }
 
-.memori-chat-resume-drawer--embedded-chat .memori-chat--content {
-    padding: 0;
+.memori-chat-resume-drawer--embedded-chat .memori-chat--content,
+.memori-chat-layout .memori-chat-resume-drawer--embedded-chat .memori-chat--content,
+.memori-chat-resume-drawer--embedded-chat .memori-chat--content.memori-chat--content-touch {
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
 }
 
 .memori-chat-resume-drawer--embedded-chat .memori-chat--cover {
@@ -39,7 +41,7 @@
 }
 
 .memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container {
-    padding-right: var(--memori-spacing-md);
+    padding-right: 0;
     padding-left: 0;
 }
 
@@ -50,6 +52,7 @@
 .memori-chat-resume-drawer--skeletons {
     display: flex;
     flex-direction: column;
+    padding: var(--memori-spacing-md) var(--memori-spacing-lg);
     gap: var(--memori-spacing-sm);
 }
 
