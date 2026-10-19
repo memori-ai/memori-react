@@ -248,23 +248,26 @@ const ChatBubble: React.FC<Props> = ({
   const hasAnswerBody =
     reasoningExtract.remaining.trim().length > 0 || !!usageHtml;
   const copiedLabel = t('copied') || 'Copied';
-  const formattedTimestamp =
-    showDates && message.timestamp
-      ? (() => {
-          const date = new Date(
-            message.timestamp.endsWith('Z')
-              ? message.timestamp
-              : `${message.timestamp}Z`
-          );
-          return new Intl.DateTimeFormat(i18n.language || 'it', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          }).format(date);
-        })()
-      : null;
+  const formattedTimestamp = message.timestamp
+    ? (() => {
+        const date = new Date(
+          message.timestamp.endsWith('Z')
+            ? message.timestamp
+            : `${message.timestamp}Z`
+        );
+        return new Intl.DateTimeFormat(i18n.language || 'it', {
+          ...(showDates
+            ? {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              }
+            : {}),
+          hour: '2-digit',
+          minute: '2-digit',
+        }).format(date);
+      })()
+    : null;
 
   // Format function cache content
   const functionCacheData = message.media?.filter(
@@ -515,8 +518,7 @@ const ChatBubble: React.FC<Props> = ({
     );
   }
 
-  const shouldShowTimestampInAddon =
-    showDates && !!formattedTimestamp && !message.fromUser && !isChatlogPanel;
+  const shouldShowTimestampInAddon = !!formattedTimestamp;
   const bubbleAddonTooltipProps = {
     slotProps: {
       positioner: {
@@ -1151,6 +1153,7 @@ const ChatBubble: React.FC<Props> = ({
                                   : 'default'
                               }
                               size="sm"
+                              active={showingWhyThisAnswer}
                               className={cx(
                                 'memori-chat--bubble-action-button',
                                 exposedSourcesCount != null &&
@@ -1158,8 +1161,9 @@ const ChatBubble: React.FC<Props> = ({
                                 exposedSourcesCount === 0 &&
                                   'memori-chat--bubble-action-button--sources-empty'
                               )}
-                              onClick={() => setShowingWhyThisAnswer(true)}
-                              disabled={showingWhyThisAnswer}
+                              onClick={() =>
+                                setShowingWhyThisAnswer(open => !open)
+                              }
                               aria-label={
                                 t('whyThisAnswer') || 'Why this answer?'
                               }

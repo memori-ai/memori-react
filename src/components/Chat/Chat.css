@@ -294,11 +294,13 @@
 }
 
 .memori-chat--timestamp {
-    display: inline-block;
+    display: block;
     padding: 0 3.5rem;
     margin-bottom: var(--memori-spacing-sm);
-    color: var(--memori-text-color);
-    font-size: 0.8em;
+    color: color-mix(in srgb, var(--memori-text-color) 75%, transparent);
+    font-size: 0.75rem;
+    font-weight: var(--memori-text-weight-medium, 500);
+    line-height: 1.25;
 }
 
 .memori-chat--timestamp.text-left {

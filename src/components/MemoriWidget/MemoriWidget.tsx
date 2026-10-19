@@ -1116,6 +1116,7 @@ const MemoriWidget = ({
       ...history,
       {
         ...message,
+        timestamp: message.timestamp ?? new Date().toISOString(),
         media:
           message.media?.filter(
             m =>
@@ -1887,6 +1888,7 @@ const MemoriWidget = ({
                       ? true
                       : initialStatus || undefined) as any,
                     contextVars: currentState.contextVars,
+                    timestamp: new Date().toISOString(),
                     date: currentState.currentDate,
                     placeName: currentState.currentPlaceName,
                     placeLatitude: currentState.currentLatitude,

@@ -798,7 +798,7 @@ it('groups agent attachments in a strip with the message bubble', () => {
   expect(screen.getByText('PDF')).toBeInTheDocument();
 });
 
-it('hides date and time in the bubble addon by default', () => {
+it('shows formatted time without seconds in the bubble addon by default when timestamp is present', () => {
   const { container } = render(
     <ChatBubble
       memori={memori}
@@ -807,14 +807,17 @@ it('hides date and time in the bubble addon by default', () => {
       message={{
         fromUser: false,
         text: 'Hello from the agent.',
-        timestamp: '2021-03-01T12:00:00.000Z',
+        timestamp: '2021-03-01T12:00:05.000Z',
       }}
     />
   );
 
-  expect(
-    container.querySelector('.memori-chat--bubble-timestamp')
-  ).not.toBeInTheDocument();
+  const timestamp = container.querySelector(
+    '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+  );
+  expect(timestamp).toBeInTheDocument();
+  expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
+  expect(timestamp?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
 });
 
 it('shows formatted date and time in the bubble addon when showDates is true', () => {
