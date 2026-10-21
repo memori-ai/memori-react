@@ -901,5 +901,39 @@
     "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Trusted application: token required",
     "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Trusted application: name already exists",
     "TRUSTED_APPLICATION_INVALID_TOKEN": "Trusted application: invalid token"
+  },
+  "instructionProposal": {
+    "apply": "Apply",
+    "link": "Link",
+    "ignore": "Ignore",
+    "applied": "Applied.",
+    "linked": "Linked: the agent can use it in the chats.",
+    "ignored": "Ignored.",
+    "notPending": "This proposal is no longer pending.",
+    "error": "The confirmation couldn't be sent. Try again.",
+    "question": "Question",
+    "answer": "Answer",
+    "variants": "Other ways to ask",
+    "prompt": "New instructions",
+    "promptRevert": "The instructions go back to the previous version.",
+    "attachment": "File",
+    "documentTitle": "Document",
+    "snippet": "Snippet",
+    "snippetFields": "Form fields",
+    "layout": "Layout",
+    "initialQuestion": "Initial question",
+    "secretField": "Write it here, never in the chat.",
+    "fillRequired": "Fill {{fields}} to link it.",
+    "types": {
+      "NewContent": "New content",
+      "ContentVariants": "Other ways to ask",
+      "PromptChange": "Instructions change",
+      "PromptRevert": "Instructions undo",
+      "AttachmentPlacement": "Attachment",
+      "ContentAnswerChange": "Answer change",
+      "Snippet": "Snippet",
+      "LandingPage": "Public page",
+      "Connector": "Set up MCP"
+    }
   }
 }

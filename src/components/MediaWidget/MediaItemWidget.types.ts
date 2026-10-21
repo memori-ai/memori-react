@@ -1,4 +1,5 @@
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
+import type { InstructionProposalConfirm } from '../../types/instructionProposal';
 
 export type LinkPreviewInfo = {
   title?: string;
@@ -27,6 +28,8 @@ export interface MediaItemWidgetProps {
   baseURL?: string;
   apiURL?: string;
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
+  /** Confirms an instruction proposal. Omit to show proposals read-only. */
+  onProposalConfirm?: InstructionProposalConfirm;
   fromUser?: boolean;
   descriptionOneLine?: boolean;
   onLinkPreviewInfo?: (linkPreviewInfo: LinkPreviewInfo) => void;

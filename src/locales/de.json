@@ -833,5 +833,39 @@
     "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Vertrauenswürdige Anwendung: Token erforderlich",
     "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Vertrauenswürdige Anwendung: Name existiert bereits",
     "TRUSTED_APPLICATION_INVALID_TOKEN": "Vertrauenswürdige Anwendung: Ungültiger Token"
+  },
+  "instructionProposal": {
+    "apply": "Anwenden",
+    "link": "Verbinden",
+    "ignore": "Ignorieren",
+    "applied": "Angewendet.",
+    "linked": "Verbunden: Der Agent kann ihn in den Chats verwenden.",
+    "ignored": "Ignoriert.",
+    "notPending": "Dieser Vorschlag ist nicht mehr ausstehend.",
+    "error": "Die Bestätigung konnte nicht gesendet werden. Versuchen Sie es erneut.",
+    "question": "Frage",
+    "answer": "Antwort",
+    "variants": "Andere Formulierungen",
+    "prompt": "Neue Anweisungen",
+    "promptRevert": "Die Anweisungen kehren zur vorherigen Version zurück.",
+    "attachment": "Datei",
+    "documentTitle": "Dokument",
+    "snippet": "Snippet",
+    "snippetFields": "Formularfelder",
+    "layout": "Layout",
+    "initialQuestion": "Startfrage",
+    "secretField": "Hier eingeben, nie im Chat.",
+    "fillRequired": "Füllen Sie {{fields}} aus, um ihn zu verbinden.",
+    "types": {
+      "NewContent": "Neuer Inhalt",
+      "ContentVariants": "Andere Formulierungen",
+      "PromptChange": "Änderung der Anweisungen",
+      "PromptRevert": "Rücknahme der Anweisungen",
+      "AttachmentPlacement": "Anhang",
+      "ContentAnswerChange": "Änderung der Antwort",
+      "Snippet": "Snippet",
+      "LandingPage": "Öffentliche Seite",
+      "Connector": "MCP einrichten"
+    }
   }
 }

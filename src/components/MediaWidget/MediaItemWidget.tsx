@@ -17,9 +17,13 @@ import {
   getDocumentAttachmentAssetUrl,
 } from '../../helpers/utils';
 import { getTranslation } from '../../helpers/translations';
-import { prismSyntaxLangs } from '../../helpers/constants';
+import {
+  INSTRUCTION_PROPOSAL_MIME_TYPE,
+  prismSyntaxLangs,
+} from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
+import InstructionProposalCard from '../InstructionProposalCard/InstructionProposalCard';
 import { Card, Modal } from '@memori.ai/ui';
 import { File, Volume2, Link as LinkIcon } from 'lucide-react';
 import cx from 'classnames';
@@ -765,6 +769,7 @@ const MediaItemWidget: React.FC<Props> = ({
   baseURL,
   apiURL,
   customMediaRenderer,
+  onProposalConfirm,
   fromUser = false,
   descriptionOneLine = false,
   onLinkPreviewInfo,
@@ -801,6 +806,14 @@ const MediaItemWidget: React.FC<Props> = ({
     if (translateTo) translateMediaCaptions();
   }, [translateTo, translateMediaCaptions]);
 
+  // Instruction proposals get their card, unless the host renders them itself
+  const isInstructionProposal = useCallback(
+    (m: MediaItem) =>
+      m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE &&
+      !customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE),
+    [customMediaRenderer]
+  );
+
   // Derive top-level "display" lists:
   // 1. All non-code, non-executable media sorted by timestamp (displayed as document, images, video, etc)
   const nonCodeDisplayMedia = useMemo(
@@ -808,14 +821,16 @@ const MediaItemWidget: React.FC<Props> = ({
       media
         .filter(
           m =>
-            !m.properties?.executable && !CODE_MIME_TYPES.includes(m.mimeType)
+            !m.properties?.executable &&
+            !CODE_MIME_TYPES.includes(m.mimeType) &&
+            !isInstructionProposal(m)
         )
         .sort((a, b) => {
           const at = a.creationTimestamp ?? 0;
           const bt = b.creationTimestamp ?? 0;
           return at > bt ? 1 : at < bt ? -1 : 0;
         }),
-    [media]
+    [media, isInstructionProposal]
   );
 
   // 2. Only code snippets (unless marked as executable)
@@ -827,7 +842,13 @@ const MediaItemWidget: React.FC<Props> = ({
     [media]
   );
 
-  // 3. Only CSS code marked as executable (to inject as <style>)
+  // 3. Only instruction proposals (rendered as cards to confirm)
+  const instructionProposals = useMemo(
+    () => media.filter(isInstructionProposal),
+    [media, isInstructionProposal]
+  );
+
+  // 4. Only CSS code marked as executable (to inject as <style>)
   const cssExecutableCode = useMemo(
     () =>
       media.filter(
@@ -932,6 +953,25 @@ const MediaItemWidget: React.FC<Props> = ({
                   content: item.content,
                   type: 'document',
                 }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Instruction proposals: one card each, with confirm buttons when onProposalConfirm is set */}
+      {instructionProposals.length > 0 && (
+        <div
+          className={cx('memori-media-items--grid memori-chat-scroll-item', {
+            'memori-media-items--user': fromUser,
+            'memori-media-items--agent': !fromUser,
+          })}
+        >
+          {instructionProposals.map(item => (
+            <div key={item.mediumID} className="memori-media-item">
+              <InstructionProposalCard
+                medium={item}
+                onConfirm={onProposalConfirm}
               />
             </div>
           ))}

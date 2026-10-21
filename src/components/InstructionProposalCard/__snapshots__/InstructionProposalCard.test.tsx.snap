@@ -1,0 +1,2109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders applied status unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--applied"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.NewContent
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver told the opening time.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            We open every day at 7:00, Sundays included.
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              When do you open?
+            </li>
+            <li>
+              What are your opening hours?
+            </li>
+          </ul>
+        </div>
+        <p
+          class="memori-instruction-proposal--status"
+          role="status"
+        >
+          instructionProposal.applied
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders applied status unchanged 2`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--applied"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Connector
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Matomo
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the website statistics in chat.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          Your website statistics in Matomo: visits, pages, referrers, campaigns and goals.
+        </p>
+        <form
+          autocomplete="off"
+          class="memori-instruction-proposal--form"
+        >
+          <div
+            class="memori-field"
+            data-filled=""
+          >
+            <label
+              class="memori-field__label"
+              data-filled=""
+              for="base-ui-:rg:"
+              id="base-ui-:rh:"
+            >
+              MATOMO_URL
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rj:"
+                aria-labelledby="base-ui-:rh:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width memori-input--disabled"
+                data-disabled=""
+                data-filled=""
+                disabled=""
+                id="base-ui-:rg:"
+                name="MATOMO_URL"
+                placeholder="https://analytics.example.com"
+                type="text"
+                value="https://analytics.example.com"
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              data-filled=""
+              id="base-ui-:rj:"
+            >
+              The address of your Matomo.
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:rk:"
+              id="base-ui-:rl:"
+            >
+              api_key
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rn:"
+                aria-labelledby="base-ui-:rl:"
+                autocomplete="new-password"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width memori-input--disabled"
+                data-disabled=""
+                disabled=""
+                id="base-ui-:rk:"
+                name="api_key"
+                type="password"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:rn:"
+            >
+              The API key of a Matomo user. instructionProposal.secretField
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:ro:"
+              id="base-ui-:rp:"
+            >
+              PROMPT
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rr:"
+                aria-labelledby="base-ui-:rp:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width memori-input--disabled"
+                data-disabled=""
+                disabled=""
+                id="base-ui-:ro:"
+                name="PROMPT"
+                type="text"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:rr:"
+            >
+              Instructions for the agent on this connector.
+            </p>
+          </div>
+        </form>
+        <p
+          class="memori-instruction-proposal--status"
+          role="status"
+        >
+          instructionProposal.linked
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders attachmentPlacement proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.AttachmentPlacement
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                price-list.pdf
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The price list belongs to the knowledge of the agent.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.attachment
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            price-list.pdf
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.documentTitle
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Price list 2026
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders connector proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Connector
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Matomo
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the website statistics in chat.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          Your website statistics in Matomo: visits, pages, referrers, campaigns and goals.
+        </p>
+        <form
+          autocomplete="off"
+          class="memori-instruction-proposal--form"
+        >
+          <div
+            class="memori-field"
+            data-filled=""
+          >
+            <label
+              class="memori-field__label"
+              data-filled=""
+              for="base-ui-:r0:"
+              id="base-ui-:r1:"
+            >
+              MATOMO_URL
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:r3:"
+                aria-labelledby="base-ui-:r1:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                data-filled=""
+                id="base-ui-:r0:"
+                name="MATOMO_URL"
+                placeholder="https://analytics.example.com"
+                type="text"
+                value="https://analytics.example.com"
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              data-filled=""
+              id="base-ui-:r3:"
+            >
+              The address of your Matomo.
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:r4:"
+              id="base-ui-:r5:"
+            >
+              api_key
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:r7:"
+                aria-labelledby="base-ui-:r5:"
+                autocomplete="new-password"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                id="base-ui-:r4:"
+                name="api_key"
+                type="password"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:r7:"
+            >
+              The API key of a Matomo user. instructionProposal.secretField
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:r8:"
+              id="base-ui-:r9:"
+            >
+              PROMPT
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rb:"
+                aria-labelledby="base-ui-:r9:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                id="base-ui-:r8:"
+                name="PROMPT"
+                type="text"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:rb:"
+            >
+              Instructions for the agent on this connector.
+            </p>
+          </div>
+        </form>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm memori-button--disabled"
+            data-disabled=""
+            disabled=""
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.link
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+        <p
+          class="memori-instruction-proposal--hint"
+        >
+          instructionProposal.fillRequired
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders connectorOptionalFields proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Connector
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Wikipedia
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the agent to look things up on Wikipedia.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          Let your agent access Wikipedia and make use of its knowledge.
+        </p>
+        <form
+          autocomplete="off"
+          class="memori-instruction-proposal--form"
+        >
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:rc:"
+              id="base-ui-:rd:"
+            >
+              WIKIPEDIA_LANG
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rf:"
+                aria-labelledby="base-ui-:rd:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                id="base-ui-:rc:"
+                name="WIKIPEDIA_LANG"
+                placeholder="it"
+                type="text"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:rf:"
+            >
+              Default language edition of Wikipedia.
+            </p>
+          </div>
+        </form>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.link
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders connectorWithoutFields proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Connector
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Company CRM
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the customers of the CRM in chat.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          The CRM of the company, already configured by the administrators.
+        </p>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.link
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders contentAnswerChange proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.ContentAnswerChange
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The opening time has changed.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <del
+            class="memori-instruction-proposal--text memori-instruction-proposal--removed"
+          >
+            We open every day at 7:30.
+          </del>
+          <ins
+            class="memori-instruction-proposal--text memori-instruction-proposal--added"
+          >
+            We open every day at 7:00.
+          </ins>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders contentVariants proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.ContentVariants
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Do you deliver?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          Users ask it in other words.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Do you deliver?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              Can you bring it home?
+            </li>
+            <li>
+              Is there home delivery?
+            </li>
+          </ul>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders error status unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--error"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Connector
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Matomo
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the website statistics in chat.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          Your website statistics in Matomo: visits, pages, referrers, campaigns and goals.
+        </p>
+        <form
+          autocomplete="off"
+          class="memori-instruction-proposal--form"
+        >
+          <div
+            class="memori-field"
+            data-filled=""
+          >
+            <label
+              class="memori-field__label"
+              data-filled=""
+              for="base-ui-:rs:"
+              id="base-ui-:rt:"
+            >
+              MATOMO_URL
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:rv:"
+                aria-labelledby="base-ui-:rt:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                data-filled=""
+                id="base-ui-:rs:"
+                name="MATOMO_URL"
+                placeholder="https://analytics.example.com"
+                type="text"
+                value="https://analytics.example.com"
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              data-filled=""
+              id="base-ui-:rv:"
+            >
+              The address of your Matomo.
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:r10:"
+              id="base-ui-:r11:"
+            >
+              api_key
+              <span
+                aria-hidden="true"
+                class="memori-field__required-indicator"
+              >
+                *
+              </span>
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:r13:"
+                aria-labelledby="base-ui-:r11:"
+                autocomplete="new-password"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                id="base-ui-:r10:"
+                name="api_key"
+                type="password"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:r13:"
+            >
+              The API key of a Matomo user. instructionProposal.secretField
+            </p>
+          </div>
+          <div
+            class="memori-field"
+          >
+            <label
+              class="memori-field__label"
+              for="base-ui-:r14:"
+              id="base-ui-:r15:"
+            >
+              PROMPT
+            </label>
+            <div
+              class="memori-field__control-wrapper"
+            >
+              <input
+                aria-describedby="base-ui-:r17:"
+                aria-labelledby="base-ui-:r15:"
+                autocomplete="off"
+                class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                id="base-ui-:r14:"
+                name="PROMPT"
+                type="text"
+                value=""
+              />
+            </div>
+            <p
+              class="memori-field__description"
+              id="base-ui-:r17:"
+            >
+              Instructions for the agent on this connector.
+            </p>
+          </div>
+        </form>
+        <p
+          class="memori-instruction-proposal--status"
+          role="alert"
+        >
+          instructionProposal.error
+        </p>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm memori-button--disabled"
+            data-disabled=""
+            disabled=""
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.link
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+        <p
+          class="memori-instruction-proposal--hint"
+        >
+          instructionProposal.fillRequired
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders ignored status unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--ignored"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.NewContent
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver told the opening time.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            We open every day at 7:00, Sundays included.
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              When do you open?
+            </li>
+            <li>
+              What are your opening hours?
+            </li>
+          </ul>
+        </div>
+        <p
+          class="memori-instruction-proposal--status"
+          role="status"
+        >
+          instructionProposal.ignored
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders landingPage proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.LandingPage
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Public page
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the chat to start by itself.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.layout
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            CHAT
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.initialQuestion
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            START
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders newContent proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.NewContent
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver told the opening time.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            We open every day at 7:00, Sundays included.
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              When do you open?
+            </li>
+            <li>
+              What are your opening hours?
+            </li>
+          </ul>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders notPending status unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--notPending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.ContentAnswerChange
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The opening time has changed.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <del
+            class="memori-instruction-proposal--text memori-instruction-proposal--removed"
+          >
+            We open every day at 7:30.
+          </del>
+          <ins
+            class="memori-instruction-proposal--text memori-instruction-proposal--added"
+          >
+            We open every day at 7:00.
+          </ins>
+        </div>
+        <p
+          class="memori-instruction-proposal--status"
+          role="status"
+        >
+          instructionProposal.notPending
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders promptChange proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.PromptChange
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Instructions
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the bread of the day suggested.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.prompt
+          </span>
+          <div
+            class="memori-expandable"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              <p
+                class="memori-instruction-proposal--text"
+              >
+                You are the assistant of a bakery in Bologna.
+Answer briefly and kindly.
+Always suggest the bread of the day.
+Never give prices that are not in the catalogue.
+At the end of a conversation, invite the user to come and visit.
+Answer in the language of the user.
+If you are asked about allergens, point to the shop staff.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders promptRevert proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.PromptRevert
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Instructions
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants the previous instructions back.
+        </p>
+        <p
+          class="memori-instruction-proposal--text"
+        >
+          instructionProposal.promptRevert
+        </p>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders read-only proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.NewContent
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                What time do you open?
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver told the opening time.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            What time do you open?
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            We open every day at 7:00, Sundays included.
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              When do you open?
+            </li>
+            <li>
+              What are your opening hours?
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders snippet proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.Snippet
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Book a table
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants bookings collected in chat.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.question
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Book a table
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.answer
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Fill in the form and we will call you back.
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.snippet
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            form
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.snippetFields
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              Name
+            </li>
+            <li>
+              Phone
+            </li>
+          </ul>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;

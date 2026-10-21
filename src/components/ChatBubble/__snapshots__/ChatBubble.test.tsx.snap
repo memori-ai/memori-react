@@ -7474,6 +7474,426 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
 </div>
 `;
 
+exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
+  >
+    <div
+      class="memori-chat--bubble-message-row"
+    >
+      <picture
+        class="memori-chat--bubble-avatar"
+        title="Memori"
+      >
+        <img
+          alt="Memori"
+          class="memori-chat--bubble-avatar-img memori-motion-fade-in"
+          src="https://aisuru.com/images/aisuru/square_logo.png"
+        />
+      </picture>
+      <div
+        class="memori-chat--bubble-shell"
+      >
+        <div
+          class="memori-chat--bubble-anchor memori-chat--bubble-anchor--has-addon"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--with-addon"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                I propose to add this answer and to link Matomo. Confirm them below.
+              </p>
+            </div>
+          </div>
+          <div
+            class="memori-chat--bubble-addon"
+          >
+            <span
+              class="memori-tooltip"
+            >
+              <span
+                class="memori-tooltip__trigger"
+                id="base-ui-:r1:"
+              >
+                <span
+                  class="memori-chat--bubble-addon-tooltip-trigger"
+                >
+                  <button
+                    aria-label="copy"
+                    class="memori-button memori-button--ghost memori-button--sm memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-copy memori-share-button--copy-icon"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          height="14"
+                          rx="2"
+                          ry="2"
+                          width="14"
+                          x="8"
+                          y="8"
+                        />
+                        <path
+                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        >
+          <div
+            class="memori-media-items"
+          >
+            <div
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+            >
+              <div
+                class="memori-media-item"
+              >
+                <div
+                  class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+                >
+                  <div
+                    class="memori-card__body memori-card__body--padding-md"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card__header"
+                      >
+                        <div
+                          class="memori-card__title"
+                        >
+                          <span
+                            class="memori-instruction-proposal--header"
+                          >
+                            <span
+                              class="memori-instruction-proposal--type"
+                            >
+                              instructionProposal.types.NewContent
+                            </span>
+                            <span
+                              class="memori-instruction-proposal--title"
+                            >
+                              What time do you open?
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <p
+                        class="memori-instruction-proposal--reason"
+                      >
+                        The Giver told the opening time.
+                      </p>
+                      <div
+                        class="memori-instruction-proposal--section"
+                      >
+                        <span
+                          class="memori-instruction-proposal--label"
+                        >
+                          instructionProposal.question
+                        </span>
+                        <p
+                          class="memori-instruction-proposal--text"
+                        >
+                          What time do you open?
+                        </p>
+                      </div>
+                      <div
+                        class="memori-instruction-proposal--section"
+                      >
+                        <span
+                          class="memori-instruction-proposal--label"
+                        >
+                          instructionProposal.answer
+                        </span>
+                        <p
+                          class="memori-instruction-proposal--text"
+                        >
+                          We open every day at 7:00, Sundays included.
+                        </p>
+                      </div>
+                      <div
+                        class="memori-instruction-proposal--section"
+                      >
+                        <span
+                          class="memori-instruction-proposal--label"
+                        >
+                          instructionProposal.variants
+                        </span>
+                        <ul
+                          class="memori-instruction-proposal--list"
+                        >
+                          <li>
+                            When do you open?
+                          </li>
+                          <li>
+                            What are your opening hours?
+                          </li>
+                        </ul>
+                      </div>
+                      <div
+                        class="memori-instruction-proposal--actions"
+                      >
+                        <button
+                          class="memori-button memori-button--primary memori-button--sm"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            instructionProposal.apply
+                          </span>
+                        </button>
+                        <button
+                          class="memori-button memori-button--outline memori-button--sm"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            instructionProposal.ignore
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="memori-media-item"
+              >
+                <div
+                  class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+                >
+                  <div
+                    class="memori-card__body memori-card__body--padding-md"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card__header"
+                      >
+                        <div
+                          class="memori-card__title"
+                        >
+                          <span
+                            class="memori-instruction-proposal--header"
+                          >
+                            <span
+                              class="memori-instruction-proposal--type"
+                            >
+                              instructionProposal.types.Connector
+                            </span>
+                            <span
+                              class="memori-instruction-proposal--title"
+                            >
+                              Matomo
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <p
+                        class="memori-instruction-proposal--reason"
+                      >
+                        The Giver wants the website statistics in chat.
+                      </p>
+                      <p
+                        class="memori-instruction-proposal--text"
+                      >
+                        Your website statistics in Matomo: visits, pages, referrers, campaigns and goals.
+                      </p>
+                      <form
+                        autocomplete="off"
+                        class="memori-instruction-proposal--form"
+                      >
+                        <div
+                          class="memori-field"
+                          data-filled=""
+                        >
+                          <label
+                            class="memori-field__label"
+                            data-filled=""
+                            for="base-ui-:r2:"
+                            id="base-ui-:r3:"
+                          >
+                            MATOMO_URL
+                            <span
+                              aria-hidden="true"
+                              class="memori-field__required-indicator"
+                            >
+                              *
+                            </span>
+                          </label>
+                          <div
+                            class="memori-field__control-wrapper"
+                          >
+                            <input
+                              aria-describedby="base-ui-:r5:"
+                              aria-labelledby="base-ui-:r3:"
+                              autocomplete="off"
+                              class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                              data-filled=""
+                              id="base-ui-:r2:"
+                              name="MATOMO_URL"
+                              placeholder="https://analytics.example.com"
+                              type="text"
+                              value="https://analytics.example.com"
+                            />
+                          </div>
+                          <p
+                            class="memori-field__description"
+                            data-filled=""
+                            id="base-ui-:r5:"
+                          >
+                            The address of your Matomo.
+                          </p>
+                        </div>
+                        <div
+                          class="memori-field"
+                        >
+                          <label
+                            class="memori-field__label"
+                            for="base-ui-:r6:"
+                            id="base-ui-:r7:"
+                          >
+                            api_key
+                            <span
+                              aria-hidden="true"
+                              class="memori-field__required-indicator"
+                            >
+                              *
+                            </span>
+                          </label>
+                          <div
+                            class="memori-field__control-wrapper"
+                          >
+                            <input
+                              aria-describedby="base-ui-:r9:"
+                              aria-labelledby="base-ui-:r7:"
+                              autocomplete="new-password"
+                              class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                              id="base-ui-:r6:"
+                              name="api_key"
+                              type="password"
+                              value=""
+                            />
+                          </div>
+                          <p
+                            class="memori-field__description"
+                            id="base-ui-:r9:"
+                          >
+                            The API key of a Matomo user. instructionProposal.secretField
+                          </p>
+                        </div>
+                        <div
+                          class="memori-field"
+                        >
+                          <label
+                            class="memori-field__label"
+                            for="base-ui-:ra:"
+                            id="base-ui-:rb:"
+                          >
+                            PROMPT
+                          </label>
+                          <div
+                            class="memori-field__control-wrapper"
+                          >
+                            <input
+                              aria-describedby="base-ui-:rd:"
+                              aria-labelledby="base-ui-:rb:"
+                              autocomplete="off"
+                              class="memori-input memori-input--default memori-input--md memori-input--full-width"
+                              id="base-ui-:ra:"
+                              name="PROMPT"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                          <p
+                            class="memori-field__description"
+                            id="base-ui-:rd:"
+                          >
+                            Instructions for the agent on this connector.
+                          </p>
+                        </div>
+                      </form>
+                      <div
+                        class="memori-instruction-proposal--actions"
+                      >
+                        <button
+                          class="memori-button memori-button--primary memori-button--sm memori-button--disabled"
+                          data-disabled=""
+                          disabled=""
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            instructionProposal.link
+                          </span>
+                        </button>
+                        <button
+                          class="memori-button memori-button--outline memori-button--sm"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            instructionProposal.ignore
+                          </span>
+                        </button>
+                      </div>
+                      <p
+                        class="memori-instruction-proposal--hint"
+                      >
+                        instructionProposal.fillRequired
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
 <div>
   <div
