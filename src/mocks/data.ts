@@ -11,6 +11,8 @@ import {
   User,
   Venue,
 } from '@memori.ai/memori-api-client/dist/types';
+import { InstructionProposal } from '../types/instructionProposal';
+import { INSTRUCTION_PROPOSAL_MIME_TYPE } from '../helpers/constants';
 
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 
@@ -788,3 +790,136 @@ export const historyWithExpandable: Message[] = [
 ];
 
 
+const instructionProposalMedium = (
+  title: string,
+  proposal: InstructionProposal
+): Medium => ({
+  mediumID: proposal.id,
+  mimeType: INSTRUCTION_PROPOSAL_MIME_TYPE,
+  title,
+  content: JSON.stringify(proposal),
+});
+
+export const instructionProposals: { [key: string]: Medium } = {
+  newContent: instructionProposalMedium('What time do you open?', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e01',
+    type: 'NewContent',
+    question: 'What time do you open?',
+    answer: 'We open every day at 7:00, Sundays included.',
+    variants: ['When do you open?', 'What are your opening hours?'],
+    reason: 'The Giver told the opening time.',
+  }),
+  contentVariants: instructionProposalMedium('Do you deliver?', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e02',
+    type: 'ContentVariants',
+    question: 'Do you deliver?',
+    variants: ['Can you bring it home?', 'Is there home delivery?'],
+    reason: 'Users ask it in other words.',
+  }),
+  contentAnswerChange: instructionProposalMedium('What time do you open?', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e03',
+    type: 'ContentAnswerChange',
+    question: 'What time do you open?',
+    baseAnswer: 'We open every day at 7:30.',
+    answer: 'We open every day at 7:00.',
+    reason: 'The opening time has changed.',
+  }),
+  promptChange: instructionProposalMedium('Instructions', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e04',
+    type: 'PromptChange',
+    prompt:
+      'You are the assistant of a bakery in Bologna.\nAnswer briefly and kindly.\nAlways suggest the bread of the day.\nNever give prices that are not in the catalogue.\nAt the end of a conversation, invite the user to come and visit.\nAnswer in the language of the user.\nIf you are asked about allergens, point to the shop staff.',
+    reason: 'The Giver wants the bread of the day suggested.',
+  }),
+  promptRevert: instructionProposalMedium('Instructions', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e05',
+    type: 'PromptRevert',
+    reason: 'The Giver wants the previous instructions back.',
+  }),
+  attachmentPlacement: instructionProposalMedium('price-list.pdf', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e06',
+    type: 'AttachmentPlacement',
+    attachmentName: 'price-list.pdf',
+    documentTitle: 'Price list 2026',
+    reason: 'The price list belongs to the knowledge of the agent.',
+  }),
+  snippet: instructionProposalMedium('Book a table', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e07',
+    type: 'Snippet',
+    question: 'Book a table',
+    answer: 'Fill in the form and we will call you back.',
+    snippetTemplate: 'form',
+    snippetFields: [
+      { name: 'name', label: 'Name', type: 'text' },
+      { name: 'phone', label: 'Phone', type: 'tel' },
+    ],
+    reason: 'The Giver wants bookings collected in chat.',
+  }),
+  landingPage: instructionProposalMedium('Public page', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e08',
+    type: 'LandingPage',
+    landingPageLayout: 'CHAT',
+    initialQuestion: 'START',
+    reason: 'The Giver wants the chat to start by itself.',
+  }),
+  connector: instructionProposalMedium('Matomo', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e09',
+    type: 'Connector',
+    connectorSchemaID: 'matomo-mcp-server',
+    connectorName: 'Matomo',
+    connectorDescription:
+      'Your website statistics in Matomo: visits, pages, referrers, campaigns and goals.',
+    connectorFields: [
+      {
+        name: 'MATOMO_URL',
+        type: 'string',
+        description: 'The address of your Matomo.',
+        example: 'https://analytics.example.com',
+        required: true,
+      },
+      {
+        name: 'api_key',
+        type: 'string',
+        description: 'The API key of a Matomo user.',
+        required: true,
+        secret: true,
+      },
+      {
+        name: 'PROMPT',
+        type: 'string',
+        description: 'Instructions for the agent on this connector.',
+      },
+    ],
+    connectorParameters: { MATOMO_URL: 'https://analytics.example.com' },
+    reason: 'The Giver wants the website statistics in chat.',
+  }),
+  connectorOptionalFields: instructionProposalMedium('Wikipedia', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e10',
+    type: 'Connector',
+    connectorSchemaID: 'wikipedia-mcp',
+    connectorName: 'Wikipedia',
+    connectorDescription:
+      'Let your agent access Wikipedia and make use of its knowledge.',
+    connectorFields: [
+      {
+        name: 'WIKIPEDIA_LANG',
+        type: 'string',
+        description: 'Default language edition of Wikipedia.',
+        example: 'it',
+      },
+    ],
+    connectorParameters: {},
+    reason: 'The Giver wants the agent to look things up on Wikipedia.',
+  }),
+  connectorWithoutFields: instructionProposalMedium('Company CRM', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e11',
+    type: 'Connector',
+    connectorSchemaID: 'tnt-0a1b2c',
+    connectorName: 'Company CRM',
+    connectorDescription:
+      'The CRM of the company, already configured by the administrators.',
+    connectorFields: [],
+    connectorParameters: {},
+    reason: 'The Giver wants the customers of the CRM in chat.',
+  }),
+};

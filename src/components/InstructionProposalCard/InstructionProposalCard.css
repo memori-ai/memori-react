@@ -1,0 +1,99 @@
+.memori-instruction-proposal {
+    width: 100%;
+    max-width: 560px;
+    box-sizing: border-box;
+    margin-top: var(--memori-spacing-sm);
+    color: var(--memori-text-color);
+}
+
+.memori-instruction-proposal--header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.memori-instruction-proposal--type {
+    color: var(--memori-primary);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-semibold);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.memori-instruction-proposal--title {
+    font-size: var(--memori-text-size-md);
+    font-weight: var(--memori-text-weight-semibold);
+    word-break: break-word;
+}
+
+.memori-instruction-proposal--reason {
+    margin: 0 0 var(--memori-spacing-sm);
+    color: color-mix(in oklch, var(--memori-text-color) 65%, transparent);
+    font-size: var(--memori-text-size-sm);
+}
+
+.memori-instruction-proposal--section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--memori-spacing-sm);
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-instruction-proposal--label {
+    color: color-mix(in oklch, var(--memori-text-color) 60%, transparent);
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-instruction-proposal--text {
+    margin: 0;
+    font-size: var(--memori-text-size-sm);
+    line-height: var(--memori-text-line-normal);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.memori-instruction-proposal--removed {
+    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+    text-decoration: line-through;
+}
+
+.memori-instruction-proposal--added {
+    text-decoration: none;
+}
+
+.memori-instruction-proposal--list {
+    padding-left: var(--memori-spacing-md);
+    margin: 0;
+    font-size: var(--memori-text-size-sm);
+}
+
+.memori-instruction-proposal--form {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--memori-spacing-sm);
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-instruction-proposal--status {
+    margin: var(--memori-spacing-sm) 0 0;
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-medium);
+}
+
+.memori-instruction-proposal--error .memori-instruction-proposal--status {
+    color: var(--memori-error-color, #c62828);
+}
+
+.memori-instruction-proposal--actions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: var(--memori-spacing-md);
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-instruction-proposal--hint {
+    margin: var(--memori-spacing-xs) 0 0;
+    color: color-mix(in oklch, var(--memori-text-color) 60%, transparent);
+    font-size: var(--memori-text-size-sm);
+}

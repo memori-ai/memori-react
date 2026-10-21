@@ -1,7 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ChatBubble from './ChatBubble';
-import { memori, tenant, sessionID } from '../../mocks/data';
+import {
+  memori,
+  tenant,
+  sessionID,
+  instructionProposals,
+} from '../../mocks/data';
+import { INSTRUCTION_PROPOSAL_MIME_TYPE } from '../../helpers/constants';
 
 jest.mock(
   '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler',
@@ -974,4 +980,23 @@ it('does not enter-animate unless animateEnter is set', () => {
   expect(container.querySelector('.memori-chat--bubble-container')).toHaveClass(
     'memori-motion-enter-up'
   );
+});
+
+it('renders ChatBubble with instruction proposals unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      codeMimeTypes={[INSTRUCTION_PROPOSAL_MIME_TYPE]}
+      onProposalConfirm={jest.fn()}
+      message={{
+        fromUser: false,
+        initial: false,
+        text: 'I propose to add this answer and to link Matomo. Confirm them below.',
+        media: [instructionProposals.newContent, instructionProposals.connector],
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
 });

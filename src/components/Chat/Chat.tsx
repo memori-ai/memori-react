@@ -24,10 +24,14 @@ import MediaWidget, {
   Props as MediaWidgetProps,
 } from '../MediaWidget/MediaWidget';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
+import { InstructionProposalConfirm } from '../../types/instructionProposal';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
-import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
+import {
+  boardOfExpertsLoadingSentences,
+  INSTRUCTION_PROPOSAL_MIME_TYPE,
+} from '../../helpers/constants';
 import { ChevronDown, FileText as DocumentIcon } from 'lucide-react';
 import {
   getNextPinnedToBottom,
@@ -67,6 +71,7 @@ const CODE_MIME_TYPES = [
   'application/x-php',
   'text/x-ruby',
   'text/x-sql',
+  INSTRUCTION_PROPOSAL_MIME_TYPE,
 ];
 export interface Props {
   memori: Memori;
@@ -135,6 +140,8 @@ export interface Props {
   footerBrand?: React.ReactNode;
   /** When false, hides the AI disclaimer in the footer. */
   showAiGeneratedNote?: boolean;
+  /** Confirms an instruction proposal. Omit to show proposals read-only. */
+  onProposalConfirm?: InstructionProposalConfirm;
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -188,6 +195,7 @@ const Chat: React.FC<Props> = ({
   audioStream,
   transcribing,
   customMediaRenderer,
+  onProposalConfirm,
   user,
   userAvatar,
   showUpload = false,
@@ -253,6 +261,33 @@ const Chat: React.FC<Props> = ({
       }),
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
+
+  // While proposals are pending the engine hints Apply and Ignore, acting on all of them:
+  // a single proposal is confirmed by its card, several keep the hints to act on all
+  const hideProposalHints = useMemo(() => {
+    const lastMessage = history[history.length - 1];
+    if (
+      !onProposalConfirm ||
+      isHistoryView ||
+      isChatlogPanel ||
+      !lastMessage ||
+      lastMessage.fromUser ||
+      customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE)
+    )
+      return false;
+
+    return (
+      (lastMessage.media ?? []).filter(
+        m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
+      ).length === 1
+    );
+  }, [
+    history,
+    onProposalConfirm,
+    isHistoryView,
+    isChatlogPanel,
+    customMediaRenderer,
+  ]);
 
   const enteringMessageIndexRef = useRef<number | null>(null);
   if (history.length === prevHistoryLengthRef.current + 1) {
@@ -571,6 +606,11 @@ const Chat: React.FC<Props> = ({
                     tenant={tenant}
                     client={client}
                     customMediaRenderer={customMediaRenderer}
+                    onProposalConfirm={
+                      isHistoryView || isChatlogPanel
+                        ? undefined
+                        : onProposalConfirm
+                    }
                     translateTo={translateTo}
                     baseUrl={baseUrl}
                     apiUrl={apiUrl}
@@ -633,6 +673,7 @@ const Chat: React.FC<Props> = ({
 
             {dialogState?.hints &&
               dialogState.hints.length > 0 &&
+              !hideProposalHints &&
               !memoriTyping && (
                 <MediaWidget
                   simulateUserPrompt={handleSimulateUserPrompt}

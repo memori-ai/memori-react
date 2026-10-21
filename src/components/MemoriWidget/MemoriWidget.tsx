@@ -56,6 +56,7 @@ import {
 // Components
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
+import { InstructionProposalConfirm } from '../../types/instructionProposal';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
 import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
 import Header, { Props as HeaderProps } from '../Header/Header';
@@ -648,6 +649,7 @@ const MemoriWidget = ({
     getSession,
     getExpertReferences,
     getSessionChatLogs,
+    postProposalConfirmedEvent,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
@@ -3917,6 +3919,33 @@ const MemoriWidget = ({
     user,
   };
 
+  // Parameters may hold connector secrets: never log them or keep them here
+  const confirmProposal: InstructionProposalConfirm = async (
+    proposalID,
+    apply,
+    parameters
+  ) => {
+    if (!sessionId) throw new Error('No session');
+
+    const { currentState, resultCode } = await postProposalConfirmedEvent({
+      sessionId,
+      proposalID,
+      apply,
+      parameters,
+    });
+
+    if (resultCode !== 0 || !currentState) {
+      logWidgetError('ProposalConfirmedEvent failed', resultCode);
+      throw new Error(`ProposalConfirmedEvent failed: ${resultCode}`);
+    }
+
+    // The engine ignores proposals no longer pending and emits nothing
+    if (!currentState.emission) return false;
+
+    await translateDialogState(currentState, userLang);
+    return true;
+  };
+
   const chatProps: ChatProps = {
     memori,
     sessionID: sessionId || '',
@@ -4001,6 +4030,7 @@ const MemoriWidget = ({
     setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,
+    onProposalConfirm: confirmProposal,
     user,
     userAvatar,
     experts,

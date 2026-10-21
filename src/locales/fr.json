@@ -829,5 +829,39 @@
     "TRUSTED_APPLICATION_MISSING_DESCRIPTION": "Application de confiance : description manquante",
     "TRUSTED_APPLICATION_MISSING_ICON": "Application de confiance : icône manquante",
     "TRUSTED_APPLICATION_MISSING_URL": "Application de confiance : URL manquante"
+  },
+  "instructionProposal": {
+    "apply": "Appliquer",
+    "link": "Connecter",
+    "ignore": "Ignorer",
+    "applied": "Appliquée.",
+    "linked": "Connecté : l'agent peut l'utiliser dans les chats.",
+    "ignored": "Ignorée.",
+    "notPending": "Cette proposition n'est plus en attente.",
+    "error": "La confirmation n'a pas pu être envoyée. Réessayez.",
+    "question": "Question",
+    "answer": "Réponse",
+    "variants": "Autres façons de le demander",
+    "prompt": "Nouvelles instructions",
+    "promptRevert": "Les instructions reviennent à la version précédente.",
+    "attachment": "Fichier",
+    "documentTitle": "Document",
+    "snippet": "Snippet",
+    "snippetFields": "Champs du formulaire",
+    "layout": "Mise en page",
+    "initialQuestion": "Question initiale",
+    "secretField": "Écrivez-le ici, jamais dans le chat.",
+    "fillRequired": "Remplissez {{fields}} pour le connecter.",
+    "types": {
+      "NewContent": "Nouveau contenu",
+      "ContentVariants": "Autres façons de demander",
+      "PromptChange": "Modification des instructions",
+      "PromptRevert": "Annulation des instructions",
+      "AttachmentPlacement": "Pièce jointe",
+      "ContentAnswerChange": "Modification de la réponse",
+      "Snippet": "Snippet",
+      "LandingPage": "Page publique",
+      "Connector": "Configurer MCP"
+    }
   }
 }

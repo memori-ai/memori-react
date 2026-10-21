@@ -575,6 +575,12 @@ div.memori-media-item--link:focus-visible {
     max-width: 100%;
 }
 
+.memori-media-items--grid .memori-media-item:has(.memori-instruction-proposal) {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .memori-media-items--grid .memori-media-item--snippet-direct {
     max-width: none;
 }

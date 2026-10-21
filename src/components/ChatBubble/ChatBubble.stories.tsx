@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, tenant } from '../../mocks/data';
+import { memori, tenant, instructionProposals } from '../../mocks/data';
+import { INSTRUCTION_PROPOSAL_MIME_TYPE } from '../../helpers/constants';
 import I18nWrapper from '../../I18nWrapper';
 import ChatBubble, { Props } from './ChatBubble';
 import { installMathJax } from '../../helpers/utils';
@@ -1435,4 +1436,20 @@ WithDocumentAttachmentTag.parameters = {
         'Message with <document_attachment> tag. The tag content should be stripped from the bubble and copy actions.',
     },
   },
+};
+
+export const WithInstructionProposals = Template.bind({});
+WithInstructionProposals.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: 'I propose to add this answer and to link Matomo. Confirm them below.',
+    media: [instructionProposals.newContent, instructionProposals.connector],
+  },
+  codeMimeTypes: [INSTRUCTION_PROPOSAL_MIME_TYPE],
+  onProposalConfirm: () =>
+    new Promise(resolve => setTimeout(() => resolve(true), 500)),
 };

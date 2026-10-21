@@ -897,5 +897,39 @@
     "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Applicazione trusted: token richiesto",
     "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Applicazione trusted: nome già esistente",
     "TRUSTED_APPLICATION_INVALID_TOKEN": "Applicazione trusted: token non valido"
+  },
+  "instructionProposal": {
+    "apply": "Applica",
+    "link": "Collega",
+    "ignore": "Ignora",
+    "applied": "Applicata.",
+    "linked": "Collegato: l'agente lo può usare nelle chat.",
+    "ignored": "Ignorata.",
+    "notPending": "Questa proposta non è più in sospeso.",
+    "error": "Non è stato possibile inviare la conferma. Riprova.",
+    "question": "Domanda",
+    "answer": "Risposta",
+    "variants": "Altri modi di chiederlo",
+    "prompt": "Nuove istruzioni",
+    "promptRevert": "Le istruzioni tornano alla versione precedente.",
+    "attachment": "File",
+    "documentTitle": "Documento",
+    "snippet": "Snippet",
+    "snippetFields": "Campi del modulo",
+    "layout": "Layout",
+    "initialQuestion": "Domanda iniziale",
+    "secretField": "Scrivilo qui, mai in chat.",
+    "fillRequired": "Compila {{fields}} per collegarlo.",
+    "types": {
+      "NewContent": "Nuovo contenuto",
+      "ContentVariants": "Altri modi di chiedere",
+      "PromptChange": "Modifica delle istruzioni",
+      "PromptRevert": "Annullamento delle istruzioni",
+      "AttachmentPlacement": "Allegato",
+      "ContentAnswerChange": "Modifica della risposta",
+      "Snippet": "Snippet",
+      "LandingPage": "Pagina pubblica",
+      "Connector": "Configura MCP"
+    }
   }
 }
