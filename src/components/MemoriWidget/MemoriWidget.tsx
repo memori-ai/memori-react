@@ -118,6 +118,7 @@ import {
   NatsProgressEvent,
   NatsDialogResponseEvent,
   NatsErrorEvent,
+  NatsToolCallEvent,
 } from '../../helpers/nats/useNatsSession';
 import {
   isSessionExpiredNatsError,
@@ -859,6 +860,13 @@ const MemoriWidget = ({
   const bufferedNatsResponsesRef = useRef<Map<string, NatsDialogResponseEvent>>(
     new Map()
   );
+  // What the agent is doing with its tools, shown only while the turn is pending
+  const [toolCallMessages, setToolCallMessages] = useState<string[]>([]);
+  const bufferedToolCallMessagesRef = useRef<Map<string, string[]>>(new Map());
+
+  useEffect(() => {
+    if (!memoriTyping) setToolCallMessages([]);
+  }, [memoriTyping]);
 
   // Layout: from prop (string only) or integrationConfig; when neither is set, default to FULLPAGE.
   // PII detection is only from integrationConfig (customData.layout as object with piiDetection).
@@ -2596,6 +2604,7 @@ const MemoriWidget = ({
         clearTimeout(pending.waitForResponse.timeoutId);
       }
       pendingEnterTextRef.current.delete(correlationID);
+      setToolCallMessages([]);
     },
     []
   );
@@ -2685,6 +2694,11 @@ const MemoriWidget = ({
 
   const registerPendingEnterText = useCallback(
     (correlationID: string, pending: PendingEnterText) => {
+      const bufferedToolCalls =
+        bufferedToolCallMessagesRef.current.get(correlationID);
+      bufferedToolCallMessagesRef.current.delete(correlationID);
+      setToolCallMessages(bufferedToolCalls ?? []);
+
       const buffered = bufferedNatsResponsesRef.current.get(correlationID);
       if (buffered) {
         bufferedNatsResponsesRef.current.delete(correlationID);
@@ -2784,6 +2798,30 @@ const MemoriWidget = ({
       if (event.message) {
         setTypingText(event.message);
       }
+    }, []),
+    onToolCall: useCallback((event: NatsToolCallEvent) => {
+      const correlationID = event.correlationID;
+      const message = event.message?.trim();
+      if (!correlationID || !message) return;
+
+      // The event can arrive before the send is acknowledged; events of turns
+      // already closed (e.g. replayed on resume) are never claimed
+      if (!pendingEnterTextRef.current.has(correlationID)) {
+        const buffered = bufferedToolCallMessagesRef.current;
+        buffered.set(correlationID, [
+          ...(buffered.get(correlationID) ?? []),
+          message,
+        ]);
+        if (buffered.size > 10) {
+          const oldest = buffered.keys().next().value;
+          if (oldest) buffered.delete(oldest);
+        }
+        return;
+      }
+
+      setToolCallMessages(messages =>
+        messages.includes(message) ? messages : [...messages, message]
+      );
     }, []),
     onDialogResponse: useCallback(
       (event: NatsDialogResponseEvent) => {
@@ -3936,6 +3974,7 @@ const MemoriWidget = ({
     layout,
     memoriTyping,
     typingText,
+    toolCallMessages,
     showTypingText:
       showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),

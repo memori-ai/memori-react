@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import cx from 'classnames';
 import {
   ExpertReference,
   Memori,
@@ -61,6 +62,10 @@ export interface Props {
   useDefaultSentences?: boolean;
   lang?: 'en' | 'it';
   sentence?: string;
+  /**
+   * What the agent is doing with its tools, in the order it happened
+   */
+  progressMessages?: string[];
   memori?: Memori;
   tenant?: Tenant;
   baseUrl?: string;
@@ -88,6 +93,7 @@ const Typing = ({
   useDefaultSentences = false,
   lang = 'en',
   sentence,
+  progressMessages,
   memori,
   tenant,
   baseUrl,
@@ -224,7 +230,27 @@ const Typing = ({
     <div className="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item">
       <div className="memori-chat--bubble-message-row">
         {renderAssistantAvatar()}
-        <div className="memori-chat--bubble">
+        <div
+          className={cx('memori-chat--bubble', {
+            'memori-chat--bubble--with-progress': !!progressMessages?.length,
+          })}
+        >
+          {!!progressMessages?.length && (
+            <ul
+              className="memori-chat--bubble-typing-progress"
+              role="status"
+              aria-live="polite"
+            >
+              {progressMessages.map(message => (
+                <li
+                  key={message}
+                  className="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+                >
+                  {message}
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="memori-chat--bubble-typing">
             <div id="wave" className="memori-motion-loop">
               <span className="dot"></span>

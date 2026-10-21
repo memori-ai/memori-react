@@ -176,3 +176,54 @@ exports[`renders Typing with default loading text unchanged 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders Typing with progress messages unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
+  >
+    <div
+      class="memori-chat--bubble-message-row"
+    >
+      <div
+        class="memori-chat--bubble memori-chat--bubble--with-progress"
+      >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        >
+          <li
+            class="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+          >
+            Sto cercando le ultime notizie sul web
+          </li>
+          <li
+            class="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+          >
+            Sto controllando la pianificazione del progetto
+          </li>
+        </ul>
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            class="memori-motion-loop"
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -30,6 +30,41 @@ it('renders Typing with custom loading text unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Typing with progress messages unchanged', () => {
+  const { container } = render(
+    <Typing
+      progressMessages={[
+        'Sto cercando le ultime notizie sul web',
+        'Sto controllando la pianificazione del progetto',
+      ]}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('shows progress messages above the typing indicator', () => {
+  const { container, getByRole } = render(
+    <Typing progressMessages={['Sto cercando le ultime notizie sul web']} />
+  );
+  expect(getByRole('status')).toHaveTextContent(
+    'Sto cercando le ultime notizie sul web'
+  );
+  expect(container.querySelector('.memori-chat--bubble')).toHaveClass(
+    'memori-chat--bubble--with-progress'
+  );
+  expect(container.querySelector('#wave')).toBeInTheDocument();
+});
+
+it('renders no progress list without progress messages', () => {
+  const { container } = render(<Typing progressMessages={[]} />);
+  expect(
+    container.querySelector('.memori-chat--bubble-typing-progress')
+  ).not.toBeInTheDocument();
+  expect(container.querySelector('.memori-chat--bubble')).not.toHaveClass(
+    'memori-chat--bubble--with-progress'
+  );
+});
+
 it('renders Typing with custom loading text list unchanged', () => {
   const { container } = render(
     <Typing

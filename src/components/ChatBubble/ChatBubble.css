@@ -353,6 +353,23 @@
     color: var(--memori-text-color);
 }
 
+.memori-chat--bubble-container--typing .memori-chat--bubble--with-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-chat--bubble-typing-progress {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent);
+    font-size: var(--memori-text-size-sm);
+    gap: var(--memori-spacing-xs);
+    list-style: none;
+}
+
 .memori-chat--bubble p {
     margin-top: 0;
     margin-bottom: 0;
