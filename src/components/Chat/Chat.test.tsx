@@ -7,6 +7,7 @@ import {
   historyWithMedia,
   sessionID,
   dialogState as dialogStateWithHints,
+  instructionProposals,
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
@@ -728,3 +729,44 @@ it('renders message timestamps without seconds inside memori-chat--bubble-addon 
   );
 });
 
+
+describe('hints with instruction proposals', () => {
+  const proposalMessage = (media: Message['media']): Message[] => [
+    ...history,
+    { text: 'Ecco la proposta', fromUser: false, media },
+  ];
+
+  it('hides the hints when a single proposal is confirmed by its card', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([instructionProposals.newContent]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.queryByText('Va bene')).not.toBeInTheDocument();
+  });
+
+  it('keeps the hints to act on all of several proposals', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([
+        instructionProposals.newContent,
+        instructionProposals.promptChange,
+      ]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps the hints when the cards cannot confirm', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([instructionProposals.newContent]),
+      onProposalConfirm: jest.fn(),
+      isHistoryView: true,
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+});

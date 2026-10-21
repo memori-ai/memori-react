@@ -7518,7 +7518,7 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1:"
+                id="base-ui-:r6l:"
               >
                 <span
                   class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7744,8 +7744,8 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                           <label
                             class="memori-field__label"
                             data-filled=""
-                            for="base-ui-:r2:"
-                            id="base-ui-:r3:"
+                            for="base-ui-:r6m:"
+                            id="base-ui-:r6n:"
                           >
                             MATOMO_URL
                             <span
@@ -7759,12 +7759,12 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                             class="memori-field__control-wrapper"
                           >
                             <input
-                              aria-describedby="base-ui-:r5:"
-                              aria-labelledby="base-ui-:r3:"
+                              aria-describedby="base-ui-:r6p:"
+                              aria-labelledby="base-ui-:r6n:"
                               autocomplete="off"
                               class="memori-input memori-input--default memori-input--md memori-input--full-width"
                               data-filled=""
-                              id="base-ui-:r2:"
+                              id="base-ui-:r6m:"
                               name="MATOMO_URL"
                               placeholder="https://analytics.example.com"
                               type="text"
@@ -7774,7 +7774,7 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                           <p
                             class="memori-field__description"
                             data-filled=""
-                            id="base-ui-:r5:"
+                            id="base-ui-:r6p:"
                           >
                             The address of your Matomo.
                           </p>
@@ -7784,8 +7784,8 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                         >
                           <label
                             class="memori-field__label"
-                            for="base-ui-:r6:"
-                            id="base-ui-:r7:"
+                            for="base-ui-:r6q:"
+                            id="base-ui-:r6r:"
                           >
                             api_key
                             <span
@@ -7799,11 +7799,11 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                             class="memori-field__control-wrapper"
                           >
                             <input
-                              aria-describedby="base-ui-:r9:"
-                              aria-labelledby="base-ui-:r7:"
+                              aria-describedby="base-ui-:r6t:"
+                              aria-labelledby="base-ui-:r6r:"
                               autocomplete="new-password"
                               class="memori-input memori-input--default memori-input--md memori-input--full-width"
-                              id="base-ui-:r6:"
+                              id="base-ui-:r6q:"
                               name="api_key"
                               type="password"
                               value=""
@@ -7811,7 +7811,7 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                           </div>
                           <p
                             class="memori-field__description"
-                            id="base-ui-:r9:"
+                            id="base-ui-:r6t:"
                           >
                             The API key of a Matomo user. instructionProposal.secretField
                           </p>
@@ -7821,8 +7821,8 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                         >
                           <label
                             class="memori-field__label"
-                            for="base-ui-:ra:"
-                            id="base-ui-:rb:"
+                            for="base-ui-:r6u:"
+                            id="base-ui-:r6v:"
                           >
                             PROMPT
                           </label>
@@ -7830,11 +7830,11 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                             class="memori-field__control-wrapper"
                           >
                             <input
-                              aria-describedby="base-ui-:rd:"
-                              aria-labelledby="base-ui-:rb:"
+                              aria-describedby="base-ui-:r71:"
+                              aria-labelledby="base-ui-:r6v:"
                               autocomplete="off"
                               class="memori-input memori-input--default memori-input--md memori-input--full-width"
-                              id="base-ui-:ra:"
+                              id="base-ui-:r6u:"
                               name="PROMPT"
                               type="text"
                               value=""
@@ -7842,7 +7842,7 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                           </div>
                           <p
                             class="memori-field__description"
-                            id="base-ui-:rd:"
+                            id="base-ui-:r71:"
                           >
                             Instructions for the agent on this connector.
                           </p>

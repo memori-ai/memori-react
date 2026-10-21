@@ -262,6 +262,33 @@ const Chat: React.FC<Props> = ({
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
 
+  // While proposals are pending the engine hints Apply and Ignore, acting on all of them:
+  // a single proposal is confirmed by its card, several keep the hints to act on all
+  const hideProposalHints = useMemo(() => {
+    const lastMessage = history[history.length - 1];
+    if (
+      !onProposalConfirm ||
+      isHistoryView ||
+      isChatlogPanel ||
+      !lastMessage ||
+      lastMessage.fromUser ||
+      customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE)
+    )
+      return false;
+
+    return (
+      (lastMessage.media ?? []).filter(
+        m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
+      ).length === 1
+    );
+  }, [
+    history,
+    onProposalConfirm,
+    isHistoryView,
+    isChatlogPanel,
+    customMediaRenderer,
+  ]);
+
   const enteringMessageIndexRef = useRef<number | null>(null);
   if (history.length === prevHistoryLengthRef.current + 1) {
     enteringMessageIndexRef.current =
@@ -646,6 +673,7 @@ const Chat: React.FC<Props> = ({
 
             {dialogState?.hints &&
               dialogState.hints.length > 0 &&
+              !hideProposalHints &&
               !memoriTyping && (
                 <MediaWidget
                   simulateUserPrompt={handleSimulateUserPrompt}
