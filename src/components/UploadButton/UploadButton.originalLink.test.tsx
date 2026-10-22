@@ -86,8 +86,9 @@ describe('UploadButton original file link', () => {
 
     const { doc } = await renderAndUpload();
 
+    // jest.setup mocks t() to return the key; production interpolates locales.
     expect(doc.content).toContain(
-      '[Excerpt: first 7 of 182000 characters. The full original document is available at the attachment_link URL.]'
+      '[upload.truncationExcerpt upload.truncationLinkHint]'
     );
   });
 
@@ -105,9 +106,7 @@ describe('UploadButton original file link', () => {
     });
 
     expect(doc.content).toContain(apiText);
-    expect(doc.content).toContain(
-      `[Excerpt: first ${apiText.length} of 182000 characters.`
-    );
+    expect(doc.content).toContain('[upload.truncationExcerpt');
   });
 
   it('falls back to the text asset when no original link is returned', async () => {

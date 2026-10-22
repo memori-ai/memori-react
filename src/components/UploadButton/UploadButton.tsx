@@ -69,7 +69,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 }) => {
   // Per-document character limit for the inlined `<document_attachment>`
   // content. Also sent to the conversion API as `max_caratteri`; the original
-  // file stays reachable through `<attachment_link>`.
+  // file stays reachable through `<attachment_link>` (gateway link, ~30 days).
   const effectivePerDocumentLimit =
     maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
@@ -399,7 +399,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   }, [handleUnifiedFileSelection, disabled]);
 
   // Kept inside the tag content (not as tag attributes) so existing
-  // <document_attachment> parsers keep matching.
+  // <document_attachment> parsers keep matching. Localized because this
+  // text is inlined into the message payload the agent sees.
   const getTruncationNote = (
     shownChars: number,
     totalChars: number,
@@ -407,11 +408,12 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   ) => {
     const summary =
       totalChars > shownChars
-        ? `Excerpt: first ${shownChars} of ${totalChars} characters.`
-        : 'Content truncated due to size limits.';
-    const linkHint = hasLink
-      ? ' The full original document is available at the attachment_link URL.'
-      : '';
+        ? t('upload.truncationExcerpt', {
+            shownChars,
+            totalChars,
+          })
+        : t('upload.truncationGeneric');
+    const linkHint = hasLink ? ` ${t('upload.truncationLinkHint')}` : '';
     return `[${summary}${linkHint}]`;
   };
 

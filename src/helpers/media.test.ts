@@ -105,6 +105,17 @@ describe('Media URL helper', () => {
     ).toBe(url);
   });
 
+  it('leaves short gateway /d/<token> links with URL-safe characters untouched', () => {
+    const url = 'https://mcp.aisuru.ai/d/abc-Token_XYZ.789~';
+    expect(
+      getResourceUrl({
+        resourceURI: url,
+        sessionID: sessionID,
+        apiURL: 'https://mcp.aisuru.ai/api/v2',
+      })
+    ).toBe(url);
+  });
+
   it('Get correct URL for old memoriai/memory media', async () => {
     expect(
       getResourceUrl({
