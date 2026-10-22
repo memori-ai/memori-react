@@ -39,6 +39,8 @@ export type ProcessedDocumentFile = {
   attachmentUrl?: string;
   /** True when `content` is only part of the converted text. */
   truncated?: boolean;
+  /** Extract length from gateway `meta.caratteri` (after footer strip). */
+  shownChars?: number;
   totalChars?: number;
 };
 
@@ -268,8 +270,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         const fileId = Math.random().toString(36).substr(2, 9);
 
         try {
-          const { text, uploadAsOriginal, originalUrl, truncated, totalChars } =
-            await processDocumentFile(file);
+          const {
+            text,
+            uploadAsOriginal,
+            originalUrl,
+            truncated,
+            shownChars,
+            totalChars,
+          } = await processDocumentFile(file);
 
           if (uploadAsOriginal) {
             // Office native format: upload the original file as asset, no text extraction
@@ -311,6 +319,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               mimeType: getOriginalMimeType(file.name, file.type),
               attachmentUrl: originalUrl,
               truncated,
+              shownChars,
               totalChars,
             });
           } else if (text) {
@@ -341,6 +350,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               mimeType: getOriginalMimeType(file.name, file.type),
               attachmentUrl: textAssetUrl,
               truncated,
+              shownChars,
               totalChars,
             });
           } else {

@@ -93,11 +93,13 @@ describe('UploadButton original file link', () => {
   });
 
   it('does not re-truncate when the API already truncated (even if over local limit)', async () => {
-    const apiText = `${'x'.repeat(100)}\n\n> [conversione troncata]`;
+    // convertDocument already strips the gateway footer before this layer.
+    const apiText = 'x'.repeat(100);
     convertDocumentMock.mockResolvedValue({
       text: apiText,
       originalUrl: ORIGINAL_URL,
       truncated: true,
+      shownChars: 100,
       totalChars: 182000,
     });
 
@@ -106,6 +108,7 @@ describe('UploadButton original file link', () => {
     });
 
     expect(doc.content).toContain(apiText);
+    expect(doc.content).not.toContain('conversione troncata');
     expect(doc.content).toContain('[upload.truncationExcerpt');
   });
 
