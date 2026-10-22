@@ -449,7 +449,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
     "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto).",
     "partialAssetUploadWarning": "Alcuni link del file non sono stati caricati, ma il documento è stato aggiunto comunque.",
-    "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore."
+    "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore.",
+    "truncationExcerpt": "Estratto: primi {{shownChars}} di {{totalChars}} caratteri.",
+    "truncationGeneric": "Contenuto troncato per limiti di dimensione.",
+    "truncationLinkHint": "Il documento originale completo è disponibile all'URL in attachment_link."
   },
   "gamification": {
     "level": "Livello",

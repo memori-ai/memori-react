@@ -430,7 +430,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
     "partialAssetUploadWarning": "Some file links could not be uploaded, but the document was added anyway.",
-    "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours."
+    "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours.",
+    "truncationExcerpt": "Excerpt: first {{shownChars}} of {{totalChars}} characters.",
+    "truncationGeneric": "Content truncated due to size limits.",
+    "truncationLinkHint": "The full original document is available at the attachment_link URL."
   },
   "media": {
     "title": "Title",

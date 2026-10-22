@@ -301,8 +301,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               attachmentUrl: assetUrl,
             });
           } else if (text && originalUrl) {
-            // The conversion gateway keeps the original file and returns a
-            // signed link to it: no need to upload the text as a separate asset.
+            // Prefer the gateway's signed original-file link (real file download)
+            // over uploading a separate text asset. The link typically expires
+            // after ~30 days — see ConvertDocumentResult.originalUrl.
             processedFiles.push({
               name: file.name,
               id: fileId,

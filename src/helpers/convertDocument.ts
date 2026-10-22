@@ -21,8 +21,14 @@ export type ConvertDocumentOptions = {
 
 export type ConvertDocumentResult = {
   text: string;
-  /** Signed link to the original file, kept by the gateway for 30 days. */
+  /**
+   * Signed link to the original file kept by the conversion gateway.
+   * Typically expires after ~30 days (`originalExpiresAt` when provided).
+   * Prefer this over a text-asset upload so users can download the real file;
+   * chat history may lose the link after expiry.
+   */
   originalUrl?: string;
+  /** ISO expiry of `originalUrl`, when the gateway declares it. */
   originalExpiresAt?: string;
   /** True when the API returned only part of the text. */
   truncated?: boolean;

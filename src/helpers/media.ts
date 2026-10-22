@@ -21,7 +21,11 @@ const shouldAppendSessionId = (
 
   // Signed / short links to original files kept by the conversion gateway:
   // appending a session id would break the token (/d/<token> or /originali/…).
-  if (/\/originali\//i.test(pathname) || /^\/d\/[A-Za-z0-9]+\/?$/i.test(pathname)) {
+  // Tokens may be URL-safe base64 (letters, digits, -, _, ., ~).
+  if (
+    /\/originali\//i.test(pathname) ||
+    /^\/d\/[A-Za-z0-9._~-]+\/?$/i.test(pathname)
+  ) {
     return false;
   }
 
