@@ -15,7 +15,10 @@ import {
   isOfficeNativeFilename,
 } from '../../../helpers/utils';
 import { getOriginalMimeType } from '../../MediaWidget/MediaItemWidget.utils';
-import { convertDocument } from '../../../helpers/convertDocument';
+import {
+  convertDocument,
+  ConvertDocumentResult,
+} from '../../../helpers/convertDocument';
 // Types
 type PreviewFile = {
   name: string;
@@ -27,23 +30,29 @@ type PreviewFile = {
   error?: boolean;
 };
 
+export type ProcessedDocumentFile = {
+  name: string;
+  id: string;
+  content: string;
+  mimeType: string;
+  /** Link written in <attachment_link>: original file when available, else the text asset. */
+  attachmentUrl?: string;
+  /** True when `content` is only part of the converted text. */
+  truncated?: boolean;
+  totalChars?: number;
+};
+
 // Props interface
 interface UploadDocumentsProps {
-  setDocumentPreviewFiles: (
-    files: {
-      name: string;
-      id: string;
-      content: string;
-      mimeType: string;
-      textAssetUrl?: string;
-    }[]
-  ) => void;
+  setDocumentPreviewFiles: (files: ProcessedDocumentFile[]) => void;
   authToken?: string;
   client?: ReturnType<typeof memoriApiClient>;
   sessionID?: string;
   baseUrl?: string;
   memoriID?: string;
   maxDocuments?: number;
+  /** Sent to the conversion API as `max_caratteri`. */
+  maxDocumentContentLength?: number;
   documentPreviewFiles: any;
   onLoadingChange?: (loading: boolean, fileCount?: number) => void;
   onDocumentError?: (error: {
@@ -69,6 +78,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   baseUrl = '',
   memoriID = '',
   maxDocuments,
+  maxDocumentContentLength,
   documentPreviewFiles,
   onLoadingChange,
   onDocumentError,
@@ -121,19 +131,26 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const processDocumentFile = async (
     file: File
-  ): Promise<{
-    text: string | null;
-    uploadAsOriginal?: boolean;
-  }> => {
+  ): Promise<
+    Omit<Partial<ConvertDocumentResult>, 'text'> & {
+      text: string | null;
+      uploadAsOriginal?: boolean;
+    }
+  > => {
     if (isOfficeNativeFilename(file.name)) {
       return { text: null, uploadAsOriginal: true };
     }
 
     try {
-      const text = isLocalTextFilename(file.name)
-        ? await fileToText(file)
-        : await convertDocument(file, sessionID, baseUrl);
-      return { text };
+      if (isLocalTextFilename(file.name)) {
+        return { text: await fileToText(file) };
+      }
+      return await convertDocument(file, {
+        sessionID,
+        memoriID,
+        baseUrl,
+        maxChars: maxDocumentContentLength,
+      });
     } catch (error) {
       console.error('Document processing failed:', error);
       throw new Error(
@@ -237,13 +254,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
     try {
       // Process each file
-      const processedFiles: {
-        name: string;
-        id: string;
-        content: string;
-        mimeType: string;
-        textAssetUrl?: string;
-      }[] = [];
+      const processedFiles: ProcessedDocumentFile[] = [];
 
       let activeCount = filesToProcess.length;
 
@@ -257,7 +268,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         const fileId = Math.random().toString(36).substr(2, 9);
 
         try {
-          const { text, uploadAsOriginal } = await processDocumentFile(file);
+          const { text, uploadAsOriginal, originalUrl, truncated, totalChars } =
+            await processDocumentFile(file);
 
           if (uploadAsOriginal) {
             // Office native format: upload the original file as asset, no text extraction
@@ -286,7 +298,19 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               id: fileId,
               content: '',
               mimeType: getOriginalMimeType(file.name, file.type),
-              textAssetUrl: assetUrl,
+              attachmentUrl: assetUrl,
+            });
+          } else if (text && originalUrl) {
+            // The conversion gateway keeps the original file and returns a
+            // signed link to it: no need to upload the text as a separate asset.
+            processedFiles.push({
+              name: file.name,
+              id: fileId,
+              content: text,
+              mimeType: getOriginalMimeType(file.name, file.type),
+              attachmentUrl: originalUrl,
+              truncated,
+              totalChars,
             });
           } else if (text) {
             const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
@@ -314,7 +338,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               id: fileId,
               content: text,
               mimeType: getOriginalMimeType(file.name, file.type),
-              textAssetUrl,
+              attachmentUrl: textAssetUrl,
+              truncated,
+              totalChars,
             });
           } else {
             activeCount--;
