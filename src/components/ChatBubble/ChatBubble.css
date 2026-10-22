@@ -97,6 +97,7 @@
     border-radius: var(--memori-radius-surface);
     /* margin-top: 1.5rem; */
     background: var(--memori-main-background);
+    border-top-left-radius: var(--memori-radius-tail);
     box-shadow: none;
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-sm);
@@ -607,6 +608,7 @@
     /* Prefer --memori-primary-color: dark theme remaps --memori-primary to
        --memori-primary-hover, which circularly resolves and drops the fill. */
     background: var(--memori-primary-color, var(--memori-primary)) !important;
+    border-top-right-radius: var(--memori-radius-tail);
     box-shadow: none;
     color: var(--memori-primary-content);
     font-size: var(--memori-text-size-sm);
