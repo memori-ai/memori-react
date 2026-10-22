@@ -798,7 +798,7 @@ it('groups agent attachments in a strip with the message bubble', () => {
   expect(screen.getByText('PDF')).toBeInTheDocument();
 });
 
-it('shows formatted time without seconds in the bubble addon by default when timestamp is present', () => {
+it('hides timestamps when showDates is false even if a timestamp is present', () => {
   const { container } = render(
     <ChatBubble
       memori={memori}
@@ -812,15 +812,12 @@ it('shows formatted time without seconds in the bubble addon by default when tim
     />
   );
 
-  const timestamp = container.querySelector(
-    '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
-  );
-  expect(timestamp).toBeInTheDocument();
-  expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
-  expect(timestamp?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
+  expect(
+    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+  ).not.toBeInTheDocument();
 });
 
-it('shows formatted date and time in the bubble addon when showDates is true', () => {
+it('shows formatted time without seconds in the bubble addon when showDates is true', () => {
   const { container } = render(
     <ChatBubble
       memori={memori}
@@ -830,15 +827,80 @@ it('shows formatted date and time in the bubble addon when showDates is true', (
       message={{
         fromUser: false,
         text: 'Hello from the agent.',
-        timestamp: '2021-03-01T12:00:00.000Z',
+        timestamp: '2021-03-01T12:00:05.000Z',
       }}
     />
   );
 
   const timestamp = container.querySelector('.memori-chat--bubble-timestamp');
   expect(timestamp).toBeInTheDocument();
-  expect(timestamp?.textContent).toMatch(/\d{2}\/\d{2}\/\d{4}/);
   expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
+  expect(timestamp?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
+  expect(timestamp?.textContent).not.toMatch(/\d{2}\/\d{2}\/\d{4}/);
+});
+
+it('shows timestamps on user messages when showDates is true', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showDates
+      message={{
+        fromUser: true,
+        text: 'Hello from the user.',
+        timestamp: '2021-03-01T12:01:00.000Z',
+      }}
+    />
+  );
+
+  const timestamp = container.querySelector(
+    '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+  );
+  expect(timestamp).toBeInTheDocument();
+  expect(timestamp?.textContent).toMatch(/\d{2}:\d{2}/);
+});
+
+it('shows timestamps in the chatlog panel when showDates is true', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showDates
+      isChatlogPanel
+      message={{
+        fromUser: false,
+        text: 'Hello from history.',
+        timestamp: '2021-03-01T12:00:00.000Z',
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+  ).toBeInTheDocument();
+});
+
+it('does not crash when showDates is true but the timestamp is invalid', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showDates
+      message={{
+        fromUser: false,
+        text: 'Hello from the agent.',
+        timestamp: 'not-a-real-date',
+      }}
+    />
+  );
+
+  expect(
+    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+  ).not.toBeInTheDocument();
+  expect(container.querySelector('.memori-chat--bubble')).toBeInTheDocument();
 });
 
 it('shows the why-this-answer icon without inventing a source count', () => {

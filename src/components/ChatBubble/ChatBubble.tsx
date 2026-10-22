@@ -248,26 +248,29 @@ const ChatBubble: React.FC<Props> = ({
   const hasAnswerBody =
     reasoningExtract.remaining.trim().length > 0 || !!usageHtml;
   const copiedLabel = t('copied') || 'Copied';
-  const formattedTimestamp = message.timestamp
-    ? (() => {
-        const date = new Date(
-          message.timestamp.endsWith('Z')
-            ? message.timestamp
-            : `${message.timestamp}Z`
-        );
-        return new Intl.DateTimeFormat(i18n.language || 'it', {
-          ...(showDates
-            ? {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-              }
-            : {}),
-          hour: '2-digit',
-          minute: '2-digit',
-        }).format(date);
-      })()
-    : null;
+  // Opt-in via showDates (same contract as v8): hidden unless the consumer asks.
+  // When enabled, show time only (HH:MM) — no calendar date.
+  const formattedTimestamp =
+    showDates && message.timestamp
+      ? (() => {
+          const date = new Date(
+            message.timestamp.endsWith('Z')
+              ? message.timestamp
+              : `${message.timestamp}Z`
+          );
+          if (Number.isNaN(date.getTime())) {
+            return null;
+          }
+          try {
+            return new Intl.DateTimeFormat(i18n.language || 'it', {
+              hour: '2-digit',
+              minute: '2-digit',
+            }).format(date);
+          } catch {
+            return null;
+          }
+        })()
+      : null;
 
   // Format function cache content
   const functionCacheData = message.media?.filter(

@@ -602,7 +602,9 @@ const Chat: React.FC<Props> = ({
                     showReasoning={showReasoning}
                     usageHtml={usageHtmlByIndex[index]}
                     isChatlogPanel={isChatlogPanel}
-                    showDates={showDates}
+                    // Chat history / chatlog panel always shows timestamps;
+                    // live chat still respects the consumer showDates prop.
+                    showDates={showDates || isChatlogPanel}
                     animateEnter={index === enteringMessageIndex}
                   />
 

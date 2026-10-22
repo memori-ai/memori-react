@@ -124,6 +124,7 @@ const ChatResumeDrawer = ({
             showCopyButton={true}
             isHistoryView={true}
             isChatlogPanel={true}
+            showDates
             showFunctionCache={showFunctionCache}
             showMessageConsumption={showMessageConsumption}
           />
