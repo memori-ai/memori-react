@@ -394,11 +394,28 @@
     margin: 1.25rem 0;
 }
 
+/* Same DataTable scroll trap as chat: neutralize nested scroll so the modal
+   body scrolls when the pointer is over a wide/tall markdown table. */
+.memori-content-preview-modal--markdown .memori-table-scroll {
+    max-width: 100%;
+    max-height: none;
+    margin: 0 0 1rem;
+    mask-image: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+}
+
 .memori-content-preview-modal--markdown table {
     width: 100%;
     margin: 0 0 1rem;
     border-collapse: collapse;
     font-size: 0.95em;
+}
+
+.memori-content-preview-modal--markdown .memori-table-scroll > table {
+    margin-bottom: 0;
 }
 
 .memori-content-preview-modal--markdown th,

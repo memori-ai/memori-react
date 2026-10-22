@@ -383,11 +383,17 @@
     display: none;
 }
 
+/* Markdown tables reuse UI DataTable `.memori-table-scroll`, which uses
+   overflow:auto + overscroll-behavior:contain and traps wheel/touch scroll
+   in the chat. Keep horizontal pan only; let the chat scroll vertically. */
 .memori-chat--bubble .memori-table-scroll {
     max-width: 100%;
     max-height: none;
     mask-image: none;
     overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
 }
 
 .memori-chat--bubble table {
