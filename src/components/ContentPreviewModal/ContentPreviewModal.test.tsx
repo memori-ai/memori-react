@@ -32,6 +32,19 @@ describe('DocumentMarkdown', () => {
     expect(screen.getByText('questa').tagName).toBe('STRONG');
     expect(screen.getByText('code').tagName).toBe('CODE');
   });
+
+  it('wraps markdown tables in memori-table-scroll for horizontal pan', () => {
+    const { container } = render(
+      <DocumentMarkdown
+        content={
+          '| A | B |\n| --- | --- |\n| 1 | 2 |\n| 3 | 4 |'
+        }
+      />
+    );
+    const table = container.querySelector('table');
+    expect(table).toHaveClass('memori-table');
+    expect(table?.parentElement).toHaveClass('memori-table-scroll');
+  });
 });
 
 describe('ContentPreviewModal', () => {
