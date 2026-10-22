@@ -1,4 +1,19 @@
-import { convertDocument } from './convertDocument';
+import {
+  convertDocument,
+  stripGatewayTruncationFooter,
+} from './convertDocument';
+
+describe('stripGatewayTruncationFooter', () => {
+  it('removes the gateway truncation markdown footer', () => {
+    const raw =
+      'hello world\n\n> [conversione troncata a 11 caratteri su 182000]';
+    expect(stripGatewayTruncationFooter(raw)).toBe('hello world');
+  });
+
+  it('leaves text without footer unchanged', () => {
+    expect(stripGatewayTruncationFooter('plain')).toBe('plain');
+  });
+});
 
 describe('convertDocument', () => {
   const fetchMock = jest.fn();
@@ -27,7 +42,9 @@ describe('convertDocument', () => {
       originalUrl: undefined,
       originalExpiresAt: undefined,
       truncated: false,
+      shownChars: undefined,
       totalChars: undefined,
+      connectorCap: undefined,
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
@@ -62,17 +79,19 @@ describe('convertDocument', () => {
     expect(body.get('max_caratteri')).toBe('40000');
   });
 
-  it('returns the original file link and truncation info', async () => {
+  it('returns the original file link and truncation info, stripping the gateway footer', async () => {
     fetchMock.mockResolvedValue({
       ok: true,
       json: jest.fn().mockResolvedValue({
-        text: 'Partial text',
+        text: 'Partial text\n\n> [conversione troncata a 12 caratteri su 182000]',
         originale: {
           url: 'https://gateway.example.com/originali/abc/contract.docx',
           scade_il: '2026-11-21T10:00:00Z',
         },
         troncato: true,
+        caratteri: 12,
         caratteri_totali: 182000,
+        tetto_per_connettori: 50000,
       }),
     });
 
@@ -85,7 +104,9 @@ describe('convertDocument', () => {
       originalUrl: 'https://gateway.example.com/originali/abc/contract.docx',
       originalExpiresAt: '2026-11-21T10:00:00Z',
       truncated: true,
+      shownChars: 12,
       totalChars: 182000,
+      connectorCap: 50000,
     });
   });
 

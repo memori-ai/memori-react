@@ -446,19 +446,21 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 ${file.attachmentUrl || ''}
 </attachment_link>`;
       } else {
-        // Gateway already cuts to max_caratteri when troncato=true — do not
-        // truncate again (footer/meta can make length > limit). Local cut is
-        // only a safety net for local text / older proxies.
+        // Gateway already cuts to max_caratteri when troncato=true (and we
+        // strip its markdown footer in convertDocument). Local cut is only a
+        // safety net for local text / older proxies.
         const isTruncatedLocally =
           !file.truncated &&
           file.content.length > effectivePerDocumentLimit;
         const excerpt = isTruncatedLocally
           ? file.content.substring(0, effectivePerDocumentLimit)
           : file.content;
+        const shownChars =
+          file.shownChars ?? excerpt.length;
         const inlinedContent =
           file.truncated || isTruncatedLocally
             ? `${excerpt}\n\n${getTruncationNote(
-                excerpt.length,
+                shownChars,
                 file.totalChars ?? file.content.length,
                 !!file.attachmentUrl
               )}`
