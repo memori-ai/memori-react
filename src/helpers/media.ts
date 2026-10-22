@@ -19,6 +19,12 @@ const shouldAppendSessionId = (
   const url = new URL(resourceURI);
   const { hostname, pathname } = url;
 
+  // Signed / short links to original files kept by the conversion gateway:
+  // appending a session id would break the token (/d/<token> or /originali/…).
+  if (/\/originali\//i.test(pathname) || /^\/d\/[A-Za-z0-9]+\/?$/i.test(pathname)) {
+    return false;
+  }
+
   // Memori asset endpoints require session auth regardless of host
   // (e.g. backend-ws-bologna.aisuru.ai/api/v2/asset/…)
   if (/\/api\/v\d+\/asset\//i.test(pathname)) {

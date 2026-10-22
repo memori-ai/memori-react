@@ -82,6 +82,28 @@ describe('Media URL helper', () => {
     ).toBe(`https://my-api.example.com/files/doc.pdf/${sessionID}`);
   });
 
+  it('leaves signed original-file links untouched', () => {
+    const url =
+      'https://my-api.example.com/originali/66fa-3b1c/carta%20intestata%20spa.docx?sig=abc';
+    expect(
+      getResourceUrl({
+        resourceURI: url,
+        sessionID: sessionID,
+        apiURL: 'https://my-api.example.com/api/v2',
+      })
+    ).toBe(url);
+  });
+
+  it('leaves short gateway /d/<token> original-file links untouched', () => {
+    const url = 'https://mcp.aisuru.ai/d/abcTokenXYZ789';
+    expect(
+      getResourceUrl({
+        resourceURI: url,
+        sessionID: sessionID,
+        apiURL: 'https://mcp.aisuru.ai/api/v2',
+      })
+    ).toBe(url);
+  });
 
   it('Get correct URL for old memoriai/memory media', async () => {
     expect(

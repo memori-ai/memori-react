@@ -9,7 +9,9 @@ import { Upload as UploadIcon } from 'lucide-react';
 import { Spin, Tooltip, useAlertManager } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import cx from 'classnames';
-import UploadDocuments from './UploadDocuments/UploadDocuments';
+import UploadDocuments, {
+  ProcessedDocumentFile,
+} from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -66,7 +68,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   onMediumSelectedState,
 }) => {
   // Per-document character limit for the inlined `<document_attachment>`
-  // content. Does NOT affect the full text uploaded as an asset.
+  // content. Also sent to the conversion API as `max_caratteri`; the original
+  // file stays reachable through `<attachment_link>`.
   const effectivePerDocumentLimit =
     maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
@@ -395,16 +398,25 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     };
   }, [handleUnifiedFileSelection, disabled]);
 
-  // Handler for document files - now supports multiple documents
-  const handleDocumentFiles = (
-    files: {
-      name: string;
-      id: string;
-      content: string;
-      mimeType: string;
-      textAssetUrl?: string;
-    }[]
+  // Kept inside the tag content (not as tag attributes) so existing
+  // <document_attachment> parsers keep matching.
+  const getTruncationNote = (
+    shownChars: number,
+    totalChars: number,
+    hasLink: boolean
   ) => {
+    const summary =
+      totalChars > shownChars
+        ? `Excerpt: first ${shownChars} of ${totalChars} characters.`
+        : 'Content truncated due to size limits.';
+    const linkHint = hasLink
+      ? ' The full original document is available at the attachment_link URL.'
+      : '';
+    return `[${summary}${linkHint}]`;
+  };
+
+  // Handler for document files - now supports multiple documents
+  const handleDocumentFiles = (files: ProcessedDocumentFile[]) => {
     if (files.length === 0) return;
 
     // Funzione helper per fare escape dell'HTML nei valori degli attributi
@@ -429,17 +441,26 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 </document_attachment>
 
 <attachment_link>
-${file.textAssetUrl || ''}
+${file.attachmentUrl || ''}
 </attachment_link>`;
       } else {
-        // Truncate only the content that gets inlined inside the message
-        // <document_attachment> tag. The full text is still available via
-        // textAssetUrl as an uploaded asset.
+        // Gateway already cuts to max_caratteri when troncato=true — do not
+        // truncate again (footer/meta can make length > limit). Local cut is
+        // only a safety net for local text / older proxies.
+        const isTruncatedLocally =
+          !file.truncated &&
+          file.content.length > effectivePerDocumentLimit;
+        const excerpt = isTruncatedLocally
+          ? file.content.substring(0, effectivePerDocumentLimit)
+          : file.content;
         const inlinedContent =
-          file.content.length > effectivePerDocumentLimit
-            ? file.content.substring(0, effectivePerDocumentLimit) +
-              '\n\n[Content truncated due to size limits]'
-            : file.content;
+          file.truncated || isTruncatedLocally
+            ? `${excerpt}\n\n${getTruncationNote(
+                excerpt.length,
+                file.totalChars ?? file.content.length,
+                !!file.attachmentUrl
+              )}`
+            : excerpt;
 
         formattedContent = `<document_attachment filename="${escapedFileName}" type="${
           file.mimeType
@@ -450,7 +471,7 @@ ${inlinedContent}
 </document_attachment>
 
 <attachment_link>
-${file.textAssetUrl || ''}
+${file.attachmentUrl || ''}
 </attachment_link>`;
       }
 
@@ -460,7 +481,7 @@ ${file.textAssetUrl || ''}
         content: formattedContent,
         type: 'document',
         mimeType: file.mimeType,
-        url: file.textAssetUrl,
+        url: file.attachmentUrl,
       };
     });
 
@@ -670,6 +691,7 @@ ${file.textAssetUrl || ''}
           baseUrl={baseUrl}
           memoriID={memoriID}
           maxDocuments={maxDocumentsPerMessage}
+          maxDocumentContentLength={effectivePerDocumentLimit}
           documentPreviewFiles={documentPreviewFiles}
           onLoadingChange={handleDocumentLoadingChange}
           onDocumentError={handleDocumentError}
