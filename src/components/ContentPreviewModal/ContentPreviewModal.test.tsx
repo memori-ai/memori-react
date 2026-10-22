@@ -7,6 +7,7 @@ import '@testing-library/jest-dom';
 import ContentPreviewModal from './ContentPreviewModal';
 import DocumentMarkdown, {
   prepareDocumentPreviewContent,
+  splitPreviewTruncationNote,
 } from './DocumentMarkdown';
 
 describe('prepareDocumentPreviewContent', () => {
@@ -18,6 +19,47 @@ describe('prepareDocumentPreviewContent', () => {
 
   it('collapses extra blank lines', () => {
     expect(prepareDocumentPreviewContent('a\n\n\n\nb')).toBe('a\n\nb');
+  });
+});
+
+describe('splitPreviewTruncationNote', () => {
+  it('splits a trailing Italian excerpt note', () => {
+    const note =
+      'Estratto: primi 100 di 182000 caratteri. Il documento originale completo è disponibile all\'URL in attachment_link.';
+    expect(
+      splitPreviewTruncationNote(`Partial body\n\n[${note}]`)
+    ).toEqual({ body: 'Partial body', note });
+  });
+
+  it('splits a trailing English excerpt note', () => {
+    const note =
+      'Excerpt: first 50 of 900 characters. The full original document is available at the attachment_link URL.';
+    expect(splitPreviewTruncationNote(`Hello\n\n[${note}]`)).toEqual({
+      body: 'Hello',
+      note,
+    });
+  });
+
+  it('splits a trailing generic truncation note', () => {
+    expect(
+      splitPreviewTruncationNote(
+        'Body\n\n[Content truncated due to size limits.]'
+      )
+    ).toEqual({
+      body: 'Body',
+      note: 'Content truncated due to size limits.',
+    });
+  });
+
+  it('leaves content unchanged when there is no truncation note', () => {
+    expect(splitPreviewTruncationNote('# Title\n\nParagraph')).toEqual({
+      body: '# Title\n\nParagraph',
+    });
+  });
+
+  it('does not treat a random trailing bracketed line as a note', () => {
+    const content = 'Body\n\n[foo bar]';
+    expect(splitPreviewTruncationNote(content)).toEqual({ body: content });
   });
 });
 
@@ -44,6 +86,24 @@ describe('DocumentMarkdown', () => {
     const table = container.querySelector('table');
     expect(table).toHaveClass('memori-table');
     expect(table?.parentElement).toHaveClass('memori-table-scroll');
+  });
+
+  it('renders the truncation note as a callout below the body', () => {
+    const note =
+      'Estratto: primi 12 di 182000 caratteri. Il documento originale completo è disponibile all\'URL in attachment_link.';
+    const { container } = render(
+      <DocumentMarkdown
+        content={`Partial text\n\n[${note}]`}
+      />
+    );
+
+    expect(screen.getByText('Partial text')).toBeInTheDocument();
+    const callout = screen.getByRole('note');
+    expect(callout).toHaveClass(
+      'memori-content-preview-modal--truncation-note'
+    );
+    expect(callout).toHaveTextContent(note);
+    expect(container.textContent).not.toContain(`[${note}]`);
   });
 });
 

@@ -394,6 +394,21 @@
     margin: 1.25rem 0;
 }
 
+/* Truncation note peeled from body — preview-only callout */
+.memori-content-preview-modal--truncation-note {
+    padding: 0.75rem 0.9rem;
+    border-radius: 0 var(--memori-radius-surface) var(--memori-radius-surface) 0;
+    border-left: 3px solid color-mix(in srgb, var(--memori-primary) 55%, transparent);
+    margin-top: 1.25rem;
+    background: color-mix(in srgb, var(--memori-text-color) 5%, transparent);
+    color: color-mix(in srgb, var(--memori-text-color) 72%, transparent);
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-sm);
+    font-weight: 450;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+}
+
 /* Same DataTable scroll trap as chat: neutralize nested scroll so the modal
    body scrolls when the pointer is over a wide/tall markdown table. */
 .memori-content-preview-modal--markdown .memori-table-scroll {
