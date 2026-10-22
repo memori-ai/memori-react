@@ -1,5 +1,25 @@
 # Changelog
 
+## [9.1.0](https://github.com/memori-ai/memori-react/compare/v9.0.7...v9.1.0) (2026-10-22)
+
+
+### Features
+
+* **ChatBubble, Chat:** update timestamp rendering in chat bubbles and enhance styles ([6a9d609](https://github.com/memori-ai/memori-react/commit/6a9d609762566627ac6e0f2f9a6be89f340d7957))
+* **ChatBubble, ContentPreviewModal:** improve table scrolling behavior for markdown tables ([7e7c8a0](https://github.com/memori-ai/memori-react/commit/7e7c8a0e4f6c225d3fd4c5c30675d9ee2374def7))
+* **ChatBubble:** enhance border radius styles for chat bubbles ([96cfcd2](https://github.com/memori-ai/memori-react/commit/96cfcd2d80fb35f755e66bb78a4b6c9e273190c4))
+* **Chat:** update timestamp handling to show/hide based on showDates prop ([ef675dc](https://github.com/memori-ai/memori-react/commit/ef675dce78a81d61acbf4ad01841b2f4f8caa6c6))
+* **ContentPreviewModal:** add truncation note handling and styling for document previews ([2b247e2](https://github.com/memori-ai/memori-react/commit/2b247e207234965be01b55f2b421dec3ebd7d7b3))
+* **CopyButtonWithDropdown:** localize button titles and update test references ([eab4586](https://github.com/memori-ai/memori-react/commit/eab4586d76f41eda09a9bfb8f47fc2c5fd43c7a8))
+* **UploadButton, convertDocument:** enhance truncation handling by stripping gateway footer ([b306d71](https://github.com/memori-ai/memori-react/commit/b306d71f9633f5d292a74ba5ea00e3cb2b1e1918))
+* **UploadButton:** implement original file link handling ([ec0d910](https://github.com/memori-ai/memori-react/commit/ec0d910f556a286bcb0f0239c40a6a673dcd788a))
+* **UploadButton:** localize truncation messages and enhance original file link handling ([42d6de8](https://github.com/memori-ai/memori-react/commit/42d6de84b44321055e35d1fc468d52a64c60a842))
+
+
+### Bug Fixes
+
+* **ChatInputs:** remove max-width restriction on icons for better layout flexibility ([dd1378f](https://github.com/memori-ai/memori-react/commit/dd1378f4cc94c48a27c50a30a1c109f46cf05aa4))
+
 ## [9.0.7](https://github.com/memori-ai/memori-react/compare/v9.0.6...v9.0.7) (2026-10-15)
 
 
