@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen } from '../../testUtils';
+import { fireEvent, render, screen } from '../../testUtils';
 import { memori, history, user } from '../../mocks/data';
-import Header from './Header';
+import Header, {
+  HEADER_SESSION_OVERFLOW_THRESHOLD,
+  countHeaderCoreButtons,
+} from './Header';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 const loggedInFullpageProps = {
@@ -28,6 +31,21 @@ const loggedInFullpageProps = {
   setShowLoginDrawer: jest.fn(),
   setShowChatHistoryDrawer: jest.fn(),
   apiClient: memoriApiClient(),
+};
+
+/** Enough core actions to force Known Facts / AI usage into the ⋯ menu. */
+const crowdedHeaderProps = {
+  ...loggedInFullpageProps,
+  enableAudio: true,
+  showShare: true,
+  showReload: true,
+  showClear: true,
+  showExperts: true,
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+    enableBoardOfExperts: true,
+  },
 };
 
 it('renders Header unchanged', () => {
@@ -465,7 +483,7 @@ it('hides the session menu when deep thought and AI consumption are off', () => 
   expect(screen.queryByText('widget.aiConsumption')).toBeNull();
 });
 
-it('shows the session menu when deep thought is enabled', () => {
+it('shows Known Facts inline when the header is not crowded', () => {
   render(
     <Header
       {...loggedInFullpageProps}
@@ -477,16 +495,83 @@ it('shows the session menu when deep thought is enabled', () => {
   );
 
   expect(
-    screen.getByLabelText('widget.mobileSession.sessionInfo')
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
+  expect(screen.getByLabelText('knownFacts.title')).toBeTruthy();
+});
+
+it('shows AI consumption inline when the header is not crowded', () => {
+  render(<Header {...loggedInFullpageProps} showMessageConsumption />);
+
+  expect(
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
+  expect(
+    screen.getByLabelText('write_and_speak.showMessageConsumptionLabel')
   ).toBeTruthy();
 });
 
-it('shows the session menu when AI consumption is enabled', () => {
-  render(<Header {...loggedInFullpageProps} showMessageConsumption />);
+it('collapses Known Facts into the session menu when core buttons exceed the threshold', () => {
+  expect(
+    countHeaderCoreButtons({
+      audio: true,
+      share: true,
+      reload: true,
+      clear: true,
+      experts: true,
+    })
+  ).toBeGreaterThan(HEADER_SESSION_OVERFLOW_THRESHOLD);
+
+  render(<Header {...crowdedHeaderProps} />);
 
   expect(
     screen.getByLabelText('widget.mobileSession.sessionInfo')
   ).toBeTruthy();
+  expect(screen.queryByLabelText('knownFacts.title')).toBeNull();
+
+  fireEvent.click(screen.getByLabelText('widget.mobileSession.sessionInfo'));
+  expect(screen.getByText('knownFacts.title')).toBeTruthy();
+});
+
+it('collapses AI consumption into the session menu when the header is crowded', () => {
+  render(<Header {...crowdedHeaderProps} showMessageConsumption />);
+
+  expect(
+    screen.getByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeTruthy();
+  expect(
+    screen.queryByLabelText('write_and_speak.showMessageConsumptionLabel')
+  ).toBeNull();
+
+  fireEvent.click(screen.getByLabelText('widget.mobileSession.sessionInfo'));
+  expect(screen.getByText('widget.aiConsumption')).toBeTruthy();
+});
+
+it('keeps the session menu hidden on mobile even when the header is crowded', () => {
+  const matchMedia = jest.fn().mockImplementation((query: string) => ({
+    matches: query.includes('max-width: 767px'),
+    media: query,
+    onchange: null,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  }));
+  const original = window.matchMedia;
+  window.matchMedia = matchMedia as typeof window.matchMedia;
+
+  try {
+    render(<Header {...crowdedHeaderProps} />);
+
+    expect(
+      screen.queryByLabelText('widget.mobileSession.sessionInfo')
+    ).toBeNull();
+    // Logged-in fullpage mobile still defers Known Facts to the session panel.
+    expect(screen.queryByLabelText('knownFacts.title')).toBeNull();
+  } finally {
+    window.matchMedia = original;
+  }
 });
 
 it('shows the agent description in the fullpage header', () => {
