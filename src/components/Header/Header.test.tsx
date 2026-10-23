@@ -33,7 +33,7 @@ const loggedInFullpageProps = {
   apiClient: memoriApiClient(),
 };
 
-/** Enough core actions to force Known Facts / AI usage into the ⋯ menu. */
+/** Enough core actions to force Known Facts + AI usage into the ⋯ menu. */
 const crowdedHeaderProps = {
   ...loggedInFullpageProps,
   enableAudio: true,
@@ -511,7 +511,7 @@ it('shows AI consumption inline when the header is not crowded', () => {
   ).toBeTruthy();
 });
 
-it('collapses Known Facts into the session menu when core buttons exceed the threshold', () => {
+it('collapses Known Facts and AI consumption into the session menu when the header is crowded', () => {
   expect(
     countHeaderCoreButtons({
       audio: true,
@@ -522,29 +522,63 @@ it('collapses Known Facts into the session menu when core buttons exceed the thr
     })
   ).toBeGreaterThan(HEADER_SESSION_OVERFLOW_THRESHOLD);
 
-  render(<Header {...crowdedHeaderProps} />);
-
-  expect(
-    screen.getByLabelText('widget.mobileSession.sessionInfo')
-  ).toBeTruthy();
-  expect(screen.queryByLabelText('knownFacts.title')).toBeNull();
-
-  fireEvent.click(screen.getByLabelText('widget.mobileSession.sessionInfo'));
-  expect(screen.getByText('knownFacts.title')).toBeTruthy();
-});
-
-it('collapses AI consumption into the session menu when the header is crowded', () => {
   render(<Header {...crowdedHeaderProps} showMessageConsumption />);
 
   expect(
     screen.getByLabelText('widget.mobileSession.sessionInfo')
   ).toBeTruthy();
+  expect(screen.queryByLabelText('knownFacts.title')).toBeNull();
   expect(
     screen.queryByLabelText('write_and_speak.showMessageConsumptionLabel')
   ).toBeNull();
 
   fireEvent.click(screen.getByLabelText('widget.mobileSession.sessionInfo'));
+  expect(screen.getByText('knownFacts.title')).toBeTruthy();
   expect(screen.getByText('widget.aiConsumption')).toBeTruthy();
+});
+
+it('keeps Known Facts inline when it is the only candidate in a crowded header', () => {
+  render(<Header {...crowdedHeaderProps} />);
+
+  expect(
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
+  expect(screen.getByLabelText('knownFacts.title')).toBeTruthy();
+});
+
+it('keeps AI consumption inline when it is the only candidate in a crowded header', () => {
+  render(
+    <Header
+      {...crowdedHeaderProps}
+      memori={{ ...crowdedHeaderProps.memori, enableDeepThought: false }}
+      showMessageConsumption
+    />
+  );
+
+  expect(
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
+  expect(
+    screen.getByLabelText('write_and_speak.showMessageConsumptionLabel')
+  ).toBeTruthy();
+});
+
+it('shows neither the session menu nor inline icons before the conversation starts in a crowded header', () => {
+  render(
+    <Header
+      {...crowdedHeaderProps}
+      hasUserActivatedSpeak={false}
+      showMessageConsumption
+    />
+  );
+
+  expect(
+    screen.queryByLabelText('widget.mobileSession.sessionInfo')
+  ).toBeNull();
+  expect(screen.queryByLabelText('knownFacts.title')).toBeNull();
+  expect(
+    screen.queryByLabelText('write_and_speak.showMessageConsumptionLabel')
+  ).toBeNull();
 });
 
 it('keeps the session menu hidden on mobile even when the header is crowded', () => {
@@ -562,7 +596,7 @@ it('keeps the session menu hidden on mobile even when the header is crowded', ()
   window.matchMedia = matchMedia as typeof window.matchMedia;
 
   try {
-    render(<Header {...crowdedHeaderProps} />);
+    render(<Header {...crowdedHeaderProps} showMessageConsumption />);
 
     expect(
       screen.queryByLabelText('widget.mobileSession.sessionInfo')

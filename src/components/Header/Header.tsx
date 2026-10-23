@@ -47,7 +47,7 @@ import { imgMimeTypes } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
 
-/** Collapse Known Facts / AI usage into ⋯ when this many other header actions are already visible. */
+/** Collapse Known Facts + AI usage into ⋯ when more than this many other header actions are visible. */
 export const HEADER_SESSION_OVERFLOW_THRESHOLD = 4;
 
 /** Count toolbar actions that stay inline (excludes Known Facts, AI usage, ⋯, login, chat history). */
@@ -521,21 +521,23 @@ const Header: React.FC<Props> = ({
     settings: showSettingsButton,
     share: showShare,
   });
-  const hasSessionOverflowCandidates =
-    showKnownFacts || showMessageConsumption;
-  const showSessionInfoMenu =
-    isConversationStarted &&
+  // Placement depends only on configuration, not on conversation state, so icons
+  // never swap when the chat starts. A single candidate stays inline: ⋯ would
+  // take the same space and add a click.
+  const isHeaderCrowded =
     showFullpageDividers &&
-    hasSessionOverflowCandidates &&
+    showKnownFacts &&
+    showMessageConsumption &&
     headerCoreButtonCount > HEADER_SESSION_OVERFLOW_THRESHOLD;
+  const showSessionInfoMenu = isHeaderCrowded && isConversationStarted;
   // Few header actions: keep Known Facts / AI usage as icons (desktop logged-in chrome).
   const showInlineKnownFacts =
     showFullpageDividers &&
-    !showSessionInfoMenu &&
+    !isHeaderCrowded &&
     showKnownFacts &&
     isConversationStarted;
   const showInlineMessageConsumption =
-    showFullpageDividers && !showSessionInfoMenu && showMessageConsumption;
+    showFullpageDividers && !isHeaderCrowded && showMessageConsumption;
 
   const fullpageSecondaryHasContent =
     !!memori.needsPosition ||
@@ -1341,7 +1343,7 @@ const Header: React.FC<Props> = ({
           </span>
         )}
       </div>
-      {showSessionInfoMenu && showMessageConsumption && hasChatConsumptionData && (
+      {showSessionInfoMenu && hasChatConsumptionData && (
         <ChatConsumptionDropdown
           history={history}
           triggerVariant={resolvedButtonVariant}
