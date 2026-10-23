@@ -715,14 +715,20 @@ const MemoriWidget = ({
     (legacyAvatar3dHidden === undefined
       ? false
       : !(legacyAvatar3dHidden === true || legacyAvatar3dHidden === 'true'));
+  // UI-only: whether to show login/profile controls. Host apps (e.g. AIsuru)
+  // can set showLogin={false} while still passing authToken so Known Facts works.
   const loginEnabled = !!(
     showLogin ??
     integrationConfig?.showLogin ??
     memori.requireLoginToken
   );
 
+  // Always resolve the user when a token is present — independent of loginEnabled.
+  // When the widget does not manage login (host-owned auth), only read the
+  // profile: never persist or clear the host's token.
+  const widgetManagesLogin = loginEnabled || !!memori.requireLoginToken;
   useEffect(() => {
-    if (!loginToken || !(loginEnabled || memori.requireLoginToken)) {
+    if (!loginToken) {
       return;
     }
 
@@ -735,25 +741,28 @@ const MemoriWidget = ({
 
         if (fetchedUser && resultCode === 0) {
           setUser(fetchedUser);
-          setLocalConfig('loginToken', loginToken);
           userTokenRef.current = loginToken;
+          if (!widgetManagesLogin) return;
 
+          setLocalConfig('loginToken', loginToken);
           if (!birthDate && fetchedUser.birthDate) {
             setBirthDate(fetchedUser.birthDate);
             setLocalConfig('birthDate', fetchedUser.birthDate);
           }
-        } else {
+        } else if (widgetManagesLogin) {
           setLoginToken(undefined);
           userTokenRef.current = undefined;
           setUser(undefined);
           removeLocalConfig('loginToken');
+        } else {
+          setUser(undefined);
         }
       });
 
     return () => {
       cancelled = true;
     };
-  }, [loginToken, loginEnabled, memori.requireLoginToken]);
+  }, [loginToken, widgetManagesLogin]);
   const isUserLoggedIn = !!loginToken && !!user?.userID;
   // Distinguishes a real logout from the first render, when the profile
   // has not been fetched yet.

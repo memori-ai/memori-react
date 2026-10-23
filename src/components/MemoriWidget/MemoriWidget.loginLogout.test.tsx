@@ -224,4 +224,53 @@ describe('MemoriWidget with mandatory login', () => {
       )
     );
   });
+
+  it('fetches the current user even when showLogin is false', async () => {
+    mockEngine.initSession.mockResolvedValue(openedSession);
+
+    render(
+      <Widget
+        autoStart
+        showLogin={false}
+        memori={{
+          ...memori,
+          ageRestriction: 0,
+          requireLoginToken: false,
+          enableDeepThought: true,
+        }}
+        {...loggedIn}
+      />
+    );
+
+    await waitFor(() =>
+      expect(mockEngine.pwlGetCurrentUser).toHaveBeenCalledWith(LOGIN_TOKEN)
+    );
+    expect(window.localStorage.getItem('@memori:loginToken')).toBeNull();
+  });
+
+  it('keeps the host token when showLogin is false and the profile fetch fails', async () => {
+    mockEngine.initSession.mockResolvedValue(openedSession);
+    mockEngine.pwlGetCurrentUser.mockResolvedValue({
+      resultCode: -1,
+      resultMessage: 'Invalid token',
+    });
+    window.localStorage.setItem('@memori:loginToken', LOGIN_TOKEN);
+
+    render(
+      <Widget
+        autoStart
+        showLogin={false}
+        memori={{ ...memori, ageRestriction: 0, requireLoginToken: false }}
+        {...loggedIn}
+      />
+    );
+
+    await waitFor(() =>
+      expect(mockEngine.pwlGetCurrentUser).toHaveBeenCalledWith(LOGIN_TOKEN)
+    );
+    await act(async () => {});
+    expect(window.localStorage.getItem('@memori:loginToken')).toBe(
+      LOGIN_TOKEN
+    );
+  });
 });

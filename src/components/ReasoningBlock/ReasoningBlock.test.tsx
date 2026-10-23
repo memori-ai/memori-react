@@ -12,7 +12,7 @@ describe('ReasoningBlock', () => {
   });
 
   it('is expanded and labelled Thinking while streaming', () => {
-    renderBlock(
+    const { container } = renderBlock(
       <ReasoningBlock content="Considering the request." complete={false} />
     );
 
@@ -20,6 +20,7 @@ describe('ReasoningBlock', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
     expect(trigger).toHaveTextContent(/thinking/i);
     expect(screen.getByText('Considering the request.')).toBeInTheDocument();
+    expect(container.querySelector('.memori-reasoning')).toBeInTheDocument();
   });
 
   it('collapses to Thought when already complete on mount', () => {
