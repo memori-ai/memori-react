@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.1.1](https://github.com/memori-ai/memori-react/compare/v9.1.0...v9.1.1) (2026-10-23)
+
+
+### Features
+
+* **Header:** implement dynamic collapsing of Known Facts and AI consumption in the header based on action count ([f884671](https://github.com/memori-ai/memori-react/commit/f884671e4e596863c14fcae894b88a33ce705ce3))
+* **MemoriWidget:** enhance user fetching logic and manage login state ([9c34ac3](https://github.com/memori-ai/memori-react/commit/9c34ac378d19875fc663cb1d5e9bbe5d15f6c0e1))
+
+
+### Changes
+
+* **Header:** update tests and logic for collapsing Known Facts and AI consumption ([c24b7a1](https://github.com/memori-ai/memori-react/commit/c24b7a16eda3f88c0368bbc3b4e9682706275887))
+
 ## [9.1.0](https://github.com/memori-ai/memori-react/compare/v9.0.7...v9.1.0) (2026-10-22)
 
 
