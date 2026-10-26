@@ -534,6 +534,7 @@
     "output": "Ausgabe",
     "cacheRead": "Cache lesen",
     "cacheWrite": "Cache schreiben",
+    "cacheHit": "Cache-Treffer",
     "duration": "Dauer",
     "energy": "Energie",
     "co2": "CO2",

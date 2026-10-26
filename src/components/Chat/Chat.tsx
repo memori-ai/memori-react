@@ -47,9 +47,12 @@ import {
   buildLlmUsageHtml,
   formatDuration,
   formatImpactWithApiUnit,
+  formatCacheHitPercent,
   formatIntegerValue,
+  getCacheHitPercent,
   getImpactComparison,
   getMetricValue,
+  hasCacheTokenDetails,
   LlmUsageLabels,
   LlmUsageOnLine,
   UsageBadgeType,
@@ -225,6 +228,7 @@ const Chat: React.FC<Props> = ({
       output: t('chatLogs.output', { defaultValue: 'Output' }),
       cacheRead: t('chatLogs.cacheRead', { defaultValue: 'Cache read' }),
       cacheWrite: t('chatLogs.cacheWrite', { defaultValue: 'Cache write' }),
+      cacheHit: t('chatLogs.cacheHit', { defaultValue: 'Cache hit' }),
       duration: t('chatLogs.duration', { defaultValue: 'Duration' }),
       energy: t('chatLogs.energy', { defaultValue: 'Energy' }),
       co2: t('chatLogs.co2', { defaultValue: 'CO2' }),
@@ -253,6 +257,15 @@ const Chat: React.FC<Props> = ({
       }),
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
+
+  const activeLlmCacheHitPercent =
+    activeUsageBadge?.type === 'llm' &&
+    hasCacheTokenDetails(activeUsageBadge.usage)
+      ? getCacheHitPercent(
+          activeUsageBadge.usage.inputCacheReadTokens,
+          activeUsageBadge.usage.totalInputTokens
+        )
+      : undefined;
 
   const enteringMessageIndexRef = useRef<number | null>(null);
   if (history.length === prevHistoryLengthRef.current + 1) {
@@ -800,6 +813,36 @@ const Chat: React.FC<Props> = ({
                 )}
               </dd>
             </div>
+            {hasCacheTokenDetails(activeUsageBadge.usage) && (
+              <>
+                <div>
+                  <dt>{llmUsageLabels.cacheRead}</dt>
+                  <dd>
+                    {formatIntegerValue(
+                      activeUsageBadge.usage.inputCacheReadTokens ?? 0,
+                      locale
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt>{llmUsageLabels.cacheWrite}</dt>
+                  <dd>
+                    {formatIntegerValue(
+                      activeUsageBadge.usage.inputCacheWriteTokens ?? 0,
+                      locale
+                    )}
+                  </dd>
+                </div>
+                {activeLlmCacheHitPercent !== undefined && (
+                  <div>
+                    <dt>{llmUsageLabels.cacheHit}</dt>
+                    <dd>
+                      {formatCacheHitPercent(activeLlmCacheHitPercent, locale)}
+                    </dd>
+                  </div>
+                )}
+              </>
+            )}
           </dl>
         )}
 

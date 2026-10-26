@@ -30,12 +30,43 @@ export interface LlmUsageLabels {
   output: string;
   cacheRead: string;
   cacheWrite: string;
+  cacheHit: string;
   duration: string;
   energy: string;
   co2: string;
   water: string;
   usageBadgesHint: string;
 }
+
+export const hasCacheTokenDetails = (
+  usage: Pick<
+    LlmUsageOnLine,
+    'inputCacheReadTokens' | 'inputCacheWriteTokens'
+  >,
+): boolean =>
+  (usage.inputCacheReadTokens ?? 0) > 0 ||
+  (usage.inputCacheWriteTokens ?? 0) > 0;
+
+export const getCacheHitPercent = (
+  cacheRead: number | undefined,
+  totalInput: number | undefined,
+): number | undefined => {
+  if (
+    typeof totalInput !== 'number' ||
+    !Number.isFinite(totalInput) ||
+    totalInput <= 0
+  ) {
+    return undefined;
+  }
+  const read =
+    typeof cacheRead === 'number' && Number.isFinite(cacheRead) ? cacheRead : 0;
+  return Math.round((read / totalInput) * 100);
+};
+
+export const formatCacheHitPercent = (
+  percent: number,
+  locale = 'it-IT',
+): string => `${formatIntegerValue(percent, locale)}%`;
 
 export const BADGE_EMOJI: Record<UsageBadgeType, string> = {
   llm: '🤖',

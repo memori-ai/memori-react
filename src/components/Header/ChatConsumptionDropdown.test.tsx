@@ -10,6 +10,8 @@ type TestMessage = Message & {
     provider?: string;
     model?: string;
     totalInputTokens?: number;
+    inputCacheReadTokens?: number;
+    inputCacheWriteTokens?: number;
     outputTokens?: number;
     energyImpact?: {
       energy?: number | { parsedValue?: number };
@@ -66,6 +68,45 @@ describe('ChatConsumptionContent', () => {
     expect(screen.getByText('2 Wh')).toBeTruthy();
     expect(screen.getByText('800 mg')).toBeTruthy();
     expect(screen.getByText('3.5 mL')).toBeTruthy();
+    expect(screen.queryByText('chatLogs.cacheRead')).toBeNull();
+    expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+  });
+
+  it('renders aggregated cache read, write and hit % when present', () => {
+    const historyWithCache = [
+      {
+        text: 'Cached response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          provider: 'Anthropic',
+          model: 'claude-3',
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 400,
+          inputCacheWriteTokens: 100,
+          outputTokens: 50,
+        },
+      },
+      {
+        text: 'Second cached response',
+        timestamp: '2021-03-01T12:01:00.000Z',
+        llmUsage: {
+          provider: 'Anthropic',
+          model: 'claude-3',
+          totalInputTokens: 250,
+          inputCacheReadTokens: 50,
+          inputCacheWriteTokens: 0,
+          outputTokens: 20,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={historyWithCache} />);
+
+    expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+    expect(screen.getByText('chatLogs.cacheWrite')).toBeTruthy();
+    expect(screen.getByText('450')).toBeTruthy();
+    expect(screen.getByText('100')).toBeTruthy();
+    expect(screen.getByText('36%')).toBeTruthy();
   });
 });
 
