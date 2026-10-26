@@ -378,7 +378,10 @@ const ChatLayout: React.FC<LayoutProps> = ({
                     id="chat-wrapper"
                   >
                     <div className="memori-chat-layout--start-panel-wrap">
-                      <StartPanel {...startPanelProps} hideIdentity />
+                      <StartPanel
+                        {...startPanelProps}
+                        hideIdentity={isMobile}
+                      />
                     </div>
                   </div>
                 ) : null}

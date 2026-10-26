@@ -207,10 +207,9 @@ describe('MemoriWidget with mandatory login', () => {
     await waitFor(() => expect(mockEngine.initSession).toHaveBeenCalled());
 
     expect(container.querySelector('.memori--start-panel')).not.toBeNull();
-    expect(container.querySelector('.memori--title')).toBeNull();
-    expect(
-      container.querySelector('.memori-fullpage-header-brand-name')
-    ).toHaveTextContent('Memori');
+    expect(container.querySelector('.memori--title')).toHaveTextContent(
+      'Memori'
+    );
     expect(container.querySelector('textarea')).toBeDisabled();
   });
 

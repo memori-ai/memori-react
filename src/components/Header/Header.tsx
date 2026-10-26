@@ -1693,7 +1693,8 @@ const Header: React.FC<Props> = ({
 
   return (
     <>
-      {memori && (
+      {/* Pre-session brand only on mobile: desktop still uses StartPanel identity. */}
+      {memori && (isConversationStarted || !showFullpageDividers) && (
         <div className="memori-fullpage-header-brand">
           {brandAvatarSrc ? (
             <img

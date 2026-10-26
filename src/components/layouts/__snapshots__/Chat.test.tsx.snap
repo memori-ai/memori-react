@@ -62,40 +62,6 @@ exports[`renders Chat layout unchanged 1`] = `
             class="memori-fullpage-header-row"
           >
             <div
-              class="memori-fullpage-header-brand"
-            >
-              <img
-                alt=""
-                class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
-                role="presentation"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-              <div
-                class="memori-fullpage-header-brand-text"
-              >
-                <span
-                  class="memori-fullpage-header-brand-name"
-                  title="Memori"
-                >
-                  Memori
-                </span>
-                <span
-                  class="memori-tooltip"
-                >
-                  <span
-                    class="memori-tooltip__trigger"
-                    id="base-ui-:r1:"
-                  >
-                    <span
-                      class="memori-fullpage-header-brand-role"
-                    >
-                      Lorem ipsum.
-                    </span>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
               class="memori-fullpage-header-actions"
             >
               <div
@@ -112,14 +78,14 @@ exports[`renders Chat layout unchanged 1`] = `
                     >
                       <span
                         class="memori-tooltip__trigger"
-                        id="base-ui-:r7:"
+                        id="base-ui-:r5:"
                       >
                         <button
                           aria-expanded="false"
                           aria-haspopup="menu"
                           aria-label="widget.share"
                           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                          id="base-ui-:r8:"
+                          id="base-ui-:r6:"
                           tabindex="0"
                           title="widget.share"
                           type="button"
@@ -210,12 +176,28 @@ exports[`renders Chat layout unchanged 1`] = `
                         <div
                           class="memori--title-container"
                         >
+                          <picture
+                            class="memori--avatar"
+                          >
+                            <source
+                              src="https://aisuru.com/images/aisuru/square_logo.png"
+                            />
+                            <img
+                              alt="Memori"
+                              src="https://aisuru.com/images/aisuru/square_logo.png"
+                            />
+                          </picture>
                           <div
                             class="memori--title-container__content"
                           >
                             <div
                               class="memori--title-row"
                             >
+                              <h2
+                                class="memori--title"
+                              >
+                                Memori
+                              </h2>
                               <div
                                 class="memori--completion-provider-status--loading"
                               >
@@ -251,6 +233,16 @@ exports[`renders Chat layout unchanged 1`] = `
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <div
+                              class="memori-expandable memori--description-text memori--description-text--collapsible"
+                            >
+                              <div
+                                class="memori-expandable__inner"
+                                style="max-height: 9999px;"
+                              >
+                                Lorem ipsum.
                               </div>
                             </div>
                           </div>
@@ -311,7 +303,7 @@ exports[`renders Chat layout unchanged 1`] = `
                               </button>
                               <input
                                 aria-hidden="true"
-                                id="base-ui-:ra:"
+                                id="base-ui-:r8:"
                                 name="user-lang-pref"
                                 style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                                 tabindex="-1"
@@ -381,7 +373,7 @@ exports[`renders Chat layout unchanged 1`] = `
                                   >
                                     <span
                                       class="memori-tooltip__trigger"
-                                      id="base-ui-:rd:"
+                                      id="base-ui-:rb:"
                                     >
                                       <button
                                         aria-label="privacyPolicy"
@@ -495,7 +487,7 @@ exports[`renders Chat layout unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:rh:"
+                            id="base-ui-:rf:"
                           >
                             <button
                               aria-label="send"
