@@ -62,6 +62,8 @@ export interface Props {
   creditsCheckFailed?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
   showFullDescriptionOnMobile?: boolean;
+  /** Hide avatar, title, and description (shown in header instead). */
+  hideIdentity?: boolean;
   footerBrand?: React.ReactNode;
 }
 
@@ -89,6 +91,7 @@ const StartPanel: React.FC<Props> = ({
   creditsCheckFailed = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
+  hideIdentity = false,
   footerBrand,
 }) => {
   const { t, i18n } = useTranslation();
@@ -252,42 +255,46 @@ const StartPanel: React.FC<Props> = ({
       </div>
       <div className="memori--start-panel__body">
         <div className="memori--title-container">
-          <picture className="memori--avatar">
-            <source
-              src={
-                memori.avatarURL ??
-                getResourceUrl({
-                  type: 'avatar',
-                  tenantID: tenant?.name,
-                  resourceURI: memori.avatarURL,
-                  baseURL: baseUrl,
-                  apiURL: apiUrl,
-                })
-              }
-            />
-            <img
-              alt={memori.name}
-              src={
-                memori.avatarURL && memori.avatarURL.length > 0
-                  ? getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-                  : getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-              }
-            />
-          </picture>
+          {!hideIdentity && (
+            <picture className="memori--avatar">
+              <source
+                src={
+                  memori.avatarURL ??
+                  getResourceUrl({
+                    type: 'avatar',
+                    tenantID: tenant?.name,
+                    resourceURI: memori.avatarURL,
+                    baseURL: baseUrl,
+                    apiURL: apiUrl,
+                  })
+                }
+              />
+              <img
+                alt={memori.name}
+                src={
+                  memori.avatarURL && memori.avatarURL.length > 0
+                    ? getResourceUrl({
+                        type: 'avatar',
+                        tenantID: tenant?.name,
+                        resourceURI: memori.avatarURL,
+                        baseURL: baseUrl,
+                        apiURL: apiUrl,
+                      })
+                    : getResourceUrl({
+                        type: 'avatar',
+                        tenantID: tenant?.name,
+                        baseURL: baseUrl,
+                        apiURL: apiUrl,
+                      })
+                }
+              />
+            </picture>
+          )}
           <div className="memori--title-container__content">
             <div className="memori--title-row">
-              <h2 className="memori--title">{memori.name}</h2>
+              {!hideIdentity && (
+                <h2 className="memori--title">{memori.name}</h2>
+              )}
               <CompletionProviderStatus
                 provider={
                   memori?.completionConfigForQuestionAnswering?.provider
@@ -304,36 +311,38 @@ const StartPanel: React.FC<Props> = ({
                 />
               )}
             </div>
-            <>
-              {isMobile && showFullDescriptionOnMobile ? (
-                <p className="memori--description-text memori--description-text--full">
-                  {translatedDescription && showTranslation
-                    ? translatedDescription
-                    : memori.description}
-                </p>
-              ) : (
-                <Expandable
-                  className="memori--description-text memori--description-text--collapsible"
-                  rows={3}
-                >
-                  {translatedDescription && showTranslation
-                    ? translatedDescription
-                    : memori.description}
-                </Expandable>
-              )}
+            {!hideIdentity && (
+              <>
+                {isMobile && showFullDescriptionOnMobile ? (
+                  <p className="memori--description-text memori--description-text--full">
+                    {translatedDescription && showTranslation
+                      ? translatedDescription
+                      : memori.description}
+                  </p>
+                ) : (
+                  <Expandable
+                    className="memori--description-text memori--description-text--collapsible"
+                    rows={3}
+                  >
+                    {translatedDescription && showTranslation
+                      ? translatedDescription
+                      : memori.description}
+                  </Expandable>
+                )}
 
-              {translatedDescription !== memori.description && (
-                <Button
-                  variant="ghost"
-                  icon={<Languages />}
-                  onClick={() => toggleTranslations()}
-                >
-                  {showTranslation
-                    ? t('showOriginalText')
-                    : t('showTranslatedText')}
-                </Button>
-              )}
-            </>
+                {translatedDescription !== memori.description && (
+                  <Button
+                    variant="ghost"
+                    icon={<Languages />}
+                    onClick={() => toggleTranslations()}
+                  >
+                    {showTranslation
+                      ? t('showOriginalText')
+                      : t('showTranslatedText')}
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </div>
         {memori.needsPosition && !position && (

@@ -16,7 +16,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
         >
           <span
             class="memori-tooltip__trigger"
-            id="base-ui-:rd:"
+            id="base-ui-:rh:"
           >
             <button
               aria-label="boardOfExperts"
@@ -203,7 +203,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rf:"
+                    id="base-ui-:rj:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -419,7 +419,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r15:"
+                    id="base-ui-:r19:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -742,7 +742,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1n:"
+                id="base-ui-:r1r:"
               >
                 <svg
                   aria-hidden="true"
@@ -847,7 +847,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1p:"
+                    id="base-ui-:r1t:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -1063,7 +1063,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r9:"
+                    id="base-ui-:rd:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -1296,7 +1296,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                   >
                     <span
                       class="memori-tooltip__trigger"
-                      id="base-ui-:rp:"
+                      id="base-ui-:rt:"
                     >
                       <button
                         aria-label="deepThoughtHelper"
@@ -1391,7 +1391,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rr:"
+                    id="base-ui-:rv:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -1611,7 +1611,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   >
                     <span
                       class="memori-tooltip__trigger"
-                      id="base-ui-:rv:"
+                      id="base-ui-:r13:"
                     >
                       <button
                         aria-label="deepThoughtHelper"
@@ -1706,7 +1706,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r11:"
+                    id="base-ui-:r15:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -1926,7 +1926,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   >
                     <span
                       class="memori-tooltip__trigger"
-                      id="base-ui-:rj:"
+                      id="base-ui-:rn:"
                     >
                       <button
                         aria-label="deepThoughtHelper"
@@ -2021,7 +2021,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rl:"
+                    id="base-ui-:rp:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -2237,7 +2237,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r5:"
+                    id="base-ui-:r9:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -2453,7 +2453,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1d:"
+                    id="base-ui-:r1h:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -2749,17 +2749,17 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
           >
             <label
               class="memori-combobox__label"
-              for="memori-combobox-34"
-              id="memori-combobox-34-label"
+              for="memori-combobox-37"
+              id="memori-combobox-37-label"
             >
               write_and_speak.chatLanguageLabel
             </label>
             <button
               aria-expanded="false"
               aria-haspopup="dialog"
-              aria-labelledby="memori-combobox-34-label"
+              aria-labelledby="memori-combobox-37-label"
               class="memori-combobox__trigger"
-              id="memori-combobox-34"
+              id="memori-combobox-37"
               role="combobox"
               tabindex="0"
               type="button"
@@ -2794,7 +2794,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             </button>
             <input
               aria-hidden="true"
-              id="base-ui-:r1g:"
+              id="base-ui-:r1k:"
               name="user-lang-pref"
               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
               tabindex="-1"
@@ -2864,7 +2864,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1j:"
+                    id="base-ui-:r1n:"
                   >
                     <button
                       aria-label="privacyPolicy"
@@ -3007,7 +3007,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
             >
               <span
                 class="memori-tooltip__trigger"
-                id="base-ui-:r1t:"
+                id="base-ui-:r21:"
               >
                 <div
                   class="blocked-memori-badge--wrapper"
@@ -3125,7 +3125,7 @@ exports[`renders StartPanel with not enough credits unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1v:"
+                    id="base-ui-:r23:"
                   >
                     <button
                       aria-label="privacyPolicy"

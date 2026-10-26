@@ -24,6 +24,31 @@ it('renders StartPanel unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('hides avatar, title and description when hideIdentity is set', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+      hideIdentity
+    />
+  );
+
+  expect(container.querySelector('.memori--avatar')).toBeNull();
+  expect(container.querySelector('.memori--title')).toBeNull();
+  expect(container.querySelector('.memori--description-text')).toBeNull();
+  expect(container.querySelector('.memori--start-panel')).not.toBeNull();
+});
+
 it('renders StartPanel with existing sessionunchanged', () => {
   const { container } = render(
     <StartPanel
