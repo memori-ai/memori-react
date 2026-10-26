@@ -465,7 +465,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
                   <div className="memori-conversation-column">
                     <StartPanel
                       {...startPanelProps}
-                      hideIdentity
+                      hideIdentity={isMobile}
                       footerBrand={poweredBy}
                     />
                   </div>

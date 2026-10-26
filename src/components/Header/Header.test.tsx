@@ -616,40 +616,86 @@ it('shows the agent description in the fullpage header', () => {
   ).toHaveTextContent('Lorem ipsum.');
 });
 
-it('shows the header brand before the conversation starts on FULLPAGE', () => {
-  render(
-    <Header
-      {...loggedInFullpageProps}
-      hasUserActivatedSpeak={false}
-      sessionID={undefined}
-    />
-  );
+it('shows the header brand before the conversation starts on mobile FULLPAGE', () => {
+  const matchMedia = jest.fn().mockImplementation((query: string) => ({
+    matches: query.includes('max-width: 767px'),
+    media: query,
+    onchange: null,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  }));
+  const original = window.matchMedia;
+  window.matchMedia = matchMedia as typeof window.matchMedia;
 
-  expect(
-    document.querySelector('.memori-fullpage-header-brand')
-  ).toBeTruthy();
-  expect(
-    document.querySelector('.memori-fullpage-header-brand-name')
-  ).toHaveTextContent(memori.name);
-  expect(
-    document.querySelector('.memori-fullpage-header-brand-role')
-  ).toHaveTextContent('Lorem ipsum.');
+  try {
+    render(
+      <Header
+        {...loggedInFullpageProps}
+        hasUserActivatedSpeak={false}
+        sessionID={undefined}
+      />
+    );
+
+    expect(
+      document.querySelector('.memori-fullpage-header-brand')
+    ).toBeTruthy();
+    expect(
+      document.querySelector('.memori-fullpage-header-brand-name')
+    ).toHaveTextContent(memori.name);
+    expect(
+      document.querySelector('.memori-fullpage-header-brand-role')
+    ).toHaveTextContent('Lorem ipsum.');
+  } finally {
+    window.matchMedia = original;
+  }
 });
 
-it('shows the header brand before the conversation starts on CHAT', () => {
+it('hides the header brand before the conversation starts on desktop FULLPAGE', () => {
   render(
     <Header
       {...loggedInFullpageProps}
-      layout="CHAT"
       hasUserActivatedSpeak={false}
       sessionID={undefined}
     />
   );
 
-  expect(
-    document.querySelector('.memori-fullpage-header-brand')
-  ).toBeTruthy();
-  expect(
-    document.querySelector('.memori-fullpage-header-brand-name')
-  ).toHaveTextContent(memori.name);
+  expect(document.querySelector('.memori-fullpage-header-brand')).toBeNull();
+});
+
+it('shows the header brand before the conversation starts on mobile CHAT', () => {
+  const matchMedia = jest.fn().mockImplementation((query: string) => ({
+    matches: query.includes('max-width: 767px'),
+    media: query,
+    onchange: null,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  }));
+  const original = window.matchMedia;
+  window.matchMedia = matchMedia as typeof window.matchMedia;
+
+  try {
+    render(
+      <Header
+        {...loggedInFullpageProps}
+        layout="CHAT"
+        hasUserActivatedSpeak={false}
+        sessionID={undefined}
+      />
+    );
+
+    expect(
+      document.querySelector('.memori-fullpage-header-brand')
+    ).toBeTruthy();
+    expect(
+      document.querySelector('.memori-fullpage-header-brand-name')
+    ).toHaveTextContent(memori.name);
+  } finally {
+    window.matchMedia = original;
+  }
 });
