@@ -87,7 +87,6 @@
   "whyThisAnswerEmptyTitle": "Keine Inhalte konsultiert",
   "whyThisAnswerEmptyDescription": "Für diese Frage hat der Agent keine Treffer in der Wissensbasis gefunden: er hat nur nach seinen Anweisungen geantwortet.",
   "whyThisAnswerEmptyAuthorDescription": "Die Frage hat keine Treffer ergeben. Falls sie welche haben sollte, fügen Sie einen passenden Inhalt hinzu.",
-  "whyThisAnswerAddContent": "Zur Wissensbasis hinzufügen",
   "whyThisAnswerConfidenceHigh": "Starke Übereinstimmung",
   "whyThisAnswerConfidenceMedium": "Teilweise Übereinstimmung",
   "whyThisAnswerConfidenceLow": "Schwache Übereinstimmung",

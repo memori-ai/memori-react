@@ -87,7 +87,6 @@
   "whyThisAnswerEmptyTitle": "Ningún contenido consultado",
   "whyThisAnswerEmptyDescription": "Para esta pregunta el agente no encontró coincidencias en la base de conocimiento: ha respondido solo según sus instrucciones.",
   "whyThisAnswerEmptyAuthorDescription": "La pregunta no produjo coincidencias. Si debería tenerlas, añade un contenido que la cubra.",
-  "whyThisAnswerAddContent": "Añadir a la base de conocimiento",
   "whyThisAnswerConfidenceHigh": "Coincidencia alta",
   "whyThisAnswerConfidenceMedium": "Coincidencia parcial",
   "whyThisAnswerConfidenceLow": "Coincidencia débil",

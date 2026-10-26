@@ -89,7 +89,6 @@
   "whyThisAnswerEmptyTitle": "Nessun contenuto consultato",
   "whyThisAnswerEmptyDescription": "Per questa domanda l'agente non ha trovato corrispondenze nella base di conoscenza: ha risposto solo in base alle proprie istruzioni.",
   "whyThisAnswerEmptyAuthorDescription": "La domanda non ha prodotto corrispondenze. Se dovrebbe averne, aggiungi un contenuto che la copra.",
-  "whyThisAnswerAddContent": "Aggiungi alla base di conoscenza",
   "whyThisAnswerConfidenceHigh": "Corrispondenza alta",
   "whyThisAnswerConfidenceMedium": "Corrispondenza parziale",
   "whyThisAnswerConfidenceLow": "Corrispondenza debole",
