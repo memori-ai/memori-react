@@ -602,6 +602,7 @@
     "output": "Output",
     "cacheRead": "Cache read",
     "cacheWrite": "Cache write",
+    "cacheHit": "Cache hit",
     "duration": "Duration",
     "energy": "Energy",
     "co2": "CO2",

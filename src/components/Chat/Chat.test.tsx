@@ -282,6 +282,60 @@ it('renders Chat with message consumption unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('shows cache read, write and hit % in the LLM usage modal when present', () => {
+  render(
+    <ArtifactProvider>
+      <Chat
+        memori={memori}
+        tenant={tenant}
+        dialogState={dialogState}
+        layout="DEFAULT"
+        client={client}
+        history={[
+          {
+            text: 'AI message with cache usage',
+            fromUser: false,
+            timestamp: FIXED_TEST_DATE.toISOString(),
+            llmUsage: {
+              provider: 'anthropic',
+              model: 'claude-3',
+              totalInputTokens: 100,
+              inputCacheReadTokens: 40,
+              inputCacheWriteTokens: 10,
+              outputTokens: 20,
+            },
+          } as Message & { llmUsage: Record<string, unknown> },
+        ]}
+        pushMessage={jest.fn()}
+        sessionID={sessionID}
+        simulateUserPrompt={jest.fn()}
+        setAttachmentsMenuOpen={jest.fn()}
+        setSendOnEnter={jest.fn()}
+        userMessage=""
+        onChangeUserMessage={jest.fn()}
+        sendMessage={jest.fn()}
+        stopListening={jest.fn()}
+        isPlayingAudio={false}
+        stopAudio={jest.fn()}
+        showMicrophone={false}
+        listening={false}
+        startListening={jest.fn()}
+        setEnableFocusChatInput={jest.fn()}
+        showMessageConsumption
+      />
+    </ArtifactProvider>
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'chatLogs.llm' }));
+
+  expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+  expect(screen.getByText('chatLogs.cacheWrite')).toBeTruthy();
+  expect(screen.getByText('chatLogs.cacheHit')).toBeTruthy();
+  expect(screen.getByText('40')).toBeTruthy();
+  expect(screen.getByText('10')).toBeTruthy();
+  expect(screen.getByText('40%')).toBeTruthy();
+});
+
 it('renders Chat with user unchanged', () => {
   const { container } = render(
     <ArtifactProvider

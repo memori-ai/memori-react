@@ -557,6 +557,7 @@
     "output": "Salida",
     "cacheRead": "Lectura de caché",
     "cacheWrite": "Escritura de caché",
+    "cacheHit": "Acierto de caché",
     "duration": "Duración",
     "energy": "Energía",
     "co2": "CO2",

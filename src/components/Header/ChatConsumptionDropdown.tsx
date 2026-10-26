@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Button, Modal, Tooltip } from '@memori.ai/ui';
 import IconButton from '../IconButton/IconButton';
 import GasStation from '../icons/GasStation';
-import { BADGE_EMOJI } from '../../helpers/llmUsage';
+import {
+  BADGE_EMOJI,
+  formatCacheHitPercent,
+  getCacheHitPercent,
+  hasCacheTokenDetails,
+} from '../../helpers/llmUsage';
 
 type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -19,6 +24,8 @@ type MessageLlmUsage = {
   provider?: string;
   model?: string;
   totalInputTokens?: number;
+  inputCacheReadTokens?: number;
+  inputCacheWriteTokens?: number;
   outputTokens?: number;
   energyImpact?: LlmUsageEnergyImpact;
 };
@@ -112,6 +119,8 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
     const totals = {
       totalInputTokens: 0,
       totalOutputTokens: 0,
+      totalCacheReadTokens: 0,
+      totalCacheWriteTokens: 0,
       energy: 0,
       gwp: 0,
       wcf: 0,
@@ -129,6 +138,8 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
 
       totals.totalInputTokens += llmUsage.totalInputTokens ?? 0;
       totals.totalOutputTokens += llmUsage.outputTokens ?? 0;
+      totals.totalCacheReadTokens += llmUsage.inputCacheReadTokens ?? 0;
+      totals.totalCacheWriteTokens += llmUsage.inputCacheWriteTokens ?? 0;
 
       if (llmUsage.provider || llmUsage.model) {
         totals.models.add(
@@ -151,6 +162,17 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
     () => Array.from(chatConsumptionTotals.models),
     [chatConsumptionTotals.models]
   );
+
+  const showCacheDetails = hasCacheTokenDetails({
+    inputCacheReadTokens: chatConsumptionTotals.totalCacheReadTokens,
+    inputCacheWriteTokens: chatConsumptionTotals.totalCacheWriteTokens,
+  });
+  const cacheHitPercent = showCacheDetails
+    ? getCacheHitPercent(
+        chatConsumptionTotals.totalCacheReadTokens,
+        chatConsumptionTotals.totalInputTokens
+      )
+    : undefined;
 
   return (
     <div className={cx('memori-dropdown--sustainability', className)}>
@@ -192,6 +214,40 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
               {t('chatLogs.tokens') || 'Tokens'}
             </span>
           </div>
+          {showCacheDetails && (
+            <>
+              <div className="memori-dropdown--sustainability-stat">
+                <span className="memori-dropdown--sustainability-stat-label">
+                  {t('chatLogs.cacheRead') || 'Cache read'}
+                </span>
+                <strong className="memori-dropdown--sustainability-stat-value">
+                  {formatCountValue(
+                    chatConsumptionTotals.totalCacheReadTokens,
+                    currentLocale
+                  )}
+                </strong>
+                <span className="memori-dropdown--sustainability-stat-meta">
+                  {cacheHitPercent !== undefined
+                    ? formatCacheHitPercent(cacheHitPercent, currentLocale)
+                    : t('chatLogs.tokens') || 'Tokens'}
+                </span>
+              </div>
+              <div className="memori-dropdown--sustainability-stat">
+                <span className="memori-dropdown--sustainability-stat-label">
+                  {t('chatLogs.cacheWrite') || 'Cache write'}
+                </span>
+                <strong className="memori-dropdown--sustainability-stat-value">
+                  {formatCountValue(
+                    chatConsumptionTotals.totalCacheWriteTokens,
+                    currentLocale
+                  )}
+                </strong>
+                <span className="memori-dropdown--sustainability-stat-meta">
+                  {t('chatLogs.tokens') || 'Tokens'}
+                </span>
+              </div>
+            </>
+          )}
         </div>
         {llmUsageModels.length > 0 && (
           <div className="memori-dropdown--sustainability-row memori-dropdown--sustainability-row--stacked">
