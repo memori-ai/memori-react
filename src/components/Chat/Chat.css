@@ -359,7 +359,7 @@
     margin-right: var(--memori-spacing-sm);
 }
 
-/* Drag and drop overlay */
+/* Drag and drop overlay — always dark; use light content color (not --memori-text-color) */
 .memori-chat--drag-overlay {
     position: absolute;
     z-index: 1000;
@@ -370,6 +370,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     border-radius: var(--memori-radius-overlay);
     background-color: rgba(0, 0, 0, 0.7);
     pointer-events: none;
@@ -379,13 +380,13 @@
     width: 64px;
     height: 64px;
     margin-bottom: 1rem;
-    color: var(--memori-text-color);
+    color: var(--memori-primary-content, #fff);
     opacity: 0.9;
 }
 
 .memori-chat--drag-overlay-text {
     padding: 0 2rem;
-    color: var(--memori-text-color);
+    color: var(--memori-primary-content, #fff);
     font-size: var(--memori-text-size-lg);
     font-weight: var(--memori-text-weight-medium);
     text-align: center;
