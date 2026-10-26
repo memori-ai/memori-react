@@ -1693,7 +1693,7 @@ const Header: React.FC<Props> = ({
 
   return (
     <>
-      {isConversationStarted && memori && (
+      {memori && (
         <div className="memori-fullpage-header-brand">
           {brandAvatarSrc ? (
             <img

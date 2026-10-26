@@ -62,6 +62,40 @@ exports[`renders FullPage layout unchanged 1`] = `
               class="memori-fullpage-header-row"
             >
               <div
+                class="memori-fullpage-header-brand"
+              >
+                <img
+                  alt=""
+                  class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
+                  role="presentation"
+                  src="https://aisuru.com/images/aisuru/square_logo.png"
+                />
+                <div
+                  class="memori-fullpage-header-brand-text"
+                >
+                  <span
+                    class="memori-fullpage-header-brand-name"
+                    title="Memori"
+                  >
+                    Memori
+                  </span>
+                  <span
+                    class="memori-tooltip"
+                  >
+                    <span
+                      class="memori-tooltip__trigger"
+                      id="base-ui-:r1:"
+                    >
+                      <span
+                        class="memori-fullpage-header-brand-role"
+                      >
+                        Lorem ipsum.
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
                 class="memori-fullpage-header-actions"
               >
                 <div
@@ -78,14 +112,14 @@ exports[`renders FullPage layout unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5:"
+                          id="base-ui-:r7:"
                         >
                           <button
                             aria-expanded="false"
                             aria-haspopup="menu"
                             aria-label="widget.share"
                             class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                            id="base-ui-:r6:"
+                            id="base-ui-:r8:"
                             tabindex="0"
                             title="widget.share"
                             type="button"
@@ -256,28 +290,12 @@ exports[`renders FullPage layout unchanged 1`] = `
                       <div
                         class="memori--title-container"
                       >
-                        <picture
-                          class="memori--avatar"
-                        >
-                          <source
-                            src="https://aisuru.com/images/aisuru/square_logo.png"
-                          />
-                          <img
-                            alt="Memori"
-                            src="https://aisuru.com/images/aisuru/square_logo.png"
-                          />
-                        </picture>
                         <div
                           class="memori--title-container__content"
                         >
                           <div
                             class="memori--title-row"
                           >
-                            <h2
-                              class="memori--title"
-                            >
-                              Memori
-                            </h2>
                             <div
                               class="memori--completion-provider-status--loading"
                             >
@@ -313,16 +331,6 @@ exports[`renders FullPage layout unchanged 1`] = `
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div
-                            class="memori-expandable memori--description-text memori--description-text--collapsible"
-                          >
-                            <div
-                              class="memori-expandable__inner"
-                              style="max-height: 9999px;"
-                            >
-                              Lorem ipsum.
                             </div>
                           </div>
                         </div>
@@ -383,7 +391,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:r8:"
+                              id="base-ui-:ra:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -453,7 +461,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:rb:"
+                                    id="base-ui-:rd:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"
@@ -748,6 +756,40 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
               class="memori-fullpage-header-row"
             >
               <div
+                class="memori-fullpage-header-brand"
+              >
+                <img
+                  alt=""
+                  class="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
+                  role="presentation"
+                  src="https://aisuru.com/images/aisuru/square_logo.png"
+                />
+                <div
+                  class="memori-fullpage-header-brand-text"
+                >
+                  <span
+                    class="memori-fullpage-header-brand-name"
+                    title="Memori"
+                  >
+                    Memori
+                  </span>
+                  <span
+                    class="memori-tooltip"
+                  >
+                    <span
+                      class="memori-tooltip__trigger"
+                      id="base-ui-:rp:"
+                    >
+                      <span
+                        class="memori-fullpage-header-brand-role"
+                      >
+                        Lorem ipsum.
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
                 class="memori-fullpage-header-actions"
               >
                 <div
@@ -764,14 +806,14 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rr:"
+                          id="base-ui-:rv:"
                         >
                           <button
                             aria-expanded="false"
                             aria-haspopup="menu"
                             aria-label="widget.share"
                             class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                            id="base-ui-:rs:"
+                            id="base-ui-:r10:"
                             tabindex="0"
                             title="widget.share"
                             type="button"
@@ -942,28 +984,12 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                       <div
                         class="memori--title-container"
                       >
-                        <picture
-                          class="memori--avatar"
-                        >
-                          <source
-                            src="https://aisuru.com/images/aisuru/square_logo.png"
-                          />
-                          <img
-                            alt="Memori"
-                            src="https://aisuru.com/images/aisuru/square_logo.png"
-                          />
-                        </picture>
                         <div
                           class="memori--title-container__content"
                         >
                           <div
                             class="memori--title-row"
                           >
-                            <h2
-                              class="memori--title"
-                            >
-                              Memori
-                            </h2>
                             <div
                               class="memori--completion-provider-status--loading"
                             >
@@ -999,16 +1025,6 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div
-                            class="memori-expandable memori--description-text memori--description-text--collapsible"
-                          >
-                            <div
-                              class="memori-expandable__inner"
-                              style="max-height: 9999px;"
-                            >
-                              Lorem ipsum.
                             </div>
                           </div>
                         </div>
@@ -1069,7 +1085,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:ru:"
+                              id="base-ui-:r12:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -1139,7 +1155,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:r11:"
+                                    id="base-ui-:r15:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"

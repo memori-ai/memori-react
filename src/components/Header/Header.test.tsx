@@ -615,3 +615,41 @@ it('shows the agent description in the fullpage header', () => {
     document.querySelector('.memori-fullpage-header-brand-role')
   ).toHaveTextContent('Lorem ipsum.');
 });
+
+it('shows the header brand before the conversation starts on FULLPAGE', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      hasUserActivatedSpeak={false}
+      sessionID={undefined}
+    />
+  );
+
+  expect(
+    document.querySelector('.memori-fullpage-header-brand')
+  ).toBeTruthy();
+  expect(
+    document.querySelector('.memori-fullpage-header-brand-name')
+  ).toHaveTextContent(memori.name);
+  expect(
+    document.querySelector('.memori-fullpage-header-brand-role')
+  ).toHaveTextContent('Lorem ipsum.');
+});
+
+it('shows the header brand before the conversation starts on CHAT', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      layout="CHAT"
+      hasUserActivatedSpeak={false}
+      sessionID={undefined}
+    />
+  );
+
+  expect(
+    document.querySelector('.memori-fullpage-header-brand')
+  ).toBeTruthy();
+  expect(
+    document.querySelector('.memori-fullpage-header-brand-name')
+  ).toHaveTextContent(memori.name);
+});
