@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen } from '../../testUtils';
+import { render, screen } from '../../testUtils';
 import WhyThisAnswer from './WhyThisAnswer';
 import { sessionID } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -136,9 +136,7 @@ it('shows a neutral empty state for visitors', () => {
   ).not.toBeInTheDocument();
 });
 
-it('adds the missing-content action for the agent author', () => {
-  const onAddMissingContent = jest.fn();
-  const closeDrawer = jest.fn();
+it('shows the author empty state without an add-content action', () => {
   render(
     <WhyThisAnswer
       client={memoriApiClient()}
@@ -146,14 +144,16 @@ it('adds the missing-content action for the agent author', () => {
       visible
       disableFetch
       isAgentAuthor
-      onAddMissingContent={onAddMissingContent}
       message={message}
-      closeDrawer={closeDrawer}
+      closeDrawer={jest.fn()}
       initialMatches={[]}
     />
   );
 
-  fireEvent.click(screen.getByRole('button', { name: 'whyThisAnswerAddContent' }));
-  expect(onAddMissingContent).toHaveBeenCalled();
-  expect(closeDrawer).toHaveBeenCalled();
+  expect(
+    screen.getByText('whyThisAnswerEmptyAuthorDescription')
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: 'whyThisAnswerAddContent' })
+  ).not.toBeInTheDocument();
 });

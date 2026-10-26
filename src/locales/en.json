@@ -89,7 +89,6 @@
   "whyThisAnswerEmptyTitle": "No contents consulted",
   "whyThisAnswerEmptyDescription": "For this question the agent found no matches in the knowledge base: it replied from its instructions only.",
   "whyThisAnswerEmptyAuthorDescription": "The question produced no matches. If it should have, add a content that covers it.",
-  "whyThisAnswerAddContent": "Add to the knowledge base",
   "whyThisAnswerConfidenceHigh": "Strong match",
   "whyThisAnswerConfidenceMedium": "Partial match",
   "whyThisAnswerConfidenceLow": "Weak match",

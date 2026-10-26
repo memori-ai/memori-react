@@ -22,7 +22,6 @@ import {
   FileText,
   Globe,
   HelpCircle,
-  Plus,
   SearchX,
 } from 'lucide-react';
 import cx from 'classnames';
@@ -37,7 +36,6 @@ export interface Props {
   _TEST_loading?: boolean;
   disableFetch?: boolean;
   isAgentAuthor?: boolean;
-  onAddMissingContent?: () => void;
 }
 
 const ANSWER_PREVIEW_CHARS = 160;
@@ -113,7 +111,6 @@ const WhyThisAnswer = ({
   _TEST_loading = false,
   disableFetch = false,
   isAgentAuthor = false,
-  onAddMissingContent,
 }: Props) => {
   const { t } = useTranslation();
   const { add } = useAlertManager();
@@ -348,21 +345,7 @@ const WhyThisAnswer = ({
               ? t('whyThisAnswerEmptyAuthorDescription')
               : t('whyThisAnswerEmptyDescription')
           }
-        >
-          {isAgentAuthor && (
-            <Button
-              variant="outline"
-              className="memori-whythisanswer-empty-action"
-              icon={<Plus aria-hidden />}
-              onClick={() => {
-                onAddMissingContent?.();
-                closeDrawer();
-              }}
-            >
-              {t('whyThisAnswerAddContent')}
-            </Button>
-          )}
-        </SideDrawerEmpty>
+        />
       )}
 
       {matches.length > 0 && (
