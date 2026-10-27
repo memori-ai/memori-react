@@ -1,5 +1,24 @@
 # Changelog
 
+## [9.1.2](https://github.com/memori-ai/memori-react/compare/v9.1.1...v9.1.2) (2026-10-27)
+
+
+### Features
+
+* **Chat:** add cache usage metrics display in Chat component and tests for cache read/write percentages ([b9e0880](https://github.com/memori-ai/memori-react/commit/b9e0880123c74c1c89b42f8e30b0a221bba7f701))
+* **Header:** update header brand visibility logic for mobile and desktop layouts ([89ee1dc](https://github.com/memori-ai/memori-react/commit/89ee1dcddda175efb148640cfe0e710c0086207d))
+* **StartPanel:** add hideIdentity prop to conditionally render avatar, title, and description ([6a79abe](https://github.com/memori-ai/memori-react/commit/6a79abe56afd77e233d5dbd1272234ca775e57b2))
+
+
+### Changes
+
+* **WhyThisAnswer:** remove add-content action for agent author and update tests ([88f4c89](https://github.com/memori-ai/memori-react/commit/88f4c89d5d1ed52e8b407b86356327bd97c1e564))
+
+
+### Maintenance
+
+* update dompurify to version 3.4.17 in package.json and yarn.lock ([3bbe5bb](https://github.com/memori-ai/memori-react/commit/3bbe5bba87fc462c3518f4d5b6269b6f5db2b85b))
+
 ## [9.1.1](https://github.com/memori-ai/memori-react/compare/v9.1.0...v9.1.1) (2026-10-23)
 
 
