@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.4](https://github.com/memori-ai/memori-react/compare/v9.1.3...v9.1.4) (2026-10-28)
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/ui to version 2.0.6 ([5af2d72](https://github.com/memori-ai/memori-react/commit/5af2d72ac417687e064703b5ec0bfaf371f6d775))
+
 ## [9.1.3](https://github.com/memori-ai/memori-react/compare/v9.1.2...v9.1.3) (2026-10-28)
 
 
