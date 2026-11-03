@@ -869,16 +869,23 @@ exports[`renders contentAnswerChange proposal unchanged 1`] = `
           >
             instructionProposal.answer
           </span>
-          <del
-            class="memori-instruction-proposal--text memori-instruction-proposal--removed"
+          <p
+            class="memori-instruction-proposal--text"
           >
-            We open every day at 7:30.
-          </del>
-          <ins
-            class="memori-instruction-proposal--text memori-instruction-proposal--added"
-          >
-            We open every day at 7:00.
-          </ins>
+            <span>
+              We open every day at 
+            </span>
+            <del
+              class="memori-instruction-proposal--removed"
+            >
+              7:30.
+            </del>
+            <ins
+              class="memori-instruction-proposal--added"
+            >
+              7:00.
+            </ins>
+          </p>
         </div>
         <div
           class="memori-instruction-proposal--actions"
@@ -1400,7 +1407,17 @@ exports[`renders landingPage proposal unchanged 1`] = `
           <p
             class="memori-instruction-proposal--text"
           >
-            CHAT
+            <del
+              class="memori-instruction-proposal--removed"
+            >
+              TOTEM
+            </del>
+             
+            <ins
+              class="memori-instruction-proposal--added"
+            >
+              CHAT
+            </ins>
           </p>
         </div>
         <div
@@ -1416,6 +1433,140 @@ exports[`renders landingPage proposal unchanged 1`] = `
           >
             START
           </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.apply
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders landingPageSettings proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.LandingPage
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Public page
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants a dark page without sharing.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.pageSettings
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              instructionProposal.pageSettingNames.theme
+              :
+               
+              <del
+                class="memori-instruction-proposal--removed"
+              >
+                light
+              </del>
+               
+              <ins
+                class="memori-instruction-proposal--added"
+              >
+                dark
+              </ins>
+            </li>
+            <li>
+              instructionProposal.pageSettingNames.showShare
+              :
+               
+              <del
+                class="memori-instruction-proposal--removed"
+              >
+                instructionProposal.settingOn
+              </del>
+               
+              <ins
+                class="memori-instruction-proposal--added"
+              >
+                instructionProposal.settingOff
+              </ins>
+            </li>
+            <li>
+              instructionProposal.pageSettingNames.seoTitle
+              :
+               
+              <ins
+                class="memori-instruction-proposal--added"
+              >
+                Bakery Rossi, fresh bread every morning
+              </ins>
+            </li>
+          </ul>
         </div>
         <div
           class="memori-instruction-proposal--actions"
@@ -1644,16 +1795,23 @@ exports[`renders notPending status unchanged 1`] = `
           >
             instructionProposal.answer
           </span>
-          <del
-            class="memori-instruction-proposal--text memori-instruction-proposal--removed"
+          <p
+            class="memori-instruction-proposal--text"
           >
-            We open every day at 7:30.
-          </del>
-          <ins
-            class="memori-instruction-proposal--text memori-instruction-proposal--added"
-          >
-            We open every day at 7:00.
-          </ins>
+            <span>
+              We open every day at 
+            </span>
+            <del
+              class="memori-instruction-proposal--removed"
+            >
+              7:30.
+            </del>
+            <ins
+              class="memori-instruction-proposal--added"
+            >
+              7:00.
+            </ins>
+          </p>
         </div>
         <p
           class="memori-instruction-proposal--status"
@@ -1827,6 +1985,30 @@ exports[`renders promptRevert proposal unchanged 1`] = `
         >
           instructionProposal.promptRevert
         </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.restoredPrompt
+          </span>
+          <div
+            class="memori-expandable"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              <p
+                class="memori-instruction-proposal--text"
+              >
+                You are the assistant of a bakery in Bologna.
+Answer briefly and kindly.
+              </p>
+            </div>
+          </div>
+        </div>
         <div
           class="memori-instruction-proposal--actions"
         >
@@ -2040,12 +2222,59 @@ exports[`renders snippet proposal unchanged 1`] = `
           <span
             class="memori-instruction-proposal--label"
           >
+            instructionProposal.variants
+          </span>
+          <ul
+            class="memori-instruction-proposal--list"
+          >
+            <li>
+              I want to book a table
+            </li>
+            <li>
+              Can I reserve a table?
+            </li>
+          </ul>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
             instructionProposal.snippet
           </span>
           <p
             class="memori-instruction-proposal--text"
           >
             form
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.snippetTitle
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Book a table
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.snippetSubmitLabel
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            Send
           </p>
         </div>
         <div

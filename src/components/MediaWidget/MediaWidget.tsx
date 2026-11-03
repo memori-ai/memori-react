@@ -19,6 +19,7 @@ export interface Props {
   translateTo?: string;
   customMediaRenderer?: MediaItemProps['customMediaRenderer'];
   onProposalConfirm?: MediaItemProps['onProposalConfirm'];
+  proposalsPending?: MediaItemProps['proposalsPending'];
   fromUser?: boolean;
 }
 
@@ -33,6 +34,7 @@ const MediaWidget: React.FC<Props> = ({
   translateTo,
   customMediaRenderer,
   onProposalConfirm,
+  proposalsPending,
   fromUser = false,
 }: Props) => {
   const { t } = useTranslation();
@@ -54,6 +56,7 @@ const MediaWidget: React.FC<Props> = ({
           apiURL={apiUrl}
           customMediaRenderer={customMediaRenderer}
           onProposalConfirm={onProposalConfirm}
+          proposalsPending={proposalsPending}
           fromUser={fromUser}
         />
       )}

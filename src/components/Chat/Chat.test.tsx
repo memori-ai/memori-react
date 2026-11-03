@@ -8,6 +8,7 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
   instructionProposals,
+  chatOnlyInstructionProposals,
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
@@ -768,5 +769,18 @@ describe('hints with instruction proposals', () => {
     });
 
     expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps the hints to confirm a proposal without a card', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([chatOnlyInstructionProposals.welcomeMessage]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+    expect(
+      document.querySelector('.memori-instruction-proposal')
+    ).not.toBeInTheDocument();
   });
 });

@@ -25,6 +25,7 @@ import MediaWidget, {
 } from '../MediaWidget/MediaWidget';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import { InstructionProposalConfirm } from '../../types/instructionProposal';
+import { hasInstructionProposalCard } from '../InstructionProposalCard/InstructionProposalCard';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
@@ -263,7 +264,8 @@ const Chat: React.FC<Props> = ({
   );
 
   // While proposals are pending the engine hints Apply and Ignore, acting on all of them:
-  // a single proposal is confirmed by its card, several keep the hints to act on all
+  // a single proposal is confirmed by its card, several keep the hints to act on all,
+  // and so does a proposal without a card
   const hideProposalHints = useMemo(() => {
     const lastMessage = history[history.length - 1];
     if (
@@ -276,11 +278,10 @@ const Chat: React.FC<Props> = ({
     )
       return false;
 
-    return (
-      (lastMessage.media ?? []).filter(
-        m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
-      ).length === 1
+    const proposals = (lastMessage.media ?? []).filter(
+      m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
     );
+    return proposals.length === 1 && hasInstructionProposalCard(proposals[0]);
   }, [
     history,
     onProposalConfirm,
@@ -288,6 +289,11 @@ const Chat: React.FC<Props> = ({
     isChatlogPanel,
     customMediaRenderer,
   ]);
+
+  // Without hints the engine has no proposal pending: the cards still waiting were
+  // confirmed or discarded with the hints, or the Giver left the instruction
+  const proposalsPending =
+    dialogState?.state === 'G6' && !!dialogState.hints?.length;
 
   const enteringMessageIndexRef = useRef<number | null>(null);
   if (history.length === prevHistoryLengthRef.current + 1) {
@@ -611,6 +617,7 @@ const Chat: React.FC<Props> = ({
                         ? undefined
                         : onProposalConfirm
                     }
+                    proposalsPending={proposalsPending}
                     translateTo={translateTo}
                     baseUrl={baseUrl}
                     apiUrl={apiUrl}

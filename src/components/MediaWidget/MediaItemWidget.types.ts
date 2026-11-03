@@ -30,6 +30,8 @@ export interface MediaItemWidgetProps {
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
   /** Confirms an instruction proposal. Omit to show proposals read-only. */
   onProposalConfirm?: InstructionProposalConfirm;
+  /** False when the engine has no proposal pending, confirmed or discarded in chat */
+  proposalsPending?: boolean;
   fromUser?: boolean;
   descriptionOneLine?: boolean;
   onLinkPreviewInfo?: (linkPreviewInfo: LinkPreviewInfo) => void;

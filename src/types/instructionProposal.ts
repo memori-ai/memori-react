@@ -13,7 +13,9 @@ export type InstructionProposalType =
   | 'ContentAnswerChange'
   | 'Snippet'
   | 'LandingPage'
-  | 'Connector';
+  | 'Connector'
+  | 'WelcomeMessage'
+  | 'AisuruFunction';
 
 export interface InstructionSnippetField {
   name: string;
@@ -46,14 +48,25 @@ export interface InstructionProposal {
   snippetTemplate?: string;
   snippetParameters?: { [key: string]: string };
   snippetFields?: InstructionSnippetField[];
+  /** The layout and initial question of the public page, with their values before the proposal */
   landingPageLayout?: string;
+  previousLandingPageLayout?: string;
   initialQuestion?: string;
+  previousInitialQuestion?: string;
+  /** The settings of the public page to change, with their values before the proposal */
+  landingPageSettings?: { [key: string]: string };
+  previousLandingPageSettings?: { [key: string]: string };
   connectorSchemaID?: string;
   connectorName?: string;
   connectorDescription?: string;
   connectorFields?: InstructionConnectorField[];
   /** The values given in chat, never the secret ones */
   connectorParameters?: { [key: string]: string };
+  welcomeMessage?: string;
+  baseWelcomeMessage?: string;
+  aisuruFunctionName?: string;
+  aisuruFunctionDescription?: string;
+  aisuruFunctionEnable?: boolean;
 }
 
 /**

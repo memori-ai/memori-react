@@ -23,7 +23,9 @@ import {
 } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
-import InstructionProposalCard from '../InstructionProposalCard/InstructionProposalCard';
+import InstructionProposalCard, {
+  hasInstructionProposalCard,
+} from '../InstructionProposalCard/InstructionProposalCard';
 import { Card, Modal } from '@memori.ai/ui';
 import { File, Volume2, Link as LinkIcon } from 'lucide-react';
 import cx from 'classnames';
@@ -770,6 +772,7 @@ const MediaItemWidget: React.FC<Props> = ({
   apiURL,
   customMediaRenderer,
   onProposalConfirm,
+  proposalsPending = true,
   fromUser = false,
   descriptionOneLine = false,
   onLinkPreviewInfo,
@@ -842,9 +845,12 @@ const MediaItemWidget: React.FC<Props> = ({
     [media]
   );
 
-  // 3. Only instruction proposals (rendered as cards to confirm)
+  // 3. Only instruction proposals with a card to confirm them, the others are confirmed in chat
   const instructionProposals = useMemo(
-    () => media.filter(isInstructionProposal),
+    () =>
+      media.filter(
+        m => isInstructionProposal(m) && hasInstructionProposalCard(m)
+      ),
     [media, isInstructionProposal]
   );
 
@@ -972,6 +978,7 @@ const MediaItemWidget: React.FC<Props> = ({
               <InstructionProposalCard
                 medium={item}
                 onConfirm={onProposalConfirm}
+                proposalsPending={proposalsPending}
               />
             </div>
           ))}

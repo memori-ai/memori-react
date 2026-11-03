@@ -834,6 +834,8 @@ export const instructionProposals: { [key: string]: Medium } = {
   promptRevert: instructionProposalMedium('Instructions', {
     id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e05',
     type: 'PromptRevert',
+    prompt:
+      'You are the assistant of a bakery in Bologna.\nAnswer briefly and kindly.',
     reason: 'The Giver wants the previous instructions back.',
   }),
   attachmentPlacement: instructionProposalMedium('price-list.pdf', {
@@ -848,7 +850,13 @@ export const instructionProposals: { [key: string]: Medium } = {
     type: 'Snippet',
     question: 'Book a table',
     answer: 'Fill in the form and we will call you back.',
+    variants: ['I want to book a table', 'Can I reserve a table?'],
     snippetTemplate: 'form',
+    snippetParameters: {
+      title: 'Book a table',
+      submit_label: 'Send',
+      message_prefix: 'TABLE_BOOKING',
+    },
     snippetFields: [
       { name: 'name', label: 'Name', type: 'text' },
       { name: 'phone', label: 'Phone', type: 'tel' },
@@ -859,8 +867,23 @@ export const instructionProposals: { [key: string]: Medium } = {
     id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e08',
     type: 'LandingPage',
     landingPageLayout: 'CHAT',
+    previousLandingPageLayout: 'TOTEM',
     initialQuestion: 'START',
     reason: 'The Giver wants the chat to start by itself.',
+  }),
+  landingPageSettings: instructionProposalMedium('Public page', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e12',
+    type: 'LandingPage',
+    landingPageSettings: {
+      theme: 'dark',
+      showShare: 'false',
+      seoTitle: 'Bakery Rossi, fresh bread every morning',
+    },
+    previousLandingPageSettings: {
+      theme: 'light',
+      showShare: 'true',
+    },
+    reason: 'The Giver wants a dark page without sharing.',
   }),
   connector: instructionProposalMedium('Matomo', {
     id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e09',
@@ -921,5 +944,24 @@ export const instructionProposals: { [key: string]: Medium } = {
     connectorFields: [],
     connectorParameters: {},
     reason: 'The Giver wants the customers of the CRM in chat.',
+  }),
+};
+
+// Confirmed only with the hints in chat, without a card
+export const chatOnlyInstructionProposals: { [key: string]: Medium } = {
+  welcomeMessage: instructionProposalMedium('Welcome message', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e13',
+    type: 'WelcomeMessage',
+    welcomeMessage: 'Hi, I am {0}, the assistant of Bakery Rossi.',
+    baseWelcomeMessage: 'Hi, I am {0}.',
+    reason: 'The Giver wants the agent to say who it works for.',
+  }),
+  aisuruFunction: instructionProposalMedium('Emotions', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e14',
+    type: 'AisuruFunction',
+    aisuruFunctionName: 'Emotions',
+    aisuruFunctionDescription: 'Shows emotions with the avatar.',
+    aisuruFunctionEnable: true,
+    reason: 'The Giver wants the avatar to show emotions.',
   }),
 };

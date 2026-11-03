@@ -76,6 +76,10 @@ export const LandingPage: Story = {
   args: { medium: instructionProposals.landingPage },
 };
 
+export const LandingPageSettings: Story = {
+  args: { medium: instructionProposals.landingPageSettings },
+};
+
 export const Connector: Story = {
   args: { medium: instructionProposals.connector },
 };

@@ -137,6 +137,8 @@ export interface Props {
   animateEnter?: boolean;
   /** Confirms an instruction proposal. Omit to show proposals read-only. */
   onProposalConfirm?: InstructionProposalConfirm;
+  /** False when the engine has no proposal pending, confirmed or discarded in chat */
+  proposalsPending?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -167,6 +169,7 @@ const ChatBubble: React.FC<Props> = ({
   customMediaRenderer,
   animateEnter = false,
   onProposalConfirm,
+  proposalsPending,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -1199,6 +1202,7 @@ const ChatBubble: React.FC<Props> = ({
                   translateTo={translateTo}
                   customMediaRenderer={customMediaRenderer}
                   onProposalConfirm={onProposalConfirm}
+                  proposalsPending={proposalsPending}
                   fromUser={message.fromUser}
                 />
               )}
