@@ -194,14 +194,24 @@ exports[`renders Typing with progress messages unchanged 1`] = `
           role="status"
         >
           <li
-            class="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+            class="memori-chat--bubble-typing-progress-item"
+            data-message="Sto cercando le ultime notizie sul web"
           >
-            Sto cercando le ultime notizie sul web
+            <span
+              class="memori-chat--bubble-typing-progress-text memori-motion-enter-up"
+            >
+              Sto cercando le ultime notizie sul web
+            </span>
           </li>
           <li
-            class="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+            class="memori-chat--bubble-typing-progress-item"
+            data-message="Sto controllando la pianificazione del progetto"
           >
-            Sto controllando la pianificazione del progetto
+            <span
+              class="memori-chat--bubble-typing-progress-text memori-motion-enter-up"
+            >
+              Sto controllando la pianificazione del progetto
+            </span>
           </li>
         </ul>
         <div

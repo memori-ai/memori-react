@@ -61,6 +61,16 @@ WithProgressMessages.args = {
   ],
 };
 
+export const WithManyProgressMessages = Template.bind({});
+WithManyProgressMessages.args = {
+  progressMessages: [
+    'Sto cercando le ultime notizie sul web',
+    'Sto controllando la pianificazione del progetto',
+    'Sto leggendo il documento',
+    'Sto preparando il riepilogo',
+  ],
+};
+
 export const WithCustomLoadingTextList = Template.bind({});
 WithCustomLoadingTextList.args = {
   sentences: {

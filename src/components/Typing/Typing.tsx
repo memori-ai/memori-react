@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -11,6 +11,7 @@ const separator = ' ';
 const defaultDelay = 15;
 const timeoutMs = 20 * 1000;
 const newWordInterval = 50;
+const maxVisibleProgressMessages = 3;
 const defaultSentences = {
   en: [
     { delayAfter: defaultDelay, text: 'Processing in progress...' },
@@ -122,6 +123,41 @@ const Typing = ({
   const [shownText, setShownText] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
 
+  const visibleProgressMessages =
+    progressMessages?.slice(-maxVisibleProgressMessages) ?? [];
+  const visibleProgressKey = visibleProgressMessages.join('\n');
+  const progressListRef = useRef<HTMLUListElement>(null);
+  const progressItemTopsRef = useRef<Map<string, number>>(new Map());
+
+  // Lines already shown slide up into the place of the one leaving the window
+  useLayoutEffect(() => {
+    const items = Array.from(
+      progressListRef.current?.children ?? []
+    ) as HTMLElement[];
+    const previousTops = progressItemTopsRef.current;
+    progressItemTopsRef.current = new Map(
+      items.map(item => [item.dataset.message ?? '', item.offsetTop])
+    );
+
+    if (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
+
+    items.forEach(item => {
+      const previousTop = previousTops.get(item.dataset.message ?? '');
+      if (previousTop === undefined || previousTop === item.offsetTop) return;
+
+      item.style.transition = 'none';
+      item.style.transform = `translateY(${previousTop - item.offsetTop}px)`;
+      item.getBoundingClientRect();
+      item.style.transition =
+        'transform var(--memori-motion-duration-normal) var(--memori-motion-ease-out)';
+      item.style.transform = '';
+    });
+  }, [visibleProgressKey]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setElapsedTime(prev => prev + newWordInterval);
@@ -232,21 +268,26 @@ const Typing = ({
         {renderAssistantAvatar()}
         <div
           className={cx('memori-chat--bubble', {
-            'memori-chat--bubble--with-progress': !!progressMessages?.length,
+            'memori-chat--bubble--with-progress':
+              !!visibleProgressMessages.length,
           })}
         >
-          {!!progressMessages?.length && (
+          {!!visibleProgressMessages.length && (
             <ul
+              ref={progressListRef}
               className="memori-chat--bubble-typing-progress"
               role="status"
               aria-live="polite"
             >
-              {progressMessages.map(message => (
+              {visibleProgressMessages.map(message => (
                 <li
                   key={message}
-                  className="memori-chat--bubble-typing-progress-item memori-motion-fade-in"
+                  data-message={message}
+                  className="memori-chat--bubble-typing-progress-item"
                 >
-                  {message}
+                  <span className="memori-chat--bubble-typing-progress-text memori-motion-enter-up">
+                    {message}
+                  </span>
                 </li>
               ))}
             </ul>

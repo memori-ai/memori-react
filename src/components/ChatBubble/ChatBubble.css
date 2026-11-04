@@ -360,6 +360,7 @@
 }
 
 .memori-chat--bubble-typing-progress {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -368,6 +369,10 @@
     font-size: var(--memori-text-size-sm);
     gap: var(--memori-spacing-xs);
     list-style: none;
+}
+
+.memori-chat--bubble-typing-progress-text {
+    display: block;
 }
 
 .memori-chat--bubble p {
