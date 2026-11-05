@@ -7265,7 +7265,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
                       class="memori-button__icon"
                     >
                       <svg
-                        aria-label="functionCache"
+                        aria-label="toolsDebug"
                         class="lucide lucide-bug"
                         fill="none"
                         height="24"
