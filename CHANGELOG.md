@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.5](https://github.com/memori-ai/memori-react/compare/v9.1.4...v9.1.5) (2026-11-05)
+
+
+### Maintenance
+
+* rename function cache in debug tools ([ee65def](https://github.com/memori-ai/memori-react/commit/ee65def2290a8e473a007d759f4ba48c58439fa5))
+
 ## [9.1.4](https://github.com/memori-ai/memori-react/compare/v9.1.3...v9.1.4) (2026-10-28)
 
 
