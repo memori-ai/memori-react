@@ -1072,7 +1072,7 @@ const ChatBubble: React.FC<Props> = ({
                       <Tooltip
                         {...bubbleAddonTooltipProps}
                         placement="bottom"
-                        content={t('functionCache') || 'Function cache'}
+                        content={t('toolsDebug') || 'Tools debug'}
                         className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
                       >
                         <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -1083,9 +1083,7 @@ const ChatBubble: React.FC<Props> = ({
                             className="memori-chat--bubble-action-button"
                             icon={
                               <Bug
-                                aria-label={
-                                  t('functionCache') || 'Function cache'
-                                }
+                                aria-label={t('toolsDebug') || 'Tools debug'}
                               />
                             }
                             onClick={() => setOpenFunctionCache(true)}
@@ -1225,7 +1223,7 @@ const ChatBubble: React.FC<Props> = ({
         className="memori-chat--function-cache-modal"
         width="80%"
         stacking="stacked"
-        title={t('functionCache') || 'Function Cache'}
+        title={t('toolsDebug') || 'Tools debug'}
         closable={true}
         onOpenChange={setOpenFunctionCache}
       >
