@@ -307,6 +307,11 @@
     line-height: 1;
 }
 
+.memori-dropdown--sustainability-stat-info svg {
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
 .memori-header--button.memori-header--button--experts svg {
     fill: currentColor;
 }
@@ -458,6 +463,10 @@
     gap: 0.15rem;
 }
 
+.memori-dropdown--sustainability-stat--full {
+    grid-column: 1 / -1;
+}
+
 .memori-dropdown--sustainability-stat-label,
 .memori-dropdown--sustainability-stat-meta {
     font-size: 0.72rem;
@@ -478,7 +487,15 @@
 }
 
 .memori-dropdown--sustainability-stat-meta {
+    display: inline-flex;
+    align-items: center;
     color: color-mix(in srgb, var(--memori-text-color, #111827) 55%, #64748b);
+    gap: 0.25rem;
+}
+
+.memori-dropdown--sustainability-stat-info {
+    display: inline-flex;
+    cursor: help;
 }
 
 .memori-dropdown--sustainability-row {

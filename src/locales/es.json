@@ -558,6 +558,7 @@
     "cacheRead": "Lectura de caché",
     "cacheWrite": "Escritura de caché",
     "cacheHit": "Acierto de caché",
+    "cacheHitTooltip": "Porcentaje de tokens de entrada leídos desde la caché en lugar de procesarse de nuevo. Un valor más alto significa menor coste y latencia.",
     "duration": "Duración",
     "energy": "Energía",
     "co2": "CO2",

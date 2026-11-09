@@ -47,8 +47,8 @@ const historyWithConsumption = [
       provider: 'OpenAI',
       model: 'gpt-5',
       totalInputTokens: 19168,
-      inputCacheReadTokens: 0,
-      inputCacheWriteTokens: 0,
+      inputCacheReadTokens: 12800,
+      inputCacheWriteTokens: 50000,
       outputTokens: 588,
       durationMs: 13697,
       energyImpact: {

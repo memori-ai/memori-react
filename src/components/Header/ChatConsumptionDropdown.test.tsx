@@ -108,6 +108,28 @@ describe('ChatConsumptionContent', () => {
     expect(screen.getByText('100')).toBeTruthy();
     expect(screen.getByText('36%')).toBeTruthy();
   });
+
+  it('hides the zero cache card and expands the other one', () => {
+    const historyWithCacheReadOnly = [
+      {
+        text: 'Cached response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 400,
+          inputCacheWriteTokens: 0,
+          outputTokens: 50,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={historyWithCacheReadOnly} />);
+
+    expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+    expect(
+      screen.getByText('chatLogs.cacheRead').parentElement
+    ).toHaveClass('memori-dropdown--sustainability-stat--full');
+  });
 });
 
 describe('ChatConsumptionDropdown', () => {

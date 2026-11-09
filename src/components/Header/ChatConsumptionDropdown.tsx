@@ -3,13 +3,13 @@ import cx from 'classnames';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import { Button, Modal, Tooltip } from '@memori.ai/ui';
+import { Info } from 'lucide-react';
 import IconButton from '../IconButton/IconButton';
 import GasStation from '../icons/GasStation';
 import {
   BADGE_EMOJI,
   formatCacheHitPercent,
   getCacheHitPercent,
-  hasCacheTokenDetails,
 } from '../../helpers/llmUsage';
 
 type ImpactMetricType = 'energy' | 'co2' | 'water';
@@ -163,11 +163,13 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
     [chatConsumptionTotals.models]
   );
 
-  const showCacheDetails = hasCacheTokenDetails({
-    inputCacheReadTokens: chatConsumptionTotals.totalCacheReadTokens,
-    inputCacheWriteTokens: chatConsumptionTotals.totalCacheWriteTokens,
+  const showCacheRead = chatConsumptionTotals.totalCacheReadTokens > 0;
+  const showCacheWrite = chatConsumptionTotals.totalCacheWriteTokens > 0;
+  const cacheStatClassName = cx('memori-dropdown--sustainability-stat', {
+    'memori-dropdown--sustainability-stat--full':
+      showCacheRead !== showCacheWrite,
   });
-  const cacheHitPercent = showCacheDetails
+  const cacheHitPercent = showCacheRead
     ? getCacheHitPercent(
         chatConsumptionTotals.totalCacheReadTokens,
         chatConsumptionTotals.totalInputTokens
@@ -214,39 +216,58 @@ export const ChatConsumptionContent: React.FC<ChatConsumptionContentProps> = ({
               {t('chatLogs.tokens') || 'Tokens'}
             </span>
           </div>
-          {showCacheDetails && (
-            <>
-              <div className="memori-dropdown--sustainability-stat">
-                <span className="memori-dropdown--sustainability-stat-label">
-                  {t('chatLogs.cacheRead') || 'Cache read'}
-                </span>
-                <strong className="memori-dropdown--sustainability-stat-value">
-                  {formatCountValue(
-                    chatConsumptionTotals.totalCacheReadTokens,
-                    currentLocale
-                  )}
-                </strong>
-                <span className="memori-dropdown--sustainability-stat-meta">
-                  {cacheHitPercent !== undefined
-                    ? formatCacheHitPercent(cacheHitPercent, currentLocale)
-                    : t('chatLogs.tokens') || 'Tokens'}
-                </span>
-              </div>
-              <div className="memori-dropdown--sustainability-stat">
-                <span className="memori-dropdown--sustainability-stat-label">
-                  {t('chatLogs.cacheWrite') || 'Cache write'}
-                </span>
-                <strong className="memori-dropdown--sustainability-stat-value">
-                  {formatCountValue(
-                    chatConsumptionTotals.totalCacheWriteTokens,
-                    currentLocale
-                  )}
-                </strong>
-                <span className="memori-dropdown--sustainability-stat-meta">
-                  {t('chatLogs.tokens') || 'Tokens'}
-                </span>
-              </div>
-            </>
+          {showCacheRead && (
+            <div className={cacheStatClassName}>
+              <span className="memori-dropdown--sustainability-stat-label">
+                {t('chatLogs.cacheRead') || 'Cache read'}
+              </span>
+              <strong className="memori-dropdown--sustainability-stat-value">
+                {formatCountValue(
+                  chatConsumptionTotals.totalCacheReadTokens,
+                  currentLocale
+                )}
+              </strong>
+              <span className="memori-dropdown--sustainability-stat-meta">
+                {cacheHitPercent !== undefined ? (
+                  <>
+                    {formatCacheHitPercent(cacheHitPercent, currentLocale)}
+                    <Tooltip
+                      title={t('chatLogs.cacheHitTooltip', {
+                        defaultValue:
+                          'Share of input tokens read from the cache instead of being processed again. A higher value means lower cost and latency.',
+                      })}
+                      placement="top"
+                    >
+                      <span
+                        className="memori-dropdown--sustainability-stat-info"
+                        tabIndex={0}
+                        aria-label={t('chatLogs.cacheHit') || 'Cache hit'}
+                      >
+                        <Info aria-hidden="true" />
+                      </span>
+                    </Tooltip>
+                  </>
+                ) : (
+                  t('chatLogs.tokens') || 'Tokens'
+                )}
+              </span>
+            </div>
+          )}
+          {showCacheWrite && (
+            <div className={cacheStatClassName}>
+              <span className="memori-dropdown--sustainability-stat-label">
+                {t('chatLogs.cacheWrite') || 'Cache write'}
+              </span>
+              <strong className="memori-dropdown--sustainability-stat-value">
+                {formatCountValue(
+                  chatConsumptionTotals.totalCacheWriteTokens,
+                  currentLocale
+                )}
+              </strong>
+              <span className="memori-dropdown--sustainability-stat-meta">
+                {t('chatLogs.tokens') || 'Tokens'}
+              </span>
+            </div>
           )}
         </div>
         {llmUsageModels.length > 0 && (

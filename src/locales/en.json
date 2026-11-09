@@ -603,6 +603,7 @@
     "cacheRead": "Cache read",
     "cacheWrite": "Cache write",
     "cacheHit": "Cache hit",
+    "cacheHitTooltip": "Share of input tokens read from the cache instead of being processed again. A higher value means lower cost and latency.",
     "duration": "Duration",
     "energy": "Energy",
     "co2": "CO2",
