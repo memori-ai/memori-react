@@ -991,6 +991,7 @@
 }
 
 .memori--privacy-popover-popup {
+    overflow: visible;
     max-width: min(20rem, calc(100vw - 2 * var(--memori-spacing-md)));
     box-sizing: border-box;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
@@ -1001,7 +1002,6 @@
     font-size: var(--memori-text-size-sm);
     hyphens: auto;
     line-height: var(--memori-text-line-normal);
-    overflow: visible;
     overflow-wrap: anywhere;
 }
 
