@@ -535,6 +535,7 @@
     "cacheRead": "Cache lesen",
     "cacheWrite": "Cache schreiben",
     "cacheHit": "Cache-Treffer",
+    "cacheHitTooltip": "Anteil der Eingabe-Tokens, die aus dem Cache gelesen statt erneut verarbeitet werden. Ein höherer Wert bedeutet geringere Kosten und Latenz.",
     "duration": "Dauer",
     "energy": "Energie",
     "co2": "CO2",

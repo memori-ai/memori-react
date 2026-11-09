@@ -599,6 +599,7 @@
     "cacheRead": "Cache read",
     "cacheWrite": "Cache write",
     "cacheHit": "Cache hit",
+    "cacheHitTooltip": "Percentuale dei token di input letti dalla cache invece di essere elaborati di nuovo. Un valore più alto significa costi e tempi di risposta minori.",
     "duration": "Durata",
     "energy": "Energia",
     "co2": "CO2",
