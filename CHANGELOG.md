@@ -1,5 +1,28 @@
 # Changelog
 
+## [9.1.6](https://github.com/memori-ai/memori-react/compare/v9.1.5...v9.1.6) (2026-11-09)
+
+
+### Features
+
+* **ChatConsumption:** enhance cache display logic and add info tooltip ([daf2060](https://github.com/memori-ai/memori-react/commit/daf2060d5fd8a20d1a510f879783eb95b0efeeb1))
+
+
+### Bug Fixes
+
+* edge cases for cache usage display logic and add tests ([dabbf69](https://github.com/memori-ai/memori-react/commit/dabbf6962da3c2a0334f21602155aa9822e7036a))
+* linting ([9ed470c](https://github.com/memori-ai/memori-react/commit/9ed470c8af3befe3cb18392a114b09668769b50a))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/ui to version 2.0.7 ([f415143](https://github.com/memori-ai/memori-react/commit/f41514341ddf9b5debb0456058f14d7866e6f2ea))
+
+
+### Changes
+
+* **StartPanel:** update privacy tooltip implementation ([9bb6bd4](https://github.com/memori-ai/memori-react/commit/9bb6bd4aa9f20aab33631e9f02ac7e21b9567d59))
+
 ## [9.1.5](https://github.com/memori-ai/memori-react/compare/v9.1.4...v9.1.5) (2026-11-05)
 
 
