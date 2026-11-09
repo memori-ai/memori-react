@@ -480,6 +480,64 @@ it('renders footerBrand inside the start panel', () => {
   expect(footer).toHaveTextContent('Powered by Memori.AI');
 });
 
+it('opens the privacy tooltip on tap on mobile instead of a modal', async () => {
+  const matchMedia = window.matchMedia as jest.Mock;
+  const mockMatchMedia = (mobile: boolean) =>
+    matchMedia.mockImplementation((query: string) => ({
+      matches: mobile && String(query).includes('max-width: 870px'),
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+  mockMatchMedia(true);
+
+  try {
+    const { container } = render(
+      <StartPanel
+        memori={memori}
+        tenant={tenant}
+        language="it"
+        userLang="en"
+        setUserLang={() => {}}
+        setVenue={jest.fn()}
+        openPositionPopover={() => {}}
+        instruct={false}
+        sessionId={sessionID}
+        clickedStart={false}
+        onClickStart={() => {}}
+        setShowLoginDrawer={jest.fn()}
+        isMultilanguageEnabled
+      />
+    );
+
+    const privacyTrigger = await waitFor(() => {
+      const el = container.querySelector(
+        'button[aria-label="privacyPolicy"]'
+      ) as HTMLButtonElement | null;
+      expect(el).not.toBeNull();
+      return el as HTMLButtonElement;
+    });
+
+    fireEvent.pointerDown(privacyTrigger, { pointerType: 'touch' });
+    fireEvent.click(privacyTrigger);
+
+    await waitFor(() => {
+      expect(
+        document.querySelector('.memori--privacy-popover-content')
+      ).toBeInTheDocument();
+    });
+    expect(
+      document.querySelector('.memori--start-panel-info-modal')
+    ).not.toBeInTheDocument();
+  } finally {
+    mockMatchMedia(false);
+  }
+});
+
 it('opens a mobile info modal whose title leaves room for the close button', async () => {
   const matchMedia = window.matchMedia as jest.Mock;
   matchMedia.mockImplementation((query: string) => ({

@@ -52,7 +52,6 @@ import {
   getCacheHitPercent,
   getImpactComparison,
   getMetricValue,
-  hasCacheTokenDetails,
   LlmUsageLabels,
   LlmUsageOnLine,
   UsageBadgeType,
@@ -258,12 +257,15 @@ const Chat: React.FC<Props> = ({
     [history, llmUsageLabels, locale, showMessageConsumption]
   );
 
+  const activeCacheUsage =
+    activeUsageBadge?.type === 'llm' ? activeUsageBadge.usage : undefined;
+  const activeCacheReadTokens = activeCacheUsage?.inputCacheReadTokens ?? 0;
+  const activeCacheWriteTokens = activeCacheUsage?.inputCacheWriteTokens ?? 0;
   const activeLlmCacheHitPercent =
-    activeUsageBadge?.type === 'llm' &&
-    hasCacheTokenDetails(activeUsageBadge.usage)
+    activeCacheReadTokens > 0
       ? getCacheHitPercent(
-          activeUsageBadge.usage.inputCacheReadTokens,
-          activeUsageBadge.usage.totalInputTokens
+          activeCacheReadTokens,
+          activeCacheUsage?.totalInputTokens
         )
       : undefined;
 
@@ -813,35 +815,25 @@ const Chat: React.FC<Props> = ({
                 )}
               </dd>
             </div>
-            {hasCacheTokenDetails(activeUsageBadge.usage) && (
-              <>
-                <div>
-                  <dt>{llmUsageLabels.cacheRead}</dt>
-                  <dd>
-                    {formatIntegerValue(
-                      activeUsageBadge.usage.inputCacheReadTokens ?? 0,
-                      locale
-                    )}
-                  </dd>
-                </div>
-                <div>
-                  <dt>{llmUsageLabels.cacheWrite}</dt>
-                  <dd>
-                    {formatIntegerValue(
-                      activeUsageBadge.usage.inputCacheWriteTokens ?? 0,
-                      locale
-                    )}
-                  </dd>
-                </div>
-                {activeLlmCacheHitPercent !== undefined && (
-                  <div>
-                    <dt>{llmUsageLabels.cacheHit}</dt>
-                    <dd>
-                      {formatCacheHitPercent(activeLlmCacheHitPercent, locale)}
-                    </dd>
-                  </div>
-                )}
-              </>
+            {activeCacheReadTokens > 0 && (
+              <div>
+                <dt>{llmUsageLabels.cacheRead}</dt>
+                <dd>{formatIntegerValue(activeCacheReadTokens, locale)}</dd>
+              </div>
+            )}
+            {activeCacheWriteTokens > 0 && (
+              <div>
+                <dt>{llmUsageLabels.cacheWrite}</dt>
+                <dd>{formatIntegerValue(activeCacheWriteTokens, locale)}</dd>
+              </div>
+            )}
+            {activeLlmCacheHitPercent !== undefined && (
+              <div>
+                <dt>{llmUsageLabels.cacheHit}</dt>
+                <dd>
+                  {formatCacheHitPercent(activeLlmCacheHitPercent, locale)}
+                </dd>
+              </div>
             )}
           </dl>
         )}

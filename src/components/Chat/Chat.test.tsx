@@ -832,3 +832,54 @@ it('shows timestamps in the chat history panel even when showDates is false', ()
   ).toHaveLength(2);
 });
 
+it('hides the zero cache row in the LLM usage modal', () => {
+  render(
+    <ArtifactProvider>
+      <Chat
+        memori={memori}
+        tenant={tenant}
+        dialogState={dialogState}
+        layout="DEFAULT"
+        client={client}
+        history={[
+          {
+            text: 'AI message with cache read only',
+            fromUser: false,
+            timestamp: FIXED_TEST_DATE.toISOString(),
+            llmUsage: {
+              provider: 'anthropic',
+              model: 'claude-3',
+              totalInputTokens: 100,
+              inputCacheReadTokens: 40,
+              inputCacheWriteTokens: 0,
+              outputTokens: 20,
+            },
+          } as Message & { llmUsage: Record<string, unknown> },
+        ]}
+        pushMessage={jest.fn()}
+        sessionID={sessionID}
+        simulateUserPrompt={jest.fn()}
+        setAttachmentsMenuOpen={jest.fn()}
+        setSendOnEnter={jest.fn()}
+        userMessage=""
+        onChangeUserMessage={jest.fn()}
+        sendMessage={jest.fn()}
+        stopListening={jest.fn()}
+        isPlayingAudio={false}
+        stopAudio={jest.fn()}
+        showMicrophone={false}
+        listening={false}
+        startListening={jest.fn()}
+        setEnableFocusChatInput={jest.fn()}
+        showMessageConsumption
+      />
+    </ArtifactProvider>
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'chatLogs.llm' }));
+
+  expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+  expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+  expect(screen.getByText('40%')).toBeTruthy();
+});
+
