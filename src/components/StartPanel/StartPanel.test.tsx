@@ -480,7 +480,7 @@ it('renders footerBrand inside the start panel', () => {
   expect(footer).toHaveTextContent('Powered by Memori.AI');
 });
 
-it('opens the privacy tooltip on tap on mobile instead of a modal', async () => {
+it('opens the privacy policy modal on mobile', async () => {
   const matchMedia = window.matchMedia as jest.Mock;
   const mockMatchMedia = (mobile: boolean) =>
     matchMedia.mockImplementation((query: string) => ({
@@ -522,17 +522,20 @@ it('opens the privacy tooltip on tap on mobile instead of a modal', async () => 
       return el as HTMLButtonElement;
     });
 
-    fireEvent.pointerDown(privacyTrigger, { pointerType: 'touch' });
     fireEvent.click(privacyTrigger);
 
-    await waitFor(() => {
-      expect(
-        document.querySelector('.memori--privacy-popover-content')
-      ).toBeInTheDocument();
+    const viewport = await waitFor(() => {
+      const el = document.querySelector('.memori--start-panel-info-modal');
+      expect(el).toBeInTheDocument();
+      return el as HTMLElement;
     });
+
+    const title = viewport.querySelector('.memori-modal__title');
+    expect(title).toHaveTextContent('privacyPolicy');
     expect(
-      document.querySelector('.memori--start-panel-info-modal')
-    ).not.toBeInTheDocument();
+      viewport.querySelector('.memori--privacy-popover-content')
+    ).toBeInTheDocument();
+    expect(viewport.querySelector('.memori-modal__close')).toBeInTheDocument();
   } finally {
     mockMatchMedia(false);
   }
