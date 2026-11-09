@@ -11,11 +11,6 @@
  * Released under the MIT License.
  */
 
-/*!
-* tabbable 6.4.0
-* @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
-*/
-
 /**
  * @license React
  * react-dom.production.min.js
