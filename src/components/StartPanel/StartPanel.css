@@ -992,7 +992,6 @@
 
 .memori--privacy-popover-popup {
     max-width: min(20rem, calc(100vw - 2 * var(--memori-spacing-md)));
-    max-height: min(50vh, 18rem);
     box-sizing: border-box;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border-radius: var(--memori-radius-tooltip);
@@ -1002,12 +1001,38 @@
     font-size: var(--memori-text-size-sm);
     hyphens: auto;
     line-height: var(--memori-text-line-normal);
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     overflow-wrap: anywhere;
+}
+
+/* Scroll the body, not the popup. The caret is a sibling that hangs
+   outside the popup (bottom: -0.375rem), so overflow on the popup clips it. */
+.memori--privacy-popover-popup .memori-tooltip__surface {
+    max-height: min(50vh, 18rem);
+    -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
+    scrollbar-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 55%, transparent) transparent;
+    scrollbar-width: thin;
     touch-action: pan-y;
+}
+
+.memori--privacy-popover-popup .memori-tooltip__surface::-webkit-scrollbar {
+    width: 8px;
+}
+
+.memori--privacy-popover-popup .memori-tooltip__surface::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.memori--privacy-popover-popup .memori-tooltip__surface::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 45%, transparent);
+}
+
+.memori--privacy-popover-popup .memori-tooltip__surface::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 60%, transparent);
 }
 
 .memori--privacy-popover-popup--mobile {
