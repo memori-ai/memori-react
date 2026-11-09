@@ -187,7 +187,9 @@
         --memori-icon-button-icon: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
         --memori-layout-max-width: 1280px;
         /* Shared conversation axis (message list, empty state, input) */
-        --memori-conversation-max-width: 48rem; /* 768px */
+        /* Input width. The chat body adds 2 × inline padding (32px),
+           so 63rem yields body 1040px and input 1008px. */
+        --memori-conversation-max-width: 63rem; /* 1008px */
         --memori-conversation-inline-padding: var(--memori-spacing-md);
         font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
         font-size: var(--memori-text-size-md);
