@@ -1035,16 +1035,6 @@
     background-color: color-mix(in oklch, var(--memori-neutral, #6b7280) 60%, transparent);
 }
 
-.memori--privacy-popover-popup--mobile {
-    overflow: visible;
-    width: 100%;
-    max-width: 100%;
-    max-height: none;
-    margin-top: var(--memori-spacing-sm);
-    overscroll-behavior: auto;
-    touch-action: auto;
-}
-
 .memori--privacy-popover-content {
     text-align: left;
 }
