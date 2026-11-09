@@ -514,15 +514,15 @@ it('opens a mobile info modal whose title leaves room for the close button', asy
     />
   );
 
-  const privacyTrigger = await waitFor(() => {
+  const deepThoughtTrigger = await waitFor(() => {
     const triggers = container.querySelectorAll(
       '.memori--settings-section__info-trigger'
     );
     expect(triggers.length).toBeGreaterThan(0);
-    return triggers[triggers.length - 1] as HTMLButtonElement;
+    return triggers[0] as HTMLButtonElement;
   });
 
-  fireEvent.click(privacyTrigger);
+  fireEvent.click(deepThoughtTrigger);
 
   const viewport = await waitFor(() => {
     const el = document.querySelector('.memori--start-panel-info-modal');
@@ -532,7 +532,7 @@ it('opens a mobile info modal whose title leaves room for the close button', asy
 
   const title = viewport.querySelector('.memori-modal__title');
   expect(title).toHaveClass('memori--start-panel-info-modal-title');
-  expect(title).toHaveTextContent('privacyPolicy');
+  expect(title).toHaveTextContent('deepThoughtDisclaimerTitle');
   expect(
     viewport.querySelector('.memori-modal__close')
   ).toBeInTheDocument();

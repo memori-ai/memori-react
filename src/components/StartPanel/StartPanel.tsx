@@ -98,7 +98,6 @@ const StartPanel: React.FC<Props> = ({
   const boardOfExpertsTooltip = usePressTooltip();
   const nsfwTooltip = usePressTooltip();
   const deepThoughtTooltip = usePressTooltip();
-  const privacyTooltip = usePressTooltip();
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
@@ -106,9 +105,9 @@ const StartPanel: React.FC<Props> = ({
   const [showTranslation, setShowTranslation] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
-  const [mobileInfoModal, setMobileInfoModal] = useState<
-    null | 'privacy' | 'deepThought'
-  >(null);
+  const [mobileInfoModal, setMobileInfoModal] = useState<null | 'deepThought'>(
+    null
+  );
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
   };
@@ -214,6 +213,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--board-of-experts">
             <Tooltip
               align="left"
+              arrow={true}
               content={t('boardOfExperts')}
               {...boardOfExpertsTooltip.tooltipProps}
               slotProps={{
@@ -236,6 +236,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--nsfw">
             <Tooltip
               align="left"
+              arrow={true}
               content={t('nsfw')}
               {...nsfwTooltip.tooltipProps}
               slotProps={{
@@ -510,6 +511,7 @@ const StartPanel: React.FC<Props> = ({
                               enterDelay={300}
                               leaveDelay={150}
                               sideOffset={8}
+                              arrow={true}
                               content={t('deepThoughtHelper')}
                               {...deepThoughtTooltip.tooltipProps}
                               slotProps={{
@@ -562,87 +564,72 @@ const StartPanel: React.FC<Props> = ({
                             "L'autore dell'agente puo vedere le tue conversazioni."}
                         </p>
                       </div>
-                      {isMobile ? (
+                      <Tooltip
+                        placement="top"
+                        enterDelay={300}
+                        leaveDelay={150}
+                        sideOffset={8}
+                        touchBehavior="tap"
+                        title={
+                          <div className="memori--privacy-popover-content">
+                            <p>
+                              {t(
+                                'write_and_speak.pagePrivacyExplanationList.allConversations'
+                              )}
+                            </p>
+                            <ul className="memori--privacy-popover-content-list">
+                              {isUserLoggedIn ? (
+                                <li>
+                                  {t(
+                                    'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                                  )}
+                                </li>
+                              ) : (
+                                <li>
+                                  {t(
+                                    'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                                  )}
+                                </li>
+                              )}
+                            </ul>
+                            <p>
+                              {t(
+                                'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                              )}
+                            </p>
+
+                            <a
+                              href={
+                                tenant?.privacyPolicyURL ??
+                                'https://memori.ai/en/privacy-policy'
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="memori--privacy-popover-content-link"
+                            >
+                              {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
+                            </a>
+                          </div>
+                        }
+                        slotProps={{
+                          positioner: {
+                            className: 'memori--privacy-popover-positioner',
+                          },
+                          popup: {
+                            className:
+                              'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                          },
+                        }}
+                      >
                         <Button
                           variant="toolbar"
                           size="sm"
                           className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
                           aria-label={String(t('privacyPolicy') ?? '')}
-                          onClick={() => setMobileInfoModal('privacy')}
                         >
                           <Info className="memori--settings-section__inline-info-icon" />
                         </Button>
-                      ) : (
-                        <Tooltip
-                          placement="top"
-                          enterDelay={300}
-                          leaveDelay={150}
-                          sideOffset={8}
-                          title={
-                            <div className="memori--privacy-popover-content">
-                              <p>
-                                {t(
-                                  'write_and_speak.pagePrivacyExplanationList.allConversations'
-                                )}
-                              </p>
-                              <ul className="memori--privacy-popover-content-list">
-                                {isUserLoggedIn ? (
-                                  <li>
-                                    {t(
-                                      'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                                    )}
-                                  </li>
-                                ) : (
-                                  <li>
-                                    {t(
-                                      'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                                    )}
-                                  </li>
-                                )}
-                              </ul>
-                              <p>
-                                {t(
-                                  'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
-                                )}
-                              </p>
-
-                              <a
-                                href={
-                                  tenant?.privacyPolicyURL ??
-                                  'https://memori.ai/en/privacy-policy'
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="memori--privacy-popover-content-link"
-                              >
-                                {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
-                              </a>
-                            </div>
-                          }
-                          {...privacyTooltip.tooltipProps}
-                          slotProps={{
-                            positioner: {
-                              ...privacyTooltip.positionerProps,
-                              className: 'memori--privacy-popover-positioner',
-                            },
-                            popup: {
-                              className:
-                                'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
-                            },
-                          }}
-                        >
-                          <Button
-                            ref={privacyTooltip.anchorRef}
-                            variant="toolbar"
-                            size="sm"
-                            className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                            aria-label={String(t('privacyPolicy') ?? '')}
-                            {...privacyTooltip.pressTriggerProps}
-                          >
-                            <Info className="memori--settings-section__inline-info-icon" />
-                          </Button>
-                        </Tooltip>
-                      )}
+                      </Tooltip>
                     </div>
                   </section>
                 </div>
@@ -728,51 +715,11 @@ const StartPanel: React.FC<Props> = ({
         titleClassName="memori--start-panel-info-modal-title"
         open={isMobile && mobileInfoModal !== null}
         onClose={() => setMobileInfoModal(null)}
-        title={
-          mobileInfoModal === 'deepThought'
-            ? String(t('deepThoughtDisclaimerTitle') || 'Deep Thought')
-            : String(t('privacyPolicy') || 'Privacy policy')
-        }
+        title={String(t('deepThoughtDisclaimerTitle') || 'Deep Thought')}
       >
         {mobileInfoModal === 'deepThought' && (
           <div className="memori--privacy-popover-content">
             <p>{t('deepThoughtHelper')}</p>
-          </div>
-        )}
-        {mobileInfoModal === 'privacy' && (
-          <div className="memori--privacy-popover-content">
-            <p>
-              {t('write_and_speak.pagePrivacyExplanationList.allConversations')}
-            </p>
-            <ul className="memori--privacy-popover-content-list">
-              {isUserLoggedIn ? (
-                <li>
-                  {t(
-                    'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                  )}
-                </li>
-              ) : (
-                <li>
-                  {t(
-                    'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                  )}
-                </li>
-              )}
-            </ul>
-            <p>
-              {t('write_and_speak.pagePrivacyExplanationList.authorUsesInfo')}
-            </p>
-            <a
-              href={
-                tenant?.privacyPolicyURL ??
-                'https://memori.ai/en/privacy-policy'
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="memori--privacy-popover-content-link"
-            >
-              {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
-            </a>
           </div>
         )}
       </Modal>
