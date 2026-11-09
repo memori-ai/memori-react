@@ -210,14 +210,15 @@ exports[`renders Totem layout unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r5:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r4:"
                   >
                     <button
                       aria-expanded="false"
                       aria-haspopup="menu"
                       aria-label="widget.share"
                       class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-                      id="base-ui-:r6:"
+                      id="base-ui-:r5:"
                       tabindex="0"
                       title="widget.share"
                       type="button"
@@ -276,7 +277,8 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:r9:"
+                  data-base-ui-tooltip-trigger=""
+                  id="base-ui-:r8:"
                 >
                   <span
                     style="display: inline-flex;"
@@ -327,7 +329,8 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <span
                   class="memori-tooltip__trigger"
-                  id="base-ui-:rb:"
+                  data-base-ui-tooltip-trigger=""
+                  id="base-ui-:ra:"
                 >
                   <span
                     style="display: inline-flex;"
@@ -598,9 +601,8 @@ exports[`renders Totem layout unchanged 1`] = `
                     </button>
                     <input
                       aria-hidden="true"
-                      id="base-ui-:rc:"
                       name="user-lang-pref"
-                      style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+                      style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: absolute;"
                       tabindex="-1"
                       value="IT"
                     />
@@ -668,6 +670,7 @@ exports[`renders Totem layout unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
+                            data-base-ui-tooltip-trigger=""
                             id="base-ui-:rf:"
                           >
                             <button

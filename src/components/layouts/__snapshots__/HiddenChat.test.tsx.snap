@@ -273,9 +273,8 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:r0:"
                               name="user-lang-pref"
-                              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+                              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: absolute;"
                               tabindex="-1"
                               value="IT"
                             />
@@ -343,7 +342,8 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                                 >
                                   <span
                                     class="memori-tooltip__trigger"
-                                    id="base-ui-:r3:"
+                                    data-base-ui-tooltip-trigger=""
+                                    id="base-ui-:r4:"
                                   >
                                     <button
                                       aria-label="privacyPolicy"
@@ -458,6 +458,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             >
                               <span
                                 class="memori-tooltip__trigger"
+                                data-base-ui-tooltip-trigger=""
                                 id="base-ui-:r7:"
                               >
                                 <button
