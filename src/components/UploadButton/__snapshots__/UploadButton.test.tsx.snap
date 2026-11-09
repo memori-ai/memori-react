@@ -17,6 +17,7 @@ exports[`renders UploadButton unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
+        data-base-ui-tooltip-trigger=""
         id="base-ui-:r1:"
       >
         <button

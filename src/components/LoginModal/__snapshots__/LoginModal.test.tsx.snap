@@ -15,7 +15,9 @@ exports[`renders LoginModal closed unchanged 1`] = `
 `;
 
 exports[`renders LoginModal logged in unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -29,7 +31,9 @@ exports[`renders LoginModal logged in unchanged 1`] = `
 `;
 
 exports[`renders LoginModal logged with missing data unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -43,7 +47,9 @@ exports[`renders LoginModal logged with missing data unchanged 1`] = `
 `;
 
 exports[`renders LoginModal on signup unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -57,7 +63,9 @@ exports[`renders LoginModal on signup unchanged 1`] = `
 `;
 
 exports[`renders LoginModal open unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -71,7 +79,9 @@ exports[`renders LoginModal open unchanged 1`] = `
 `;
 
 exports[`renders LoginModal unlogged unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -85,7 +95,9 @@ exports[`renders LoginModal unlogged unchanged 1`] = `
 `;
 
 exports[`renders LoginModal with OTP form unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"

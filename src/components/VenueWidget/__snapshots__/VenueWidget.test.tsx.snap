@@ -44,12 +44,12 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
                 placeholder="searchVenue"
                 role="combobox"
                 spellcheck="false"
-                type="text"
                 value="Altedo, Bologna, Italy"
               />
               <button
                 aria-label="Clear"
                 class="memori-autocomplete__clear"
+                data-visible=""
                 tabindex="-1"
                 type="button"
               >
@@ -80,8 +80,8 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
             </div>
             <input
               aria-hidden="true"
-              id="venue-widget-search"
-              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              id="venue-widget-search-hidden-input"
+              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px;"
               tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
@@ -206,12 +206,12 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
                 placeholder="searchVenue"
                 role="combobox"
                 spellcheck="false"
-                type="text"
                 value="Altedo, Bologna, Italy"
               />
               <button
                 aria-label="Clear"
                 class="memori-autocomplete__clear"
+                data-visible=""
                 tabindex="-1"
                 type="button"
               >
@@ -242,8 +242,8 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
             </div>
             <input
               aria-hidden="true"
-              id="venue-widget-search"
-              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              id="venue-widget-search-hidden-input"
+              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px;"
               tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
@@ -368,12 +368,12 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
                 placeholder="searchVenue"
                 role="combobox"
                 spellcheck="false"
-                type="text"
                 value="Altedo, Bologna, Italy"
               />
               <button
                 aria-label="Clear"
                 class="memori-autocomplete__clear"
+                data-visible=""
                 tabindex="-1"
                 type="button"
               >
@@ -404,8 +404,8 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
             </div>
             <input
               aria-hidden="true"
-              id="venue-widget-search"
-              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              id="venue-widget-search-hidden-input"
+              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px;"
               tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
@@ -519,12 +519,12 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
                 placeholder="searchVenue"
                 role="combobox"
                 spellcheck="false"
-                type="text"
                 value="Altedo, Bologna, Italy"
               />
               <button
                 aria-label="Clear"
                 class="memori-autocomplete__clear"
+                data-visible=""
                 tabindex="-1"
                 type="button"
               >
@@ -555,8 +555,8 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
             </div>
             <input
               aria-hidden="true"
-              id="venue-widget-search"
-              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              id="venue-widget-search-hidden-input"
+              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px;"
               tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
@@ -681,7 +681,6 @@ exports[`renders empty VenueWidget unchanged 1`] = `
                 placeholder="searchVenue"
                 role="combobox"
                 spellcheck="false"
-                type="text"
                 value=""
               />
               <span
@@ -709,8 +708,8 @@ exports[`renders empty VenueWidget unchanged 1`] = `
             </div>
             <input
               aria-hidden="true"
-              id="venue-widget-search"
-              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              id="venue-widget-search-hidden-input"
+              style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px;"
               tabindex="-1"
               value=""
             />

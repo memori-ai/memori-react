@@ -6,6 +6,28 @@ import React from 'react';
 global.URL.createObjectURL = jest.fn(() => 'blob:http://localhost/mock');
 global.URL.revokeObjectURL = jest.fn();
 
+// jsdom 20 has no PointerEvent. Base UI checkboxes, radios, and switches
+// dispatch one to toggle the hidden input, so clicks never change state without it.
+if (typeof window.PointerEvent === 'undefined') {
+  class PointerEvent extends MouseEvent {
+    constructor(type, params = {}) {
+      super(type, params);
+      this.pointerId = params.pointerId ?? 1;
+      this.width = params.width ?? 1;
+      this.height = params.height ?? 1;
+      this.pressure = params.pressure ?? 0;
+      this.tangentialPressure = params.tangentialPressure ?? 0;
+      this.tiltX = params.tiltX ?? 0;
+      this.tiltY = params.tiltY ?? 0;
+      this.twist = params.twist ?? 0;
+      this.pointerType = params.pointerType ?? '';
+      this.isPrimary = params.isPrimary ?? false;
+    }
+  }
+
+  window.PointerEvent = PointerEvent;
+}
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

@@ -10,14 +10,15 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1d:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r17:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r1e:"
+          id="base-ui-:r18:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -93,14 +94,15 @@ exports[`renders ShareButton unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r5:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r4:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r6:"
+          id="base-ui-:r5:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -176,14 +178,15 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rt:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rp:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:ru:"
+          id="base-ui-:rq:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -259,14 +262,15 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1t:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1l:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r1u:"
+          id="base-ui-:r1m:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -342,14 +346,15 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r25:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1s:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r26:"
+          id="base-ui-:r1t:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -425,14 +430,15 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1l:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1e:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r1m:"
+          id="base-ui-:r1f:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -508,14 +514,15 @@ exports[`renders ShareButton with title unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rl:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:ri:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:rm:"
+          id="base-ui-:rj:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -591,14 +598,15 @@ exports[`renders ShareButton with url unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rd:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rb:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:re:"
+          id="base-ui-:rc:"
           tabindex="0"
           title="widget.share"
           type="button"
@@ -674,14 +682,15 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r15:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r10:"
       >
         <button
           aria-expanded="false"
           aria-haspopup="menu"
           aria-label="widget.share"
           class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-          id="base-ui-:r16:"
+          id="base-ui-:r11:"
           tabindex="0"
           title="widget.share"
           type="button"

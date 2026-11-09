@@ -7,6 +7,7 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r3:"
     >
       <svg
@@ -44,6 +45,7 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r5:"
     >
       <svg
@@ -81,6 +83,7 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r1:"
     >
       <svg

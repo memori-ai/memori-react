@@ -10,7 +10,8 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2a:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r26:"
       >
         <span
           style="display: inline-flex;"
@@ -60,7 +61,8 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2c:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r28:"
       >
         <span
           style="display: inline-flex;"
@@ -114,7 +116,8 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2e:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2a:"
       >
         <span
           style="display: inline-flex;"
@@ -162,7 +165,8 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2g:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2c:"
       >
         <span
           style="display: inline-flex;"
@@ -227,7 +231,8 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2i:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2e:"
       >
         <span
           style="display: inline-flex;"
@@ -277,7 +282,8 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2k:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2g:"
       >
         <span
           style="display: inline-flex;"
@@ -329,7 +335,8 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2m:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2i:"
       >
         <span
           style="display: inline-flex;"
@@ -377,7 +384,8 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r2o:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r2k:"
       >
         <span
           style="display: inline-flex;"
@@ -442,6 +450,7 @@ exports[`renders Header unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
+        data-base-ui-tooltip-trigger=""
         id="base-ui-:r1:"
       >
         <span
@@ -490,6 +499,7 @@ exports[`renders Header unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
+        data-base-ui-tooltip-trigger=""
         id="base-ui-:r3:"
       >
         <span
@@ -555,7 +565,8 @@ exports[`renders Header with audio disabled unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:ri:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rh:"
       >
         <span
           style="display: inline-flex;"
@@ -620,7 +631,8 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r14:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r12:"
       >
         <span
           style="display: inline-flex;"
@@ -673,7 +685,8 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r16:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r14:"
       >
         <span
           style="display: inline-flex;"
@@ -721,7 +734,8 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r18:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r16:"
       >
         <span
           style="display: inline-flex;"
@@ -786,7 +800,8 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r24:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r20:"
       >
         <span
           style="display: inline-flex;"
@@ -836,7 +851,8 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r26:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r22:"
       >
         <span
           style="display: inline-flex;"
@@ -884,7 +900,8 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r28:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r24:"
       >
         <span
           style="display: inline-flex;"
@@ -949,7 +966,8 @@ exports[`renders Header with deep thought logged but without permission flag unc
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1i:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1g:"
       >
         <span
           style="display: inline-flex;"
@@ -999,7 +1017,8 @@ exports[`renders Header with deep thought logged but without permission flag unc
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1k:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1i:"
       >
         <span
           style="display: inline-flex;"
@@ -1050,7 +1069,8 @@ exports[`renders Header with deep thought logged but without permission flag unc
       >
         <span
           class="memori-tooltip__trigger"
-          id="base-ui-:r1p:"
+          data-base-ui-tooltip-trigger=""
+          id="base-ui-:r1m:"
         >
           <span
             style="display: inline-flex;"
@@ -1061,7 +1081,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
               aria-label="nzambello"
               class="memori-button memori-button--toolbar memori-button--sm memori-icon-button memori-icon-button--labeled memori-dropdown--user-trigger-button memori-dropdown--user-trigger-button--identity"
               data-base-ui-click-trigger=""
-              id="base-ui-:r1n:"
+              id="base-ui-:r1k:"
               tabindex="0"
               type="button"
             >
@@ -1107,7 +1127,8 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1r:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1o:"
       >
         <span
           style="display: inline-flex;"
@@ -1157,7 +1178,8 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1t:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1q:"
       >
         <span
           style="display: inline-flex;"
@@ -1208,7 +1230,8 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       >
         <span
           class="memori-tooltip__trigger"
-          id="base-ui-:r22:"
+          data-base-ui-tooltip-trigger=""
+          id="base-ui-:r1u:"
         >
           <span
             style="display: inline-flex;"
@@ -1219,7 +1242,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
               aria-label="nzambello"
               class="memori-button memori-button--toolbar memori-button--sm memori-icon-button memori-icon-button--labeled memori-dropdown--user-trigger-button memori-dropdown--user-trigger-button--identity"
               data-base-ui-click-trigger=""
-              id="base-ui-:r20:"
+              id="base-ui-:r1s:"
               tabindex="0"
               type="button"
             >
@@ -1265,7 +1288,8 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1e:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1c:"
       >
         <span
           style="display: inline-flex;"
@@ -1313,7 +1337,8 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1g:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1e:"
       >
         <span
           style="display: inline-flex;"
@@ -1381,6 +1406,7 @@ exports[`renders Header with position unchanged 1`] = `
       >
         <span
           class="memori-tooltip__trigger"
+          data-base-ui-tooltip-trigger=""
           id="base-ui-:r5:"
         >
           <span
@@ -1395,7 +1421,7 @@ exports[`renders Header with position unchanged 1`] = `
                 aria-label="widget.position"
                 class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button memori-header--button memori-header--button--position memori-header--button--position--active"
                 data-base-ui-click-trigger=""
-                id="base-ui-:r8:"
+                id="base-ui-:r7:"
                 tabindex="0"
                 type="button"
               >
@@ -1436,7 +1462,8 @@ exports[`renders Header with position unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:ra:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r9:"
       >
         <span
           style="display: inline-flex;"
@@ -1484,7 +1511,8 @@ exports[`renders Header with position unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rc:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rb:"
       >
         <span
           style="display: inline-flex;"
@@ -1549,7 +1577,8 @@ exports[`renders Header with settings button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r10:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:ru:"
       >
         <span
           style="display: inline-flex;"
@@ -1597,7 +1626,8 @@ exports[`renders Header with settings button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r12:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r10:"
       >
         <span
           style="display: inline-flex;"
@@ -1662,7 +1692,8 @@ exports[`renders Header with share button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rk:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rj:"
       >
         <span
           style="display: inline-flex;"
@@ -1713,14 +1744,15 @@ exports[`renders Header with share button unchanged 1`] = `
       >
         <span
           class="memori-tooltip__trigger"
-          id="base-ui-:rq:"
+          data-base-ui-tooltip-trigger=""
+          id="base-ui-:ro:"
         >
           <button
             aria-expanded="false"
             aria-haspopup="menu"
             aria-label="widget.share"
             class="memori-button memori-button--toolbar memori-button--sm memori-button--icon-only memori-icon-button"
-            id="base-ui-:rr:"
+            id="base-ui-:rp:"
             tabindex="0"
             title="widget.share"
             type="button"
@@ -1779,7 +1811,8 @@ exports[`renders Header with share button unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:ru:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rs:"
       >
         <span
           style="display: inline-flex;"
@@ -1844,7 +1877,8 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:re:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rd:"
       >
         <span
           style="display: inline-flex;"
@@ -1898,7 +1932,8 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:rg:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:rf:"
       >
         <span
           style="display: inline-flex;"
@@ -1963,7 +1998,8 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1a:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r18:"
       >
         <span
           style="display: inline-flex;"
@@ -2011,7 +2047,8 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     >
       <span
         class="memori-tooltip__trigger"
-        id="base-ui-:r1c:"
+        data-base-ui-tooltip-trigger=""
+        id="base-ui-:r1a:"
       >
         <span
           style="display: inline-flex;"

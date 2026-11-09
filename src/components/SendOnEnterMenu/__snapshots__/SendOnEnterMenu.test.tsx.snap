@@ -10,7 +10,7 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
       aria-haspopup="menu"
       aria-label="widget.sendOptions"
       class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-      id="base-ui-:r4:"
+      id="base-ui-:r3:"
       tabindex="0"
       type="button"
     >
@@ -62,7 +62,7 @@ exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
       aria-haspopup="menu"
       aria-label="widget.sendOptions"
       class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-      id="base-ui-:ra:"
+      id="base-ui-:r8:"
       tabindex="0"
       type="button"
     >
