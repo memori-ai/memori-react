@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.1.7](https://github.com/memori-ai/memori-react/compare/v9.1.6...v9.1.7) (2026-11-10)
+
+
+### Bug Fixes
+
+* **StartPanel:** update mobile privacy policy modal implementation and tests ([dbc5bf5](https://github.com/memori-ai/memori-react/commit/dbc5bf599d12c4e5b104e1f978a89f69cd5cce57))
+* **styles:** increase conversation max width for improved layout ([22b29e0](https://github.com/memori-ai/memori-react/commit/22b29e0a9ebe45d5cc0b7b11d33e69607c7b7c24))
+
 ## [9.1.6](https://github.com/memori-ai/memori-react/compare/v9.1.5...v9.1.6) (2026-11-09)
 
 
