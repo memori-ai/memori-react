@@ -25,6 +25,9 @@ jobs:
       - name: 🔎 Lint
         run: yarn lint
 
+      - name: 🔎 Typecheck
+        run: yarn typecheck
+
       - name: 🧪 Test
         run: yarn test:ci --coverage --maxWorkers=2
 
@@ -32,4 +35,4 @@ jobs:
         run: yarn build
 
       - name: 🚨 Audit
-        run: yarn npm audit --environment production
+        run: yarn npm audit --all --recursive --environment production

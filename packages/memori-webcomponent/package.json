@@ -38,10 +38,9 @@
     "build": "yarn clean && parcel build --no-content-hash --no-source-maps --dist-dir dist && mv dist/index.js dist/memori-webcomponent.js",
     "clean": "rimraf dist",
     "format": "prettier --write src",
-    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
-    "prepare": "yarn build && yarn prepare:husky",
-    "prepare:husky": "is-ci || husky install",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint --ignore-path ../../.gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "typecheck": "tsc --noEmit",
+    "prepack": "yarn build"
   },
   "prettier": {
     "printWidth": 80,
@@ -180,8 +179,6 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "17.3.0",
-    "@commitlint/config-conventional": "17.3.0",
     "@parcel/packager-ts": "2.16.4",
     "@parcel/transformer-typescript-types": "2.16.4",
     "@release-it/conventional-changelog": "5.1.1",
@@ -203,9 +200,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "events": "^3.1.0",
     "https-browserify": "^1.0.0",
-    "husky": "8.0.2",
     "identity-obj-proxy": "3.0.0",
-    "is-ci": "3.0.1",
     "parcel": "2.16.4",
     "process": "^0.11.10",
     "punycode": "^1.4.1",
@@ -223,13 +218,10 @@
     "util": "^0.12.3"
   },
   "dependencies": {
-    "@memori.ai/memori-react": "9.1.7",
+    "@memori.ai/memori-react": "workspace:*",
     "@nats-io/jetstream": "^3.4.0",
     "@nats-io/nats-core": "^3.4.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "@parcel/resolver-default": {
-    "packageExports": true
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }

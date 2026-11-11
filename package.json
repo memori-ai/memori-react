@@ -1,0 +1,38 @@
+{
+  "name": "memori-monorepo",
+  "private": true,
+  "license": "Apache-2.0",
+  "packageManager": "yarn@3.2.3",
+  "engines": {
+    "node": ">=16"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -tv run build",
+    "lint": "yarn workspaces foreach -v run lint",
+    "typecheck": "yarn workspaces foreach -tv run typecheck",
+    "test:ci": "yarn workspace @memori.ai/memori-react test:ci",
+    "storybook": "yarn workspace @memori.ai/memori-react storybook",
+    "build-storybook": "yarn workspace @memori.ai/memori-react build-storybook",
+    "dev:webcomponent": "yarn workspace @memori.ai/memori-webcomponent dev",
+    "prepare": "is-ci || husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.3.0",
+    "@commitlint/config-conventional": "17.3.0",
+    "husky": "8.0.2",
+    "is-ci": "3.0.1"
+  },
+  "resolutions": {
+    "eslint-scope": "5.1.1",
+    "esbuild": "^0.24.0",
+    "marked-katex-extension": "5.1.13",
+    "lucide-react": "0.555.0",
+    "@types/react-dom/@types/react": "18.0.25"
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
+  }
+}
