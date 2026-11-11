@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memori WebComponent Example</title>
+
+    <!-- Dev: load from source so Parcel bundles it (avoids "exports undefined" with pre-built dist). -->
+    <script defer type="module" src="../src/index.tsx"></script>
+    <!-- Production / published demo:
+    <script defer type="module" src="../dist/memori-webcomponent.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@memori.ai/memori-webcomponent/dist/memori-webcomponent.js"></script>
+    -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@memori.ai/memori-react@9.0.0-alpha.21/dist/styles.css"
+    />
+  </head>
+
+  <body
+    style="position: relative; padding: 0; margin: 0; box-sizing: border-box"
+  >
+    <div
+      id="demo-disclaimer"
+      style="
+        position: fixed;
+        width: calc(100% - 1rem);
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.75);
+        padding: 1rem;
+        margin: 0.5rem;
+        border-radius: 10px;
+        font-family: 'Exo 2', sans-serif;
+        box-sizing: border-box;
+      "
+    >
+      <button
+        style="
+          position: absolute;
+          right: 0.5rem;
+          top: 0.5rem;
+          border: 0;
+          background: none;
+          padding: 0.5rem;
+          cursor: pointer;
+          font-size: 1rem;
+        "
+        onclick="document.getElementById('demo-disclaimer').remove()"
+      >
+        X
+      </button>
+      <p style="margin: 0 0 0.5rem">
+        This is a demo, some functionalities as STT and TTS depend on additional
+        subscription keys so they might not work.
+      </p>
+      <nav>
+        <a
+          href="https://aisuru.com/en"
+          target="_blank"
+          style="display: inline-block; margin-right: 0.5rem"
+          >AIsuru</a
+        >
+        <a
+          href="https://github.com/memori-ai/memori-webcomponent"
+          target="_blank"
+          style="display: inline-block; margin-right: 0.5rem"
+          >GitHub</a
+        >
+      </nav>
+    </div>
+    <memori-client
+      memoriName="STAGING ALERT IS STAGING - ISAC - Intelligent Solution Architect for Channel"
+      ownerUserName="memoridev"
+      memoriID="a59b24c8-82b9-46c3-bab3-1be848a6815b"
+      ownerUserID="cf75b90f-e7e8-446a-a3f5-b0fbf946e633"
+      tenantID="ai.wiit-cloud.io"
+      apiURL="https://backend.ai.wiit-cloud.io"
+      engineURL="https://engine.ai.wiit-cloud.io"
+      baseURL="https://ai.wiit-cloud.io"
+      uiLang="it"
+      spokenLang="it"
+      layout="CHAT"
+      multilingual="true"
+      showShare="false"
+      autoStart="true"
+      showUpload="true"
+      additionalInfo='{"loginToken":"de4e56a7-435b-4125-a290-53608e536223"}'
+      integrationID="f0c8cc37-3329-4c25-8a1c-ca74f58ef7a4"
+      context="AMBIENTE:WCS-AI,LANGUAGE:IT,USER_ID:68518e8445a2a63179b2f056,DEMO:TRUE"
+      initialQuestion="usa sempre gli SCHEMI DI FORMATTAZIONE DEI REPORT WIIT"
+      height="100vh"
+    />
+  </body>
+</html>
