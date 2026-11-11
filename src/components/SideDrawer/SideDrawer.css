@@ -4,6 +4,16 @@
     flex-direction: column;
 }
 
+/*
+ * Open state is translate(0) in the design system, which still creates a
+ * containing block. Select lists inside the panel are position:fixed and
+ * placed with viewport coordinates, so that identity transform shifts them
+ * off the panel. none matches the open position and keeps the slide transition.
+ */
+.memori-side-drawer.memori-drawer[data-state='open'] {
+    transform: none;
+}
+
 .memori-side-drawer .memori-drawer__header {
     align-items: flex-start;
     gap: var(--memori-spacing-md);

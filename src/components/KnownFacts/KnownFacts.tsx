@@ -19,6 +19,7 @@ import {
 } from '../../helpers/relativeTime';
 import { useTranslation } from 'react-i18next';
 import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
+import { useDrawerPortalContainer } from '../SideDrawer/useDrawerPortalContainer';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import cx from 'classnames';
 
@@ -52,6 +53,8 @@ const KnownFacts = ({
 }: Props) => {
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
+  const { ref: drawerPortalRef, container: drawerPortalContainer } =
+    useDrawerPortalContainer();
   const { getKnownFacts, getKnownFactsPaginated, deleteKnownFact } =
     apiClient.knownFacts;
   const initialKnownFactsRef = useRef(initialKnownFacts);
@@ -285,7 +288,7 @@ const KnownFacts = ({
       onClose={closeDrawer}
     >
       {!isEmpty && (
-        <div className="memori-known-facts-toolbar">
+        <div className="memori-known-facts-toolbar" ref={drawerPortalRef}>
           <div className="memori-known-facts-search">
             <label
               className="memori-sr-only"
@@ -402,7 +405,11 @@ const KnownFacts = ({
                         {fact.text}
                       </p>
                       {relative && (
-                        <Tooltip title={exact} placement="bottom">
+                        <Tooltip
+                          title={exact}
+                          placement="bottom"
+                          container={drawerPortalContainer ?? undefined}
+                        >
                           <time
                             className="memori-known-facts-card__date"
                             dateTime={fact.creationTimestamp}

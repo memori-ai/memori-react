@@ -31,6 +31,7 @@ import {
   groupConversations,
 } from '../../helpers/conversationHistory';
 import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
+import { useDrawerPortalContainer } from '../SideDrawer/useDrawerPortalContainer';
 import IconButton from '../IconButton/IconButton';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import ChatResumeDrawer from './ChatResumeDrawer';
@@ -215,6 +216,8 @@ const ChatHistoryDrawer = ({
 
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
+  const { ref: drawerPortalRef, container: drawerPortalContainer } =
+    useDrawerPortalContainer();
   const [searchInput, setSearchInput] = useState('');
   const searchQuery = useDebounce(searchInput, 300);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -526,8 +529,15 @@ const ChatHistoryDrawer = ({
         icon={<ChevronLeft aria-hidden />}
         onClick={() => setSelectedChatLog(null)}
       />
-      <span className="memori-chat-history-drawer--heading-text">
-        <Tooltip title={selectedTitle} placement="bottom-start">
+      <span
+        className="memori-chat-history-drawer--heading-text"
+        ref={drawerPortalRef}
+      >
+        <Tooltip
+          title={selectedTitle}
+          placement="bottom-start"
+          container={drawerPortalContainer ?? undefined}
+        >
           <span className="memori-chat-history-drawer--heading-title">
             {selectedTitle}
           </span>
@@ -582,7 +592,10 @@ const ChatHistoryDrawer = ({
         />
       ) : (
         <>
-          <div className="memori-chat-history-drawer--toolbar">
+          <div
+            className="memori-chat-history-drawer--toolbar"
+            ref={drawerPortalRef}
+          >
             <div className="memori-chat-history-drawer--toolbar-row">
               <div className="memori-chat-history-drawer--search">
                 <label className="sr-only" htmlFor="memori-chat-history-search">
@@ -632,6 +645,7 @@ const ChatHistoryDrawer = ({
               <div className="memori-chat-history-drawer--filters">
                 <SelectBox
                   className="memori-chat-history-drawer--filters-select"
+                  container={drawerPortalContainer ?? undefined}
                   value={dateRange}
                   displayValue={
                     dateRange === 'all' ? t('all') || 'All' : t(dateRange)
@@ -660,6 +674,7 @@ const ChatHistoryDrawer = ({
                 <div className="memori-chat-history-drawer--filters-messages">
                   <SelectBox
                     className="memori-chat-history-drawer--filters-select"
+                    container={drawerPortalContainer ?? undefined}
                     value={String(minimumMessagesPerChat)}
                     displayValue={
                       minimumMessagesPerChat === 0

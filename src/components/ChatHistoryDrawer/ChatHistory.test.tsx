@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fireEvent, render, screen } from '../../testUtils';
+import { MemoriUIProvider } from '@memori.ai/ui';
 import ChatHistoryDrawer from './ChatHistory';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { memori } from '../../mocks/data';
@@ -158,4 +159,61 @@ it('keeps date and minimum-message filters behind an expandable control', async 
 
   expect(screen.getByText('all')).toBeInTheDocument();
   expect(screen.getByText('chatLogs.atLeast3')).toBeInTheDocument();
+
+  fireEvent.click(document.querySelectorAll('.memori-select__trigger')[0]);
+  expect(await screen.findByRole('option', { name: 'today' })).toBeVisible();
+});
+
+it('opens filter selects inside the drawer instead of behind it', async () => {
+  const apiClient = mockPagedClient([makeChatLog()]);
+
+  function Harness() {
+    const [root, setRoot] = useState<HTMLDivElement | null>(null);
+    const [surface, setSurface] = useState<HTMLDivElement | null>(null);
+    return (
+      <div ref={setRoot} className="memori memori-widget">
+        <MemoriUIProvider
+          container={root}
+          clipContainer={surface}
+          theme="light"
+        >
+          <div ref={setSurface} className="memori-widget__surface">
+            <ArtifactProvider>
+              <ChatHistoryDrawer
+                history={[]}
+                open
+                onClose={jest.fn()}
+                apiClient={apiClient}
+                sessionId="test-session"
+                memori={memori}
+                resumeSession={jest.fn()}
+                baseUrl="https://www.aisuru.com"
+                apiUrl="https://backend.memori.ai"
+                loginToken="test-login-token"
+                language="EN"
+                userLang="EN"
+              />
+            </ArtifactProvider>
+          </div>
+        </MemoriUIProvider>
+      </div>
+    );
+  }
+
+  render(<Harness />);
+
+  await screen.findByText('Saluti e artifact markdown di prova');
+  fireEvent.click(
+    screen.getByRole('button', { name: 'write_and_speak.filters' })
+  );
+
+  const triggers = document.querySelectorAll('.memori-select__trigger');
+  expect(triggers.length).toBeGreaterThan(0);
+  fireEvent.click(triggers[0]);
+
+  const listbox = await screen.findByRole('listbox');
+  expect(listbox.closest('.memori-drawer')).not.toBeNull();
+  expect(listbox.closest('[data-base-ui-inert]')).toBeNull();
+  expect(listbox.closest('[aria-hidden="true"]')).toBeNull();
+  expect(screen.getByRole('option', { name: 'today' })).toBeInTheDocument();
 });

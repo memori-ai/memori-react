@@ -1,4 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -22,6 +28,7 @@ import {
 } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
+import { useDrawerPortalContainer } from '../SideDrawer/useDrawerPortalContainer';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
@@ -62,13 +69,17 @@ import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/
 /** Same reset window as ShareButton copy feedback */
 const COPY_FEEDBACK_MS = 2500;
 
-const GeneratedByAIMark: React.FC<{ label: string }> = ({ label }) => {
+const GeneratedByAIMark: React.FC<{
+  label: string;
+  container?: HTMLElement | null;
+}> = ({ label, container }) => {
   const pressTooltip = usePressTooltip();
 
   return (
     <Tooltip
       placement="bottom"
       content={label}
+      container={container ?? undefined}
       className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
       {...pressTooltip.tooltipProps}
       slotProps={{
@@ -183,7 +194,16 @@ const ChatBubble: React.FC<Props> = ({
     functionCache: null,
   });
   const [addonOpen, setAddonOpen] = useState(false);
-  const bubbleContainerRef = useRef<HTMLDivElement>(null);
+  const bubbleContainerRef = useRef<HTMLDivElement | null>(null);
+  const { ref: drawerPortalRef, container: drawerPortalContainer } =
+    useDrawerPortalContainer();
+  const setBubbleContainer = useCallback(
+    (node: HTMLDivElement | null) => {
+      bubbleContainerRef.current = node;
+      drawerPortalRef(node);
+    },
+    [drawerPortalRef]
+  );
   const assistantContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -523,12 +543,13 @@ const ChatBubble: React.FC<Props> = ({
 
   const shouldShowTimestampInAddon = !!formattedTimestamp;
   const bubbleAddonTooltipProps = {
+    container: drawerPortalContainer ?? undefined,
     slotProps: {
       positioner: {
         className: 'memori-chat--bubble-addon-tooltip-positioner',
       },
     },
-  } as const;
+  };
   const exposedSourcesCount = getExposedSourcesCount(message);
   const whyThisAnswerSourcesLabel =
     exposedSourcesCount == null
@@ -638,7 +659,7 @@ const ChatBubble: React.FC<Props> = ({
     <>
       {showInitialDivider && <div className="memori-chat--bubble-initial" />}
       <div
-        ref={bubbleContainerRef}
+        ref={setBubbleContainer}
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon':
@@ -842,7 +863,10 @@ const ChatBubble: React.FC<Props> = ({
                       )}
 
                       {message.generatedByAI && showAIicon && (
-                        <GeneratedByAIMark label={String(t('generatedByAI'))} />
+                        <GeneratedByAIMark
+                          label={String(t('generatedByAI'))}
+                          container={drawerPortalContainer}
+                        />
                       )}
 
                       {showTranslationOriginal &&
@@ -1104,7 +1128,10 @@ const ChatBubble: React.FC<Props> = ({
                     )}
 
                     {message.generatedByAI && showAIicon && (
-                      <GeneratedByAIMark label={String(t('generatedByAI'))} />
+                      <GeneratedByAIMark
+                        label={String(t('generatedByAI'))}
+                        container={drawerPortalContainer}
+                      />
                     )}
 
                     {showTranslationOriginal &&
