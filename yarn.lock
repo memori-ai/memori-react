@@ -2655,7 +2655,6 @@ __metadata:
     "@nats-io/nats-core": ^3.4.0
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
-    "@release-it/conventional-changelog": 5.1.1
     "@size-limit/preset-small-lib": 8.1.0
     "@storybook/addon-a11y": 7.4.0
     "@storybook/addon-essentials": 7.4.0
@@ -2717,7 +2716,6 @@ __metadata:
     react-i18next: 12.0.0
     react-is: 18.2.0
     react-leaflet: ^4.2.1
-    release-it: 15.5.0
     rimraf: 3.0.2
     size-limit: 8.1.0
     standardized-audio-context: 25.3.34
@@ -2746,7 +2744,6 @@ __metadata:
     "@nats-io/nats-core": ^3.4.0
     "@parcel/packager-ts": 2.16.4
     "@parcel/transformer-typescript-types": 2.16.4
-    "@release-it/conventional-changelog": 5.1.1
     "@types/react": 18.0.25
     "@types/react-dom": 18.0.9
     "@typescript-eslint/eslint-plugin": 5.45.1
@@ -2772,7 +2769,6 @@ __metadata:
     querystring-es3: ^0.2.1
     react: 18.2.0
     react-dom: 18.2.0
-    release-it: 15.5.0
     rimraf: 3.0.2
     stream-browserify: ^3.0.0
     stream-http: ^3.1.0
@@ -15663,8 +15659,10 @@ __metadata:
   dependencies:
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
+    "@release-it/conventional-changelog": 5.1.1
     husky: 8.0.2
     is-ci: 3.0.1
+    release-it: 15.5.0
   languageName: unknown
   linkType: soft
 

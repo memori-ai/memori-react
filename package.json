@@ -1,7 +1,9 @@
 {
   "name": "memori-monorepo",
+  "version": "9.1.7",
   "private": true,
   "license": "Apache-2.0",
+  "repository": "https://github.com/memori-ai/memori-react.git",
   "packageManager": "yarn@3.2.3",
   "engines": {
     "node": ">=16"
@@ -17,13 +19,16 @@
     "storybook": "yarn workspace @memori.ai/memori-react storybook",
     "build-storybook": "yarn workspace @memori.ai/memori-react build-storybook",
     "dev:webcomponent": "yarn workspace @memori.ai/memori-webcomponent dev",
-    "prepare": "is-ci || husky install"
+    "postinstall": "is-ci || husky install",
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.3.0",
+    "@release-it/conventional-changelog": "5.1.1",
     "husky": "8.0.2",
-    "is-ci": "3.0.1"
+    "is-ci": "3.0.1",
+    "release-it": "15.5.0"
   },
   "resolutions": {
     "eslint-scope": "5.1.1",

@@ -136,52 +136,9 @@
       ]
     }
   },
-  "release-it": {
-    "hooks": {
-      "after:bump": "yarn build"
-    },
-    "git": {
-      "tagName": "v${version}",
-      "commitMessage": "chore: release v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true,
-      "releaseName": "${version}"
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "infile": "CHANGELOG.md",
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "Features"
-            },
-            {
-              "type": "fix",
-              "section": "Bug Fixes"
-            },
-            {
-              "type": "refactor",
-              "section": "Changes"
-            },
-            {
-              "type": "chore",
-              "section": "Maintenance"
-            }
-          ]
-        }
-      }
-    }
-  },
   "devDependencies": {
     "@parcel/packager-ts": "2.16.4",
     "@parcel/transformer-typescript-types": "2.16.4",
-    "@release-it/conventional-changelog": "5.1.1",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "5.45.1",
@@ -205,7 +162,6 @@
     "process": "^0.11.10",
     "punycode": "^1.4.1",
     "querystring-es3": "^0.2.1",
-    "release-it": "15.5.0",
     "rimraf": "3.0.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.1.0",
