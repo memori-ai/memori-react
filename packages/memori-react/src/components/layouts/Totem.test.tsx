@@ -23,17 +23,17 @@ it('renders Totem layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
       <ArtifactProvider>
-      <VisemeProvider>
-        <Memori
-        showShare={true}
-        showSettings={true}
-        memori={memori}
-        tenant={tenant}
-        tenantID="aisuru.com"
-        integration={integration}
-          layout="TOTEM"
-        />
-      </VisemeProvider>
+        <VisemeProvider>
+          <Memori
+            showShare={true}
+            showSettings={true}
+            memori={memori}
+            tenant={tenant}
+            tenantID="aisuru.com"
+            integration={integration}
+            layout="TOTEM"
+          />
+        </VisemeProvider>
       </ArtifactProvider>
     </I18nWrapper>
   );

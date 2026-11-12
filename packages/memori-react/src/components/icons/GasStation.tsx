@@ -1,5 +1,11 @@
-import * as React from "react"
-const GasStation = ({ className, title }: { className?: string; title?: string }) => (
+import * as React from 'react';
+const GasStation = ({
+  className,
+  title,
+}: {
+  className?: string;
+  title?: string;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={800}
@@ -32,5 +38,5 @@ const GasStation = ({ className, title }: { className?: string; title?: string }
       d="M22 8h-1.5A1.5 1.5 0 0 0 19 9.5v2.419a1.5 1.5 0 0 0 1.026 1.423L22 14"
     />
   </svg>
-)
+);
 export default GasStation;

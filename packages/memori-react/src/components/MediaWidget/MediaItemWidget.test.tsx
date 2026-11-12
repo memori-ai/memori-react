@@ -7,14 +7,18 @@ import type { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 beforeAll(() => {
   if (typeof window !== 'undefined' && !window.IntersectionObserver) {
-    (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver = jest.fn().mockImplementation(() => ({
+    (
+      window as unknown as { IntersectionObserver: unknown }
+    ).IntersectionObserver = jest.fn().mockImplementation(() => ({
       observe: jest.fn(),
       unobserve: jest.fn(),
       disconnect: jest.fn(),
     }));
   }
   if (typeof global !== 'undefined' && !globalThis.IntersectionObserver) {
-    (globalThis as unknown as { IntersectionObserver: unknown }).IntersectionObserver = jest.fn().mockImplementation(() => ({
+    (
+      globalThis as unknown as { IntersectionObserver: unknown }
+    ).IntersectionObserver = jest.fn().mockImplementation(() => ({
       observe: jest.fn(),
       unobserve: jest.fn(),
       disconnect: jest.fn(),
@@ -193,7 +197,9 @@ it('renders PDF as document card with title and PDF badge', () => {
   );
   expect(screen.getByText('Report')).toBeInTheDocument();
   expect(screen.getByText('PDF')).toBeInTheDocument();
-  expect(container.querySelector('.memori-media-item--document-link')).toBeInTheDocument();
+  expect(
+    container.querySelector('.memori-media-item--document-link')
+  ).toBeInTheDocument();
 });
 
 it('lays out multiple document cards in the few-tile grid (not one per row)', () => {
@@ -237,9 +243,7 @@ it('renders HTML link as document card with Link badge when url present', () => 
     url: 'https://memori.ai',
     type: 'document',
   };
-  render(
-    <MediaItemWidget items={[linkItem]} sessionID={sessionID} />
-  );
+  render(<MediaItemWidget items={[linkItem]} sessionID={sessionID} />);
   expect(screen.getByText('Memori')).toBeInTheDocument();
   expect(screen.getByText('Link')).toBeInTheDocument();
 });
@@ -254,9 +258,7 @@ it('renders HTML file attachments with HTML badge, not Link', () => {
     properties: { isAttachedFile: true },
     type: 'document',
   };
-  render(
-    <MediaItemWidget items={[htmlFile]} sessionID={sessionID} />
-  );
+  render(<MediaItemWidget items={[htmlFile]} sessionID={sessionID} />);
   expect(screen.getByText('page.html')).toBeInTheDocument();
   expect(screen.getByText('HTML')).toBeInTheDocument();
   expect(screen.queryByText('Link')).not.toBeInTheDocument();
@@ -272,9 +274,7 @@ it('renders converted document attachments with the original file type, not TXT'
     properties: { isAttachedFile: true },
     type: 'document',
   };
-  render(
-    <MediaItemWidget items={[pdfFile]} sessionID={sessionID} />
-  );
+  render(<MediaItemWidget items={[pdfFile]} sessionID={sessionID} />);
   expect(screen.getByText('report.pdf')).toBeInTheDocument();
   expect(screen.getByText('PDF')).toBeInTheDocument();
   expect(screen.queryByText('TXT')).not.toBeInTheDocument();
@@ -289,9 +289,7 @@ it('opens MediaPreviewModal when clicking document attachment card', () => {
     properties: { isDocumentAttachment: true },
     type: 'document',
   };
-  render(
-    <MediaItemWidget items={[docItem]} sessionID={sessionID} />
-  );
+  render(<MediaItemWidget items={[docItem]} sessionID={sessionID} />);
   const card = screen.getByText('Extracted Doc').closest('[role="button"]');
   expect(card).toBeInTheDocument();
   fireEvent.click(card!);
@@ -312,6 +310,8 @@ it('opens MediaPreviewModal when clicking image with mediumID', () => {
   const imageLink = container.querySelector('.memori-media-item--image-link');
   expect(imageLink).toBeInTheDocument();
   fireEvent.click(imageLink!);
-  const modalImage = document.querySelector('.memori-content-preview-modal--image');
+  const modalImage = document.querySelector(
+    '.memori-content-preview-modal--image'
+  );
   expect(modalImage).toBeInTheDocument();
 });

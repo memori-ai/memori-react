@@ -362,8 +362,8 @@ const Memori: React.FC<Props> = ({
           layout === 'HIDDEN_CHAT'
             ? true
             : layout === 'WEBSITE_ASSISTANT'
-            ? false
-            : autoStart,
+              ? false
+              : autoStart,
       }
     : {
         ...(tag && pin ? { personification: { tag, pin } } : {}),
@@ -390,10 +390,10 @@ const Memori: React.FC<Props> = ({
           layout === 'WEBSITE_ASSISTANT'
             ? false
             : autoStart !== undefined
-            ? autoStart
-            : layout === 'HIDDEN_CHAT'
-            ? true
-            : autoStart,
+              ? autoStart
+              : layout === 'HIDDEN_CHAT'
+                ? true
+                : autoStart,
         enableAudio,
         defaultSpeakerActive,
         useMathFormatting,

@@ -1,13 +1,16 @@
 import { EventLog, UsersLog } from '@memori.ai/memori-api-client/dist/types';
 
 const groupBy = <T>(array: T[], predicate: (v: T) => string) =>
-  array.reduce((acc, value) => {
-    if (!acc[predicate(value)]) {
-      acc[predicate(value)] = [];
-    }
-    acc[predicate(value)].push(value);
-    return acc;
-  }, {} as { [key: string]: T[] });
+  array.reduce(
+    (acc, value) => {
+      if (!acc[predicate(value)]) {
+        acc[predicate(value)] = [];
+      }
+      acc[predicate(value)].push(value);
+      return acc;
+    },
+    {} as { [key: string]: T[] }
+  );
 
 const removeDuplicates = (logs: EventLog[]): { [key: string]: number } => {
   const filteredLogs = logs.filter(

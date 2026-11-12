@@ -30,40 +30,40 @@ const TotemLayout: React.FC<LayoutProps> = ({
       : undefined;
 
   return (
-  <>
-    {integrationStyle}
-    {integrationBackground}
+    <>
+      {integrationStyle}
+      {integrationBackground}
 
-    <Spin
-      spinning={Boolean(loading && sessionId && hasUserActivatedSpeak)}
-      className="memori-totem-layout"
-      style={axisStyle}
-    >
-      {poweredBy}
+      <Spin
+        spinning={Boolean(loading && sessionId && hasUserActivatedSpeak)}
+        className="memori-totem-layout"
+        style={axisStyle}
+      >
+        {poweredBy}
 
-      <div className="memori-totem-layout--header">
-        {Header && headerProps && (
-          <Header buttonVariant="outline" {...headerProps} />
-        )}
-      </div>
+        <div className="memori-totem-layout--header">
+          {Header && headerProps && (
+            <Header buttonVariant="outline" {...headerProps} />
+          )}
+        </div>
 
-      <div className="memori-totem-layout--avatar">
-        {Avatar && avatarProps && (
-          <Avatar chatProps={chatProps} {...avatarProps} isTotem />
-        )}
-      </div>
+        <div className="memori-totem-layout--avatar">
+          {Avatar && avatarProps && (
+            <Avatar chatProps={chatProps} {...avatarProps} isTotem />
+          )}
+        </div>
 
-      <div id="extension" />
+        <div id="extension" />
 
-      <div className="memori-totem-layout--controls">
-        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-          <Chat {...chatProps} />
-        ) : startPanelProps ? (
-          <StartPanel {...startPanelProps} />
-        ) : null}
-      </div>
-    </Spin>
-  </>
+        <div className="memori-totem-layout--controls">
+          {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+            <Chat {...chatProps} />
+          ) : startPanelProps ? (
+            <StartPanel {...startPanelProps} />
+          ) : null}
+        </div>
+      </Spin>
+    </>
   );
 };
 

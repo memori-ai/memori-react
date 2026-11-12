@@ -25,10 +25,11 @@ describe('prepareDocumentPreviewContent', () => {
 describe('splitPreviewTruncationNote', () => {
   it('splits a trailing Italian excerpt note', () => {
     const note =
-      'Estratto: primi 100 di 182000 caratteri. Il documento originale completo è disponibile all\'URL in attachment_link.';
-    expect(
-      splitPreviewTruncationNote(`Partial body\n\n[${note}]`)
-    ).toEqual({ body: 'Partial body', note });
+      "Estratto: primi 100 di 182000 caratteri. Il documento originale completo è disponibile all'URL in attachment_link.";
+    expect(splitPreviewTruncationNote(`Partial body\n\n[${note}]`)).toEqual({
+      body: 'Partial body',
+      note,
+    });
   });
 
   it('splits a trailing English excerpt note', () => {
@@ -66,7 +67,9 @@ describe('splitPreviewTruncationNote', () => {
 describe('DocumentMarkdown', () => {
   it('renders headings, bold and inline code', () => {
     render(
-      <DocumentMarkdown content={'# Obiettivo\n\nCambia **questa** frase (`code`).'} />
+      <DocumentMarkdown
+        content={'# Obiettivo\n\nCambia **questa** frase (`code`).'}
+      />
     );
     expect(
       screen.getByRole('heading', { level: 1, name: 'Obiettivo' })
@@ -78,9 +81,7 @@ describe('DocumentMarkdown', () => {
   it('wraps markdown tables in memori-table-scroll for horizontal pan', () => {
     const { container } = render(
       <DocumentMarkdown
-        content={
-          '| A | B |\n| --- | --- |\n| 1 | 2 |\n| 3 | 4 |'
-        }
+        content={'| A | B |\n| --- | --- |\n| 1 | 2 |\n| 3 | 4 |'}
       />
     );
     const table = container.querySelector('table');
@@ -90,11 +91,9 @@ describe('DocumentMarkdown', () => {
 
   it('renders the truncation note as a callout below the body', () => {
     const note =
-      'Estratto: primi 12 di 182000 caratteri. Il documento originale completo è disponibile all\'URL in attachment_link.';
+      "Estratto: primi 12 di 182000 caratteri. Il documento originale completo è disponibile all'URL in attachment_link.";
     const { container } = render(
-      <DocumentMarkdown
-        content={`Partial text\n\n[${note}]`}
-      />
+      <DocumentMarkdown content={`Partial text\n\n[${note}]`} />
     );
 
     expect(screen.getByText('Partial text')).toBeInTheDocument();

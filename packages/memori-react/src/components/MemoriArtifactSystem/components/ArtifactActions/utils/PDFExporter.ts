@@ -223,11 +223,15 @@ export class PDFExporter {
       try {
         // Generate HTML content
         const htmlContent = this.createPDFDocument(content, title, options);
-        
+
         // For Safari, we'll use a more reliable approach with a new window
         // that opens the content and then triggers print
-        const printWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
-        
+        const printWindow = window.open(
+          '',
+          '_blank',
+          'width=800,height=600,scrollbars=yes,resizable=yes'
+        );
+
         if (!printWindow) {
           // Fallback: try data URL approach
           const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
@@ -236,11 +240,11 @@ export class PDFExporter {
           link.download = `${title}.html`; // Safari might not support PDF download directly
           link.target = '_blank';
           link.style.display = 'none';
-          
+
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          
+
           resolve();
           return;
         }
@@ -249,19 +253,19 @@ export class PDFExporter {
         printWindow.document.open('text/html', 'replace');
         printWindow.document.write(htmlContent);
         printWindow.document.close();
-        
+
         // Set title
         printWindow.document.title = title;
-        
+
         // Wait for content to load, then trigger print
         setTimeout(() => {
           try {
             // Focus the window first (important for Safari)
             printWindow.focus();
-            
+
             // Trigger print dialog
             printWindow.print();
-            
+
             // Close window after a delay
             setTimeout(() => {
               if (printWindow && !printWindow.closed) {
@@ -269,10 +273,9 @@ export class PDFExporter {
               }
               resolve();
             }, 3000); // Give user time to interact with print dialog
-            
           } catch (printError) {
             console.warn('Print failed, trying alternative:', printError);
-            
+
             // Alternative: show instructions to user
             if (printWindow && !printWindow.closed) {
               const instructionDiv = printWindow.document.createElement('div');
@@ -309,11 +312,10 @@ export class PDFExporter {
               `;
               printWindow.document.body.appendChild(instructionDiv);
             }
-            
+
             resolve();
           }
         }, 1000); // Wait for content to fully load
-        
       } catch (error) {
         reject(new Error(`Safari PDF export failed: ${error}`));
       }
@@ -325,7 +327,7 @@ export class PDFExporter {
    */
   async exportAsPDF(
     content: string,
-    title: string = 'Artifact', 
+    title: string = 'Artifact',
     options: PDFExportOptions = {}
   ): Promise<void> {
     // Use Safari-specific method if Safari is detected
@@ -341,13 +343,15 @@ export class PDFExporter {
         }
 
         // Create new window with Safari-friendly parameters
-        const windowFeatures = isSafariIOS() 
+        const windowFeatures = isSafariIOS()
           ? 'width=800,height=600,scrollbars=yes,resizable=yes'
           : 'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,status=no';
-        
+
         this.printWindow = window.open('', '_blank', windowFeatures);
         if (!this.printWindow) {
-          reject(new Error('Popup blocked! Please enable popups to export PDF.'));
+          reject(
+            new Error('Popup blocked! Please enable popups to export PDF.')
+          );
           return;
         }
 
@@ -360,7 +364,7 @@ export class PDFExporter {
           this.printWindow.document.open('text/html', 'replace');
           this.printWindow.document.write(htmlContent);
           this.printWindow.document.close();
-          
+
           // Wait for content to load with longer timeout for Safari
           setTimeout(() => {
             if (this.printWindow && !this.printWindow.closed) {
@@ -368,7 +372,7 @@ export class PDFExporter {
                 this.printWindow.document.title = title;
                 this.printWindow.focus();
                 this.printWindow.print();
-                
+
                 // Close window after print dialog closes
                 setTimeout(() => {
                   if (this.printWindow && !this.printWindow.closed) {
@@ -377,7 +381,10 @@ export class PDFExporter {
                   resolve();
                 }, 2000); // Longer timeout for Safari
               } catch (printError) {
-                console.warn('Print dialog failed, trying alternative method:', printError);
+                console.warn(
+                  'Print dialog failed, trying alternative method:',
+                  printError
+                );
                 // Fallback: try to trigger print without focus
                 this.printWindow.print();
                 setTimeout(() => {
@@ -401,7 +408,7 @@ export class PDFExporter {
                 // Trigger print dialog with PDF save option
                 this.printWindow.document.title = title;
                 this.printWindow.print();
-                
+
                 // Close window after print dialog closes
                 setTimeout(() => {
                   if (this.printWindow) {
@@ -414,11 +421,10 @@ export class PDFExporter {
           };
 
           // Handle errors
-          this.printWindow.onerror = (error) => {
+          this.printWindow.onerror = error => {
             reject(new Error(`PDF export failed: ${error}`));
           };
         }
-
       } catch (error) {
         reject(new Error(`PDF export failed: ${error}`));
       }
@@ -436,7 +442,11 @@ export class PDFExporter {
    * Check if Safari-specific PDF export is supported
    */
   isSafariSupported(): boolean {
-    return isSafari() && typeof window !== 'undefined' && typeof window.open === 'function';
+    return (
+      isSafari() &&
+      typeof window !== 'undefined' &&
+      typeof window.open === 'function'
+    );
   }
 
   /**

@@ -28,7 +28,8 @@ const ChangeMode: React.FC<Props> = ({
         aria-checked={value === 'instruct'}
         variant={value === 'instruct' ? 'primary' : 'outline'}
         className={cx('memori--changeMode-instruct-radio-button', {
-          'memori--changeMode-instruct-radio-button--selected': value === 'instruct',
+          'memori--changeMode-instruct-radio-button--selected':
+            value === 'instruct',
         })}
         onClick={() => onChangeMode('instruct')}
       >
@@ -39,7 +40,8 @@ const ChangeMode: React.FC<Props> = ({
         aria-checked={value === 'test'}
         variant={value === 'test' ? 'primary' : 'outline'}
         className={cx('memori--changeMode-instruct-radio-button', {
-          'memori--changeMode-instruct-radio-button--selected': value === 'test',
+          'memori--changeMode-instruct-radio-button--selected':
+            value === 'test',
         })}
         onClick={() => onChangeMode('test')}
       >

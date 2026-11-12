@@ -3,8 +3,11 @@
 
 .memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
     --memori-content-preview-max-height: calc(
-        100dvh - 2 * var(--memori-spacing-md) - env(safe-area-inset-top, 0px) -
-            env(safe-area-inset-bottom, 0px)
+        100dvh -
+        2 *
+        var(--memori-spacing-md) -
+        env(safe-area-inset-top, 0px) -
+        env(safe-area-inset-bottom, 0px)
     );
 
     display: flex;

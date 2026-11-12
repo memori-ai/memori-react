@@ -100,9 +100,11 @@
 }
 
 .memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit,
-.memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit-fields-wrapper,
+.memori--date-selector__mobile-input-wrap--empty
+    .memori--date-selector__mobile-input::-webkit-datetime-edit-fields-wrapper,
 .memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit-text,
-.memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit-month-field,
+.memori--date-selector__mobile-input-wrap--empty
+    .memori--date-selector__mobile-input::-webkit-datetime-edit-month-field,
 .memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit-day-field,
 .memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-datetime-edit-year-field,
 .memori--date-selector__mobile-input-wrap--empty .memori--date-selector__mobile-input::-webkit-date-and-time-value {
@@ -153,8 +155,10 @@
     opacity: 0.6;
 }
 
-.memori--date-selector__mobile-input-wrap:has(.memori--date-selector__mobile-input:disabled) .memori--date-selector__mobile-icon,
-.memori--date-selector__mobile-input-wrap:has(.memori--date-selector__mobile-input:disabled) .memori--date-selector__mobile-placeholder {
+.memori--date-selector__mobile-input-wrap:has(.memori--date-selector__mobile-input:disabled)
+    .memori--date-selector__mobile-icon,
+.memori--date-selector__mobile-input-wrap:has(.memori--date-selector__mobile-input:disabled)
+    .memori--date-selector__mobile-placeholder {
     opacity: 0.6;
 }
 
@@ -207,7 +211,7 @@
 
 .memori--date-selector__input:focus {
     border-color: var(--memori-primary);
-  box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
     outline: none;
     transform: translateY(-1px);
 }

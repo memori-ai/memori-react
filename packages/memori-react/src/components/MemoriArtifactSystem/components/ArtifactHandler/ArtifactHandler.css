@@ -37,7 +37,10 @@ button.memori-artifact-handler {
     gap: 8px;
     opacity: 0;
     transform: translateY(10px);
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .memori-artifact-handler-wrapper {

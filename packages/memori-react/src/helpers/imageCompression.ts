@@ -17,7 +17,6 @@ const DEFAULT_OPTIONS: Required<CompressionOptions> = {
   maxSizeMB: 2,
 };
 
-
 /**
  * Apply EXIF orientation to canvas context
  */
@@ -176,7 +175,7 @@ export const compressImage = async (
     // Convert canvas to blob
     return new Promise((resolve, reject) => {
       canvas.toBlob(
-        (blob) => {
+        blob => {
           if (!blob) {
             reject(new Error('Failed to compress image'));
             return;
@@ -188,7 +187,7 @@ export const compressImage = async (
           if (compressedSizeMB > opts.maxSizeMB) {
             // If still too large, try lower quality
             canvas.toBlob(
-              (lowerQualityBlob) => {
+              lowerQualityBlob => {
                 if (!lowerQualityBlob) {
                   // Fallback to original blob
                   const compressedFile = new File(

@@ -18,8 +18,12 @@ export interface AnimationControlPanelProps {
     action: string;
     weight: number;
   };
-  onMorphTargetInfluencesChange: (influences: { [key: string]: number }) => void;
-  onMorphTargetDictionaryChange: (dictionary: { [key: string]: number }) => void;
+  onMorphTargetInfluencesChange: (influences: {
+    [key: string]: number;
+  }) => void;
+  onMorphTargetDictionaryChange: (dictionary: {
+    [key: string]: number;
+  }) => void;
   morphTargetDictionary: { [key: string]: number };
   modifyTimeScale: (value: number) => void;
   timeScale: number;
@@ -41,7 +45,6 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
   const crossFadeControlsRef = useRef<any[]>([]);
 
   useEffect(() => {
-
     const gui = new GUI({ width: 310 });
     guiRef.current = gui;
 
@@ -62,7 +65,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     });
 
     Object.entries(morphTargetDictionary).forEach(([name, settings]) => {
-      panelSettingsRef.current[name] = settings/100;
+      panelSettingsRef.current[name] = settings / 100;
       folder2
         .add(panelSettingsRef.current, name, -1.0, 1.0, 0.01)
         .listen()
@@ -91,7 +94,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     modifyTimeScale,
     baseActions,
     morphTargetDictionary,
-    timeScale
+    timeScale,
   ]);
 
   return null; // This component doesn't render anything itself

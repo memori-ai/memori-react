@@ -14,9 +14,7 @@ export const WIDGET_FULLSCREEN_CLASS = 'memori-widget--fullscreen';
  * Falls back to the panel when it is not mounted inside a widget root.
  */
 export function getFullscreenTarget(panel: HTMLElement): HTMLElement {
-  return (
-    (panel.closest(WIDGET_ROOT_SELECTOR) as HTMLElement | null) ?? panel
-  );
+  return (panel.closest(WIDGET_ROOT_SELECTOR) as HTMLElement | null) ?? panel;
 }
 
 /**

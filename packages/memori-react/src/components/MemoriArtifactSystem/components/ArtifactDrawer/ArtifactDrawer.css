@@ -663,7 +663,9 @@ body:has(.memori-artifact-panel-drawer-fullscreen) .memori-drawer__backdrop,
     border-radius: var(--memori-radius-surface);
     margin-top: var(--memori-spacing-xs);
     background: var(--artifact-drawer-bg);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .memori-artifact-copy-dropdown-list {

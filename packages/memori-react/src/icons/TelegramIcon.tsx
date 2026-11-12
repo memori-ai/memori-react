@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react';
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -15,5 +15,5 @@ const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
       clipRule="evenodd"
     />
   </svg>
-)
-export default TelegramIcon
+);
+export default TelegramIcon;

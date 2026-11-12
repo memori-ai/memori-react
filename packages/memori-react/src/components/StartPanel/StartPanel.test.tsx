@@ -594,9 +594,7 @@ it('opens a mobile info modal whose title leaves room for the close button', asy
   const title = viewport.querySelector('.memori-modal__title');
   expect(title).toHaveClass('memori--start-panel-info-modal-title');
   expect(title).toHaveTextContent('deepThoughtDisclaimerTitle');
-  expect(
-    viewport.querySelector('.memori-modal__close')
-  ).toBeInTheDocument();
+  expect(viewport.querySelector('.memori-modal__close')).toBeInTheDocument();
 
   matchMedia.mockImplementation((query: string) => ({
     matches: false,

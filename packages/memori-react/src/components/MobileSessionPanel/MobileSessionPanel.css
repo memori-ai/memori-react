@@ -429,8 +429,7 @@
     color: #fff;
 }
 
-.memori-mobile-session-panel--share-content
-    .memori-share-button--dropdown-section-social {
+.memori-mobile-session-panel--share-content .memori-share-button--dropdown-section-social {
     padding-right: 0.75rem;
     padding-left: 0.75rem;
 }

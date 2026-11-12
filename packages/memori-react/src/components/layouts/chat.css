@@ -96,8 +96,9 @@
     /* Inline padding sits outside the reading width, as on the input wrapper,
        so the message scrollbar lines up with the input's right edge. */
     max-width: calc(
-        var(--memori-conversation-max-width, 48rem) + 2 *
-            var(--memori-conversation-inline-padding, var(--memori-spacing-md))
+        var(--memori-conversation-max-width, 48rem) +
+        2 *
+        var(--memori-conversation-inline-padding, var(--memori-spacing-md))
     );
     min-height: 0;
     box-sizing: border-box;
@@ -835,7 +836,9 @@
     left: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition:
+        opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     visibility: hidden;
 }
 

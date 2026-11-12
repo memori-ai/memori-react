@@ -6,14 +6,18 @@ import type { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 beforeAll(() => {
   if (typeof window !== 'undefined' && !window.IntersectionObserver) {
-    (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver = jest.fn().mockImplementation(() => ({
+    (
+      window as unknown as { IntersectionObserver: unknown }
+    ).IntersectionObserver = jest.fn().mockImplementation(() => ({
       observe: jest.fn(),
       unobserve: jest.fn(),
       disconnect: jest.fn(),
     }));
   }
   if (typeof global !== 'undefined' && !globalThis.IntersectionObserver) {
-    (globalThis as unknown as { IntersectionObserver: unknown }).IntersectionObserver = jest.fn().mockImplementation(() => ({
+    (
+      globalThis as unknown as { IntersectionObserver: unknown }
+    ).IntersectionObserver = jest.fn().mockImplementation(() => ({
       observe: jest.fn(),
       unobserve: jest.fn(),
       disconnect: jest.fn(),
@@ -42,11 +46,12 @@ describe('MediaPreviewModal', () => {
         title: 'Photo',
         url: 'https://example.com/photo.jpg',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getByAltText('Photo')).toBeInTheDocument();
-      expect(screen.getByAltText('Photo')).toHaveAttribute('src', expect.stringContaining('photo.jpg'));
+      expect(screen.getByAltText('Photo')).toHaveAttribute(
+        'src',
+        expect.stringContaining('photo.jpg')
+      );
     });
 
     it('uses base64 data URL when image has content', () => {
@@ -56,11 +61,12 @@ describe('MediaPreviewModal', () => {
         title: 'Inline',
         content: 'base64content',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       const img = screen.getByAltText('Inline');
-      expect(img).toHaveAttribute('src', expect.stringMatching(/^data:image\/png;base64,/));
+      expect(img).toHaveAttribute(
+        'src',
+        expect.stringMatching(/^data:image\/png;base64,/)
+      );
     });
   });
 
@@ -72,9 +78,7 @@ describe('MediaPreviewModal', () => {
         title: 'Script',
         content: 'console.log("hello");',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getByText(/console\.log/)).toBeInTheDocument();
     });
   });
@@ -88,7 +92,12 @@ describe('MediaPreviewModal', () => {
         url: 'https://example.com/doc.pdf',
       };
       render(
-        <MediaPreviewModal medium={medium} onClose={onClose} sessionID="s1" baseURL="https://api.example.com" />
+        <MediaPreviewModal
+          medium={medium}
+          onClose={onClose}
+          sessionID="s1"
+          baseURL="https://api.example.com"
+        />
       );
       const iframe = screen.getByTitle('Document');
       expect(iframe).toBeInTheDocument();
@@ -100,13 +109,12 @@ describe('MediaPreviewModal', () => {
     it('renders Excel in iframe when url or content present', () => {
       const medium: Medium = {
         mediumID: 'xls-1',
-        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         title: 'Sheet',
         url: 'https://example.com/sheet.xlsx',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       const iframe = screen.getByTitle('Sheet');
       expect(iframe).toBeInTheDocument();
     });
@@ -120,9 +128,7 @@ describe('MediaPreviewModal', () => {
         title: 'Page',
         url: 'example.com/page',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       const iframe = screen.getByTitle('Page');
       expect(iframe).toBeInTheDocument();
       expect(iframe).toHaveAttribute('src', 'https://example.com/page');
@@ -135,9 +141,7 @@ describe('MediaPreviewModal', () => {
         title: 'Inline HTML',
         content: '<p>Hello world</p>',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getByText(/Hello world/)).toBeInTheDocument();
     });
   });
@@ -150,12 +154,13 @@ describe('MediaPreviewModal', () => {
         title: 'Clip',
         url: 'https://example.com/video.mp4',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       const video = document.querySelector('video');
       expect(video).toBeInTheDocument();
-      expect(video).toHaveAttribute('src', expect.stringContaining('video.mp4'));
+      expect(video).toHaveAttribute(
+        'src',
+        expect.stringContaining('video.mp4')
+      );
     });
 
     it('renders audio with title and controls', () => {
@@ -165,9 +170,7 @@ describe('MediaPreviewModal', () => {
         title: 'Track',
         url: 'https://example.com/audio.mp3',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getAllByText('Track').length).toBeGreaterThan(0);
       const audio = document.querySelector('audio');
       expect(audio).toBeInTheDocument();
@@ -182,9 +185,7 @@ describe('MediaPreviewModal', () => {
         title: 'Notes',
         content: 'Some plain text.',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getByText(/Some plain text/)).toBeInTheDocument();
     });
 
@@ -195,10 +196,10 @@ describe('MediaPreviewModal', () => {
         title: 'Readme',
         content: '# Title\n\nParagraph.',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
-      expect(screen.getByRole('heading', { name: 'Title' })).toBeInTheDocument();
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
+      expect(
+        screen.getByRole('heading', { name: 'Title' })
+      ).toBeInTheDocument();
       expect(screen.getByText('Paragraph.')).toBeInTheDocument();
     });
   });
@@ -211,10 +212,10 @@ describe('MediaPreviewModal', () => {
         title: 'Report.doc',
         url: 'https://example.com/report.doc',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
-      expect(screen.getByText(/Preview not available for this document/)).toBeInTheDocument();
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
+      expect(
+        screen.getByText(/Preview not available for this document/)
+      ).toBeInTheDocument();
       expect(screen.getByText(/Open in new tab/)).toBeInTheDocument();
       expect(screen.getByText(/Download/)).toBeInTheDocument();
     });
@@ -226,10 +227,10 @@ describe('MediaPreviewModal', () => {
         title: 'file.bin',
         url: 'https://example.com/file.bin',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
-      expect(screen.getByText(/Preview not available for this file type/)).toBeInTheDocument();
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
+      expect(
+        screen.getByText(/Preview not available for this file type/)
+      ).toBeInTheDocument();
     });
   });
 
@@ -242,9 +243,7 @@ describe('MediaPreviewModal', () => {
         content: 'Extracted text from PDF',
         properties: { isDocumentAttachment: true },
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       expect(screen.getByText(/Extracted text from PDF/)).toBeInTheDocument();
     });
   });
@@ -257,9 +256,7 @@ describe('MediaPreviewModal', () => {
         title: 'Photo',
         url: 'https://example.com/photo.jpg',
       };
-      render(
-        <MediaPreviewModal medium={medium} onClose={onClose} />
-      );
+      render(<MediaPreviewModal medium={medium} onClose={onClose} />);
       const closeButton = document.querySelector('.memori-modal__close');
       expect(closeButton).toBeInTheDocument();
       if (closeButton) {

@@ -56,7 +56,6 @@ const defaultStyles = {
   },
 };
 
-
 const getCameraSettings = (halfBody: boolean, isZoomed: boolean) => {
   const baseZ = halfBody ? 0.6 : 3;
 
@@ -87,7 +86,6 @@ export default function ContainerAvatarView({
   enablePositionControls,
   setEnablePositionControls,
   isTotem = false,
-
 }: Props) {
   const [cameraZ, setCameraZ] = useState(
     () => getCameraSettings(halfBody, isZoomed || false).position[2]
@@ -130,7 +128,7 @@ export default function ContainerAvatarView({
 
   return (
     <>
-          {enablePositionControls && (
+      {enablePositionControls && (
         <PositionControls
           avatarHeight={avatarHeight}
           avatarDepth={avatarDepth}
@@ -140,15 +138,15 @@ export default function ContainerAvatarView({
           setEnablePositionControls={setEnablePositionControls}
         />
       )}
-      <Canvas 
+      <Canvas
         style={style || defaultStyles.fullBody}
         shadows={true}
         dpr={[1, 2]} // Optimize pixel ratio
         gl={{
           antialias: true,
           alpha: true,
-          powerPreference: "high-performance",
-          stencil: false
+          powerPreference: 'high-performance',
+          stencil: false,
         }}
       >
         <PerspectiveCamera
@@ -161,7 +159,7 @@ export default function ContainerAvatarView({
 
         {rotateAvatar && (
           <OrbitControls
-            enablePan={false} 
+            enablePan={false}
             enableZoom={false}
             target={[0, 0, 0]}
             enableDamping
@@ -171,7 +169,7 @@ export default function ContainerAvatarView({
 
         <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
           <Lights />
-          
+
           <AvatarView
             url={url}
             sex={sex}

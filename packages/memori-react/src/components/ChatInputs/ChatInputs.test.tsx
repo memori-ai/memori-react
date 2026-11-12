@@ -62,9 +62,8 @@ it('shows stop, an enabled send button and the wave as soon as the microphone is
   expect(container.querySelector('textarea')).toBeNull();
 });
 
-const transcribe =
-  (text: string) => (onTranscript?: (text: string) => void) =>
-    onTranscript?.(text);
+const transcribe = (text: string) => (onTranscript?: (text: string) => void) =>
+  onTranscript?.(text);
 
 it('sends the transcription, after any typed text, from the send button', () => {
   const sendMessage = jest.fn();
@@ -156,10 +155,7 @@ it('locks the microphone, send button and Enter while transcribing', () => {
 
 it('goes back to the textarea when recording cannot start', async () => {
   const { getByRole, findByRole, container } = render(
-    <ChatInputs
-      {...baseProps}
-      startListening={() => Promise.resolve(false)}
-    />
+    <ChatInputs {...baseProps} startListening={() => Promise.resolve(false)} />
   );
 
   fireEvent.click(getByRole('button', { name: micLabel }));

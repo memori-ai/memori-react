@@ -28,17 +28,17 @@ it('renders ZOOMED_FULL_BODY layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
       <ArtifactProvider>
-      <VisemeProvider>
-        <Memori
-          showShare={true}
-          showSettings={true}
-          memori={memori}
-          tenant={tenant}
-          tenantID="aisuru.com"
-          integration={integration}
-          layout="ZOOMED_FULL_BODY"
-        />
-      </VisemeProvider>
+        <VisemeProvider>
+          <Memori
+            showShare={true}
+            showSettings={true}
+            memori={memori}
+            tenant={tenant}
+            tenantID="aisuru.com"
+            integration={integration}
+            layout="ZOOMED_FULL_BODY"
+          />
+        </VisemeProvider>
       </ArtifactProvider>
     </I18nWrapper>
   );

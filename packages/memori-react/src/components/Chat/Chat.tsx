@@ -673,8 +673,8 @@ const Chat: React.FC<Props> = ({
                       ? 'it'
                       : 'en'
                     : memori.culture?.split('-')?.[0]?.toLowerCase() === 'it'
-                    ? 'it'
-                    : 'en'
+                      ? 'it'
+                      : 'en'
                 }
                 sentence={typingText}
                 memori={memori}

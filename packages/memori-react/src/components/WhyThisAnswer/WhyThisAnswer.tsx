@@ -6,11 +6,7 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import {
-  Button,
-  useAlertManager,
-  createAlertOptions,
-} from '@memori.ai/ui';
+import { Button, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import { stripAllInternalTags } from '../../helpers/message';
@@ -18,12 +14,7 @@ import { highlightMatches } from '../../helpers/highlightMatches';
 import SideDrawer, { SideDrawerEmpty } from '../SideDrawer/SideDrawer';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import ContentPreviewModal from '../ContentPreviewModal/ContentPreviewModal';
-import {
-  FileText,
-  Globe,
-  HelpCircle,
-  SearchX,
-} from 'lucide-react';
+import { FileText, Globe, HelpCircle, SearchX } from 'lucide-react';
 import cx from 'classnames';
 
 export interface Props {
@@ -201,12 +192,7 @@ const WhyThisAnswer = ({
   useEffect(() => {
     void fetchMemories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    sessionID,
-    sanitizedQuestionAnswered,
-    disableFetch,
-    _TEST_loading,
-  ]);
+  }, [sessionID, sanitizedQuestionAnswered, disableFetch, _TEST_loading]);
 
   const answerNeedsTruncation = sanitizedAnswer.length > ANSWER_PREVIEW_CHARS;
   const displayedAnswer =

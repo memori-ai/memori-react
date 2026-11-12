@@ -679,8 +679,8 @@ const StartPanel: React.FC<Props> = ({
                       instruct
                         ? 'instructButton'
                         : !hasInitialSession
-                        ? 'tryMeButton'
-                        : 'resumeButton'
+                          ? 'tryMeButton'
+                          : 'resumeButton'
                     }`
                   )}
                 </Button>

@@ -455,8 +455,8 @@ const ShareButton: React.FC<Props> = ({
             {copyStatus === 'success'
               ? t('copied')
               : copyStatus === 'error'
-              ? t('copyFailed', { defaultValue: 'Could not copy' })
-              : t('copyToClipboard') || undefined}
+                ? t('copyFailed', { defaultValue: 'Could not copy' })
+                : t('copyToClipboard') || undefined}
           </span>
         </button>
       </div>
@@ -550,9 +550,7 @@ const ShareButton: React.FC<Props> = ({
               variant={triggerVariant}
               active={isShareMenuOpen}
               title={String(triggerLabel || t('widget.share') || 'Share')}
-              aria-label={String(
-                triggerLabel || t('widget.share') || 'Share'
-              )}
+              aria-label={String(triggerLabel || t('widget.share') || 'Share')}
               icon={<Share2 aria-hidden />}
               className={cx({
                 'memori-share-button--trigger-menu-item':
@@ -575,114 +573,115 @@ const ShareButton: React.FC<Props> = ({
           onMouseLeave={clearMenuItemFocus}
         >
           <div className="memori-share-button--dropdown-section">
-          {memori && sessionID && sharedUrl && (
-            <Dropdown.Item
-              key="shared"
-              closeOnClick={false}
-              className={cx('memori-share-button--menu-item', {
-                'memori-share-button--menu-item--flash':
-                  menuFlashKey === 'share-chat',
-              })}
-              onClick={() => {
-                window.open(sharedUrl, '_blank');
-                flashMenuItem('share-chat');
-              }}
-              {...({ icon: <Share2 /> } as React.ComponentProps<
-                typeof Dropdown.Item
-              >)}
-            >
-              <span className="memori-share-button--dropdown-item-content">
-                {t('widget.shareChat') || 'Share chat'}
-              </span>
-            </Dropdown.Item>
-          )}
-          {history && history.length > 0 && (
-            <Dropdown.Item
-              key="export-pdf"
-              closeOnClick={false}
-              className={cx('memori-share-button--menu-item', {
-                'memori-share-button--menu-item--flash':
-                  menuFlashKey === 'export-pdf',
-              })}
-              onClick={handleExportPDF}
-              disabled={isExportingPDF}
-              {...({ icon: <FileText /> } as React.ComponentProps<
-                typeof Dropdown.Item
-              >)}
-            >
-              <span className="memori-share-button--dropdown-item-content">
-                {isExportingPDF
-                  ? t('exportChatHistory.exporting') || 'Exporting...'
-                  : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-              </span>
-            </Dropdown.Item>
-          )}
-          <Dropdown.Item
-            closeOnClick={false}
-            className={cx(
-              'memori-share-button--menu-item',
-              'memori-share-button--copy-item',
-              {
-                'memori-share-button--copy-item--success':
-                  copyStatus === 'success',
-                'memori-share-button--copy-item--error': copyStatus === 'error',
-              }
-            )}
-            onClick={handleCopyLink}
-            {...({
-              icon:
-                copyStatus === 'success' ? (
-                  <Check
-                    className="memori-share-button--copy-icon"
-                    aria-hidden
-                    strokeWidth={2.5}
-                  />
-                ) : (
-                  <LinkIcon
-                    className="memori-share-button--copy-icon"
-                    aria-hidden
-                  />
-                ),
-            } as React.ComponentProps<typeof Dropdown.Item>)}
-          >
-            <span
-              className="memori-share-button--dropdown-item-content memori-share-button--copy-label"
-              aria-live="polite"
-            >
-              {copyStatus === 'success'
-                ? t('copied')
-                : copyStatus === 'error'
-                ? t('copyFailed', { defaultValue: 'Could not copy' })
-                : t('copyToClipboard') || undefined}
-            </span>
-          </Dropdown.Item>
-          </div>
-          <div className="memori-share-button--dropdown-divider" />
-          <div className="memori-share-button--dropdown-section">
-          {socialShare.map(item => {
-            const IconComponent = item.icon;
-            return (
+            {memori && sessionID && sharedUrl && (
               <Dropdown.Item
-                key={item.id}
+                key="shared"
                 closeOnClick={false}
                 className={cx('memori-share-button--menu-item', {
                   'memori-share-button--menu-item--flash':
-                    menuFlashKey === item.id,
+                    menuFlashKey === 'share-chat',
                 })}
                 onClick={() => {
-                  openShareTarget(item);
-                  flashMenuItem(item.id);
+                  window.open(sharedUrl, '_blank');
+                  flashMenuItem('share-chat');
                 }}
-                {...({ icon: <IconComponent /> } as React.ComponentProps<
+                {...({ icon: <Share2 /> } as React.ComponentProps<
                   typeof Dropdown.Item
                 >)}
               >
                 <span className="memori-share-button--dropdown-item-content">
-                  {item.title}
+                  {t('widget.shareChat') || 'Share chat'}
                 </span>
               </Dropdown.Item>
-            );
-          })}
+            )}
+            {history && history.length > 0 && (
+              <Dropdown.Item
+                key="export-pdf"
+                closeOnClick={false}
+                className={cx('memori-share-button--menu-item', {
+                  'memori-share-button--menu-item--flash':
+                    menuFlashKey === 'export-pdf',
+                })}
+                onClick={handleExportPDF}
+                disabled={isExportingPDF}
+                {...({ icon: <FileText /> } as React.ComponentProps<
+                  typeof Dropdown.Item
+                >)}
+              >
+                <span className="memori-share-button--dropdown-item-content">
+                  {isExportingPDF
+                    ? t('exportChatHistory.exporting') || 'Exporting...'
+                    : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
+                </span>
+              </Dropdown.Item>
+            )}
+            <Dropdown.Item
+              closeOnClick={false}
+              className={cx(
+                'memori-share-button--menu-item',
+                'memori-share-button--copy-item',
+                {
+                  'memori-share-button--copy-item--success':
+                    copyStatus === 'success',
+                  'memori-share-button--copy-item--error':
+                    copyStatus === 'error',
+                }
+              )}
+              onClick={handleCopyLink}
+              {...({
+                icon:
+                  copyStatus === 'success' ? (
+                    <Check
+                      className="memori-share-button--copy-icon"
+                      aria-hidden
+                      strokeWidth={2.5}
+                    />
+                  ) : (
+                    <LinkIcon
+                      className="memori-share-button--copy-icon"
+                      aria-hidden
+                    />
+                  ),
+              } as React.ComponentProps<typeof Dropdown.Item>)}
+            >
+              <span
+                className="memori-share-button--dropdown-item-content memori-share-button--copy-label"
+                aria-live="polite"
+              >
+                {copyStatus === 'success'
+                  ? t('copied')
+                  : copyStatus === 'error'
+                    ? t('copyFailed', { defaultValue: 'Could not copy' })
+                    : t('copyToClipboard') || undefined}
+              </span>
+            </Dropdown.Item>
+          </div>
+          <div className="memori-share-button--dropdown-divider" />
+          <div className="memori-share-button--dropdown-section">
+            {socialShare.map(item => {
+              const IconComponent = item.icon;
+              return (
+                <Dropdown.Item
+                  key={item.id}
+                  closeOnClick={false}
+                  className={cx('memori-share-button--menu-item', {
+                    'memori-share-button--menu-item--flash':
+                      menuFlashKey === item.id,
+                  })}
+                  onClick={() => {
+                    openShareTarget(item);
+                    flashMenuItem(item.id);
+                  }}
+                  {...({ icon: <IconComponent /> } as React.ComponentProps<
+                    typeof Dropdown.Item
+                  >)}
+                >
+                  <span className="memori-share-button--dropdown-item-content">
+                    {item.title}
+                  </span>
+                </Dropdown.Item>
+              );
+            })}
           </div>
           {showQrCode && (
             <>

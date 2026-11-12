@@ -12,7 +12,8 @@ const baseConfig = {
     {
       id: 'iban',
       label: { it: 'IBAN', en: 'IBAN' },
-      pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
+      pattern:
+        '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: { it: 'Contiene IBAN.', en: 'Contains IBAN.' },
     },
   ],
@@ -48,7 +49,11 @@ describe('checkPii', () => {
 
     it('returns no match when rules is not an array', () => {
       expect(
-        checkPii('test@example.com', { ...baseConfig, rules: null as any }, 'en')
+        checkPii(
+          'test@example.com',
+          { ...baseConfig, rules: null as any },
+          'en'
+        )
       ).toEqual({ matched: false });
     });
 
@@ -62,7 +67,12 @@ describe('checkPii', () => {
       const configWithEmptyPattern = {
         ...baseConfig,
         rules: [
-          { id: 'empty', label: { it: 'Empty', en: 'Empty' }, pattern: '', message: { en: 'Empty' } },
+          {
+            id: 'empty',
+            label: { it: 'Empty', en: 'Empty' },
+            pattern: '',
+            message: { en: 'Empty' },
+          },
           {
             id: 'space',
             label: { it: 'Space', en: 'Space' },
@@ -89,7 +99,9 @@ describe('checkPii', () => {
           },
         ],
       };
-      expect(checkPii('test', configBadRegex, 'en')).toEqual({ matched: false });
+      expect(checkPii('test', configBadRegex, 'en')).toEqual({
+        matched: false,
+      });
       expect(warnSpy).toHaveBeenCalledWith(
         '[PII] Invalid regex for rule:',
         'bad',
@@ -102,7 +114,11 @@ describe('checkPii', () => {
 
   describe('single rule match', () => {
     it('returns match and errorText when email pattern matches', () => {
-      const result = checkPii('contact me at test@example.com please', baseConfig, 'en');
+      const result = checkPii(
+        'contact me at test@example.com please',
+        baseConfig,
+        'en'
+      );
       expect(result.matched).toBe(true);
       expect(result.errorText).toContain('Sensitive data.');
       expect(result.errorText).toContain('Contains email.');
@@ -151,7 +167,8 @@ describe('checkPii', () => {
           {
             id: 'email',
             label: { it: 'Email 1', en: 'Email 1' },
-            pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
+            pattern:
+              '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
             message: { en: 'Email 1' },
           },
           {

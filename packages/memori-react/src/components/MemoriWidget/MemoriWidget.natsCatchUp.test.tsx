@@ -20,7 +20,8 @@ jest.mock('@memori.ai/memori-api-client', () => {
   const mocked = (...args: unknown[]) => ({
     ...factory(...args),
     initSession: (...a: unknown[]) => mockEngine.initSession(...a),
-    postEnterTextAsync: (...a: unknown[]) => mockEngine.postEnterTextAsync(...a),
+    postEnterTextAsync: (...a: unknown[]) =>
+      mockEngine.postEnterTextAsync(...a),
     getSession: (...a: unknown[]) => mockEngine.getSession(...a),
   });
   return { __esModule: true, ...actual, default: mocked };
@@ -57,7 +58,7 @@ const baseState = (overrides: Partial<DialogState>): DialogState =>
     contextVars: {},
     emittedMedia: [],
     ...overrides,
-  } as DialogState);
+  }) as DialogState;
 
 const greetingState = baseState({ emission: 'Benvenuto!' });
 const contentWithSnippet = baseState({

@@ -1,4 +1,4 @@
-import { Nodes } from "./utils";
+import { Nodes } from './utils';
 
 export const hideHands = (nodes: Nodes) => {
   if (nodes.Wolf3D_Hands) {

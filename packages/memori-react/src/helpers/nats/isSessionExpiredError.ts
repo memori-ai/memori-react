@@ -1,7 +1,4 @@
-import type {
-  NatsDialogResponseEvent,
-  NatsErrorEvent,
-} from './useNatsSession';
+import type { NatsDialogResponseEvent, NatsErrorEvent } from './useNatsSession';
 
 /** Backend result codes for missing / expired sessions. */
 const SESSION_NOT_FOUND = -101;
@@ -31,7 +28,10 @@ export function isSessionExpiredNatsError(event: NatsErrorEvent): boolean {
 
   if (typeof event.errorCode === 'string') {
     const code = event.errorCode.toUpperCase();
-    if (code.includes('SESSION_EXPIRED') || code.includes('SESSION_NOT_FOUND')) {
+    if (
+      code.includes('SESSION_EXPIRED') ||
+      code.includes('SESSION_NOT_FOUND')
+    ) {
       return true;
     }
   }

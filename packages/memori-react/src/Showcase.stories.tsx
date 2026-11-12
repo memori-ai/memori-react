@@ -81,7 +81,6 @@ const titleStyle: React.CSSProperties = {
   color: 'var(--showcase-title-color)',
 };
 
-
 const meta: Meta = {
   title: 'Internals/Showcase',
   parameters: {
@@ -107,7 +106,8 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
   const [userMessage, setUserMessage] = useState(
     'Sample message with all features enabled'
   );
-  const [showAgeVerificationModal, setShowAgeVerificationModal] = useState(false);
+  const [showAgeVerificationModal, setShowAgeVerificationModal] =
+    useState(false);
 
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
@@ -461,7 +461,13 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
             {/* AgeVerificationModal */}
             <section style={sectionStyle}>
               <h2 style={titleStyle}>AgeVerificationModal</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem',
+                }}
+              >
                 <div>
                   <Button
                     variant="primary"

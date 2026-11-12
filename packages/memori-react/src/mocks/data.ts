@@ -216,9 +216,8 @@ Il sito ** docs.aisuru.com ** raccoglie tutta la documentazione tecnica.
 
 Se ti servono esempi di codice o ulteriori dettagli su una specifica funzionalità, fammi sapere! </output>`,
     timestamp: '2021-03-01T12:00:00.000Z',
-  }
+  },
 ];
-
 
 export const historyWithArtifacts: Message[] = [
   {
@@ -241,7 +240,6 @@ export const historyWithArtifacts: Message[] = [
     fromUser: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-
 
   {
     text: `Ecco qui come. <think>L'utente mi sta chiedendo di generare un'immagine di gattini. Per fare questo devo utilizzare il sistema di generazione immagini. Prima devo controllare quali strumenti sono disponibili per la generazione di immagini. Dovrei:1. Prima chiamare LISTA_TOOLS_FREE_IMAGE_GENERATOR_MCP_PROD per vedere gli strumenti disponibili2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine 2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine Dalle istruzioni so che devo provare i modelli in questo ordine: turbo, flux, kontext (iniziando sempre con turbo). Inoltre, dalle istruzioni specifiche, vedo che se ho ARTIFACT attivo posso usare JavaScript e ARTIFACT per effetti più avanzati, altrimenti devo avvisare che l'immagine ci può mettere un po' a caricarsi e predisporre il bordo width:100%. Dato che sto lavorando con il sistema Memori Artifact, dovrei avere ARTIFACT disponibile, quindi userò quello per una gestione più bella del loading.</think>Perfetto! Ho generato per te un'adorabile immagine di gattini! 🐱✨ <output class="memori-artifact" data-mimetype="html" data-title="Gattini Adorabili">
@@ -461,22 +459,17 @@ Se vuoi provare variazioni diverse, posso generare altre immagini con stili o po
     timestamp: '2021-03-01T12:00:00.000Z',
   },
 
-
   {
     text: 'Ah, grazie! Ciao!',
     fromUser: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
 
-
   {
     text: 'Arrivederci.',
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-
-
 ];
-
 
 export const history: Message[] = [
   {
@@ -576,8 +569,9 @@ export const historyWithMedia: Message[] = [
         mediumID: `95226d7e-7bae-465e-8b80-995587bb597${i}`,
         mimeType: 'image/png',
         title: `Image ${i}`,
-        url: `https://picsum.photos/${i % 2 ? '200' : '300'}/${i % 3 ? '300' : '200'
-          }?random=${i}`,
+        url: `https://picsum.photos/${i % 2 ? '200' : '300'}/${
+          i % 3 ? '300' : '200'
+        }?random=${i}`,
       })),
     ],
     timestamp: '2021-03-01T12:00:00.000Z',
@@ -778,13 +772,10 @@ export const memoryQuestion: Memory = {
   lastChangeName: '6cfec2bd-a73f-4a21-b7ff-dd92d6db59c4',
 };
 
-
 export const historyWithExpandable: Message[] = [
   {
-    text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     timestamp: '2021-03-01T12:00:00.000Z',
     fromUser: true,
   },
 ];
-
-

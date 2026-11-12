@@ -830,8 +830,8 @@ const MemoriWidget = ({
       uiLang && uiLanguages.includes(uiLang.toLowerCase())
         ? uiLang.toLowerCase()
         : userLang && uiLanguages.includes(userLang.toLowerCase())
-        ? userLang.toLowerCase()
-        : null;
+          ? userLang.toLowerCase()
+          : null;
     if (langToApply && typeof i18n?.changeLanguage === 'function') {
       // @ts-ignore
       i18n.changeLanguage(langToApply);
@@ -875,14 +875,14 @@ const MemoriWidget = ({
     typeof layout === 'string'
       ? layout
       : layout &&
-        typeof layout === 'object' &&
-        layout !== null &&
-        'name' in layout &&
-        typeof (layout as { name: string }).name === 'string'
-      ? (layout as { name: string }).name
-      : typeof integrationConfig?.layout === 'string'
-      ? integrationConfig.layout
-      : integrationConfig?.layout?.name;
+          typeof layout === 'object' &&
+          layout !== null &&
+          'name' in layout &&
+          typeof (layout as { name: string }).name === 'string'
+        ? (layout as { name: string }).name
+        : typeof integrationConfig?.layout === 'string'
+          ? integrationConfig.layout
+          : integrationConfig?.layout?.name;
   // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
   const selectedLayout = ((): LayoutName => {
     if (typeof layoutName === 'string') {
@@ -911,10 +911,10 @@ const MemoriWidget = ({
     layout.piiDetection?.enabled
       ? layout.piiDetection
       : typeof integrationConfig?.layout === 'object' &&
-        integrationConfig?.layout !== null &&
-        integrationConfig?.layout?.piiDetection?.enabled
-      ? integrationConfig.layout.piiDetection
-      : undefined;
+          integrationConfig?.layout !== null &&
+          integrationConfig?.layout?.piiDetection?.enabled
+        ? integrationConfig.layout.piiDetection
+        : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -1444,10 +1444,10 @@ const MemoriWidget = ({
     memori.ageRestriction !== undefined
       ? memori.ageRestriction
       : memori.nsfw
-      ? 18
-      : memori.enableCompletions
-      ? 14
-      : 0;
+        ? 18
+        : memori.enableCompletions
+          ? 14
+          : 0;
   const [birthDate, setBirthDate] = useState<string | undefined>();
   const [showAgeVerification, setShowAgeVerification] = useState(false);
 
@@ -1882,8 +1882,8 @@ const MemoriWidget = ({
             const initialStatus = sessionExpiredStatus
               ? sessionExpiredStatus
               : history.length <= 1
-              ? true
-              : undefined;
+                ? true
+                : undefined;
 
             // Set initial message or append to existing history
             history.length <= 1
@@ -2647,8 +2647,8 @@ const MemoriWidget = ({
       const errorText = event.errorMessage
         ? `Error: ${event.errorMessage}`
         : event.errorCode
-        ? `Error: ${event.errorCode}`
-        : 'Error: An unexpected error occurred';
+          ? `Error: ${event.errorCode}`
+          : 'Error: An unexpected error occurred';
 
       pushMessage({
         text: errorText,
@@ -3242,7 +3242,7 @@ const MemoriWidget = ({
                     llmUsage: (l as any).llmUsage,
                     timestamp: l.timestamp,
                     emitter: l.emitter,
-                  } as Message)
+                  }) as Message
               );
 
               // we dont remove the last one as it is the current state
@@ -3433,7 +3433,7 @@ const MemoriWidget = ({
                   llmUsage: (l as any).llmUsage,
                   timestamp: l.timestamp,
                   emitter: l.emitter,
-                } as Message)
+                }) as Message
             );
 
             // we dont remove the last one as it is the current state
@@ -3654,7 +3654,7 @@ const MemoriWidget = ({
       const clientNode =
         element.nodeName === 'MEMORI-CLIENT'
           ? element
-          : element.closest('memori-client') ?? element.parentElement;
+          : (element.closest('memori-client') ?? element.parentElement);
       const token = clientNode?.getAttribute('authtoken') || undefined;
       setLoginToken(token);
       userTokenRef.current = token;
@@ -3921,7 +3921,7 @@ const MemoriWidget = ({
     showChatHistory:
       selectedLayout === 'WEBSITE_ASSISTANT'
         ? false
-        : showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+        : (showChatHistory ?? integrationConfig?.showChatHistory ?? true),
     setShowChatHistoryDrawer,
     user,
   };
@@ -4047,18 +4047,18 @@ const MemoriWidget = ({
   const Layout = customLayout
     ? customLayout
     : selectedLayout === 'TOTEM'
-    ? TotemLayout
-    : selectedLayout === 'CHAT'
-    ? ChatLayout
-    : selectedLayout === 'FULLPAGE'
-    ? FullPageLayout
-    : selectedLayout === 'WEBSITE_ASSISTANT'
-    ? WebsiteAssistantLayout
-    : selectedLayout === 'HIDDEN_CHAT'
-    ? HiddenChatLayout
-    : selectedLayout === 'ZOOMED_FULL_BODY'
-    ? ZoomedFullBodyLayout
-    : FullPageLayout;
+      ? TotemLayout
+      : selectedLayout === 'CHAT'
+        ? ChatLayout
+        : selectedLayout === 'FULLPAGE'
+          ? FullPageLayout
+          : selectedLayout === 'WEBSITE_ASSISTANT'
+            ? WebsiteAssistantLayout
+            : selectedLayout === 'HIDDEN_CHAT'
+              ? HiddenChatLayout
+              : selectedLayout === 'ZOOMED_FULL_BODY'
+                ? ZoomedFullBodyLayout
+                : FullPageLayout;
 
   // Resolve the widget theme once so both `data-theme` on the root and the
   // `MemoriUIProvider` (which stamps portaled popups) stay in sync.

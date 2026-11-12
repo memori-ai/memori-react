@@ -57,12 +57,28 @@ function hello() {
   ];
 
   return (
-    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div
+      style={{
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+      }}
+    >
       <h2>Copy Button Dropdown Test</h2>
-      
+
       {testArtifacts.map((artifact, index) => (
-        <div key={index} style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '8px' }}>
-          <h3>{artifact.title} ({artifact.mimeType})</h3>
+        <div
+          key={index}
+          style={{
+            border: '1px solid #ccc',
+            padding: '10px',
+            borderRadius: '8px',
+          }}
+        >
+          <h3>
+            {artifact.title} ({artifact.mimeType})
+          </h3>
           <div style={{ marginBottom: '10px' }}>
             <CopyButtonWithDropdown
               artifact={artifact}
@@ -71,14 +87,16 @@ function hello() {
               onPrint={() => console.log('Print clicked')}
             />
           </div>
-          <pre style={{ 
-            background: '#f5f5f5', 
-            padding: '10px', 
-            borderRadius: '4px',
-            fontSize: '12px',
-            maxHeight: '200px',
-            overflow: 'auto'
-          }}>
+          <pre
+            style={{
+              background: '#f5f5f5',
+              padding: '10px',
+              borderRadius: '4px',
+              fontSize: '12px',
+              maxHeight: '200px',
+              overflow: 'auto',
+            }}
+          >
             {artifact.content.substring(0, 200)}...
           </pre>
         </div>

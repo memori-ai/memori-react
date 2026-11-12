@@ -31,7 +31,9 @@
     box-shadow: none;
     gap: var(--memori-spacing-sm);
     overflow-x: hidden;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
 }
 
 .memori-chat-inputs:disabled {

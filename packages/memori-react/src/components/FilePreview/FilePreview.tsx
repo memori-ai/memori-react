@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { File, X } from 'lucide-react';
 import { Button } from '@memori.ai/ui';
-import ContentPreviewModal, {
-  DocumentMarkdown,
-} from '../ContentPreviewModal';
+import ContentPreviewModal, { DocumentMarkdown } from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import {
   stripHTML,

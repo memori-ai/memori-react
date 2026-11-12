@@ -6,8 +6,8 @@ import { AvatarAnimator } from '../components/controllers/AvatarAnimator';
 const DynamicShadow = ({
   animator,
   avatarPosition,
-  }: {
-    animator: AvatarAnimator | null;
+}: {
+  animator: AvatarAnimator | null;
   avatarPosition: any;
 }) => {
   // Calculate shadow properties based on animation
@@ -87,13 +87,13 @@ const DynamicShadow = ({
 
       {/* Foot shadow - smaller and sharper */}
       <ContactShadows
-         opacity={1}
-         width={5}
-         height={5}
-         blur={1}
-         far={2}
-         resolution={1024}
-         color="#000000"
+        opacity={1}
+        width={5}
+        height={5}
+        blur={1}
+        far={2}
+        resolution={1024}
+        color="#000000"
         position={[0, -0.98, 0]}
       />
     </>

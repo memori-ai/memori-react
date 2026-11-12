@@ -58,9 +58,9 @@ const ReasoningBlock: React.FC<ReasoningBlockProps> = ({
   const label = !complete
     ? t('thinking') || 'Thinking'
     : elapsedSeconds != null
-    ? t('thoughtFor', { count: elapsedSeconds }) ||
-      `Thought for ${elapsedSeconds}s`
-    : t('thought') || 'Thought';
+      ? t('thoughtFor', { count: elapsedSeconds }) ||
+        `Thought for ${elapsedSeconds}s`
+      : t('thought') || 'Thought';
 
   return (
     <div

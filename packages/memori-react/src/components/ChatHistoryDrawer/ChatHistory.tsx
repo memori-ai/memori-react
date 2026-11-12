@@ -242,7 +242,10 @@ const ChatHistoryDrawer = ({
     async ({
       from = 0,
       append = false,
-    }: { from?: number; append?: boolean } = {}) => {
+    }: {
+      from?: number;
+      append?: boolean;
+    } = {}) => {
       if (!loginToken) {
         setError(
           t('errorFetchingSession') ||

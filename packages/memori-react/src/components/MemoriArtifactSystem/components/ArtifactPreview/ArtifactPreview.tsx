@@ -71,7 +71,7 @@ const ArtifactPreview: React.FC<{
           />
         );
       }
-        
+
       default:
         return (
           <div
@@ -118,11 +118,12 @@ const ArtifactPreview: React.FC<{
   );
 
   const hasPreview =
-    artifact.mimeType === 'html' || artifact.mimeType === 'markdown' || artifact.mimeType === 'svg';
+    artifact.mimeType === 'html' ||
+    artifact.mimeType === 'markdown' ||
+    artifact.mimeType === 'svg';
 
   return (
     <div className="memori-artifact-preview">
-
       {/* Content */}
       <div className="memori-artifact-content">
         {/* Code Tab */}

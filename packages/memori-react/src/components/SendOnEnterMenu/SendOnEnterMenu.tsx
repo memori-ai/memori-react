@@ -30,13 +30,17 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
       <Dropdown.Menu>
         <Dropdown.Item
           onClick={() => setSendOnEnter('keypress')}
-          {...({ icon: sendOnEnter === 'keypress' ? <Check /> : undefined } as React.ComponentProps<typeof Dropdown.Item>)}
+          {...({
+            icon: sendOnEnter === 'keypress' ? <Check /> : undefined,
+          } as React.ComponentProps<typeof Dropdown.Item>)}
         >
           {t('widget.sendOnKeypress')}
         </Dropdown.Item>
         <Dropdown.Item
           onClick={() => setSendOnEnter('click')}
-          {...({ icon: sendOnEnter === 'click' ? <Check /> : undefined } as React.ComponentProps<typeof Dropdown.Item>)}
+          {...({
+            icon: sendOnEnter === 'click' ? <Check /> : undefined,
+          } as React.ComponentProps<typeof Dropdown.Item>)}
         >
           {t('widget.sendOnClick')}
         </Dropdown.Item>

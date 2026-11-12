@@ -16,7 +16,7 @@ beforeEach(() => {
 
 const message = {
   questionAnswered: 'Quali microfoni usiamo in produzione?',
-  text: 'Per l\'audio in produzione usiamo il DJI Mic Mini, abbinato al kit luci ULANZI e altro materiale di ripresa per interni, esterni e interviste lunghe che richiedono un registratore di backup.',
+  text: "Per l'audio in produzione usiamo il DJI Mic Mini, abbinato al kit luci ULANZI e altro materiale di ripresa per interni, esterni e interviste lunghe che richiedono un registratore di backup.",
   date: '2021-01-01',
   placeName: 'Test Place',
   placeLatitude: 0,
@@ -51,7 +51,9 @@ it('renders WhyThisAnswer loading unchanged', () => {
       _TEST_loading
     />
   );
-  expect(document.querySelector('.memori-whythisanswer-skeleton')).toBeInTheDocument();
+  expect(
+    document.querySelector('.memori-whythisanswer-skeleton')
+  ).toBeInTheDocument();
 });
 
 it('shows the question/answer pair and source cards', () => {
@@ -90,8 +92,12 @@ it('shows the question/answer pair and source cards', () => {
   expect(
     screen.getByText('Che attrezzatura serve per girare?')
   ).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'whyThisAnswerOpen' })).toBeInTheDocument();
-  expect(document.querySelector('.memori--whythisanswer-no-results')).toBeNull();
+  expect(
+    screen.getByRole('button', { name: 'whyThisAnswerOpen' })
+  ).toBeInTheDocument();
+  expect(
+    document.querySelector('.memori--whythisanswer-no-results')
+  ).toBeNull();
 });
 
 it('hides output tags from the agent reply', () => {

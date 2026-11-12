@@ -83,7 +83,9 @@ export function parseNatsConfig(raw: Record<string, unknown>): NatsConfig {
   );
 
   if (useJetStream && !stream) {
-    throw new Error('Invalid response from NATS config service: JetStream enabled but stream missing');
+    throw new Error(
+      'Invalid response from NATS config service: JetStream enabled but stream missing'
+    );
   }
 
   return {
@@ -121,7 +123,7 @@ export async function getNatsConfig(
   );
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({} as any));
+    const errorData = await response.json().catch(() => ({}) as any);
 
     switch (response.status) {
       case 400:

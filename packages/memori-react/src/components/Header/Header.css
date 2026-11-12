@@ -59,7 +59,10 @@
     border-radius: 50%;
     background: transparent;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .memori-dropdown--user-trigger--identity {
@@ -132,14 +135,20 @@
     height: 64px;
     border: 3px solid var(--memori-primary-color, #000);
     border-radius: 50%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.04);
     object-fit: cover;
     object-position: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .memori-dropdown--avatar-wrap:hover .memori-dropdown--avatar {
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(0, 0, 0, 0.06);
     transform: scale(1.02);
 }
 
@@ -174,9 +183,13 @@
     justify-content: center;
     border-radius: 50%;
     background: linear-gradient(145deg, var(--memori-primary-color, #333) 0%, rgba(0, 0, 0, 0.75) 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.08);
     color: #fff;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .memori-dropdown--avatar-placeholder .memori-dropdown--avatar-initial {
@@ -187,7 +200,9 @@
 }
 
 .memori-dropdown--avatar-wrap:hover .memori-dropdown--avatar-placeholder {
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
     transform: scale(1.02);
 }
 
@@ -257,7 +272,10 @@
     font-size: 0.9375rem;
     font-weight: 600;
     gap: 8px;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
 }
 
 .memori-dropdown--action-button.memori-dropdown--action-button--logout:hover {
@@ -279,7 +297,8 @@
     justify-content: center;
 }
 
-.memori-header .memori-button:not(
+.memori-header
+    .memori-button:not(
         .memori-button--disabled,
         .memori-button--inverse,
         .memori-button--active,
@@ -562,7 +581,6 @@
     }
 }
 
-
 /* Full-page layout: labeled primary actions, utility cluster, shared control chrome */
 .memori-header.memori-header--fullpage {
     width: auto;
@@ -775,4 +793,3 @@
 .memori-widget[data-theme='dark'] .memori-header--fullpage .memori-header--fullpage-divider {
     background: color-mix(in srgb, #fff 22%, transparent);
 }
-

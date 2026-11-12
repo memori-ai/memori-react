@@ -431,8 +431,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
     knownFactsHint || t('widget.knownFactsHint') || 'What I remember about you';
   const resolvedAiUsageTitle =
     aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
-  const chatHistoryTitle =
-    t('write_and_speak.chatHistory') || 'Chat history';
+  const chatHistoryTitle = t('write_and_speak.chatHistory') || 'Chat history';
   const chatHistorySubtitle =
     t('write_and_speak.chatHistoryDescription') ||
     'Show chat history with this agent';
@@ -534,68 +533,98 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   const visibleActions = getVisibleActions(actions);
 
   const panel = (
-      <section
-        ref={panelRef}
-        tabIndex={-1}
-        className={`memori-mobile-session-panel ${
-          isPopover ? 'memori-mobile-session-panel--popover' : ''
-        }`}
-        role={isPopover ? 'dialog' : undefined}
-        aria-modal={isPopover ? true : undefined}
-        aria-labelledby={panelTitleId}
-        onClick={event => event.stopPropagation()}
-        onTouchStart={
-          isPopover
-            ? undefined
-            : event => {
-                touchStartYRef.current = event.touches[0].clientY;
-                setDragOffset(0);
+    <section
+      ref={panelRef}
+      tabIndex={-1}
+      className={`memori-mobile-session-panel ${
+        isPopover ? 'memori-mobile-session-panel--popover' : ''
+      }`}
+      role={isPopover ? 'dialog' : undefined}
+      aria-modal={isPopover ? true : undefined}
+      aria-labelledby={panelTitleId}
+      onClick={event => event.stopPropagation()}
+      onTouchStart={
+        isPopover
+          ? undefined
+          : event => {
+              touchStartYRef.current = event.touches[0].clientY;
+              setDragOffset(0);
+            }
+      }
+      onTouchMove={
+        isPopover
+          ? undefined
+          : event => {
+              const scroller = panelRef.current?.closest(
+                '.memori-drawer__body'
+              );
+              if (scroller instanceof HTMLElement && scroller.scrollTop > 0) {
+                return;
               }
-        }
-        onTouchMove={
-          isPopover
-            ? undefined
-            : event => {
-                const scroller = panelRef.current?.closest(
-                  '.memori-drawer__body'
-                );
-                if (
-                  scroller instanceof HTMLElement &&
-                  scroller.scrollTop > 0
-                ) {
-                  return;
-                }
-                const delta = event.touches[0].clientY - touchStartYRef.current;
-                if (delta > 0) setDragOffset(delta);
+              const delta = event.touches[0].clientY - touchStartYRef.current;
+              if (delta > 0) setDragOffset(delta);
+            }
+      }
+      onTouchEnd={
+        isPopover
+          ? undefined
+          : () => {
+              if (dragOffset > 90) {
+                onClose();
               }
-        }
-        onTouchEnd={
-          isPopover
-            ? undefined
-            : () => {
-                if (dragOffset > 90) {
-                  onClose();
-                }
-                setDragOffset(0);
-              }
-        }
-        style={{
-          transform: dragOffset ? `translateY(${dragOffset}px)` : undefined,
-        }}
-      >
-        {!isPopover && <div className="memori-mobile-session-panel--handle" />}
-        {activeView === 'session' ? (
-          <>
-            {showProfileControls && (
-              <div className="memori-mobile-session-panel--user">
-                <div className="memori-dropdown--avatar-wrap">
-                  {avatarURL ? (
-                    <>
-                      <img
-                        src={avatarURL}
-                        alt={userName || userEmail}
-                        className="memori-dropdown--avatar"
-                      />
+              setDragOffset(0);
+            }
+      }
+      style={{
+        transform: dragOffset ? `translateY(${dragOffset}px)` : undefined,
+      }}
+    >
+      {!isPopover && <div className="memori-mobile-session-panel--handle" />}
+      {activeView === 'session' ? (
+        <>
+          {showProfileControls && (
+            <div className="memori-mobile-session-panel--user">
+              <div className="memori-dropdown--avatar-wrap">
+                {avatarURL ? (
+                  <>
+                    <img
+                      src={avatarURL}
+                      alt={userName || userEmail}
+                      className="memori-dropdown--avatar"
+                    />
+                    <span
+                      className="memori-dropdown--avatar-overlay"
+                      aria-hidden
+                    >
+                      <Camera size={20} strokeWidth={2} />
+                    </span>
+                    <label
+                      htmlFor="mobile-session-avatar-upload"
+                      className="sr-only"
+                    >
+                      {t('login.changeAvatar', {
+                        defaultValue: 'Change profile picture',
+                      })}
+                    </label>
+                    <input
+                      type="file"
+                      name="avatar"
+                      id="mobile-session-avatar-upload"
+                      className="memori-dropdown--avatar-input"
+                      onChange={e =>
+                        updateAvatar(
+                          e.target.files?.[0] ?? (null as unknown as Blob)
+                        )
+                      }
+                      accept={imgMimeTypes.join(', ')}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <div className="memori-dropdown--avatar-placeholder">
+                      <span className="memori-dropdown--avatar-initial">
+                        {(userName || userEmail || 'U').charAt(0).toUpperCase()}
+                      </span>
                       <span
                         className="memori-dropdown--avatar-overlay"
                         aria-hidden
@@ -603,7 +632,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                         <Camera size={20} strokeWidth={2} />
                       </span>
                       <label
-                        htmlFor="mobile-session-avatar-upload"
+                        htmlFor="mobile-session-avatar-upload-placeholder"
                         className="sr-only"
                       >
                         {t('login.changeAvatar', {
@@ -613,7 +642,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                       <input
                         type="file"
                         name="avatar"
-                        id="mobile-session-avatar-upload"
+                        id="mobile-session-avatar-upload-placeholder"
                         className="memori-dropdown--avatar-input"
                         onChange={e =>
                           updateAvatar(
@@ -622,91 +651,56 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                         }
                         accept={imgMimeTypes.join(', ')}
                       />
-                    </>
-                  ) : (
-                    <>
-                      <div className="memori-dropdown--avatar-placeholder">
-                        <span className="memori-dropdown--avatar-initial">
-                          {(userName || userEmail || 'U')
-                            .charAt(0)
-                            .toUpperCase()}
-                        </span>
-                        <span
-                          className="memori-dropdown--avatar-overlay"
-                          aria-hidden
-                        >
-                          <Camera size={20} strokeWidth={2} />
-                        </span>
-                        <label
-                          htmlFor="mobile-session-avatar-upload-placeholder"
-                          className="sr-only"
-                        >
-                          {t('login.changeAvatar', {
-                            defaultValue: 'Change profile picture',
-                          })}
-                        </label>
-                        <input
-                          type="file"
-                          name="avatar"
-                          id="mobile-session-avatar-upload-placeholder"
-                          className="memori-dropdown--avatar-input"
-                          onChange={e =>
-                            updateAvatar(
-                              e.target.files?.[0] ?? (null as unknown as Blob)
-                            )
-                          }
-                          accept={imgMimeTypes.join(', ')}
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="memori-dropdown--user-details">
-                  <h3 className="memori-dropdown--user-name">{userName}</h3>
-                  <p className="memori-dropdown--user-email">{userEmail}</p>
-                  <div className="memori-dropdown--user-badge">
-                    {birthDate
-                      ? new Date(birthDate).toLocaleDateString()
-                      : 'Not set'}
-                  </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="memori-dropdown--user-details">
+                <h3 className="memori-dropdown--user-name">{userName}</h3>
+                <p className="memori-dropdown--user-email">{userEmail}</p>
+                <div className="memori-dropdown--user-badge">
+                  {birthDate
+                    ? new Date(birthDate).toLocaleDateString()
+                    : 'Not set'}
                 </div>
               </div>
-            )}
-            <h2
-              id={panelTitleId}
-              className="memori-mobile-session-panel--section-title"
-            >
-              {title}
-            </h2>
-            {((isLoggedIn && showKnownFacts) || showMessageConsumption) && (
-              <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
-                {isLoggedIn && showKnownFacts && (
-                  <li>
-                    <Button
-                      variant="toolbar"
-                      size="sm"
-                      className="memori-mobile-session-panel--action"
-                      disabled={knownFactsDisabled}
-                      onClick={() => {
-                        if (knownFactsDisabled) return;
-                        onKnownFactsOpen?.();
-                      }}
-                    >
-                      <span className="memori-mobile-session-panel--action-icon">
-                        <Brain size={18} />
+            </div>
+          )}
+          <h2
+            id={panelTitleId}
+            className="memori-mobile-session-panel--section-title"
+          >
+            {title}
+          </h2>
+          {((isLoggedIn && showKnownFacts) || showMessageConsumption) && (
+            <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
+              {isLoggedIn && showKnownFacts && (
+                <li>
+                  <Button
+                    variant="toolbar"
+                    size="sm"
+                    className="memori-mobile-session-panel--action"
+                    disabled={knownFactsDisabled}
+                    onClick={() => {
+                      if (knownFactsDisabled) return;
+                      onKnownFactsOpen?.();
+                    }}
+                  >
+                    <span className="memori-mobile-session-panel--action-icon">
+                      <Brain size={18} />
+                    </span>
+                    <span className="memori-mobile-session-panel--action-copy">
+                      <span className="memori-mobile-session-panel--action-title">
+                        {knownFactsPageTitle}
                       </span>
-                      <span className="memori-mobile-session-panel--action-copy">
-                        <span className="memori-mobile-session-panel--action-title">
-                          {knownFactsPageTitle}
-                        </span>
-                        <span className="memori-mobile-session-panel--action-subtitle">
-                          {resolvedKnownFactsHint}
-                        </span>
+                      <span className="memori-mobile-session-panel--action-subtitle">
+                        {resolvedKnownFactsHint}
                       </span>
-                    </Button>
-                  </li>
-                )}
-                {showMessageConsumption && (
+                    </span>
+                  </Button>
+                </li>
+              )}
+              {showMessageConsumption && (
                 <li>
                   <Button
                     variant="toolbar"
@@ -734,220 +728,220 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                     </span>
                   </Button>
                 </li>
-                )}
-              </ul>
-            )}
-            <ul className="memori-mobile-session-panel--actions">
-              {showChatHistory && !!loginToken && (
-                <li>
-                  <Button
-                    variant="toolbar"
-                    size="sm"
-                    className="memori-mobile-session-panel--action memori-mobile-session-panel--chat-history"
-                    onClick={() => onChatHistoryOpen?.()}
-                  >
-                    <span className="memori-mobile-session-panel--action-icon">
-                      <MessageCircle size={18} />
-                    </span>
-                    <span className="memori-mobile-session-panel--action-copy">
-                      <span className="memori-mobile-session-panel--action-title">
-                        {chatHistoryTitle}
-                      </span>
-                      <span className="memori-mobile-session-panel--action-subtitle">
-                        {chatHistorySubtitle}
-                      </span>
-                    </span>
-                  </Button>
-                </li>
               )}
-              {visibleActions.map(action => (
-                <li key={action.key}>
-                  {(() => {
-                    const isKnownFactsAction = action.view === 'knownFacts';
-                    const isShareAction = action.view === 'share';
-                    const isActionDisabled =
-                      action.disabled || (isKnownFactsAction && !isLoggedIn);
+            </ul>
+          )}
+          <ul className="memori-mobile-session-panel--actions">
+            {showChatHistory && !!loginToken && (
+              <li>
+                <Button
+                  variant="toolbar"
+                  size="sm"
+                  className="memori-mobile-session-panel--action memori-mobile-session-panel--chat-history"
+                  onClick={() => onChatHistoryOpen?.()}
+                >
+                  <span className="memori-mobile-session-panel--action-icon">
+                    <MessageCircle size={18} />
+                  </span>
+                  <span className="memori-mobile-session-panel--action-copy">
+                    <span className="memori-mobile-session-panel--action-title">
+                      {chatHistoryTitle}
+                    </span>
+                    <span className="memori-mobile-session-panel--action-subtitle">
+                      {chatHistorySubtitle}
+                    </span>
+                  </span>
+                </Button>
+              </li>
+            )}
+            {visibleActions.map(action => (
+              <li key={action.key}>
+                {(() => {
+                  const isKnownFactsAction = action.view === 'knownFacts';
+                  const isShareAction = action.view === 'share';
+                  const isActionDisabled =
+                    action.disabled || (isKnownFactsAction && !isLoggedIn);
 
-                    return (
-                      <Button
-                        variant="toolbar"
-                        size="sm"
-                        className="memori-mobile-session-panel--action"
-                        disabled={isActionDisabled}
-                        onClick={() => {
-                          if (isActionDisabled) return;
-                          if (action.view === 'knownFacts') {
-                            if (onKnownFactsOpen) {
-                              onKnownFactsOpen();
-                              return;
-                            }
-                          }
-                          if (action.view) {
-                            setActiveView(action.view);
+                  return (
+                    <Button
+                      variant="toolbar"
+                      size="sm"
+                      className="memori-mobile-session-panel--action"
+                      disabled={isActionDisabled}
+                      onClick={() => {
+                        if (isActionDisabled) return;
+                        if (action.view === 'knownFacts') {
+                          if (onKnownFactsOpen) {
+                            onKnownFactsOpen();
                             return;
                           }
-                          action.onClick?.();
-                        }}
-                      >
-                        <span className="memori-mobile-session-panel--action-icon">
-                          {action.icon}
+                        }
+                        if (action.view) {
+                          setActiveView(action.view);
+                          return;
+                        }
+                        action.onClick?.();
+                      }}
+                    >
+                      <span className="memori-mobile-session-panel--action-icon">
+                        {action.icon}
+                      </span>
+                      <span className="memori-mobile-session-panel--action-copy">
+                        <span className="memori-mobile-session-panel--action-title">
+                          {action.title}
                         </span>
-                        <span className="memori-mobile-session-panel--action-copy">
-                          <span className="memori-mobile-session-panel--action-title">
-                            {action.title}
-                          </span>
-                          {action.subtitle && (
-                            <span className="memori-mobile-session-panel--action-subtitle">
-                              {action.subtitle}
-                            </span>
-                          )}
-                        </span>
-                        {(isShareAction || action.view === 'location') && (
-                          <span className="memori-mobile-session-panel--action-trailing">
-                            <ChevronRight size={16} />
+                        {action.subtitle && (
+                          <span className="memori-mobile-session-panel--action-subtitle">
+                            {action.subtitle}
                           </span>
                         )}
-                      </Button>
-                    );
-                  })()}
-                </li>
-              ))}
-            </ul>
-            {showProfileControls && (
+                      </span>
+                      {(isShareAction || action.view === 'location') && (
+                        <span className="memori-mobile-session-panel--action-trailing">
+                          <ChevronRight size={16} />
+                        </span>
+                      )}
+                    </Button>
+                  );
+                })()}
+              </li>
+            ))}
+          </ul>
+          {showProfileControls && (
+            <Button
+              variant="toolbar"
+              size="sm"
+              shape="default"
+              className="memori-mobile-session-panel--logout"
+              onClick={onLogout}
+            >
+              <span className="memori-mobile-session-panel--action-icon">
+                <LogOut size={18} />
+              </span>
+              <span className="memori-mobile-session-panel--logout-label">
+                {logoutLabel}
+              </span>
+            </Button>
+          )}
+          {showAuthControls && !isLoggedIn && (
+            <div className="memori-mobile-session-panel--login-cta-wrap">
               <Button
                 variant="toolbar"
                 size="sm"
-                shape="default"
-                className="memori-mobile-session-panel--logout"
-                onClick={onLogout}
+                className="memori-mobile-session-panel--login-cta"
+                onClick={onLogin}
               >
                 <span className="memori-mobile-session-panel--action-icon">
-                  <LogOut size={18} />
+                  <LogIn size={18} />
                 </span>
-                <span className="memori-mobile-session-panel--logout-label">
-                  {logoutLabel}
-                </span>
+                {loginLabel}
+              </Button>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="memori-mobile-session-panel--page">
+          <div className="memori-mobile-session-panel--page-header">
+            {showBack && (
+              <Button
+                variant="toolbar"
+                size="sm"
+                className="memori-mobile-session-panel--back"
+                onClick={() => setActiveView('session')}
+              >
+                <ChevronLeft size={16} />
+                {backLabel}
               </Button>
             )}
-            {showAuthControls && !isLoggedIn && (
-              <div className="memori-mobile-session-panel--login-cta-wrap">
-                <Button
-                  variant="toolbar"
-                  size="sm"
-                  className="memori-mobile-session-panel--login-cta"
-                  onClick={onLogin}
-                >
-                  <span className="memori-mobile-session-panel--action-icon">
-                    <LogIn size={18} />
-                  </span>
-                  {loginLabel}
-                </Button>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="memori-mobile-session-panel--page">
-            <div className="memori-mobile-session-panel--page-header">
-              {showBack && (
-                <Button
-                  variant="toolbar"
-                  size="sm"
-                  className="memori-mobile-session-panel--back"
-                  onClick={() => setActiveView('session')}
-                >
-                  <ChevronLeft size={16} />
-                  {backLabel}
-                </Button>
-              )}
-              <h3 className="memori-mobile-session-panel--page-title">
-                {activeView === 'location'
-                  ? locationPageTitle
-                  : activeView === 'share'
+            <h3 className="memori-mobile-session-panel--page-title">
+              {activeView === 'location'
+                ? locationPageTitle
+                : activeView === 'share'
                   ? sharePageTitle
                   : activeView === 'aiUsage'
-                  ? resolvedAiUsageTitle
-                  : knownFactsPageTitle}
-              </h3>
-            </div>
-            {activeView === 'location' ? (
-              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--location-content">
-                {setVenue ? (
-                  <PositionPopoverContent
-                    venue={venue}
-                    setVenue={setVenue}
-                    autoStartGeolocation={autoStartGeolocation}
-                  />
-                ) : (
-                  <>
-                    <p className="memori-mobile-session-panel--meta-label">
-                      {locationStatusLabel}
-                    </p>
-                    <p className="memori-mobile-session-panel--meta-value">
-                      {locationPlace || locationUnknownLabel}
-                    </p>
-                    <div className="memori-mobile-session-panel--page-actions">
-                      <Button
-                        variant="toolbar"
-                        size="sm"
-                        className={`memori-mobile-session-panel--page-btn ${
-                          isLocationEnabled
-                            ? 'memori-mobile-session-panel--page-btn-active'
-                            : ''
-                        }`}
-                        onClick={onLocationEnable}
-                      >
-                        <span>{locationEnableLabel}</span>
-                      </Button>
-                      <Button
-                        variant="toolbar"
-                        size="sm"
-                        className="memori-mobile-session-panel--page-btn memori-mobile-session-panel--page-btn-secondary"
-                        onClick={onLocationDisable}
-                      >
-                        {locationDisableLabel}
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </div>
-            ) : activeView === 'share' ? (
-              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--share-content">
-                {shareContent}
-              </div>
-            ) : activeView === 'aiUsage' ? (
-              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--ai-usage-content">
-                <ChatConsumptionContent
-                  history={history}
-                  showTitle={false}
-                  className="memori-mobile-session-panel--ai-usage"
-                />
-              </div>
-            ) : (
-              <div className="memori-mobile-session-panel--page-content">
-                {knownFactsDescription && (
-                  <p className="memori-mobile-session-panel--known-facts-description">
-                    {knownFactsDescription}
-                  </p>
-                )}
-                {knownFactsCountLabel && (
-                  <p className="memori-mobile-session-panel--known-facts-count">
-                    {knownFactsCountLabel}
-                  </p>
-                )}
-                <Button
-                  variant="toolbar"
-                  size="sm"
-                  className="memori-mobile-session-panel--page-btn"
-                  disabled={knownFactsDisabled}
-                  onClick={onKnownFactsOpen}
-                >
-                  {knownFactsCtaLabel}
-                </Button>
-              </div>
-            )}
+                    ? resolvedAiUsageTitle
+                    : knownFactsPageTitle}
+            </h3>
           </div>
-        )}
-      </section>
+          {activeView === 'location' ? (
+            <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--location-content">
+              {setVenue ? (
+                <PositionPopoverContent
+                  venue={venue}
+                  setVenue={setVenue}
+                  autoStartGeolocation={autoStartGeolocation}
+                />
+              ) : (
+                <>
+                  <p className="memori-mobile-session-panel--meta-label">
+                    {locationStatusLabel}
+                  </p>
+                  <p className="memori-mobile-session-panel--meta-value">
+                    {locationPlace || locationUnknownLabel}
+                  </p>
+                  <div className="memori-mobile-session-panel--page-actions">
+                    <Button
+                      variant="toolbar"
+                      size="sm"
+                      className={`memori-mobile-session-panel--page-btn ${
+                        isLocationEnabled
+                          ? 'memori-mobile-session-panel--page-btn-active'
+                          : ''
+                      }`}
+                      onClick={onLocationEnable}
+                    >
+                      <span>{locationEnableLabel}</span>
+                    </Button>
+                    <Button
+                      variant="toolbar"
+                      size="sm"
+                      className="memori-mobile-session-panel--page-btn memori-mobile-session-panel--page-btn-secondary"
+                      onClick={onLocationDisable}
+                    >
+                      {locationDisableLabel}
+                    </Button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : activeView === 'share' ? (
+            <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--share-content">
+              {shareContent}
+            </div>
+          ) : activeView === 'aiUsage' ? (
+            <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--ai-usage-content">
+              <ChatConsumptionContent
+                history={history}
+                showTitle={false}
+                className="memori-mobile-session-panel--ai-usage"
+              />
+            </div>
+          ) : (
+            <div className="memori-mobile-session-panel--page-content">
+              {knownFactsDescription && (
+                <p className="memori-mobile-session-panel--known-facts-description">
+                  {knownFactsDescription}
+                </p>
+              )}
+              {knownFactsCountLabel && (
+                <p className="memori-mobile-session-panel--known-facts-count">
+                  {knownFactsCountLabel}
+                </p>
+              )}
+              <Button
+                variant="toolbar"
+                size="sm"
+                className="memori-mobile-session-panel--page-btn"
+                disabled={knownFactsDisabled}
+                onClick={onKnownFactsOpen}
+              >
+                {knownFactsCtaLabel}
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
   );
 
   if (isPopover) {

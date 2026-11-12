@@ -8,7 +8,6 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import CopyButtonTest from './test/CopyButtonTest';
 
-
 const meta: Meta<typeof CopyButtonTest> = {
   title: 'Internals/CopyButtonTest',
   component: CopyButtonTest,
@@ -23,8 +22,5 @@ type Story = StoryObj<typeof meta>;
 // Stories
 export const HTMLArtifact: Story = {
   args: {},
-  render: () => (
-    <CopyButtonTest
-    />
-  ),
+  render: () => <CopyButtonTest />,
 };

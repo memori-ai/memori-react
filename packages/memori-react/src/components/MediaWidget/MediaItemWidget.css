@@ -198,7 +198,10 @@ div.memori-media-item--link.memori-media-item--image-link {
     height: 100%;
     border-radius: var(--memori-radius-surface);
     text-decoration: none;
-    transition: box-shadow 0.2s ease, outline 0.2s ease, transform 0.2s ease;
+    transition:
+        box-shadow 0.2s ease,
+        outline 0.2s ease,
+        transform 0.2s ease;
 }
 
 /* Tab focus — focus is on the link wrapper, not the inner card/document */
@@ -417,7 +420,9 @@ div.memori-media-item--link:focus-visible {
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
     text-decoration: none;
-    transition: background 0.2s, border-color 0.2s;
+    transition:
+        background 0.2s,
+        border-color 0.2s;
 }
 
 .memori-media-item--modal-fallback-link:hover {
@@ -441,7 +446,9 @@ div.memori-media-item--link:focus-visible {
     border: none;
     border-radius: var(--memori-radius-surface);
     background-color: var(--memori-main-background);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .memori-media-item-preview--text {
@@ -1277,7 +1284,9 @@ div.memori-media-item--link:focus-visible .memori-media-item--document {
     background: var(--memori-main-background);
     cursor: pointer;
     gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 .memori-media-item--generic-file:hover {
@@ -1384,7 +1393,9 @@ div.memori-media-item--link:focus-visible .memori-media-item--document {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--memori-radius-surface);
     background: #363636;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 .memori-media-item--card-file:hover {

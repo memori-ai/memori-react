@@ -52,9 +52,15 @@ it('renders KnownFacts as a column of cards', () => {
   );
 
   expect(screen.getByText(knownFact.text)).toBeInTheDocument();
-  expect(screen.getByText('The user prefers concise answers.')).toBeInTheDocument();
-  expect(screen.getByPlaceholderText('knownFacts.searchPlaceholder')).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'knownFacts.select' })).toBeInTheDocument();
+  expect(
+    screen.getByText('The user prefers concise answers.')
+  ).toBeInTheDocument();
+  expect(
+    screen.getByPlaceholderText('knownFacts.searchPlaceholder')
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole('button', { name: 'knownFacts.select' })
+  ).toBeInTheDocument();
   expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
 });
 

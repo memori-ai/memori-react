@@ -328,4 +328,3 @@ WithUserAvatarAsElement.args = {
   userAvatar: <span>USER</span>,
   layout: 'FULLPAGE',
 };
-

@@ -42,9 +42,19 @@ export const useCopyArtifact = (
         gfm: true,
         pedantic: false,
         renderer: {
-          link: ({ href, title, text }: { href: string | null; title?: string | null; text: string }) => {
+          link: ({
+            href,
+            title,
+            text,
+          }: {
+            href: string | null;
+            title?: string | null;
+            text: string;
+          }) => {
             if (!href) return text;
-            const cleanHref = href.startsWith('http') ? href : `https://${href}`;
+            const cleanHref = href.startsWith('http')
+              ? href
+              : `https://${href}`;
             return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer"${title ? ` title="${title}"` : ''}>${text}</a>`;
           },
         },
@@ -57,13 +67,45 @@ export const useCopyArtifact = (
       const sanitizedHtml = DOMPurify.sanitize(htmlContent, {
         ADD_ATTR: ['target', 'rel'],
         ALLOWED_TAGS: [
-          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-          'p', 'br', 'strong', 'em', 'u', 's',
-          'ul', 'ol', 'li', 'blockquote', 'pre', 'code',
-          'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
-          'div', 'span'
+          'h1',
+          'h2',
+          'h3',
+          'h4',
+          'h5',
+          'h6',
+          'p',
+          'br',
+          'strong',
+          'em',
+          'u',
+          's',
+          'ul',
+          'ol',
+          'li',
+          'blockquote',
+          'pre',
+          'code',
+          'a',
+          'img',
+          'table',
+          'thead',
+          'tbody',
+          'tr',
+          'th',
+          'td',
+          'div',
+          'span',
         ],
-        ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'src', 'alt', 'class', 'id']
+        ALLOWED_ATTR: [
+          'href',
+          'title',
+          'target',
+          'rel',
+          'src',
+          'alt',
+          'class',
+          'id',
+        ],
       });
 
       return sanitizedHtml;
@@ -90,14 +132,17 @@ export const useCopyArtifact = (
           {
             id: 'markdown',
             label: t('artifact.downloadAsMarkdown') || 'Download as Markdown',
-            description: t('artifact.downloadRawMarkdownText') || 'Download raw markdown text',
+            description:
+              t('artifact.downloadRawMarkdownText') ||
+              'Download raw markdown text',
             mimeType: 'text/markdown',
             action: 'download',
           },
           {
             id: 'pdf',
             label: t('artifact.downloadAsPdf') || 'Download as PDF',
-            description: t('artifact.exportAsPdfDocument') || 'Export as PDF document',
+            description:
+              t('artifact.exportAsPdfDocument') || 'Export as PDF document',
             mimeType: 'application/pdf',
             action: 'pdf',
             isAsync: true,
@@ -109,7 +154,8 @@ export const useCopyArtifact = (
         baseFormats.push({
           id: 'html',
           label: t('artifact.downloadAsHtml') || 'Download as HTML',
-          description: t('artifact.downloadFormattedHtml') || 'Download formatted HTML',
+          description:
+            t('artifact.downloadFormattedHtml') || 'Download formatted HTML',
           mimeType: 'text/html',
           action: 'download',
         });
@@ -170,7 +216,8 @@ export const useCopyArtifact = (
           {
             id: 'svg',
             label: t('artifact.copyAsSvg') || 'Copy as SVG',
-            description: t('artifact.copySvgSourceCode') || 'Copy SVG source code',
+            description:
+              t('artifact.copySvgSourceCode') || 'Copy SVG source code',
             mimeType: 'image/svg+xml',
             action: 'copy',
           },
@@ -191,15 +238,24 @@ export const useCopyArtifact = (
           baseFormats.push(
             {
               id: 'code',
-              label: t('artifact.copyAsLanguage', { language: language.charAt(0).toUpperCase() + language.slice(1) }) || `Copy as ${language.charAt(0).toUpperCase() + language.slice(1)}`,
-              description: t('artifact.copyLanguageCode', { language }) || `Copy ${language} code`,
+              label:
+                t('artifact.copyAsLanguage', {
+                  language:
+                    language.charAt(0).toUpperCase() + language.slice(1),
+                }) ||
+                `Copy as ${language.charAt(0).toUpperCase() + language.slice(1)}`,
+              description:
+                t('artifact.copyLanguageCode', { language }) ||
+                `Copy ${language} code`,
               mimeType: artifact.mimeType,
               action: 'copy',
             },
             {
               id: 'plain',
               label: t('artifact.copyAsPlainText') || 'Copy as Plain Text',
-              description: t('artifact.copyWithoutSyntaxHighlighting') || 'Copy without syntax highlighting',
+              description:
+                t('artifact.copyWithoutSyntaxHighlighting') ||
+                'Copy without syntax highlighting',
               mimeType: 'text/plain',
               action: 'copy',
             }
@@ -306,7 +362,10 @@ export const useCopyArtifact = (
           // First check if PDF export is supported in this browser
           // If not, throw a translated error message
           if (!pdfExporter.isSupported()) {
-            throw new Error(t('artifact.pdfExportNotSupported') || 'PDF export is not supported in this browser');
+            throw new Error(
+              t('artifact.pdfExportNotSupported') ||
+                'PDF export is not supported in this browser'
+            );
           }
 
           // Configure PDF export options with sensible defaults
@@ -361,7 +420,10 @@ export const useCopyArtifact = (
           const printWindow = window.open('', '_blank');
 
           if (!printWindow) {
-            throw new Error(t('artifact.popupBlocked') || 'Popup blocked! Please enable popups to print.');
+            throw new Error(
+              t('artifact.popupBlocked') ||
+                'Popup blocked! Please enable popups to print.'
+            );
           }
 
           let htmlContent: string;
@@ -498,16 +560,14 @@ export const useCopyArtifact = (
             mimeType = 'py';
           } else if (mimeType === 'x-java') {
             mimeType = 'java';
-          } else if (mimeType === 'x-c++'){
+          } else if (mimeType === 'x-c++') {
             mimeType = 'cpp';
           } else if (mimeType === 'markdown') {
             mimeType = 'md';
           }
-          
+
           a.href = url;
-          a.download = `${artifact.title || 'Artifact'}.${
-            mimeType
-          }`;
+          a.download = `${artifact.title || 'Artifact'}.${mimeType}`;
           a.click();
           URL.revokeObjectURL(url);
           onDownload?.();
@@ -553,7 +613,15 @@ export const useCopyArtifact = (
         }, 3000);
       }
     },
-    [artifact, convertContent, copyToClipboard, onCopy, onPrint, t, renderMarkdownToHtml]
+    [
+      artifact,
+      convertContent,
+      copyToClipboard,
+      onCopy,
+      onPrint,
+      t,
+      renderMarkdownToHtml,
+    ]
   );
 
   /**

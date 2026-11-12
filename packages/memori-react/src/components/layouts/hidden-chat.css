@@ -68,7 +68,10 @@
     border-radius: var(--memori-radius-control) 0 0 var(--memori-radius-control);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, right 0.3s ease-in-out;
+    transition:
+        opacity 0.3s ease-in-out,
+        transform 0.3s ease-in-out,
+        right 0.3s ease-in-out;
 }
 
 /* Close control lives in the header icon group (next to mute), not as a mid-page float.
@@ -117,9 +120,7 @@
     justify-content: center;
 }
 
-.memori-widget.memori-layout-hidden_chat
-    .memori-conversation-footer
-    .memori-chat-inputs--ai-note {
+.memori-widget.memori-layout-hidden_chat .memori-conversation-footer .memori-chat-inputs--ai-note {
     overflow: visible;
     flex: 1 1 100%;
     text-align: center;
@@ -127,9 +128,7 @@
     white-space: normal;
 }
 
-.memori-widget.memori--active.memori-layout-hidden_chat
-    .memori-conversation-footer
-    .memori-chat-inputs--ai-note {
+.memori-widget.memori--active.memori-layout-hidden_chat .memori-conversation-footer .memori-chat-inputs--ai-note {
     text-align: left;
 }
 
@@ -171,9 +170,7 @@
     margin-bottom: 0;
 }
 
-.memori-widget.memori-layout-hidden_chat
-    .memori-sidebar
-    .memori-chat--content--has-global-background,
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat--content--has-global-background,
 .memori-widget.memori-layout-hidden_chat
     .memori-sidebar
     .memori-chat--history:has(.memori-chat--content--has-global-background) {
@@ -309,15 +306,9 @@
 }
 
 /* Fullscreen must win over the artifact split offset */
-.memori-sidebar-toggle-artifact:checked
-    ~ .memori-sidebar-container
-    .memori-sidebar.memori-sidebar-fullscreen,
-.memori-sidebar-toggle-artifact:checked
-    ~ .memori-sidebar-container
-    .memori-sidebar:fullscreen,
-.memori-sidebar-toggle-artifact:checked
-    ~ .memori-sidebar-container
-    .memori-sidebar:-webkit-full-screen {
+.memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar.memori-sidebar-fullscreen,
+.memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar:fullscreen,
+.memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar:-webkit-full-screen {
     right: 0 !important;
 }
 
@@ -446,10 +437,7 @@
 
 /* `.memori-header` defaults to width:100%; inside header-actions that pushes the close
    button off-screen — constrain it to its icon row only. */
-.memori-widget.memori-layout-hidden_chat
-    .memori-sidebar
-    .memori-hidden-chat-layout--header-actions
-    .memori-header {
+.memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-actions .memori-header {
     width: auto;
     min-width: 0;
     height: auto;

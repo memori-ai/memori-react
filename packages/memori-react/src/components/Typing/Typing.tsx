@@ -106,12 +106,12 @@ const Typing = ({
             : `${sentences[lang][0].text}...`
         }${getSeparatorString(sentences[lang][0].delayAfter)}`
       : sentence
-      ? `${
-          sentence.endsWith('...') || !sentence.length
-            ? sentence
-            : `${sentence}...`
-        }${getSeparatorString()}`
-      : ''
+        ? `${
+            sentence.endsWith('...') || !sentence.length
+              ? sentence
+              : `${sentence}...`
+          }${getSeparatorString()}`
+        : ''
   );
   const [shownText, setShownText] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -184,19 +184,19 @@ const Typing = ({
                   experts.find(e => e.name === emitter)?.expertMemoriID
                 }`
               : memori.avatarURL && memori.avatarURL.length > 0
-              ? getResourceUrl({
-                  type: 'avatar',
-                  tenantID: tenant?.name,
-                  resourceURI: memori.avatarURL,
-                  baseURL: baseUrl,
-                  apiURL: apiUrl,
-                })
-              : getResourceUrl({
-                  tenantID: tenant?.name,
-                  type: 'avatar',
-                  baseURL: baseUrl || 'https://www.aisuru.com',
-                  apiURL: apiUrl,
-                })
+                ? getResourceUrl({
+                    type: 'avatar',
+                    tenantID: tenant?.name,
+                    resourceURI: memori.avatarURL,
+                    baseURL: baseUrl,
+                    apiURL: apiUrl,
+                  })
+                : getResourceUrl({
+                    tenantID: tenant?.name,
+                    type: 'avatar',
+                    baseURL: baseUrl || 'https://www.aisuru.com',
+                    apiURL: apiUrl,
+                  })
           }
           onError={e => {
             e.currentTarget.src =

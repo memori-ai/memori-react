@@ -4,7 +4,11 @@ import { Field, FieldGroup, Input, Spin } from '@memori.ai/ui';
 import { Image as ImageIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Asset, DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
+import {
+  Asset,
+  DialogState,
+  Medium,
+} from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
 import { compressImage } from '../../../helpers/imageCompression';

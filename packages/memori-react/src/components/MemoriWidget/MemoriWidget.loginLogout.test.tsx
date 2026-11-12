@@ -269,8 +269,6 @@ describe('MemoriWidget with mandatory login', () => {
       expect(mockEngine.pwlGetCurrentUser).toHaveBeenCalledWith(LOGIN_TOKEN)
     );
     await act(async () => {});
-    expect(window.localStorage.getItem('@memori:loginToken')).toBe(
-      LOGIN_TOKEN
-    );
+    expect(window.localStorage.getItem('@memori:loginToken')).toBe(LOGIN_TOKEN);
   });
 });

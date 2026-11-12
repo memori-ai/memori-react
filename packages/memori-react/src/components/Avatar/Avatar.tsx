@@ -177,11 +177,7 @@ const Avatar: React.FC<Props> = ({
       <Button
         variant="ghost"
         onClick={() => setAvatar3dVisible(!avatar3dVisible)}
-        aria-label={
-          avatar3dVisible
-            ? String(t('hide'))
-            : String(t('show'))
-        }
+        aria-label={avatar3dVisible ? String(t('hide')) : String(t('show'))}
         icon={avatar3dVisible ? <EyeOff aria-hidden /> : <Eye aria-hidden />}
       >
         <span className="memori--avatar-toggle-text">

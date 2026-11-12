@@ -16,12 +16,12 @@ describe('relativeTime', () => {
   });
 
   it('formats a relative date in the current locale', () => {
-    expect(
-      formatRelativeTime('2026-09-16T10:00:00.000Z', 'en', NOW)
-    ).toBe('3 days ago');
-    expect(
-      formatRelativeTime('2026-09-16T10:00:00.000Z', 'it', NOW)
-    ).toBe('3 giorni fa');
+    expect(formatRelativeTime('2026-09-16T10:00:00.000Z', 'en', NOW)).toBe(
+      '3 days ago'
+    );
+    expect(formatRelativeTime('2026-09-16T10:00:00.000Z', 'it', NOW)).toBe(
+      '3 giorni fa'
+    );
   });
 
   it('puts the exact timestamp in a separate formatter', () => {

@@ -26,7 +26,9 @@ it('exposes a segmented control with aria-pressed', () => {
     screen.getByRole('button', { name: 'artifact.source' })
   ).toHaveAttribute('aria-pressed', 'false');
   expect(
-    screen.getByRole('button', { name: 'artifact.preview' }).querySelector('svg')
+    screen
+      .getByRole('button', { name: 'artifact.preview' })
+      .querySelector('svg')
   ).toBeInTheDocument();
   expect(
     screen.getByRole('button', { name: 'artifact.source' }).querySelector('svg')

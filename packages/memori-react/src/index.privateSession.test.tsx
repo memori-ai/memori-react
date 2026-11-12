@@ -202,12 +202,7 @@ describe('private agent session', () => {
 
   it('does not use a login token that exists only in additionalInfo', async () => {
     mockBackend.getMemoriByUserAndId.mockImplementation(
-      async (
-        _tenant: string,
-        _owner: string,
-        _id: string,
-        token?: string
-      ) =>
+      async (_tenant: string, _owner: string, _id: string, token?: string) =>
         agentResponse({
           ...privateAgent,
           secretToken: token ? SECRET : undefined,

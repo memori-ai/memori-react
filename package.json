@@ -14,6 +14,7 @@
   "scripts": {
     "build": "yarn workspaces foreach -tv run build",
     "lint": "yarn workspaces foreach -v run lint",
+    "format": "biome format --write .",
     "typecheck": "yarn workspaces foreach -tv run typecheck",
     "test:ci": "yarn workspace @memori.ai/memori-react test:ci",
     "storybook": "yarn workspace @memori.ai/memori-react storybook",
@@ -23,6 +24,7 @@
     "release": "release-it"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.7",
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.3.0",
     "@release-it/conventional-changelog": "5.1.1",

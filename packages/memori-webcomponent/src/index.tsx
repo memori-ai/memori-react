@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import type { Integration } from '@memori.ai/memori-api-client/dist/types';
 import Memori from '@memori.ai/memori-react';
 
-const parseJSONsafe = <T = { [key: string]: any },>(json: string): T | null => {
+const parseJSONsafe = <T = { [key: string]: any }>(json: string): T | null => {
   try {
     return JSON.parse(json) as T;
   } catch (e) {

@@ -449,7 +449,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 initialView={
                   positionRequested
                     ? 'location'
-                    : sessionPanelEntries.directAction?.view ?? 'session'
+                    : (sessionPanelEntries.directAction?.view ?? 'session')
                 }
                 autoStartGeolocation={
                   positionRequested &&

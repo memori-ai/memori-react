@@ -16,21 +16,21 @@
 .memori-widget
     :where(
         :not(
-                svg,
-                svg *,
-                img,
-                picture,
-                video,
-                audio,
-                canvas,
-                iframe,
-                object,
-                mjx-container,
-                mjx-container *,
-                .katex-display,
-                .katex,
-                .katex *
-            )
+            svg,
+            svg *,
+            img,
+            picture,
+            video,
+            audio,
+            canvas,
+            iframe,
+            object,
+            mjx-container,
+            mjx-container *,
+            .katex-display,
+            .katex,
+            .katex *
+        )
     ) {
     all: revert-layer;
 }

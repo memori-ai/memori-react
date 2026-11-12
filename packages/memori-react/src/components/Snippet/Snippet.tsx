@@ -55,7 +55,9 @@ const Snippet = ({
   };
 
   return (
-    <div className={cx('memori-snippet', { 'memori-snippet--preview': preview })}>
+    <div
+      className={cx('memori-snippet', { 'memori-snippet--preview': preview })}
+    >
       <div className="memori-snippet--content" ref={contentRef}>
         <pre
           className={cx('line-numbers', className)}

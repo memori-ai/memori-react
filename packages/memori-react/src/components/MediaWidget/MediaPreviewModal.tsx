@@ -4,9 +4,7 @@ import { getResourceUrl } from '../../helpers/media';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 import Snippet from '../Snippet/Snippet';
-import ContentPreviewModal, {
-  DocumentMarkdown,
-} from '../ContentPreviewModal';
+import ContentPreviewModal, { DocumentMarkdown } from '../ContentPreviewModal';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import { File } from 'lucide-react';
 import {
@@ -60,7 +58,7 @@ import {
  */
 
 // Collect supported code mime types for quick lookup
-const CODE_MIME_TYPES = prismSyntaxLangs.map((l) => l.mimeType);
+const CODE_MIME_TYPES = prismSyntaxLangs.map(l => l.mimeType);
 
 // Constants for file type mime types
 const MIME_PDF = 'application/pdf';
@@ -84,11 +82,7 @@ const VIDEO_MIME_TYPES = [
   'video/mpeg',
 ] as const;
 
-const AUDIO_MIME_TYPES = [
-  'audio/mpeg3',
-  'audio/wav',
-  'audio/mpeg',
-] as const;
+const AUDIO_MIME_TYPES = ['audio/mpeg3', 'audio/wav', 'audio/mpeg'] as const;
 
 const MIME_3D_GLB = 'model/gltf-binary';
 
@@ -114,7 +108,9 @@ function isWordDoc(mimeType: string): boolean {
 
 // Document attachments (PDF, XLSX, TXT, CSV, etc.) are extracted as text, not binary.
 // Detect when content is actually plain text / XML from document_attachment so we render it as text.
-function isDocumentAttachmentContent(content: string | null | undefined): boolean {
+function isDocumentAttachmentContent(
+  content: string | null | undefined
+): boolean {
   if (!content || typeof content !== 'string') return false;
   const trimmed = content.trim();
   return (
@@ -137,7 +133,9 @@ export interface MediaPreviewModalProps {
   apiURL?: string;
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
   descriptionOneLine?: boolean;
-  onLinkPreviewInfo?: (info: import('./MediaItemWidget.types').LinkPreviewInfo) => void;
+  onLinkPreviewInfo?: (
+    info: import('./MediaItemWidget.types').LinkPreviewInfo
+  ) => void;
   onMediumClick?: (mediumID: string) => void;
 }
 
@@ -172,21 +170,24 @@ export function MediaPreviewModal({
     isDocumentAttachmentContent(medium.content);
 
   // Detect the type of the medium for custom rendering logic
-  const isImage = IMAGE_MIME_TYPES.includes(medium.mimeType as (typeof IMAGE_MIME_TYPES)[number]);
+  const isImage = IMAGE_MIME_TYPES.includes(
+    medium.mimeType as (typeof IMAGE_MIME_TYPES)[number]
+  );
   const isCode = CODE_MIME_TYPES.includes(medium.mimeType);
   const isPdf = medium.mimeType === MIME_PDF && !isDocumentAttachment;
   const isExcel =
-    (medium.mimeType === MIME_EXCEL_XLS || medium.mimeType === MIME_EXCEL_XLSX) &&
+    (medium.mimeType === MIME_EXCEL_XLS ||
+      medium.mimeType === MIME_EXCEL_XLSX) &&
     !isDocumentAttachment;
   const isHtmlWithContent = medium.mimeType === MIME_HTML && !!medium.content;
-  const isHtmlLink =
-    medium.mimeType === MIME_HTML && !!medium.url;
+  const isHtmlLink = medium.mimeType === MIME_HTML && !!medium.url;
   const isVideoType = isVideo(medium.mimeType);
   const isAudioType = isAudio(medium.mimeType);
   const is3D = medium.mimeType === MIME_3D_GLB;
   // CSV files are converted to text and should be rendered as plain text
   const isCsv = medium.mimeType === MIME_CSV;
-  const isPlainText = medium.mimeType === MIME_PLAIN || isDocumentAttachment || isCsv;
+  const isPlainText =
+    medium.mimeType === MIME_PLAIN || isDocumentAttachment || isCsv;
   const isMarkdown = medium.mimeType === MIME_MARKDOWN;
   const isWordType = isWordDoc(medium.mimeType);
 
@@ -288,18 +289,21 @@ export function MediaPreviewModal({
         // Document attachments contain extracted text, not binary data
         // For HTML document attachments, open in new tab; for others, render as plain text
         (() => {
-          const isHtmlDocumentAttachment = 
+          const isHtmlDocumentAttachment =
             medium.mimeType === MIME_HTML && isDocumentAttachment;
-          
+
           if (isHtmlDocumentAttachment) {
             // HTML document attachment: display HTML content in a code-like format
             let htmlContent = medium.content || '';
-            if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
+            if (
+              htmlContent.includes('&lt;') ||
+              htmlContent.includes('&quot;')
+            ) {
               htmlContent = stripHTML(htmlContent) || htmlContent;
             } else {
               htmlContent = stripDocumentAttachmentTags(htmlContent);
             }
-            
+
             // Create a medium object for HTML content to display in Snippet
             // Use 'application/xml' mimeType so Prism highlights it (maps to tsx/HTML highlighting)
             const htmlMedium: Medium = {
@@ -307,10 +311,8 @@ export function MediaPreviewModal({
               mimeType: 'application/xml', // Maps to HTML/XML highlighting in Prism
               content: htmlContent,
             };
-            
-            return (
-              <Snippet preview={false} medium={htmlMedium} />
-            );
+
+            return <Snippet preview={false} medium={htmlMedium} />;
           } else {
             return <DocumentMarkdown content={medium.content} />;
           }

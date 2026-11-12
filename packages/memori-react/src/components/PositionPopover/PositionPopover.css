@@ -10,7 +10,9 @@
     padding: 0.45rem;
     border-radius: var(--memori-radius-surface);
     background: var(--memori-secondary-background);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--memori-border-color, rgba(0, 0, 0, 0.08));
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.12),
+        0 0 0 1px var(--memori-border-color, rgba(0, 0, 0, 0.08));
     font-size: var(--memori-text-size-md);
 }
 

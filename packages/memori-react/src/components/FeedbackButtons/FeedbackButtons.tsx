@@ -71,8 +71,8 @@ const FeedbackButtons = ({
     memori.culture === 'it-IT'
       ? 'it-IT'
       : memori.culture === 'fr-FR'
-      ? 'fr-FR'
-      : 'en-GB';
+        ? 'fr-FR'
+        : 'en-GB';
   const feedbackMsg = feedbackMsgs[culture];
   const feedbackMsgHelper = feedbackMsgsHelpers[culture];
   const dislikeMsg = dislikeMsgs[culture];

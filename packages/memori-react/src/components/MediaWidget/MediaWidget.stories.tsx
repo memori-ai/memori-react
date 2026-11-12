@@ -168,7 +168,8 @@ AllMediaTypes.args = {
     },
     {
       mediumID: 'doc-wordx-1',
-      mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       title: 'Word Document (.docx)',
       url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
@@ -180,7 +181,8 @@ AllMediaTypes.args = {
     },
     {
       mediumID: 'doc-excelx-1',
-      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       title: 'Excel Document (.xlsx)',
       url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
@@ -189,25 +191,29 @@ AllMediaTypes.args = {
       mediumID: 'code-js-1',
       mimeType: 'text/javascript',
       title: 'JavaScript Code',
-      content: "function greet() {\n  return 'Hello World!';\n}\n\nconsole.log(greet());",
+      content:
+        "function greet() {\n  return 'Hello World!';\n}\n\nconsole.log(greet());",
     },
     {
       mediumID: 'code-ts-1',
       mimeType: 'text/ecmascript',
       title: 'TypeScript Code',
-      content: "interface User {\n  name: string;\n  age: number;\n}\n\nconst user: User = { name: 'John', age: 30 };",
+      content:
+        "interface User {\n  name: string;\n  age: number;\n}\n\nconst user: User = { name: 'John', age: 30 };",
     },
     {
       mediumID: 'code-json-1',
       mimeType: 'application/json',
       title: 'JSON Data',
-      content: '{\n  "name": "John Doe",\n  "age": 43,\n  "city": "New York"\n}',
+      content:
+        '{\n  "name": "John Doe",\n  "age": 43,\n  "city": "New York"\n}',
     },
     {
       mediumID: 'code-css-1',
       mimeType: 'text/css',
       title: 'CSS Styles',
-      content: 'body {\n  background: #f0f0f0;\n  color: #333;\n  font-family: Arial, sans-serif;\n}',
+      content:
+        'body {\n  background: #f0f0f0;\n  color: #333;\n  font-family: Arial, sans-serif;\n}',
     },
     {
       mediumID: 'code-xml-1',
@@ -225,25 +231,29 @@ AllMediaTypes.args = {
       mediumID: 'code-python-1',
       mimeType: 'text/x-python',
       title: 'Python Code',
-      content: 'def greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))',
+      content:
+        'def greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("World"))',
     },
     {
       mediumID: 'code-cpp-1',
       mimeType: 'text/x-c++src',
       title: 'C++ Code',
-      content: '#include <iostream>\n\nint main() {\n    std::cout << "Hello World" << std::endl;\n    return 0;\n}',
+      content:
+        '#include <iostream>\n\nint main() {\n    std::cout << "Hello World" << std::endl;\n    return 0;\n}',
     },
     {
       mediumID: 'code-php-1',
       mimeType: 'application/x-php',
       title: 'PHP Code',
-      content: '<?php\nfunction greet($name) {\n    return "Hello, " . $name . "!";\n}\n\necho greet("World");\n?>',
+      content:
+        '<?php\nfunction greet($name) {\n    return "Hello, " . $name . "!";\n}\n\necho greet("World");\n?>',
     },
     {
       mediumID: 'code-ruby-1',
       mimeType: 'text/x-ruby',
       title: 'Ruby Code',
-      content: 'def greet(name)\n  "Hello, #{name}!"\nend\n\nputs greet("World")',
+      content:
+        'def greet(name)\n  "Hello, #{name}!"\nend\n\nputs greet("World")',
     },
     {
       mediumID: 'code-sql-1',
@@ -255,7 +265,8 @@ AllMediaTypes.args = {
       mediumID: 'code-text-1',
       mimeType: 'text/plain',
       title: 'Plain Text',
-      content: 'This is a plain text file.\nIt can contain multiple lines.\nAnd various content.',
+      content:
+        'This is a plain text file.\nIt can contain multiple lines.\nAnd various content.',
     },
     // HTML
     {

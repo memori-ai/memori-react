@@ -51,7 +51,10 @@ const ChatTextArea: React.FC<Props> = ({
       } else {
         textarea.style.height = 'auto';
         const scrollHeight = textarea.scrollHeight;
-        const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT);
+        const newHeight = Math.min(
+          Math.max(scrollHeight, MIN_HEIGHT),
+          MAX_HEIGHT
+        );
         textarea.style.height = `${newHeight}px`;
         inner.style.height = `${newHeight}px`;
       }
@@ -65,10 +68,7 @@ const ChatTextArea: React.FC<Props> = ({
 
   // Keep parent state in sync when value exceeds limit (e.g. paste or prop change)
   useEffect(() => {
-    if (
-      maxTextareaCharacters != null &&
-      value.length > maxTextareaCharacters
-    ) {
+    if (maxTextareaCharacters != null && value.length > maxTextareaCharacters) {
       onChange(value.slice(0, maxTextareaCharacters));
     }
   }, [maxTextareaCharacters, value, onChange]);

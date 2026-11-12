@@ -90,7 +90,9 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
     if (chatProps?.isPlayingAudio) {
       return {
         key: 'speaking' as const,
-        label: t('widget.agentStatusSpeaking', { defaultValue: 'sta parlando' }),
+        label: t('widget.agentStatusSpeaking', {
+          defaultValue: 'sta parlando',
+        }),
       };
     }
     if (chatProps?.memoriTyping) {
@@ -296,21 +298,21 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             <div className="memori-chat-layout--header">
               <div className="memori-fullpage-header-row">
                 <Header
-                    {...mobileHeaderProps}
-                    layout="FULLPAGE"
-                    buttonVariant="outline"
-                    extraActions={
-                      isMobile ? (
-                        <MobileSessionPanelTrigger
-                          entries={sessionPanelEntries}
-                          open={mobileSheetOpen}
-                          onToggle={() =>
-                            setMobileSheetOpen(currentOpen => !currentOpen)
-                          }
-                        />
-                      ) : undefined
-                    }
-                  />
+                  {...mobileHeaderProps}
+                  layout="FULLPAGE"
+                  buttonVariant="outline"
+                  extraActions={
+                    isMobile ? (
+                      <MobileSessionPanelTrigger
+                        entries={sessionPanelEntries}
+                        open={mobileSheetOpen}
+                        onToggle={() =>
+                          setMobileSheetOpen(currentOpen => !currentOpen)
+                        }
+                      />
+                    ) : undefined
+                  }
+                />
               </div>
             </div>
           </div>

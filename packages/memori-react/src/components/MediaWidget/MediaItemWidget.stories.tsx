@@ -352,7 +352,8 @@ AllImageTypes.args = {
       mimeType: 'image/svg+xml',
       title: 'SVG Image',
       url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%234CAF50"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle"%3ESVG Image%3C/text%3E%3C/svg%3E',
-      content: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%234CAF50"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle"%3ESVG Image%3C/text%3E%3C/svg%3E',
+      content:
+        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%234CAF50"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle"%3ESVG Image%3C/text%3E%3C/svg%3E',
     },
     {
       mediumID: 'img-bmp-1',

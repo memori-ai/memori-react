@@ -33,9 +33,7 @@ describe('DateSelector', () => {
 
   it('renders DateSelector with default value correctly', () => {
     const defaultDate = new Date(Date.now());
-    render(
-      <DateSelector defaultDate={defaultDate} onChange={mockOnChange} />
-    );
+    render(<DateSelector defaultDate={defaultDate} onChange={mockOnChange} />);
 
     const dayInput = screen.getByLabelText(/day/i);
     const monthInput = screen.getByLabelText(/month/i);
@@ -142,9 +140,7 @@ describe('DateSelector', () => {
       render(<DateSelector onChange={mockOnChange} />);
 
       await screen.findByLabelText(/birth date/i);
-      expect(
-        screen.getByText('DD/MM/YYYY')
-      ).toBeInTheDocument();
+      expect(screen.getByText('DD/MM/YYYY')).toBeInTheDocument();
     });
 
     it('calls onChange when mobile date input changes', async () => {
@@ -158,7 +154,7 @@ describe('DateSelector', () => {
           expect.objectContaining({
             year: 1995,
             month: 6,
-            day: 15
+            day: 15,
           })
         );
       });

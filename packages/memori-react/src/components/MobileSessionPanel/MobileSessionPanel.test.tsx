@@ -99,7 +99,9 @@ it('shows Known facts and AI usage disabled until they are usable', () => {
   );
 
   expect(
-    screen.getByRole('button', { name: /Known facts/i }).hasAttribute('disabled')
+    screen
+      .getByRole('button', { name: /Known facts/i })
+      .hasAttribute('disabled')
   ).toBe(true);
   expect(
     screen
@@ -111,7 +113,9 @@ it('shows Known facts and AI usage disabled until they are usable', () => {
 it('keeps the more actions menu when AI usage sits next to another action', () => {
   render(<TriggerHarness actions={[clearAction]} showMessageConsumption />);
 
-  expect(screen.getByRole('button', { name: 'widget.moreActions' })).toBeTruthy();
+  expect(
+    screen.getByRole('button', { name: 'widget.moreActions' })
+  ).toBeTruthy();
 });
 
 it('hides AI usage unless showMessageConsumption is on', () => {
@@ -157,10 +161,15 @@ it('shows the single action directly instead of the more actions menu', () => {
   const onClick = jest.fn();
   const onToggle = jest.fn();
   render(
-    <TriggerHarness actions={[{ ...clearAction, onClick }]} onToggle={onToggle} />
+    <TriggerHarness
+      actions={[{ ...clearAction, onClick }]}
+      onToggle={onToggle}
+    />
   );
 
-  expect(screen.queryByRole('button', { name: 'widget.moreActions' })).toBeNull();
+  expect(
+    screen.queryByRole('button', { name: 'widget.moreActions' })
+  ).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Clear chat' }));
 
   expect(onClick).toHaveBeenCalledTimes(1);
@@ -171,7 +180,9 @@ it('opens the panel from a single view action', () => {
   const onToggle = jest.fn();
   render(
     <TriggerHarness
-      actions={[{ ...clearAction, key: 'share', title: 'Share chat', view: 'share' }]}
+      actions={[
+        { ...clearAction, key: 'share', title: 'Share chat', view: 'share' },
+      ]}
       onToggle={onToggle}
     />
   );
@@ -188,19 +199,25 @@ it('keeps the more actions menu with more than one action', () => {
     />
   );
 
-  expect(screen.getByRole('button', { name: 'widget.moreActions' })).toBeTruthy();
+  expect(
+    screen.getByRole('button', { name: 'widget.moreActions' })
+  ).toBeTruthy();
 });
 
 it('keeps the more actions menu when login is available', () => {
   render(<TriggerHarness actions={[clearAction]} showLogin />);
 
-  expect(screen.getByRole('button', { name: 'widget.moreActions' })).toBeTruthy();
+  expect(
+    screen.getByRole('button', { name: 'widget.moreActions' })
+  ).toBeTruthy();
 });
 
 it('keeps the more actions menu when a user is logged in', () => {
   render(<TriggerHarness actions={[clearAction]} isLoggedIn />);
 
-  expect(screen.getByRole('button', { name: 'widget.moreActions' })).toBeTruthy();
+  expect(
+    screen.getByRole('button', { name: 'widget.moreActions' })
+  ).toBeTruthy();
 });
 
 it('hides the back button on the page of the single direct action', () => {
@@ -211,7 +228,12 @@ it('hides the back button on the page of the single direct action', () => {
       backLabel="Back"
       initialView="share"
       actions={[
-        { key: 'share', icon: <span>icon</span>, title: 'Share chat', view: 'share' },
+        {
+          key: 'share',
+          icon: <span>icon</span>,
+          title: 'Share chat',
+          view: 'share',
+        },
       ]}
       shareContent={<div>Copy link or download</div>}
     />
@@ -243,7 +265,9 @@ it('ignores filtered-out actions when counting entries', () => {
 it('keeps the more actions menu for a logged-in user with only Known facts', () => {
   render(<TriggerHarness actions={[]} isLoggedIn showKnownFacts />);
 
-  expect(screen.getByRole('button', { name: 'widget.moreActions' })).toBeTruthy();
+  expect(
+    screen.getByRole('button', { name: 'widget.moreActions' })
+  ).toBeTruthy();
 });
 
 it('opens chat history directly when it is the only entry', () => {
@@ -265,9 +289,7 @@ it('opens chat history directly when it is the only entry', () => {
 });
 
 it('ignores chat history without a login token', () => {
-  render(
-    <TriggerHarness actions={[clearAction]} showChatHistory />
-  );
+  render(<TriggerHarness actions={[clearAction]} showChatHistory />);
 
   expect(screen.getByRole('button', { name: 'Clear chat' })).toBeTruthy();
 });
@@ -296,7 +318,9 @@ it('shows AI usage directly, disabled until there is usage data', () => {
 
 it('disables the direct trigger when the single action is disabled', () => {
   const onClick = jest.fn();
-  render(<TriggerHarness actions={[{ ...clearAction, onClick, disabled: true }]} />);
+  render(
+    <TriggerHarness actions={[{ ...clearAction, onClick, disabled: true }]} />
+  );
 
   const trigger = screen.getByRole('button', { name: 'Clear chat' });
   expect(trigger.hasAttribute('disabled')).toBe(true);

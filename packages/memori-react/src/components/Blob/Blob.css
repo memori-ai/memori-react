@@ -14,7 +14,9 @@
     animation: wobble calc(150ms * var(--memori-blob-t)) linear infinite;
     backface-visibility: hidden;
     background: #f0f;
-    box-shadow: 0 0 0.5em 0.2em #000 inset, 0 0 0.15em 0 #fff;
+    box-shadow:
+        0 0 0.5em 0.2em #000 inset,
+        0 0 0.15em 0 #fff;
     filter: hue-rotate(0deg);
     font-size: 20vmin;
     mix-blend-mode: screen;
@@ -94,7 +96,8 @@
 }
 
 @keyframes blobspeaking {
-    0%, 100% {
+    0%,
+    100% {
         filter: brightness(1);
         transform: scale(1) translateZ(0);
     }

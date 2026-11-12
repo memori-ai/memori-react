@@ -79,7 +79,9 @@
     width: 100%;
     grid-template-rows: 0fr;
     opacity: 0;
-    transition: grid-template-rows 0.22s ease, opacity 0.18s ease;
+    transition:
+        grid-template-rows 0.22s ease,
+        opacity 0.18s ease;
 }
 
 .memori-reasoning--open .memori-reasoning__collapsible {

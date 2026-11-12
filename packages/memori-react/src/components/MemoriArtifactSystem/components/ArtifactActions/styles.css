@@ -9,7 +9,8 @@
     --memori-copy-surface-hover: color-mix(in oklch, var(--memori-main-background) 88%, var(--memori-primary) 12%);
     --memori-copy-surface-pressed: color-mix(in oklch, var(--memori-main-background) 82%, var(--memori-primary) 18%);
     --memori-copy-text-muted: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
-    --memori-copy-shadow: 0 10px 25px -5px color-mix(in srgb, var(--memori-text-color) 14%, transparent),
+    --memori-copy-shadow:
+        0 10px 25px -5px color-mix(in srgb, var(--memori-text-color) 14%, transparent),
         0 10px 10px -5px color-mix(in srgb, var(--memori-text-color) 8%, transparent);
     position: relative;
     display: inline-block;
@@ -44,7 +45,10 @@
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
     line-height: 1.4;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
 }
 
 .memori-copy-button:disabled {
@@ -110,7 +114,10 @@
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
     line-height: 1.4;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
 }
 
 .memori-copy-button--dropdown:hover:not(:disabled) {
@@ -196,7 +203,9 @@
     cursor: pointer;
     font-size: var(--memori-text-size-sm);
     text-align: left;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
 }
 
 .memori-copy-menu-item:disabled {

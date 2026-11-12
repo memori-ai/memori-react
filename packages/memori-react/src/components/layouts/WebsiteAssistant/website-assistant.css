@@ -22,7 +22,9 @@
 .memori-website_assistant--trigger-button .memori-blob .mainDiv {
     width: 64px !important;
     height: 64px !important;
-    box-shadow: 0 0 0.5em 0.2em rgba(0, 0, 0, 0.15) inset, 0 0 0.15em 0 rgba(255, 255, 255, 0.9),
+    box-shadow:
+        0 0 0.5em 0.2em rgba(0, 0, 0, 0.15) inset,
+        0 0 0.15em 0 rgba(255, 255, 255, 0.9),
         0 2px 8px rgba(130, 70, 175, 0.2);
     transition: all 0.3s ease;
 }
@@ -35,7 +37,9 @@
 }
 
 .memori-website_assistant--trigger-button:hover .memori-blob .mainDiv {
-    box-shadow: 0 0 0.6em 0.25em rgba(0, 0, 0, 0.1) inset, 0 0 0.2em 0 rgba(255, 255, 255, 0.95),
+    box-shadow:
+        0 0 0.6em 0.25em rgba(0, 0, 0, 0.1) inset,
+        0 0 0.2em 0 rgba(255, 255, 255, 0.95),
         0 4px 16px rgba(130, 70, 175, 0.3);
 }
 
@@ -130,7 +134,9 @@
     color: var(--memori-text-color, #111827);
     cursor: pointer;
     line-height: 1;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
 }
 
 .memori-website_assistant--close-button:hover {
@@ -210,7 +216,9 @@
     border-radius: var(--memori-radius-overlay) var(--memori-radius-overlay) 0 0;
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12), 0 -2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 -4px 24px rgba(0, 0, 0, 0.12),
+        0 -2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

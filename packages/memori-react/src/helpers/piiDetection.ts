@@ -48,7 +48,11 @@ export function checkPii(
   config: PiiDetectionConfig,
   lang: string
 ): { matched: boolean; errorText?: string } {
-  if (!config?.enabled || !Array.isArray(config.rules) || config.rules.length === 0) {
+  if (
+    !config?.enabled ||
+    !Array.isArray(config.rules) ||
+    config.rules.length === 0
+  ) {
     return { matched: false };
   }
 

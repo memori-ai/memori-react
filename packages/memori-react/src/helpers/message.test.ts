@@ -42,17 +42,20 @@ describe('renderMsg', () => {
 
 describe('stripAttachmentTags', () => {
   it('strips <document_attachment> tags', () => {
-    const input = 'hello <document_attachment filename="note.md" type="text/markdown">some content</document_attachment> world';
+    const input =
+      'hello <document_attachment filename="note.md" type="text/markdown">some content</document_attachment> world';
     expect(stripAttachmentTags(input)).toBe('hello  world');
   });
 
   it('strips <attachment_source> tags', () => {
-    const input = 'before <attachment_source>\nhttps://example.com/file.txt\n</attachment_source> after';
+    const input =
+      'before <attachment_source>\nhttps://example.com/file.txt\n</attachment_source> after';
     expect(stripAttachmentTags(input)).toBe('before  after');
   });
 
   it('strips <attachment_link> tags', () => {
-    const input = 'before <attachment_link>\nhttps://example.com/file.txt\n</attachment_link> after';
+    const input =
+      'before <attachment_link>\nhttps://example.com/file.txt\n</attachment_link> after';
     expect(stripAttachmentTags(input)).toBe('before  after');
   });
 
@@ -63,37 +66,42 @@ describe('stripAttachmentTags', () => {
 
 describe('stripAllInternalTags', () => {
   it('strips <document> wrapper tags', () => {
-    expect(stripAllInternalTags('<document name="a.pdf">inner</document>'))
-      .toBe('inner');
+    expect(
+      stripAllInternalTags('<document name="a.pdf">inner</document>')
+    ).toBe('inner');
   });
 
   it('strips <documents> wrapper tags', () => {
-    expect(stripAllInternalTags('<documents>inner</documents>'))
-      .toBe('inner');
+    expect(stripAllInternalTags('<documents>inner</documents>')).toBe('inner');
   });
 
   it('strips <attachment> wrapper tags', () => {
-    expect(stripAllInternalTags('<attachment name="file.txt">inner</attachment>'))
-      .toBe('inner');
+    expect(
+      stripAllInternalTags('<attachment name="file.txt">inner</attachment>')
+    ).toBe('inner');
   });
 
   it('strips <attachments> wrapper tags', () => {
-    expect(stripAllInternalTags('<attachments>inner</attachments>'))
-      .toBe('inner');
+    expect(stripAllInternalTags('<attachments>inner</attachments>')).toBe(
+      'inner'
+    );
   });
 
   it('strips self-closing document tags', () => {
-    expect(stripAllInternalTags('before <document src="x" /> after'))
-      .toBe('before  after');
+    expect(stripAllInternalTags('before <document src="x" /> after')).toBe(
+      'before  after'
+    );
   });
 
   it('strips asset URLs', () => {
-    const input = 'hello\n\nhttps://assets-staging.memori.ai/api/v2/asset/abc-123.md\n\nworld';
+    const input =
+      'hello\n\nhttps://assets-staging.memori.ai/api/v2/asset/abc-123.md\n\nworld';
     expect(stripAllInternalTags(input)).toBe('hello\n\nworld');
   });
 
   it('strips multiple asset URLs on separate lines', () => {
-    const input = 'content\n\nhttps://assets-staging.memori.ai/api/v2/asset/abc.md\n\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt';
+    const input =
+      'content\n\nhttps://assets-staging.memori.ai/api/v2/asset/abc.md\n\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt';
     expect(stripAllInternalTags(input)).toBe('content');
   });
 

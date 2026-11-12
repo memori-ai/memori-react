@@ -42,8 +42,7 @@ afterEach(() => {
 
 it('renders Chat unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -74,8 +73,7 @@ it('renders Chat unchanged', () => {
 
 it('renders Chat with memori typing unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -107,8 +105,7 @@ it('renders Chat with memori typing unchanged', () => {
 
 it('renders Chat with hints unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -139,8 +136,7 @@ it('renders Chat with hints unchanged', () => {
 
 it('renders Chat with media unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -171,8 +167,7 @@ it('renders Chat with media unchanged', () => {
 
 it('renders Chat with dates unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -204,8 +199,7 @@ it('renders Chat with dates unchanged', () => {
 
 it('renders Chat with context vars unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         memori={memori}
         tenant={tenant}
@@ -338,8 +332,7 @@ it('shows cache read, write and hit % in the LLM usage modal when present', () =
 
 it('renders Chat with user unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         user={{ avatarURL: 'https://picsum.photos/200' }}
         memori={memori}
@@ -371,8 +364,7 @@ it('renders Chat with user unchanged', () => {
 
 it('renders Chat with custom user avatar unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         userAvatar="https://picsum.photos/200"
         memori={memori}
@@ -404,8 +396,7 @@ it('renders Chat with custom user avatar unchanged', () => {
 
 it('renders Chat with custom user avatar as react element unchanged', () => {
   const { container } = render(
-    <ArtifactProvider
-    >
+    <ArtifactProvider>
       <Chat
         userAvatar={<span>USER</span>}
         memori={memori}
@@ -802,9 +793,9 @@ it('renders time without seconds inside memori-chat--bubble-addon for both assis
   expect(timestamps[0]?.textContent).not.toMatch(/\d{2}\/\d{2}\/\d{4}/);
   expect(timestamps[1]?.textContent).toMatch(/\d{2}:\d{2}/);
   expect(timestamps[1]?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
-  expect(container.querySelectorAll('small.memori-chat--timestamp')).toHaveLength(
-    0
-  );
+  expect(
+    container.querySelectorAll('small.memori-chat--timestamp')
+  ).toHaveLength(0);
 });
 
 it('shows timestamps in the chat history panel even when showDates is false', () => {
@@ -882,4 +873,3 @@ it('hides the zero cache row in the LLM usage modal', () => {
   expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
   expect(screen.getByText('40%')).toBeTruthy();
 });
-

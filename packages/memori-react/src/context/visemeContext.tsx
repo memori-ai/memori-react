@@ -194,7 +194,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       // Update state
       setIsProcessing(true);
       setVisemeState('active');
-
     },
     []
   );
@@ -243,7 +242,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Make resetVisemeQueue more robust
   const resetVisemeQueue = useCallback(() => {
-
     // Clear all queued visemes
     visemeQueueRef.current = [];
 

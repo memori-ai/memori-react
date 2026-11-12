@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react';
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -19,5 +19,5 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
       clipRule="evenodd"
     />
   </svg>
-)
-export default LinkedinIcon
+);
+export default LinkedinIcon;

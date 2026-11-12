@@ -450,13 +450,11 @@ ${file.attachmentUrl || ''}
         // strip its markdown footer in convertDocument). Local cut is only a
         // safety net for local text / older proxies.
         const isTruncatedLocally =
-          !file.truncated &&
-          file.content.length > effectivePerDocumentLimit;
+          !file.truncated && file.content.length > effectivePerDocumentLimit;
         const excerpt = isTruncatedLocally
           ? file.content.substring(0, effectivePerDocumentLimit)
           : file.content;
-        const shownChars =
-          file.shownChars ?? excerpt.length;
+        const shownChars = file.shownChars ?? excerpt.length;
         const inlinedContent =
           file.truncated || isTruncatedLocally
             ? `${excerpt}\n\n${getTruncationNote(
@@ -589,14 +587,14 @@ ${file.attachmentUrl || ''}
   const handleDocumentLoadingChange = useCallback(
     (loading: boolean, fileCount?: number) => {
       setIsDocumentLoading(loading);
-      setDocUploadingCount(loading ? fileCount ?? 1 : 0);
+      setDocUploadingCount(loading ? (fileCount ?? 1) : 0);
     },
     []
   );
   const handleImageLoadingChange = useCallback(
     (loading: boolean, fileCount?: number) => {
       setIsImageLoading(loading);
-      setImgUploadingCount(loading ? fileCount ?? 1 : 0);
+      setImgUploadingCount(loading ? (fileCount ?? 1) : 0);
     },
     []
   );

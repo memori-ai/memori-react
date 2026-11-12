@@ -17,11 +17,14 @@ export default function useSmile(smiling: boolean | undefined, nodes: Nodes) {
   });
 
   useEffect(() => {
-    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar020 || nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    const headMesh = (nodes.Wolf3D_Head ||
+      nodes.Wolf3D_Avatar020 ||
+      nodes.Wolf3D_Avatar001) as SkinnedMesh;
     smileStateRef.current.headMesh = headMesh;
 
     if (headMesh?.morphTargetDictionary && headMesh?.morphTargetInfluences) {
-      smileStateRef.current.mouthSmileMorphIndex = headMesh.morphTargetDictionary.mouthSmile;
+      smileStateRef.current.mouthSmileMorphIndex =
+        headMesh.morphTargetDictionary.mouthSmile;
     }
   }, [nodes]);
 
@@ -31,9 +34,11 @@ export default function useSmile(smiling: boolean | undefined, nodes: Nodes) {
     if (!headMesh?.morphTargetInfluences) return;
 
     const targetSmileIntensity = smiling ? SMILE_INTENSITY : 0;
-    const currentSmileIntensity = headMesh.morphTargetInfluences[mouthSmileMorphIndex];
+    const currentSmileIntensity =
+      headMesh.morphTargetInfluences[mouthSmileMorphIndex];
 
     // Smoothly interpolate between current and target smile intensity
-    headMesh.morphTargetInfluences[mouthSmileMorphIndex] += (targetSmileIntensity - currentSmileIntensity) * 0.1;
+    headMesh.morphTargetInfluences[mouthSmileMorphIndex] +=
+      (targetSmileIntensity - currentSmileIntensity) * 0.1;
   });
 }

@@ -8,11 +8,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown } from '@memori.ai/ui';
 import { ArtifactData } from '../../types/artifact.types';
-import {
-  Link as LinkIcon,
-  Printer,
-  MoreVertical,
-} from 'lucide-react';
+import { Link as LinkIcon, Printer, MoreVertical } from 'lucide-react';
 import { CopyButtonWithDropdown } from './';
 import { useArtifactDrawerMenuContainer } from '../../useArtifactDrawerMenuContainer';
 
@@ -190,7 +186,9 @@ const ArtifactActions: React.FC<{
             <Dropdown.Trigger
               showChevron={false}
               className="memori-copy-button-trigger"
-              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+              render={(
+                props: React.ButtonHTMLAttributes<HTMLButtonElement>
+              ) => (
                 <Button
                   {...props}
                   disabled={loading}

@@ -45,11 +45,7 @@ function Harness({ theme }: { theme: 'light' | 'dark' }) {
         data-memori-probe-surface="1"
         data-testid="widget-surface"
       />
-      <MemoriUIProvider
-        container={root}
-        clipContainer={surface}
-        theme={theme}
-      >
+      <MemoriUIProvider container={root} clipContainer={surface} theme={theme}>
         <Probe />
       </MemoriUIProvider>
     </div>

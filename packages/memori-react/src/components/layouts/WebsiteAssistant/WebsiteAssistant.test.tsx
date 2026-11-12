@@ -40,4 +40,3 @@ it('renders WEBSITE_ASSISTANT layout unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
-

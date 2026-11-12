@@ -10,11 +10,7 @@ const findFragmentTarget = (doc: Document, fragment: string) => {
   } catch {
     // Malformed escapes: fall back to the raw fragment.
   }
-  return (
-    doc.getElementById(id) ??
-    doc.getElementsByName(id)[0] ??
-    null
-  );
+  return doc.getElementById(id) ?? doc.getElementsByName(id)[0] ?? null;
 };
 
 export const attachInPageAnchorNavigation = (doc: Document): (() => void) => {

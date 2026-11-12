@@ -48,7 +48,6 @@ export default function HalfBodyAvatar({
 
   // Apply head movement if enabled
   useHeadMovement(headMovement, nodes);
-  
 
   // Eye blinking state
   const blinkStateRef = useRef({
@@ -64,7 +63,9 @@ export default function HalfBodyAvatar({
     scene?.traverse((object: Object3D) => {
       if (
         object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
+        (object.name === 'GBNL__Head' ||
+          object.name === 'Wolf3D_Avatar' ||
+          object.name === 'Wolf3D_Avatar006_1')
       ) {
         foundMesh = object;
       }
@@ -77,7 +78,7 @@ export default function HalfBodyAvatar({
     if (!positionControllerRef.current) {
       positionControllerRef.current = new AvatarPositionController(
         AVATAR_POSITION,
-        AVATAR_POSITION_ZOOMED,
+        AVATAR_POSITION_ZOOMED
       );
     }
 
@@ -90,7 +91,7 @@ export default function HalfBodyAvatar({
     correctMaterials(materials);
     onLoaded?.();
     hideHands(nodes);
-    
+
     // Cleanup on unmount
     return () => {
       Object.values(materials).forEach(material => material.dispose());
@@ -110,19 +111,22 @@ export default function HalfBodyAvatar({
   // Handle avatar depth changes
   useEffect(() => {
     if (positionControllerRef.current && onCameraZChange) {
-      const newCameraZ = positionControllerRef.current.updateDepth(avatarDepth, true);
+      const newCameraZ = positionControllerRef.current.updateDepth(
+        avatarDepth,
+        true
+      );
       onCameraZChange(newCameraZ);
     }
   }, [avatarDepth, onCameraZChange]);
 
   // Animation and morphing update loop
-  useFrame((state) => {
+  useFrame(state => {
     const currentTime = state.clock.elapsedTime * 1000;
 
     // Update morph targets
     if (morphTargetControllerRef.current) {
       const currentViseme = updateCurrentViseme(currentTime / 1000);
-      
+
       // Use the updated MorphTargetController that handles chat emission directly
       morphTargetControllerRef.current.updateMorphTargets(
         currentTime,
@@ -130,19 +134,21 @@ export default function HalfBodyAvatar({
         loading,
         currentViseme,
         eyeBlink,
-        blinkStateRef.current,
+        blinkStateRef.current
       );
     }
 
     // Update scale with smooth transition
     if (scene && positionControllerRef.current) {
-      const newScale = positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
+      const newScale =
+        positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
       scene.scale.copy(newScale);
     }
   });
 
   // Get current position from controller
-  const position = positionControllerRef.current?.getPosition() || AVATAR_POSITION;
+  const position =
+    positionControllerRef.current?.getPosition() || AVATAR_POSITION;
 
   return (
     <group position={position}>

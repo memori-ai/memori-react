@@ -173,8 +173,7 @@ export function getFileExtensionFromMime(mimeType: string): string {
   const normalizedLower = normalized.toLowerCase();
 
   const officeLabel =
-    officeMimeShortLabels[normalized] ||
-    officeMimeShortLabels[normalizedLower];
+    officeMimeShortLabels[normalized] || officeMimeShortLabels[normalizedLower];
   if (officeLabel) return officeLabel;
 
   return (
@@ -289,11 +288,9 @@ export function getImageDisplaySource(
   item: Medium & { type?: string },
   resourceUrl: string
 ): ImageDisplaySource {
-  const hasValidUrl =
-    isValidUrl(resourceUrl) || isValidUrl(item.url);
+  const hasValidUrl = isValidUrl(resourceUrl) || isValidUrl(item.url);
   const isRgb =
-    !!item.url &&
-    (item.url.startsWith('rgb(') || item.url.startsWith('rgba('));
+    !!item.url && (item.url.startsWith('rgb(') || item.url.startsWith('rgba('));
 
   let src: string | undefined;
   if (hasValidUrl) {

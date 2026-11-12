@@ -497,10 +497,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       linkImage?.includes('data:image') === true
         ? undefined
         : linkImage?.startsWith('https')
-        ? linkImage
-        : linkImage
-        ? `https://${linkImage.replace('http://', '')}`
-        : undefined;
+          ? linkImage
+          : linkImage
+            ? `https://${linkImage.replace('http://', '')}`
+            : undefined;
 
     return (
       <a
@@ -708,13 +708,13 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
   const snippetHref = hasUrl
     ? resourceUrl
     : item.content
-    ? (() => {
-        const blob = new Blob([item.content], {
-          type: item.mimeType || 'text/plain',
-        });
-        return URL.createObjectURL(blob);
-      })()
-    : '#';
+      ? (() => {
+          const blob = new Blob([item.content], {
+            type: item.mimeType || 'text/plain',
+          });
+          return URL.createObjectURL(blob);
+        })()
+      : '#';
 
   return (
     <div

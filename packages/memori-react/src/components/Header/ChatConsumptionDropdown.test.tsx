@@ -126,9 +126,9 @@ describe('ChatConsumptionContent', () => {
     render(<ChatConsumptionContent history={historyWithCacheReadOnly} />);
 
     expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
-    expect(
-      screen.getByText('chatLogs.cacheRead').parentElement
-    ).toHaveClass('memori-dropdown--sustainability-stat--full');
+    expect(screen.getByText('chatLogs.cacheRead').parentElement).toHaveClass(
+      'memori-dropdown--sustainability-stat--full'
+    );
     expect(screen.getByLabelText('chatLogs.cacheHit')).toBeTruthy();
   });
 
@@ -174,9 +174,9 @@ describe('ChatConsumptionContent', () => {
 
     expect(screen.queryByText('chatLogs.cacheRead')).toBeNull();
     expect(screen.queryByLabelText('chatLogs.cacheHit')).toBeNull();
-    expect(
-      screen.getByText('chatLogs.cacheWrite').parentElement
-    ).toHaveClass('memori-dropdown--sustainability-stat--full');
+    expect(screen.getByText('chatLogs.cacheWrite').parentElement).toHaveClass(
+      'memori-dropdown--sustainability-stat--full'
+    );
   });
 
   it('shows no hit info icon when input tokens are missing', () => {
@@ -248,9 +248,7 @@ describe('ChatConsumptionDropdown', () => {
       />
     );
 
-    expect(
-      screen.getByRole('button', { name: 'Custom Trigger' })
-    ).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Custom Trigger' })).toBeTruthy();
   });
 
   it('supports a custom trigger node', () => {

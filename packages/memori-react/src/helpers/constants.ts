@@ -118,12 +118,16 @@ export const allowedMediaTypes = [
 /** Short badge labels for Office document cards */
 export const officeMimeShortLabels: Record<string, string> = {
   'application/msword': 'Word',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.template': 'Word',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+    'Word',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.template':
+    'Word',
   'application/vnd.ms-excel': 'Excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.template': 'Excel',
-  'application/vnd.openxmlformats-officedocument.presentationml.template': 'PPT',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.template':
+    'Excel',
+  'application/vnd.openxmlformats-officedocument.presentationml.template':
+    'PPT',
 };
 
 export const officeExtensionShortLabels: Record<string, string> = {

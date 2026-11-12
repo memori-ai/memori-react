@@ -25,7 +25,6 @@ export interface ApplyUpdateResult {
   failureReason?: 'not-found' | 'no-match';
 }
 
-
 export interface ArtifactSystemState {
   currentArtifact: ArtifactData | null;
   isDrawerOpen: boolean;

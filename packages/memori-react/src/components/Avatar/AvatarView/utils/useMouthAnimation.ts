@@ -20,7 +20,10 @@ const lerp = (start: number, end: number, alpha: number): number => {
   return start * (1 - alpha) + end * alpha;
 };
 
-export function useMouthAnimation({ currentVisemes, avatarMeshRef }: UseMouthAnimationProps) {
+export function useMouthAnimation({
+  currentVisemes,
+  avatarMeshRef,
+}: UseMouthAnimationProps) {
   const visemeStartTimeRef = useRef(0);
   const currentVisemeWeightRef = useRef<{ [key: string]: number }>({});
 
@@ -41,10 +44,17 @@ export function useMouthAnimation({ currentVisemes, avatarMeshRef }: UseMouthAni
   };
 
   // Helper function to apply the current viseme
-  const applyCurrentViseme = (index: number, elapsedTime: number, accumulatedDuration: number) => {
+  const applyCurrentViseme = (
+    index: number,
+    elapsedTime: number,
+    accumulatedDuration: number
+  ) => {
     const currentViseme = currentVisemes[index - 1];
-    const visemeProgress = (elapsedTime - (accumulatedDuration - currentViseme.duration)) / currentViseme.duration;
-    const targetWeight = Math.sin(visemeProgress * Math.PI) * currentViseme.weight;
+    const visemeProgress =
+      (elapsedTime - (accumulatedDuration - currentViseme.duration)) /
+      currentViseme.duration;
+    const targetWeight =
+      Math.sin(visemeProgress * Math.PI) * currentViseme.weight;
 
     // Smooth the transition between visemes
     if (!currentVisemeWeightRef.current[currentViseme.name]) {
@@ -56,9 +66,14 @@ export function useMouthAnimation({ currentVisemes, avatarMeshRef }: UseMouthAni
       VISEME_SMOOTHING
     );
 
-    const visemeIndex = avatarMeshRef.current?.morphTargetDictionary?.[currentViseme.name];
-    if (typeof visemeIndex === 'number' && avatarMeshRef.current?.morphTargetInfluences) {
-      avatarMeshRef.current.morphTargetInfluences[visemeIndex] = currentVisemeWeightRef.current[currentViseme.name];
+    const visemeIndex =
+      avatarMeshRef.current?.morphTargetDictionary?.[currentViseme.name];
+    if (
+      typeof visemeIndex === 'number' &&
+      avatarMeshRef.current?.morphTargetInfluences
+    ) {
+      avatarMeshRef.current.morphTargetInfluences[visemeIndex] =
+        currentVisemeWeightRef.current[currentViseme.name];
     }
   };
 
@@ -75,10 +90,15 @@ export function useMouthAnimation({ currentVisemes, avatarMeshRef }: UseMouthAni
     const currentTime = elapsedTime * VISEME_SPEED_FACTOR;
     const visemeElapsedTime = currentTime - visemeStartTimeRef.current;
 
-    const { currentVisemeIndex, accumulatedDuration } = getCurrentVisemeInfo(visemeElapsedTime);
+    const { currentVisemeIndex, accumulatedDuration } =
+      getCurrentVisemeInfo(visemeElapsedTime);
 
     if (currentVisemeIndex > 0) {
-      applyCurrentViseme(currentVisemeIndex, visemeElapsedTime, accumulatedDuration);
+      applyCurrentViseme(
+        currentVisemeIndex,
+        visemeElapsedTime,
+        accumulatedDuration
+      );
     }
 
     // Reset viseme animation if we've reached the end

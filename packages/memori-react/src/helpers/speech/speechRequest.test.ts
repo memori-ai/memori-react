@@ -84,7 +84,7 @@ describe('speechErrorFromResponse', () => {
       status,
       ok: status >= 200 && status < 300,
       json,
-    } as Response);
+    }) as Response;
 
   it('keeps status, message and code from the speech API', async () => {
     const response = responseWith(429, async () => ({

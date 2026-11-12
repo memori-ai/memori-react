@@ -6,12 +6,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { CopyMenuItemProps } from '../types';
-import {
-  Copy,
-  Download,
-  Printer,
-  Link as LinkIcon,
-} from 'lucide-react';
+import { Copy, Download, Printer, Link as LinkIcon } from 'lucide-react';
 
 const CopyMenuItem: React.FC<CopyMenuItemProps & { active?: boolean }> = ({
   format,
@@ -65,13 +60,9 @@ const CopyMenuItem: React.FC<CopyMenuItemProps & { active?: boolean }> = ({
       title={format.description}
     >
       <div className="memori-copy-menu-item-content">
-        <div className="memori-copy-menu-item-icon-wrapper">
-          {getIcon()}
-        </div>
+        <div className="memori-copy-menu-item-icon-wrapper">{getIcon()}</div>
         <div className="memori-copy-menu-item-text">
-          <div className="memori-copy-menu-item-label">
-            {format.label}
-          </div>
+          <div className="memori-copy-menu-item-label">{format.label}</div>
           {format.description && (
             <div className="memori-copy-menu-item-description">
               {format.description}

@@ -21,9 +21,6 @@ export function shouldReturnToStartPanelAfterLogout(
   hasActiveSession: boolean
 ): boolean {
   return (
-    !!requireLoginToken &&
-    wasLoggedIn &&
-    !isUserLoggedIn &&
-    hasActiveSession
+    !!requireLoginToken && wasLoggedIn && !isUserLoggedIn && hasActiveSession
   );
 }

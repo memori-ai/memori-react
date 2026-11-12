@@ -13,7 +13,7 @@ let isReady = false;
  */
 export const initMemoriArtifactAPI = () => {
   if (typeof window === 'undefined') return;
-  
+
   // Only initialize if not already present
   if ((window as any).MemoriArtifactAPI) {
     return;
@@ -21,23 +21,37 @@ export const initMemoriArtifactAPI = () => {
 
   (window as any).MemoriArtifactAPI = {
     _isReady: () => isReady,
-    _setReady: (ready: boolean) => { isReady = ready; },
+    _setReady: (ready: boolean) => {
+      isReady = ready;
+    },
     _getPendingCalls: () => pendingCalls,
-    _clearPendingCalls: () => { pendingCalls.length = 0; },
-    
+    _clearPendingCalls: () => {
+      pendingCalls.length = 0;
+    },
+
     openArtifact: (artifact: ArtifactData) => {
       if (!isReady) {
         pendingCalls.push({ method: 'openArtifact', args: [artifact] });
       }
     },
-    createAndOpenArtifact: (content: string, mimeType?: string, title?: string) => {
+    createAndOpenArtifact: (
+      content: string,
+      mimeType?: string,
+      title?: string
+    ) => {
       if (!isReady) {
-        pendingCalls.push({ method: 'createAndOpenArtifact', args: [content, mimeType, title] });
+        pendingCalls.push({
+          method: 'createAndOpenArtifact',
+          args: [content, mimeType, title],
+        });
       }
     },
     createFromOutputElement: (outputElement: HTMLOutputElement) => {
       if (!isReady) {
-        pendingCalls.push({ method: 'createFromOutputElement', args: [outputElement] });
+        pendingCalls.push({
+          method: 'createFromOutputElement',
+          args: [outputElement],
+        });
         return 'pending';
       }
       return 'not-ready';
@@ -83,16 +97,21 @@ export const ArtifactAPIBridge = ({
 }: {
   pushMessage: (message: Message) => void;
 }) => {
-  const { openArtifact, closeArtifact, toggleFullscreen, state, registerArtifact } =
-    useArtifact();
-  
+  const {
+    openArtifact,
+    closeArtifact,
+    toggleFullscreen,
+    state,
+    registerArtifact,
+  } = useArtifact();
+
   const apiRef = useRef<any>(null);
 
   useEffect(() => {
     // Update API with actual implementations
     if (typeof window !== 'undefined') {
       const windowApi = (window as any).MemoriArtifactAPI;
-      
+
       // Store reference to actual implementations
       apiRef.current = {
         /**
@@ -252,14 +271,15 @@ export const ArtifactAPIBridge = ({
       if (windowApi) {
         windowApi.openArtifact = apiRef.current.openArtifact;
         windowApi.createAndOpenArtifact = apiRef.current.createAndOpenArtifact;
-        windowApi.createFromOutputElement = apiRef.current.createFromOutputElement;
+        windowApi.createFromOutputElement =
+          apiRef.current.createFromOutputElement;
         windowApi.closeArtifact = apiRef.current.closeArtifact;
         windowApi.toggleFullscreen = apiRef.current.toggleFullscreen;
         windowApi.getState = apiRef.current.getState;
 
         // Mark API as ready
         windowApi._setReady(true);
-        
+
         // Process any pending calls that were queued before ready
         const pendingCalls = windowApi._getPendingCalls();
         if (pendingCalls.length > 0) {
@@ -300,7 +320,14 @@ export const ArtifactAPIBridge = ({
         delete (window as any).MemoriArtifactAPI;
       }
     };
-  }, [openArtifact, closeArtifact, toggleFullscreen, state, pushMessage, registerArtifact]);
+  }, [
+    openArtifact,
+    closeArtifact,
+    toggleFullscreen,
+    state,
+    pushMessage,
+    registerArtifact,
+  ]);
 
   return null;
 };

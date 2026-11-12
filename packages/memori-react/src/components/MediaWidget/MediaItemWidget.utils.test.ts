@@ -44,8 +44,12 @@ describe('MediaItemWidget.utils', () => {
     });
 
     it('extracts extension from url', () => {
-      expect(getFileExtensionFromUrl('https://example.com/file.pdf')).toBe('PDF');
-      expect(getFileExtensionFromUrl('https://example.com/doc.xlsx?token=abc')).toBe('XLSX');
+      expect(getFileExtensionFromUrl('https://example.com/file.pdf')).toBe(
+        'PDF'
+      );
+      expect(
+        getFileExtensionFromUrl('https://example.com/doc.xlsx?token=abc')
+      ).toBe('XLSX');
       expect(getFileExtensionFromUrl('image.png')).toBe('PNG');
       expect(getFileExtensionFromUrl('file.Md')).toBe('MD');
     });
@@ -61,7 +65,9 @@ describe('MediaItemWidget.utils', () => {
       expect(getFileExtensionFromMime('text/html')).toBe('HTML');
       expect(getFileExtensionFromMime('text/plain')).toBe('TXT');
       expect(getFileExtensionFromMime('application/json')).toBe('JSON');
-      expect(getFileExtensionFromMime('application/vnd.ms-excel')).toBe('Excel');
+      expect(getFileExtensionFromMime('application/vnd.ms-excel')).toBe(
+        'Excel'
+      );
       expect(
         getFileExtensionFromMime(
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -83,7 +89,9 @@ describe('MediaItemWidget.utils', () => {
     });
 
     it('uses subtype when not in MIME_TO_EXT map', () => {
-      expect(getFileExtensionFromMime('application/octet-stream')).toBe('OCTET-STREAM');
+      expect(getFileExtensionFromMime('application/octet-stream')).toBe(
+        'OCTET-STREAM'
+      );
       expect(getFileExtensionFromMime('image/jpeg')).toBe('JPEG');
     });
 
@@ -212,20 +220,26 @@ describe('MediaItemWidget.utils', () => {
     };
 
     it('returns true when file extension is in FILE_EXTENSIONS_DARK_CARD', () => {
-      (FILE_EXTENSIONS_DARK_CARD as readonly string[]).forEach((ext) => {
-        expect(shouldUseDarkFileCard(dummyItem, ext, 'application/octet-stream')).toBe(true);
+      (FILE_EXTENSIONS_DARK_CARD as readonly string[]).forEach(ext => {
+        expect(
+          shouldUseDarkFileCard(dummyItem, ext, 'application/octet-stream')
+        ).toBe(true);
       });
     });
 
     it('returns true when mime type is in FILE_MIME_TYPES_DARK_CARD', () => {
-      (FILE_MIME_TYPES_DARK_CARD as readonly string[]).forEach((mime) => {
+      (FILE_MIME_TYPES_DARK_CARD as readonly string[]).forEach(mime => {
         expect(shouldUseDarkFileCard(dummyItem, null, mime)).toBe(true);
       });
     });
 
     it('returns false for unknown extension and mime', () => {
-      expect(shouldUseDarkFileCard(dummyItem, null, 'application/octet-stream')).toBe(false);
-      expect(shouldUseDarkFileCard(dummyItem, 'XYZ', 'application/octet-stream')).toBe(false);
+      expect(
+        shouldUseDarkFileCard(dummyItem, null, 'application/octet-stream')
+      ).toBe(false);
+      expect(
+        shouldUseDarkFileCard(dummyItem, 'XYZ', 'application/octet-stream')
+      ).toBe(false);
     });
   });
 
@@ -255,7 +269,9 @@ describe('MediaItemWidget.utils', () => {
     });
 
     it('uses provided baseUrl', async () => {
-      globalThis.fetch = jest.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+      globalThis.fetch = jest
+        .fn()
+        .mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
       await fetchLinkPreview('https://example.com', 'https://custom.api');
       expect(globalThis.fetch).toHaveBeenCalledWith(
         expect.stringMatching(/^https:\/\/custom\.api\/api\/linkpreview\//)
@@ -263,8 +279,12 @@ describe('MediaItemWidget.utils', () => {
     });
 
     it('returns null when fetch fails', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-      globalThis.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      globalThis.fetch = jest
+        .fn()
+        .mockRejectedValue(new Error('Network error'));
 
       const result = await fetchLinkPreview('https://example.com');
       expect(result).toBeNull();

@@ -306,8 +306,7 @@ describe('utils/stripHTML', () => {
   });
 
   it('decodes HTML entities without executing nested markup', () => {
-    const encoded =
-      '&lt;img src="x" onerror="alert(1)"&gt;hello&lt;/img&gt;';
+    const encoded = '&lt;img src="x" onerror="alert(1)"&gt;hello&lt;/img&gt;';
     const result = stripHTML(encoded);
     expect(result).toContain('hello');
     // Entity-decoded text may contain the string "onerror" as text; ensure no live element

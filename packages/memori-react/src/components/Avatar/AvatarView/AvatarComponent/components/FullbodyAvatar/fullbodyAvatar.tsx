@@ -93,7 +93,6 @@ export function FullbodyAvatar({
   const positionUpdateThrottleRef = useRef<number>(0);
   const POSITION_UPDATE_INTERVAL = 1; // ~1000fps for more frequent updates
 
-
   const [isRpm, setIsRpm] = useState(false);
 
   // For eye blinking
@@ -107,45 +106,53 @@ export function FullbodyAvatar({
   // Find head mesh and initialize morph target controller - only run when scene changes
   useEffect(() => {
     if (!scene) return;
-  
+
     // Find head mesh
     let headMesh: SkinnedMesh | null = null;
-    
+
     scene.traverse((object: Object3D) => {
       if (object instanceof SkinnedMesh) {
         // Keep existing RPM check
-        if (object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1') {
+        if (
+          object.name === 'Wolf3D_Avatar' ||
+          object.name === 'Wolf3D_Avatar006_1'
+        ) {
           setIsRpm(true);
           headMesh = object;
           return; // Stop here if RPM found
         }
-        
+
         // Dynamic detection for custom avatars
         if (object.name === 'GBNL__Head') {
           // Known custom avatar
           headMesh = object;
         } else {
           // Dynamic detection for unknown custom avatars
-          const hasMorphTargets = object.morphTargetDictionary && 
-                                 Object.keys(object.morphTargetDictionary).length > 0;
-          
+          const hasMorphTargets =
+            object.morphTargetDictionary &&
+            Object.keys(object.morphTargetDictionary).length > 0;
+
           if (hasMorphTargets) {
-            const morphTargetNames = Object.keys(object.morphTargetDictionary || {});
-            
+            const morphTargetNames = Object.keys(
+              object.morphTargetDictionary || {}
+            );
+
             // Check if it has viseme-related morph targets (for custom avatars)
-            const hasVisemes = morphTargetNames.some(name => 
+            const hasVisemes = morphTargetNames.some(name =>
               name.toLowerCase().includes('viseme')
             );
-            
+
             // Check for other face-related blend shapes
             const hasFaceBlendShapes = morphTargetNames.some(name => {
               const lower = name.toLowerCase();
-              return lower.includes('mouth') || 
-                     lower.includes('eye') || 
-                     lower.includes('jaw') ||
-                     lower.includes('smile');
+              return (
+                lower.includes('mouth') ||
+                lower.includes('eye') ||
+                lower.includes('jaw') ||
+                lower.includes('smile')
+              );
             });
-  
+
             if (hasVisemes || hasFaceBlendShapes) {
               headMesh = object;
             }
@@ -153,7 +160,7 @@ export function FullbodyAvatar({
         }
       }
     });
-  
+
     // Initialize morph target controller if head mesh found
     if (headMesh) {
       // Only create a new controller if one doesn't exist
@@ -172,7 +179,7 @@ export function FullbodyAvatar({
         AVATAR_POSITION
       );
     }
-    
+
     // Cleanup function
     return () => {
       // No need to dispose the position controller here
@@ -203,7 +210,6 @@ export function FullbodyAvatar({
     if (!scene || !actions || isInitializedRef.current) {
       return;
     }
-
 
     // Create the animator only once
     if (!animatorRef.current) {
@@ -248,7 +254,6 @@ export function FullbodyAvatar({
     return () => {
       // Only clean up if we created it in this component
       if (animatorRef.current && isInitializedRef.current) {
-
         // Dispose mixer if needed
         if ('mixer' in animatorRef.current && animatorRef.current['mixer']) {
           (animatorRef.current['mixer'] as any).stopAllAction();
@@ -267,52 +272,55 @@ export function FullbodyAvatar({
   }, [scene, actions, mergedAnimations, sex, setAnimatorRef]);
 
   // Memoize the frame callback to prevent creating a new function every render
-  const frameCallback = useCallback((state: any, delta: number) => {
-    const currentTime = state.clock.elapsedTime * 1000;
+  const frameCallback = useCallback(
+    (state: any, delta: number) => {
+      const currentTime = state.clock.elapsedTime * 1000;
 
-    // Update animation system
-    if (animatorRef.current && isInitializedRef.current) {
-      animatorRef.current.update(delta);
-    }
-
-    // Update morph targets for facial expressions and visemes
-    if (morphTargetControllerRef.current) {
-      const currentViseme = updateCurrentViseme(currentTime / 1000);
-
-      morphTargetControllerRef.current.updateMorphTargets(
-        currentTime,
-        chatEmission,
-        loading,
-        currentViseme,
-        eyeBlink,
-        blinkStateRef.current
-      );
-    }
-
-    // Update position and scale
-    if (scene && positionControllerRef.current) {
-      // Update scale
-      const newScale =
-        positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
-      scene.scale.copy(newScale);
-
-      // High frequency position update check
-      if (
-        currentTime - positionUpdateThrottleRef.current >=
-        POSITION_UPDATE_INTERVAL
-      ) {
-        const currentPosition = positionControllerRef.current.getPosition();
-
-        // Round to 6 decimal places for high precision
-        currentPosition.setX(Number(currentPosition.x.toFixed(6)));
-        currentPosition.setY(Number(currentPosition.y.toFixed(6)));
-        currentPosition.setZ(Number(currentPosition.z.toFixed(6)));
-
-        lastPositionRef.current.copy(currentPosition);
-        positionUpdateThrottleRef.current = currentTime;
+      // Update animation system
+      if (animatorRef.current && isInitializedRef.current) {
+        animatorRef.current.update(delta);
       }
-    }
-  }, [scene, updateCurrentViseme, chatEmission, loading, eyeBlink]);
+
+      // Update morph targets for facial expressions and visemes
+      if (morphTargetControllerRef.current) {
+        const currentViseme = updateCurrentViseme(currentTime / 1000);
+
+        morphTargetControllerRef.current.updateMorphTargets(
+          currentTime,
+          chatEmission,
+          loading,
+          currentViseme,
+          eyeBlink,
+          blinkStateRef.current
+        );
+      }
+
+      // Update position and scale
+      if (scene && positionControllerRef.current) {
+        // Update scale
+        const newScale =
+          positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
+        scene.scale.copy(newScale);
+
+        // High frequency position update check
+        if (
+          currentTime - positionUpdateThrottleRef.current >=
+          POSITION_UPDATE_INTERVAL
+        ) {
+          const currentPosition = positionControllerRef.current.getPosition();
+
+          // Round to 6 decimal places for high precision
+          currentPosition.setX(Number(currentPosition.x.toFixed(6)));
+          currentPosition.setY(Number(currentPosition.y.toFixed(6)));
+          currentPosition.setZ(Number(currentPosition.z.toFixed(6)));
+
+          lastPositionRef.current.copy(currentPosition);
+          positionUpdateThrottleRef.current = currentTime;
+        }
+      }
+    },
+    [scene, updateCurrentViseme, chatEmission, loading, eyeBlink]
+  );
 
   // Use the memoized callback in useFrame
   useFrame(frameCallback);

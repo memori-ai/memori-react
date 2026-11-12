@@ -32,9 +32,10 @@ const DateSelector = memo(
     // Initialize from defaultDate if provided
     useEffect(() => {
       if (defaultDate) {
-        const dt = typeof defaultDate === 'string'
-          ? DateTime.fromISO(defaultDate)
-          : DateTime.fromJSDate(defaultDate);
+        const dt =
+          typeof defaultDate === 'string'
+            ? DateTime.fromISO(defaultDate)
+            : DateTime.fromJSDate(defaultDate);
 
         if (dt.isValid) {
           setDay(dt.day.toString());
@@ -166,18 +167,26 @@ const DateSelector = memo(
 
     // Mobile native input
     if (isMobile) {
-      const currentDate = (day && month && year)
-        ? DateTime.fromObject({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
-        : null;
-      const dateValue =
-        currentDate?.isValid ? currentDate.toISODate() || '' : '';
+      const currentDate =
+        day && month && year
+          ? DateTime.fromObject({
+              year: parseInt(year),
+              month: parseInt(month),
+              day: parseInt(day),
+            })
+          : null;
+      const dateValue = currentDate?.isValid
+        ? currentDate.toISODate() || ''
+        : '';
       const isEmpty = !dateValue;
-      const placeholder =
-        t('login.birthDatePlaceholder') || 'DD/MM/YYYY';
+      const placeholder = t('login.birthDatePlaceholder') || 'DD/MM/YYYY';
 
       return (
         <div className="memori--date-selector memori--date-selector--mobile">
-          <label htmlFor="birth-date-mobile" className="memori--date-selector__mobile-label">
+          <label
+            htmlFor="birth-date-mobile"
+            className="memori--date-selector__mobile-label"
+          >
             {t('birthDate') || 'Birth Date'}:
           </label>
           <div

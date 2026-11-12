@@ -149,4 +149,3 @@ Speaking.args = {
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
-

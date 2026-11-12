@@ -60,7 +60,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   /**
    * Handle format selection from dropdown
    */
-  const handleFormatSelect = async (format: typeof formats[0]) => {
+  const handleFormatSelect = async (format: (typeof formats)[0]) => {
     await handleCopy(format);
   };
 
@@ -75,9 +75,19 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
         gfm: true,
         pedantic: false,
         renderer: {
-          link: ({ href, title, text }: { href: string | null; title?: string | null; text: string }) => {
+          link: ({
+            href,
+            title,
+            text,
+          }: {
+            href: string | null;
+            title?: string | null;
+            text: string;
+          }) => {
             if (!href) return text;
-            const cleanHref = href.startsWith('http') ? href : `https://${href}`;
+            const cleanHref = href.startsWith('http')
+              ? href
+              : `https://${href}`;
             return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer"${title ? ` title="${title}"` : ''}>${text}</a>`;
           },
         },
@@ -90,13 +100,45 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       const sanitizedHtml = DOMPurify.sanitize(htmlContent, {
         ADD_ATTR: ['target', 'rel'],
         ALLOWED_TAGS: [
-          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-          'p', 'br', 'strong', 'em', 'u', 's',
-          'ul', 'ol', 'li', 'blockquote', 'pre', 'code',
-          'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
-          'div', 'span'
+          'h1',
+          'h2',
+          'h3',
+          'h4',
+          'h5',
+          'h6',
+          'p',
+          'br',
+          'strong',
+          'em',
+          'u',
+          's',
+          'ul',
+          'ol',
+          'li',
+          'blockquote',
+          'pre',
+          'code',
+          'a',
+          'img',
+          'table',
+          'thead',
+          'tbody',
+          'tr',
+          'th',
+          'td',
+          'div',
+          'span',
         ],
-        ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'src', 'alt', 'class', 'id']
+        ALLOWED_ATTR: [
+          'href',
+          'title',
+          'target',
+          'rel',
+          'src',
+          'alt',
+          'class',
+          'id',
+        ],
       });
 
       return sanitizedHtml;
@@ -414,7 +456,9 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
             <Dropdown.Trigger
               showChevron={false}
               className="memori-copy-button-trigger"
-              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+              render={(
+                props: React.ButtonHTMLAttributes<HTMLButtonElement>
+              ) => (
                 <Button
                   {...props}
                   disabled={disabled || loading || copyState.loading}

@@ -547,7 +547,10 @@
     background: color-mix(in srgb, var(--memori-chat-code-fg) 8%, transparent);
     color: var(--memori-chat-code-fg);
     cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.1s ease;
 }
 
 .memori-chat--code-block-copy:hover,
@@ -671,7 +674,8 @@
 
 /* Shared elevation for the floating addon and the highlighted message bubble. */
 .memori-chat--bubble-container.memori-chat--with-addon {
-    --memori-chat-addon-elevation: 0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
+    --memori-chat-addon-elevation:
+        0 4px 16px color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent),
         0 1px 3px color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
 }
 
@@ -702,7 +706,9 @@
     opacity: 0;
     pointer-events: none;
     transform: translate3d(0, -6px, 0) scale(0.98);
-    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+        opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     white-space: nowrap;
     will-change: opacity, transform;
 }

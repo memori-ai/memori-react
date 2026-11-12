@@ -19,7 +19,10 @@ export interface LlmUsageOnLine {
 export type UsageBadgeType = 'llm' | 'energy' | 'co2' | 'water';
 type NumericMetric = number | { source?: string; parsedValue?: number };
 type ImpactMetricType = 'energy' | 'co2' | 'water';
-type TranslateFn = (key: string, options?: { [key: string]: unknown }) => string;
+type TranslateFn = (
+  key: string,
+  options?: { [key: string]: unknown }
+) => string;
 
 export interface LlmUsageLabels {
   llm: string;
@@ -39,17 +42,14 @@ export interface LlmUsageLabels {
 }
 
 export const hasCacheTokenDetails = (
-  usage: Pick<
-    LlmUsageOnLine,
-    'inputCacheReadTokens' | 'inputCacheWriteTokens'
-  >,
+  usage: Pick<LlmUsageOnLine, 'inputCacheReadTokens' | 'inputCacheWriteTokens'>
 ): boolean =>
   (usage.inputCacheReadTokens ?? 0) > 0 ||
   (usage.inputCacheWriteTokens ?? 0) > 0;
 
 export const getCacheHitPercent = (
   cacheRead: number | undefined,
-  totalInput: number | undefined,
+  totalInput: number | undefined
 ): number | undefined => {
   if (
     typeof totalInput !== 'number' ||
@@ -65,7 +65,7 @@ export const getCacheHitPercent = (
 
 export const formatCacheHitPercent = (
   percent: number,
-  locale = 'it-IT',
+  locale = 'it-IT'
 ): string => `${formatIntegerValue(percent, locale)}%`;
 
 export const BADGE_EMOJI: Record<UsageBadgeType, string> = {
@@ -113,11 +113,14 @@ const formatMetricValue = (value: number, locale = 'it-IT'): string => {
 export const formatIntegerValue = (value: number, locale = 'it-IT'): string => {
   if (!Number.isFinite(value)) return '0';
   return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
-    value,
+    value
   );
 };
 
-export const formatDuration = (durationMs?: number, locale = 'it-IT'): string => {
+export const formatDuration = (
+  durationMs?: number,
+  locale = 'it-IT'
+): string => {
   if (typeof durationMs !== 'number' || !Number.isFinite(durationMs)) {
     return '—';
   }
@@ -152,7 +155,7 @@ const formatReadableDistance = (meters: number, locale = 'it-IT'): string => {
 
 const getApiUnitToBaseFactor = (
   unitFromApi: string | undefined,
-  metricType: ImpactMetricType,
+  metricType: ImpactMetricType
 ): number => {
   const u = (unitFromApi ?? '').trim().toLowerCase();
   if (metricType === 'energy') {
@@ -176,14 +179,15 @@ const getApiUnitToBaseFactor = (
 export const formatImpactInReadableUnit = (
   value: number,
   metricType: ImpactMetricType,
-  locale = 'it-IT',
+  locale = 'it-IT'
 ): string => {
   const absValue = Math.abs(value);
 
   if (metricType === 'energy') {
     if (absValue >= 1) return `${formatMetricValue(value, locale)} kWh`;
     const wattHours = value * 1000;
-    if (Math.abs(wattHours) >= 1) return `${formatMetricValue(wattHours, locale)} Wh`;
+    if (Math.abs(wattHours) >= 1)
+      return `${formatMetricValue(wattHours, locale)} Wh`;
     return `${formatMetricValue(wattHours * 1000, locale)} mWh`;
   }
 
@@ -196,7 +200,8 @@ export const formatImpactInReadableUnit = (
 
   if (absValue >= 1) return `${formatMetricValue(value, locale)} L`;
   const milliliters = value * 1000;
-  if (Math.abs(milliliters) >= 1) return `${formatMetricValue(milliliters, locale)} mL`;
+  if (Math.abs(milliliters) >= 1)
+    return `${formatMetricValue(milliliters, locale)} mL`;
   return `${formatMetricValue(milliliters * 1000, locale)} μL`;
 };
 
@@ -205,11 +210,11 @@ export const formatImpactWithApiUnit = (
   unitFromApi: string | undefined,
   fallbackUnit: string,
   metricType: ImpactMetricType,
-  locale = 'it-IT',
+  locale = 'it-IT'
 ): string => {
   const factor = getApiUnitToBaseFactor(
     unitFromApi ?? fallbackUnit,
-    metricType,
+    metricType
   );
   const baseValue = value * factor;
   return formatImpactInReadableUnit(baseValue, metricType, locale);
@@ -219,7 +224,7 @@ export const getImpactComparison = (
   value: number,
   metricType: ImpactMetricType,
   locale = 'it-IT',
-  t: TranslateFn,
+  t: TranslateFn
 ): string => {
   if (!Number.isFinite(value) || value <= 0) {
     return t('chatLogs.impactComparisonUnavailable');
@@ -275,7 +280,7 @@ export const buildLlmUsageHtml = (
   usage: LlmUsageOnLine,
   labels: LlmUsageLabels,
   lineIndex: number,
-  locale = 'it-IT',
+  locale = 'it-IT'
 ): string => {
   const badges = [
     buildUsageBadgeHtml({
@@ -297,7 +302,7 @@ export const buildLlmUsageHtml = (
       usage.energyImpact?.energyUnit,
       'kWh',
       'energy',
-      locale,
+      locale
     );
     badges.push(
       buildUsageBadgeHtml({
@@ -307,7 +312,7 @@ export const buildLlmUsageHtml = (
         value: escapeHtml(energyFormatted),
         lineIndex,
         emoji: BADGE_EMOJI.energy,
-      }),
+      })
     );
   }
 
@@ -317,7 +322,7 @@ export const buildLlmUsageHtml = (
       usage.energyImpact?.gwpUnit,
       'kgCO2eq',
       'co2',
-      locale,
+      locale
     );
     badges.push(
       buildUsageBadgeHtml({
@@ -327,7 +332,7 @@ export const buildLlmUsageHtml = (
         value: escapeHtml(co2Formatted),
         lineIndex,
         emoji: BADGE_EMOJI.co2,
-      }),
+      })
     );
   }
 
@@ -337,7 +342,7 @@ export const buildLlmUsageHtml = (
       usage.energyImpact?.wcfUnit,
       'L',
       'water',
-      locale,
+      locale
     );
     badges.push(
       buildUsageBadgeHtml({
@@ -347,13 +352,13 @@ export const buildLlmUsageHtml = (
         value: escapeHtml(waterFormatted),
         lineIndex,
         emoji: BADGE_EMOJI.water,
-      }),
+      })
     );
   }
 
   return `<div class="memori-chat--llm-usage" data-llm-usage><hr class="memori-chat--llm-usage-hr" /><p class="memori-chat--llm-usage-hint">${escapeHtml(
-    labels.usageBadgesHint,
+    labels.usageBadgesHint
   )}</p><div class="memori-chat--llm-usage-badges">${badges.join(
-    '',
+    ''
   )}</div></div>`;
 };

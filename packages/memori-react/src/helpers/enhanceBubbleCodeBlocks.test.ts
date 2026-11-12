@@ -21,9 +21,9 @@ describe('enhanceBubbleCodeBlocks', () => {
       block?.querySelector('.memori-chat--code-block-lang')?.textContent
     ).toBe('javascript');
     expect(
-      block?.querySelector('.memori-chat--code-block-copy')?.getAttribute(
-        'aria-label'
-      )
+      block
+        ?.querySelector('.memori-chat--code-block-copy')
+        ?.getAttribute('aria-label')
     ).toBe('Copy');
     expect(block?.querySelector('pre code')?.textContent).toBe('const x = 1;');
     // Does not double-wrap

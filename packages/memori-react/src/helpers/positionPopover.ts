@@ -40,10 +40,6 @@ export function shouldRestartSessionOnPositionPopoverClose(
   hasPosition = true
 ): boolean {
   return (
-    wasOpen &&
-    !nextOpen &&
-    !!autoStart &&
-    !sessionAlreadyStarted &&
-    hasPosition
+    wasOpen && !nextOpen && !!autoStart && !sessionAlreadyStarted && hasPosition
   );
 }

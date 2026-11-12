@@ -19,32 +19,32 @@ describe('shouldHoldAutoStartForLogin', () => {
 
 describe('shouldReturnToStartPanelAfterLogout', () => {
   it('returns to the start panel when mandatory login is lost during a session', () => {
-    expect(
-      shouldReturnToStartPanelAfterLogout(true, true, false, true)
-    ).toBe(true);
+    expect(shouldReturnToStartPanelAfterLogout(true, true, false, true)).toBe(
+      true
+    );
   });
 
   it('does not reset before the user was ever logged in', () => {
-    expect(
-      shouldReturnToStartPanelAfterLogout(true, false, false, true)
-    ).toBe(false);
+    expect(shouldReturnToStartPanelAfterLogout(true, false, false, true)).toBe(
+      false
+    );
   });
 
   it('does not reset when the user is still logged in', () => {
-    expect(
-      shouldReturnToStartPanelAfterLogout(true, true, true, true)
-    ).toBe(false);
+    expect(shouldReturnToStartPanelAfterLogout(true, true, true, true)).toBe(
+      false
+    );
   });
 
   it('does not reset when login is optional', () => {
-    expect(
-      shouldReturnToStartPanelAfterLogout(false, true, false, true)
-    ).toBe(false);
+    expect(shouldReturnToStartPanelAfterLogout(false, true, false, true)).toBe(
+      false
+    );
   });
 
   it('does not reset when there is no active session', () => {
-    expect(
-      shouldReturnToStartPanelAfterLogout(true, true, false, false)
-    ).toBe(false);
+    expect(shouldReturnToStartPanelAfterLogout(true, true, false, false)).toBe(
+      false
+    );
   });
 });

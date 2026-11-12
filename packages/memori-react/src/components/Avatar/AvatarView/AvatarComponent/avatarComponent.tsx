@@ -56,7 +56,7 @@ export const AvatarView = ({
   // This effect doesn't re-create the animator, it just uses it
   useEffect(() => {
     if (!animatorRef.current) return;
-    
+
     try {
       // Prevents any extra work if loading/emission hasn't changed
       animatorRef.current.processChatEmission(chatEmission, loading);
@@ -66,14 +66,24 @@ export const AvatarView = ({
   }, [loading, chatEmission]); // Both dependencies are needed
 
   // Memoize common props to prevent unnecessary object creation on re-renders
-  const commonAvatarProps = useCallback(() => ({
-    url,
-    onCameraZChange: setCameraZ,
-    updateCurrentViseme,
-    avatarHeight,
-    avatarDepth,
-    setAnimatorRef, // This is now stable across renders
-  }), [url, setCameraZ, updateCurrentViseme, avatarHeight, avatarDepth, setAnimatorRef]);
+  const commonAvatarProps = useCallback(
+    () => ({
+      url,
+      onCameraZChange: setCameraZ,
+      updateCurrentViseme,
+      avatarHeight,
+      avatarDepth,
+      setAnimatorRef, // This is now stable across renders
+    }),
+    [
+      url,
+      setCameraZ,
+      updateCurrentViseme,
+      avatarHeight,
+      avatarDepth,
+      setAnimatorRef,
+    ]
+  );
 
   // Render avatar based on halfBody flag
   return (

@@ -195,7 +195,7 @@ export const generateChatPDFCSS = (options: ChatPDFOptions = {}): string => {
 const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
   // Default fallback if not provided
   const rgbValue = primaryColorRgb || '130, 70, 175';
-  
+
   return `
     :root {
       --memori-primary-rgb: ${rgbValue};
@@ -494,8 +494,12 @@ const formatChatHeader = (
 export const formatChatHistoryForPDF = (
   params: ChatPDFExportParams
 ): string => {
-  const { messages, memori, conversationStartedLabel, language = 'en' } =
-    params;
+  const {
+    messages,
+    memori,
+    conversationStartedLabel,
+    language = 'en',
+  } = params;
 
   if (!messages || messages.length === 0) {
     return '';

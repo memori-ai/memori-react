@@ -226,37 +226,37 @@ export const VenueCombobox = ({
         {t('searchVenue')}
       </label>
       <Autocomplete
-      id={autocompleteRootId}
-      inputRef={inputRef as Ref<HTMLInputElement>}
-      className="memori--venue-widget-search"
-      options={options}
-      mode="none"
-      filter={null}
-      value={inputValue}
-      onChange={(value, details) => {
-        if (details.reason === ITEM_PRESS_REASON) {
-          const item = suggestions.find(
-            s => (getPlaceName(s) || s.display_name) === value
-          );
-          if (item) {
-            setUserCleared(false);
-            onQueryChange(value, { skipSearch: true });
-            onChange(item);
+        id={autocompleteRootId}
+        inputRef={inputRef as Ref<HTMLInputElement>}
+        className="memori--venue-widget-search"
+        options={options}
+        mode="none"
+        filter={null}
+        value={inputValue}
+        onChange={(value, details) => {
+          if (details.reason === ITEM_PRESS_REASON) {
+            const item = suggestions.find(
+              s => (getPlaceName(s) || s.display_name) === value
+            );
+            if (item) {
+              setUserCleared(false);
+              onQueryChange(value, { skipSearch: true });
+              onChange(item);
+            }
+            return;
           }
-          return;
-        }
-        setUserCleared(value.trim() === '');
-        onQueryChange(value);
-      }}
-      open={open}
-      onOpenChange={nextOpen => setOpen(nextOpen)}
-      placeholder={t('searchVenue')}
-      loading={fetching}
-      loadingText={`${t('loading')}...`}
-      emptyText={query.trim() ? t('nothingFound') : '\u200b'}
-      autoHighlight
-      clearable={inputValue.trim() !== ''}
-    />
+          setUserCleared(value.trim() === '');
+          onQueryChange(value);
+        }}
+        open={open}
+        onOpenChange={nextOpen => setOpen(nextOpen)}
+        placeholder={t('searchVenue')}
+        loading={fetching}
+        loadingText={`${t('loading')}...`}
+        emptyText={query.trim() ? t('nothingFound') : '\u200b'}
+        autoHighlight
+        clearable={inputValue.trim() !== ''}
+      />
     </>
   );
 };
@@ -378,7 +378,9 @@ const VenueWidget = ({
           add(
             createAlertOptions({
               description: placeName
-                ? t('write_and_speak.locationSavedWithPlace', { place: placeName })
+                ? t('write_and_speak.locationSavedWithPlace', {
+                    place: placeName,
+                  })
                 : t('write_and_speak.locationSaved'),
               severity: 'success',
             })
@@ -386,7 +388,13 @@ const VenueWidget = ({
         } catch (e) {
           let err = e as Error;
           console.error('[POSITION ERROR]', err);
-          if (err?.message) add(createAlertOptions({ description: err.message, severity: 'error' }));
+          if (err?.message)
+            add(
+              createAlertOptions({
+                description: err.message,
+                severity: 'error',
+              })
+            );
 
           setVenue(venue);
         } finally {
@@ -399,9 +407,12 @@ const VenueWidget = ({
         console.error('[POSITION ERROR]', err);
         const geoErr = err as any;
         let message = err.message || t('write_and_speak.locationErrorGeneric');
-        if (geoErr?.code === 1) message = t('write_and_speak.locationPermissionDenied');
-        else if (geoErr?.code === 2) message = t('write_and_speak.locationUnavailable');
-        else if (geoErr?.code === 3) message = t('write_and_speak.locationRequestTimedOut');
+        if (geoErr?.code === 1)
+          message = t('write_and_speak.locationPermissionDenied');
+        else if (geoErr?.code === 2)
+          message = t('write_and_speak.locationUnavailable');
+        else if (geoErr?.code === 3)
+          message = t('write_and_speak.locationRequestTimedOut');
         add(createAlertOptions({ description: message, severity: 'error' }));
         setUpdatingPosition(false);
       }
@@ -544,7 +555,9 @@ const VenueWidget = ({
                 }}
               >
                 {venue?.uncertainty &&
-                  ![0, 1, 2, 5, 10, 20, 50, 100].includes(venue.uncertainty) && (
+                  ![0, 1, 2, 5, 10, 20, 50, 100].includes(
+                    venue.uncertainty
+                  ) && (
                     <option value={venue.uncertainty}>
                       {venue.uncertainty} Km
                     </option>

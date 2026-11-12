@@ -47,7 +47,8 @@ export function enhanceBubbleCodeBlocks(
       toolbar.appendChild(langEl);
     } else {
       const spacer = document.createElement('span');
-      spacer.className = 'memori-chat--code-block-lang memori-chat--code-block-lang--empty';
+      spacer.className =
+        'memori-chat--code-block-lang memori-chat--code-block-lang--empty';
       toolbar.appendChild(spacer);
     }
 

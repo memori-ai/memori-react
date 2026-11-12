@@ -49,8 +49,7 @@ describe('brand token cascade (styles.css)', () => {
     );
     const darkBlock = overridesBlocks.find(
       block =>
-        block.includes("data-theme='dark'") &&
-        block.includes('.memori-widget')
+        block.includes("data-theme='dark'") && block.includes('.memori-widget')
     );
 
     expect(lightBlock).toMatch(iconToken);
@@ -60,8 +59,7 @@ describe('brand token cascade (styles.css)', () => {
   it('rebinds dark primary-derived tokens on dark host scopes', () => {
     const darkBlock = overridesBlocks.find(
       block =>
-        block.includes("data-theme='dark'") &&
-        block.includes('.memori-widget')
+        block.includes("data-theme='dark'") && block.includes('.memori-widget')
     );
 
     expect(darkBlock).toBeDefined();

@@ -40,7 +40,7 @@ const layoutProps = (overrides: Partial<LayoutProps> = {}): LayoutProps =>
     startPanelProps: {} as LayoutProps['startPanelProps'],
     Avatar: (() => null) as unknown as LayoutProps['Avatar'],
     ...overrides,
-  } as LayoutProps);
+  }) as LayoutProps;
 
 const lastChatInputsProps = () =>
   mockChatInputs.mock.calls[mockChatInputs.mock.calls.length - 1]?.[0];
@@ -53,7 +53,10 @@ it('CHAT layout forwards onMediumSelectedState to its input bar', () => {
   render(
     <ArtifactProvider>
       <ChatLayout
-        {...layoutProps({ sessionId: 'session-1', hasUserActivatedSpeak: true })}
+        {...layoutProps({
+          sessionId: 'session-1',
+          hasUserActivatedSpeak: true,
+        })}
       />
     </ArtifactProvider>
   );

@@ -32,7 +32,7 @@ const makeChatLog = (
       },
     ],
     ...overrides,
-  } as ChatLog);
+  }) as ChatLog;
 
 const renderDrawer = (
   apiClient: ReturnType<typeof memoriApiClient>,
@@ -68,7 +68,7 @@ const mockPagedClient = (chatLogs: ChatLog[], count = chatLogs.length) =>
         count,
       }),
     },
-  } as unknown as ReturnType<typeof memoriApiClient>);
+  }) as unknown as ReturnType<typeof memoriApiClient>;
 
 it('does not show a subtitle that repeats the drawer title', async () => {
   renderDrawer(mockPagedClient([]));

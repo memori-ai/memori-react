@@ -108,7 +108,7 @@ const ChatInputs: React.FC<Props> = ({
   const [uploadingCount, setUploadingCount] = useState(0);
   const handleUploadLoadingChange = useCallback(
     (loading: boolean, fileCount?: number) => {
-      setUploadingCount(loading ? fileCount ?? 1 : 0);
+      setUploadingCount(loading ? (fileCount ?? 1) : 0);
     },
     []
   );

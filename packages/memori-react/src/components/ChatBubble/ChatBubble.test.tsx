@@ -89,9 +89,7 @@ it('renders login and session resume as a status tag', () => {
   );
 
   const resumeStatus = screen.getByRole('status');
-  expect(resumeStatus).toHaveTextContent(
-    'Session expired, reopening session'
-  );
+  expect(resumeStatus).toHaveTextContent('Session expired, reopening session');
   expect(resumeStatus).not.toHaveClass(
     'memori-chat--bubble-status-message--success'
   );
@@ -813,7 +811,9 @@ it('hides timestamps when showDates is false even if a timestamp is present', ()
   );
 
   expect(
-    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+    container.querySelector(
+      '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+    )
   ).not.toBeInTheDocument();
 });
 
@@ -878,7 +878,9 @@ it('shows timestamps in the chatlog panel when showDates is true', () => {
   );
 
   expect(
-    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+    container.querySelector(
+      '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+    )
   ).toBeInTheDocument();
 });
 
@@ -898,7 +900,9 @@ it('does not crash when showDates is true but the timestamp is invalid', () => {
   );
 
   expect(
-    container.querySelector('.memori-chat--bubble-addon .memori-chat--bubble-timestamp')
+    container.querySelector(
+      '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+    )
   ).not.toBeInTheDocument();
   expect(container.querySelector('.memori-chat--bubble')).toBeInTheDocument();
 });

@@ -619,7 +619,9 @@ const LoginModal = ({
                 onBlur={() => setIsBirthDateFocused(false)}
                 autoComplete="bday"
               />
-              <Field.Description>{t('login.birthDateHelper')}</Field.Description>
+              <Field.Description>
+                {t('login.birthDateHelper')}
+              </Field.Description>
             </Field.Root>
           )}
 
@@ -718,10 +720,10 @@ const LoginModal = ({
       {loggingIn
         ? loggingInStep
         : isMissingDataStep
-        ? missingDataStep
-        : showOtpCodeForm
-        ? codeStep
-        : emailStep}
+          ? missingDataStep
+          : showOtpCodeForm
+            ? codeStep
+            : emailStep}
     </Modal>
   );
 };

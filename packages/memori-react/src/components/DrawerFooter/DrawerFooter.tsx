@@ -24,7 +24,8 @@ const DrawerFooter: React.FC<DrawerFooterProps> = ({
   onClose,
   className = '',
 }) => {
-  const hasSlots = start != null || end != null || center != null || closeLabel != null;
+  const hasSlots =
+    start != null || end != null || center != null || closeLabel != null;
 
   return (
     <footer className={`memori-drawer-footer ${className}`.trim()}>

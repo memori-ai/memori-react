@@ -1,7 +1,4 @@
-import {
-  is3dAvatarWithUrl,
-  usesRpmAvatarView,
-} from './integration';
+import { is3dAvatarWithUrl, usesRpmAvatarView } from './integration';
 
 describe('integration avatar helpers', () => {
   const avatarURL = 'https://example.com/avatar.glb';

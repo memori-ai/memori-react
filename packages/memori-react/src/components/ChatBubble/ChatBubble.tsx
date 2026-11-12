@@ -436,19 +436,19 @@ const ChatBubble: React.FC<Props> = ({
                 experts.find(e => e.name === message.emitter)?.expertMemoriID
               }`
             : memori.avatarURL && memori.avatarURL.length > 0
-            ? getResourceUrl({
-                type: 'avatar',
-                tenantID: tenant?.name,
-                resourceURI: memori.avatarURL,
-                baseURL: baseUrl,
-                apiURL: apiUrl,
-              })
-            : getResourceUrl({
-                tenantID: tenant?.name,
-                type: 'avatar',
-                baseURL: baseUrl || 'https://www.aisuru.com',
-                apiURL: apiUrl,
-              })
+              ? getResourceUrl({
+                  type: 'avatar',
+                  tenantID: tenant?.name,
+                  resourceURI: memori.avatarURL,
+                  baseURL: baseUrl,
+                  apiURL: apiUrl,
+                })
+              : getResourceUrl({
+                  tenantID: tenant?.name,
+                  type: 'avatar',
+                  baseURL: baseUrl || 'https://www.aisuru.com',
+                  apiURL: apiUrl,
+                })
         }
         onError={e => {
           e.currentTarget.src =
@@ -555,10 +555,10 @@ const ChatBubble: React.FC<Props> = ({
     exposedSourcesCount == null
       ? undefined
       : exposedSourcesCount > 0
-      ? t('whyThisAnswerSourcesCount', {
-          count: exposedSourcesCount,
-        })
-      : t('whyThisAnswerNoSources');
+        ? t('whyThisAnswerSourcesCount', {
+            count: exposedSourcesCount,
+          })
+        : t('whyThisAnswerNoSources');
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
@@ -747,8 +747,8 @@ const ChatBubble: React.FC<Props> = ({
                             copyStatus.plain === 'success'
                               ? copiedLabel
                               : copyStatus.plain === 'error'
-                              ? t('copyFailed')
-                              : t('copy') || 'Copy'
+                                ? t('copyFailed')
+                                : t('copy') || 'Copy'
                           }
                         >
                           <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -761,8 +761,8 @@ const ChatBubble: React.FC<Props> = ({
                                 copyStatus.plain === 'success'
                                   ? String(copiedLabel)
                                   : copyStatus.plain === 'error'
-                                  ? String(t('copyFailed'))
-                                  : String(t('copy') || 'Copy')
+                                    ? String(t('copyFailed'))
+                                    : String(t('copy') || 'Copy')
                               }
                               className={cx(
                                 'memori-chat--bubble-action-button',
@@ -802,8 +802,8 @@ const ChatBubble: React.FC<Props> = ({
                             copyStatus.raw === 'success'
                               ? copiedLabel
                               : copyStatus.raw === 'error'
-                              ? t('copyFailed')
-                              : t('copyRawCode') || 'Copy raw code'
+                                ? t('copyFailed')
+                                : t('copyRawCode') || 'Copy raw code'
                           }
                         >
                           <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -816,8 +816,10 @@ const ChatBubble: React.FC<Props> = ({
                                 copyStatus.raw === 'success'
                                   ? String(copiedLabel)
                                   : copyStatus.raw === 'error'
-                                  ? String(t('copyFailed'))
-                                  : String(t('copyRawCode') || 'Copy raw code')
+                                    ? String(t('copyFailed'))
+                                    : String(
+                                        t('copyRawCode') || 'Copy raw code'
+                                      )
                               }
                               className={cx(
                                 'memori-chat--bubble-action-button',
@@ -988,8 +990,8 @@ const ChatBubble: React.FC<Props> = ({
                           copyStatus.plain === 'success'
                             ? copiedLabel
                             : copyStatus.plain === 'error'
-                            ? t('copyFailed')
-                            : t('copy') || 'Copy'
+                              ? t('copyFailed')
+                              : t('copy') || 'Copy'
                         }
                       >
                         <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -1002,8 +1004,8 @@ const ChatBubble: React.FC<Props> = ({
                               copyStatus.plain === 'success'
                                 ? String(copiedLabel)
                                 : copyStatus.plain === 'error'
-                                ? String(t('copyFailed'))
-                                : String(t('copy') || 'Copy')
+                                  ? String(t('copyFailed'))
+                                  : String(t('copy') || 'Copy')
                             }
                             className={cx(
                               'memori-chat--bubble-action-button',
@@ -1043,8 +1045,8 @@ const ChatBubble: React.FC<Props> = ({
                           copyStatus.raw === 'success'
                             ? copiedLabel
                             : copyStatus.raw === 'error'
-                            ? t('copyFailed')
-                            : t('copyRawCode') || 'Copy raw code'
+                              ? t('copyFailed')
+                              : t('copyRawCode') || 'Copy raw code'
                         }
                       >
                         <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -1057,8 +1059,8 @@ const ChatBubble: React.FC<Props> = ({
                               copyStatus.raw === 'success'
                                 ? String(copiedLabel)
                                 : copyStatus.raw === 'error'
-                                ? String(t('copyFailed'))
-                                : String(t('copyRawCode') || 'Copy raw code')
+                                  ? String(t('copyFailed'))
+                                  : String(t('copyRawCode') || 'Copy raw code')
                             }
                             className={cx(
                               'memori-chat--bubble-action-button',

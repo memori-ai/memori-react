@@ -100,7 +100,10 @@ const KnownFacts = ({
     async ({
       from = 0,
       append = false,
-    }: { from?: number; append?: boolean } = {}) => {
+    }: {
+      from?: number;
+      append?: boolean;
+    } = {}) => {
       if (disableFetch) {
         applyLocalPage(from, append);
         return;

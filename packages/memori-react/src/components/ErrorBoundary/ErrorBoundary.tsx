@@ -40,7 +40,10 @@ class ErrorBoundary extends Component<Props, State> {
           }}
         >
           <h2>{this.props.t('error.generic')}</h2>
-          <Button variant="primary" onClick={() => this.setState({ hasError: false })}>
+          <Button
+            variant="primary"
+            onClick={() => this.setState({ hasError: false })}
+          >
             {this.props.t('error.tryAgain') || 'Try again'}
           </Button>
         </div>

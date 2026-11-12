@@ -38,10 +38,7 @@ const PROVIDER_CONFIGS: Record<string, ProviderConfig> = {
   Anthropic: {
     statusUrl: 'https://status.claude.com/api/v2/summary.json',
     statusPage: 'https://status.claude.com/',
-    apiComponentName: [
-      'Claude API (api.anthropic.com)',
-      'api.anthropic.com',
-    ],
+    apiComponentName: ['Claude API (api.anthropic.com)', 'api.anthropic.com'],
   },
 };
 
@@ -53,47 +50,47 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
       console.warn(`Status API returned ${response.status}`);
       return 'operational'; // Fallback to operational on API errors
     }
-    
+
     const data = await response.json();
-    
+
     // Skip incident checking - just rely on component status which is more reliable
-    
+
     // If no incidents or they're all resolved, check specific API components
     if (data.components) {
       // First try with primary API component names
       if (config.apiComponentName) {
-        const apiComponentNames = Array.isArray(config.apiComponentName) 
-          ? config.apiComponentName 
+        const apiComponentNames = Array.isArray(config.apiComponentName)
+          ? config.apiComponentName
           : [config.apiComponentName];
-        
+
         for (const name of apiComponentNames) {
           const apiComponent = data.components.find(
             (component: { name: string }) => component.name === name
           );
-          
+
           if (apiComponent && apiComponent.status !== 'operational') {
             return apiComponent.status as Status;
           }
         }
       }
-      
+
       // Check if any component is degraded (might indicate API issues)
       const anyDegradedComponent = data.components.some(
         (component: { status: string }) => component.status !== 'operational'
       );
-      
+
       if (anyDegradedComponent) {
         return 'degraded_performance';
       }
     }
-    
+
     // If no specific component issues found, check overall status
     if (data.status && data.status.indicator !== 'none') {
       if (data.status.indicator === 'critical') return 'major_outage';
       if (data.status.indicator === 'major') return 'partial_outage';
       if (data.status.indicator === 'minor') return 'degraded_performance';
     }
-    
+
     return 'operational'; // Default to operational if no issues detected
   } catch (error) {
     console.error('Error fetching provider status:', error);
@@ -169,9 +166,9 @@ const CompletionProviderStatus = ({
             provider: provider ?? t('completionProviderFallbackName'),
             fallback: t('completionProviderDown', {
               provider: provider ?? t('completionProviderFallbackName'),
-            })
+            }),
           }),
-          className: "memori--completion-provider-status--icon-error"
+          className: 'memori--completion-provider-status--icon-error',
         };
       case 'partial_outage':
         return {
@@ -180,9 +177,9 @@ const CompletionProviderStatus = ({
             provider: provider ?? t('completionProviderFallbackName'),
             fallback: t('completionProviderDown', {
               provider: provider ?? t('completionProviderFallbackName'),
-            })
+            }),
           }),
-          className: "memori--completion-provider-status--icon-warning"
+          className: 'memori--completion-provider-status--icon-warning',
         };
       case 'degraded_performance':
       default:
@@ -192,9 +189,9 @@ const CompletionProviderStatus = ({
             provider: provider ?? t('completionProviderFallbackName'),
             fallback: t('completionProviderDown', {
               provider: provider ?? t('completionProviderFallbackName'),
-            })
+            }),
           }),
-          className: "memori--completion-provider-status--icon-info"
+          className: 'memori--completion-provider-status--icon-info',
         };
     }
   };
@@ -222,7 +219,9 @@ const CompletionProviderStatus = ({
         </div>
       }
     >
-      <Icon className={`memori--completion-provider-status--icon ${className}`} />
+      <Icon
+        className={`memori--completion-provider-status--icon ${className}`}
+      />
     </Tooltip>
   );
 };

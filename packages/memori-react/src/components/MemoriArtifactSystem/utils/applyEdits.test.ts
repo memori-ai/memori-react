@@ -44,9 +44,7 @@ describe('applyEdits', () => {
   });
 
   it('returns original content when all edits fail', () => {
-    const result = applyEdits('unchanged', [
-      { old: 'foo', new: 'bar' },
-    ]);
+    const result = applyEdits('unchanged', [{ old: 'foo', new: 'bar' }]);
     expect(result.content).toBe('unchanged');
     expect(result.appliedCount).toBe(0);
     expect(result.failedEdits).toHaveLength(1);

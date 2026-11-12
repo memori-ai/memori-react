@@ -39,9 +39,7 @@ const tokenize = (query: string): string[] =>
   query
     .split(/\s+/)
     .map(token => token.replace(/[^\p{L}\p{N}]+/gu, ''))
-    .filter(
-      token => token.length >= 3 && !STOPWORDS.has(token.toLowerCase())
-    );
+    .filter(token => token.length >= 3 && !STOPWORDS.has(token.toLowerCase()));
 
 export const highlightMatches = (
   text: string,
