@@ -30,7 +30,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@3.8.7",
   "scripts": {
     "start": "parcel serve example/index.html --dist-dir dist",
     "dev": "parcel serve example/index.html --dist-dir dist",
