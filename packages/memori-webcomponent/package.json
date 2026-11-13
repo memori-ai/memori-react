@@ -7,14 +7,17 @@
   "files": [
     "dist",
     "src",
-    "CHANGELOG.md",
     "LICENSE",
     "README.md"
   ],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/memori-ai/memori-webcomponent#readme",
-  "bugs": "https://github.com/memori-ai/memori-webcomponent/issues",
-  "repository": "https://github.com/memori-ai/memori-webcomponent.git",
+  "homepage": "https://github.com/memori-ai/memori-react/tree/main/packages/memori-webcomponent#readme",
+  "bugs": "https://github.com/memori-ai/memori-react/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/memori-ai/memori-react.git",
+    "directory": "packages/memori-webcomponent"
+  },
   "keywords": [
     "memori",
     "memori-ai",
@@ -42,27 +45,6 @@
     "typecheck": "tsc --noEmit",
     "prepack": "yarn build"
   },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-recommended",
-      "stylelint-config-prettier",
-      "stylelint-config-idiomatic-order"
-    ],
-    "rules": {
-      "at-rule-no-unknown": [
-        true,
-        {
-          "ignoreA`tRules": [
-            "extend",
-            "function",
-            "include",
-            "mixin",
-            "return"
-          ]
-        }
-      ]
-    }
-  },
   "devDependencies": {
     "@biomejs/biome": "2.6.7",
     "@parcel/packager-ts": "2.16.4",
@@ -83,10 +65,6 @@
     "rimraf": "3.0.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.1.0",
-    "stylelint": "14.15.0",
-    "stylelint-config-idiomatic-order": "9.0.0",
-    "stylelint-config-prettier": "9.0.4",
-    "stylelint-config-recommended": "9.0.0",
     "typescript": "5.5.4",
     "url": "^0.11.0",
     "util": "^0.12.3"

@@ -15,7 +15,11 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/memori-ai/memori-react#readme",
   "bugs": "https://github.com/memori-ai/memori-react/issues",
-  "repository": "https://github.com/memori-ai/memori-react.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/memori-ai/memori-react.git",
+    "directory": "packages/memori-react"
+  },
   "keywords": [
     "memori",
     "memori-ai",

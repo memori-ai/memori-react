@@ -86,9 +86,13 @@ memori-client,
 }
 ```
 
-You can review the default styles in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/src/styles.css) file.
+You can review the default styles in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/packages/memori-react/src/styles.css) file.
 
 ## See also
 
 - [memori-api-client](https://github.com/memori-ai/memori-api-client) - API client for Memori
 - [memori-react](https://github.com/memori-ai/memori-react) - React library for Memori, used by this library
+
+## Changelog
+
+The webcomponent is released together with memori-react, with the same version. See the [memori-react changelog](https://github.com/memori-ai/memori-react/blob/main/packages/memori-react/CHANGELOG.md).

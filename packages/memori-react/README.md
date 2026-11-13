@@ -363,13 +363,13 @@ Dark-specific primary-derived tokens are recomputed automatically; override them
 
 #### Reference
 
-You can review the default styles and the full list of tokens in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/src/styles.css) file and in the `@memori.ai/ui` stylesheet (`node_modules/@memori.ai/ui/dist/memori-ai-ui.css`). Per-component classes follow the `memori-<component>` naming (e.g. `.memori-chat--wrapper`, `.memori-chat--bubble`, `.memori-header`, `.memori--start-panel`); the widget root also gets `memori-layout-<layout>` and `memori-controls-<position>` modifiers.
+You can review the default styles and the full list of tokens in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/packages/memori-react/src/styles.css) file and in the `@memori.ai/ui` stylesheet (`node_modules/@memori.ai/ui/dist/memori-ai-ui.css`). Per-component classes follow the `memori-<component>` naming (e.g. `.memori-chat--wrapper`, `.memori-chat--bubble`, `.memori-header`, `.memori--start-panel`); the widget root also gets `memori-layout-<layout>` and `memori-controls-<position>` modifiers.
 
 ### Custom layout
 
 You can override the default layout by passing a custom layout component to the `customLayout` prop.
 
-The custom layout component must be a React functional component that accepts a [LayoutProps](https://github.com/memori-ai/memori-react/blob/main/src/components/MemoriWidget/MemoriWidget.tsx) object as props (search for `export interface LayoutProps`).
+The custom layout component must be a React functional component that accepts a [LayoutProps](https://github.com/memori-ai/memori-react/blob/main/packages/memori-react/src/components/MemoriWidget/MemoriWidget.tsx) object as props (search for `export interface LayoutProps`).
 
 Available `LayoutProps`:
 
@@ -740,9 +740,9 @@ interface ArtifactData {
 corepack enable && yarn install --immutable
 
 yarn storybook   # run Storybook on http://localhost:6006
-yarn test        # run tests in watch mode
+yarn workspace @memori.ai/memori-react test     # run tests in watch mode
 yarn test:ci     # run tests once (CI)
-yarn lint        # eslint + stylelint
+yarn lint        # biome + stylelint
 yarn typecheck   # tsc --noEmit
 yarn build       # build dist/ (CJS) and esm/ (ESM) + styles.css
 ```

@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import type { Integration } from '@memori.ai/memori-api-client/dist/types';
 import Memori from '@memori.ai/memori-react';
 
@@ -71,7 +71,7 @@ class MemoriWebComponent extends HTMLElement {
     }
 
     if (tenantID) {
-      ReactDOM.render(
+      createRoot(mountPoint).render(
         <Memori
           {...props}
           apiURL={apiURL}
@@ -80,8 +80,7 @@ class MemoriWebComponent extends HTMLElement {
           additionalInfo={additionalInfo}
           integration={parsedIntegration}
           __WEBCOMPONENT__={true}
-        />,
-        mountPoint
+        />
       );
     } else {
       console.error('No tenantId attribute found');
