@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['22.x', '24.x']
+        node: ['24.x']
         os: [ubuntu-latest, macOS-latest]
 
     steps:
@@ -25,11 +25,14 @@ jobs:
       - name: 🔎 Lint
         run: yarn lint
 
-      - name: 🧪 Test
-        run: yarn test:ci --coverage --maxWorkers=2
-
       - name: ⚙️ Build
         run: yarn build
 
+      - name: 🔎 Typecheck
+        run: yarn typecheck
+
+      - name: 🧪 Test
+        run: yarn test:ci --coverage --maxWorkers=2
+
       - name: 🚨 Audit
-        run: yarn npm audit --environment production
+        run: yarn npm audit --all --recursive --environment production

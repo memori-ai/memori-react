@@ -1,0 +1,194 @@
+{
+  "version": "9.1.7",
+  "name": "@memori.ai/memori-react",
+  "author": "Memori Srl",
+  "main": "dist/index.js",
+  "module": "esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "esm",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/memori-ai/memori-react#readme",
+  "bugs": "https://github.com/memori-ai/memori-react/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/memori-ai/memori-react.git",
+    "directory": "packages/memori-react"
+  },
+  "keywords": [
+    "memori",
+    "memori-ai",
+    "react",
+    "nlp",
+    "typescript",
+    "ai",
+    "storybook",
+    "conversational-agents",
+    "conversational-ai"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "yarn@3.8.7",
+  "storybook": {
+    "url": "https://memori-ai.github.io/memori-react/"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "clean": "rimraf dist esm",
+    "copy-files:cjs": "copyfiles -u 1 src/**/*.css dist/",
+    "copy-files:esm": "copyfiles -u 1 src/**/*.css esm/",
+    "cleanup-test:cjs": "find dist \\( -name '*.test.*' -o -name 'testUtils.*' -o -name 'CopyButtonTest.*' \\) -type f -delete",
+    "cleanup-stories:cjs": "find dist -name '*.stories.*' -type f -delete",
+    "cleanup-test:esm": "find esm \\( -name '*.test.*' -o -name 'testUtils.*' -o -name 'CopyButtonTest.*' \\) -type f -delete",
+    "cleanup-stories:esm": "find esm -name '*.stories.*' -type f -delete",
+    "cleanup-mocks": "rimraf dist/mocks esm/mocks dist/components/MemoriArtifactSystem/components/ArtifactActions/test esm/components/MemoriArtifactSystem/components/ArtifactActions/test",
+    "cleanup": "yarn cleanup-test:cjs && yarn cleanup-stories:cjs && yarn cleanup-test:esm && yarn cleanup-stories:esm && yarn cleanup-mocks",
+    "copy-files": "yarn copy-files:cjs && yarn copy-files:esm",
+    "build:css:cjs": "postcss src/styles.css -o dist/styles.css",
+    "build:css:esm": "postcss src/styles.css -o esm/styles.css",
+    "build:css": "yarn build:css:cjs && yarn build:css:esm",
+    "build:cjs": "tsc --module commonjs --outDir dist",
+    "build:esm": "tsc --module esnext --outDir esm",
+    "update-version": "node ./scripts/update-version.js",
+    "prebuild": "yarn clean",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn copy-files && yarn cleanup && yarn build:css",
+    "postbuild": "yarn copy-files && yarn build:css",
+    "test:ci": "TZ=UTC NODE_ENV=test jest --passWithNoTests --ci src",
+    "test:coverage": "TZ=UTC NODE_ENV=test jest --coverage src",
+    "test": "TZ=UTC NODE_ENV=test jest --watch src",
+    "lint:ts": "biome check src --diagnostic-level=error",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint": "yarn lint:ts && yarn lint:css",
+    "typecheck": "tsc --noEmit",
+    "prepack": "yarn build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "format": "biome format --write src",
+    "sb": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
+    "storybook:emulator": "storybook dev --port 3000 --host 0.0.0.0 --ci",
+    "build-storybook": "storybook build"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-recommended",
+      "stylelint-config-prettier",
+      "stylelint-config-idiomatic-order"
+    ],
+    "rules": {
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "extend",
+            "function",
+            "include",
+            "mixin",
+            "return"
+          ]
+        }
+      ]
+    }
+  },
+  "size-limit": [
+    {
+      "path": "dist/memori-react.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/memori-react.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "7.29.7",
+    "@babel/plugin-bugfix-safari-rest-destructuring-rhs-array": "^7.29.7",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.4",
+    "@biomejs/biome": "2.6.7",
+    "@size-limit/preset-small-lib": "8.1.0",
+    "@storybook/addon-a11y": "7.4.0",
+    "@storybook/addon-essentials": "7.4.0",
+    "@storybook/addon-links": "7.4.0",
+    "@storybook/addon-mdx-gfm": "7.4.0",
+    "@storybook/addons": "7.4.0",
+    "@storybook/react": "7.4.0",
+    "@storybook/react-webpack5": "7.4.0",
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "13.4.0",
+    "@types/jest": "29.2.4",
+    "@types/leaflet": "^1.9.11",
+    "@types/luxon": "^3.3.7",
+    "@types/prop-types": "15.7.5",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@types/three": "0.144.0",
+    "autoprefixer": "10.4.13",
+    "babel-jest": "29.3.1",
+    "babel-loader": "9.1.0",
+    "copyfiles": "2.4.1",
+    "cssnano": "5.1.14",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "29.3.1",
+    "jest-environment-jsdom": "29.3.1",
+    "postcss": "8.5.28",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "prop-types": "15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-is": "18.2.0",
+    "rimraf": "3.0.2",
+    "size-limit": "8.1.0",
+    "storybook": "7.4.0",
+    "stylelint": "14.15.0",
+    "stylelint-config-idiomatic-order": "9.0.0",
+    "stylelint-config-prettier": "9.0.4",
+    "stylelint-config-recommended": "9.0.0",
+    "ts-jest": "^29.2.0",
+    "tslib": "2.4.1",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "typescript": ">=4.8"
+  },
+  "dependencies": {
+    "@memori.ai/memori-api-client": "6.24.1",
+    "@memori.ai/ui": "2.0.7",
+    "@nats-io/jetstream": "^3.4.0",
+    "@nats-io/nats-core": "^3.4.0",
+    "@react-three/drei": "8.20.2",
+    "@react-three/fiber": "7.0.25",
+    "@tanstack/react-table": "^8.21.0",
+    "classnames": "2.5.1",
+    "dompurify": "^3.4.17",
+    "ellipsed": "1.6.0",
+    "i18next": "22.0.6",
+    "katex": "0.18.10",
+    "leaflet": "^1.9.4",
+    "lil-gui": "^0.19.2",
+    "lucide-react": "^0.460.0",
+    "luxon": "^3.5.0",
+    "marked": "^15.0.2",
+    "marked-katex-extension": "5.1.13",
+    "marked-linkify-it": "^3.1.12",
+    "qrcode.react": "3.1.0",
+    "react-hook-form": "7.39.5",
+    "react-i18next": "12.0.0",
+    "react-leaflet": "^4.2.1",
+    "standardized-audio-context": "25.3.34",
+    "three": "0.144.0",
+    "tiny-invariant": "^1.3.3"
+  }
+}

@@ -17,10 +17,10 @@ jobs:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 18
+      - name: Use Node.js 24
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 24
 
       - name: ⚒ Install deps
         if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
@@ -33,4 +33,4 @@ jobs:
       - name: 🚀 Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ./storybook-static/
+          source-dir: ./packages/memori-react/storybook-static/

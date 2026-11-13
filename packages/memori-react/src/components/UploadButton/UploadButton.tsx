@@ -1,0 +1,725 @@
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
+import { Upload as UploadIcon } from 'lucide-react';
+import { Spin, Tooltip, useAlertManager } from '@memori.ai/ui';
+import IconButton from '../IconButton/IconButton';
+import cx from 'classnames';
+import UploadDocuments, {
+  ProcessedDocumentFile,
+} from './UploadDocuments/UploadDocuments';
+import UploadImages from './UploadImages/UploadImages';
+import { useTranslation } from 'react-i18next';
+import memoriApiClient from '@memori.ai/memori-api-client';
+import {
+  documentConversionExtensions,
+  localTextExtensions,
+  officeNativeExtensions,
+} from '../../helpers/constants';
+import { DialogState } from '@memori.ai/memori-api-client/dist/types';
+// Props interface
+interface UploadManagerProps {
+  authToken?: string;
+  client?: ReturnType<typeof memoriApiClient>;
+  sessionID?: string;
+  baseUrl?: string;
+  isMediaAccepted?: boolean;
+  setDocumentPreviewFiles: any;
+  documentPreviewFiles: {
+    name: string;
+    id: string;
+    content: string;
+    mediumID?: string;
+    type?: string;
+  }[];
+  memoriID?: string;
+  /** Override per-document content length limit (character count). */
+  maxTotalMessagePayload?: number;
+  /** Max attachments (docs + images) per message. */
+  maxDocumentsPerMessage?: number;
+  /** Per-document content character limit. */
+  maxDocumentContentLength?: number;
+  /** Called when the upload loading state changes. */
+  onUploadLoadingChange?: (loading: boolean, fileCount?: number) => void;
+  /** When true, the control does not open the file picker and ignores paste/drop for uploads. */
+  disabled?: boolean;
+  /** Sync engine dialog state after MediumSelected. */
+  onMediumSelectedState?: (state: DialogState) => void;
+}
+
+const UploadButton: React.FC<UploadManagerProps> = ({
+  authToken = '',
+  client,
+  sessionID = '',
+  baseUrl = '',
+  isMediaAccepted = false,
+  setDocumentPreviewFiles,
+  documentPreviewFiles,
+  memoriID = '',
+  maxTotalMessagePayload,
+  maxDocumentsPerMessage = 10,
+  maxDocumentContentLength = 300000,
+  onUploadLoadingChange,
+  disabled = false,
+  onMediumSelectedState,
+}) => {
+  // Per-document character limit for the inlined `<document_attachment>`
+  // content. Also sent to the conversion API as `max_caratteri`; the original
+  // file stays reachable through `<attachment_link>` (gateway link, ~30 days).
+  const effectivePerDocumentLimit =
+    maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
+  // State
+  const [isDocumentLoading, setIsDocumentLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const isLoading = isDocumentLoading || isImageLoading;
+  const [docUploadingCount, setDocUploadingCount] = useState(0);
+  const [imgUploadingCount, setImgUploadingCount] = useState(0);
+  const uploadingFileCount = docUploadingCount + imgUploadingCount;
+  const [isDragging, setIsDragging] = useState(false);
+  const { t } = useTranslation();
+  const alertManager = useAlertManager();
+
+  // Refs
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const documentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const unifiedInputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // Calculate total media count
+  const currentMediaCount = documentPreviewFiles.length;
+  const remainingSlots = maxDocumentsPerMessage - currentMediaCount;
+  const hasReachedMediaLimit = remainingSlots <= 0;
+
+  // Error handling - show alerts via toast manager
+  const addError = useCallback(
+    (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+      alertManager.add({
+        id: `upload-notification-${Date.now()}`,
+        title: 'Upload notification',
+        description: error.message,
+        data: {
+          severity: error.severity,
+          closable: true,
+          style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' },
+        },
+      });
+    },
+    [alertManager]
+  );
+
+  // Check if file is an image
+  const isImageFile = (file: File): boolean => {
+    const imageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const imageExtensions = ['.jpg', '.jpeg', '.png'];
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    return imageTypes.includes(file.type) || imageExtensions.includes(fileExt);
+  };
+
+  // Check if file is a document
+  const isDocumentFile = (file: File): boolean => {
+    const documentExtensions: readonly string[] = [
+      ...documentConversionExtensions,
+      ...localTextExtensions,
+      ...officeNativeExtensions,
+    ];
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    return documentExtensions.includes(fileExt);
+  };
+
+  // Use refs to access latest values in event handlers
+  const isMediaAcceptedRef = useRef(isMediaAccepted);
+  const currentMediaCountRef = useRef(currentMediaCount);
+  const addErrorRef = useRef(addError);
+
+  useEffect(() => {
+    isMediaAcceptedRef.current = isMediaAccepted;
+    currentMediaCountRef.current = currentMediaCount;
+    addErrorRef.current = addError;
+  }, [isMediaAccepted, currentMediaCount, addError]);
+
+  // Handle unified file selection
+  const handleUnifiedFileSelection = useCallback(
+    (files: FileList | File[]) => {
+      const fileArray = Array.from(files);
+      if (fileArray.length === 0) return;
+
+      const supportedFiles: File[] = [];
+      fileArray.forEach(file => {
+        if (isImageFile(file)) {
+          supportedFiles.push(file);
+        } else if (isDocumentFile(file)) {
+          supportedFiles.push(file);
+        } else {
+          addErrorRef.current({
+            message: `File "${file.name}" is not a supported image or document type`,
+            severity: 'warning',
+          });
+        }
+      });
+
+      const totalSupported = supportedFiles.length;
+      if (totalSupported === 0) return;
+
+      const remainingSlots =
+        maxDocumentsPerMessage - currentMediaCountRef.current;
+      if (remainingSlots <= 0) {
+        addErrorRef.current({
+          message: `Maximum ${maxDocumentsPerMessage} media files allowed.`,
+          severity: 'warning',
+        });
+        return;
+      }
+
+      const toProcess = supportedFiles.slice(0, remainingSlots);
+      const imageFiles = toProcess.filter(f => isImageFile(f));
+      const documentFiles = toProcess.filter(f => isDocumentFile(f));
+
+      if (totalSupported > remainingSlots) {
+        const skipped = totalSupported - remainingSlots;
+        addErrorRef.current({
+          message:
+            t('upload.filesNotAddedMaxAllowed', {
+              count: skipped,
+              max: maxDocumentsPerMessage,
+              defaultValue: `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
+            }) ??
+            `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
+          severity: 'warning',
+        });
+      }
+
+      // Process images
+      if (imageFiles.length > 0) {
+        if (!isMediaAcceptedRef.current) {
+          addErrorRef.current({
+            message:
+              t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+            severity: 'warning',
+          });
+        } else {
+          // Trigger image upload by creating a synthetic event
+          const imageInput = imageRef.current?.querySelector(
+            'input[type="file"]'
+          ) as HTMLInputElement;
+          if (imageInput) {
+            const dataTransfer = new DataTransfer();
+            imageFiles.forEach(file => {
+              try {
+                dataTransfer.items.add(file);
+              } catch (err) {
+                console.warn('Failed to add image file to DataTransfer:', err);
+              }
+            });
+
+            // Only proceed if we successfully added files
+            if (dataTransfer.files.length > 0) {
+              try {
+                imageInput.files = dataTransfer.files;
+              } catch {
+                // JSDOM and some environments do not allow assigning to input.files
+              }
+              const changeEvent = new Event('change', { bubbles: true });
+              imageInput.dispatchEvent(changeEvent);
+            }
+          }
+        }
+      }
+
+      // Process documents – set loading early so skeleton shows for all entry points
+      if (documentFiles.length > 0) {
+        setIsDocumentLoading(true);
+        const documentInput = documentRef.current?.querySelector(
+          'input[type="file"]'
+        ) as HTMLInputElement;
+        if (documentInput) {
+          const dataTransfer = new DataTransfer();
+          documentFiles.forEach(file => {
+            try {
+              dataTransfer.items.add(file);
+            } catch (err) {
+              console.warn('Failed to add document file to DataTransfer:', err);
+            }
+          });
+
+          // Only proceed if we successfully added files
+          if (dataTransfer.files.length > 0) {
+            try {
+              documentInput.files = dataTransfer.files;
+            } catch {
+              // JSDOM and some environments do not allow assigning to input.files
+            }
+            const changeEvent = new Event('change', { bubbles: true });
+            documentInput.dispatchEvent(changeEvent);
+          }
+        }
+      }
+    },
+    [t]
+  );
+
+  // Handle button click - open file chooser directly
+  const handleButtonClick = () => {
+    if (disabled) return;
+    if (unifiedInputRef.current) {
+      unifiedInputRef.current.click();
+    }
+  };
+
+  // Handle file input change
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      handleUnifiedFileSelection(files);
+    }
+    // Reset input value to allow selecting the same file again
+    if (unifiedInputRef.current) {
+      unifiedInputRef.current.value = '';
+    }
+  };
+
+  // Paste handler for files
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      if (disabled) return;
+      const clipboardData = e.clipboardData;
+      if (!clipboardData) {
+        return;
+      }
+
+      const files: File[] = [];
+
+      // Helper to check if a file is already in the array
+      const isDuplicate = (file: File) => {
+        return files.some(
+          f =>
+            f.name === file.name &&
+            f.size === file.size &&
+            f.lastModified === file.lastModified
+        );
+      };
+
+      // Prefer clipboardData.files if available (most reliable and prevents duplicates)
+      // Only fall back to items if files is empty (some browsers only populate items)
+      if (clipboardData.files && clipboardData.files.length > 0) {
+        const clipboardFiles = Array.from(clipboardData.files);
+        clipboardFiles.forEach(file => {
+          if (!isDuplicate(file)) {
+            files.push(file);
+          }
+        });
+      } else {
+        // Fall back to items array only if files is empty
+        // This prevents processing the same file twice when both are populated
+        const items = clipboardData.items;
+        if (items) {
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (item.kind === 'file') {
+              const file = item.getAsFile();
+              if (file && !isDuplicate(file)) {
+                files.push(file);
+              }
+            }
+          }
+        }
+      }
+
+      if (files.length > 0) {
+        e.preventDefault();
+        handleUnifiedFileSelection(files);
+      }
+    };
+
+    // Add paste listener to document
+    document.addEventListener('paste', handlePaste);
+    return () => {
+      document.removeEventListener('paste', handlePaste);
+    };
+  }, [handleUnifiedFileSelection, disabled]);
+
+  // Drag and drop handlers
+  useEffect(() => {
+    let dragCounter = 0;
+
+    const handleDragEnter = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (disabled) return;
+      dragCounter++;
+      if (dragCounter === 1) {
+        setIsDragging(true);
+      }
+    };
+
+    const handleDragLeave = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dragCounter--;
+      if (dragCounter === 0) {
+        setIsDragging(false);
+      }
+    };
+
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dragCounter = 0;
+      setIsDragging(false);
+
+      if (disabled) return;
+
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        handleUnifiedFileSelection(files);
+      }
+    };
+
+    // Add drag and drop listeners to document
+    document.addEventListener('dragenter', handleDragEnter);
+    document.addEventListener('dragleave', handleDragLeave);
+    document.addEventListener('dragover', handleDragOver);
+    document.addEventListener('drop', handleDrop);
+
+    return () => {
+      document.removeEventListener('dragenter', handleDragEnter);
+      document.removeEventListener('dragleave', handleDragLeave);
+      document.removeEventListener('dragover', handleDragOver);
+      document.removeEventListener('drop', handleDrop);
+    };
+  }, [handleUnifiedFileSelection, disabled]);
+
+  // Kept inside the tag content (not as tag attributes) so existing
+  // <document_attachment> parsers keep matching. Localized because this
+  // text is inlined into the message payload the agent sees.
+  const getTruncationNote = (
+    shownChars: number,
+    totalChars: number,
+    hasLink: boolean
+  ) => {
+    const summary =
+      totalChars > shownChars
+        ? t('upload.truncationExcerpt', {
+            shownChars,
+            totalChars,
+          })
+        : t('upload.truncationGeneric');
+    const linkHint = hasLink ? ` ${t('upload.truncationLinkHint')}` : '';
+    return `[${summary}${linkHint}]`;
+  };
+
+  // Handler for document files - now supports multiple documents
+  const handleDocumentFiles = (files: ProcessedDocumentFile[]) => {
+    if (files.length === 0) return;
+
+    // Funzione helper per fare escape dell'HTML nei valori degli attributi
+    const escapeAttributeValue = (text: string) => {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    };
+
+    // Process each document file
+    const processedDocuments = files.map(file => {
+      const escapedFileName = escapeAttributeValue(file.name);
+
+      let formattedContent: string;
+
+      if (!file.content) {
+        // Office native format: metadata-only attachment tag + asset link (no text body)
+        formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+</document_attachment>
+
+<attachment_link>
+${file.attachmentUrl || ''}
+</attachment_link>`;
+      } else {
+        // Gateway already cuts to max_caratteri when troncato=true (and we
+        // strip its markdown footer in convertDocument). Local cut is only a
+        // safety net for local text / older proxies.
+        const isTruncatedLocally =
+          !file.truncated && file.content.length > effectivePerDocumentLimit;
+        const excerpt = isTruncatedLocally
+          ? file.content.substring(0, effectivePerDocumentLimit)
+          : file.content;
+        const shownChars = file.shownChars ?? excerpt.length;
+        const inlinedContent =
+          file.truncated || isTruncatedLocally
+            ? `${excerpt}\n\n${getTruncationNote(
+                shownChars,
+                file.totalChars ?? file.content.length,
+                !!file.attachmentUrl
+              )}`
+            : excerpt;
+
+        formattedContent = `<document_attachment filename="${escapedFileName}" type="${
+          file.mimeType
+        }">
+
+${inlinedContent}
+
+</document_attachment>
+
+<attachment_link>
+${file.attachmentUrl || ''}
+</attachment_link>`;
+      }
+
+      return {
+        name: file.name,
+        id: file.id,
+        content: formattedContent,
+        type: 'document',
+        mimeType: file.mimeType,
+        url: file.attachmentUrl,
+      };
+    });
+
+    // Append new documents to existing files (images + previous documents)
+    setDocumentPreviewFiles((prev: any[]) => [...prev, ...processedDocuments]);
+  };
+
+  // Document validation and error handling
+  const validateDocumentFile = (file: File): boolean => {
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    const ALLOWED_FILE_TYPES: readonly string[] = [
+      ...documentConversionExtensions,
+      ...localTextExtensions,
+      ...officeNativeExtensions,
+    ];
+    const MAX_FILE_SIZE = 25 * 1024 * 1024;
+
+    if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
+      addError({
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
+          ', '
+        )}`,
+        severity: 'warning',
+      });
+      return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      addError({
+        message: `File "${file.name}" exceeds ${
+          MAX_FILE_SIZE / 1024 / 1024
+        }MB limit`,
+        severity: 'warning',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  // Validate total payload size. Returns result so caller can avoid showing this error when truncation was already shown.
+  const validatePayloadSize = (
+    _newDocuments: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+    }[]
+  ): { valid: boolean; message?: string } => {
+    return { valid: true };
+  };
+
+  // Handle document upload errors
+  const handleDocumentError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
+    addError(error);
+  };
+
+  // Image validation and error handling
+  const validateImageFile = (file: File): boolean => {
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
+    const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
+
+    if (
+      !ALLOWED_FILE_TYPES.includes(fileExt) &&
+      !file.type.startsWith('image/')
+    ) {
+      addError({
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
+          ', '
+        )}`,
+        severity: 'warning',
+      });
+      return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      addError({
+        message: `File "${file.name}" exceeds ${
+          MAX_FILE_SIZE / 1024 / 1024
+        }MB limit`,
+        severity: 'warning',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handle image upload errors
+  const handleImageError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
+    addError(error);
+  };
+
+  const handleDocumentLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsDocumentLoading(loading);
+      setDocUploadingCount(loading ? (fileCount ?? 1) : 0);
+    },
+    []
+  );
+  const handleImageLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsImageLoading(loading);
+      setImgUploadingCount(loading ? (fileCount ?? 1) : 0);
+    },
+    []
+  );
+
+  useEffect(() => {
+    onUploadLoadingChange?.(isLoading, isLoading ? uploadingFileCount : 0);
+  }, [isLoading, uploadingFileCount, onUploadLoadingChange]);
+
+  const uploadTooltipTitle = useMemo(() => {
+    if (hasReachedMediaLimit) {
+      return t('upload.maxReached') ?? 'Max limit reached';
+    }
+
+    return t('upload.uploadFilesOrImages') ?? 'Upload files or images';
+  }, [hasReachedMediaLimit, t]);
+
+  const isUploadDisabled = disabled || isLoading || hasReachedMediaLimit;
+
+  const uploadButton = (
+    <IconButton
+      ref={buttonRef}
+      type="button"
+      className={cx(
+        'memori-share-button--button',
+        'memori--conversation-button',
+        'memori--unified-upload-button'
+      )}
+      onClick={handleButtonClick}
+      disabled={isUploadDisabled}
+      tabIndex={isUploadDisabled ? -1 : undefined}
+      aria-label={uploadTooltipTitle}
+    >
+      {isLoading ? (
+        <Spin spinning className="memori--upload-icon" />
+      ) : (
+        <UploadIcon className="memori--upload-icon" />
+      )}
+    </IconButton>
+  );
+
+  return (
+    <div
+      className={cx('memori--unified-upload-wrapper', {
+        'memori--dragging': isDragging && !disabled,
+        'memori--upload-disabled': disabled,
+      })}
+      ref={wrapperRef}
+    >
+      {/* Unified file input - accepts both images and documents */}
+      <input
+        ref={unifiedInputRef}
+        type="file"
+        accept={[
+          '.jpg',
+          '.jpeg',
+          '.png',
+          ...documentConversionExtensions,
+          ...localTextExtensions,
+          ...officeNativeExtensions,
+        ].join(',')}
+        multiple
+        className="memori--upload-file-input"
+        onChange={handleFileInputChange}
+        style={{ display: 'none' }}
+      />
+
+      {/* Main upload button — direct child of Tooltip so Tab reaches the button (no extra span wrapper) */}
+      <Tooltip placement="top" title={uploadTooltipTitle}>
+        {isUploadDisabled ? (
+          <span
+            className="memori--unified-upload-button-tooltip-trigger"
+            tabIndex={0}
+            role="button"
+            aria-disabled="true"
+            aria-label={uploadTooltipTitle}
+            onKeyDown={event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+              }
+            }}
+          >
+            {uploadButton}
+          </span>
+        ) : (
+          uploadButton
+        )}
+      </Tooltip>
+
+      {/* Hidden components */}
+      <div className="memori--hidden-uploader" ref={documentRef} aria-hidden>
+        <UploadDocuments
+          setDocumentPreviewFiles={handleDocumentFiles}
+          authToken={authToken}
+          client={client}
+          sessionID={sessionID}
+          baseUrl={baseUrl}
+          memoriID={memoriID}
+          maxDocuments={maxDocumentsPerMessage}
+          maxDocumentContentLength={effectivePerDocumentLimit}
+          documentPreviewFiles={documentPreviewFiles}
+          onLoadingChange={handleDocumentLoadingChange}
+          onDocumentError={handleDocumentError}
+          onValidateFile={validateDocumentFile}
+          onValidatePayloadSize={validatePayloadSize}
+        />
+      </div>
+
+      <div className="memori--hidden-uploader" ref={imageRef} aria-hidden>
+        <UploadImages
+          authToken={authToken}
+          client={client}
+          setDocumentPreviewFiles={setDocumentPreviewFiles}
+          sessionID={sessionID}
+          documentPreviewFiles={documentPreviewFiles}
+          isMediaAccepted={isMediaAccepted}
+          onLoadingChange={handleImageLoadingChange}
+          maxImages={maxDocumentsPerMessage}
+          memoriID={memoriID}
+          onImageError={handleImageError}
+          onValidateImageFile={validateImageFile}
+          onMediumSelectedState={onMediumSelectedState}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default UploadButton;

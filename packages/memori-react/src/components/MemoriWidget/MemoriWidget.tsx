@@ -1,0 +1,4452 @@
+// Typings
+import {
+  DialogState,
+  Memori,
+  Integration,
+  Venue,
+  Message,
+  Medium,
+  OpenSession,
+  MemoriConfig,
+  TranslatedHint,
+  Tenant,
+  MemoriSession,
+  User,
+  ExpertReference,
+  ResponseSpec,
+  ChatLog,
+} from '@memori.ai/memori-api-client/src/types';
+import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
+import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
+import type {
+  LayoutName,
+  LayoutProp,
+  PiiDetectionConfig,
+} from '../../types/layout';
+import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
+import {
+  shouldHoldAutoStartForPosition,
+  shouldRestartSessionOnPositionPopoverClose,
+} from '../../helpers/positionPopover';
+import {
+  shouldHoldAutoStartForLogin,
+  shouldReturnToStartPanelAfterLogout,
+} from '../../helpers/autoStart';
+
+// Libraries
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  CSSProperties,
+  useRef,
+  useMemo,
+} from 'react';
+import { useTranslation } from 'react-i18next';
+import memoriApiClient from '@memori.ai/memori-api-client';
+import { IAudioContext } from 'standardized-audio-context';
+import cx from 'classnames';
+import { DateTime } from 'luxon';
+import {
+  useAlertManager,
+  createAlertOptions,
+  MemoriUIProvider,
+  AlertViewport,
+} from '@memori.ai/ui';
+// Components
+import MemoriAuth from '../Auth/Auth';
+import Chat, { Props as ChatProps } from '../Chat/Chat';
+import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
+import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
+import Header, { Props as HeaderProps } from '../Header/Header';
+import PoweredBy from '../PoweredBy/PoweredBy';
+import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import KnownFacts from '../KnownFacts/KnownFacts';
+import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
+import LoginModal from '../LoginModal/LoginModal';
+import { Button } from '@memori.ai/ui';
+import { X } from 'lucide-react';
+
+// Layout
+import FullPageLayout from '../layouts/FullPage';
+import TotemLayout from '../layouts/Totem';
+import ChatLayout from '../layouts/Chat';
+import WebsiteAssistantLayout from '../layouts/WebsiteAssistant/WebsiteAssistant';
+import HiddenChatLayout from '../layouts/HiddenChat';
+import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
+
+// Helpers / Utils
+import { getTranslation } from '../../helpers/translations';
+import {
+  setLocalConfig,
+  getLocalConfig,
+  removeLocalConfig,
+} from '../../helpers/configuration';
+import {
+  hasTouchscreen,
+  stripDuplicates,
+  installMathJax,
+  resolveOptionalBoolean,
+} from '../../helpers/utils';
+import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
+import {
+  getMuteSpeakerFallback,
+  shouldPlayTtsAudio,
+} from '../../helpers/tts/muteSpeaker';
+import {
+  allowedMediaTypes,
+  anonTag,
+  uiLanguages,
+} from '../../helpers/constants';
+import { getErrori18nKey } from '../../helpers/error';
+import {
+  isEmptyPasswordError,
+  resolveSessionPassword,
+} from '../../helpers/sessionPassword';
+import { CreditsCheckError, getCredits } from '../../helpers/credits';
+import { sanitizeText } from '../../helpers/sanitizer';
+import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
+import {
+  SpeechRequestError,
+  speechErrorI18nKey,
+} from '../../helpers/speech/speechRequest';
+import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
+import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
+import { useNats } from '../../helpers/nats/useNats';
+import {
+  NatsProgressEvent,
+  NatsDialogResponseEvent,
+  NatsErrorEvent,
+} from '../../helpers/nats/useNatsSession';
+import {
+  isSessionExpiredNatsError,
+  isSessionExpiredNatsResponse,
+} from '../../helpers/nats/isSessionExpiredError';
+import {
+  dialogStateFingerprint,
+  isEnterTextCatchUpReady,
+} from '../../helpers/nats/dialogStateCatchUp';
+
+export {
+  dialogStateFingerprint,
+  isEnterTextCatchUpReady,
+} from '../../helpers/nats/dialogStateCatchUp';
+
+// Widget utilities and helpers
+const getMemoriState = (integrationId?: string): object | null => {
+  let widget = integrationId
+    ? document.querySelector(
+        `.memori-widget[data-memori-integration="${integrationId}"]`
+      ) ||
+      document
+        .querySelector('memori-client')
+        ?.shadowRoot?.querySelector(`.memori-widget[data-memori-integration]`)
+    : document.querySelector('.memori-widget') ||
+      document
+        .querySelector('memori-client')
+        ?.shadowRoot?.querySelector('.memori-widget');
+
+  if (!widget) return null;
+
+  let engineState = (widget as HTMLElement).dataset?.memoriEngineState;
+  if (!engineState) return null;
+
+  let dialogState = JSON.parse(engineState);
+
+  let loginToken = getLocalConfig<string | undefined>('loginToken', undefined);
+
+  return {
+    ...dialogState,
+    loginToken,
+  };
+};
+
+/** Unified login token resolution: React state > ref > call-site override > props. */
+const resolveLoginTokenValue = (
+  loginToken: string | undefined,
+  userTokenRef: string | undefined,
+  callAdditionalInfoLoginToken: string | undefined,
+  additionalInfoLoginToken: string | undefined,
+  authTokenProp: string | undefined
+): string | undefined =>
+  loginToken ??
+  userTokenRef ??
+  callAdditionalInfoLoginToken ??
+  additionalInfoLoginToken ??
+  authTokenProp;
+
+/** Place spec with all nulls for postEnterTextAsync when position is not set or user chose "I don't want to provide my position". */
+const NULL_PLACE_SPEC = {
+  placeName: null,
+  latitude: null,
+  longitude: null,
+  uncertaintyKm: null,
+} as const;
+
+const logWidgetError = (context: string, detail?: unknown) => {
+  console.error(`[MemoriWidget] ${context}`, detail ?? '');
+};
+
+/** Reads correlation id from HTTP async response (supports camelCase / snake_case). */
+function readCorrelationID(response: {
+  correlationID?: string;
+}): string | undefined {
+  const value = response.correlationID;
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+const MAX_WAIT_FOR_PREVIOUS_RETRIES = 30;
+
+type MemoriTextEnteredEvent = CustomEvent<{
+  text: string;
+  waitForPrevious?: boolean;
+  hidden?: boolean;
+  typingText?: string;
+  useLoaderTextAsMsg?: boolean;
+  hasBatchQueued?: boolean;
+}>;
+
+/**
+ * Dispatches a MemoriTextEntered event to simulate a user typing a message
+ * @param message The text message to send
+ * @param waitForPrevious Whether to wait for previous message to finish before sending (default true)
+ * @param hidden Whether to hide the message from chat history (default false)
+ * @param typingText Optional custom typing indicator text
+ * @param useLoaderTextAsMsg Whether to use the loader text as the message (default false)
+ * @param hasBatchQueued Whether there are more messages queued to be sent (default false)
+ */
+const typeMessage = (
+  message: string,
+  waitForPrevious = true,
+  hidden = false,
+  typingText?: string,
+  useLoaderTextAsMsg = false,
+  hasBatchQueued = false
+) => {
+  const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
+    detail: {
+      text: message,
+      waitForPrevious,
+      hidden,
+      typingText,
+      useLoaderTextAsMsg,
+      hasBatchQueued,
+    },
+  });
+  document.dispatchEvent(e);
+
+  // Special handling for Safari on iOS devices
+  const isSafariIOS =
+    window.navigator.userAgent.includes('Safari') &&
+    !window.navigator.userAgent.includes('Chrome') &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isSafariIOS) {
+    // Dispatch end speak event after short delay for iOS Safari
+    setTimeout(() => {
+      document.dispatchEvent(new CustomEvent('MemoriEndSpeak'));
+    }, 300);
+  }
+};
+
+/**
+ * Helper function to send a hidden message
+ * Wraps typeMessage with hidden=true and passes through other params
+ */
+const typeMessageHidden = (
+  message: string,
+  waitForPrevious = true,
+  typingText?: string,
+  useLoaderTextAsMsg = false,
+  hasBatchQueued = false
+) =>
+  typeMessage(
+    message,
+    waitForPrevious,
+    true,
+    typingText,
+    useLoaderTextAsMsg,
+    hasBatchQueued
+  );
+
+const typeBatchMessages = (
+  messages: {
+    message: string;
+    waitForPrevious?: boolean;
+    hidden?: boolean;
+    typingText?: string;
+    useLoaderTextAsMsg?: boolean;
+  }[]
+) => {
+  function disableInputs() {
+    document
+      .querySelector('fieldset#chat-fieldset')
+      ?.setAttribute('disabled', '');
+
+    const styles = `opacity: 0.5; touch-action: none; pointer-events: none;`;
+    document
+      .querySelector('textarea.memori-chat-textarea--input')
+      ?.setAttribute('style', styles);
+    document
+      .querySelector('button.memori-chat-inputs--send')
+      ?.setAttribute('style', styles);
+    document
+      .querySelector('button.memori-chat-inputs--mic')
+      ?.setAttribute('style', styles);
+  }
+
+  function reEnableInputs() {
+    document
+      .querySelector('fieldset#chat-fieldset')
+      ?.removeAttribute('disabled');
+
+    document
+      .querySelector('textarea.memori-chat-textarea--input')
+      ?.removeAttribute('style');
+    document
+      .querySelector('button.memori-chat-inputs--send')
+      ?.removeAttribute('style');
+    document
+      .querySelector('button.memori-chat-inputs--mic')
+      ?.removeAttribute('style');
+  }
+
+  function areInputsDisabled() {
+    return !!document
+      .querySelector('fieldset#chat-fieldset')
+      ?.hasAttribute('disabled');
+  }
+
+  const isSafariIOS =
+    window.navigator.userAgent.includes('Safari') &&
+    !window.navigator.userAgent.includes('Chrome') &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const stepsGenerator = (function* () {
+    yield* messages;
+  })();
+
+  disableInputs();
+
+  const submitNewMessage = () => {
+    const next = stepsGenerator.next();
+    const step = next.value;
+
+    if (step) {
+      if (!areInputsDisabled()) {
+        disableInputs();
+      }
+
+      let waitForPrevious = step.waitForPrevious;
+      if (isSafariIOS) waitForPrevious = false;
+
+      typeMessage(
+        step.message,
+        waitForPrevious,
+        step.hidden,
+        step.typingText,
+        step.useLoaderTextAsMsg,
+        !next.done
+      );
+
+      if (isSafariIOS) {
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('MemoriEndSpeak'));
+          reEnableInputs();
+        }, 3000);
+      }
+    } else if (areInputsDisabled()) {
+      reEnableInputs();
+    }
+
+    if (next.done) {
+      document.removeEventListener('MemoriEndSpeak', submitNewMessage);
+      if (areInputsDisabled()) reEnableInputs();
+      return;
+    }
+  };
+
+  document.addEventListener('MemoriEndSpeak', submitNewMessage);
+
+  submitNewMessage();
+};
+
+type MemoriNewDialogStateEvent = CustomEvent<DialogState>;
+
+type ArtifactCreatedEvent = CustomEvent<{
+  artifact: ArtifactData;
+  message: Message;
+}>;
+
+interface CustomEventMap {
+  MemoriTextEntered: MemoriTextEnteredEvent;
+  MemoriEndSpeak: CustomEvent;
+  MemoriResetUIEffects: CustomEvent;
+  MemoriNewDialogState: MemoriNewDialogStateEvent;
+  artifactCreated: ArtifactCreatedEvent;
+}
+declare global {
+  interface Document {
+    addEventListener<K extends keyof CustomEventMap>(
+      type: K,
+      listener: (this: Document, ev: CustomEventMap[K]) => void
+    ): void;
+    removeEventListener<K extends keyof CustomEventMap>(
+      type: K,
+      listener: (this: Document, ev: CustomEventMap[K]) => void
+    ): void;
+    dispatchEvent<K extends keyof CustomEventMap>(ev: CustomEventMap[K]): void;
+  }
+
+  interface Window {
+    getMemoriState: typeof getMemoriState;
+    typeMessage: typeof typeMessage;
+    typeMessageHidden: typeof typeMessageHidden;
+    typeBatchMessages: typeof typeBatchMessages;
+    MemoriArtifactAPI?: {
+      openArtifact: (artifact: ArtifactData) => void;
+      createAndOpenArtifact: (
+        content: string,
+        mimeType?: string,
+        title?: string
+      ) => void;
+      createFromOutputElement: (outputElement: HTMLOutputElement) => string;
+      closeArtifact: () => void;
+      toggleFullscreen: () => void;
+      getState: () => {
+        currentArtifact: ArtifactData | null;
+        isDrawerOpen: boolean;
+        isFullscreen: boolean;
+        isChatLogPanelPresentation: boolean;
+      };
+    };
+  }
+}
+window.getMemoriState = getMemoriState;
+window.typeMessage = typeMessage;
+window.typeMessageHidden = typeMessageHidden;
+window.typeBatchMessages = typeBatchMessages;
+
+let audioContext: IAudioContext;
+
+let memoriPassword: string | undefined;
+
+export interface LayoutProps {
+  Header?: typeof Header;
+  headerProps?: HeaderProps;
+  Avatar: typeof Avatar;
+  avatarProps?: AvatarProps;
+  Chat?: typeof Chat;
+  chatProps?: ChatProps;
+  StartPanel: typeof StartPanel;
+  startPanelProps?: StartPanelProps;
+  integrationStyle?: JSX.Element | null;
+  integrationBackground?: JSX.Element | null;
+  poweredBy?: JSX.Element | null;
+  sessionId?: string;
+  hasUserActivatedSpeak?: boolean;
+  showUpload?: boolean;
+  loading?: boolean;
+  autoStart?: boolean;
+  onSidebarToggle?: (isOpen: boolean) => void;
+  /** WEBSITE_ASSISTANT: resolved flag to show the 3D avatar in the expanded panel. */
+  show3dAvatar?: boolean;
+  /** @deprecated Use `show3dAvatar`. Always the inverse of `show3dAvatar`. */
+  avatar3dHidden?: boolean | string;
+  /** TOTEM only: max-width of the shared content axis (avatar + panel + status).
+   * Accepts a number (px) or a CSS length string; enables vertical-kiosk widths. */
+  totemContentMaxWidth?: number | string;
+  /** WEBSITE_ASSISTANT: true when login / history / known facts / experts drawer is open. */
+  sideDrawerOpen?: boolean;
+}
+
+export interface Props {
+  memori: Memori;
+  ownerUserName?: string | null;
+  ownerUserID?: string | null;
+  tenantID: string;
+  memoriConfigs?: MemoriConfig[];
+  memoriLang?: string;
+  /** UI language: labels, buttons, page translation (i18n) */
+  uiLang?: string;
+  /** Spoken/chat language: select box in StartPanel and conversation language */
+  spokenLang?: string;
+  multilingual?: boolean;
+  integration?: Integration;
+  /** Layout name, or object when PII is configured (e.g. from integration customData). */
+  layout?: LayoutProp;
+  customLayout?: React.FC<LayoutProps>;
+  showShare?: boolean;
+  showCopyButton?: boolean;
+  showTranslationOriginal?: boolean;
+  showInputs?: boolean;
+  showDates?: boolean;
+  showContextPerLine?: boolean;
+  showMessageConsumption?: boolean;
+  showSettings?: boolean;
+  showClear?: boolean;
+  showExperts?: boolean;
+  showOnlyLastMessages?: boolean;
+  showTypingText?: boolean;
+  showLogin?: boolean;
+  showUpload?: boolean;
+  showChatHistory?: boolean;
+  showReasoning?: boolean;
+  /** WEBSITE_ASSISTANT: show the 3D avatar in the expanded panel. Defaults to false. */
+  show3dAvatar?: boolean;
+  /** @deprecated Use `show3dAvatar`. */
+  avatar3dHidden?: boolean;
+  preview?: boolean;
+  embed?: boolean;
+  /** Widget height. Defaults to `100%` of the host. Pass `100vh` for a full-page fallback. */
+  height?: number | string;
+  secret?: string;
+  baseUrl?: string;
+  apiURL?: string;
+  engineURL?: string;
+  initialContextVars?: { [key: string]: string };
+  initialQuestion?: string;
+  ogImage?: string;
+  sessionID?: string;
+  tenant?: Tenant;
+  personification?: {
+    name?: string;
+    tag: string;
+    pin: string;
+  };
+  ttsProvider?: 'azure' | 'openai';
+  enableAudio?: boolean;
+  defaultSpeakerActive?: boolean;
+  disableTextEnteredEvents?: boolean;
+  onStateChange?: (state?: DialogState) => void;
+  additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
+  customMediaRenderer?: ChatProps['customMediaRenderer'];
+  additionalSettings?: JSX.Element | null;
+  userAvatar?: string | JSX.Element;
+  useMathFormatting?: boolean;
+  autoStart?: boolean;
+  applyVarsToRoot?: boolean;
+  showFunctionCache?: boolean;
+  authToken?: string;
+  __WEBCOMPONENT__?: boolean;
+  /** Override total document payload and per-document content limit (character count). Default from constants. */
+  maxTotalMessagePayload?: number;
+  /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
+  maxTextareaCharacters?: number;
+}
+
+/** Config shape for chat styling (integration customData). */
+type ChatStylesConfig = {
+  buttonBgColor?: string;
+  buttonTextColor?: string;
+};
+
+/**
+ * Returns CSS custom properties for the chat container when a brand primary is set.
+ * Sets the UI brand hook (`--memori-primary-color`); hover/active/disabled/subtle
+ * are rebound from that hook in `styles.css` on widget scopes (CSS derives only
+ * when computed on the same element as the override). Widget-only icon soft fills stay here.
+ */
+export function getChatStyles(
+  config: ChatStylesConfig | null | undefined
+): CSSProperties {
+  const primary = config?.buttonBgColor;
+  if (!primary) return {};
+
+  const primaryContent = config?.buttonTextColor ?? '#ffffff';
+
+  return {
+    '--memori-primary-color': primary,
+    '--memori-primary-content': primaryContent,
+    /* Soft fills for secondary IconButton active / recording (never solid CTA) */
+    '--memori-icon-active-bg':
+      'color-mix(in oklch, var(--memori-primary) 12%, transparent)',
+    '--memori-icon-recording-bg':
+      'color-mix(in oklch, var(--memori-error) 12%, transparent)',
+  } as CSSProperties;
+}
+
+const MemoriWidget = ({
+  memori,
+  memoriConfigs,
+  ownerUserID,
+  tenantID,
+  memoriLang,
+  uiLang,
+  spokenLang,
+  multilingual,
+  integration,
+  layout,
+  customLayout,
+  showShare,
+  preview = false,
+  embed = false,
+  showCopyButton,
+  showTranslationOriginal,
+  showInputs = true,
+  showDates = false,
+  showContextPerLine = false,
+  showMessageConsumption,
+  showSettings,
+  showTypingText,
+  showClear,
+  showExperts,
+  showLogin,
+  showUpload,
+  showOnlyLastMessages,
+  showChatHistory,
+  showReasoning,
+  show3dAvatar,
+  avatar3dHidden,
+  height: heightProp,
+  secret,
+  baseUrl = 'https://aisuru-staging.aclambda.online',
+  apiURL = 'https://backend-staging.memori.ai',
+  engineURL = 'https://engine-staging.memori.ai',
+  initialContextVars,
+  initialQuestion,
+  ttsProvider,
+  ogImage,
+  sessionID: initialSessionID,
+  tenant,
+  personification,
+  authToken,
+  enableAudio,
+  defaultSpeakerActive = true,
+  disableTextEnteredEvents = false,
+  onStateChange,
+  additionalInfo,
+  additionalSettings,
+  customMediaRenderer,
+  userAvatar,
+  __WEBCOMPONENT__ = false,
+  useMathFormatting = false,
+  autoStart = false,
+  applyVarsToRoot = false,
+  showFunctionCache = false,
+  maxTotalMessagePayload,
+  maxTextareaCharacters,
+}: Props) => {
+  const { t, i18n } = useTranslation();
+  const { add, close } = useAlertManager();
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // API calls methods
+  const client = memoriApiClient(apiURL, engineURL);
+  const {
+    initSession,
+    deleteSession,
+    postEnterTextAsync,
+    postTextEnteredEvent,
+    postPlaceChangedEvent,
+    postDateChangedEvent,
+    postTagChangedEvent,
+    getSession,
+    getExpertReferences,
+    getSessionChatLogs,
+  } = client;
+
+  const [instruct, setInstruct] = useState(false);
+  const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
+
+  // Capture the widget root via a callback ref so the value is non-null on
+  // the first render that matters (used as the `container` for portal-based
+  // UI primitives via `MemoriUIProvider`). `useRef` would not trigger a
+  // re-render and would leave the value `null` on the first pass.
+  const [widgetRootEl, setWidgetRootEl] = useState<HTMLDivElement | null>(null);
+  // Inner surface establishes `contain: layout` for Drawers/Modals. Kept separate
+  // from widgetRootEl so Floating UI menus can portal outside containment.
+  const [widgetSurfaceEl, setWidgetSurfaceEl] = useState<HTMLDivElement | null>(
+    null
+  );
+  const [loginToken, setLoginToken] = useState<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
+  const userTokenRef = useRef<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
+  const prevPropsLoginTokenRef = useRef<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
+
+  const [user, setUser] = useState<User | undefined>({
+    avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
+  } as User);
+
+  const resolveLoginToken = useCallback(
+    (callAdditionalInfoLoginToken?: string) =>
+      resolveLoginTokenValue(
+        loginToken,
+        userTokenRef.current,
+        callAdditionalInfoLoginToken,
+        additionalInfo?.loginToken,
+        authToken
+      ),
+    [loginToken, additionalInfo?.loginToken, authToken]
+  );
+
+  // Sync loginToken when props change (including explicit removal from parent)
+  useEffect(() => {
+    const incomingToken = additionalInfo?.loginToken ?? authToken;
+    const prevPropsToken = prevPropsLoginTokenRef.current;
+    prevPropsLoginTokenRef.current = incomingToken;
+
+    if (incomingToken !== prevPropsToken) {
+      setLoginToken(incomingToken);
+      userTokenRef.current = incomingToken;
+      if (!incomingToken) {
+        removeLocalConfig('loginToken');
+        setUser(undefined);
+      }
+    }
+  }, [additionalInfo?.loginToken, authToken]);
+
+  const integrationConfig = integration?.customData
+    ? JSON.parse(integration.customData)
+    : null;
+  const legacyAvatar3dHidden: boolean | string | undefined =
+    avatar3dHidden ?? integrationConfig?.avatar_3d_hidden;
+  const resolvedShow3dAvatar =
+    show3dAvatar ??
+    (legacyAvatar3dHidden === undefined
+      ? false
+      : !(legacyAvatar3dHidden === true || legacyAvatar3dHidden === 'true'));
+  // UI-only: whether to show login/profile controls. Host apps (e.g. AIsuru)
+  // can set showLogin={false} while still passing authToken so Known Facts works.
+  const loginEnabled = !!(
+    showLogin ??
+    integrationConfig?.showLogin ??
+    memori.requireLoginToken
+  );
+
+  // Always resolve the user when a token is present — independent of loginEnabled.
+  // When the widget does not manage login (host-owned auth), only read the
+  // profile: never persist or clear the host's token.
+  const widgetManagesLogin = loginEnabled || !!memori.requireLoginToken;
+  useEffect(() => {
+    if (!loginToken) {
+      return;
+    }
+
+    let cancelled = false;
+
+    client.backend
+      .pwlGetCurrentUser(loginToken)
+      .then(({ user: fetchedUser, resultCode }) => {
+        if (cancelled) return;
+
+        if (fetchedUser && resultCode === 0) {
+          setUser(fetchedUser);
+          userTokenRef.current = loginToken;
+          if (!widgetManagesLogin) return;
+
+          setLocalConfig('loginToken', loginToken);
+          if (!birthDate && fetchedUser.birthDate) {
+            setBirthDate(fetchedUser.birthDate);
+            setLocalConfig('birthDate', fetchedUser.birthDate);
+          }
+        } else if (widgetManagesLogin) {
+          setLoginToken(undefined);
+          userTokenRef.current = undefined;
+          setUser(undefined);
+          removeLocalConfig('loginToken');
+        } else {
+          setUser(undefined);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [loginToken, widgetManagesLogin]);
+  const isUserLoggedIn = !!loginToken && !!user?.userID;
+  // Distinguishes a real logout from the first render, when the profile
+  // has not been fetched yet.
+  const wasLoggedInRef = useRef(false);
+  // Speech callbacks can close over an older sendMessage. The ref is read
+  // at send time so a transcript that arrives after logout is dropped.
+  const loginBlocksInteractionRef = useRef(false);
+  loginBlocksInteractionRef.current = shouldHoldAutoStartForLogin(
+    !!memori.requireLoginToken,
+    isUserLoggedIn
+  );
+  const [showLoginDrawer, setShowLoginDrawer] = useState(false);
+
+  const [clickedStart, setClickedStart] = useState(false);
+  const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
+  const sessionStartingRef = useRef(false);
+  const needsCredits = tenant?.billingDelegation;
+  const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
+  const [creditsCheckFailed, setCreditsCheckFailed] = useState(false);
+  const creditsBlocked =
+    !!needsCredits && (!hasEnoughCredits || creditsCheckFailed);
+
+  const language =
+    memori.culture?.split('-')?.[0]?.toUpperCase()! ||
+    memoriConfigs
+      ?.find(c => c.memoriConfigID === memori.memoriConfigurationID)
+      ?.culture?.split('-')?.[0]
+      ?.toUpperCase()!;
+
+  const isMultilanguageEnabled =
+    multilingual !== undefined
+      ? multilingual
+      : !!integrationConfig?.multilanguage;
+  const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
+  const [userLang, setUserLang] = useState(
+    spokenLang ??
+      memoriLang ??
+      integrationConfig?.lang ??
+      language ??
+      integrationConfig?.uiLang ??
+      i18n.language ??
+      'IT'
+  );
+
+  // Sync userLang when parent passes spokenLang (select box in StartPanel)
+  useEffect(() => {
+    if (spokenLang != null) {
+      setUserLang(spokenLang);
+    }
+  }, [spokenLang]);
+
+  const applyMathFormatting =
+    useMathFormatting !== undefined
+      ? useMathFormatting
+      : !!integrationConfig?.useMathFormatting;
+  useEffect(() => {
+    if (applyMathFormatting) installMathJax();
+  }, [applyMathFormatting]);
+
+  /**
+   * Sets the UI language in the i18n instance (page translation). uiLang takes precedence.
+   */
+  useEffect(() => {
+    const langToApply =
+      uiLang && uiLanguages.includes(uiLang.toLowerCase())
+        ? uiLang.toLowerCase()
+        : userLang && uiLanguages.includes(userLang.toLowerCase())
+          ? userLang.toLowerCase()
+          : null;
+    if (langToApply && typeof i18n?.changeLanguage === 'function') {
+      // @ts-ignore
+      i18n.changeLanguage(langToApply);
+    }
+  }, [uiLang, userLang]);
+
+  const [loading, setLoading] = useState(false);
+  const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
+  const [typingText, setTypingText] = useState<string>();
+
+  type EnterTextRetryParams = {
+    text?: string;
+    media?: Medium[];
+    translate?: boolean;
+    translatedText?: string;
+    hidden?: boolean;
+    typingText?: string;
+    useLoaderTextAsMsg?: boolean;
+    hasBatchQueued?: boolean;
+    expiredSessionID?: string;
+    continueFromChatLogID?: string;
+  };
+
+  type PendingEnterText = EnterTextRetryParams & {
+    msg?: string;
+    stateBeforeRequest?: string;
+    waitForResponse?: {
+      resolve: (event: NatsDialogResponseEvent) => void;
+      reject: (error: Error) => void;
+      timeoutId: ReturnType<typeof setTimeout>;
+    };
+  };
+  const pendingEnterTextRef = useRef<Map<string, PendingEnterText>>(new Map());
+  const bufferedNatsResponsesRef = useRef<Map<string, NatsDialogResponseEvent>>(
+    new Map()
+  );
+
+  // Layout: from prop (string only) or integrationConfig; when neither is set, default to FULLPAGE.
+  // PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  const layoutName =
+    typeof layout === 'string'
+      ? layout
+      : layout &&
+          typeof layout === 'object' &&
+          layout !== null &&
+          'name' in layout &&
+          typeof (layout as { name: string }).name === 'string'
+        ? (layout as { name: string }).name
+        : typeof integrationConfig?.layout === 'string'
+          ? integrationConfig.layout
+          : integrationConfig?.layout?.name;
+  // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
+  const selectedLayout = ((): LayoutName => {
+    if (typeof layoutName === 'string') {
+      const lower = layoutName.toLowerCase();
+      if (lower === 'fullpage' || lower === 'fullscreen' || lower === '2')
+        return 'FULLPAGE';
+      if (lower === 'totem') return 'TOTEM';
+      if (lower === 'chat') return 'CHAT';
+      if (lower === 'website_assistant') return 'WEBSITE_ASSISTANT';
+      if (lower === 'hidden_chat') return 'HIDDEN_CHAT';
+      if (lower === 'zoomed_full_body') return 'ZOOMED_FULL_BODY';
+      if (lower === 'default') return 'DEFAULT';
+      return layoutName as LayoutName;
+    }
+    if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
+    return 'FULLPAGE';
+  })();
+  // Fill the host slot. Pass height="100vh" for a full-page fallback when the parent has no height.
+  const height = heightProp ?? '100%';
+  // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
+  const piiDetection: PiiDetectionConfig | undefined =
+    layout &&
+    typeof layout === 'object' &&
+    layout !== null &&
+    'piiDetection' in layout &&
+    layout.piiDetection?.enabled
+      ? layout.piiDetection
+      : typeof integrationConfig?.layout === 'object' &&
+          integrationConfig?.layout !== null &&
+          integrationConfig?.layout?.piiDetection?.enabled
+        ? integrationConfig.layout.piiDetection
+        : undefined;
+
+  const defaultEnableAudio =
+    enableAudio ?? integrationConfig?.enableAudio ?? true;
+
+  const [hasUserActivatedListening, setHasUserActivatedListening] =
+    useState(false);
+  const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
+  const [positionPopoverOpen, setPositionPopoverOpenState] = useState(false);
+  const [autoStartPositionGeolocation, setAutoStartPositionGeolocation] =
+    useState(false);
+  const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
+  const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
+  useEffect(() => {
+    if (!loginToken) setShowChatHistoryDrawer(false);
+  }, [loginToken]);
+  const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
+  const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
+  const [continuousSpeech, setContinuousSpeech] = useState(false);
+  const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
+  const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
+    'center'
+  );
+
+  const [enablePositionControls, setEnablePositionControls] = useState(false);
+  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | null>(
+    null
+  );
+  const [hideEmissions, setHideEmissions] = useState(false);
+
+  const speechSynthesizerRef = useRef<any | null>(null);
+  const [memoriSpeaking, setMemoriSpeaking] = useState(false);
+
+  useEffect(() => {
+    setMemoriSpeaking(!!speechSynthesizerRef.current);
+  }, [speechSynthesizerRef.current]);
+
+  useEffect(() => {
+    let defaultControlsPosition: 'center' | 'bottom' = 'bottom';
+    let microphoneMode = getLocalConfig<string>(
+      'microphoneMode',
+      'HOLD_TO_TALK'
+    );
+
+    if (window.innerWidth <= 768) {
+      // on mobile, default position is bottom
+      defaultControlsPosition = 'bottom';
+      // on mobile, keep only HOLD_TO_TALK mode
+      microphoneMode = 'HOLD_TO_TALK';
+    } else if (
+      window.matchMedia('(orientation: portrait)').matches ||
+      window.innerHeight > window.innerWidth
+    ) {
+      // on portrait, default position is center
+      defaultControlsPosition = 'center';
+    } else {
+      // on landscape, default position is bottom
+      defaultControlsPosition = 'bottom';
+    }
+
+    setContinuousSpeech(speakerMuted ? false : microphoneMode === 'CONTINUOUS');
+    setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
+    setControlsPosition(
+      getLocalConfig('controlsPosition', defaultControlsPosition)
+    );
+    setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
+    setHideEmissions(getLocalConfig('hideEmissions', false));
+
+    if (!additionalInfo?.loginToken && !authToken) {
+      setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
+      userTokenRef.current = getLocalConfig<typeof loginToken>(
+        'loginToken',
+        undefined
+      );
+
+      setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
+    }
+
+    // If audio is disabled, automatically mute the speaker
+    if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
+      setLocalConfig('muteSpeaker', true);
+    }
+  }, []);
+
+  // Effect to handle enableAudio changes
+  useEffect(() => {
+    const isAudioEnabled =
+      enableAudio ?? integrationConfig?.enableAudio ?? true;
+    if (!isAudioEnabled) {
+      // Force mute when audio is disabled
+      setLocalConfig('muteSpeaker', true);
+    }
+  }, [enableAudio, integrationConfig?.enableAudio]);
+
+  /**
+   * Auth for private and secret memori
+   */
+  const [memoriPwd, setMemoriPwd] = useState<string | undefined>(secret);
+  const [memoriTokens, setMemoriTokens] = useState<string[] | undefined>();
+
+  const sessionPassword = (...candidates: Array<string | null | undefined>) =>
+    resolveSessionPassword(
+      ...candidates,
+      secret,
+      memoriPwd,
+      memoriPassword,
+      memori.secretToken,
+      memori.password
+    );
+
+  const [authModalState, setAuthModalState] = useState<
+    null | 'password' | 'tokens'
+  >(null);
+
+  /**
+   * Position drawer
+   */
+  const [position, _setPosition] = useState<Venue>();
+
+  /** True when the user has set a real position; false when position is missing or "I don't want to provide my position". */
+  const hasUserProvidedPosition = useCallback((venue: Venue | undefined) => {
+    if (!venue) return false;
+    const hasOptOutCoordinates =
+      Number(venue.latitude) === 0 && Number(venue.longitude) === 0;
+    const hasEmptyPlaceName = !venue.placeName?.trim();
+    const isLegacyOptOutPlaceName = venue.placeName === 'Position';
+    const hasNoUncertainty = Number(venue.uncertainty ?? 0) === 0;
+
+    if (
+      hasOptOutCoordinates &&
+      (hasEmptyPlaceName || isLegacyOptOutPlaceName) &&
+      hasNoUncertainty
+    ) {
+      return false;
+    }
+    return true;
+  }, []);
+
+  /** Build optional place for EnterTextSpecs (placeName and/or lat/lon; lat/lon must be together). */
+  const buildEnterTextPlace = useCallback((venue: Venue | undefined) => {
+    if (!venue) return undefined;
+    const place: {
+      placeName?: string;
+      latitude?: number;
+      longitude?: number;
+      uncertaintyKm?: number;
+    } = {};
+    if (venue.latitude != null && venue.longitude != null) {
+      place.latitude = venue.latitude;
+      place.longitude = venue.longitude;
+      if (venue.placeName) place.placeName = venue.placeName;
+      if (venue.uncertainty != null && venue.uncertainty > 0)
+        place.uncertaintyKm = venue.uncertainty;
+    } else if (venue.placeName) {
+      place.placeName = venue.placeName;
+    }
+    return Object.keys(place).length > 0 ? place : undefined;
+  }, []);
+
+  /** Place to send with postEnterTextAsync: real place, nulls when no/declined position, or undefined when position not needed. */
+  const getPlaceSpecForEnterText = useCallback(
+    (venue: Venue | undefined) => {
+      if (!memori.needsPosition) return undefined;
+      return hasUserProvidedPosition(venue)
+        ? buildEnterTextPlace(venue)
+        : NULL_PLACE_SPEC;
+    },
+    [memori.needsPosition, hasUserProvidedPosition, buildEnterTextPlace]
+  );
+
+  const setPosition = (venue?: Venue) => {
+    _setPosition(venue);
+
+    // Only save position to local config if memori.needsPosition is true
+    if (venue && memori.needsPosition) {
+      setLocalConfig('position', JSON.stringify(venue));
+    } else if (!venue) {
+      removeLocalConfig('position');
+    }
+  };
+
+  useEffect(() => {
+    // Only load position from local config if memori.needsPosition is true
+    if (memori.needsPosition) {
+      const position = getLocalConfig<Venue | undefined>('position', undefined);
+      if (position) {
+        _setPosition(position);
+      }
+    }
+  }, [memori.needsPosition]);
+
+  /**
+   * History e gestione invio messaggi
+   */
+  const [userMessage, setUserMessage] = useState<string>('');
+  const onChangeUserMessage = (value: string) => {
+    if (!value || value === '\n' || value.trim() === '') {
+      setUserMessage('');
+      // resetInteractionTimeout();
+      return;
+    }
+    setUserMessage(value);
+    clearInteractionTimeout();
+  };
+  const [listening, setListening] = useState(false);
+  const [history, setHistory] = useState<Message[]>([]);
+  const pushMessage = (message: Message) => {
+    setHistory(history => [
+      ...history,
+      {
+        ...message,
+        timestamp: message.timestamp ?? new Date().toISOString(),
+        media:
+          message.media?.filter(
+            m =>
+              !(m.mimeType === 'text/javascript' && !!m.properties?.executable)
+          ) ?? [],
+      },
+    ]);
+  };
+
+  // When a user resumes a chat, we need to set the chat reference link of the previous chat
+  const [chatLogID, setChatLogID] = useState<string | undefined>(undefined);
+  /**
+   * Sends a message to the Memori and handles the response
+   * @param text The text message to send
+   * @param media Optional media attachments
+   * @param newSessionId Optional new session ID to use
+   * @param translate Whether to translate the message before sending (default true)
+   * @param translatedText Optional pre-translated text
+   * @param hidden Whether to hide the message from chat history (default false)
+   * @param typingText Optional custom typing indicator text
+   * @param useLoaderTextAsMsg Whether to use the loader text as the message (default false)
+   * @param hasBatchQueued Whether there are more messages queued to be sent (default false)
+   * @param skipHistoryPush Skip adding the user message to history (e.g. session-expired retry)
+   */
+  const sendMessage = async (
+    text: string,
+    media?: Medium[],
+    newSessionId?: string,
+    translate: boolean = true,
+    translatedText?: string,
+    hidden: boolean = false,
+    typingText?: string,
+    useLoaderTextAsMsg = false,
+    hasBatchQueued = false,
+    skipHistoryPush = false
+  ) => {
+    // Get the session ID from params or global state
+    if (loginBlocksInteractionRef.current) {
+      return;
+    }
+
+    const sessionID =
+      newSessionId ||
+      sessionId ||
+      (window.getMemoriState() as MemoriSession)?.sessionID;
+    if (!sessionID || !text?.length) return;
+
+    // Build full message text (same as what will be sent) so we can run PII check on it.
+    // Order: user text -> optional translation -> appended document attachment content.
+    let msg = text;
+    if (
+      !hidden &&
+      translate &&
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !== language.toUpperCase()
+    ) {
+      const translation = await getTranslation(
+        text,
+        language,
+        userLang,
+        baseUrl
+      );
+      msg = translation.text;
+    }
+    const mediaDocuments = media?.filter(
+      m => (m as any).type === 'document' && m.properties?.isAttachedFile
+    );
+    if (mediaDocuments && mediaDocuments.length > 0) {
+      const documentContents = mediaDocuments.map(doc => doc.content).join(' ');
+      msg = msg + ' ' + documentContents;
+    }
+
+    // PII check: when layout has piiDetection.enabled, run regex rules on the full msg.
+    // If any rule matches, add the user message to history, then push the system error bubble and return without sending.
+    if (piiDetection?.enabled) {
+      const piiResult = checkPii(
+        msg,
+        piiDetection,
+        userLang?.toLowerCase() || 'en'
+      );
+      if (piiResult.matched && piiResult.errorText) {
+        if (!hidden) {
+          pushMessage({
+            text: text,
+            translatedText,
+            fromUser: true,
+            media: media ?? [],
+            initial: sessionId
+              ? !!newSessionId && newSessionId !== sessionId
+              : !!newSessionId,
+          });
+        }
+        pushMessage({
+          text: piiResult.errorText,
+          emitter: 'system',
+          fromUser: false,
+          initial: false,
+          contextVars: {},
+          date: new Date().toISOString(),
+        });
+        return;
+      }
+    }
+
+    // Add user message to chat history if not hidden
+    if (!hidden && !skipHistoryPush)
+      pushMessage({
+        text: text,
+        translatedText,
+        fromUser: true,
+        media: media ?? [],
+        initial: sessionId
+          ? !!newSessionId && newSessionId !== sessionId
+          : !!newSessionId,
+      });
+
+    // Show typing indicator after the async enter-text request is accepted (HTTP 200).
+    let gotError = false;
+
+    try {
+      const placeSpec = getPlaceSpecForEnterText(position);
+      const response = await postEnterTextAsync({
+        sessionId: sessionID,
+        text: msg,
+        ...(memori.needsDateTime && {
+          dateUTC: DateTime.utc().toISO() ?? undefined,
+        }),
+        ...(placeSpec !== undefined && { place: placeSpec }),
+      });
+      const correlationID = readCorrelationID(response);
+      if (response.resultCode === 0 && correlationID) {
+        registerPendingEnterText(correlationID, {
+          msg,
+          stateBeforeRequest: engineStateFingerprintRef.current,
+          text,
+          media,
+          translate,
+          translatedText,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+        });
+        setMemoriTyping(true);
+        setTypingText(typingText);
+      } else if (response.resultCode === 0) {
+        logWidgetError('enter-text missing correlationID', response);
+      } else if (response.resultCode === 404) {
+        retryAfterExpiredSessionRef.current({
+          text,
+          media,
+          translate,
+          translatedText,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+          expiredSessionID: sessionID,
+          continueFromChatLogID: chatLogID,
+        });
+      } else if (response.resultCode === 500 && response.resultMessage) {
+        setHistory(h => [
+          ...h,
+          {
+            text: 'Error: ' + response.resultMessage,
+            emitter: 'system',
+            fromUser: false,
+            initial: false,
+            contextVars: {},
+            date: new Date().toISOString(),
+          },
+        ]);
+      } else {
+        return Promise.reject(response);
+      }
+    } catch (error) {
+      gotError = true;
+      logWidgetError('sendMessage failed', error);
+
+      setTypingText(undefined);
+      setMemoriTyping(false);
+    }
+  };
+
+  /**
+   * An enhanced version of translateDialogState that integrates smooth speaking
+   * This preserves all your existing logic while improving speech reliability
+   */
+  const translateDialogState = async (
+    state: DialogState,
+    userLang: string,
+    msg?: string,
+    avoidPushingMessage: boolean = false,
+    engineState: DialogState = state
+  ) => {
+    const emission = state?.emission ?? currentDialogState?.emission;
+
+    let translatedState = { ...state };
+    let translatedMsg: any = null;
+
+    // Skip translation if not needed
+    if (
+      !emission ||
+      language.toUpperCase() === userLang.toUpperCase() ||
+      !isMultilanguageEnabled ||
+      avoidPushingMessage
+    ) {
+      translatedState = { ...state, emission };
+      if (emission) {
+        translatedMsg = {
+          text: emission,
+          emitter: state.emitter,
+          media: state.emittedMedia ?? state.media,
+          llmUsage: (state as any).llmUsage,
+          fromUser: false,
+          questionAnswered: msg,
+          contextVars: state.contextVars,
+          date: state.currentDate,
+          placeName: state.currentPlaceName,
+          placeLatitude: state.currentLatitude,
+          placeLongitude: state.currentLongitude,
+          placeUncertaintyKm: state.currentUncertaintyKm,
+          tag: state.currentTag,
+          memoryTags: state.memoryTags,
+        };
+      }
+    } else {
+      try {
+        const t = await getTranslation(emission, userLang, language, baseUrl);
+
+        // Handle hints translation if present
+        if (state.hints && state.hints.length > 0) {
+          const translatedHints = await Promise.all(
+            (state.hints ?? []).map(async hint => {
+              const tHint = await getTranslation(
+                hint,
+                userLang,
+                language,
+                baseUrl
+              );
+              return {
+                text: tHint?.text ?? hint,
+                originalText: hint,
+              } as TranslatedHint;
+            })
+          );
+          translatedState = {
+            ...state,
+            emission: t.text,
+            translatedHints,
+          };
+        } else {
+          translatedState = {
+            ...state,
+            emission: emission,
+            translatedEmission: t.text,
+            hints:
+              state.hints ??
+              (state.state === 'G1' ? currentDialogState?.hints : []),
+          };
+        }
+
+        if (t.text.length > 0) {
+          translatedMsg = {
+            text: emission,
+            translatedText: t.text,
+            emitter: state.emitter,
+            media: state.emittedMedia ?? state.media,
+            llmUsage: (state as any).llmUsage,
+            fromUser: false,
+            questionAnswered: msg,
+            generatedByAI: !!state.completion,
+            contextVars: state.contextVars,
+            date: state.currentDate,
+            placeName: state.currentPlaceName,
+            placeLatitude: state.currentLatitude,
+            placeLongitude: state.currentLongitude,
+            placeUncertaintyKm: state.currentUncertaintyKm,
+            tag: state.currentTag,
+            memoryTags: state.memoryTags,
+          };
+        }
+      } catch (error) {
+        translatedState = { ...state, emission };
+        translatedMsg = {
+          text: emission,
+          emitter: state.emitter,
+          media: state.emittedMedia ?? state.media,
+          llmUsage: (state as any).llmUsage,
+          fromUser: false,
+          questionAnswered: msg,
+          contextVars: state.contextVars,
+          date: state.currentDate,
+          placeName: state.currentPlaceName,
+          placeLatitude: state.currentLatitude,
+          placeLongitude: state.currentLongitude,
+          placeUncertaintyKm: state.currentUncertaintyKm,
+          tag: state.currentTag,
+          memoryTags: state.memoryTags,
+        };
+      }
+    }
+
+    setCurrentDialogState(translatedState, engineState);
+    if (!avoidPushingMessage && translatedMsg) {
+      pushMessage(translatedMsg);
+    }
+
+    return translatedState;
+  };
+
+  /**
+   * Age verification
+   */
+  const minAge =
+    memori.ageRestriction !== undefined
+      ? memori.ageRestriction
+      : memori.nsfw
+        ? 18
+        : memori.enableCompletions
+          ? 14
+          : 0;
+  const [birthDate, setBirthDate] = useState<string | undefined>();
+  const [showAgeVerification, setShowAgeVerification] = useState(false);
+
+  const getCultureCodeByLanguage = (lang?: string): string => {
+    let voice = '';
+    let voiceLang = (
+      lang ||
+      memori.culture?.split('-')?.[0] ||
+      i18n.language ||
+      'IT'
+    ).toUpperCase();
+    switch (voiceLang) {
+      case 'IT':
+        voice = 'it-IT';
+        break;
+      case 'DE':
+        voice = 'de-DE';
+        break;
+      case 'EN':
+        voice = 'en-GB';
+        break;
+      case 'ES':
+        voice = 'es-ES';
+        break;
+      case 'FR':
+        voice = 'fr-FR';
+        break;
+      case 'PT':
+        voice = 'pt-PT';
+        break;
+      case 'UK':
+        voice = 'uk-UK';
+        break;
+      case 'RU':
+        voice = 'ru-RU';
+        break;
+      case 'PL':
+        voice = 'pl-PL';
+        break;
+      case 'FI':
+        voice = 'fi-FI';
+        break;
+      case 'EL':
+        voice = 'el-GR';
+        break;
+      case 'AR':
+        voice = 'ar-SA';
+        break;
+      case 'ZH':
+        voice = 'zh-CN';
+        break;
+      case 'JA':
+        voice = 'ja-JP';
+        break;
+      default:
+        voice = 'it-IT';
+        break;
+    }
+    return voice;
+  };
+
+  /**
+   * Sessione
+   */
+  const [sessionId, setSessionIdState] = useState<string | undefined>(
+    initialSessionID
+  );
+  const sessionIdRef = useRef<string | undefined>(initialSessionID);
+  const setSessionId = (id: string | undefined) => {
+    sessionIdRef.current = id;
+    setSessionIdState(id);
+  };
+  const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
+  // Fingerprint of the untranslated engine state currently applied: the local
+  // state may carry a translated or fallback emission that never matches the
+  // engine's, so NATS catch-up must compare against this instead.
+  const engineStateFingerprintRef = useRef('');
+  const setCurrentDialogState = (
+    state?: DialogState,
+    engineState: DialogState | undefined = state
+  ) => {
+    engineStateFingerprintRef.current = dialogStateFingerprint(engineState);
+    _setCurrentDialogState(state);
+    if (onStateChange) {
+      onStateChange(state);
+    }
+
+    const e: MemoriNewDialogStateEvent = new CustomEvent(
+      'MemoriNewDialogState',
+      {
+        detail: state,
+      }
+    );
+    document.dispatchEvent(e);
+
+    const executableSnippets = (state?.emittedMedia ?? state?.media)?.filter(
+      m => m.mimeType === 'text/javascript' && !!m.properties?.executable
+    );
+    executableSnippets?.forEach(s => {
+      try {
+        setTimeout(() => {
+          // eslint-disable-next-line no-new-func
+          new Function(s.content ?? '')();
+
+          setTimeout(() => {
+            document
+              .querySelector('.memori-chat--content')
+              ?.scrollTo(
+                0,
+                document.querySelector('.memori-chat--content')?.scrollHeight ??
+                  0
+              );
+          }, 400);
+        }, 1000);
+      } catch {
+        // ignore snippet execution errors
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (initialSessionID) {
+      setSessionId(initialSessionID);
+      onClickStart(undefined, false, undefined, initialSessionID);
+    }
+  }, [initialSessionID]);
+
+  /**
+   * Opening Session
+   */
+  /**
+   * Fetches a new session with the given parameters
+   * @param params OpenSession parameters
+   * @returns Promise resolving to dialog state and session ID if successful, void otherwise
+   */
+  const fetchSession = async (
+    params: OpenSession
+  ): Promise<
+    | (ResponseSpec & {
+        dialogState?: DialogState;
+        sessionID: string;
+      })
+    | undefined
+    | void
+  > => {
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? params.birthDate ?? storageBirthDate;
+    if (!userBirthDate && !!minAge) {
+      setShowAgeVerification(true);
+      return;
+    }
+
+    const password = sessionPassword(params.password);
+
+    // Check if authentication is needed for private Memori
+    if (
+      memori.privacyType !== 'PUBLIC' &&
+      !password &&
+      !params.recoveryTokens?.length &&
+      !memoriTokens
+    ) {
+      setAuthModalState('password');
+      return;
+    }
+
+    if (!(await checkCredits({ notify: true }))) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Check for and set giver invitation if available
+      // if (!memori.giverTag && !!memori.receivedInvitations?.length) {
+      //   let giverInvitation = memori.receivedInvitations.find(
+      //     (i: Invitation) => i.type === 'GIVER' && i.state === 'ACCEPTED'
+      //   );
+
+      //   if (giverInvitation) {x
+      //     memori.giverTag = giverInvitation.tag;
+      //     memori.giverPIN = giverInvitation.pin;
+      //   }
+      // }
+
+      // Get referral URL
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+      } catch {
+        // ignore referral URL errors
+      }
+
+      // Initialize session with parameters
+      const session = await initSession({
+        ...params,
+        password,
+        birthDate: userBirthDate,
+        tag: params.tag ?? personification?.tag,
+        pin: params.pin ?? personification?.pin,
+        additionalInfo: {
+          ...(params.additionalInfo || additionalInfo || {}),
+          loginToken: resolveLoginToken(params.additionalInfo?.loginToken),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
+          referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
+        },
+      });
+
+      // Handle successful session creation
+      if (
+        session?.sessionID &&
+        session?.currentState &&
+        session.resultCode === 0
+      ) {
+        setSessionId(session.sessionID);
+
+        // save giver state
+        if (currentDialogState?.currentTag && memori.giverTag) {
+          setInstruct(currentDialogState?.currentTag === memori.giverTag);
+        } else {
+          setInstruct(false);
+        }
+
+        setLoading(false);
+        return {
+          dialogState: session.currentState,
+          sessionID: session.sessionID,
+        } as any;
+      }
+      // Handle age restriction error
+      else if (/aged? ?-?restricted/i.test(session?.resultMessage ?? '')) {
+        console.warn(session);
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
+        setGotErrorInOpening(true);
+      }
+      // A private agent can still collect a password. A public agent has none:
+      // Empty password here is an engine/backend mismatch, not a prompt.
+      else if (
+        memori.privacyType !== 'PUBLIC' &&
+        (session?.resultCode === 403 ||
+          isEmptyPasswordError(session?.resultCode, session?.resultMessage))
+      ) {
+        setMemoriPwd(undefined);
+        memoriPassword = undefined;
+        setAuthModalState('password');
+        setLoading(false);
+        return session;
+      } else if (
+        isEmptyPasswordError(session?.resultCode, session?.resultMessage)
+      ) {
+        add(
+          createAlertOptions({
+            description: t('error.emptyPasswordPublic'),
+            severity: 'error',
+          })
+        );
+        setLoading(false);
+        return session;
+      }
+      // Handle other errors
+      else {
+        console.warn(session);
+        const toastId = add(
+          createAlertOptions({
+            description: (
+              <div>
+                <p>{t(getErrori18nKey(session?.resultCode))}</p>
+                <Button
+                  variant="outline"
+                  onClick={() => close(toastId)}
+                  aria-label={String(t('close', { defaultValue: 'Close' }))}
+                  icon={<X aria-hidden />}
+                />
+              </div>
+            ),
+            severity: 'error',
+            duration: 0,
+          })
+        );
+        return session;
+      }
+    } catch (err) {
+      logWidgetError('fetchSession failed', err);
+    }
+  };
+
+  /**
+   * Reopens an existing session with optional parameters
+   * @param updateDialogState Whether to update dialog state
+   * @param password Optional password for authentication
+   * @param recoveryTokens Optional recovery tokens
+   * @param tag Optional tag
+   * @param pin Optional PIN
+   * @param initialContextVars Optional initial context variables
+   * @param initialQuestion Optional initial question
+   * @param birthDate Optional birth date for age verification
+   * @returns Promise resolving to dialog state and session ID if successful, null otherwise
+   */
+  const reopenSession = async (
+    updateDialogState: boolean = false,
+    password?: string,
+    recoveryTokens?: string[],
+    tag?: string,
+    pin?: string,
+    initialContextVars?: { [key: string]: string },
+    initialQuestion?: string,
+    birthDate?: string,
+    additionalInfoProp?: { [key: string]: string | undefined },
+    continueFromChatLogID?: string,
+    continueFromSessionID?: string,
+    isSessionExpired?: boolean,
+    suppressHistoryUpdate?: boolean
+  ) => {
+    // Set loading state while reopening session
+    setLoading(true);
+
+    // Get birth date from local storage if not provided
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? storageBirthDate;
+
+    try {
+      // Show age verification if required and birth date not provided
+      if (!userBirthDate && !!minAge) {
+        setShowAgeVerification(true);
+        setLoading(false);
+        return;
+      }
+
+      const resolvedPassword = sessionPassword(password);
+
+      // Check if authentication is needed based on privacy type and credentials
+      if (
+        memori.privacyType !== 'PUBLIC' &&
+        !resolvedPassword &&
+        !recoveryTokens?.length &&
+        !memoriTokens
+      ) {
+        setAuthModalState('password');
+        setLoading(false);
+        return;
+      }
+
+      if (!(await checkCredits({ notify: true }))) {
+        setLoading(false);
+        return null;
+      }
+
+      // Get current URL as referral
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+      } catch {
+        // ignore referral URL errors
+      }
+
+      // Initialize session with provided parameters
+      const { sessionID, currentState, ...response } = await initSession({
+        memoriID: memori.engineMemoriID ?? '',
+        password: resolvedPassword,
+        recoveryTokens: recoveryTokens || memoriTokens,
+        tag: tag ?? personification?.tag,
+        pin: pin ?? personification?.pin,
+        continueFromChatLogID: continueFromChatLogID,
+        continueFromSessionID: continueFromSessionID,
+        initialContextVars: {
+          LANG: userLang,
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
+        initialQuestion,
+        birthDate: userBirthDate,
+        additionalInfo: {
+          ...(additionalInfoProp || additionalInfo || {}),
+          loginToken: resolveLoginToken(additionalInfoProp?.loginToken),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
+          referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
+        },
+      });
+
+      // Handle successful session initialization
+      if (sessionID && currentState && response.resultCode === 0) {
+        setSessionId(sessionID);
+
+        // Update dialog state and history if requested
+        if (updateDialogState) {
+          setCurrentDialogState(currentState);
+
+          const sessionExpiredStatus =
+            isSessionExpired && history.length > 1
+              ? t('sessionExpiredReopening')
+              : null;
+
+          if (sessionExpiredStatus && suppressHistoryUpdate) {
+            pushMessage({
+              text: '',
+              emitter: 'system',
+              fromUser: false,
+              initial: sessionExpiredStatus as any,
+              contextVars: {},
+              date: new Date().toISOString(),
+            });
+          }
+
+          if (currentState.emission && !suppressHistoryUpdate) {
+            // Determine initial status message based on context
+            // Show status message only if session expired and there's existing history
+            const initialStatus = sessionExpiredStatus
+              ? sessionExpiredStatus
+              : history.length <= 1
+                ? true
+                : undefined;
+
+            // Set initial message or append to existing history
+            history.length <= 1
+              ? setHistory([
+                  {
+                    text: currentState.emission,
+                    emitter: currentState.emitter,
+                    media: currentState.emittedMedia ?? currentState.media,
+                    fromUser: false,
+                    initial: (initialStatus === true
+                      ? true
+                      : initialStatus || undefined) as any,
+                    contextVars: currentState.contextVars,
+                    timestamp: new Date().toISOString(),
+                    date: currentState.currentDate,
+                    placeName: currentState.currentPlaceName,
+                    placeLatitude: currentState.currentLatitude,
+                    placeLongitude: currentState.currentLongitude,
+                    placeUncertaintyKm: currentState.currentUncertaintyKm,
+                    tag: currentState.currentTag,
+                    memoryTags: currentState.memoryTags,
+                  },
+                ])
+              : pushMessage({
+                  text: currentState.emission,
+                  emitter: currentState.emitter,
+                  media: currentState.emittedMedia ?? currentState.media,
+                  fromUser: false,
+                  initial: (initialStatus === true
+                    ? true
+                    : initialStatus || undefined) as any,
+                  contextVars: currentState.contextVars,
+                  date: currentState.currentDate,
+                  placeName: currentState.currentPlaceName,
+                  placeLatitude: currentState.currentLatitude,
+                  placeLongitude: currentState.currentLongitude,
+                  placeUncertaintyKm: currentState.currentUncertaintyKm,
+                  tag: currentState.currentTag,
+                  memoryTags: currentState.memoryTags,
+                });
+          }
+        }
+
+        setLoading(false);
+        return {
+          dialogState: currentState,
+          sessionID,
+        };
+      }
+      // Handle age restriction error
+      else if (
+        response?.resultMessage.startsWith('This Memori is aged restricted')
+      ) {
+        console.error('[REOPEN_SESSION] Age restriction error:', response);
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
+        setGotErrorInOpening(true);
+      }
+      // Handle authentication error
+      else if (
+        memori.privacyType !== 'PUBLIC' &&
+        (response?.resultCode === 403 ||
+          isEmptyPasswordError(response?.resultCode, response?.resultMessage))
+      ) {
+        setMemoriPwd(undefined);
+        memoriPassword = undefined;
+        setAuthModalState('password');
+      } else if (
+        isEmptyPasswordError(response?.resultCode, response?.resultMessage)
+      ) {
+        add(
+          createAlertOptions({
+            description: t('error.emptyPasswordPublic'),
+            severity: 'error',
+          })
+        );
+      }
+      // Handle other errors
+      else {
+        console.error('[REOPEN_SESSION] Other error:', response);
+        add(
+          createAlertOptions({
+            description: t(getErrori18nKey(response.resultCode)),
+            severity: 'error',
+          })
+        );
+        setGotErrorInOpening(true);
+      }
+    } catch (err) {
+      logWidgetError('reopenSession failed', err);
+    }
+    // Reset loading state
+    setLoading(false);
+
+    return null;
+  };
+
+  const retryAfterExpiredSessionRef = useRef<
+    (params: EnterTextRetryParams) => ReturnType<typeof reopenSession>
+  >(() => Promise.resolve(null));
+
+  retryAfterExpiredSessionRef.current = (params: EnterTextRetryParams) => {
+    const {
+      text,
+      media,
+      translate = true,
+      translatedText,
+      hidden = false,
+      typingText,
+      useLoaderTextAsMsg = false,
+      hasBatchQueued = false,
+      expiredSessionID,
+      continueFromChatLogID: continueFromChatLogIDParam,
+    } = params;
+
+    const continueFromSessionID = expiredSessionID ?? sessionId;
+    const continueFromChatLogID = continueFromChatLogIDParam ?? chatLogID;
+
+    const reopenAfterExpiry = () =>
+      reopenSession(
+        true,
+        sessionPassword(),
+        memoriTokens,
+        undefined,
+        undefined,
+        {
+          LANG: userLang,
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
+        initialQuestion,
+        undefined,
+        undefined,
+        continueFromChatLogID,
+        continueFromSessionID,
+        true,
+        true
+      );
+
+    const scheduleRetry = (newSessionID: string) => {
+      setTimeout(() => {
+        sendMessage(
+          text!,
+          media,
+          newSessionID,
+          translate,
+          translatedText,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued,
+          true
+        );
+      }, 500);
+    };
+
+    const handleReopenFailure = (
+      state: Awaited<ReturnType<typeof reopenSession>>
+    ) => {
+      setMemoriTyping(false);
+      setTypingText(undefined);
+      // `null` = explicit failure; `undefined` = auth/age modal opened (message kept in history)
+      if (state === null && text && !hidden) {
+        add(
+          createAlertOptions({
+            description: t('errors.SESSION_EXPIRED'),
+            severity: 'error',
+          })
+        );
+      }
+    };
+
+    if (!text) {
+      return reopenAfterExpiry().then(state => {
+        if (!state?.sessionID) {
+          handleReopenFailure(state);
+        }
+        return state;
+      });
+    }
+
+    return reopenAfterExpiry().then(state => {
+      if (state?.sessionID) {
+        scheduleRetry(state.sessionID);
+      } else {
+        handleReopenFailure(state);
+      }
+      return state;
+    });
+  };
+
+  const changeTag = async (
+    memoriId: string,
+    sessionId: string,
+    tag?: string,
+    pin?: string
+  ) => {
+    if (!memoriId || !sessionId) {
+      return Promise.reject('Session not found');
+    }
+
+    try {
+      const { currentState, resultCode } = await postTagChangedEvent(
+        sessionId,
+        tag ?? anonTag
+      );
+
+      if (resultCode === 0) {
+        let textResult = 0;
+        if (
+          tag !== anonTag &&
+          pin &&
+          (currentState.state === 'X1a' || currentState.state === 'X1b')
+        ) {
+          const placeSpec = getPlaceSpecForEnterText(position);
+          const { resultCode: textResultCode } = await postTextEnteredEvent({
+            sessionId,
+            text: pin ?? '',
+            ...(memori.needsDateTime && {
+              dateUTC: DateTime.utc().toISO() ?? undefined,
+            }),
+            ...(placeSpec !== undefined && { place: placeSpec }),
+          });
+          textResult = textResultCode;
+        }
+
+        if (textResult === 0) {
+          const { currentState, ...response } = await getSession(sessionId);
+
+          if (response.resultCode === 0 && !!currentState) {
+            return {
+              currentState,
+              sessionId,
+              ...response,
+            };
+          }
+        } else if ([400, 401, 403, 404, 500].includes(resultCode)) {
+          let storageBirthDate = getLocalConfig<string | undefined>(
+            'birthDate',
+            undefined
+          );
+
+          let referral;
+          try {
+            referral = (() => {
+              return window.location.href;
+            })();
+          } catch {
+            // ignore referral URL errors
+          }
+
+          fetchSession({
+            memoriID: memori.engineMemoriID ?? '',
+            password: sessionPassword(),
+            tag: tag ?? personification?.tag,
+            pin: pin ?? personification?.pin,
+            initialContextVars: {
+              LANG: userLang,
+              PATHNAME: window.location.pathname,
+              ROUTE: window.location.pathname?.split('/')?.pop() || '',
+              ...(initialContextVars || {}),
+            },
+            initialQuestion,
+            birthDate: birthDate || storageBirthDate || undefined,
+            additionalInfo: {
+              ...(additionalInfo || {}),
+              loginToken: resolveLoginToken(),
+              language: (
+                userLang ??
+                memori.culture?.split('-')?.[0] ??
+                'IT'
+              ).toLowerCase(),
+              referral: referral,
+              timeZoneOffset: new Date().getTimezoneOffset().toString(),
+            },
+          });
+        } else if (!!currentState) {
+          return {
+            currentState,
+            sessionId,
+            resultCode,
+          };
+        }
+      }
+    } catch (_e) {
+      let err = _e as Error;
+      return Promise.reject(err);
+    }
+
+    return null;
+  };
+
+  /**
+   * Timeout conversazione
+   */
+  const [userInteractionTimeout, setUserInteractionTimeout] =
+    useState<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const clearInteractionTimeout = () => {
+    if (userInteractionTimeout) {
+      clearTimeout(userInteractionTimeout);
+      setUserInteractionTimeout(undefined);
+    }
+    if (timeoutRef?.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = undefined;
+    }
+  };
+  useEffect(() => {
+    return () => {
+      setHasUserActivatedSpeak(false);
+      setClickedStart(false);
+      sessionStartingRef.current = false;
+      clearInteractionTimeout();
+      timeoutRef.current = undefined;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /**
+   * Speech recognition event handlers
+   */
+  const [requestedListening, setRequestedListening] = useState(false);
+  const startListeningRef = useRef<(() => Promise<void>) | null>(null);
+
+  // Define TTS configuration
+  const ttsConfig = useMemo(
+    () => ({
+      provider: ttsProvider,
+      voice: getTTSVoice(
+        userLang || memori.culture?.split('-')?.[0] || 'EN',
+        ttsProvider,
+        memori.voiceType as 'MALE' | 'FEMALE' | 'NEUTRAL'
+      ),
+      tenant: tenantID,
+      sessionId,
+      sessionIdRef,
+      region: 'westeurope',
+      voiceType: memori.voiceType,
+      layout: selectedLayout,
+    }),
+    [
+      ttsProvider,
+      userLang,
+      memori.culture,
+      memori.voiceType,
+      selectedLayout,
+      tenantID,
+      sessionId,
+      sessionIdRef,
+    ]
+  );
+
+  const sttConfig = useMemo(
+    () => ({
+      provider: ttsProvider,
+      language: getCultureCodeByLanguage(userLang),
+      tenant: tenantID,
+      sessionId,
+      sessionIdRef,
+    }),
+    [ttsProvider, userLang, tenantID, sessionId, sessionIdRef]
+  );
+
+  const reportSpeechError = useCallback(
+    (error: Error) => {
+      const key = speechErrorI18nKey(error);
+      add(
+        createAlertOptions({
+          description: key ? t(key) : error.message,
+          severity:
+            error instanceof SpeechRequestError && error.code === 'rate_limited'
+              ? 'warning'
+              : 'error',
+        })
+      );
+    },
+    [add, t]
+  );
+
+  const resolvedDefaultSpeakerActive =
+    defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true;
+
+  // Initialize TTS hook with basic options first
+  const {
+    speak: ttsSpeak,
+    stop: ttsStop,
+    isPlaying: isPlayingAudio,
+    speakerMuted,
+    toggleMute,
+    hasUserActivatedSpeak,
+    setHasUserActivatedSpeak,
+  } = useTTS(
+    ttsConfig as TTSConfig,
+    {
+      apiUrl: `${baseUrl}/api/tts`,
+      continuousSpeech: continuousSpeech,
+      preview: preview,
+      onError: reportSpeechError,
+    },
+    autoStart,
+    defaultEnableAudio,
+    resolvedDefaultSpeakerActive
+  );
+
+  const muteSpeakerFallback = getMuteSpeakerFallback(
+    defaultEnableAudio,
+    resolvedDefaultSpeakerActive,
+    autoStart
+  );
+
+  // Helper function to check if audio should be played.
+  // Align mute fallback with UI state so autostart + muted speaker never speaks.
+  const shouldPlayAudio = (text?: string) =>
+    shouldPlayTtsAudio({
+      text,
+      preview,
+      defaultEnableAudio,
+      defaultSpeakerActive: resolvedDefaultSpeakerActive,
+      autoStart,
+      speakerMuted,
+      storedMute: getLocalConfig('muteSpeaker', muteSpeakerFallback),
+    });
+
+  // Set when the chat input wants the transcription back instead of sending it
+  const transcriptHandlerRef = useRef<((text: string) => void) | null>(null);
+  // Read through a ref: the recorder keeps the first render's speech callback
+  const showInputsRef = useRef(showInputs);
+  showInputsRef.current = showInputs;
+
+  // Create a single, centralized function to process and send messages
+  const processSpeechAndSendMessage = (text: string) => {
+    // Skip if already processing or no text
+    if (!text || text.trim().length === 0) {
+      return;
+    }
+
+    try {
+      // Process the text
+      const message = stripDuplicates(text);
+      const transcriptHandler = transcriptHandlerRef.current;
+      transcriptHandlerRef.current = null;
+
+      if (transcriptHandler) {
+        if (message.length > 0) transcriptHandler(message);
+      } else if (message.length > 0 && showInputsRef.current) {
+        // Stopped by the system (agent speaking, typing, unmount…): keep the
+        // text in the composer so typed text and attachments go with it
+        setUserMessage(prev =>
+          [prev.trim(), message].filter(Boolean).join(' ')
+        );
+      } else if (message.length > 0) {
+        setUserMessage('');
+
+        // Send the message
+        sendMessage(message);
+      }
+    } catch {
+      // ignore speech processing errors
+    }
+  };
+
+  const {
+    isListening,
+    audioStream,
+    recordingState,
+
+    // Actions
+    startRecording,
+    stopRecording,
+  } = useSTT(
+    sttConfig as STTConfig,
+    processSpeechAndSendMessage,
+    {
+      apiUrl: `${baseUrl}/api/stt`,
+      onError: reportSpeechError,
+    },
+    defaultEnableAudio
+  );
+
+  useEffect(() => {
+    const wasLoggedIn = wasLoggedInRef.current;
+    if (isUserLoggedIn) {
+      wasLoggedInRef.current = true;
+      return;
+    }
+
+    if (
+      shouldReturnToStartPanelAfterLogout(
+        !!memori.requireLoginToken,
+        wasLoggedIn,
+        isUserLoggedIn,
+        Boolean(sessionIdRef.current)
+      )
+    ) {
+      ttsStop();
+      stopRecording();
+      clearInteractionTimeout();
+      setMemoriTyping(false);
+      setTypingText(undefined);
+      setHasUserActivatedSpeak(false);
+      setClickedStart(false);
+      setUserMessage('');
+      setHistory([]);
+      setCurrentDialogState(undefined);
+      setSessionId(undefined);
+    }
+
+    wasLoggedInRef.current = false;
+    // Session teardown reads the latest auth/session refs; listing the
+    // setters would re-run this on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUserLoggedIn, memori.requireLoginToken, sessionId]);
+
+  useEffect(() => {
+    if (isListening) transcriptHandlerRef.current = null;
+  }, [isListening]);
+
+  /**
+   * Enhanced handleSpeak that integrates with the improved useTTS hook
+   * Uses promise-based approach for better reliability
+   */
+  const handleSpeak = async (text: string) => {
+    if (!shouldPlayAudio(text)) {
+      const e = new CustomEvent('MemoriEndSpeak');
+      document.dispatchEvent(e);
+      return Promise.resolve();
+    }
+
+    if (typeof stopRecording === 'function') {
+      stopRecording();
+    }
+
+    // Reset the typing flag when Memori starts speaking
+    setHasUserTypedMessage(false);
+
+    const processedText = sanitizeText(text);
+    return ttsSpeak(processedText);
+  };
+  /**
+   * Integrated solution for translating dialog state and speaking
+   * This uses promise chaining for reliable sequencing without timeouts
+   */
+  const translateAndSpeak = useCallback(
+    async (
+      dialogState: DialogState,
+      language: string,
+      msg?: string,
+      skipEmission: boolean = false
+    ) => {
+      try {
+        // First ensure we have a valid dialog state
+        if (!dialogState) {
+          return null;
+        }
+
+        // Then translate the dialog state
+        const translatedState = await translateDialogState(
+          dialogState,
+          language,
+          msg,
+          skipEmission
+        );
+
+        // If we're not skipping emission and there's something to speak, speak it
+        const textToSpeak =
+          translatedState.translatedEmission || translatedState.emission;
+
+        // Always set hasUserActivatedSpeak to true when we have a valid dialog state,
+        // regardless of audio settings, so the chat can start properly
+        if (!hasUserActivatedSpeak) {
+          setHasUserActivatedSpeak(true);
+        }
+
+        if (textToSpeak && !skipEmission && shouldPlayAudio(textToSpeak)) {
+          await handleSpeak(textToSpeak);
+        }
+
+        return translatedState;
+      } catch {
+        // Still update activation state even if there's an error
+        if (!hasUserActivatedSpeak) {
+          setHasUserActivatedSpeak(true);
+        }
+        return dialogState;
+      }
+    },
+    [
+      translateDialogState,
+      handleSpeak,
+      hasUserActivatedSpeak,
+      setHasUserActivatedSpeak,
+      speakerMuted,
+    ]
+  );
+
+  const processEnterTextDialogResponse = useCallback(
+    (event: NatsDialogResponseEvent, pending: PendingEnterText) => {
+      const {
+        msg,
+        typingText: pendingTypingText,
+        useLoaderTextAsMsg,
+      } = pending;
+      const currentState = event.currentState;
+
+      if (event.resultCode !== 0 || !currentState) {
+        if (isSessionExpiredNatsResponse(event) && pending.text) {
+          setMemoriTyping(false);
+          setTypingText(undefined);
+          retryAfterExpiredSessionRef.current({
+            text: pending.text,
+            media: pending.media,
+            translate: pending.translate,
+            translatedText: pending.translatedText,
+            hidden: pending.hidden,
+            typingText: pending.typingText,
+            useLoaderTextAsMsg: pending.useLoaderTextAsMsg,
+            hasBatchQueued: pending.hasBatchQueued,
+            expiredSessionID: sessionId,
+            continueFromChatLogID: chatLogID,
+          });
+          return;
+        }
+
+        if (event.resultCode === 500 && event.resultMessage) {
+          setHistory(h => [
+            ...h,
+            {
+              text: 'Error: ' + event.resultMessage,
+              emitter: 'system',
+              fromUser: false,
+              initial: false,
+              contextVars: {},
+              date: new Date().toISOString(),
+            },
+          ]);
+        }
+        return;
+      }
+
+      if (!msg) {
+        return;
+      }
+
+      setChatLogID(undefined);
+      const emission =
+        useLoaderTextAsMsg && pendingTypingText
+          ? pendingTypingText
+          : currentState.emission;
+
+      if (
+        userLang.toLowerCase() !== language.toLowerCase() &&
+        emission &&
+        isMultilanguageEnabled
+      ) {
+        translateDialogState(
+          { ...currentState, emission },
+          userLang,
+          msg,
+          false,
+          currentState
+        ).then(ts => {
+          const text = ts.translatedEmission || ts.emission;
+          if (text && shouldPlayAudio(text)) {
+            handleSpeak(text);
+          }
+        });
+      } else {
+        setCurrentDialogState(
+          {
+            ...currentState,
+            emission,
+          },
+          currentState
+        );
+
+        if (emission) {
+          pushMessage({
+            text: emission,
+            emitter: currentState.emitter,
+            media: currentState.emittedMedia ?? currentState.media,
+            llmUsage: (currentState as any).llmUsage,
+            fromUser: false,
+            questionAnswered: msg,
+            generatedByAI: !!currentState.completion,
+            contextVars: currentState.contextVars,
+            date: currentState.currentDate,
+            placeName: currentState.currentPlaceName,
+            placeLatitude: currentState.currentLatitude,
+            placeLongitude: currentState.currentLongitude,
+            placeUncertaintyKm: currentState.currentUncertaintyKm,
+            tag: currentState.currentTag,
+            memoryTags: currentState.memoryTags,
+          } as any);
+          if (emission && shouldPlayAudio(emission)) {
+            handleSpeak(emission);
+          }
+        }
+      }
+    },
+    [
+      userLang,
+      language,
+      isMultilanguageEnabled,
+      translateDialogState,
+      handleSpeak,
+      shouldPlayAudio,
+    ]
+  );
+
+  const clearEnterTextPending = useCallback(
+    (correlationID: string, pending: PendingEnterText) => {
+      if (pending.waitForResponse?.timeoutId) {
+        clearTimeout(pending.waitForResponse.timeoutId);
+      }
+      pendingEnterTextRef.current.delete(correlationID);
+    },
+    []
+  );
+
+  const deliverEnterTextNatsError = useCallback(
+    (event: NatsErrorEvent) => {
+      const correlationID = event.correlationID;
+      let pending: PendingEnterText | undefined;
+
+      if (correlationID) {
+        pending = pendingEnterTextRef.current.get(correlationID);
+        if (pending) {
+          clearEnterTextPending(correlationID, pending);
+          pending.waitForResponse?.reject(
+            new Error(
+              event.errorMessage ?? String(event.errorCode ?? 'NATS error')
+            )
+          );
+        }
+      }
+
+      if (isSessionExpiredNatsError(event) && pending?.text) {
+        setMemoriTyping(false);
+        setTypingText(undefined);
+        retryAfterExpiredSessionRef.current({
+          text: pending.text,
+          media: pending.media,
+          translate: pending.translate,
+          translatedText: pending.translatedText,
+          hidden: pending.hidden,
+          typingText: pending.typingText,
+          useLoaderTextAsMsg: pending.useLoaderTextAsMsg,
+          hasBatchQueued: pending.hasBatchQueued,
+          expiredSessionID: sessionId,
+          continueFromChatLogID: chatLogID,
+        });
+        return;
+      }
+
+      const errorText = event.errorMessage
+        ? `Error: ${event.errorMessage}`
+        : event.errorCode
+          ? `Error: ${event.errorCode}`
+          : 'Error: An unexpected error occurred';
+
+      pushMessage({
+        text: errorText,
+        emitter: 'system',
+        fromUser: false,
+        initial: false,
+        contextVars: {},
+        date: new Date().toISOString(),
+      });
+
+      setMemoriTyping(false);
+      setTypingText(undefined);
+    },
+    [clearEnterTextPending]
+  );
+
+  const deliverEnterTextNatsResponse = useCallback(
+    (correlationID: string, event: NatsDialogResponseEvent) => {
+      const pending = pendingEnterTextRef.current.get(correlationID);
+      if (!pending) {
+        bufferedNatsResponsesRef.current.set(correlationID, event);
+        return;
+      }
+
+      clearEnterTextPending(correlationID, pending);
+
+      if (pending.waitForResponse) {
+        pending.waitForResponse.resolve(event);
+        setMemoriTyping(false);
+        setTypingText(undefined);
+        return;
+      }
+
+      processEnterTextDialogResponse(event, pending);
+
+      if (!pending.hasBatchQueued) {
+        setMemoriTyping(false);
+        setTypingText(undefined);
+      }
+    },
+    [processEnterTextDialogResponse, clearEnterTextPending]
+  );
+
+  const registerPendingEnterText = useCallback(
+    (correlationID: string, pending: PendingEnterText) => {
+      const buffered = bufferedNatsResponsesRef.current.get(correlationID);
+      if (buffered) {
+        bufferedNatsResponsesRef.current.delete(correlationID);
+        pendingEnterTextRef.current.set(correlationID, pending);
+        deliverEnterTextNatsResponse(correlationID, buffered);
+        return;
+      }
+
+      pendingEnterTextRef.current.set(correlationID, pending);
+    },
+    [deliverEnterTextNatsResponse]
+  );
+
+  const waitForEnterTextNatsResponse = useCallback(
+    (correlationID: string, timeoutMs = 120000) =>
+      new Promise<NatsDialogResponseEvent>((resolve, reject) => {
+        const timeoutId = setTimeout(() => {
+          const current = pendingEnterTextRef.current.get(correlationID);
+          if (current) {
+            clearEnterTextPending(correlationID, current);
+          }
+          logWidgetError('NATS timeout', { correlationID, timeoutMs });
+          reject(new Error('NATS enter-text response timeout'));
+        }, timeoutMs);
+
+        registerPendingEnterText(correlationID, {
+          stateBeforeRequest: engineStateFingerprintRef.current,
+          waitForResponse: {
+            resolve: event => {
+              clearTimeout(timeoutId);
+              resolve(event);
+            },
+            reject: error => {
+              clearTimeout(timeoutId);
+              reject(error);
+            },
+            timeoutId,
+          },
+        });
+      }),
+    [registerPendingEnterText, clearEnterTextPending]
+  );
+
+  const catchUpPendingEnterText = useCallback(async () => {
+    if (!sessionId || pendingEnterTextRef.current.size === 0) return;
+
+    // Async turns are registered in send order. The current session state can
+    // only represent the latest completed turn, so reconcile the latest one.
+    const latest = Array.from(pendingEnterTextRef.current.entries()).pop();
+    if (!latest) return;
+    const [correlationID, pending] = latest;
+
+    try {
+      const { currentState, resultCode, resultMessage, requestID } =
+        await getSession(sessionId);
+
+      if (resultCode !== 0 || !currentState) {
+        deliverEnterTextNatsResponse(correlationID, {
+          eventType: 'dialog_text_entered_response',
+          correlationID,
+          requestID,
+          resultCode,
+          resultMessage,
+          currentState,
+        });
+        return;
+      }
+
+      if (
+        !isEnterTextCatchUpReady(pending.stateBeforeRequest, currentState) ||
+        dialogStateFingerprint(currentState) ===
+          engineStateFingerprintRef.current
+      ) {
+        console.info('[NATS] catch-up: pending turn has not completed yet');
+        return;
+      }
+
+      console.info('[NATS] catch-up: applying current engine session state');
+      deliverEnterTextNatsResponse(correlationID, {
+        eventType: 'dialog_text_entered_response',
+        correlationID,
+        requestID,
+        resultCode,
+        resultMessage,
+        currentState,
+      });
+    } catch (error) {
+      logWidgetError('NATS catch-up failed', error);
+    }
+  }, [sessionId, deliverEnterTextNatsResponse]);
+
+  // NATS subscription: receives progress updates and the async enter-text response.
+  useNats({
+    baseUrl,
+    sessionId,
+    onProgress: useCallback((event: NatsProgressEvent) => {
+      if (event.message) {
+        setTypingText(event.message);
+      }
+    }, []),
+    onDialogResponse: useCallback(
+      (event: NatsDialogResponseEvent) => {
+        const correlationID = event.correlationID;
+        if (!correlationID) {
+          logWidgetError('NATS dialog response missing correlationID', event);
+          setMemoriTyping(false);
+          setTypingText(undefined);
+          return;
+        }
+
+        deliverEnterTextNatsResponse(correlationID, event);
+      },
+      [deliverEnterTextNatsResponse]
+    ),
+    onError: deliverEnterTextNatsError,
+    onCatchUp: catchUpPendingEnterText,
+  });
+
+  const focusChatInput = () => {
+    let textarea = document.querySelector(
+      '#chat-fieldset textarea'
+    ) as HTMLTextAreaElement | null;
+    if (textarea && enableFocusChatInput) {
+      textarea.focus();
+    } else {
+      textarea?.blur();
+    }
+  };
+
+  /**
+   * Focus on the chat input on mount
+   */
+  useEffect(() => {
+    // focus on chat input disabled for totem layout
+    if (selectedLayout !== 'TOTEM') {
+      focusChatInput();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentDialogState?.emission]);
+
+  const resetUIEffects = () => {
+    try {
+      clearInteractionTimeout();
+      setClickedStart(false);
+      timeoutRef.current = undefined;
+      ttsStop();
+    } catch {
+      // ignore reset errors
+    }
+  };
+  useEffect(() => {
+    return () => {
+      resetUIEffects();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    document.addEventListener('MemoriResetUIEffects', resetUIEffects);
+
+    return () => {
+      document.removeEventListener('MemoriResetUIEffects', resetUIEffects);
+    };
+  }, []);
+
+  useEffect(() => {
+    const loginBlocksInteraction = shouldHoldAutoStartForLogin(
+      !!memori.requireLoginToken,
+      isUserLoggedIn
+    );
+    // if memori is speaking or generating a reply, don't start listening
+    if (
+      !loginBlocksInteraction &&
+      !isPlayingAudio &&
+      !memoriTyping &&
+      continuousSpeech &&
+      (hasUserActivatedListening || !requestedListening) &&
+      sessionId &&
+      !hasUserTypedMessage // Don't start recording if user has typed a message
+    ) {
+      startRecording();
+    } else if (
+      ((isPlayingAudio || memoriTyping) && isListening) ||
+      (loginBlocksInteraction && isListening)
+    ) {
+      stopRecording();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isPlayingAudio,
+    hasUserActivatedListening,
+    hasUserTypedMessage,
+    memoriTyping,
+    isUserLoggedIn,
+    memori.requireLoginToken,
+    sessionId,
+  ]);
+
+  useEffect(() => {
+    stopRecording();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
+
+  /**
+   * Textarea send mode handlers
+   */
+  const [sendOnEnter, setSendOnEnter] = useState<'keypress' | 'click'>(
+    'keypress'
+  );
+  useEffect(() => {
+    if (window.innerWidth <= 768 && hasTouchscreen()) setSendOnEnter('click');
+    else setSendOnEnter('keypress');
+  }, []);
+
+  /**
+   * Attachments
+   */
+  const [attachmentsMenuOpen, setAttachmentsMenuOpen] = useState<
+    'link' | 'media'
+  >();
+
+  const globalBackground = integrationConfig?.globalBackground;
+
+  const integrationProperties = (
+    integration ? getChatStyles(integrationConfig) : {}
+  ) as CSSProperties;
+
+  const integrationSelectors = [
+    preview ? '#preview' : null,
+    applyVarsToRoot ? ':root' : null,
+    integration ? 'body' : null,
+    '.memori-client',
+    '.memori-widget',
+    '.memori-drawer',
+    '.memori-modal',
+    '.memori-header',
+    '.memori-dropdown',
+    '.memori-select',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const integrationCssBlock = Object.entries(integrationProperties)
+    .map(([key, value]) => `${key}: ${value};`)
+    .join('\n    ');
+
+  const integrationStylesheetParts: string[] = [];
+  if (integrationCssBlock) {
+    integrationStylesheetParts.push(
+      `${integrationSelectors} {
+    ${integrationCssBlock}
+  }`
+    );
+    integrationStylesheetParts.push(
+      `[data-theme="dark"] .memori-widget,
+  .memori-widget[data-theme="dark"],
+  [data-theme="dark"] memori-client .memori-widget,
+  memori-client[data-theme="dark"] .memori-widget {
+    ${integrationCssBlock}
+  }`
+    );
+  }
+  if (integrationConfig?.blurBackground === false) {
+    integrationStylesheetParts.push(
+      `.memori-widget .memori-chat--history--has-global-background::before,
+  .memori-widget .memori-chat-layout--main--has-background::before {
+    filter: none;
+    transform: none;
+  }`
+    );
+  }
+  const integrationStylesheet = `@layer memori.overrides {
+  ${integrationStylesheetParts.join('\n  ')}
+}
+`;
+
+  const showAIicon =
+    integrationConfig?.showAIicon === undefined
+      ? true
+      : integrationConfig?.showAIicon;
+
+  const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
+
+  const enableReasoning = !!(showReasoning ?? integrationConfig?.showReasoning);
+  const enableMessageConsumption = resolveOptionalBoolean(
+    showMessageConsumption,
+    integrationConfig?.showMessageConsumption
+  );
+
+  const showWhyThisAnswer =
+    integrationConfig?.showWhyThisAnswer === undefined
+      ? true
+      : integrationConfig?.showWhyThisAnswer;
+
+  // eslint-disable-next-line
+  const [avatar3dVisible, setAvatar3dVisible] = useState(false);
+  useEffect(() => {
+    if (
+      (window.innerWidth >= 768 && selectedLayout === 'FULLPAGE') ||
+      selectedLayout !== 'FULLPAGE'
+    ) {
+      setAvatar3dVisible(true);
+    }
+  }, []);
+
+  // Put SEO tags in head
+  useEffect(() => {
+    if (integrationConfig?.seoTitle) {
+      let meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:title');
+      meta.setAttribute('content', integrationConfig.seoTitle);
+      document.head.append(meta);
+    }
+    if (integrationConfig?.seoDescription) {
+      let meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:description');
+      meta.setAttribute('content', integrationConfig.seoDescription);
+      document.head.append(meta);
+    }
+    if (integrationConfig?.seoUrl) {
+      let meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:url');
+      meta.setAttribute('content', integrationConfig.seoUrl);
+      document.head.append(meta);
+    }
+    let image = ogImage || memori.avatarURL;
+    if (integrationConfig?.seoImageShowAvatar && image) {
+      let meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image');
+      meta.setAttribute('content', image);
+      document.head.append(meta);
+    }
+  }, [integrationConfig, memori.avatarURL, ogImage]);
+
+  const simulateUserPrompt = (text: string, translatedText?: string) => {
+    ttsStop();
+    sendMessage(text, undefined, undefined, false, translatedText);
+  };
+
+  // listen to events from browser
+  // to use in integrations or snippets
+  const memoriTextEnteredHandler = (e: MemoriTextEnteredEvent, retries = 0) => {
+    if (disableTextEnteredEvents) {
+      return;
+    }
+
+    const {
+      text,
+      waitForPrevious,
+      hidden,
+      typingText,
+      useLoaderTextAsMsg,
+      hasBatchQueued,
+    } = e.detail;
+
+    if (text) {
+      // wait for the previous request to be answered; memoriTyping is not
+      // used because batches keep it on between steps. Bounded so a turn whose
+      // response never arrives cannot block later messages forever.
+      if (
+        waitForPrevious &&
+        !speakerMuted &&
+        (memoriSpeaking || pendingEnterTextRef.current.size > 0) &&
+        retries < MAX_WAIT_FOR_PREVIOUS_RETRIES
+      ) {
+        setTimeout(() => {
+          memoriTextEnteredHandlerRef.current(e, retries + 1);
+        }, 1000);
+      } else {
+        ttsStop();
+        sendMessage(
+          text,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          hidden,
+          typingText,
+          useLoaderTextAsMsg,
+          hasBatchQueued
+        );
+      }
+    }
+  };
+  // The document listener is registered once; it must reach the latest render's
+  // handler, otherwise sendMessage sees a stale dialog state and session.
+  const memoriTextEnteredHandlerRef = useRef(memoriTextEnteredHandler);
+  memoriTextEnteredHandlerRef.current = memoriTextEnteredHandler;
+  useEffect(() => {
+    if (disableTextEnteredEvents) return;
+
+    const listener = (e: MemoriTextEnteredEvent) =>
+      memoriTextEnteredHandlerRef.current(e);
+    document.addEventListener('MemoriTextEntered', listener);
+    return () => {
+      document.removeEventListener('MemoriTextEntered', listener);
+    };
+  }, [disableTextEnteredEvents]);
+
+  /**
+   * Handles clicking the start button to begin or resume a session
+   * @param session Optional existing session with dialog state and ID
+   * @param initialSessionExpired Whether the initial session has expired
+   /**
+    * Handles clicking the start button to begin or resume a session
+    * @param session Optional existing session with dialog state and ID
+    * @param initialSessionExpired Whether the initial session has expired
+    */
+  const onClickStart = useCallback(
+    async (
+      session?: { dialogState: DialogState; sessionID: string },
+      initialSessionExpired = false,
+      chatLog?: ChatLog,
+      targetSessionID?: string
+    ) => {
+      const sessionID = chatLog ? undefined : session?.sessionID || sessionId;
+      const dialogState = chatLog
+        ? undefined
+        : session?.dialogState || currentDialogState;
+      setClickedStart(true);
+      setHasUserTypedMessage(false); // Reset typing flag when starting a new session
+
+      let translatedMessages: Message[] = [];
+
+      // Get birth date from storage or props
+      let storageBirthDate = getLocalConfig<string | undefined>(
+        'birthDate',
+        undefined
+      );
+      let birth = birthDate || storageBirthDate || user?.birthDate;
+      if (!birth && autoStart && (initialSessionID || targetSessionID))
+        birth = '1970-01-01T10:24:03.845Z';
+
+      const localPosition = getLocalConfig<Venue | undefined>(
+        'position',
+        undefined
+      );
+      // Wait on the start panel for location share/skip and login; do not open the header popover.
+      if (
+        autoStart &&
+        (shouldHoldAutoStartForPosition(
+          !!memori.needsPosition,
+          Boolean(position || localPosition)
+        ) ||
+          shouldHoldAutoStartForLogin(
+            !!memori.requireLoginToken,
+            isUserLoggedIn
+          ))
+      ) {
+        setClickedStart(false);
+        return;
+      }
+
+      if (!(await checkCredits({ notify: true }))) {
+        setClickedStart(false);
+        setLoading(false);
+        return;
+      }
+
+      // Handle age verification
+      if (!sessionID && !!minAge && !birth) {
+        setShowAgeVerification(true);
+        setClickedStart(false);
+        return;
+      }
+      // Handle authentication
+      else if (
+        (!sessionID &&
+          memori.privacyType !== 'PUBLIC' &&
+          !sessionPassword() &&
+          !memoriTokens) ||
+        (!sessionID && gotErrorInOpening)
+      ) {
+        setAuthModalState('password');
+        setClickedStart(false);
+        return;
+      }
+      // Create new session if needed
+      else if (!sessionID || initialSessionExpired) {
+        setGotErrorInOpening(false);
+        if (sessionStartingRef.current) {
+          return;
+        }
+        sessionStartingRef.current = true;
+        try {
+          const session = await fetchSession({
+            memoriID: memori.engineMemoriID!,
+            password: sessionPassword(),
+            tag: personification?.tag,
+            pin: personification?.pin,
+            continueFromChatLogID: chatLog?.chatLogID,
+            initialContextVars: {
+              LANG: userLang,
+              PATHNAME: window.location.pathname?.toUpperCase(),
+              ROUTE:
+                window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                '',
+              ...((!chatLog
+                ? initialContextVars
+                : chatLog.lines[chatLog.lines.length - 1].contextVars) || {}),
+            },
+            initialQuestion: chatLog ? undefined : initialQuestion,
+            birthDate: birth,
+            additionalInfo: {
+              ...(additionalInfo || {}),
+              loginToken: resolveLoginToken(),
+              language: (
+                userLang ??
+                memori.culture?.split('-')?.[0] ??
+                'IT'
+              ).toLowerCase(),
+              timeZoneOffset: new Date().getTimezoneOffset().toString(),
+            },
+          });
+
+          // The user can log out while the session is opening.
+          if (session?.sessionID && loginBlocksInteractionRef.current) {
+            deleteSession(session.sessionID);
+            setSessionId(undefined);
+            setLoading(false);
+            setClickedStart(false);
+            return;
+          }
+
+          if (session?.dialogState) {
+            // reset history
+            if (!chatLog) {
+              setHistory([]);
+
+              // Use translateAndSpeak which already handles the speaking
+              await translateAndSpeak(session.dialogState, userLang);
+              // No need for additional handleSpeak call since translateAndSpeak already handles it
+              setHasUserActivatedSpeak(true);
+              setClickedStart(false);
+            } else {
+              const messages = chatLog.lines.map(
+                (l, i) =>
+                  ({
+                    text: l.text,
+                    media: l.media
+                      ?.filter(m => allowedMediaTypes.includes(m.mimeType))
+                      ?.map(m => ({
+                        mediumID: `${i}-${m.mimeType}`,
+                        ...m,
+                      })),
+                    fromUser: l.inbound,
+                    llmUsage: (l as any).llmUsage,
+                    timestamp: l.timestamp,
+                    emitter: l.emitter,
+                  }) as Message
+              );
+
+              // we dont remove the last one as it is the current state
+              translatedMessages = messages ?? [];
+              if (
+                language.toUpperCase() !== userLang.toUpperCase() &&
+                isMultilanguageEnabled
+              ) {
+                try {
+                  translatedMessages = await Promise.all(
+                    messages.map(async m => {
+                      // If original text is present, the message is already translated
+                      if ('originalText' in m && m.originalText) {
+                        return m;
+                      }
+                      // Otherwise translate the message
+                      return {
+                        ...m,
+                        originalText: m.text,
+                        text: (
+                          await getTranslation(
+                            m.text,
+                            userLang,
+                            language,
+                            baseUrl
+                          )
+                        ).text,
+                      };
+                    })
+                  );
+                } catch {
+                  // ignore translation errors
+                }
+              }
+
+              setHistory(translatedMessages);
+
+              translateDialogState(
+                session.dialogState,
+                userLang,
+                undefined,
+                true
+              ).finally(() => {
+                setHasUserActivatedSpeak(true);
+                setClickedStart(false);
+              });
+            }
+          } else if (session?.resultCode === 0) {
+            sessionStartingRef.current = false;
+            await onClickStart((session as any) || undefined);
+          } else {
+            setLoading(false);
+            setClickedStart(false);
+          }
+        } finally {
+          sessionStartingRef.current = false;
+        }
+
+        return;
+      }
+      // Handle initial session
+      else if (initialSessionID || targetSessionID) {
+        const sessionID = targetSessionID ?? initialSessionID;
+        // check if session is valid and not expired
+        const { currentState, ...response } = await getSession(sessionID!);
+
+        if (response.resultCode !== 0 || !currentState) {
+          const { chatLogs } = await getSessionChatLogs(sessionID!, sessionID!);
+          setSessionId(undefined);
+          await onClickStart(undefined, true, chatLogs?.[0]);
+          return;
+        }
+
+        // reset history
+        setHistory([]);
+
+        // Handle personification tag changes
+        if (
+          personification &&
+          currentState.currentTag !== personification.tag
+        ) {
+          try {
+            // reset tag
+            await changeTag(memori.engineMemoriID!, sessionID!, '-');
+            // change tag to receiver
+            const session = await changeTag(
+              memori.engineMemoriID!,
+              sessionID!,
+              personification.tag,
+              personification.pin
+            );
+
+            if (session && session.resultCode === 0) {
+              await translateAndSpeak(session.currentState, userLang);
+              setClickedStart(false);
+            } else {
+              throw new Error('No session');
+            }
+          } catch {
+            reopenSession(
+              true,
+              sessionPassword(),
+              undefined,
+              personification.tag,
+              personification.pin,
+              {
+                LANG: userLang,
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
+                ...(initialContextVars || {}),
+              },
+              initialQuestion,
+              birth
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+              setClickedStart(false);
+            });
+          }
+        }
+        // Handle anonymous tag changes
+        else if (
+          !personification &&
+          currentState?.currentTag &&
+          currentState?.currentTag !== anonTag &&
+          currentState?.currentTag !== '-'
+        ) {
+          try {
+            // reset tag
+            await changeTag(memori.engineMemoriID!, sessionID!, '-');
+            // change tag to anonymous
+            const session = await changeTag(
+              memori.engineMemoriID!,
+              sessionID!,
+              anonTag
+            );
+
+            if (session && session.resultCode === 0) {
+              await translateAndSpeak(session.currentState, userLang);
+              setClickedStart(false);
+            } else {
+              throw new Error('No session');
+            }
+          } catch (e) {
+            reopenSession(
+              true,
+              sessionPassword(),
+              undefined,
+              undefined,
+              undefined,
+              {
+                LANG: userLang,
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
+                ...(initialContextVars || {}),
+              },
+              initialQuestion,
+              birth
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+              setClickedStart(false);
+            });
+          }
+        }
+        // No tag changes needed
+        else {
+          try {
+            //This is the session id of the session that was opened before the current session
+            const { chatLogs } = await getSessionChatLogs(
+              sessionID!,
+              sessionID!
+            );
+
+            const messages = chatLogs?.[0]?.lines.map(
+              (l, i) =>
+                ({
+                  text: l.text,
+                  media: l.media
+                    ?.filter(m => allowedMediaTypes.includes(m.mimeType))
+                    ?.map(m => ({
+                      mediumID: `${i}-${m.mimeType}`,
+                      ...m,
+                    })),
+                  fromUser: l.inbound,
+                  llmUsage: (l as any).llmUsage,
+                  timestamp: l.timestamp,
+                  emitter: l.emitter,
+                }) as Message
+            );
+
+            // we dont remove the last one as it is the current state
+            translatedMessages = messages ?? [];
+            if (
+              language.toUpperCase() !== userLang.toUpperCase() &&
+              isMultilanguageEnabled
+            ) {
+              try {
+                translatedMessages = await Promise.all(
+                  messages.map(async m => ({
+                    ...m,
+                    originalText: m.text,
+                    text: (
+                      await getTranslation(m.text, userLang, language, baseUrl)
+                    ).text,
+                  }))
+                );
+              } catch {
+                // ignore translation errors
+              }
+            }
+
+            setHistory(translatedMessages);
+          } catch {
+            // ignore chat log retrieval errors
+          }
+
+          if (
+            (!!translatedMessages?.length && translatedMessages.length > 1) ||
+            !initialQuestion
+          ) {
+            // we have a history, don't push message
+            setHasUserActivatedSpeak(true);
+            setClickedStart(false);
+            await translateAndSpeak(
+              currentState,
+              userLang,
+              undefined,
+              // if empty history, pick current state emission
+              // otherwise, don't push message
+              !!translatedMessages?.length
+            );
+          } else {
+            // remove default initial message
+            translatedMessages = [];
+            setHistory([]);
+
+            // we have no chat history, we start by initial question
+            const placeSpec = getPlaceSpecForEnterText(position);
+            const response = await postEnterTextAsync({
+              sessionId: sessionID!,
+              text: initialQuestion,
+              ...(memori.needsDateTime && {
+                dateUTC: DateTime.utc().toISO() ?? undefined,
+              }),
+              ...(placeSpec !== undefined && { place: placeSpec }),
+            });
+            // Handle 500 error from EnterTextAsync
+            if (response.resultCode === 500 && response.resultMessage) {
+              setHistory(h => [
+                ...h,
+                {
+                  text: 'Error: ' + response.resultMessage,
+                  emitter: 'system',
+                  fromUser: false,
+                  initial: false,
+                  contextVars: {},
+                  date: new Date().toISOString(),
+                },
+              ]);
+              return;
+            }
+
+            const onClickStartCorrelationID = readCorrelationID(response);
+            if (response.resultCode === 0 && onClickStartCorrelationID) {
+              setMemoriTyping(true);
+              try {
+                const natsEvent = await waitForEnterTextNatsResponse(
+                  onClickStartCorrelationID
+                );
+                if (natsEvent.resultCode === 0 && natsEvent.currentState) {
+                  await translateAndSpeak(
+                    natsEvent.currentState,
+                    userLang,
+                    undefined,
+                    false
+                  );
+                  setClickedStart(false);
+                }
+              } catch (err) {
+                logWidgetError('onClickStart NATS wait failed', err);
+                setMemoriTyping(false);
+                setTypingText(undefined);
+              }
+            } else if (response.resultCode === 0) {
+              logWidgetError(
+                'onClickStart enter-text missing correlationID',
+                response
+              );
+            }
+          }
+        }
+      }
+      // Default case - just translate and activate
+      else {
+        // reset history
+        setHistory([]);
+
+        // everything is fine, just translate dialog state and activate chat
+        await translateAndSpeak(dialogState!, userLang);
+        setClickedStart(false);
+      }
+    },
+    [
+      secret,
+      memoriPwd,
+      memori,
+      memoriTokens,
+      birthDate,
+      sessionId,
+      userLang,
+      position,
+      isUserLoggedIn,
+    ]
+  );
+
+  const setPositionPopoverOpen = useCallback(
+    (open: boolean) => {
+      const sessionAlreadyStarted = !!(sessionId && hasUserActivatedSpeak);
+      const hasPosition = Boolean(
+        position || getLocalConfig<Venue | undefined>('position', undefined)
+      );
+      setPositionPopoverOpenState(wasOpen => {
+        if (
+          shouldRestartSessionOnPositionPopoverClose(
+            wasOpen,
+            open,
+            autoStart,
+            sessionAlreadyStarted,
+            hasPosition
+          )
+        ) {
+          // Defer: React setState updaters must stay pure.
+          queueMicrotask(() => {
+            onClickStart();
+          });
+        }
+        if (!open) {
+          queueMicrotask(() => {
+            setAutoStartPositionGeolocation(false);
+          });
+        }
+        return open;
+      });
+    },
+    [autoStart, onClickStart, sessionId, hasUserActivatedSpeak, position]
+  );
+
+  // Collapsible layouts autostart when first opened, not on mount.
+  const [layoutOpen, setLayoutOpen] = useState(false);
+  const isCollapsibleLayout =
+    selectedLayout === 'WEBSITE_ASSISTANT' || selectedLayout === 'HIDDEN_CHAT';
+  // A failed open resets `clickedStart`; without this guard the effect below
+  // would retry forever.
+  const autoStartAttemptedRef = useRef(false);
+
+  useEffect(() => {
+    const storedPosition = getLocalConfig<Venue | undefined>(
+      'position',
+      undefined
+    );
+    const hasPosition = Boolean(position || storedPosition);
+    if (
+      !autoStartAttemptedRef.current &&
+      !clickedStart &&
+      !sessionStartingRef.current &&
+      !sessionId &&
+      autoStart &&
+      (!isCollapsibleLayout || layoutOpen) &&
+      !creditsBlocked &&
+      !shouldHoldAutoStartForPosition(!!memori.needsPosition, hasPosition) &&
+      !shouldHoldAutoStartForLogin(!!memori.requireLoginToken, isUserLoggedIn)
+    ) {
+      autoStartAttemptedRef.current = true;
+      onClickStart();
+    }
+  }, [
+    clickedStart,
+    autoStart,
+    isCollapsibleLayout,
+    layoutOpen,
+    sessionId,
+    creditsBlocked,
+    position,
+    memori.needsPosition,
+    memori.requireLoginToken,
+    isUserLoggedIn,
+  ]);
+
+  useEffect(() => {
+    const targetNode =
+      document.querySelector(`memori-client[memoriname="${memori.name}"]`) ||
+      document.querySelector(`memori-client[memoriid="${memori.memoriID}"]`) ||
+      document.querySelector('memori-client');
+    if (!targetNode) {
+      return;
+    }
+
+    const propsToken = additionalInfo?.loginToken ?? authToken;
+    const initialDomToken = targetNode.getAttribute('authtoken') || undefined;
+    if (initialDomToken && !propsToken) {
+      setLoginToken(initialDomToken);
+      userTokenRef.current = initialDomToken;
+    }
+
+    const applyAuthTokenFromElement = (element: Element) => {
+      const clientNode =
+        element.nodeName === 'MEMORI-CLIENT'
+          ? element
+          : (element.closest('memori-client') ?? element.parentElement);
+      const token = clientNode?.getAttribute('authtoken') || undefined;
+      setLoginToken(token);
+      userTokenRef.current = token;
+    };
+
+    const config = { attributes: true, childList: false, subtree: false };
+    const callback: MutationCallback = mutationList => {
+      for (const mutation of mutationList) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName?.toLowerCase() === 'authtoken'
+        ) {
+          applyAuthTokenFromElement(mutation.target as Element);
+        }
+      }
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [memori.name, memori.memoriID, additionalInfo?.loginToken, authToken]);
+
+  /**
+   * Experts references
+   */
+  const [experts, setExperts] = useState<ExpertReference[]>();
+  const fetchExperts = useCallback(async () => {
+    if (!sessionId || !memori?.enableBoardOfExperts) return;
+
+    try {
+      const { experts, count, ...resp } = await getExpertReferences(sessionId);
+
+      if (resp.resultCode === 0) {
+        setExperts(experts);
+      }
+    } catch {
+      // ignore expert fetch errors
+    }
+  }, [sessionId, memori?.enableBoardOfExperts]);
+  useEffect(() => {
+    fetchExperts();
+  }, [sessionId, fetchExperts]);
+
+  const deepThoughtEnabled =
+    memori.enableDeepThought &&
+    !!loginToken &&
+    !!user?.userID &&
+    user?.pAndCUAccepted;
+
+  const handleNotEnoughCredits = useCallback(() => {
+    setHasEnoughCredits(false);
+    setAuthModalState(null);
+    add(
+      createAlertOptions({
+        description: t('notEnoughCredits'),
+        severity: 'error',
+      })
+    );
+  }, [add, t]);
+  const handleCreditsCheckFailed = useCallback(() => {
+    setAuthModalState(null);
+    add(
+      createAlertOptions({
+        description: t('creditsCheckFailed'),
+        severity: 'error',
+      })
+    );
+  }, [add, t]);
+  const creditsOwnerUserID = ownerUserID ?? memori.ownerUserID;
+  const creditsEngineMemoriID = memori.engineMemoriID;
+  const checkCredits = useCallback(
+    async (options?: { notify?: boolean }) => {
+      if (!tenant?.billingDelegation) return true;
+
+      try {
+        const resp = await getCredits({
+          operation: deepThoughtEnabled
+            ? 'dt_session_creation'
+            : 'session_creation',
+          baseUrl: baseUrl,
+          userID: creditsOwnerUserID,
+          engineMemoriID: creditsEngineMemoriID,
+          tenant: tenantID,
+        });
+
+        setCreditsCheckFailed(false);
+        if (resp.enough) {
+          setHasEnoughCredits(true);
+          return true;
+        } else {
+          if (options?.notify) {
+            handleNotEnoughCredits();
+          } else {
+            setHasEnoughCredits(false);
+          }
+          return false;
+        }
+      } catch (err) {
+        logWidgetError('checkCredits failed', err);
+
+        // A rejected request (missing identifiers, 4xx) won't succeed on retry:
+        // block and tell the user. Network or server errors fail open, since
+        // the backend still enforces credits when the session is created.
+        const isRejected =
+          err instanceof CreditsCheckError &&
+          (err.status === undefined || (err.status >= 400 && err.status < 500));
+        if (!isRejected) return true;
+
+        setCreditsCheckFailed(true);
+        if (options?.notify) handleCreditsCheckFailed();
+        return false;
+      }
+    },
+    [
+      baseUrl,
+      deepThoughtEnabled,
+      handleNotEnoughCredits,
+      handleCreditsCheckFailed,
+      creditsOwnerUserID,
+      creditsEngineMemoriID,
+      tenant?.billingDelegation,
+      tenantID,
+    ]
+  );
+  useEffect(() => {
+    if (tenant?.billingDelegation) {
+      checkCredits();
+    }
+  }, [tenant?.billingDelegation, deepThoughtEnabled, checkCredits]);
+
+  useEffect(() => {
+    if (__WEBCOMPONENT__) return;
+
+    const closeSession = () => {
+      if (sessionId) {
+        deleteSession(sessionId);
+      }
+    };
+
+    // delete session when the user closes the browser tab
+    window.addEventListener('beforeunload', closeSession);
+
+    return () => {
+      window.removeEventListener('beforeunload', closeSession);
+      closeSession();
+    };
+  }, [sessionId]);
+
+  const showFullHistory =
+    showOnlyLastMessages === undefined
+      ? !(selectedLayout === 'WEBSITE_ASSISTANT' && resolvedShow3dAvatar)
+      : !showOnlyLastMessages;
+  const canShowLoginButton = !tenant?.ssoLogin && loginEnabled;
+
+  const headerProps: HeaderProps = {
+    memori: {
+      ...memori,
+      ownerUserID: memori.ownerUserID ?? ownerUserID ?? undefined,
+    },
+    apiClient: client,
+    tenant,
+    history,
+    showShare:
+      showShare ??
+      integrationConfig?.showShare ??
+      selectedLayout !== 'WEBSITE_ASSISTANT',
+    position,
+    layout: selectedLayout,
+    additionalSettings,
+    setVenue: setPosition,
+    positionPopoverOpen,
+    setPositionPopoverOpen,
+    autoStartPositionGeolocation,
+    setShowSettingsDrawer,
+    setShowKnownFactsDrawer,
+    setShowExpertsDrawer,
+    // Hide the speaker toggle when audio is disabled or no TTS provider is
+    // configured: TTS playback is gated on the same conditions.
+    enableAudio:
+      !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
+    speakerMuted: speakerMuted ?? false,
+    setSpeakerMuted: (mute: boolean) => {
+      toggleMute(mute);
+    },
+    setShowChatHistoryDrawer,
+    showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
+    showChatHistory:
+      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+    showMessageConsumption: enableMessageConsumption,
+    hasUserActivatedSpeak,
+    showReload: selectedLayout === 'TOTEM',
+    showClear: showClear ?? integrationConfig?.showClear ?? false,
+    showExperts: showExperts ?? integrationConfig?.showExperts ?? false,
+    clearHistory: () => setHistory(h => h.slice(-1)),
+    showLogin: canShowLoginButton,
+    setShowLoginDrawer,
+    loginToken,
+    user,
+    sessionID: sessionId,
+    baseUrl,
+    onLogout: () => {
+      if (!loginToken) return;
+
+      client.backend.pwlUserLogout(loginToken).then(() => {
+        setShowLoginDrawer(false);
+        setUser(undefined);
+        setLoginToken(undefined);
+        userTokenRef.current = undefined;
+        removeLocalConfig('loginToken');
+      });
+    },
+  };
+
+  const avatarProps: AvatarProps = {
+    memori,
+    integration,
+    integrationConfig,
+    tenant,
+    instruct,
+    avatar3dVisible,
+    setAvatar3dVisible,
+    hasUserActivatedSpeak,
+    isPlayingAudio:
+      isPlayingAudio &&
+      !speakerMuted &&
+      (enableAudio ?? integrationConfig?.enableAudio ?? true),
+    loading: !!memoriTyping,
+    baseUrl,
+    apiUrl: client.constants.BACKEND_URL,
+    enablePositionControls,
+    setEnablePositionControls,
+    avatarType,
+  };
+
+  const startPanelProps: StartPanelProps = {
+    memori,
+    tenant: tenant,
+    language: language,
+    userLang: userLang,
+    setUserLang: setUserLang,
+    baseUrl: baseUrl,
+    apiUrl: client.constants.BACKEND_URL,
+    position: position,
+    setVenue: setPosition,
+    openPositionPopover: () => {
+      // StartPanel starts geolocation in its click handler (mobile Header does
+      // not mount PositionPopover). This only opens the desktop popover UI.
+      setPositionPopoverOpen(true);
+    },
+    integrationConfig: integrationConfig,
+    instruct: instruct,
+    sessionId: sessionId,
+    clickedStart: clickedStart,
+    isMultilanguageEnabled: isMultilanguageEnabled,
+    onClickStart: onClickStart,
+    isUserLoggedIn,
+    hasInitialSession: !!initialSessionID,
+    notEnoughCredits: needsCredits && !hasEnoughCredits,
+    creditsCheckFailed: needsCredits && creditsCheckFailed,
+    showLogin: canShowLoginButton,
+    setShowLoginDrawer,
+    showChatHistory:
+      selectedLayout === 'WEBSITE_ASSISTANT'
+        ? false
+        : (showChatHistory ?? integrationConfig?.showChatHistory ?? true),
+    setShowChatHistoryDrawer,
+    user,
+  };
+
+  const chatProps: ChatProps = {
+    memori,
+    sessionID: sessionId || '',
+    tenant,
+    translateTo:
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !==
+        (
+          memori.culture?.split('-')?.[0] ??
+          i18n.language ??
+          'IT'
+        )?.toUpperCase()
+        ? userLang
+        : undefined,
+    baseUrl,
+    apiUrl: client.constants.BACKEND_URL,
+    layout,
+    memoriTyping,
+    typingText,
+    showTypingText:
+      showTypingText ?? integrationConfig?.showTypingText ?? false,
+    history: showFullHistory ? history : history.slice(-2),
+    authToken: resolveLoginToken(),
+    dialogState: currentDialogState,
+    pushMessage,
+    simulateUserPrompt,
+    showDates,
+    showContextPerLine,
+    showMessageConsumption: enableMessageConsumption,
+    showAIicon,
+    showUpload: enableUpload,
+    showReasoning: enableReasoning,
+    showWhyThisAnswer,
+    showCopyButton: showCopyButton ?? integrationConfig?.showCopyButton ?? true,
+    showTranslationOriginal:
+      showTranslationOriginal ??
+      integrationConfig?.showTranslationOriginal ??
+      false,
+    client,
+    instruct,
+    preview,
+    sendOnEnter,
+    setSendOnEnter,
+    microphoneMode: continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK',
+    attachmentsMenuOpen,
+    setAttachmentsMenuOpen,
+    showInputs:
+      showInputs &&
+      !shouldHoldAutoStartForLogin(!!memori.requireLoginToken, isUserLoggedIn),
+    showMicrophone:
+      !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
+    showFunctionCache,
+    userMessage,
+    onChangeUserMessage,
+    sendMessage: (msg: string, media?: (Medium & { type: string })[]) => {
+      ttsStop();
+      stopRecording();
+      setHasUserTypedMessage(true); // Mark that user has typed a message
+      sendMessage(msg, media);
+      setUserMessage('');
+    },
+    onMediumSelectedState: (state: DialogState) => {
+      // Keep local dialog state in sync for NATS catch-up fingerprints, but do
+      // not surface MediumSelected emissions (e.g. "Ho aggiunto il contenuto.")
+      // as chat bubbles.
+      void translateDialogState(state, userLang, undefined, true);
+    },
+    stopListening: (onTranscript?: (text: string) => void) => {
+      if (onTranscript && isListening) {
+        transcriptHandlerRef.current = onTranscript;
+      }
+      stopRecording();
+    },
+    audioStream,
+    startListening: () => {
+      setHasUserTypedMessage(false); // Reset typing flag when user starts listening
+      return startRecording();
+    },
+    stopAudio: ttsStop,
+    listening: isListening,
+    transcribing: recordingState === 'processing',
+    setEnableFocusChatInput,
+    isPlayingAudio,
+    customMediaRenderer,
+    user,
+    userAvatar,
+    experts,
+    useMathFormatting: applyMathFormatting,
+    maxTotalMessagePayload,
+    maxTextareaCharacters,
+    isChatlogPanel:
+      (integrationConfig as { artifactChatLogPanel?: boolean } | undefined)
+        ?.artifactChatLogPanel === true,
+    globalBackground: globalBackground || undefined,
+  };
+
+  // Layout chrome placeholder (e.g. Totem gradient when no image). The actual
+  // integration background image is applied on `.memori-chat--content` via chatProps.
+  const integrationBackground = (
+    <div className="memori--global-background no-background-image" />
+  );
+
+  const integrationStyle =
+    integration &&
+    (Object.keys(integrationProperties).length > 0 ||
+      integrationConfig?.blurBackground === false) ? (
+      <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+    ) : null;
+
+  const poweredBy = (
+    <PoweredBy
+      tenant={tenant}
+      userLang={userLang}
+      integrationID={integration?.integrationID}
+      memoriHash={`${memori.ownerTenantName}-${memori.ownerUserName}-${memori.name}`}
+    />
+  );
+
+  const Layout = customLayout
+    ? customLayout
+    : selectedLayout === 'TOTEM'
+      ? TotemLayout
+      : selectedLayout === 'CHAT'
+        ? ChatLayout
+        : selectedLayout === 'FULLPAGE'
+          ? FullPageLayout
+          : selectedLayout === 'WEBSITE_ASSISTANT'
+            ? WebsiteAssistantLayout
+            : selectedLayout === 'HIDDEN_CHAT'
+              ? HiddenChatLayout
+              : selectedLayout === 'ZOOMED_FULL_BODY'
+                ? ZoomedFullBodyLayout
+                : FullPageLayout;
+
+  // Resolve the widget theme once so both `data-theme` on the root and the
+  // `MemoriUIProvider` (which stamps portaled popups) stay in sync.
+  // Prefer integration config; default to light when unset.
+  const widgetTheme: 'light' | 'dark' =
+    integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+      ? integrationConfig.theme
+      : 'light';
+
+  return (
+    <div
+      ref={setWidgetRootEl}
+      className={cx(
+        'memori',
+        'memori-widget',
+        `memori-layout-${String(selectedLayout).toLowerCase()}`,
+        `memori-controls-${String(controlsPosition).toLowerCase()}`,
+        `memori--avatar-${integrationConfig?.avatar || 'default'}`,
+        {
+          // Marks an autostart that is actually opening a session. The start
+          // panel stays on screen until the chat replaces it. It must stay
+          // visible while autostart waits on position/login or credits.
+          'memori--auto-start':
+            autoStart &&
+            !creditsBlocked &&
+            !shouldHoldAutoStartForPosition(
+              !!memori.needsPosition,
+              !!position
+            ) &&
+            !shouldHoldAutoStartForLogin(
+              !!memori.requireLoginToken,
+              isUserLoggedIn
+            ),
+          'memori--preview': preview,
+          'memori--embed': embed,
+          'memori--with-integration': integration,
+          'memori--with-speechkey': !!ttsProvider,
+          'memori--active': hasUserActivatedSpeak,
+          'memori--hide-emissions': hideEmissions,
+          'memori--has-active-session': !!sessionId,
+        }
+      )}
+      data-theme={widgetTheme}
+      data-memori-name={memori?.name}
+      data-memori-id={memori?.engineMemoriID}
+      data-memori-secondary-id={memori?.memoriID}
+      data-memori-session-id={sessionId}
+      data-memori-integration={integration?.integrationID}
+      data-memori-engine-state={JSON.stringify({
+        ...currentDialogState,
+        sessionID: sessionId,
+      })}
+      style={{ height }}
+    >
+      <MemoriUIProvider
+        container={widgetRootEl}
+        clipContainer={widgetSurfaceEl}
+        theme={widgetTheme}
+        zIndexBase={selectedLayout === 'WEBSITE_ASSISTANT' ? 10000 : 0}
+      >
+        {/* Inside themed root so alert text uses dark-theme tokens (white). */}
+        <AlertViewport placement="top-end" />
+        <div ref={setWidgetSurfaceEl} className="memori-widget__surface">
+          <Layout
+            Header={Header}
+            headerProps={headerProps}
+            Avatar={Avatar}
+            avatarProps={avatarProps}
+            Chat={Chat}
+            chatProps={chatProps}
+            StartPanel={StartPanel}
+            startPanelProps={startPanelProps}
+            integrationStyle={integrationStyle}
+            integrationBackground={integrationBackground}
+            poweredBy={poweredBy}
+            autoStart={autoStart}
+            onSidebarToggle={setLayoutOpen}
+            sessionId={sessionId}
+            hasUserActivatedSpeak={hasUserActivatedSpeak}
+            loading={loading}
+            show3dAvatar={resolvedShow3dAvatar}
+            avatar3dHidden={!resolvedShow3dAvatar}
+            totemContentMaxWidth={integrationConfig?.totemContentMaxWidth}
+            sideDrawerOpen={
+              !!showChatHistoryDrawer ||
+              !!showKnownFactsDrawer ||
+              !!showExpertsDrawer
+            }
+          />
+
+          <ArtifactAPIBridge
+            pushMessage={(message: Message) => {
+              setHistory(history => {
+                if (!history.length) return history;
+                const lastMessage = history[history.length - 1];
+                if (!lastMessage || lastMessage.fromUser) return history;
+                // Create a new message object with the updated text
+                const updatedLastMessage = {
+                  ...lastMessage,
+                  text: lastMessage.text + message.text,
+                };
+                return [...history.slice(0, -1), updatedLastMessage];
+              });
+            }}
+          />
+
+          <audio
+            id="memori-audio"
+            style={{ display: 'none' }}
+            src="https://aisuru.com/intro.mp3"
+          />
+
+          {isClient && (
+            <MemoriAuth
+              withModal
+              pwdOrTokens={authModalState}
+              openModal={!!authModalState}
+              setPwdOrTokens={setAuthModalState}
+              showTokens={memori.privacyType === 'SECRET'}
+              onFinish={(values: any) => {
+                if (values['password']) setMemoriPwd(values['password']);
+                if (values['password']) memoriPassword = values['password'];
+                if (values['tokens']) setMemoriTokens(values['tokens']);
+
+                return reopenSession(
+                  !sessionId,
+                  values['password'],
+                  values['tokens'],
+                  personification?.tag,
+                  personification?.pin,
+                  {
+                    LANG: userLang,
+                    PATHNAME: window.location.pathname?.toUpperCase(),
+                    ROUTE:
+                      window.location.pathname
+                        ?.split('/')
+                        ?.pop()
+                        ?.toUpperCase() || '',
+                    ...(initialContextVars || {}),
+                  },
+                  initialQuestion,
+                  birthDate
+                )
+                  .then(state => {
+                    if (!state?.sessionID) {
+                      throw new Error('AUTH_FAILED');
+                    }
+
+                    setAuthModalState(null);
+                    // If we got a valid state from reopenSession, don't call onClickStart again
+                    // to avoid duplicate snippet execution
+                    if (state?.dialogState) {
+                      setHasUserActivatedSpeak(true);
+                    } else {
+                      // Only call onClickStart if reopenSession didn't return a valid state
+                      onClickStart(state);
+                    }
+                  })
+                  .catch(error => {
+                    if (
+                      !(error instanceof Error) ||
+                      error.message !== 'AUTH_FAILED'
+                    ) {
+                      setGotErrorInOpening(true);
+                    }
+                    throw error;
+                  });
+              }}
+              minimumNumberOfRecoveryTokens={
+                memori?.minimumNumberOfRecoveryTokens ?? 1
+              }
+            />
+          )}
+
+          {isClient && (
+            <AgeVerificationModal
+              visible={showAgeVerification}
+              minAge={minAge}
+              onClose={birthDate => {
+                if (birthDate) {
+                  setBirthDate(birthDate);
+
+                  setLocalConfig('birthDate', birthDate);
+
+                  reopenSession(
+                    !sessionId,
+                    sessionPassword(),
+                    memoriTokens,
+                    personification?.tag,
+                    personification?.pin,
+                    {
+                      LANG: userLang,
+                      PATHNAME: window.location.pathname?.toUpperCase(),
+                      ROUTE:
+                        window.location.pathname
+                          ?.split('/')
+                          ?.pop()
+                          ?.toUpperCase() || '',
+                      ...(initialContextVars || {}),
+                    },
+                    initialQuestion,
+                    birthDate
+                  )
+                    .then(state => {
+                      setShowAgeVerification(false);
+                      setAuthModalState(null);
+                      onClickStart(state || undefined);
+                    })
+                    .catch(() => {
+                      setShowAgeVerification(false);
+                      setGotErrorInOpening(true);
+                    });
+                } else {
+                  setShowAgeVerification(false);
+                  setClickedStart(false);
+                }
+              }}
+            />
+          )}
+
+          {showSettingsDrawer && (
+            <SettingsDrawer
+              layout={selectedLayout}
+              open={!!showSettingsDrawer}
+              onClose={() => setShowSettingsDrawer(false)}
+              microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
+              continuousSpeechTimeout={continuousSpeechTimeout}
+              setMicrophoneMode={mode =>
+                setContinuousSpeech(mode === 'CONTINUOUS')
+              }
+              setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+              controlsPosition={controlsPosition}
+              setControlsPosition={setControlsPosition}
+              hideEmissions={hideEmissions}
+              setHideEmissions={setHideEmissions}
+              avatarType={avatarType}
+              setAvatarType={setAvatarType}
+              enablePositionControls={enablePositionControls}
+              setEnablePositionControls={setEnablePositionControls}
+              isAvatar3d={!!integrationConfig?.avatarURL}
+              additionalSettings={additionalSettings}
+              speakerMuted={speakerMuted}
+            />
+          )}
+
+          {showChatHistoryDrawer && (
+            <ChatHistoryDrawer
+              open={!!showChatHistoryDrawer}
+              onClose={() => setShowChatHistoryDrawer(false)}
+              resumeSession={chatLog => {
+                setChatLogID(chatLog.chatLogID);
+                onClickStart(undefined, false, chatLog);
+                setShowChatHistoryDrawer(false);
+              }}
+              apiClient={client}
+              sessionId={sessionId || ''}
+              memori={memori}
+              baseUrl={baseUrl}
+              history={history}
+              apiUrl={client.constants.BACKEND_URL}
+              loginToken={loginToken}
+              language={language}
+              userLang={userLang}
+              isMultilanguageEnabled={isMultilanguageEnabled}
+              showFunctionCache={showFunctionCache}
+              showMessageConsumption={enableMessageConsumption}
+            />
+          )}
+
+          {showKnownFactsDrawer && sessionId && (
+            <KnownFacts
+              apiClient={client}
+              memori={memori}
+              sessionID={sessionId}
+              visible={showKnownFactsDrawer}
+              closeDrawer={() => setShowKnownFactsDrawer(false)}
+            />
+          )}
+
+          {showExpertsDrawer && !!experts && (
+            <ExpertsDrawer
+              apiUrl={client.constants.BACKEND_URL}
+              baseUrl={baseUrl}
+              tenant={tenant}
+              experts={experts}
+              open={showExpertsDrawer}
+              onClose={() => setShowExpertsDrawer(false)}
+            />
+          )}
+
+          {showLoginDrawer && tenant?.name && (
+            <LoginModal
+              tenant={tenant}
+              apiClient={client}
+              open={!!showLoginDrawer}
+              user={user}
+              loginToken={loginToken}
+              memoriName={memori?.name}
+              onClose={() => setShowLoginDrawer(false)}
+              modalClassName={
+                selectedLayout === 'WEBSITE_ASSISTANT'
+                  ? 'memori-modal--above-website-assistant'
+                  : undefined
+              }
+              onLogin={(user, token) => {
+                //The user is logged in, so we need to set open a new session with the new token
+                reopenSession(
+                  false,
+                  sessionPassword(),
+                  [],
+                  personification?.tag,
+                  personification?.pin,
+                  {
+                    LANG: userLang,
+                    PATHNAME: window.location.pathname?.toUpperCase(),
+                    ROUTE:
+                      window.location.pathname
+                        ?.split('/')
+                        ?.pop()
+                        ?.toUpperCase() || '',
+                    ...(initialContextVars || {}),
+                  },
+                  undefined, // Don't send initialQuestion after login, only show the login status chip
+                  birthDate,
+                  { loginToken: token } as any,
+                  undefined,
+                  sessionId
+                ).then(state => {
+                  setShowLoginDrawer(false);
+                  setUser(user);
+                  setLoginToken(token);
+                  userTokenRef.current = token;
+                  setLocalConfig('loginToken', token);
+                  // Push a message with initial status to show status message when a new session is created after login
+                  if (
+                    state?.sessionID &&
+                    state.sessionID !== sessionId &&
+                    state?.dialogState
+                  ) {
+                    // Push a message with initial status message showing successful login
+                    // Only show the chip component, not the emission text
+                    const username = user?.userName || t('login.user');
+                    pushMessage({
+                      text: '', // Empty text so only the chip is visible
+                      emitter: state.dialogState.emitter,
+                      media:
+                        state.dialogState.emittedMedia ??
+                        state.dialogState.media ??
+                        [],
+                      fromUser: false,
+                      initial: t('login.successfullyLoggedIn', {
+                        username,
+                      }) as any,
+                      contextVars: {
+                        ...(state.dialogState.contextVars || {}),
+                        LOGIN_STATUS: 'success',
+                      },
+                      date: state.dialogState.currentDate,
+                      placeName: state.dialogState.currentPlaceName,
+                      placeLatitude: state.dialogState.currentLatitude,
+                      placeLongitude: state.dialogState.currentLongitude,
+                      placeUncertaintyKm:
+                        state.dialogState.currentUncertaintyKm,
+                      tag: state.dialogState.currentTag,
+                      memoryTags: state.dialogState.memoryTags,
+                    });
+                    // Update the dialog state so the UI reflects the new session
+                    setCurrentDialogState(state.dialogState);
+                  }
+                });
+              }}
+              setUser={setUser}
+              onLogout={() => {
+                if (!loginToken) return;
+                client.backend.pwlUserLogout(loginToken).then(() => {
+                  setShowLoginDrawer(false);
+                  setUser(undefined);
+                  setLoginToken(undefined);
+                  userTokenRef.current = undefined;
+                  removeLocalConfig('loginToken');
+                });
+              }}
+            />
+          )}
+        </div>
+      </MemoriUIProvider>
+    </div>
+  );
+};
+
+export default MemoriWidget;

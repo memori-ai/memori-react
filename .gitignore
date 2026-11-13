@@ -17,3 +17,5 @@ coverage
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.parcel-cache
+.parcel-dist

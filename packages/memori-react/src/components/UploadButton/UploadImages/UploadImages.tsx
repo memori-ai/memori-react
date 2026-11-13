@@ -1,0 +1,556 @@
+import React, { useState, useRef, useEffect } from 'react';
+import cx from 'classnames';
+import { Field, FieldGroup, Input, Spin } from '@memori.ai/ui';
+import { Image as ImageIcon } from 'lucide-react';
+import { Modal } from '@memori.ai/ui';
+import memoriApiClient from '@memori.ai/memori-api-client';
+import {
+  Asset,
+  DialogState,
+  Medium,
+} from '@memori.ai/memori-api-client/dist/types';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@memori.ai/ui';
+import { compressImage } from '../../../helpers/imageCompression';
+
+// Types
+type PreviewFile = {
+  name: string;
+  id: string;
+  content: string;
+  type: 'image';
+  previewUrl?: string;
+  uploaded?: boolean;
+  file?: File;
+  error?: boolean;
+  title?: string;
+};
+
+// Props interface
+interface UploadImagesProps {
+  authToken?: string;
+  client?: ReturnType<typeof memoriApiClient>;
+  sessionID?: string;
+  isMediaAccepted?: boolean;
+  setDocumentPreviewFiles: any;
+  documentPreviewFiles: any;
+  onLoadingChange?: (loading: boolean, fileCount?: number) => void;
+  maxImages?: number;
+  memoriID?: string;
+  onImageError?: (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => void;
+  onValidateImageFile?: (file: File) => boolean;
+  /** Sync engine dialog state after MediumSelected. */
+  onMediumSelectedState?: (state: DialogState) => void;
+}
+
+const UploadImages: React.FC<UploadImagesProps> = ({
+  authToken = '',
+  sessionID = '',
+  client,
+  isMediaAccepted = false,
+  setDocumentPreviewFiles,
+  documentPreviewFiles,
+  onLoadingChange,
+  maxImages = 5,
+  memoriID = '',
+  onImageError,
+  onValidateImageFile,
+  onMediumSelectedState,
+}) => {
+  const { t, i18n } = useTranslation();
+  // Client
+  const { backend, dialog } = client || {
+    backend: { uploadAsset: null, uploadAssetUnlogged: null },
+    dialog: { postMediumSelectedEvent: null, postMediumDeselectedEvent: null },
+  };
+
+  // State
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingFileCount, setLoadingFileCount] = useState(0);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [imageTitle, setImageTitle] = useState('');
+  const [showUploadModal, setShowUploadModal] = useState(false);
+
+  // Refs
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (onLoadingChange) {
+      onLoadingChange(isLoading, isLoading ? loadingFileCount : 0);
+    }
+  }, [isLoading, loadingFileCount, onLoadingChange]);
+
+  // Check current total media count (images + documents)
+  const currentMediaCount = documentPreviewFiles.length;
+
+  // Image upload
+  const validateImageFile = (file: File): boolean => {
+    if (onValidateImageFile) {
+      return onValidateImageFile(file);
+    }
+    return true;
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    const remainingSlots = Math.max(0, maxImages - currentMediaCount);
+    const filesToProcess = files.slice(0, remainingSlots);
+
+    if (files.length > filesToProcess.length) {
+      const skipped = files.length - filesToProcess.length;
+      onImageError?.({
+        message:
+          t('upload.imagesNotAddedMaxAllowed', {
+            count: skipped,
+            max: maxImages,
+            defaultValue: `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
+          }) ??
+          `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
+        severity: 'warning',
+      });
+    }
+
+    if (filesToProcess.length === 0) {
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
+      }
+      return;
+    }
+
+    // Validate all files first
+    const validFiles = filesToProcess.filter(file => {
+      if (!validateImageFile(file)) {
+        return false;
+      }
+      return true;
+    });
+
+    if (validFiles.length === 0) {
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
+      }
+      return;
+    }
+
+    // If only one file, show modal for title input
+    if (validFiles.length === 1) {
+      const file = validFiles[0];
+      setSelectedFile(file);
+      setFilePreview(URL.createObjectURL(file));
+
+      // Set initial title as filename without extension
+      const fileName = file.name.split('.').slice(0, -1).join('.');
+      setImageTitle(fileName);
+
+      // Show upload modal with preview
+      setShowUploadModal(true);
+    } else {
+      // For multiple files, upload them directly with default titles
+      await uploadMultipleImages(validFiles);
+    }
+
+    if (imageInputRef.current) {
+      imageInputRef.current.value = '';
+    }
+  };
+
+  const uploadMultipleImages = async (files: File[]) => {
+    setLoadingFileCount(files.length);
+    setIsLoading(true);
+
+    try {
+      const uploadPromises = files.map(async file => {
+        // Compress image before upload
+        let fileToUpload = file;
+        try {
+          fileToUpload = await compressImage(file);
+        } catch (error) {
+          // If compression fails, use original file
+          console.warn('Image compression failed, using original file', error);
+          fileToUpload = file;
+        }
+
+        return new Promise<{
+          name: string;
+          id: string;
+          content: string;
+          type: string;
+          mediumID: string | undefined;
+          url: string;
+          mimeType: string;
+        } | null>(resolve => {
+          const reader = new FileReader();
+
+          reader.onload = async e => {
+            const fileDataUrl = e.target?.result as string;
+            const fileId = Math.random().toString(36).substr(2, 9);
+            const fileName = fileToUpload.name
+              .split('.')
+              .slice(0, -1)
+              .join('.');
+
+            if (client) {
+              try {
+                let asset: Asset;
+                let response;
+
+                if (authToken && backend?.uploadAsset) {
+                  response = await backend.uploadAsset(
+                    fileToUpload.name,
+                    fileDataUrl,
+                    authToken
+                  );
+                } else if (
+                  memoriID &&
+                  sessionID &&
+                  backend?.uploadAssetUnlogged
+                ) {
+                  response = await backend.uploadAssetUnlogged(
+                    fileToUpload.name,
+                    fileDataUrl,
+                    memoriID,
+                    sessionID
+                  );
+
+                  if (!response) {
+                    throw new Error('Upload failed');
+                  }
+                } else {
+                  throw new Error('Missing required parameters for upload');
+                }
+
+                asset = response.asset;
+                if (response.resultCode !== 0) {
+                  throw new Error(response.resultMessage || 'Upload failed');
+                }
+
+                let medium: any = null;
+                if (dialog?.postMediumSelectedEvent && sessionID) {
+                  medium = await dialog.postMediumSelectedEvent(sessionID, {
+                    url: asset.assetURL,
+                    mimeType: asset.mimeType,
+                  } as Medium);
+                }
+
+                if (medium?.currentState) {
+                  onMediumSelectedState?.(medium.currentState);
+                }
+
+                let finalMediumID: string | undefined = undefined;
+                if (medium?.currentState?.currentMedia) {
+                  const existingMediumIDs = new Set(
+                    documentPreviewFiles.map((file: any) => file.mediumID)
+                  );
+
+                  finalMediumID = medium.currentState.currentMedia.find(
+                    (media: any) => !existingMediumIDs.has(media.mediumID)
+                  )?.mediumID;
+                }
+
+                resolve({
+                  name: fileName,
+                  id: fileId,
+                  url: asset.assetURL,
+                  content: asset.assetURL,
+                  type: 'image',
+                  mediumID: finalMediumID,
+                  mimeType: asset.mimeType,
+                });
+              } catch (error) {
+                onImageError?.({
+                  message: t('upload.uploadFailed') ?? 'Upload failed',
+                  severity: 'warning',
+                });
+                resolve(null);
+              }
+            } else {
+              onImageError?.({
+                message:
+                  t('upload.apiClientNotConfigured') ??
+                  'API client not configured properly for media upload',
+                severity: 'warning',
+              });
+              resolve(null);
+            }
+          };
+
+          reader.onerror = () => {
+            onImageError?.({
+              message: t('upload.fileReadingFailed') ?? 'File reading failed',
+              severity: 'warning',
+            });
+            resolve(null);
+          };
+
+          reader.readAsDataURL(fileToUpload);
+        });
+      });
+
+      const results = await Promise.all(uploadPromises);
+      const successfulUploads = results.filter(result => result !== null);
+
+      if (successfulUploads.length > 0) {
+        setDocumentPreviewFiles((prevFiles: any[]) => [
+          ...prevFiles,
+          ...successfulUploads,
+        ]);
+      }
+    } catch (error) {
+      onImageError?.({
+        message: t('upload.uploadFailed') ?? 'Upload failed',
+        severity: 'warning',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleTitleSubmit = async () => {
+    if (!selectedFile || !imageTitle.trim()) return;
+
+    setLoadingFileCount(1);
+    setIsLoading(true);
+    setShowUploadModal(false);
+
+    try {
+      // Compress image before upload
+      let fileToUpload = selectedFile;
+      try {
+        fileToUpload = await compressImage(selectedFile);
+      } catch (error) {
+        // If compression fails, use original file
+        console.warn('Image compression failed, using original file', error);
+        fileToUpload = selectedFile;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = async e => {
+        const fileDataUrl = e.target?.result as string;
+        const fileId = Math.random().toString(36).substr(2, 9);
+
+        if (client) {
+          try {
+            let asset: Asset;
+            let response;
+
+            if (authToken && backend?.uploadAsset) {
+              response = await backend.uploadAsset(
+                fileToUpload.name,
+                fileDataUrl,
+                authToken
+                // memoriID
+              );
+            } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
+              response = await backend.uploadAssetUnlogged(
+                fileToUpload.name,
+                fileDataUrl,
+                memoriID,
+                sessionID
+              );
+
+              if (!response) {
+                throw new Error('Upload failed');
+              }
+            } else {
+              throw new Error('Missing required parameters for upload');
+            }
+
+            asset = response.asset;
+            if (response.resultCode !== 0) {
+              throw new Error(response.resultMessage || 'Upload failed');
+            }
+
+            let medium: any = null;
+            if (dialog?.postMediumSelectedEvent && sessionID) {
+              medium = await dialog.postMediumSelectedEvent(sessionID, {
+                url: asset.assetURL,
+                mimeType: asset.mimeType,
+              } as Medium);
+            }
+
+            if (medium?.currentState) {
+              onMediumSelectedState?.(medium.currentState);
+            }
+
+            let finalMediumID: string | undefined = undefined;
+            if (medium?.currentState?.currentMedia) {
+              const existingMediumIDs = new Set(
+                documentPreviewFiles.map((file: any) => file.mediumID)
+              );
+
+              finalMediumID = medium.currentState.currentMedia.find(
+                (media: any) => !existingMediumIDs.has(media.mediumID)
+              )?.mediumID;
+            }
+
+            setDocumentPreviewFiles(
+              (
+                prevFiles: {
+                  name: string;
+                  id: string;
+                  content: string;
+                  type: string;
+                  mediumID: string | undefined;
+                  url: string;
+                  mimeType: string;
+                }[]
+              ) => [
+                ...prevFiles,
+                {
+                  name: imageTitle,
+                  id: fileId,
+                  url: asset.assetURL,
+                  content: asset.assetURL,
+                  type: 'image',
+                  mediumID: finalMediumID,
+                  mimeType: asset.mimeType,
+                },
+              ]
+            );
+          } catch (error) {
+            onImageError?.({
+              message: t('upload.uploadFailed') ?? 'Upload failed',
+              severity: 'warning',
+            });
+          }
+        } else {
+          onImageError?.({
+            message:
+              t('upload.apiClientNotConfigured') ??
+              'API client not configured properly for media upload',
+            severity: 'warning',
+          });
+        }
+
+        setIsLoading(false);
+      };
+
+      reader.onerror = () => {
+        onImageError?.({
+          message: t('upload.fileReadingFailed') ?? 'File reading failed',
+          severity: 'warning',
+        });
+        setIsLoading(false);
+      };
+
+      reader.readAsDataURL(fileToUpload);
+    } catch (error) {
+      onImageError?.({
+        message: t('upload.uploadFailed') ?? 'Upload failed',
+        severity: 'warning',
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancelUpload = () => {
+    setShowUploadModal(false);
+    setSelectedFile(null);
+    setFilePreview(null);
+    setImageTitle('');
+  };
+
+  return (
+    <div className="memori--image-upload-wrapper">
+      {/* Hidden file input */}
+      <input
+        ref={imageInputRef}
+        type="file"
+        accept=".jpg,.jpeg,.png"
+        multiple
+        className="memori--upload-file-input"
+        onChange={handleImageUpload}
+        disabled={
+          isLoading || !isMediaAccepted || currentMediaCount >= maxImages
+        }
+      />
+
+      {/* Upload image button */}
+      <button
+        type="button"
+        className={cx(
+          'memori-button',
+          'memori-button--circle',
+          'memori-button--icon-only',
+          'memori-share-button--button',
+          'memori--conversation-button',
+          'memori--image-upload-button'
+        )}
+        aria-label={String(
+          t('upload.addImage', { defaultValue: 'Upload image' })
+        )}
+        onClick={() => imageInputRef.current?.click()}
+        disabled={
+          isLoading || !isMediaAccepted || currentMediaCount >= maxImages
+        }
+      >
+        {isLoading ? (
+          <Spin spinning className="memori--upload-icon" />
+        ) : (
+          <ImageIcon className="memori--upload-icon" aria-hidden />
+        )}
+      </button>
+
+      {/* Upload Modal with Title Input */}
+      <Modal
+        open={showUploadModal && !!selectedFile}
+        className="memori--modal-preview-file memori--upload-image-preview-modal"
+        onClose={handleCancelUpload}
+        footer={
+          <div
+            style={{
+              display: 'flex',
+              gap: 'var(--memori-spacing-sm)',
+              justifyContent: 'end',
+              alignItems: 'center',
+            }}
+          >
+            <Button onClick={handleCancelUpload} variant="outline">
+              {t('cancel') ?? 'Cancel'}
+            </Button>
+            <Button
+              onClick={handleTitleSubmit}
+              disabled={!selectedFile || !imageTitle.trim()}
+            >
+              {t('confirm') ?? 'Confirm'}
+            </Button>
+          </div>
+        }
+        closable
+        title={t('upload.titleImage') || 'Image title'}
+        description={t('upload.titleHelp')}
+      >
+        <div className="memori--preview-content memori--upload-image-preview-content">
+          {filePreview && (
+            <div className="memori--upload-image-preview-frame">
+              <img
+                src={filePreview}
+                alt={selectedFile?.name || 'Preview'}
+                className="memori--upload-image-preview"
+              />
+            </div>
+          )}
+          <FieldGroup
+            label={t('upload.titlePlaceholder') ?? 'Enter image title'}
+          >
+            <Input
+              value={imageTitle}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setImageTitle(e.target.value)
+              }
+            />
+          </FieldGroup>
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default UploadImages;

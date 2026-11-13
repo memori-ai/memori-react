@@ -1,0 +1,79 @@
+{
+  "name": "@memori.ai/memori-webcomponent",
+  "version": "9.1.7",
+  "description": "WebComponent to integrate a Memori in your app or website",
+  "author": "Memori Srl",
+  "source": "src/index.tsx",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/memori-ai/memori-react/tree/main/packages/memori-webcomponent#readme",
+  "bugs": "https://github.com/memori-ai/memori-react/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/memori-ai/memori-react.git",
+    "directory": "packages/memori-webcomponent"
+  },
+  "keywords": [
+    "memori",
+    "memori-ai",
+    "webcomponent",
+    "react",
+    "nlp",
+    "typescript",
+    "ai",
+    "conversational-agents",
+    "conversational-ai"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "packageManager": "yarn@3.8.7",
+  "scripts": {
+    "start": "parcel serve example/index.html --dist-dir dist",
+    "dev": "parcel serve example/index.html --dist-dir dist",
+    "prebuild": "yarn clean",
+    "build": "yarn clean && parcel build --no-content-hash --no-source-maps --dist-dir dist && mv dist/index.js dist/memori-webcomponent.js",
+    "clean": "rimraf dist",
+    "format": "biome format --write src",
+    "lint": "biome check src --diagnostic-level=error",
+    "typecheck": "tsc --noEmit",
+    "prepack": "yarn build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.7",
+    "@parcel/packager-ts": "2.16.4",
+    "@parcel/transformer-typescript-types": "2.16.4",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "autoprefixer": "^10.5.4",
+    "buffer": "^5.5.0",
+    "crypto-browserify": "^3.12.0",
+    "cssnano": "^9.0.2",
+    "events": "^3.1.0",
+    "https-browserify": "^1.0.0",
+    "identity-obj-proxy": "3.0.0",
+    "parcel": "2.16.4",
+    "process": "^0.11.10",
+    "punycode": "^1.4.1",
+    "querystring-es3": "^0.2.1",
+    "rimraf": "3.0.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.1.0",
+    "typescript": "5.5.4",
+    "url": "^0.11.0",
+    "util": "^0.12.3"
+  },
+  "dependencies": {
+    "@memori.ai/memori-react": "workspace:*",
+    "@nats-io/jetstream": "^3.4.0",
+    "@nats-io/nats-core": "^3.4.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

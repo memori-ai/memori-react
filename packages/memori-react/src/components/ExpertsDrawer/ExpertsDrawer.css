@@ -1,0 +1,57 @@
+h2.memori--experts-drawer--title {
+    margin: 0;
+    font-size: inherit;
+    font-weight: var(--memori-text-weight-normal);
+    line-height: inherit;
+}
+
+ul.memori--experts-drawer--list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+li.memori--experts-drawer--item {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: var(--memori-spacing-lg);
+    margin-bottom: var(--memori-spacing-lg);
+}
+
+figure.memori--experts-drawer--avatar {
+    display: flex;
+    overflow: hidden;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 0.5rem 0 0;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+figure.memori--experts-drawer--avatar img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.memori--experts-drawer--content {
+    flex: 1;
+}
+
+h3.memori--experts-drawer--name {
+    margin: 0;
+    font-size: var(--memori-text-size-sm);
+    font-weight: var(--memori-text-weight-normal);
+    line-height: 1.25rem;
+}
+
+p.memori--experts-drawer--description {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: var(--memori-text-weight-normal);
+    line-height: 1rem;
+}

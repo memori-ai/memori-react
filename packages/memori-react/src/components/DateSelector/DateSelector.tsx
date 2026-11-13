@@ -1,0 +1,293 @@
+import { useEffect, useState, memo, useMemo, useRef, ChangeEvent } from 'react';
+import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
+import { Calendar } from 'lucide-react';
+
+export interface Props {
+  defaultDate?: string | Date;
+  disabled?: boolean;
+  /** Minimum age; latest selectable birth date is today minus this many years. */
+  minAge?: number;
+  onChange: (date: DateTime | undefined) => void;
+}
+
+const DateSelector = memo(
+  ({ defaultDate, onChange, disabled = false, minAge = 18 }: Props) => {
+    const { t } = useTranslation();
+
+    const maxDate = useMemo(
+      () => DateTime.now().minus({ years: minAge }).startOf('day'),
+      [minAge]
+    );
+    const minDate = useMemo(
+      () => DateTime.fromObject({ year: 1900, month: 1, day: 1 }),
+      []
+    );
+
+    // State for individual fields as strings to allow empty values
+    const [day, setDay] = useState<string>('');
+    const [month, setMonth] = useState<string>('');
+    const [year, setYear] = useState<string>('');
+
+    // Initialize from defaultDate if provided
+    useEffect(() => {
+      if (defaultDate) {
+        const dt =
+          typeof defaultDate === 'string'
+            ? DateTime.fromISO(defaultDate)
+            : DateTime.fromJSDate(defaultDate);
+
+        if (dt.isValid) {
+          setDay(dt.day.toString());
+          setMonth(dt.month.toString());
+          setYear(dt.year.toString());
+        }
+      }
+    }, [defaultDate]);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Refs for auto-focus
+    const dayRef = useRef<HTMLInputElement>(null);
+    const monthRef = useRef<HTMLInputElement>(null);
+    const yearRef = useRef<HTMLInputElement>(null);
+
+    // Detect mobile viewport
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Avoid re-running when parent passes an unstable onChange (inline arrow).
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+    const lastEmittedRef = useRef<string | null | undefined>(undefined);
+
+    // Validate and propagate changes
+    useEffect(() => {
+      const emit = (next: DateTime | undefined) => {
+        const key = next?.isValid ? next.toISODate() : null;
+        if (key === lastEmittedRef.current) return;
+        lastEmittedRef.current = key;
+        onChangeRef.current(next);
+      };
+
+      if (!day || !month || !year) {
+        emit(undefined);
+        return;
+      }
+
+      const d = parseInt(day);
+      const m = parseInt(month);
+      const y = parseInt(year);
+
+      if (isNaN(d) || isNaN(m) || isNaN(y)) {
+        emit(undefined);
+        return;
+      }
+
+      const newDate = DateTime.fromObject({ year: y, month: m, day: d });
+
+      // Basic validation: check if it's a valid date (e.g. not Feb 30)
+      // and within range.
+      if (newDate.isValid && newDate >= minDate && newDate <= maxDate) {
+        emit(newDate);
+      } else {
+        emit(undefined);
+      }
+    }, [day, month, year, minDate, maxDate]);
+
+    // Handle mobile native input change
+    const handleMobileChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value) {
+        const newDate = DateTime.fromISO(value);
+        if (newDate.isValid) {
+          setDay(newDate.day.toString());
+          setMonth(newDate.month.toString());
+          setYear(newDate.year.toString());
+          // The useEffect will handle calling onChange
+        }
+      } else {
+        setDay('');
+        setMonth('');
+        setYear('');
+      }
+    };
+
+    const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      // Allow empty or numbers only
+      if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 2
+        if (val.length > 2) return;
+
+        // Limit value to 31
+        const numVal = parseInt(val);
+        if (numVal > 31) return;
+
+        setDay(val);
+        if (val.length >= 2) {
+          monthRef.current?.focus();
+        }
+      }
+    };
+
+    const handleMonthChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 2
+        if (val.length > 2) return;
+
+        // Limit value to 12
+        const numVal = parseInt(val);
+        if (numVal > 12) return;
+
+        setMonth(val);
+        if (val.length >= 2) {
+          yearRef.current?.focus();
+        }
+      }
+    };
+
+    const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 4
+        if (val.length > 4) return;
+
+        setYear(val);
+      }
+    };
+
+    // Mobile native input
+    if (isMobile) {
+      const currentDate =
+        day && month && year
+          ? DateTime.fromObject({
+              year: parseInt(year),
+              month: parseInt(month),
+              day: parseInt(day),
+            })
+          : null;
+      const dateValue = currentDate?.isValid
+        ? currentDate.toISODate() || ''
+        : '';
+      const isEmpty = !dateValue;
+      const placeholder = t('login.birthDatePlaceholder') || 'DD/MM/YYYY';
+
+      return (
+        <div className="memori--date-selector memori--date-selector--mobile">
+          <label
+            htmlFor="birth-date-mobile"
+            className="memori--date-selector__mobile-label"
+          >
+            {t('birthDate') || 'Birth Date'}:
+          </label>
+          <div
+            className={`memori--date-selector__mobile-input-wrap${
+              isEmpty ? ' memori--date-selector__mobile-input-wrap--empty' : ''
+            }`}
+          >
+            <input
+              id="birth-date-mobile"
+              type="date"
+              className="memori--date-selector__mobile-input"
+              value={dateValue}
+              onChange={handleMobileChange}
+              disabled={disabled}
+              min={minDate.toISODate() || '1900-01-01'}
+              max={maxDate.toISODate() || ''}
+              aria-label={String(t('birthDate') || t('date'))}
+            />
+            {isEmpty && (
+              <span
+                className="memori--date-selector__mobile-placeholder"
+                aria-hidden
+              >
+                {placeholder}
+              </span>
+            )}
+            <Calendar
+              className="memori--date-selector__mobile-icon"
+              aria-hidden
+              size={20}
+              strokeWidth={1.75}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    // Desktop simple inputs
+    return (
+      <div className="memori--date-selector memori--date-selector--desktop">
+        <div className="memori--date-selector__input-group">
+          <label htmlFor="birth-day" className="memori--date-selector__label">
+            {t('day') || 'Day'}
+          </label>
+          <input
+            id="birth-day"
+            ref={dayRef}
+            type="number"
+            inputMode="numeric"
+            className="memori--date-selector__input"
+            value={day}
+            onChange={handleDayChange}
+            placeholder={t('dayPlaceholder') || 'DD'}
+            min={1}
+            max={31}
+            disabled={disabled}
+          />
+        </div>
+
+        <div className="memori--date-selector__input-group">
+          <label htmlFor="birth-month" className="memori--date-selector__label">
+            {t('month') || 'Month'}
+          </label>
+          <input
+            id="birth-month"
+            ref={monthRef}
+            type="number"
+            inputMode="numeric"
+            className="memori--date-selector__input"
+            value={month}
+            onChange={handleMonthChange}
+            placeholder={t('monthPlaceholder') || 'MM'}
+            min={1}
+            max={12}
+            disabled={disabled}
+          />
+        </div>
+
+        <div className="memori--date-selector__input-group memori--date-selector__input-group--year">
+          <label htmlFor="birth-year" className="memori--date-selector__label">
+            {t('year') || 'Year'}
+          </label>
+          <input
+            id="birth-year"
+            ref={yearRef}
+            type="number"
+            inputMode="numeric"
+            className="memori--date-selector__input"
+            value={year}
+            onChange={handleYearChange}
+            placeholder={t('yearPlaceholder') || 'YYYY'}
+            min={minDate.year}
+            max={maxDate.year}
+            disabled={disabled}
+          />
+        </div>
+      </div>
+    );
+  }
+);
+
+DateSelector.displayName = 'DateSelector';
+
+export default DateSelector;
