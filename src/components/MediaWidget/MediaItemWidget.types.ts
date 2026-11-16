@@ -1,5 +1,8 @@
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
-import type { InstructionProposalConfirm } from '../../types/instructionProposal';
+import type {
+  InstructionProposalConfirm,
+  InstructionProposalStatuses,
+} from '../../types/instructionProposal';
 
 export type LinkPreviewInfo = {
   title?: string;
@@ -32,6 +35,10 @@ export interface MediaItemWidgetProps {
   onProposalConfirm?: InstructionProposalConfirm;
   /** False when the engine has no proposal pending, confirmed or discarded in chat */
   proposalsPending?: boolean;
+  /** True when the engine can no longer confirm these proposals: superseded or settled */
+  proposalsExpired?: boolean;
+  /** The outcome of the proposals already confirmed with their card */
+  proposalStatuses?: InstructionProposalStatuses;
   fromUser?: boolean;
   descriptionOneLine?: boolean;
   onLinkPreviewInfo?: (linkPreviewInfo: LinkPreviewInfo) => void;

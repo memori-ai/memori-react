@@ -3936,23 +3936,32 @@ const MemoriWidget = ({
   ) => {
     if (!sessionId) throw new Error('No session');
 
-    const { currentState, resultCode } = await postProposalConfirmedEvent({
-      sessionId,
-      proposalID,
-      apply,
-      parameters,
-    });
+    // As for a message: the agent is writing, and the hints wait so they can't confirm too
+    setMemoriTyping(true);
+    try {
+      const { currentState, resultCode } = await postProposalConfirmedEvent({
+        sessionId,
+        proposalID,
+        apply,
+        parameters,
+      });
 
-    if (resultCode !== 0 || !currentState) {
-      logWidgetError('ProposalConfirmedEvent failed', resultCode);
-      throw new Error(`ProposalConfirmedEvent failed: ${resultCode}`);
+      // The session expired and its proposals with it: they are confirmed again in a new one
+      if (resultCode === 404) return false;
+
+      if (resultCode !== 0 || !currentState) {
+        logWidgetError('ProposalConfirmedEvent failed', resultCode);
+        throw new Error(`ProposalConfirmedEvent failed: ${resultCode}`);
+      }
+
+      // The engine ignores proposals no longer pending and emits nothing
+      if (!currentState.emission) return false;
+
+      await translateAndSpeak(currentState, userLang);
+      return true;
+    } finally {
+      setMemoriTyping(false);
     }
-
-    // The engine ignores proposals no longer pending and emits nothing
-    if (!currentState.emission) return false;
-
-    await translateDialogState(currentState, userLang);
-    return true;
   };
 
   const chatProps: ChatProps = {

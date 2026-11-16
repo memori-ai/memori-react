@@ -24,7 +24,10 @@ import MediaWidget, {
   Props as MediaWidgetProps,
 } from '../MediaWidget/MediaWidget';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
-import { InstructionProposalConfirm } from '../../types/instructionProposal';
+import {
+  InstructionProposalConfirm,
+  InstructionProposalStatuses,
+} from '../../types/instructionProposal';
 import { hasInstructionProposalCard } from '../InstructionProposalCard/InstructionProposalCard';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
@@ -297,6 +300,38 @@ const Chat: React.FC<Props> = ({
   // confirmed or discarded with the hints, or the Giver left the instruction
   const proposalsPending =
     dialogState?.state === 'G6' && !!dialogState.hints?.length;
+
+  // The engine keeps only the latest proposals: the older ones were superseded, and those
+  // the engine replied after without hints were settled. A remounted card shows it at once
+  const lastProposalIndex = useMemo(() => {
+    for (let i = history.length - 1; i >= 0; i--)
+      if (
+        history[i].media?.some(
+          m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
+        )
+      )
+        return i;
+    return -1;
+  }, [history]);
+  const areProposalsExpired = (index: number) =>
+    index !== lastProposalIndex ||
+    (!proposalsPending && index !== history.length - 1);
+
+  // The outcome of each card, so a remounted card keeps it
+  const [proposalStatuses, setProposalStatuses] =
+    useState<InstructionProposalStatuses>({});
+  const confirmProposal = useCallback<InstructionProposalConfirm>(
+    async (proposalID, apply, parameters) => {
+      if (!onProposalConfirm) return false;
+      const handled = await onProposalConfirm(proposalID, apply, parameters);
+      setProposalStatuses(s => ({
+        ...s,
+        [proposalID]: handled ? (apply ? 'applied' : 'ignored') : 'notPending',
+      }));
+      return handled;
+    },
+    [onProposalConfirm]
+  );
 
   const activeCacheUsage =
     activeUsageBadge?.type === 'llm' ? activeUsageBadge.usage : undefined;
@@ -628,11 +663,13 @@ const Chat: React.FC<Props> = ({
                     client={client}
                     customMediaRenderer={customMediaRenderer}
                     onProposalConfirm={
-                      isHistoryView || isChatlogPanel
+                      isHistoryView || isChatlogPanel || !onProposalConfirm
                         ? undefined
-                        : onProposalConfirm
+                        : confirmProposal
                     }
                     proposalsPending={proposalsPending}
+                    proposalsExpired={areProposalsExpired(index)}
+                    proposalStatuses={proposalStatuses}
                     translateTo={translateTo}
                     baseUrl={baseUrl}
                     apiUrl={apiUrl}

@@ -69,6 +69,11 @@ export interface InstructionProposal {
   aisuruFunctionEnable?: boolean;
 }
 
+/** The outcome of a proposal confirmed with its card, by proposal ID */
+export type InstructionProposalStatuses = {
+  [proposalID: string]: 'applied' | 'ignored' | 'notPending';
+};
+
 /**
  * Confirms a proposal. Resolves true when the engine handled it, false when the proposal
  * was no longer pending (already applied, discarded or unknown); rejects on errors.

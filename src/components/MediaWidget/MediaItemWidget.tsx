@@ -773,6 +773,8 @@ const MediaItemWidget: React.FC<Props> = ({
   customMediaRenderer,
   onProposalConfirm,
   proposalsPending = true,
+  proposalsExpired = false,
+  proposalStatuses,
   fromUser = false,
   descriptionOneLine = false,
   onLinkPreviewInfo,
@@ -810,11 +812,14 @@ const MediaItemWidget: React.FC<Props> = ({
   }, [translateTo, translateMediaCaptions]);
 
   // Instruction proposals get their card, unless the host renders them itself
+  const rendersProposalsItself = useMemo(
+    () => !!customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE),
+    [customMediaRenderer]
+  );
   const isInstructionProposal = useCallback(
     (m: MediaItem) =>
-      m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE &&
-      !customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE),
-    [customMediaRenderer]
+      m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE && !rendersProposalsItself,
+    [rendersProposalsItself]
   );
 
   // Derive top-level "display" lists:
@@ -979,6 +984,8 @@ const MediaItemWidget: React.FC<Props> = ({
                 medium={item}
                 onConfirm={onProposalConfirm}
                 proposalsPending={proposalsPending}
+                expired={proposalsExpired}
+                defaultStatus={proposalStatuses?.[item.mediumID]}
               />
             </div>
           ))}

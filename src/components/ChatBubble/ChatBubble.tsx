@@ -50,7 +50,10 @@ import {
 } from '../../helpers/message';
 import { enhanceBubbleCodeBlocks } from '../../helpers/enhanceBubbleCodeBlocks';
 import { getExposedSourcesCount } from '../../helpers/sourcesCount';
-import { InstructionProposalConfirm } from '../../types/instructionProposal';
+import {
+  InstructionProposalConfirm,
+  InstructionProposalStatuses,
+} from '../../types/instructionProposal';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
@@ -150,6 +153,10 @@ export interface Props {
   onProposalConfirm?: InstructionProposalConfirm;
   /** False when the engine has no proposal pending, confirmed or discarded in chat */
   proposalsPending?: boolean;
+  /** True when the engine can no longer confirm the proposals of this message */
+  proposalsExpired?: boolean;
+  /** The outcome of the proposals already confirmed with their card */
+  proposalStatuses?: InstructionProposalStatuses;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -181,6 +188,8 @@ const ChatBubble: React.FC<Props> = ({
   animateEnter = false,
   onProposalConfirm,
   proposalsPending,
+  proposalsExpired,
+  proposalStatuses,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -1231,6 +1240,8 @@ const ChatBubble: React.FC<Props> = ({
                   customMediaRenderer={customMediaRenderer}
                   onProposalConfirm={onProposalConfirm}
                   proposalsPending={proposalsPending}
+                  proposalsExpired={proposalsExpired}
+                  proposalStatuses={proposalStatuses}
                   fromUser={message.fromUser}
                 />
               )}

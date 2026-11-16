@@ -20,6 +20,8 @@ export interface Props {
   customMediaRenderer?: MediaItemProps['customMediaRenderer'];
   onProposalConfirm?: MediaItemProps['onProposalConfirm'];
   proposalsPending?: MediaItemProps['proposalsPending'];
+  proposalsExpired?: MediaItemProps['proposalsExpired'];
+  proposalStatuses?: MediaItemProps['proposalStatuses'];
   fromUser?: boolean;
 }
 
@@ -35,6 +37,8 @@ const MediaWidget: React.FC<Props> = ({
   customMediaRenderer,
   onProposalConfirm,
   proposalsPending,
+  proposalsExpired,
+  proposalStatuses,
   fromUser = false,
 }: Props) => {
   const { t } = useTranslation();
@@ -57,6 +61,8 @@ const MediaWidget: React.FC<Props> = ({
           customMediaRenderer={customMediaRenderer}
           onProposalConfirm={onProposalConfirm}
           proposalsPending={proposalsPending}
+          proposalsExpired={proposalsExpired}
+          proposalStatuses={proposalStatuses}
           fromUser={fromUser}
         />
       )}

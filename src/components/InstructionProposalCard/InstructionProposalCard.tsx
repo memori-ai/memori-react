@@ -24,6 +24,8 @@ export interface Props {
   defaultStatus?: InstructionProposalStatus;
   /** False when the engine has no proposal pending, confirmed or discarded in chat */
   proposalsPending?: boolean;
+  /** True when the engine can no longer confirm it: superseded by newer proposals or settled earlier */
+  expired?: boolean;
 }
 
 export const parseInstructionProposal = (
@@ -37,15 +39,23 @@ export const parseInstructionProposal = (
   }
 };
 
-// Confirmed only with the hints in chat: the agent writes the change in its reply
-const CHAT_ONLY_PROPOSAL_TYPES: InstructionProposal['type'][] = [
-  'WelcomeMessage',
-  'AisuruFunction',
+// The types the card can show. The others (WelcomeMessage, AisuruFunction and any type
+// the engine adds later) are confirmed only with the hints in chat, where the agent writes the change
+const CARD_PROPOSAL_TYPES: InstructionProposal['type'][] = [
+  'NewContent',
+  'ContentVariants',
+  'ContentAnswerChange',
+  'PromptChange',
+  'PromptRevert',
+  'AttachmentPlacement',
+  'Snippet',
+  'LandingPage',
+  'Connector',
 ];
 
 export const hasInstructionProposalCard = (medium: Medium) => {
   const proposal = parseInstructionProposal(medium);
-  return !!proposal && !CHAT_ONLY_PROPOSAL_TYPES.includes(proposal.type);
+  return !!proposal && CARD_PROPOSAL_TYPES.includes(proposal.type);
 };
 
 export const getMissingConnectorFields = (
@@ -118,20 +128,25 @@ const InstructionProposalCard = ({
   onConfirm,
   defaultStatus = 'pending',
   proposalsPending = true,
+  expired = false,
 }: Props) => {
   const { t } = useTranslation();
   const proposal = useMemo(() => parseInstructionProposal(medium), [medium]);
-  const [status, setStatus] =
-    useState<InstructionProposalStatus>(defaultStatus);
+  const [status, setStatus] = useState<InstructionProposalStatus>(() =>
+    expired && !!onConfirm && defaultStatus === 'pending'
+      ? 'notPending'
+      : defaultStatus
+  );
   const [lastAction, setLastAction] = useState<boolean>(true);
 
-  // Only on the change: a card can arrive before the hints of the same reply
+  // Pending ones stop waiting when the engine no longer has them. proposalsPending only
+  // on the change: a card can arrive before the hints of the same reply
   const wasPending = useRef(proposalsPending);
   useEffect(() => {
-    if (wasPending.current && !proposalsPending && !!onConfirm)
+    if (!!onConfirm && (expired || (wasPending.current && !proposalsPending)))
       setStatus(s => (s === 'pending' || s === 'error' ? 'notPending' : s));
     wasPending.current = proposalsPending;
-  }, [proposalsPending, onConfirm]);
+  }, [proposalsPending, expired, onConfirm]);
 
   const answerDiff = useMemo(
     () =>
@@ -203,8 +218,10 @@ const InstructionProposalCard = ({
       </div>
     );
 
+  // Without the new value the field is not part of the change, the previous one is only context
   const renderChange = (label: string, text?: string, previousText?: string) =>
-    !previousText || previousText === text ? (
+    text === undefined || text === null ? null : !previousText ||
+      previousText === text ? (
       renderText(label, text)
     ) : (
       <div className="memori-instruction-proposal--section">
@@ -212,8 +229,13 @@ const InstructionProposalCard = ({
         <p className="memori-instruction-proposal--text">
           <del className="memori-instruction-proposal--removed">
             {previousText}
-          </del>{' '}
-          <ins className="memori-instruction-proposal--added">{text}</ins>
+          </del>
+          {!!text && (
+            <>
+              {' '}
+              <ins className="memori-instruction-proposal--added">{text}</ins>
+            </>
+          )}
         </p>
       </div>
     );
@@ -232,8 +254,8 @@ const InstructionProposalCard = ({
           {t('instructionProposal.variants')}
         </span>
         <ul className="memori-instruction-proposal--list">
-          {proposal.variants.map(v => (
-            <li key={v}>{v}</li>
+          {proposal.variants.map((v, index) => (
+            <li key={`${index}-${v}`}>{v}</li>
           ))}
         </ul>
       </div>

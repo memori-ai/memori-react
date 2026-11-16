@@ -329,3 +329,101 @@ it('clears the secret fields and lets the Giver retry after an error', async () 
     'https://analytics.example.com'
   );
 });
+
+it('is no longer pending when it mounts expired', () => {
+  render(
+    <InstructionProposalCard
+      medium={instructionProposals.newContent}
+      onConfirm={jest.fn()}
+      expired
+    />
+  );
+  expect(
+    screen.getByText('instructionProposal.notPending')
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByText('instructionProposal.apply')
+  ).not.toBeInTheDocument();
+});
+
+it('keeps the outcome it was confirmed with when it mounts expired', () => {
+  render(
+    <InstructionProposalCard
+      medium={instructionProposals.newContent}
+      onConfirm={jest.fn()}
+      defaultStatus="applied"
+      expired
+    />
+  );
+  expect(screen.getByText('instructionProposal.applied')).toBeInTheDocument();
+});
+
+it('is no longer pending once newer proposals supersede it', () => {
+  const { rerender } = render(
+    <InstructionProposalCard
+      medium={instructionProposals.newContent}
+      onConfirm={jest.fn()}
+    />
+  );
+  rerender(
+    <InstructionProposalCard
+      medium={instructionProposals.newContent}
+      onConfirm={jest.fn()}
+      expired
+    />
+  );
+  expect(
+    screen.getByText('instructionProposal.notPending')
+  ).toBeInTheDocument();
+});
+
+it('has no card for the types it cannot show', () => {
+  expect(
+    hasInstructionProposalCard({
+      ...instructionProposals.newContent,
+      content: JSON.stringify({ id: 'x', type: 'Persona' }),
+    })
+  ).toBe(false);
+});
+
+it('shows the previous value only as context when the field does not change', () => {
+  render(
+    <InstructionProposalCard
+      medium={{
+        ...instructionProposals.landingPageSettings,
+        content: JSON.stringify({
+          id: 'x',
+          type: 'LandingPage',
+          previousLandingPageLayout: 'TOTEM',
+          previousInitialQuestion: 'START',
+          landingPageSettings: { theme: 'dark' },
+        }),
+      }}
+      onConfirm={jest.fn()}
+    />
+  );
+  expect(screen.queryByText('TOTEM')).not.toBeInTheDocument();
+  expect(screen.queryByText('START')).not.toBeInTheDocument();
+});
+
+it('lists repeated variants without key warnings', () => {
+  const error = jest.spyOn(console, 'error').mockImplementation(() => {});
+  render(
+    <InstructionProposalCard
+      medium={{
+        ...instructionProposals.contentVariants,
+        content: JSON.stringify({
+          id: 'x',
+          type: 'ContentVariants',
+          question: 'Q',
+          variants: ['Same', 'Same'],
+        }),
+      }}
+    />
+  );
+  expect(screen.getAllByText('Same')).toHaveLength(2);
+  expect(
+    error.mock.calls.some(c => String(c[0]).includes('same key'))
+  ).toBe(false);
+  error.mockRestore();
+});

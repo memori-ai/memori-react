@@ -940,3 +940,89 @@ it('hides the zero cache row in the LLM usage modal', () => {
   expect(screen.getByText('40%')).toBeTruthy();
 });
 
+
+describe('instruction proposals no longer pending', () => {
+  const pendingState = { ...dialogStateWithHints, state: 'G6' };
+  const settledState = { ...dialogState, state: 'G6' };
+  const reply = (media: Message['media'], text = 'Ecco la proposta') => ({
+    text,
+    fromUser: false,
+    media,
+  });
+
+  it('expires the proposals superseded by newer ones', () => {
+    renderChat({
+      dialogState: pendingState,
+      history: [
+        ...history,
+        reply([instructionProposals.newContent]),
+        { text: 'Anche il prompt', fromUser: true },
+        reply([instructionProposals.promptChange], 'Ecco la nuova proposta'),
+      ],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(
+      screen.getAllByText('instructionProposal.notPending')
+    ).toHaveLength(1);
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(1);
+  });
+
+  it('expires the proposals the engine replied after without hints', () => {
+    renderChat({
+      dialogState: settledState,
+      history: [
+        ...history,
+        reply([instructionProposals.newContent]),
+        { text: 'Lascia stare', fromUser: true },
+        reply([], 'Va bene'),
+      ],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(
+      screen.getByText('instructionProposal.notPending')
+    ).toBeInTheDocument();
+  });
+
+  it('waits for the hints of the reply that brings the proposals', () => {
+    renderChat({
+      dialogState: settledState,
+      history: [...history, reply([instructionProposals.newContent])],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('instructionProposal.apply')).toBeInTheDocument();
+  });
+
+  it('keeps the outcome of a card when it mounts again', async () => {
+    jest.useRealTimers();
+    const onProposalConfirm = jest.fn().mockResolvedValue(true);
+    const props = {
+      dialogState: pendingState,
+      history: [
+        ...history,
+        reply([
+          instructionProposals.newContent,
+          instructionProposals.promptChange,
+        ]),
+      ],
+      onProposalConfirm,
+    };
+    const { rerenderChat } = renderChat(props);
+
+    fireEvent.click(screen.getAllByText('instructionProposal.apply')[0]);
+    expect(
+      await screen.findByText('instructionProposal.applied')
+    ).toBeInTheDocument();
+
+    // A new key for the bubble mounts its cards again
+    rerenderChat({
+      history: props.history.map((m, i) =>
+        i === props.history.length - 1 ? { ...m, timestamp: 'later' } : m
+      ),
+    });
+    expect(screen.getByText('instructionProposal.applied')).toBeInTheDocument();
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(1);
+  });
+});
