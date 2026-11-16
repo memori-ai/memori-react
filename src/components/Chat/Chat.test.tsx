@@ -284,6 +284,60 @@ it('renders Chat with message consumption unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('shows cache read, write and hit % in the LLM usage modal when present', () => {
+  render(
+    <ArtifactProvider>
+      <Chat
+        memori={memori}
+        tenant={tenant}
+        dialogState={dialogState}
+        layout="DEFAULT"
+        client={client}
+        history={[
+          {
+            text: 'AI message with cache usage',
+            fromUser: false,
+            timestamp: FIXED_TEST_DATE.toISOString(),
+            llmUsage: {
+              provider: 'anthropic',
+              model: 'claude-3',
+              totalInputTokens: 100,
+              inputCacheReadTokens: 40,
+              inputCacheWriteTokens: 10,
+              outputTokens: 20,
+            },
+          } as Message & { llmUsage: Record<string, unknown> },
+        ]}
+        pushMessage={jest.fn()}
+        sessionID={sessionID}
+        simulateUserPrompt={jest.fn()}
+        setAttachmentsMenuOpen={jest.fn()}
+        setSendOnEnter={jest.fn()}
+        userMessage=""
+        onChangeUserMessage={jest.fn()}
+        sendMessage={jest.fn()}
+        stopListening={jest.fn()}
+        isPlayingAudio={false}
+        stopAudio={jest.fn()}
+        showMicrophone={false}
+        listening={false}
+        startListening={jest.fn()}
+        setEnableFocusChatInput={jest.fn()}
+        showMessageConsumption
+      />
+    </ArtifactProvider>
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'chatLogs.llm' }));
+
+  expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+  expect(screen.getByText('chatLogs.cacheWrite')).toBeTruthy();
+  expect(screen.getByText('chatLogs.cacheHit')).toBeTruthy();
+  expect(screen.getByText('40')).toBeTruthy();
+  expect(screen.getByText('10')).toBeTruthy();
+  expect(screen.getByText('40%')).toBeTruthy();
+});
+
 it('renders Chat with user unchanged', () => {
   const { container } = render(
     <ArtifactProvider
@@ -701,8 +755,32 @@ it('does not play enter motion when history is replaced in bulk', () => {
   expect(container.querySelectorAll('.memori-motion-enter-up')).toHaveLength(0);
 });
 
-it('renders message timestamps without seconds inside memori-chat--bubble-addon for both assistant and user messages', () => {
+it('hides message timestamps when showDates is false', () => {
   const { container } = renderChat({
+    history: [
+      {
+        text: 'Assistant message',
+        fromUser: false,
+        timestamp: '2021-03-01T12:00:00.000Z',
+      },
+      {
+        text: 'User message',
+        fromUser: true,
+        timestamp: '2021-03-01T12:01:05.000Z',
+      },
+    ],
+  });
+
+  expect(
+    container.querySelectorAll(
+      '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+    )
+  ).toHaveLength(0);
+});
+
+it('renders time without seconds inside memori-chat--bubble-addon for both assistant and user messages when showDates is true', () => {
+  const { container } = renderChat({
+    showDates: true,
     history: [
       {
         text: 'Assistant message',
@@ -723,6 +801,7 @@ it('renders message timestamps without seconds inside memori-chat--bubble-addon 
   expect(timestamps).toHaveLength(2);
   expect(timestamps[0]?.textContent).toMatch(/\d{2}:\d{2}/);
   expect(timestamps[0]?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
+  expect(timestamps[0]?.textContent).not.toMatch(/\d{2}\/\d{2}\/\d{4}/);
   expect(timestamps[1]?.textContent).toMatch(/\d{2}:\d{2}/);
   expect(timestamps[1]?.textContent).not.toMatch(/\d{2}:\d{2}:\d{2}/);
   expect(container.querySelectorAll('small.memori-chat--timestamp')).toHaveLength(
@@ -784,3 +863,80 @@ describe('hints with instruction proposals', () => {
     ).not.toBeInTheDocument();
   });
 });
+
+it('shows timestamps in the chat history panel even when showDates is false', () => {
+  const { container } = renderChat({
+    showDates: false,
+    isChatlogPanel: true,
+    history: [
+      {
+        text: 'Assistant message',
+        fromUser: false,
+        timestamp: '2021-03-01T12:00:00.000Z',
+      },
+      {
+        text: 'User message',
+        fromUser: true,
+        timestamp: '2021-03-01T12:01:05.000Z',
+      },
+    ],
+  });
+
+  expect(
+    container.querySelectorAll(
+      '.memori-chat--bubble-addon .memori-chat--bubble-timestamp'
+    )
+  ).toHaveLength(2);
+});
+
+it('hides the zero cache row in the LLM usage modal', () => {
+  render(
+    <ArtifactProvider>
+      <Chat
+        memori={memori}
+        tenant={tenant}
+        dialogState={dialogState}
+        layout="DEFAULT"
+        client={client}
+        history={[
+          {
+            text: 'AI message with cache read only',
+            fromUser: false,
+            timestamp: FIXED_TEST_DATE.toISOString(),
+            llmUsage: {
+              provider: 'anthropic',
+              model: 'claude-3',
+              totalInputTokens: 100,
+              inputCacheReadTokens: 40,
+              inputCacheWriteTokens: 0,
+              outputTokens: 20,
+            },
+          } as Message & { llmUsage: Record<string, unknown> },
+        ]}
+        pushMessage={jest.fn()}
+        sessionID={sessionID}
+        simulateUserPrompt={jest.fn()}
+        setAttachmentsMenuOpen={jest.fn()}
+        setSendOnEnter={jest.fn()}
+        userMessage=""
+        onChangeUserMessage={jest.fn()}
+        sendMessage={jest.fn()}
+        stopListening={jest.fn()}
+        isPlayingAudio={false}
+        stopAudio={jest.fn()}
+        showMicrophone={false}
+        listening={false}
+        startListening={jest.fn()}
+        setEnableFocusChatInput={jest.fn()}
+        showMessageConsumption
+      />
+    </ArtifactProvider>
+  );
+
+  fireEvent.click(screen.getByRole('button', { name: 'chatLogs.llm' }));
+
+  expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+  expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+  expect(screen.getByText('40%')).toBeTruthy();
+});
+

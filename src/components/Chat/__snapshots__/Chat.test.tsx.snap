@@ -57,25 +57,12 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
+                          data-base-ui-tooltip-trigger=""
                           id="base-ui-:r1:"
                         >
                           <span
@@ -164,26 +151,13 @@ exports[`renders Chat unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r5:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r4:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -298,26 +272,13 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r7:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -405,26 +366,13 @@ exports[`renders Chat unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:rd:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:ra:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -585,26 +533,13 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rh:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:rd:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -692,26 +627,13 @@ exports[`renders Chat unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:rl:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:rg:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -826,26 +748,13 @@ exports[`renders Chat unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:rp:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:rj:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -946,7 +855,8 @@ exports[`renders Chat unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:rt:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:rm:"
                   >
                     <button
                       aria-label="send"
@@ -1069,26 +979,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r51:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r3p:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1176,26 +1073,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r55:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r3s:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1310,26 +1194,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r59:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r3v:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1417,26 +1288,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r5d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r42:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1597,26 +1455,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r45:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1719,26 +1564,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r5l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r48:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1853,26 +1685,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r5p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r4b:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -1988,7 +1807,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r5t:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r4e:"
                   >
                     <button
                       aria-label="send"
@@ -2111,26 +1931,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r95:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r74:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2218,26 +2025,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r99:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r77:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2333,26 +2127,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9d:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r7a:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2440,26 +2221,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r9h:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r7d:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2601,26 +2369,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9l:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r7g:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2708,26 +2463,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r9p:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r7j:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2823,26 +2565,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r9t:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r7m:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2943,7 +2672,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:ra1:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r7p:"
                   >
                     <button
                       aria-label="send"
@@ -3066,26 +2796,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r85:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r6c:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3173,26 +2890,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r89:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r6f:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3290,26 +2994,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8d:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r6i:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3397,26 +3088,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r8h:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r6l:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3560,26 +3238,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8l:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r6o:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3667,26 +3332,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r8p:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r6r:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3784,26 +3436,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r8t:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r6u:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -3904,7 +3543,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r91:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r71:"
                   >
                     <button
                       aria-label="send"
@@ -4033,7 +3673,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                         <p
                           class="memori-chat--bubble-timestamp"
                         >
-                          03/01/2021, 01:00 PM
+                          01:00 PM
                         </p>
                         <span
                           class="memori-chat--bubble-timestamp-separator"
@@ -4046,7 +3686,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r41:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r31:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4140,7 +3781,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                           <p
                             class="memori-chat--bubble-timestamp"
                           >
-                            03/01/2021, 01:00 PM
+                            01:00 PM
                           </p>
                           <span
                             class="memori-chat--bubble-timestamp-separator"
@@ -4153,7 +3794,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r45:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r34:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4274,7 +3916,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                         <p
                           class="memori-chat--bubble-timestamp"
                         >
-                          03/01/2021, 01:00 PM
+                          01:00 PM
                         </p>
                         <span
                           class="memori-chat--bubble-timestamp-separator"
@@ -4287,7 +3929,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r49:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r37:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4381,7 +4024,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                           <p
                             class="memori-chat--bubble-timestamp"
                           >
-                            03/01/2021, 01:00 PM
+                            01:00 PM
                           </p>
                           <span
                             class="memori-chat--bubble-timestamp-separator"
@@ -4394,7 +4037,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r4d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r3a:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4561,7 +4205,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                         <p
                           class="memori-chat--bubble-timestamp"
                         >
-                          03/01/2021, 01:00 PM
+                          01:00 PM
                         </p>
                         <span
                           class="memori-chat--bubble-timestamp-separator"
@@ -4574,7 +4218,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r4h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r3d:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4668,7 +4313,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                           <p
                             class="memori-chat--bubble-timestamp"
                           >
-                            03/01/2021, 01:00 PM
+                            01:00 PM
                           </p>
                           <span
                             class="memori-chat--bubble-timestamp-separator"
@@ -4681,7 +4326,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r4l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r3g:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4802,7 +4448,7 @@ exports[`renders Chat with dates unchanged 1`] = `
                         <p
                           class="memori-chat--bubble-timestamp"
                         >
-                          03/01/2021, 01:00 PM
+                          01:00 PM
                         </p>
                         <span
                           class="memori-chat--bubble-timestamp-separator"
@@ -4815,7 +4461,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r4p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r3j:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4916,7 +4563,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r4t:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r3m:"
                   >
                     <button
                       aria-label="send"
@@ -5039,26 +4687,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r21:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r1h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5146,26 +4781,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r25:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r1k:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5280,26 +4902,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r29:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r1n:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5387,26 +4996,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r2d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r1q:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5567,26 +5163,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r2h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r1t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5674,26 +5257,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r2l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r20:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5808,26 +5378,13 @@ exports[`renders Chat with hints unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r2p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r23:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5962,7 +5519,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r2t:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r26:"
                   >
                     <button
                       aria-label="send"
@@ -6085,26 +5643,13 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r31:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r29:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6192,26 +5737,13 @@ exports[`renders Chat with media unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r35:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r2c:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6326,26 +5858,13 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r39:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r2f:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6433,26 +5952,13 @@ exports[`renders Chat with media unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r3d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r2i:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6829,26 +6335,13 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r3h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r2l:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6936,26 +6429,13 @@ exports[`renders Chat with media unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r3l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r2o:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7070,26 +6550,13 @@ exports[`renders Chat with media unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r3p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r2r:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7190,7 +6657,8 @@ exports[`renders Chat with media unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r3t:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r2u:"
                   >
                     <button
                       aria-label="send"
@@ -7313,26 +6781,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r11:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:rp:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7420,26 +6875,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r15:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:rs:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7554,26 +6996,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r19:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:rv:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7661,26 +7090,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r1d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r12:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7841,26 +7257,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r1h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r15:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7948,26 +7351,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r1l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r18:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8082,26 +7472,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r1p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r1b:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8242,7 +7619,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r1t:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r1e:"
                   >
                     <button
                       aria-label="send"
@@ -8348,26 +7726,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r61:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r4h:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8455,26 +7820,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r65:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r4k:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8589,26 +7941,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r69:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r4n:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8696,26 +8035,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r6d:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r4q:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8876,26 +8202,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r6h:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r4t:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8983,26 +8296,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r6l:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r50:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9117,26 +8417,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r6p:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r53:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9273,26 +8560,13 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          11:30 AM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r6t:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r56:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9393,7 +8667,8 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r71:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r59:"
                   >
                     <button
                       aria-label="send"
@@ -9516,26 +8791,13 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r75:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r5k:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9623,26 +8885,13 @@ exports[`renders Chat with user unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r79:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r5n:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9740,26 +8989,13 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7d:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r5q:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9847,26 +9083,13 @@ exports[`renders Chat with user unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r7h:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r5t:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -10010,26 +9233,13 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7l:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r60:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -10117,26 +9327,13 @@ exports[`renders Chat with user unchanged 1`] = `
                       <div
                         class="memori-chat--bubble-addon"
                       >
-                        <div
-                          class="memori-chat--bubble-timestamp-container"
-                        >
-                          <p
-                            class="memori-chat--bubble-timestamp"
-                          >
-                            01:00 PM
-                          </p>
-                          <span
-                            class="memori-chat--bubble-timestamp-separator"
-                          >
-                            •
-                          </span>
-                        </div>
                         <span
                           class="memori-tooltip"
                         >
                           <span
                             class="memori-tooltip__trigger"
-                            id="base-ui-:r7p:"
+                            data-base-ui-tooltip-trigger=""
+                            id="base-ui-:r63:"
                           >
                             <span
                               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -10234,26 +9431,13 @@ exports[`renders Chat with user unchanged 1`] = `
                     <div
                       class="memori-chat--bubble-addon"
                     >
-                      <div
-                        class="memori-chat--bubble-timestamp-container"
-                      >
-                        <p
-                          class="memori-chat--bubble-timestamp"
-                        >
-                          01:00 PM
-                        </p>
-                        <span
-                          class="memori-chat--bubble-timestamp-separator"
-                        >
-                          •
-                        </span>
-                      </div>
                       <span
                         class="memori-tooltip"
                       >
                         <span
                           class="memori-tooltip__trigger"
-                          id="base-ui-:r7t:"
+                          data-base-ui-tooltip-trigger=""
+                          id="base-ui-:r66:"
                         >
                           <span
                             class="memori-chat--bubble-addon-tooltip-trigger"
@@ -10354,7 +9538,8 @@ exports[`renders Chat with user unchanged 1`] = `
                 >
                   <span
                     class="memori-tooltip__trigger"
-                    id="base-ui-:r81:"
+                    data-base-ui-tooltip-trigger=""
+                    id="base-ui-:r69:"
                   >
                     <button
                       aria-label="send"

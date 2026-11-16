@@ -50,7 +50,7 @@
   "feedback": "Commentaires",
   "feedbackThankYou": "Merci pour votre retour.",
   "copyFailed": "Impossible de copier",
-  "functionCache": "Cache des fonctions",
+  "toolsDebug": "Debug des fonctions",
   "copyToClipboard": "Copier dans le presse-papier",
   "showOriginalText": "Afficher l'original",
   "showTranslatedText": "Afficher la traduction",
@@ -86,7 +86,6 @@
   "whyThisAnswerEmptyTitle": "Aucun contenu consulté",
   "whyThisAnswerEmptyDescription": "Pour cette question, l'agent n'a trouvé aucune correspondance dans la base de connaissances : il a répondu uniquement d'après ses instructions.",
   "whyThisAnswerEmptyAuthorDescription": "La question n'a produit aucune correspondance. Si elle devrait en avoir, ajoutez un contenu qui la couvre.",
-  "whyThisAnswerAddContent": "Ajouter à la base de connaissances",
   "whyThisAnswerConfidenceHigh": "Correspondance élevée",
   "whyThisAnswerConfidenceMedium": "Correspondance partielle",
   "whyThisAnswerConfidenceLow": "Correspondance faible",
@@ -403,7 +402,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} image(s) non ajoutée(s) (maximum {{max}} fichiers autorisés).",
     "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte).",
     "partialAssetUploadWarning": "Certains liens de fichier n'ont pas pu être téléversés, mais le document a été ajouté quand même.",
-    "anonymousRetentionNotice": "Remarque : les fichiers téléversés sont conservés pendant un maximum de 24 heures."
+    "anonymousRetentionNotice": "Remarque : les fichiers téléversés sont conservés pendant un maximum de 24 heures.",
+    "truncationExcerpt": "Extrait : {{shownChars}} premiers caractères sur {{totalChars}}.",
+    "truncationGeneric": "Contenu tronqué en raison des limites de taille.",
+    "truncationLinkHint": "Le document original complet est disponible à l'URL attachment_link."
   },
   "media": {
     "title": "Titre",
@@ -555,6 +557,8 @@
     "output": "Sortie",
     "cacheRead": "Lecture cache",
     "cacheWrite": "Écriture cache",
+    "cacheHit": "Cache hit",
+    "cacheHitTooltip": "Part des tokens d'entrée lus depuis le cache au lieu d'être traités à nouveau. Une valeur plus élevée signifie un coût et une latence plus faibles.",
     "duration": "Durée",
     "energy": "Énergie",
     "co2": "CO2",

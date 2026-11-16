@@ -24,6 +24,31 @@ it('renders StartPanel unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('hides avatar, title and description when hideIdentity is set', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      setVenue={jest.fn()}
+      openPositionPopover={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+      hideIdentity
+    />
+  );
+
+  expect(container.querySelector('.memori--avatar')).toBeNull();
+  expect(container.querySelector('.memori--title')).toBeNull();
+  expect(container.querySelector('.memori--description-text')).toBeNull();
+  expect(container.querySelector('.memori--start-panel')).not.toBeNull();
+});
+
 it('renders StartPanel with existing sessionunchanged', () => {
   const { container } = render(
     <StartPanel
@@ -455,6 +480,67 @@ it('renders footerBrand inside the start panel', () => {
   expect(footer).toHaveTextContent('Powered by Memori.AI');
 });
 
+it('opens the privacy policy modal on mobile', async () => {
+  const matchMedia = window.matchMedia as jest.Mock;
+  const mockMatchMedia = (mobile: boolean) =>
+    matchMedia.mockImplementation((query: string) => ({
+      matches: mobile && String(query).includes('max-width: 870px'),
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+  mockMatchMedia(true);
+
+  try {
+    const { container } = render(
+      <StartPanel
+        memori={memori}
+        tenant={tenant}
+        language="it"
+        userLang="en"
+        setUserLang={() => {}}
+        setVenue={jest.fn()}
+        openPositionPopover={() => {}}
+        instruct={false}
+        sessionId={sessionID}
+        clickedStart={false}
+        onClickStart={() => {}}
+        setShowLoginDrawer={jest.fn()}
+        isMultilanguageEnabled
+      />
+    );
+
+    const privacyTrigger = await waitFor(() => {
+      const el = container.querySelector(
+        'button[aria-label="privacyPolicy"]'
+      ) as HTMLButtonElement | null;
+      expect(el).not.toBeNull();
+      return el as HTMLButtonElement;
+    });
+
+    fireEvent.click(privacyTrigger);
+
+    const viewport = await waitFor(() => {
+      const el = document.querySelector('.memori--start-panel-info-modal');
+      expect(el).toBeInTheDocument();
+      return el as HTMLElement;
+    });
+
+    const title = viewport.querySelector('.memori-modal__title');
+    expect(title).toHaveTextContent('privacyPolicy');
+    expect(
+      viewport.querySelector('.memori--privacy-popover-content')
+    ).toBeInTheDocument();
+    expect(viewport.querySelector('.memori-modal__close')).toBeInTheDocument();
+  } finally {
+    mockMatchMedia(false);
+  }
+});
+
 it('opens a mobile info modal whose title leaves room for the close button', async () => {
   const matchMedia = window.matchMedia as jest.Mock;
   matchMedia.mockImplementation((query: string) => ({
@@ -489,15 +575,15 @@ it('opens a mobile info modal whose title leaves room for the close button', asy
     />
   );
 
-  const privacyTrigger = await waitFor(() => {
+  const deepThoughtTrigger = await waitFor(() => {
     const triggers = container.querySelectorAll(
       '.memori--settings-section__info-trigger'
     );
     expect(triggers.length).toBeGreaterThan(0);
-    return triggers[triggers.length - 1] as HTMLButtonElement;
+    return triggers[0] as HTMLButtonElement;
   });
 
-  fireEvent.click(privacyTrigger);
+  fireEvent.click(deepThoughtTrigger);
 
   const viewport = await waitFor(() => {
     const el = document.querySelector('.memori--start-panel-info-modal');
@@ -507,7 +593,7 @@ it('opens a mobile info modal whose title leaves room for the close button', asy
 
   const title = viewport.querySelector('.memori-modal__title');
   expect(title).toHaveClass('memori--start-panel-info-modal-title');
-  expect(title).toHaveTextContent('privacyPolicy');
+  expect(title).toHaveTextContent('deepThoughtDisclaimerTitle');
   expect(
     viewport.querySelector('.memori-modal__close')
   ).toBeInTheDocument();

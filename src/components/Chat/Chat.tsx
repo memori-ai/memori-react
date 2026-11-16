@@ -52,7 +52,9 @@ import {
   buildLlmUsageHtml,
   formatDuration,
   formatImpactWithApiUnit,
+  formatCacheHitPercent,
   formatIntegerValue,
+  getCacheHitPercent,
   getImpactComparison,
   getMetricValue,
   LlmUsageLabels,
@@ -234,6 +236,7 @@ const Chat: React.FC<Props> = ({
       output: t('chatLogs.output', { defaultValue: 'Output' }),
       cacheRead: t('chatLogs.cacheRead', { defaultValue: 'Cache read' }),
       cacheWrite: t('chatLogs.cacheWrite', { defaultValue: 'Cache write' }),
+      cacheHit: t('chatLogs.cacheHit', { defaultValue: 'Cache hit' }),
       duration: t('chatLogs.duration', { defaultValue: 'Duration' }),
       energy: t('chatLogs.energy', { defaultValue: 'Energy' }),
       co2: t('chatLogs.co2', { defaultValue: 'CO2' }),
@@ -294,6 +297,18 @@ const Chat: React.FC<Props> = ({
   // confirmed or discarded with the hints, or the Giver left the instruction
   const proposalsPending =
     dialogState?.state === 'G6' && !!dialogState.hints?.length;
+
+  const activeCacheUsage =
+    activeUsageBadge?.type === 'llm' ? activeUsageBadge.usage : undefined;
+  const activeCacheReadTokens = activeCacheUsage?.inputCacheReadTokens ?? 0;
+  const activeCacheWriteTokens = activeCacheUsage?.inputCacheWriteTokens ?? 0;
+  const activeLlmCacheHitPercent =
+    activeCacheReadTokens > 0
+      ? getCacheHitPercent(
+          activeCacheReadTokens,
+          activeCacheUsage?.totalInputTokens
+        )
+      : undefined;
 
   const enteringMessageIndexRef = useRef<number | null>(null);
   if (history.length === prevHistoryLengthRef.current + 1) {
@@ -641,7 +656,9 @@ const Chat: React.FC<Props> = ({
                     showReasoning={showReasoning}
                     usageHtml={usageHtmlByIndex[index]}
                     isChatlogPanel={isChatlogPanel}
-                    showDates={showDates}
+                    // Chat history / chatlog panel always shows timestamps;
+                    // live chat still respects the consumer showDates prop.
+                    showDates={showDates || isChatlogPanel}
                     animateEnter={index === enteringMessageIndex}
                   />
 
@@ -846,6 +863,26 @@ const Chat: React.FC<Props> = ({
                 )}
               </dd>
             </div>
+            {activeCacheReadTokens > 0 && (
+              <div>
+                <dt>{llmUsageLabels.cacheRead}</dt>
+                <dd>{formatIntegerValue(activeCacheReadTokens, locale)}</dd>
+              </div>
+            )}
+            {activeCacheWriteTokens > 0 && (
+              <div>
+                <dt>{llmUsageLabels.cacheWrite}</dt>
+                <dd>{formatIntegerValue(activeCacheWriteTokens, locale)}</dd>
+              </div>
+            )}
+            {activeLlmCacheHitPercent !== undefined && (
+              <div>
+                <dt>{llmUsageLabels.cacheHit}</dt>
+                <dd>
+                  {formatCacheHitPercent(activeLlmCacheHitPercent, locale)}
+                </dd>
+              </div>
+            )}
           </dl>
         )}
 

@@ -199,11 +199,6 @@
     line-height: var(--memori-text-line-normal);
 }
 
-.memori-whythisanswer-empty-action {
-    align-self: stretch;
-    margin-top: var(--memori-spacing-sm);
-}
-
 .memori-whythisanswer-preview {
     margin: 0;
     overflow-wrap: anywhere;

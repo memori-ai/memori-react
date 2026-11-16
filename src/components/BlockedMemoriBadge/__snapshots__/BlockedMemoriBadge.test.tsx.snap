@@ -7,6 +7,7 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r9:"
     >
       <div
@@ -52,6 +53,7 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r1:"
     >
       <div
@@ -97,6 +99,7 @@ exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r3:"
     >
       <div
@@ -142,6 +145,7 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r7:"
     >
       <div
@@ -187,6 +191,7 @@ exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
   >
     <span
       class="memori-tooltip__trigger"
+      data-base-ui-tooltip-trigger=""
       id="base-ui-:r5:"
     >
       <div

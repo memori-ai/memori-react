@@ -15,7 +15,9 @@ exports[`renders AgeVerificationModal unchanged 1`] = `
 `;
 
 exports[`renders AgeVerificationModal visible unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"
@@ -29,7 +31,9 @@ exports[`renders AgeVerificationModal visible unchanged 1`] = `
 `;
 
 exports[`renders AgeVerificationModal with minAge unchanged 1`] = `
-<div>
+<div
+  data-base-ui-inert=""
+>
   <div
     aria-atomic="false"
     aria-label="Notifications"

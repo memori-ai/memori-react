@@ -47,6 +47,31 @@ import { imgMimeTypes } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import { usePressTooltip } from '../../helpers/usePressTooltip';
 
+/** Collapse Known Facts + AI usage into ⋯ when more than this many other header actions are visible. */
+export const HEADER_SESSION_OVERFLOW_THRESHOLD = 4;
+
+/** Count toolbar actions that stay inline (excludes Known Facts, AI usage, ⋯, login, chat history). */
+export const countHeaderCoreButtons = (flags: {
+  fullscreen?: boolean;
+  audio?: boolean;
+  position?: boolean;
+  reload?: boolean;
+  clear?: boolean;
+  experts?: boolean;
+  settings?: boolean;
+  share?: boolean;
+}): number =>
+  [
+    flags.fullscreen,
+    flags.audio,
+    flags.position,
+    flags.reload,
+    flags.clear,
+    flags.experts,
+    flags.settings,
+    flags.share,
+  ].filter(Boolean).length;
+
 export interface Props {
   className?: string;
   /** Variant applied to all header buttons (including share + user/login). */
@@ -445,10 +470,6 @@ const Header: React.FC<Props> = ({
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
   const showKnownFacts =
     !!memori.enableDeepThought && !!loginToken && !!user?.pAndCUAccepted;
-  const showSessionInfoMenu =
-    isConversationStarted &&
-    showFullpageDividers &&
-    (showKnownFacts || showMessageConsumption);
 
   const brandTitle = memori?.name?.trim() || '';
   const brandRole = useMemo(() => {
@@ -486,13 +507,44 @@ const Header: React.FC<Props> = ({
     showSettings && hasSettingsContent(layout, additionalSettings)
   );
   const showExpertsButton = showExperts && !!memori.enableBoardOfExperts;
+  const showFullscreenButton = showFullscreen && fullScreenAvailable;
+
+  // Desktop only (showFullpageDividers). Mobile keeps session-panel / inline paths.
+  // Count core actions already in the toolbar; collapse KF / AI usage into ⋯ when crowded.
+  const headerCoreButtonCount = countHeaderCoreButtons({
+    fullscreen: showFullscreenButton,
+    audio: enableAudio,
+    position: !!memori.needsPosition,
+    reload: showReload,
+    clear: showClear,
+    experts: showExpertsButton,
+    settings: showSettingsButton,
+    share: showShare,
+  });
+  // Placement depends only on configuration, not on conversation state, so icons
+  // never swap when the chat starts. A single candidate stays inline: ⋯ would
+  // take the same space and add a click.
+  const isHeaderCrowded =
+    showFullpageDividers &&
+    showKnownFacts &&
+    showMessageConsumption &&
+    headerCoreButtonCount > HEADER_SESSION_OVERFLOW_THRESHOLD;
+  const showSessionInfoMenu = isHeaderCrowded && isConversationStarted;
+  // Few header actions: keep Known Facts / AI usage as icons (desktop logged-in chrome).
+  const showInlineKnownFacts =
+    showFullpageDividers &&
+    !isHeaderCrowded &&
+    showKnownFacts &&
+    isConversationStarted;
+  const showInlineMessageConsumption =
+    showFullpageDividers && !isHeaderCrowded && showMessageConsumption;
 
   const fullpageSecondaryHasContent =
     !!memori.needsPosition ||
     showReload ||
     showClear ||
     showMessageConsumption ||
-    (showFullscreen && fullScreenAvailable) ||
+    showFullscreenButton ||
     (showKnownFacts && isConversationStarted) ||
     showExpertsButton ||
     enableAudio ||
@@ -501,7 +553,9 @@ const Header: React.FC<Props> = ({
 
   const loggedInSecondaryHasActions =
     showSessionInfoMenu ||
-    (showFullscreen && fullScreenAvailable) ||
+    showInlineKnownFacts ||
+    showInlineMessageConsumption ||
+    showFullscreenButton ||
     enableAudio ||
     !!memori.needsPosition ||
     showReload ||
@@ -869,7 +923,7 @@ const Header: React.FC<Props> = ({
           triggerVariant={resolvedButtonVariant}
         />
       )}
-      {showFullscreen && fullScreenAvailable && (
+      {showFullscreenButton && (
         <Tooltip title={fullscreenLabel} placement="bottom">
           <span style={{ display: 'inline-flex' }}>
             <IconButton
@@ -1124,7 +1178,29 @@ const Header: React.FC<Props> = ({
             {null}
           </Popover>
         )}
-        {showFullscreen && fullScreenAvailable && (
+        {showInlineKnownFacts && (
+          <Tooltip
+            title={t('knownFacts.title') || 'Known facts'}
+            placement="bottom"
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <IconButton
+                variant={resolvedButtonVariant}
+                className="memori-header--auth-icon-button"
+                icon={<Brain />}
+                aria-label={t('knownFacts.title') || 'Known facts'}
+                onClick={() => setShowKnownFactsDrawer(true)}
+              />
+            </span>
+          </Tooltip>
+        )}
+        {showInlineMessageConsumption && (
+          <ChatConsumptionDropdown
+            history={history}
+            triggerVariant={resolvedButtonVariant}
+          />
+        )}
+        {showFullscreenButton && (
           <Tooltip title={fullscreenLabel} placement="bottom">
             <span style={{ display: 'inline-flex' }}>
               <IconButton
@@ -1267,7 +1343,7 @@ const Header: React.FC<Props> = ({
           </span>
         )}
       </div>
-      {showMessageConsumption && hasChatConsumptionData && (
+      {showSessionInfoMenu && hasChatConsumptionData && (
         <ChatConsumptionDropdown
           history={history}
           triggerVariant={resolvedButtonVariant}
@@ -1617,7 +1693,8 @@ const Header: React.FC<Props> = ({
 
   return (
     <>
-      {isConversationStarted && memori && (
+      {/* Pre-session brand only on mobile: desktop still uses StartPanel identity. */}
+      {memori && (isConversationStarted || !showFullpageDividers) && (
         <div className="memori-fullpage-header-brand">
           {brandAvatarSrc ? (
             <img

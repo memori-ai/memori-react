@@ -52,7 +52,7 @@
   "feedback": "Feedback",
   "feedbackThankYou": "Thank you for your feedback.",
   "copyFailed": "Could not copy",
-  "functionCache": "Function cache",
+  "toolsDebug": "Tools debug",
   "copyToClipboard": "Copy to clipboard",
   "showOriginalText": "Show original",
   "showTranslatedText": "Show translation",
@@ -89,7 +89,6 @@
   "whyThisAnswerEmptyTitle": "No contents consulted",
   "whyThisAnswerEmptyDescription": "For this question the agent found no matches in the knowledge base: it replied from its instructions only.",
   "whyThisAnswerEmptyAuthorDescription": "The question produced no matches. If it should have, add a content that covers it.",
-  "whyThisAnswerAddContent": "Add to the knowledge base",
   "whyThisAnswerConfidenceHigh": "Strong match",
   "whyThisAnswerConfidenceMedium": "Partial match",
   "whyThisAnswerConfidenceLow": "Weak match",
@@ -430,7 +429,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
     "partialAssetUploadWarning": "Some file links could not be uploaded, but the document was added anyway.",
-    "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours."
+    "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours.",
+    "truncationExcerpt": "Excerpt: first {{shownChars}} of {{totalChars}} characters.",
+    "truncationGeneric": "Content truncated due to size limits.",
+    "truncationLinkHint": "The full original document is available at the attachment_link URL."
   },
   "media": {
     "title": "Title",
@@ -600,6 +602,8 @@
     "output": "Output",
     "cacheRead": "Cache read",
     "cacheWrite": "Cache write",
+    "cacheHit": "Cache hit",
+    "cacheHitTooltip": "Share of input tokens read from the cache instead of being processed again. A higher value means lower cost and latency.",
     "duration": "Duration",
     "energy": "Energy",
     "co2": "CO2",

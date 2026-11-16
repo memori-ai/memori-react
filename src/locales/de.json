@@ -50,7 +50,7 @@
   "feedback": "Feedback",
   "feedbackThankYou": "Vielen Dank für Ihr Feedback.",
   "copyFailed": "Kopieren nicht möglich",
-  "functionCache": "Funktionscache",
+  "toolsDebug": "Tools debug",
   "copyToClipboard": "In die Zwischenablage kopieren",
   "showOriginalText": "Original anzeigen",
   "showTranslatedText": "Übersetzung anzeigen",
@@ -87,7 +87,6 @@
   "whyThisAnswerEmptyTitle": "Keine Inhalte konsultiert",
   "whyThisAnswerEmptyDescription": "Für diese Frage hat der Agent keine Treffer in der Wissensbasis gefunden: er hat nur nach seinen Anweisungen geantwortet.",
   "whyThisAnswerEmptyAuthorDescription": "Die Frage hat keine Treffer ergeben. Falls sie welche haben sollte, fügen Sie einen passenden Inhalt hinzu.",
-  "whyThisAnswerAddContent": "Zur Wissensbasis hinzufügen",
   "whyThisAnswerConfidenceHigh": "Starke Übereinstimmung",
   "whyThisAnswerConfidenceMedium": "Teilweise Übereinstimmung",
   "whyThisAnswerConfidenceLow": "Schwache Übereinstimmung",
@@ -404,7 +403,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} Bild(er) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit).",
     "partialAssetUploadWarning": "Einige Dateilinks konnten nicht hochgeladen werden, aber das Dokument wurde trotzdem hinzugefügt.",
-    "anonymousRetentionNotice": "Hinweis: Hochgeladene Dateien werden maximal 24 Stunden gespeichert."
+    "anonymousRetentionNotice": "Hinweis: Hochgeladene Dateien werden maximal 24 Stunden gespeichert.",
+    "truncationExcerpt": "Auszug: erste {{shownChars}} von {{totalChars}} Zeichen.",
+    "truncationGeneric": "Inhalt wegen Größenbeschränkung gekürzt.",
+    "truncationLinkHint": "Das vollständige Originaldokument ist unter der attachment_link-URL verfügbar."
   },
   "media": {
     "title": "Titel",
@@ -532,6 +534,8 @@
     "output": "Ausgabe",
     "cacheRead": "Cache lesen",
     "cacheWrite": "Cache schreiben",
+    "cacheHit": "Cache-Treffer",
+    "cacheHitTooltip": "Anteil der Eingabe-Tokens, die aus dem Cache gelesen statt erneut verarbeitet werden. Ein höherer Wert bedeutet geringere Kosten und Latenz.",
     "duration": "Dauer",
     "energy": "Energie",
     "co2": "CO2",

@@ -10,6 +10,8 @@ type TestMessage = Message & {
     provider?: string;
     model?: string;
     totalInputTokens?: number;
+    inputCacheReadTokens?: number;
+    inputCacheWriteTokens?: number;
     outputTokens?: number;
     energyImpact?: {
       energy?: number | { parsedValue?: number };
@@ -66,6 +68,133 @@ describe('ChatConsumptionContent', () => {
     expect(screen.getByText('2 Wh')).toBeTruthy();
     expect(screen.getByText('800 mg')).toBeTruthy();
     expect(screen.getByText('3.5 mL')).toBeTruthy();
+    expect(screen.queryByText('chatLogs.cacheRead')).toBeNull();
+    expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+  });
+
+  it('renders aggregated cache read, write and hit % when present', () => {
+    const historyWithCache = [
+      {
+        text: 'Cached response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          provider: 'Anthropic',
+          model: 'claude-3',
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 400,
+          inputCacheWriteTokens: 100,
+          outputTokens: 50,
+        },
+      },
+      {
+        text: 'Second cached response',
+        timestamp: '2021-03-01T12:01:00.000Z',
+        llmUsage: {
+          provider: 'Anthropic',
+          model: 'claude-3',
+          totalInputTokens: 250,
+          inputCacheReadTokens: 50,
+          inputCacheWriteTokens: 0,
+          outputTokens: 20,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={historyWithCache} />);
+
+    expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+    expect(screen.getByText('chatLogs.cacheWrite')).toBeTruthy();
+    expect(screen.getByText('450')).toBeTruthy();
+    expect(screen.getByText('100')).toBeTruthy();
+    expect(screen.getByText('36%')).toBeTruthy();
+  });
+
+  it('hides the zero cache card and expands the other one', () => {
+    const historyWithCacheReadOnly = [
+      {
+        text: 'Cached response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 400,
+          inputCacheWriteTokens: 0,
+          outputTokens: 50,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={historyWithCacheReadOnly} />);
+
+    expect(screen.queryByText('chatLogs.cacheWrite')).toBeNull();
+    expect(
+      screen.getByText('chatLogs.cacheRead').parentElement
+    ).toHaveClass('memori-dropdown--sustainability-stat--full');
+    expect(screen.getByLabelText('chatLogs.cacheHit')).toBeTruthy();
+  });
+
+  it('keeps both cache cards half width when both have tokens', () => {
+    const history = [
+      {
+        text: 'Cached response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 400,
+          inputCacheWriteTokens: 100,
+          outputTokens: 50,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={history} />);
+
+    expect(
+      screen.getByText('chatLogs.cacheRead').parentElement
+    ).not.toHaveClass('memori-dropdown--sustainability-stat--full');
+    expect(
+      screen.getByText('chatLogs.cacheWrite').parentElement
+    ).not.toHaveClass('memori-dropdown--sustainability-stat--full');
+  });
+
+  it('hides the zero cache read card and expands cache write', () => {
+    const history = [
+      {
+        text: 'Cache write only',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          totalInputTokens: 1000,
+          inputCacheReadTokens: 0,
+          inputCacheWriteTokens: 300,
+          outputTokens: 50,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={history} />);
+
+    expect(screen.queryByText('chatLogs.cacheRead')).toBeNull();
+    expect(screen.queryByLabelText('chatLogs.cacheHit')).toBeNull();
+    expect(
+      screen.getByText('chatLogs.cacheWrite').parentElement
+    ).toHaveClass('memori-dropdown--sustainability-stat--full');
+  });
+
+  it('shows no hit info icon when input tokens are missing', () => {
+    const history = [
+      {
+        text: 'Cache read without input total',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          inputCacheReadTokens: 400,
+          outputTokens: 50,
+        },
+      },
+    ] as TestMessage[];
+
+    render(<ChatConsumptionContent history={history} />);
+
+    expect(screen.getByText('chatLogs.cacheRead')).toBeTruthy();
+    expect(screen.queryByLabelText('chatLogs.cacheHit')).toBeNull();
   });
 });
 

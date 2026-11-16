@@ -52,7 +52,7 @@
   "feedback": "Feedback",
   "feedbackThankYou": "Grazie per il feedback.",
   "copyFailed": "Impossibile copiare",
-  "functionCache": "Cache delle funzioni",
+  "toolsDebug": "Debug delle funzioni",
   "copyToClipboard": "Copia negli appunti",
   "showOriginalText": "Mostra originale",
   "showTranslatedText": "Mostra traduzione",
@@ -89,7 +89,6 @@
   "whyThisAnswerEmptyTitle": "Nessun contenuto consultato",
   "whyThisAnswerEmptyDescription": "Per questa domanda l'agente non ha trovato corrispondenze nella base di conoscenza: ha risposto solo in base alle proprie istruzioni.",
   "whyThisAnswerEmptyAuthorDescription": "La domanda non ha prodotto corrispondenze. Se dovrebbe averne, aggiungi un contenuto che la copra.",
-  "whyThisAnswerAddContent": "Aggiungi alla base di conoscenza",
   "whyThisAnswerConfidenceHigh": "Corrispondenza alta",
   "whyThisAnswerConfidenceMedium": "Corrispondenza parziale",
   "whyThisAnswerConfidenceLow": "Corrispondenza debole",
@@ -449,7 +448,10 @@
     "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
     "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto).",
     "partialAssetUploadWarning": "Alcuni link del file non sono stati caricati, ma il documento è stato aggiunto comunque.",
-    "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore."
+    "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore.",
+    "truncationExcerpt": "Estratto: primi {{shownChars}} di {{totalChars}} caratteri.",
+    "truncationGeneric": "Contenuto troncato per limiti di dimensione.",
+    "truncationLinkHint": "Il documento originale completo è disponibile all'URL in attachment_link."
   },
   "gamification": {
     "level": "Livello",
@@ -596,6 +598,8 @@
     "output": "Output",
     "cacheRead": "Cache read",
     "cacheWrite": "Cache write",
+    "cacheHit": "Cache hit",
+    "cacheHitTooltip": "Percentuale dei token di input letti dalla cache invece di essere elaborati di nuovo. Un valore più alto significa costi e tempi di risposta minori.",
     "duration": "Durata",
     "energy": "Energia",
     "co2": "CO2",

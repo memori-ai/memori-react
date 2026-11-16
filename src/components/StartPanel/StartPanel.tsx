@@ -62,6 +62,8 @@ export interface Props {
   creditsCheckFailed?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
   showFullDescriptionOnMobile?: boolean;
+  /** Hide avatar, title, and description (shown in header instead). */
+  hideIdentity?: boolean;
   footerBrand?: React.ReactNode;
 }
 
@@ -89,13 +91,13 @@ const StartPanel: React.FC<Props> = ({
   creditsCheckFailed = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
+  hideIdentity = false,
   footerBrand,
 }) => {
   const { t, i18n } = useTranslation();
   const boardOfExpertsTooltip = usePressTooltip();
   const nsfwTooltip = usePressTooltip();
   const deepThoughtTooltip = usePressTooltip();
-  const privacyTooltip = usePressTooltip();
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
@@ -211,6 +213,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--board-of-experts">
             <Tooltip
               align="left"
+              arrow={true}
               content={t('boardOfExperts')}
               {...boardOfExpertsTooltip.tooltipProps}
               slotProps={{
@@ -233,6 +236,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--nsfw">
             <Tooltip
               align="left"
+              arrow={true}
               content={t('nsfw')}
               {...nsfwTooltip.tooltipProps}
               slotProps={{
@@ -252,42 +256,46 @@ const StartPanel: React.FC<Props> = ({
       </div>
       <div className="memori--start-panel__body">
         <div className="memori--title-container">
-          <picture className="memori--avatar">
-            <source
-              src={
-                memori.avatarURL ??
-                getResourceUrl({
-                  type: 'avatar',
-                  tenantID: tenant?.name,
-                  resourceURI: memori.avatarURL,
-                  baseURL: baseUrl,
-                  apiURL: apiUrl,
-                })
-              }
-            />
-            <img
-              alt={memori.name}
-              src={
-                memori.avatarURL && memori.avatarURL.length > 0
-                  ? getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-                  : getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-              }
-            />
-          </picture>
+          {!hideIdentity && (
+            <picture className="memori--avatar">
+              <source
+                src={
+                  memori.avatarURL ??
+                  getResourceUrl({
+                    type: 'avatar',
+                    tenantID: tenant?.name,
+                    resourceURI: memori.avatarURL,
+                    baseURL: baseUrl,
+                    apiURL: apiUrl,
+                  })
+                }
+              />
+              <img
+                alt={memori.name}
+                src={
+                  memori.avatarURL && memori.avatarURL.length > 0
+                    ? getResourceUrl({
+                        type: 'avatar',
+                        tenantID: tenant?.name,
+                        resourceURI: memori.avatarURL,
+                        baseURL: baseUrl,
+                        apiURL: apiUrl,
+                      })
+                    : getResourceUrl({
+                        type: 'avatar',
+                        tenantID: tenant?.name,
+                        baseURL: baseUrl,
+                        apiURL: apiUrl,
+                      })
+                }
+              />
+            </picture>
+          )}
           <div className="memori--title-container__content">
             <div className="memori--title-row">
-              <h2 className="memori--title">{memori.name}</h2>
+              {!hideIdentity && (
+                <h2 className="memori--title">{memori.name}</h2>
+              )}
               <CompletionProviderStatus
                 provider={
                   memori?.completionConfigForQuestionAnswering?.provider
@@ -304,36 +312,38 @@ const StartPanel: React.FC<Props> = ({
                 />
               )}
             </div>
-            <>
-              {isMobile && showFullDescriptionOnMobile ? (
-                <p className="memori--description-text memori--description-text--full">
-                  {translatedDescription && showTranslation
-                    ? translatedDescription
-                    : memori.description}
-                </p>
-              ) : (
-                <Expandable
-                  className="memori--description-text memori--description-text--collapsible"
-                  rows={3}
-                >
-                  {translatedDescription && showTranslation
-                    ? translatedDescription
-                    : memori.description}
-                </Expandable>
-              )}
+            {!hideIdentity && (
+              <>
+                {isMobile && showFullDescriptionOnMobile ? (
+                  <p className="memori--description-text memori--description-text--full">
+                    {translatedDescription && showTranslation
+                      ? translatedDescription
+                      : memori.description}
+                  </p>
+                ) : (
+                  <Expandable
+                    className="memori--description-text memori--description-text--collapsible"
+                    rows={3}
+                  >
+                    {translatedDescription && showTranslation
+                      ? translatedDescription
+                      : memori.description}
+                  </Expandable>
+                )}
 
-              {translatedDescription !== memori.description && (
-                <Button
-                  variant="ghost"
-                  icon={<Languages />}
-                  onClick={() => toggleTranslations()}
-                >
-                  {showTranslation
-                    ? t('showOriginalText')
-                    : t('showTranslatedText')}
-                </Button>
-              )}
-            </>
+                {translatedDescription !== memori.description && (
+                  <Button
+                    variant="ghost"
+                    icon={<Languages />}
+                    onClick={() => toggleTranslations()}
+                  >
+                    {showTranslation
+                      ? t('showOriginalText')
+                      : t('showTranslatedText')}
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </div>
         {memori.needsPosition && !position && (
@@ -501,6 +511,7 @@ const StartPanel: React.FC<Props> = ({
                               enterDelay={300}
                               leaveDelay={150}
                               sideOffset={8}
+                              arrow={true}
                               content={t('deepThoughtHelper')}
                               {...deepThoughtTooltip.tooltipProps}
                               slotProps={{
@@ -569,6 +580,7 @@ const StartPanel: React.FC<Props> = ({
                           enterDelay={300}
                           leaveDelay={150}
                           sideOffset={8}
+                          touchBehavior="tap"
                           title={
                             <div className="memori--privacy-popover-content">
                               <p>
@@ -610,10 +622,8 @@ const StartPanel: React.FC<Props> = ({
                               </a>
                             </div>
                           }
-                          {...privacyTooltip.tooltipProps}
                           slotProps={{
                             positioner: {
-                              ...privacyTooltip.positionerProps,
                               className: 'memori--privacy-popover-positioner',
                             },
                             popup: {
@@ -623,12 +633,10 @@ const StartPanel: React.FC<Props> = ({
                           }}
                         >
                           <Button
-                            ref={privacyTooltip.anchorRef}
                             variant="toolbar"
                             size="sm"
                             className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
                             aria-label={String(t('privacyPolicy') ?? '')}
-                            {...privacyTooltip.pressTriggerProps}
                           >
                             <Info className="memori--settings-section__inline-info-icon" />
                           </Button>
