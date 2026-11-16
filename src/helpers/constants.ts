@@ -115,6 +115,10 @@ export const allowedMediaTypes = [
   'model/gltf-binary',
 ];
 
+/** MIME type of the changes the engine proposes while the Giver instructs the Agent */
+export const INSTRUCTION_PROPOSAL_MIME_TYPE =
+  'application/vnd.memori.instruction-proposal+json';
+
 /** Short badge labels for Office document cards */
 export const officeMimeShortLabels: Record<string, string> = {
   'application/msword': 'Word',

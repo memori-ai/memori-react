@@ -24,10 +24,18 @@ import MediaWidget, {
   Props as MediaWidgetProps,
 } from '../MediaWidget/MediaWidget';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
+import {
+  InstructionProposalConfirm,
+  InstructionProposalStatuses,
+} from '../../types/instructionProposal';
+import { hasInstructionProposalCard } from '../InstructionProposalCard/InstructionProposalCard';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
-import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
+import {
+  boardOfExpertsLoadingSentences,
+  INSTRUCTION_PROPOSAL_MIME_TYPE,
+} from '../../helpers/constants';
 import { ChevronDown, FileText as DocumentIcon } from 'lucide-react';
 import {
   getNextPinnedToBottom,
@@ -69,6 +77,7 @@ const CODE_MIME_TYPES = [
   'application/x-php',
   'text/x-ruby',
   'text/x-sql',
+  INSTRUCTION_PROPOSAL_MIME_TYPE,
 ];
 export interface Props {
   memori: Memori;
@@ -137,6 +146,8 @@ export interface Props {
   footerBrand?: React.ReactNode;
   /** When false, hides the AI disclaimer in the footer. */
   showAiGeneratedNote?: boolean;
+  /** Confirms an instruction proposal. Omit to show proposals read-only. */
+  onProposalConfirm?: InstructionProposalConfirm;
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -190,6 +201,7 @@ const Chat: React.FC<Props> = ({
   audioStream,
   transcribing,
   customMediaRenderer,
+  onProposalConfirm,
   user,
   userAvatar,
   showUpload = false,
@@ -255,6 +267,102 @@ const Chat: React.FC<Props> = ({
           : '';
       }),
     [history, llmUsageLabels, locale, showMessageConsumption]
+  );
+
+  // While proposals are pending the engine hints Apply and Ignore, acting on all of them:
+  // a single proposal is confirmed by its card, several keep the hints to act on all,
+  // also when the others belong to older messages, and so does a proposal without a card
+  const singleProposalOfLastMessage = useMemo(() => {
+    const lastMessage = history[history.length - 1];
+    if (
+      !onProposalConfirm ||
+      isHistoryView ||
+      isChatlogPanel ||
+      !lastMessage ||
+      lastMessage.fromUser ||
+      customMediaRenderer?.(INSTRUCTION_PROPOSAL_MIME_TYPE)
+    )
+      return false;
+
+    const proposals = (lastMessage.media ?? []).filter(
+      m => m.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE
+    );
+    return proposals.length === 1 && hasInstructionProposalCard(proposals[0]);
+  }, [
+    history,
+    onProposalConfirm,
+    isHistoryView,
+    isChatlogPanel,
+    customMediaRenderer,
+  ]);
+
+  // Without hints the engine has no proposal pending: the cards still waiting were
+  // confirmed or discarded with the hints, or the Giver left the instruction
+  const proposalsPending =
+    dialogState?.state === 'G6' && !!dialogState.hints?.length;
+
+  // The engine keeps the proposals of older messages pending along with the new ones, until
+  // they are confirmed. Those the engine replied after without hints were settled, and a
+  // remounted card shows it at once. The last message may still wait for its hints
+  const areProposalsExpired = (index: number) =>
+    !proposalsPending && index !== history.length - 1;
+
+  // The outcome of each card, so a remounted card keeps it
+  const [proposalStatuses, setProposalStatuses] =
+    useState<InstructionProposalStatuses>({});
+
+  // When the hints go, every proposal shown so far is settled, also those of the messages
+  // that will be no longer expired once newer proposals bring the hints back
+  const wereProposalsPending = useRef(proposalsPending);
+  useEffect(() => {
+    if (wereProposalsPending.current && !proposalsPending)
+      setProposalStatuses(s => {
+        const settled = { ...s };
+        history.forEach(m =>
+          m.media?.forEach(medium => {
+            if (
+              medium.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE &&
+              !settled[medium.mediumID]
+            )
+              settled[medium.mediumID] = 'notPending';
+          })
+        );
+        return settled;
+      });
+    wereProposalsPending.current = proposalsPending;
+  }, [proposalsPending, history]);
+
+  // The proposals still pending in chat, of any message
+  const pendingProposalsCount = useMemo(
+    () =>
+      history.reduce(
+        (count, m, index) =>
+          areProposalsExpired(index)
+            ? count
+            : count +
+              (m.media ?? []).filter(
+                medium =>
+                  medium.mimeType === INSTRUCTION_PROPOSAL_MIME_TYPE &&
+                  !proposalStatuses[medium.mediumID]
+              ).length,
+        0
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [history, proposalsPending, proposalStatuses]
+  );
+  const hideProposalHints =
+    singleProposalOfLastMessage && pendingProposalsCount === 1;
+  const confirmProposal = useCallback<InstructionProposalConfirm>(
+    async (proposalID, apply, parameters) => {
+      if (!onProposalConfirm) return false;
+      const handled = await onProposalConfirm(proposalID, apply, parameters);
+      setProposalStatuses(s => ({
+        ...s,
+        [proposalID]: handled ? (apply ? 'applied' : 'ignored') : 'notPending',
+      }));
+      return handled;
+    },
+    [onProposalConfirm]
   );
 
   const activeCacheUsage =
@@ -586,6 +694,14 @@ const Chat: React.FC<Props> = ({
                     tenant={tenant}
                     client={client}
                     customMediaRenderer={customMediaRenderer}
+                    onProposalConfirm={
+                      isHistoryView || isChatlogPanel || !onProposalConfirm
+                        ? undefined
+                        : confirmProposal
+                    }
+                    proposalsPending={proposalsPending}
+                    proposalsExpired={areProposalsExpired(index)}
+                    proposalStatuses={proposalStatuses}
                     translateTo={translateTo}
                     baseUrl={baseUrl}
                     apiUrl={apiUrl}
@@ -650,6 +766,7 @@ const Chat: React.FC<Props> = ({
 
             {dialogState?.hints &&
               dialogState.hints.length > 0 &&
+              !hideProposalHints &&
               !memoriTyping && (
                 <MediaWidget
                   simulateUserPrompt={handleSimulateUserPrompt}
