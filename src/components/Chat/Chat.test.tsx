@@ -950,7 +950,7 @@ describe('instruction proposals no longer pending', () => {
     media,
   });
 
-  it('expires the proposals superseded by newer ones', () => {
+  it('keeps pending the proposals of older messages along with the new ones', () => {
     renderChat({
       dialogState: pendingState,
       history: [
@@ -963,9 +963,44 @@ describe('instruction proposals no longer pending', () => {
     });
 
     expect(
-      screen.getAllByText('instructionProposal.notPending')
-    ).toHaveLength(1);
+      screen.queryByText('instructionProposal.notPending')
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(2);
+    // Apply and Ignore act on both: the hints stay
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps settled the proposals confirmed with the hints when new ones arrive', () => {
+    const settledHistory = [
+      ...history,
+      reply([instructionProposals.newContent]),
+      { text: 'Applica', fromUser: true },
+      reply([], 'Fatto'),
+    ];
+    const { rerenderChat } = renderChat({
+      dialogState: pendingState,
+      history: [...history, reply([instructionProposals.newContent])],
+      onProposalConfirm: jest.fn(),
+    });
+
+    rerenderChat({ dialogState: settledState, history: settledHistory });
+    // New proposals bring the hints back, and a new key mounts the older card again
+    rerenderChat({
+      dialogState: pendingState,
+      history: [
+        ...settledHistory.map((m, i) =>
+          i === history.length ? { ...m, timestamp: 'later' } : m
+        ),
+        { text: 'Anche il prompt', fromUser: true },
+        reply([instructionProposals.promptChange], 'Ecco la nuova proposta'),
+      ],
+    });
+
+    expect(
+      screen.getByText('instructionProposal.notPending')
+    ).toBeInTheDocument();
     expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(1);
+    expect(screen.queryByText('Va bene')).not.toBeInTheDocument();
   });
 
   it('expires the proposals the engine replied after without hints', () => {
