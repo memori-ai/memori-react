@@ -199,6 +199,19 @@
     text-decoration: underline;
 }
 
+/* Markdown tables reuse UI DataTable `.memori-table-scroll`, which uses
+   overflow:auto + overscroll-behavior:contain and traps wheel/touch scroll.
+   Keep horizontal pan only; let the artifact preview scroll vertically. */
+.memori-artifact-preview-markdown .memori-table-scroll {
+    max-width: 100%;
+    max-height: none;
+    mask-image: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+}
+
 /* SVG Preview */
 .memori-artifact-preview-svg {
     display: flex;
