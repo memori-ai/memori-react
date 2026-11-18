@@ -2,6 +2,39 @@ import '@testing-library/jest-dom/extend-expect';
 import { Settings, DateTime } from 'luxon';
 import React from 'react';
 
+// jsdom matches selectors through nwsapi. nwsapi implements :modal and
+// :fullscreen by calling element.matches() on the same selector, and jsdom
+// never installs a native matcher, so each call recurses until the stack
+// overflows. Floating UI checks :modal while positioning popups, menus, and
+// selects, which made those tests spend tens of seconds in that recursion.
+const nativeMatches = Element.prototype.matches;
+const recursivePseudos = new Set([
+  ':modal',
+  ':fullscreen',
+  ':picture-in-picture',
+  ':popover-open',
+  ':popover',
+  ':open',
+  ':closed',
+]);
+const matchesInProgress = new Set();
+Element.prototype.matches = function matches(selector) {
+  if (recursivePseudos.has(selector) && matchesInProgress.has(selector)) {
+    return false;
+  }
+  const tracked = recursivePseudos.has(selector);
+  if (tracked) {
+    matchesInProgress.add(selector);
+  }
+  try {
+    return nativeMatches.call(this, selector);
+  } finally {
+    if (tracked) {
+      matchesInProgress.delete(selector);
+    }
+  }
+};
+
 // JSDOM does not implement blob URLs; MediaWidget and others call these in tests.
 global.URL.createObjectURL = jest.fn(() => 'blob:http://localhost/mock');
 global.URL.revokeObjectURL = jest.fn();

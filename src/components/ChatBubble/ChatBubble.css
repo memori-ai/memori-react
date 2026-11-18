@@ -1249,3 +1249,17 @@ details.memori-think[open] summary {
     margin-bottom: var(--memori-spacing-xs);
     color: color-mix(in oklch, var(--memori-text-color) 52%, transparent);
 }
+
+/* Dark theme: the user avatar sits on a dark primary-subtle surface, so the icon
+   is white. fill/stroke override `.memori-chat--bubble-avatar svg { fill: #000 }`.
+   These selectors stay last: they are more specific than the other `svg` rules. */
+[data-theme='dark'] .memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar,
+.memori-widget[data-theme='dark'] .memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar {
+    color: #fff;
+}
+
+[data-theme='dark'] .memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar svg,
+.memori-widget[data-theme='dark'] .memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-avatar svg {
+    fill: #fff;
+    stroke: #fff;
+}
