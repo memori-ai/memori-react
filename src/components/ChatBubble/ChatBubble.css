@@ -354,28 +354,6 @@
     color: var(--memori-text-color);
 }
 
-.memori-chat--bubble-container--typing .memori-chat--bubble--with-progress {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--memori-spacing-xs);
-}
-
-.memori-chat--bubble-typing-progress {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-    color: color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent);
-    font-size: var(--memori-text-size-sm);
-    gap: var(--memori-spacing-xs);
-    list-style: none;
-}
-
-.memori-chat--bubble-typing-progress-text {
-    display: block;
-}
-
 .memori-chat--bubble p {
     margin-top: 0;
     margin-bottom: 0;
@@ -403,6 +381,87 @@
 .memori-chat--bubble ul br,
 .memori-chat--bubble ol br {
     display: none;
+}
+
+.memori-chat--bubble-container--typing .memori-chat--bubble--with-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--memori-spacing-xs);
+}
+
+/* Scoped under the bubble to win over the markdown list rules above */
+.memori-chat--bubble .memori-chat--bubble-typing-progress {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent);
+    font-size: var(--memori-text-size-sm);
+    gap: var(--memori-spacing-xs);
+    list-style: none;
+}
+
+/* A sentence still shown (from the engine or the board of experts) goes in
+   line with the steps, above the dots instead of after them */
+.memori-chat--bubble--with-progress .memori-chat--bubble-typing {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori-chat--bubble--with-progress .memori-chat--bubble-typing p {
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent);
+    font-size: var(--memori-text-size-sm);
+}
+
+/* Out of the flow until the first line arrives, still in the accessibility tree */
+.memori-chat--bubble .memori-chat--bubble-typing-progress:empty {
+    position: absolute;
+}
+
+.memori-chat--bubble-typing-progress-text {
+    display: block;
+}
+
+/* Steps already done step back; the current one stays readable at the darkest
+   point of the shimmer (60% and 70% keep WCAG AA) */
+.memori-chat--bubble .memori-chat--bubble-typing-progress-item {
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 60%, transparent);
+}
+
+/* Dots on their own line under the steps, aligned with them */
+.memori-chat--bubble--with-progress #wave {
+    margin-left: 0;
+    text-align: left;
+}
+
+.memori-chat--bubble .memori-chat--bubble-typing-progress-item:last-child {
+    animation: memori-reasoning-shimmer 1.8s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent) 0%,
+        color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent) 36%,
+        var(--memori-text-color, #111827) 50%,
+        color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent) 64%,
+        color-mix(in srgb, var(--memori-text-color, #111827) 70%, transparent) 100%
+    );
+    background-size: 220% 100%;
+    color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-chat--bubble .memori-chat--bubble-typing-progress-item:last-child {
+        animation: none;
+        background: none;
+        color: var(--memori-text-color, #111827);
+    }
+}
+
+.memori-chat--bubble .memori-chat--bubble-typing-progress li + li {
+    margin-top: 0;
 }
 
 /* Markdown tables reuse UI DataTable `.memori-table-scroll`, which uses

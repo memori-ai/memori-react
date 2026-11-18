@@ -176,6 +176,74 @@ describe('MemoriWidget tool call events', () => {
     await waitFor(() => expect(progressLines(container)).toEqual([SEARCHING]));
   });
 
+  it('does not repeat a line that arrives twice before the send is acknowledged', async () => {
+    const consoleError = jest.spyOn(console, 'error');
+    let acknowledge: (value: unknown) => void = () => {};
+    mockEngine.postEnterTextAsync.mockImplementationOnce(
+      () => new Promise(resolve => (acknowledge = resolve))
+    );
+    const { container } = await openChat();
+
+    act(() => {
+      window.typeMessage('what is new?');
+    });
+    await waitFor(() => expect(sentTexts()).toHaveLength(1));
+
+    toolCall('corr-early', SEARCHING);
+    toolCall('corr-early', SEARCHING);
+
+    await act(async () => {
+      acknowledge({
+        resultCode: 0,
+        resultMessage: 'Ok',
+        correlationID: 'corr-early',
+      });
+    });
+
+    await waitFor(() => expect(progressLines(container)).toEqual([SEARCHING]));
+    expect(
+      consoleError.mock.calls.some(call => call.join(' ').includes('same key'))
+    ).toBe(false);
+    consoleError.mockRestore();
+  });
+
+  it('shows again a line that has left the visible window', async () => {
+    const { container } = await openChat();
+
+    act(() => {
+      window.typeMessage('what is new?');
+    });
+    await waitFor(() => expect(sentTexts()).toHaveLength(1));
+
+    ['A', 'B', 'C', 'D', 'A'].forEach(message => toolCall('corr-1', message));
+
+    await waitFor(() =>
+      expect(progressLines(container)).toEqual(['C', 'D', 'A'])
+    );
+  });
+
+  it('shows only the lines of the latest turn sent', async () => {
+    const { container } = await openChat();
+
+    act(() => {
+      window.typeMessage('first question');
+    });
+    await waitFor(() => expect(sentTexts()).toHaveLength(1));
+    toolCall('corr-1', SEARCHING);
+    await waitFor(() => expect(progressLines(container)).toEqual([SEARCHING]));
+
+    act(() => {
+      window.typeMessage('second question');
+    });
+    await waitFor(() => expect(sentTexts()).toHaveLength(2));
+    await waitFor(() => expect(progressLines(container)).toEqual([]));
+
+    toolCall('corr-2', LOOKING_UP);
+    toolCall('corr-1', 'Reading the article');
+
+    await waitFor(() => expect(progressLines(container)).toEqual([LOOKING_UP]));
+  });
+
   it('ignores the lines of other turns', async () => {
     const { container } = await openChat();
 

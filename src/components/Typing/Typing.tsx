@@ -11,7 +11,7 @@ const separator = ' ';
 const defaultDelay = 15;
 const timeoutMs = 20 * 1000;
 const newWordInterval = 50;
-const maxVisibleProgressMessages = 3;
+export const maxVisibleProgressMessages = 3;
 const defaultSentences = {
   en: [
     { delayAfter: defaultDelay, text: 'Processing in progress...' },
@@ -126,6 +126,11 @@ const Typing = ({
   const visibleProgressMessages =
     progressMessages?.slice(-maxVisibleProgressMessages) ?? [];
   const visibleProgressKey = visibleProgressMessages.join('\n');
+  // The generic loading sentences (only it/en, picked from the agent culture)
+  // add nothing once the lines say what the agent is doing, and can be in
+  // another language than the lines written by the engine
+  const hideDefaultSentence =
+    !!visibleProgressMessages.length && !sentence && !sentences?.[lang]?.length;
   const progressListRef = useRef<HTMLUListElement>(null);
   const progressItemTopsRef = useRef<Map<string, number>>(new Map());
 
@@ -272,33 +277,35 @@ const Typing = ({
               !!visibleProgressMessages.length,
           })}
         >
-          {!!visibleProgressMessages.length && (
-            <ul
-              ref={progressListRef}
-              className="memori-chat--bubble-typing-progress"
-              role="status"
-              aria-live="polite"
-            >
-              {visibleProgressMessages.map(message => (
-                <li
-                  key={message}
-                  data-message={message}
-                  className="memori-chat--bubble-typing-progress-item"
-                >
-                  <span className="memori-chat--bubble-typing-progress-text memori-motion-enter-up">
-                    {message}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          {/* Always mounted: screen readers only announce what is added to a
+              live region that already exists, so the first line is read too */}
+          <ul
+            ref={progressListRef}
+            className="memori-chat--bubble-typing-progress"
+            role="status"
+            aria-live="polite"
+          >
+            {visibleProgressMessages.map(message => (
+              <li
+                key={message}
+                data-message={message}
+                className="memori-chat--bubble-typing-progress-item"
+              >
+                <span className="memori-chat--bubble-typing-progress-text memori-motion-enter-up">
+                  {message}
+                </span>
+              </li>
+            ))}
+          </ul>
           <div className="memori-chat--bubble-typing">
-            <div id="wave" className="memori-motion-loop">
+            <div id="wave" className="memori-motion-loop" aria-hidden="true">
               <span className="dot"></span>
               <span className="dot"></span>
               <span className="dot"></span>
             </div>
-            {text.length > 0 && <p>{shownText.trimEnd()}</p>}
+            {text.length > 0 && !hideDefaultSentence && (
+              <p>{shownText.trimEnd()}</p>
+            )}
           </div>
         </div>
       </div>

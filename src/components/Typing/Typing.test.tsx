@@ -55,14 +55,68 @@ it('shows progress messages above the typing indicator', () => {
   expect(container.querySelector('#wave')).toBeInTheDocument();
 });
 
-it('renders no progress list without progress messages', () => {
-  const { container } = render(<Typing progressMessages={[]} />);
-  expect(
-    container.querySelector('.memori-chat--bubble-typing-progress')
-  ).not.toBeInTheDocument();
+describe('loading sentence next to the progress messages', () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+
+  const sentenceText = (container: HTMLElement) =>
+    container.querySelector('.memori-chat--bubble-typing p')?.textContent;
+
+  // The sentence is typed one letter per tick, each tick a separate render
+  const typeFor = (ms: number) => {
+    for (let elapsed = 0; elapsed < ms; elapsed += 50) {
+      act(() => {
+        jest.advanceTimersByTime(50);
+      });
+    }
+  };
+
+  it('hides the generic loading sentence once there are progress messages', () => {
+    const { container } = render(
+      <Typing
+        useDefaultSentences
+        lang="en"
+        progressMessages={['Cerco il meteo']}
+      />
+    );
+    typeFor(3000);
+    expect(sentenceText(container)).toBeUndefined();
+  });
+
+  it('keeps showing the generic loading sentence without progress messages', () => {
+    const { container } = render(<Typing useDefaultSentences lang="en" />);
+    typeFor(3000);
+    expect(sentenceText(container)).toBeTruthy();
+  });
+
+  it('keeps the sentence sent by the engine next to the progress messages', () => {
+    const { container } = render(
+      <Typing
+        sentence="Sto preparando la risposta"
+        progressMessages={['Cerco il meteo']}
+      />
+    );
+    typeFor(3000);
+    expect(sentenceText(container)).toContain('Sto preparando la risposta');
+  });
+});
+
+it('keeps an empty live region without progress messages', () => {
+  const { container, getByRole } = render(<Typing progressMessages={[]} />);
+  expect(getByRole('status')).toBeEmptyDOMElement();
   expect(container.querySelector('.memori-chat--bubble')).not.toHaveClass(
     'memori-chat--bubble--with-progress'
   );
+});
+
+it('adds the first progress message to the live region already mounted', () => {
+  const { getByRole, rerender } = render(<Typing progressMessages={[]} />);
+  const region = getByRole('status');
+
+  rerender(<Typing progressMessages={['Sto cercando sul web']} />);
+
+  expect(getByRole('status')).toBe(region);
+  expect(region).toHaveTextContent('Sto cercando sul web');
 });
 
 describe('progress messages window', () => {
