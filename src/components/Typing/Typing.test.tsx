@@ -30,6 +30,204 @@ it('renders Typing with custom loading text unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Typing with progress messages unchanged', () => {
+  const { container } = render(
+    <Typing
+      progressMessages={[
+        'Sto cercando le ultime notizie sul web',
+        'Sto controllando la pianificazione del progetto',
+      ]}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('shows progress messages above the typing indicator', () => {
+  const { container, getByRole } = render(
+    <Typing progressMessages={['Sto cercando le ultime notizie sul web']} />
+  );
+  expect(getByRole('status')).toHaveTextContent(
+    'Sto cercando le ultime notizie sul web'
+  );
+  expect(container.querySelector('.memori-chat--bubble')).toHaveClass(
+    'memori-chat--bubble--with-progress'
+  );
+  expect(container.querySelector('#wave')).toBeInTheDocument();
+});
+
+describe('loading sentence next to the progress messages', () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+
+  const sentenceText = (container: HTMLElement) =>
+    container.querySelector('.memori-chat--bubble-typing p')?.textContent;
+
+  // The sentence is typed one letter per tick, each tick a separate render
+  const typeFor = (ms: number) => {
+    for (let elapsed = 0; elapsed < ms; elapsed += 50) {
+      act(() => {
+        jest.advanceTimersByTime(50);
+      });
+    }
+  };
+
+  it('hides the generic loading sentence once there are progress messages', () => {
+    const { container } = render(
+      <Typing
+        useDefaultSentences
+        lang="en"
+        progressMessages={['Cerco il meteo']}
+      />
+    );
+    typeFor(3000);
+    expect(sentenceText(container)).toBeUndefined();
+  });
+
+  it('keeps showing the generic loading sentence without progress messages', () => {
+    const { container } = render(<Typing useDefaultSentences lang="en" />);
+    typeFor(3000);
+    expect(sentenceText(container)).toBeTruthy();
+  });
+
+  it('keeps the sentence sent by the engine next to the progress messages', () => {
+    const { container } = render(
+      <Typing
+        sentence="Sto preparando la risposta"
+        progressMessages={['Cerco il meteo']}
+      />
+    );
+    typeFor(3000);
+    expect(sentenceText(container)).toContain('Sto preparando la risposta');
+  });
+});
+
+it('keeps an empty live region without progress messages', () => {
+  const { container, getByRole } = render(<Typing progressMessages={[]} />);
+  expect(getByRole('status')).toBeEmptyDOMElement();
+  expect(container.querySelector('.memori-chat--bubble')).not.toHaveClass(
+    'memori-chat--bubble--with-progress'
+  );
+});
+
+it('adds the first progress message to the live region already mounted', () => {
+  const { getByRole, rerender } = render(<Typing progressMessages={[]} />);
+  const region = getByRole('status');
+
+  rerender(<Typing progressMessages={['Sto cercando sul web']} />);
+
+  expect(getByRole('status')).toBe(region);
+  expect(region).toHaveTextContent('Sto cercando sul web');
+});
+
+describe('progress messages window', () => {
+  const rowHeight = 20;
+  const messages = [
+    'Sto cercando le ultime notizie sul web',
+    'Sto controllando la pianificazione del progetto',
+    'Sto leggendo il documento',
+    'Sto preparando il riepilogo',
+  ];
+
+  beforeEach(() => {
+    jest
+      .spyOn(HTMLElement.prototype, 'offsetTop', 'get')
+      .mockImplementation(function (this: HTMLElement) {
+        const siblings = Array.from(this.parentElement?.children ?? []);
+        return siblings.indexOf(this) * rowHeight;
+      });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const items = (container: HTMLElement) =>
+    Array.from(
+      container.querySelectorAll<HTMLElement>(
+        '.memori-chat--bubble-typing-progress-item'
+      )
+    );
+
+  it('shows only the last three progress messages', () => {
+    const { container } = render(<Typing progressMessages={messages} />);
+    expect(items(container).map(item => item.textContent)).toEqual(
+      messages.slice(-3)
+    );
+  });
+
+  it('keeps the lines already shown when a new one arrives', () => {
+    const { container, rerender } = render(
+      <Typing progressMessages={messages.slice(0, 3)} />
+    );
+    const [, second, third] = items(container);
+
+    rerender(<Typing progressMessages={messages} />);
+
+    const [first, middle, last] = items(container);
+    expect(first).toBe(second);
+    expect(middle).toBe(third);
+    expect(last).toHaveTextContent(messages[3]);
+    expect(
+      last.querySelector('.memori-chat--bubble-typing-progress-text')
+    ).toHaveClass('memori-motion-enter-up');
+  });
+
+  it('slides the lines already shown up into the place of the one leaving', () => {
+    const { container, rerender } = render(
+      <Typing progressMessages={messages.slice(0, 3)} />
+    );
+
+    rerender(<Typing progressMessages={messages} />);
+
+    const [first, middle, last] = items(container);
+    expect(first.style.transition).toContain(
+      'var(--memori-motion-duration-normal)'
+    );
+    expect(middle.style.transition).toContain(
+      'var(--memori-motion-duration-normal)'
+    );
+    expect(first.style.transform).toBe('');
+    expect(last.style.transition).toBe('');
+  });
+
+  it('does not move lines while the window is still filling', () => {
+    const { container, rerender } = render(
+      <Typing progressMessages={messages.slice(0, 1)} />
+    );
+
+    rerender(<Typing progressMessages={messages.slice(0, 2)} />);
+
+    expect(items(container).map(item => item.style.transition)).toEqual([
+      '',
+      '',
+    ]);
+  });
+
+  it('does not slide lines with reduced motion', () => {
+    const matchMedia = window.matchMedia;
+    window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+    }));
+
+    try {
+      const { container, rerender } = render(
+        <Typing progressMessages={messages.slice(0, 3)} />
+      );
+
+      rerender(<Typing progressMessages={messages} />);
+
+      expect(items(container).map(item => item.style.transition)).toEqual([
+        '',
+        '',
+        '',
+      ]);
+    } finally {
+      window.matchMedia = matchMedia;
+    }
+  });
+});
+
 it('renders Typing with custom loading text list unchanged', () => {
   const { container } = render(
     <Typing

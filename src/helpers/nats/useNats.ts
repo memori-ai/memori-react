@@ -2,7 +2,7 @@
 //
 // Additive to the existing HTTP flow: text is sent via `postEnterTextAsync`;
 // this hook *receives* asynchronous events on the session channel (progress /
-// dialog.text_entered_response / error).
+// dialog.text_entered_response / error / tool_call).
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { getNatsConfig, NatsConfig } from './getNatsConfig';
 import {
@@ -11,6 +11,7 @@ import {
   NatsProgressEvent,
   NatsDialogResponseEvent,
   NatsErrorEvent,
+  NatsToolCallEvent,
 } from './useNatsSession';
 
 export interface UseNatsOptions {
@@ -24,6 +25,8 @@ export interface UseNatsOptions {
   onDialogResponse?: (event: NatsDialogResponseEvent) => void;
   /** `error` events (logging / user notification). */
   onError?: (event: NatsErrorEvent) => void;
+  /** `tool_call` events (what the agent is doing while it uses a tool). */
+  onToolCall?: (event: NatsToolCallEvent) => void;
   /**
    * Reconcile a pending turn from the engine after a resumed or reauthenticated
    * subscription is installed.
@@ -43,6 +46,7 @@ export function useNats({
   onProgress,
   onDialogResponse,
   onError,
+  onToolCall,
   onCatchUp,
 }: UseNatsOptions) {
   const [config, setConfig] = useState<NatsConfig | null>(null);
@@ -52,6 +56,7 @@ export function useNats({
   const onProgressRef = useRef(onProgress);
   const onDialogResponseRef = useRef(onDialogResponse);
   const onErrorRef = useRef(onError);
+  const onToolCallRef = useRef(onToolCall);
   const onCatchUpRef = useRef(onCatchUp);
   const abortRef = useRef<AbortController | null>(null);
   const catchUpAfterConnectRef = useRef(false);
@@ -61,8 +66,9 @@ export function useNats({
     onProgressRef.current = onProgress;
     onDialogResponseRef.current = onDialogResponse;
     onErrorRef.current = onError;
+    onToolCallRef.current = onToolCall;
     onCatchUpRef.current = onCatchUp;
-  }, [onProgress, onDialogResponse, onError, onCatchUp]);
+  }, [onProgress, onDialogResponse, onError, onToolCall, onCatchUp]);
 
   const refreshConfig = useCallback(
     async (reason: 'initial' | 'resume' | 'auth') => {
@@ -167,6 +173,9 @@ export function useNats({
         break;
       case 'error':
         onErrorRef.current?.(event);
+        break;
+      case 'tool_call':
+        onToolCallRef.current?.(event);
         break;
       default:
         console.warn('Unknown NATS event', event);
