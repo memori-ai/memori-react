@@ -1,5 +1,66 @@
 # Changelog
 
+## [9.2.0](https://github.com/memori-ai/memori-react/compare/v9.1.7...v9.2.0) (2026-11-18)
+
+
+### Features
+
+* **Chat:** add cache usage metrics display in Chat component and tests for cache read/write percentages ([04e9c9c](https://github.com/memori-ai/memori-react/commit/04e9c9c3d863afd9cca9a2ff4a7348e5f7fdfe79))
+* **ChatBubble, ContentPreviewModal:** improve table scrolling behavior for markdown tables ([00ff23a](https://github.com/memori-ai/memori-react/commit/00ff23a6065857874420bf8314a6aa5427dc8ef9))
+* **ChatBubble:** add dark theme styles for user avatar to enhance visibility ([f564578](https://github.com/memori-ai/memori-react/commit/f564578b6b068126d28ce973fc78d07e0ffc7fc3))
+* **ChatBubble:** enhance border radius styles for chat bubbles ([343024e](https://github.com/memori-ai/memori-react/commit/343024e7eaf064e3de0155b301d13d3d72eb527e))
+* **ChatConsumption:** enhance cache display logic and add info tooltip ([a96117b](https://github.com/memori-ai/memori-react/commit/a96117b2fc751cf5c04d5d35097e8ee4804cec2c))
+* **Chat:** enhance typing progress display with accessibility improvements and message handling ([9250337](https://github.com/memori-ai/memori-react/commit/92503376a3784ea2b8e1b1b554aa78527230fd1c))
+* **Chat:** update timestamp handling to show/hide based on showDates prop ([c528abc](https://github.com/memori-ai/memori-react/commit/c528abcd2e829fed236996a7d35baaddf04e211b))
+* **ContentPreviewModal:** add truncation note handling and styling for document previews ([f825e1e](https://github.com/memori-ai/memori-react/commit/f825e1ed6ee238495422cfeea420a33217683060))
+* **Drawer:** implement useDrawerPortalContainer for improved tooltip and menu positioning ([435af96](https://github.com/memori-ai/memori-react/commit/435af96d2b590b9adc4a6b6d8d1617971a6c23d8))
+* **Drawer:** implement useDrawerPortalContainer for improved tooltip and menu positioning ([0b3682f](https://github.com/memori-ai/memori-react/commit/0b3682f4113ff6488b84989a5579006689c28779))
+* **Header:** implement dynamic collapsing of Known Facts and AI consumption in the header based on action count ([6a1241e](https://github.com/memori-ai/memori-react/commit/6a1241e69068d7d217fa86ff3b5d4dc0b2415ed9))
+* **Header:** update header brand visibility logic for mobile and desktop layouts ([01346b5](https://github.com/memori-ai/memori-react/commit/01346b5627c0bcd804d3125f3564998f70836b58))
+* **MemoriWidget:** enhance user fetching logic and manage login state ([8dd1a35](https://github.com/memori-ai/memori-react/commit/8dd1a35c78a1f0cf8db8b1595438881741d05c02))
+* show only the last three tool call progress lines ([bffb3dc](https://github.com/memori-ai/memori-react/commit/bffb3dc81f84b6e07f55ba4fb1b51b867233aec9))
+* show tool call progress while waiting for the answer ([0057965](https://github.com/memori-ai/memori-react/commit/0057965dabb2323546ba314e0241bb55ad065604))
+* **StartPanel:** add hideIdentity prop to conditionally render avatar, title, and description ([c4a8cd2](https://github.com/memori-ai/memori-react/commit/c4a8cd2a24b21cd965c1ab990d2dcbd714871860))
+* **UploadButton, convertDocument:** enhance truncation handling by stripping gateway footer ([615f41a](https://github.com/memori-ai/memori-react/commit/615f41a7d10ad88a20ffce6ea53f866f313e8ab3))
+* **UploadButton:** implement original file link handling ([8ced2ab](https://github.com/memori-ai/memori-react/commit/8ced2ab7ef514a8ebc6df5977cf8f02d38468d31))
+* **UploadButton:** localize truncation messages and enhance original file link handling ([6a898fb](https://github.com/memori-ai/memori-react/commit/6a898fbd5aa1ed5ab365877ff7cd2f1221a9b01f))
+
+
+### Bug Fixes
+
+* **ArtifactPreview:** markdown table scrolling behavior for better usability ([e05d719](https://github.com/memori-ai/memori-react/commit/e05d71981840f29e3d5e213db44311460777b012))
+* **ArtifactPreview:** markdown table scrolling behavior for better usability ([9a23162](https://github.com/memori-ai/memori-react/commit/9a2316202c1ac18945ae71ef615e0f7d6de5b97f))
+* **Chat:** reserve space for bubble action row to prevent clipping in scrollable area ([15e3d98](https://github.com/memori-ai/memori-react/commit/15e3d98ac7b0c3af6666340d6c4f664ce3da1b45))
+* **Chat:** reserve space for bubble action row to prevent clipping in scrollable area ([a72347e](https://github.com/memori-ai/memori-react/commit/a72347e94a100de148613487dce9b4acda4c3735))
+* edge cases for cache usage display logic and add tests ([199b640](https://github.com/memori-ai/memori-react/commit/199b640c2617dcd4463164aeba79a1b8acfdf044))
+* linting ([ba97920](https://github.com/memori-ai/memori-react/commit/ba979201b6df66f892f5b83babc919106770292e))
+* **StartPanel:** update mobile privacy policy modal implementation and tests ([1c90fae](https://github.com/memori-ai/memori-react/commit/1c90fae06fdeae90457eac7653dfa9af40ac9c47))
+* **styles:** increase conversation max width for improved layout ([d87345f](https://github.com/memori-ai/memori-react/commit/d87345fad5674b0351c0e882c00d6ba3a9e0cebb))
+
+
+### Changes
+
+* **Header:** update tests and logic for collapsing Known Facts and AI consumption ([0314f65](https://github.com/memori-ai/memori-react/commit/0314f652c47b4b17275cfe04b1921cd3576650e3))
+* **StartPanel:** update privacy tooltip implementation ([628bd51](https://github.com/memori-ai/memori-react/commit/628bd5191af976652af64ed570a71a350ac84d9a))
+* **WhyThisAnswer:** remove add-content action for agent author and update tests ([2d0b45b](https://github.com/memori-ai/memori-react/commit/2d0b45b4afd993f6e834ed22e2fa68caed84bd9d))
+
+
+### Maintenance
+
+* release v9.1.0 ([d9072f5](https://github.com/memori-ai/memori-react/commit/d9072f52e531258b7ab964ec566e98de0f765686))
+* release v9.1.1 ([9731c6b](https://github.com/memori-ai/memori-react/commit/9731c6b888707a3b9916a43f299f8e89dce32404))
+* release v9.1.2 ([cf70350](https://github.com/memori-ai/memori-react/commit/cf70350a0bd27c67603054dfb05300cb1008d760))
+* release v9.1.3 ([9ac40c7](https://github.com/memori-ai/memori-react/commit/9ac40c7bce8e551a8014822b1632464b360e7c35))
+* release v9.1.4 ([2daa71c](https://github.com/memori-ai/memori-react/commit/2daa71cd443ed6f7b3fc0b6957bcf6a5b2f07cb2))
+* release v9.1.5 ([98693d5](https://github.com/memori-ai/memori-react/commit/98693d5b3de6b19f1e5a9afb669a78d56619edf5))
+* release v9.1.6 ([45474d6](https://github.com/memori-ai/memori-react/commit/45474d68c6f4a17f7a3ad088da234d4ddaf74e30))
+* release v9.1.7 ([63dcc21](https://github.com/memori-ai/memori-react/commit/63dcc213de82cdb003c27d7011067dcf0b42fb1f))
+* rename function cache in debug tools ([84a6594](https://github.com/memori-ai/memori-react/commit/84a6594f018ac0d1118ce9dcc6cd82e676802808))
+* update [@memori](https://github.com/memori).ai/ui to version 2.0.5 ([7b0bbdf](https://github.com/memori-ai/memori-react/commit/7b0bbdfb6e526cc58feb764e3359ba4241794eb8))
+* update [@memori](https://github.com/memori).ai/ui to version 2.0.6 ([2e28a7f](https://github.com/memori-ai/memori-react/commit/2e28a7f37839d89e21aefaa672ff24bacd9ed03e))
+* update [@memori](https://github.com/memori).ai/ui to version 2.0.7 ([64cec97](https://github.com/memori-ai/memori-react/commit/64cec978ae6157f726a8101555762750d1677dc0))
+* update dompurify to version 3.4.17 in package.json and yarn.lock ([3261b47](https://github.com/memori-ai/memori-react/commit/3261b477fb4ae11345277603f992f5168975adc5))
+
 ## [9.1.7](https://github.com/memori-ai/memori-react/compare/v9.1.6...v9.1.7) (2026-11-10)
 
 
