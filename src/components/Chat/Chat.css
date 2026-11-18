@@ -81,6 +81,12 @@
     flex-shrink: 0;
 }
 
+/* The bubble action row is absolutely positioned below the last message and its
+   shadow does not count as scrollable overflow: reserve room so it is not clipped. */
+.memori-chat--content > #end-messages-ref {
+    min-height: var(--memori-spacing-lg, 1.5rem);
+}
+
 .memori-chat--content::-webkit-scrollbar {
     width: 8px;
 }
