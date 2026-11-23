@@ -188,12 +188,7 @@ const Memori: React.FC<Props> = ({
       baseURL ||
       (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
     try {
-      const result = await fetch(`${url}/api/speechkey?tenant=${tenantID}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const result = await fetch(`${url}/api/speechkey?tenant=${tenantID}`);
 
       const data = await result.json();
 

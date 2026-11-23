@@ -865,6 +865,16 @@
     "initialQuestion": "Startfrage",
     "secretField": "Hier eingeben, nie im Chat.",
     "fillRequired": "Füllen Sie {{fields}} aus, um ihn zu verbinden.",
+    "schedule": "Planen",
+    "scheduled": "Geplant: Der Agent erledigt sie zu den festgelegten Zeiten.",
+    "taskWhen": "Wann",
+    "taskPrompt": "Was der Agent tun wird",
+    "scheduleDaily": "Jeden Tag um {{time}}",
+    "scheduleWeekdays": "Montag bis Freitag um {{time}}",
+    "scheduleWeekly": "Jeden {{day}} um {{time}}",
+    "scheduleMonthly": "Am {{day}}. jedes Monats um {{time}}",
+    "scheduleOnce": "Einmal, {{date}}",
+    "timezone": "Zeitzone: {{timezone}}",
     "pageSettings": "Seiteneinstellungen",
     "settingOn": "Ja",
     "settingOff": "Nein",
@@ -899,7 +909,8 @@
       "ContentAnswerChange": "Änderung der Antwort",
       "Snippet": "Snippet",
       "LandingPage": "Öffentliche Seite",
-      "Connector": "MCP einrichten"
+      "Connector": "MCP einrichten",
+      "ScheduledTask": "Geplante Aufgabe"
     }
   }
 }

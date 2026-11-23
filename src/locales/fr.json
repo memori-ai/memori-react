@@ -861,6 +861,16 @@
     "initialQuestion": "Question initiale",
     "secretField": "Écrivez-le ici, jamais dans le chat.",
     "fillRequired": "Remplissez {{fields}} pour le connecter.",
+    "schedule": "Programmer",
+    "scheduled": "Programmée : l'agent la fera aux heures prévues.",
+    "taskWhen": "Quand",
+    "taskPrompt": "Ce que fera l'agent",
+    "scheduleDaily": "Tous les jours à {{time}}",
+    "scheduleWeekdays": "Du lundi au vendredi à {{time}}",
+    "scheduleWeekly": "Chaque {{day}} à {{time}}",
+    "scheduleMonthly": "Le {{day}} de chaque mois à {{time}}",
+    "scheduleOnce": "Une fois, {{date}}",
+    "timezone": "Fuseau horaire : {{timezone}}",
     "pageSettings": "Paramètres de la page",
     "settingOn": "Oui",
     "settingOff": "Non",
@@ -895,7 +905,8 @@
       "ContentAnswerChange": "Modification de la réponse",
       "Snippet": "Snippet",
       "LandingPage": "Page publique",
-      "Connector": "Configurer MCP"
+      "Connector": "Configurer MCP",
+      "ScheduledTask": "Tâche programmée"
     }
   }
 }

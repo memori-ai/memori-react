@@ -2150,6 +2150,248 @@ exports[`renders read-only proposal unchanged 1`] = `
 </div>
 `;
 
+exports[`renders scheduledTask proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.ScheduledTask
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Blog digest
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants a summary of the blog every working morning.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.taskWhen
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            instructionProposal.scheduleWeekdays
+          </p>
+          <p
+            class="memori-instruction-proposal--hint"
+          >
+            instructionProposal.timezone
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.taskPrompt
+          </span>
+          <div
+            class="memori-expandable"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              <p
+                class="memori-instruction-proposal--text"
+              >
+                Read the latest posts of the Bakery Rossi blog and send me by e-mail a summary of what is new.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.schedule
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders scheduledTaskOnce proposal unchanged 1`] = `
+<div>
+  <div
+    class="memori-card memori-card--outlined memori-instruction-proposal memori-instruction-proposal--pending"
+  >
+    <div
+      class="memori-card__body memori-card__body--padding-md"
+    >
+      <div
+        class="memori-spin"
+      >
+        <div
+          class="memori-card__header"
+        >
+          <div
+            class="memori-card__title"
+          >
+            <span
+              class="memori-instruction-proposal--header"
+            >
+              <span
+                class="memori-instruction-proposal--type"
+              >
+                instructionProposal.types.ScheduledTask
+              </span>
+              <span
+                class="memori-instruction-proposal--title"
+              >
+                Price list reminder
+              </span>
+            </span>
+          </div>
+        </div>
+        <p
+          class="memori-instruction-proposal--reason"
+        >
+          The Giver wants to be reminded of the new price list.
+        </p>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.taskWhen
+          </span>
+          <p
+            class="memori-instruction-proposal--text"
+          >
+            instructionProposal.scheduleOnce
+          </p>
+          <p
+            class="memori-instruction-proposal--hint"
+          >
+            instructionProposal.timezone
+          </p>
+        </div>
+        <div
+          class="memori-instruction-proposal--section"
+        >
+          <span
+            class="memori-instruction-proposal--label"
+          >
+            instructionProposal.taskPrompt
+          </span>
+          <div
+            class="memori-expandable"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              <p
+                class="memori-instruction-proposal--text"
+              >
+                Send me by e-mail a reminder to update the price list for the new season.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-instruction-proposal--actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.schedule
+            </span>
+          </button>
+          <button
+            class="memori-button memori-button--outline memori-button--sm"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              instructionProposal.ignore
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
 exports[`renders snippet proposal unchanged 1`] = `
 <div>
   <div

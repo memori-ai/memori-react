@@ -15,7 +15,8 @@ export type InstructionProposalType =
   | 'LandingPage'
   | 'Connector'
   | 'WelcomeMessage'
-  | 'AisuruFunction';
+  | 'AisuruFunction'
+  | 'ScheduledTask';
 
 export interface InstructionSnippetField {
   name: string;
@@ -67,6 +68,12 @@ export interface InstructionProposal {
   aisuruFunctionName?: string;
   aisuruFunctionDescription?: string;
   aisuruFunctionEnable?: boolean;
+  /** The task the scheduler runs: a cron expression to repeat it, or a local date and time (yyyy-MM-dd HH:mm) to run it once */
+  scheduledTaskLabel?: string;
+  scheduledTaskPrompt?: string;
+  scheduledTaskCron?: string;
+  scheduledTaskRunAt?: string;
+  scheduledTaskTimezone?: string;
 }
 
 /** The outcome of a proposal confirmed with its card, by proposal ID */

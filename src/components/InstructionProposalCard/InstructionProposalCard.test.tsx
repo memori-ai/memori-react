@@ -5,7 +5,9 @@ import {
   instructionProposals,
 } from '../../mocks/data';
 import InstructionProposalCard, {
+  describeCron,
   diffWords,
+  formatRunAt,
   getMissingConnectorFields,
   hasInstructionProposalCard,
   parseInstructionProposal,
@@ -212,6 +214,66 @@ it('waits for the hints before following them', () => {
     />
   );
   expect(screen.getByText('instructionProposal.apply')).toBeInTheDocument();
+});
+
+it('says the common schedules in words and the others as written', () => {
+  expect(describeCron('0 8 * * *')).toEqual({
+    key: 'scheduleDaily',
+    values: { time: '08:00' },
+  });
+  expect(describeCron('30 7 * * 1-5')).toEqual({
+    key: 'scheduleWeekdays',
+    values: { time: '07:30' },
+  });
+  expect(describeCron('0 9 * * 1', 'en')).toEqual({
+    key: 'scheduleWeekly',
+    values: { time: '09:00', day: 'Monday' },
+  });
+  expect(describeCron('0 9 * * 7', 'it')?.values.day).toBe('domenica');
+  expect(describeCron('15 18 1 * *')).toEqual({
+    key: 'scheduleMonthly',
+    values: { time: '18:15', day: '1' },
+  });
+  expect(describeCron('*/15 * * * *')).toBeNull();
+  expect(describeCron('0 8 * 6 *')).toBeNull();
+  expect(describeCron('0 8 * * 1,3')).toBeNull();
+  expect(describeCron('0 8 * *')).toBeNull();
+});
+
+it('writes the date of a task that runs once in the language of the page', () => {
+  expect(formatRunAt('2099-03-02 09:30', 'en')).toContain('March 2, 2099');
+  expect(formatRunAt('2099-03-02 09:30', 'en')).toContain('9:30');
+  expect(formatRunAt('tomorrow', 'en')).toBe('tomorrow');
+});
+
+it('shows when a task runs and what it does, with its own button', async () => {
+  const onConfirm = jest.fn().mockResolvedValue(true);
+  render(
+    <InstructionProposalCard
+      medium={instructionProposals.scheduledTask}
+      onConfirm={onConfirm}
+    />
+  );
+
+  expect(
+    screen.getByText('instructionProposal.scheduleWeekdays')
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/Read the latest posts of the Bakery Rossi blog/)
+  ).toBeInTheDocument();
+
+  fireEvent.click(screen.getByText('instructionProposal.schedule'));
+
+  await waitFor(() =>
+    expect(
+      screen.getByText('instructionProposal.scheduled')
+    ).toBeInTheDocument()
+  );
+  expect(onConfirm).toHaveBeenCalledWith(
+    instructionProposals.scheduledTask.mediumID,
+    true,
+    undefined
+  );
 });
 
 it('lists the required connector fields still empty', () => {

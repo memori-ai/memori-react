@@ -945,6 +945,26 @@ export const instructionProposals: { [key: string]: Medium } = {
     connectorParameters: {},
     reason: 'The Giver wants the customers of the CRM in chat.',
   }),
+  scheduledTask: instructionProposalMedium('Blog digest', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e15',
+    type: 'ScheduledTask',
+    scheduledTaskLabel: 'Blog digest',
+    scheduledTaskPrompt:
+      'Read the latest posts of the Bakery Rossi blog and send me by e-mail a summary of what is new.',
+    scheduledTaskCron: '0 8 * * 1-5',
+    scheduledTaskTimezone: 'Europe/Rome',
+    reason: 'The Giver wants a summary of the blog every working morning.',
+  }),
+  scheduledTaskOnce: instructionProposalMedium('Price list reminder', {
+    id: '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e16',
+    type: 'ScheduledTask',
+    scheduledTaskLabel: 'Price list reminder',
+    scheduledTaskPrompt:
+      'Send me by e-mail a reminder to update the price list for the new season.',
+    scheduledTaskRunAt: '2099-03-02 09:30',
+    scheduledTaskTimezone: 'Europe/Rome',
+    reason: 'The Giver wants to be reminded of the new price list.',
+  }),
 };
 
 // Confirmed only with the hints in chat, without a card

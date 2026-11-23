@@ -933,6 +933,16 @@
     "initialQuestion": "Initial question",
     "secretField": "Write it here, never in the chat.",
     "fillRequired": "Fill {{fields}} to link it.",
+    "schedule": "Schedule",
+    "scheduled": "Scheduled: the agent will do it at the set times.",
+    "taskWhen": "When",
+    "taskPrompt": "What the agent will do",
+    "scheduleDaily": "Every day at {{time}}",
+    "scheduleWeekdays": "Monday to Friday at {{time}}",
+    "scheduleWeekly": "Every {{day}} at {{time}}",
+    "scheduleMonthly": "On day {{day}} of every month at {{time}}",
+    "scheduleOnce": "Once, {{date}}",
+    "timezone": "Time zone: {{timezone}}",
     "pageSettings": "Page settings",
     "settingOn": "On",
     "settingOff": "Off",
@@ -967,7 +977,8 @@
       "ContentAnswerChange": "Answer change",
       "Snippet": "Snippet",
       "LandingPage": "Public page",
-      "Connector": "Set up MCP"
+      "Connector": "Set up MCP",
+      "ScheduledTask": "Scheduled task"
     }
   }
 }

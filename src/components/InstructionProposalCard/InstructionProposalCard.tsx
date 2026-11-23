@@ -63,6 +63,56 @@ export const getMissingConnectorFields = (
   values: { [key: string]: string }
 ) => fields.filter(f => f.required && !values[f.name]?.trim());
 
+export type ScheduleDescription = {
+  key: string;
+  values: { [key: string]: string };
+};
+
+/** The common shapes of a cron expression in words; null for the others, shown as written */
+export const describeCron = (
+  cron: string,
+  language?: string
+): ScheduleDescription | null => {
+  const [minute, hour, day, month, weekday, ...rest] = cron.trim().split(/\s+/);
+  if (
+    rest.length > 0 ||
+    month !== '*' ||
+    !/^\d{1,2}$/.test(minute ?? '') ||
+    !/^\d{1,2}$/.test(hour ?? '')
+  )
+    return null;
+
+  const time = `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+  if (day === '*' && weekday === '*')
+    return { key: 'scheduleDaily', values: { time } };
+  if (day === '*' && weekday === '1-5')
+    return { key: 'scheduleWeekdays', values: { time } };
+  if (day === '*' && /^[0-7]$/.test(weekday ?? '')) {
+    // 7 January 2024 is a Sunday, the day 0 of cron
+    const date = new Date(2024, 0, 7 + (Number(weekday) % 7));
+    const name = new Intl.DateTimeFormat(language, { weekday: 'long' }).format(
+      date
+    );
+    return { key: 'scheduleWeekly', values: { time, day: name } };
+  }
+  if (/^\d{1,2}$/.test(day ?? '') && weekday === '*')
+    return { key: 'scheduleMonthly', values: { time, day } };
+
+  return null;
+};
+
+/** A local date and time as yyyy-MM-dd HH:mm, in the language of the page */
+export const formatRunAt = (runAt: string, language?: string) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.exec(runAt);
+  if (!match) return runAt;
+
+  const [, year, month, day, hour, minute] = match.map(Number);
+  return new Intl.DateTimeFormat(language, {
+    dateStyle: 'full',
+    timeStyle: 'short',
+  }).format(new Date(year, month - 1, day, hour, minute));
+};
+
 export type WordDiffPart = { text: string; added?: boolean; removed?: boolean };
 
 // Beyond this many word pairs the answers are shown whole, removed and added
@@ -130,7 +180,7 @@ const InstructionProposalCard = ({
   proposalsPending = true,
   expired = false,
 }: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const proposal = useMemo(() => parseInstructionProposal(medium), [medium]);
   const [status, setStatus] = useState<InstructionProposalStatus>(() =>
     expired && !!onConfirm && defaultStatus === 'pending'
@@ -171,6 +221,7 @@ const InstructionProposalCard = ({
   if (!proposal) return null;
 
   const isConnector = proposal.type === 'Connector';
+  const isScheduledTask = proposal.type === 'ScheduledTask';
   const missingFields = getMissingConnectorFields(fields, values);
   const canAct = !!onConfirm && (status === 'pending' || status === 'error');
 
@@ -246,6 +297,22 @@ const InstructionProposalCard = ({
       : value === 'false'
       ? t('instructionProposal.settingOff')
       : value;
+
+  const describeSchedule = () => {
+    if (proposal.scheduledTaskRunAt)
+      return t('instructionProposal.scheduleOnce', {
+        date: formatRunAt(proposal.scheduledTaskRunAt, i18n?.language),
+      });
+    if (!proposal.scheduledTaskCron) return undefined;
+
+    const description = describeCron(
+      proposal.scheduledTaskCron,
+      i18n?.language
+    );
+    return description
+      ? t(`instructionProposal.${description.key}`, description.values)
+      : proposal.scheduledTaskCron;
+  };
 
   const renderVariants = () =>
     !!proposal.variants?.length && (
@@ -508,6 +575,37 @@ const InstructionProposalCard = ({
           </>
         );
 
+      case 'ScheduledTask':
+        return (
+          <>
+            <div className="memori-instruction-proposal--section">
+              <span className="memori-instruction-proposal--label">
+                {t('instructionProposal.taskWhen')}
+              </span>
+              <p className="memori-instruction-proposal--text">
+                {describeSchedule()}
+              </p>
+              {!!proposal.scheduledTaskTimezone && (
+                <p className="memori-instruction-proposal--hint">
+                  {t('instructionProposal.timezone', {
+                    timezone: proposal.scheduledTaskTimezone,
+                  })}
+                </p>
+              )}
+            </div>
+            <div className="memori-instruction-proposal--section">
+              <span className="memori-instruction-proposal--label">
+                {t('instructionProposal.taskPrompt')}
+              </span>
+              <Expandable rows={6}>
+                <p className="memori-instruction-proposal--text">
+                  {proposal.scheduledTaskPrompt}
+                </p>
+              </Expandable>
+            </div>
+          </>
+        );
+
       default:
         return null;
     }
@@ -519,6 +617,8 @@ const InstructionProposalCard = ({
         return t(
           isConnector
             ? 'instructionProposal.linked'
+            : isScheduledTask
+            ? 'instructionProposal.scheduled'
             : 'instructionProposal.applied'
         );
       case 'ignored':
@@ -582,6 +682,8 @@ const InstructionProposalCard = ({
               {t(
                 isConnector
                   ? 'instructionProposal.link'
+                  : isScheduledTask
+                  ? 'instructionProposal.schedule'
                   : 'instructionProposal.apply'
               )}
             </Button>
