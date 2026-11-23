@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import cx from 'classnames';
 import {
   ExpertReference,
   Memori,
@@ -10,6 +11,7 @@ const separator = ' ';
 const defaultDelay = 15;
 const timeoutMs = 20 * 1000;
 const newWordInterval = 50;
+export const maxVisibleProgressMessages = 3;
 const defaultSentences = {
   en: [
     { delayAfter: defaultDelay, text: 'Processing in progress...' },
@@ -61,6 +63,10 @@ export interface Props {
   useDefaultSentences?: boolean;
   lang?: 'en' | 'it';
   sentence?: string;
+  /**
+   * What the agent is doing with its tools, in the order it happened
+   */
+  progressMessages?: string[];
   memori?: Memori;
   tenant?: Tenant;
   baseUrl?: string;
@@ -88,6 +94,7 @@ const Typing = ({
   useDefaultSentences = false,
   lang = 'en',
   sentence,
+  progressMessages,
   memori,
   tenant,
   baseUrl,
@@ -115,6 +122,46 @@ const Typing = ({
   );
   const [shownText, setShownText] = useState('');
   const [elapsedTime, setElapsedTime] = useState(0);
+
+  const visibleProgressMessages =
+    progressMessages?.slice(-maxVisibleProgressMessages) ?? [];
+  const visibleProgressKey = visibleProgressMessages.join('\n');
+  // The generic loading sentences (only it/en, picked from the agent culture)
+  // add nothing once the lines say what the agent is doing, and can be in
+  // another language than the lines written by the engine
+  const hideDefaultSentence =
+    !!visibleProgressMessages.length && !sentence && !sentences?.[lang]?.length;
+  const progressListRef = useRef<HTMLUListElement>(null);
+  const progressItemTopsRef = useRef<Map<string, number>>(new Map());
+
+  // Lines already shown slide up into the place of the one leaving the window
+  useLayoutEffect(() => {
+    const items = Array.from(
+      progressListRef.current?.children ?? []
+    ) as HTMLElement[];
+    const previousTops = progressItemTopsRef.current;
+    progressItemTopsRef.current = new Map(
+      items.map(item => [item.dataset.message ?? '', item.offsetTop])
+    );
+
+    if (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
+
+    items.forEach(item => {
+      const previousTop = previousTops.get(item.dataset.message ?? '');
+      if (previousTop === undefined || previousTop === item.offsetTop) return;
+
+      item.style.transition = 'none';
+      item.style.transform = `translateY(${previousTop - item.offsetTop}px)`;
+      item.getBoundingClientRect();
+      item.style.transition =
+        'transform var(--memori-motion-duration-normal) var(--memori-motion-ease-out)';
+      item.style.transform = '';
+    });
+  }, [visibleProgressKey]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -224,14 +271,41 @@ const Typing = ({
     <div className="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item">
       <div className="memori-chat--bubble-message-row">
         {renderAssistantAvatar()}
-        <div className="memori-chat--bubble">
+        <div
+          className={cx('memori-chat--bubble', {
+            'memori-chat--bubble--with-progress':
+              !!visibleProgressMessages.length,
+          })}
+        >
+          {/* Always mounted: screen readers only announce what is added to a
+              live region that already exists, so the first line is read too */}
+          <ul
+            ref={progressListRef}
+            className="memori-chat--bubble-typing-progress"
+            role="status"
+            aria-live="polite"
+          >
+            {visibleProgressMessages.map(message => (
+              <li
+                key={message}
+                data-message={message}
+                className="memori-chat--bubble-typing-progress-item"
+              >
+                <span className="memori-chat--bubble-typing-progress-text memori-motion-enter-up">
+                  {message}
+                </span>
+              </li>
+            ))}
+          </ul>
           <div className="memori-chat--bubble-typing">
-            <div id="wave" className="memori-motion-loop">
+            <div id="wave" className="memori-motion-loop" aria-hidden="true">
               <span className="dot"></span>
               <span className="dot"></span>
               <span className="dot"></span>
             </div>
-            {text.length > 0 && <p>{shownText.trimEnd()}</p>}
+            {text.length > 0 && !hideDefaultSentence && (
+              <p>{shownText.trimEnd()}</p>
+            )}
           </div>
         </div>
       </div>

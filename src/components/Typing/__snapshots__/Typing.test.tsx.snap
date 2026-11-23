@@ -11,10 +11,16 @@ exports[`renders Typing unchanged 1`] = `
       <div
         class="memori-chat--bubble"
       >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        />
         <div
           class="memori-chat--bubble-typing"
         >
           <div
+            aria-hidden="true"
             class="memori-motion-loop"
             id="wave"
           >
@@ -46,10 +52,16 @@ exports[`renders Typing with custom loading text list unchanged 1`] = `
       <div
         class="memori-chat--bubble"
       >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        />
         <div
           class="memori-chat--bubble-typing"
         >
           <div
+            aria-hidden="true"
             class="memori-motion-loop"
             id="wave"
           >
@@ -82,10 +94,16 @@ exports[`renders Typing with custom loading text unchanged 1`] = `
       <div
         class="memori-chat--bubble"
       >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        />
         <div
           class="memori-chat--bubble-typing"
         >
           <div
+            aria-hidden="true"
             class="memori-motion-loop"
             id="wave"
           >
@@ -118,10 +136,16 @@ exports[`renders Typing with default italian loading text unchanged 1`] = `
       <div
         class="memori-chat--bubble"
       >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        />
         <div
           class="memori-chat--bubble-typing"
         >
           <div
+            aria-hidden="true"
             class="memori-motion-loop"
             id="wave"
           >
@@ -153,10 +177,78 @@ exports[`renders Typing with default loading text unchanged 1`] = `
       <div
         class="memori-chat--bubble"
       >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        />
         <div
           class="memori-chat--bubble-typing"
         >
           <div
+            aria-hidden="true"
+            class="memori-motion-loop"
+            id="wave"
+          >
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+            <span
+              class="dot"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Typing with progress messages unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item"
+  >
+    <div
+      class="memori-chat--bubble-message-row"
+    >
+      <div
+        class="memori-chat--bubble memori-chat--bubble--with-progress"
+      >
+        <ul
+          aria-live="polite"
+          class="memori-chat--bubble-typing-progress"
+          role="status"
+        >
+          <li
+            class="memori-chat--bubble-typing-progress-item"
+            data-message="Sto cercando le ultime notizie sul web"
+          >
+            <span
+              class="memori-chat--bubble-typing-progress-text memori-motion-enter-up"
+            >
+              Sto cercando le ultime notizie sul web
+            </span>
+          </li>
+          <li
+            class="memori-chat--bubble-typing-progress-item"
+            data-message="Sto controllando la pianificazione del progetto"
+          >
+            <span
+              class="memori-chat--bubble-typing-progress-text memori-motion-enter-up"
+            >
+              Sto controllando la pianificazione del progetto
+            </span>
+          </li>
+        </ul>
+        <div
+          class="memori-chat--bubble-typing"
+        >
+          <div
+            aria-hidden="true"
             class="memori-motion-loop"
             id="wave"
           >

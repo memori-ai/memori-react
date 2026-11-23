@@ -7547,10 +7547,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <div
                 class="memori-chat--bubble"
               >
+                <ul
+                  aria-live="polite"
+                  class="memori-chat--bubble-typing-progress"
+                  role="status"
+                />
                 <div
                   class="memori-chat--bubble-typing"
                 >
                   <div
+                    aria-hidden="true"
                     class="memori-motion-loop"
                     id="wave"
                   >

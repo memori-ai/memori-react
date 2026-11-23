@@ -63,12 +63,23 @@ export interface NatsErrorEvent {
 }
 
 /**
+ * `tool_call` event: what the agent is doing while it uses a tool, written
+ * for the user. It never carries the tool name or its arguments.
+ */
+export interface NatsToolCallEvent {
+  eventType: 'tool_call';
+  message?: string;
+  correlationID?: string;
+}
+
+/**
  * Discriminated union of all events received on the session subject.
  */
 export type NatsSessionEvent =
   | NatsProgressEvent
   | NatsDialogResponseEvent
-  | NatsErrorEvent;
+  | NatsErrorEvent
+  | NatsToolCallEvent;
 
 type JetStreamConsumeMode = 'live' | 'catch-up';
 
@@ -162,6 +173,14 @@ export function normalizeNatsEvent(
       resultMessage:
         typeof raw.resultMessage === 'string' ? raw.resultMessage : undefined,
       currentState: unwrapDialogState(raw.currentState),
+      correlationID,
+    };
+  }
+
+  if (eventType === 'tool_call') {
+    return {
+      eventType: 'tool_call',
+      message: typeof raw.message === 'string' ? raw.message : undefined,
       correlationID,
     };
   }

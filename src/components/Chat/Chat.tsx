@@ -88,6 +88,7 @@ export interface Props {
   apiUrl?: string;
   memoriTyping?: boolean;
   typingText?: string;
+  toolCallMessages?: string[];
   showTypingText?: boolean;
   history: Message[];
   authToken?: string;
@@ -166,6 +167,7 @@ const Chat: React.FC<Props> = ({
   translateTo,
   memoriTyping,
   typingText,
+  toolCallMessages,
   showTypingText = false,
   history = [],
   authToken,
@@ -436,7 +438,13 @@ const Chat: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     followLatestIfPinned();
-  }, [history, memoriTyping, typingText, followLatestIfPinned]);
+  }, [
+    history,
+    memoriTyping,
+    typingText,
+    toolCallMessages,
+    followLatestIfPinned,
+  ]);
 
   useEffect(() => {
     const content = chatContentRef.current;
@@ -794,6 +802,7 @@ const Chat: React.FC<Props> = ({
                     : 'en'
                 }
                 sentence={typingText}
+                progressMessages={toolCallMessages}
                 memori={memori}
                 tenant={tenant}
                 baseUrl={baseUrl}
