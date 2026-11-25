@@ -21,7 +21,7 @@ const stagingBase: Partial<Props> = {
   ownerUserName: 'andrea.patini',
   memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
   ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
-  tenantID: 'aisuru-staging.aclambda.online',
+  tenantID: 'aisuru.staging.aisuru.ai',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   layout: 'ZOOMED_FULL_BODY',
