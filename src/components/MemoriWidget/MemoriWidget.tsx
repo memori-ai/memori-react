@@ -671,6 +671,8 @@ const MemoriWidget = ({
   } = client;
 
   const [instruct, setInstruct] = useState(false);
+  // Proposal confirmations still waiting for the engine, see confirmProposal
+  const proposalConfirmationsInFlight = useRef(0);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
 
   // Capture the widget root via a callback ref so the value is non-null on
@@ -3999,7 +4001,9 @@ const MemoriWidget = ({
   ) => {
     if (!sessionId) throw new Error('No session');
 
-    // As for a message: the agent is writing, and the hints wait so they can't confirm too
+    // As for a message: the agent is writing, and the hints wait so they can't confirm too.
+    // The indicator goes off only when no other confirmation is still waiting for the engine
+    proposalConfirmationsInFlight.current += 1;
     setMemoriTyping(true);
     try {
       const { currentState, resultCode } = await postProposalConfirmedEvent({
@@ -4023,7 +4027,8 @@ const MemoriWidget = ({
       await translateAndSpeak(currentState, userLang);
       return true;
     } finally {
-      setMemoriTyping(false);
+      proposalConfirmationsInFlight.current -= 1;
+      if (proposalConfirmationsInFlight.current === 0) setMemoriTyping(false);
     }
   };
 

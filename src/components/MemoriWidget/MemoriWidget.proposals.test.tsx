@@ -5,6 +5,7 @@ import MemoriWidget from './MemoriWidget';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 import { instructionProposals, memori, tenant } from '../../mocks/data';
+import type { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 const mockEngine = {
   initSession: jest.fn(),
@@ -47,14 +48,16 @@ const giverState = (overrides: Partial<DialogState>): DialogState =>
     ...overrides,
   } as DialogState);
 
-async function openChatWithPendingProposal() {
+async function openChatWithPendingProposals(
+  proposals: Medium[] = [instructionProposals.newContent]
+) {
   mockEngine.initSession.mockResolvedValue({
     resultCode: 0,
     resultMessage: 'Ok',
     sessionID: SESSION_ID,
     currentState: giverState({
-      emission: 'I propose a new content',
-      emittedMedia: [instructionProposals.newContent],
+      emission: 'I propose a change',
+      emittedMedia: proposals,
       hints: ['Apply', 'Ignore'],
     }),
   });
@@ -74,7 +77,7 @@ async function openChatWithPendingProposal() {
     </VisemeProvider>
   );
 
-  return screen.findByText('instructionProposal.apply');
+  await screen.findAllByText('instructionProposal.ignore');
 }
 
 describe('MemoriWidget proposal confirmation', () => {
@@ -96,9 +99,9 @@ describe('MemoriWidget proposal confirmation', () => {
       resultMessage: 'Ok',
       currentState: giverState({ emission: 'The content was created' }),
     });
-    const apply = await openChatWithPendingProposal();
+    await openChatWithPendingProposals();
 
-    fireEvent.click(apply);
+    fireEvent.click(screen.getByText('instructionProposal.apply'));
 
     expect(await screen.findByText('The content was created')).toBeVisible();
     expect(mockEngine.postProposalConfirmedEvent).toHaveBeenCalledWith({
@@ -125,11 +128,13 @@ describe('MemoriWidget proposal confirmation', () => {
     ],
   ])('says it is no longer pending when %s', async (_, response) => {
     mockEngine.postProposalConfirmedEvent.mockResolvedValue(response);
-    const apply = await openChatWithPendingProposal();
+    await openChatWithPendingProposals();
 
-    fireEvent.click(apply);
+    fireEvent.click(screen.getByText('instructionProposal.apply'));
 
-    expect(await screen.findByText('instructionProposal.notPending')).toBeVisible();
+    expect(
+      await screen.findByText('instructionProposal.notPending')
+    ).toBeVisible();
     expect(
       screen.queryByText('instructionProposal.applied')
     ).not.toBeInTheDocument();
@@ -144,11 +149,11 @@ describe('MemoriWidget proposal confirmation', () => {
         resultMessage: 'Ok',
         currentState: giverState({ emission: 'The content was created' }),
       });
-    const apply = await openChatWithPendingProposal();
+    await openChatWithPendingProposals();
     const typing = () =>
       document.querySelector('.memori-chat--bubble-container--typing');
 
-    fireEvent.click(apply);
+    fireEvent.click(screen.getByText('instructionProposal.apply'));
     await waitFor(() => expect(typing()).toBeInTheDocument());
 
     answer({ resultCode: 500, resultMessage: 'Internal error' });
@@ -163,5 +168,93 @@ describe('MemoriWidget proposal confirmation', () => {
 
     expect(await screen.findByText('The content was created')).toBeVisible();
     expect(mockEngine.postProposalConfirmedEvent).toHaveBeenCalledTimes(2);
+  });
+
+  it('discards a proposal the Giver ignores, without confirming anything else', async () => {
+    mockEngine.postProposalConfirmedEvent.mockResolvedValue({
+      resultCode: 0,
+      resultMessage: 'Ok',
+      currentState: giverState({ emission: 'Discarded' }),
+    });
+    await openChatWithPendingProposals();
+
+    fireEvent.click(screen.getByText('instructionProposal.ignore'));
+
+    expect(
+      await screen.findByText('instructionProposal.ignored')
+    ).toBeVisible();
+    expect(mockEngine.postProposalConfirmedEvent).toHaveBeenCalledWith({
+      sessionId: SESSION_ID,
+      proposalID: PROPOSAL_ID,
+      apply: false,
+      parameters: undefined,
+    });
+  });
+
+  it('sends the connector secret only in the confirmation, and clears it from the card', async () => {
+    mockEngine.postProposalConfirmedEvent.mockResolvedValue({
+      resultCode: 0,
+      resultMessage: 'Ok',
+      currentState: giverState({ emission: 'Matomo linked' }),
+    });
+    await openChatWithPendingProposals([instructionProposals.connector]);
+
+    const secret = document.querySelector(
+      'input[name="api_key"]'
+    ) as HTMLInputElement;
+    fireEvent.change(secret, { target: { value: 'matomo-secret-key' } });
+    fireEvent.click(screen.getByText('instructionProposal.link'));
+
+    expect(await screen.findByText('Matomo linked')).toBeVisible();
+    expect(mockEngine.postProposalConfirmedEvent).toHaveBeenCalledWith({
+      sessionId: SESSION_ID,
+      proposalID: instructionProposals.connector.mediumID,
+      apply: true,
+      parameters: {
+        MATOMO_URL: 'https://analytics.example.com',
+        api_key: 'matomo-secret-key',
+      },
+    });
+    expect(
+      (document.querySelector('input[name="api_key"]') as HTMLInputElement)
+        .value
+    ).toBe('');
+    expect(document.body.innerHTML).not.toContain('matomo-secret-key');
+  });
+
+  it('keeps the typing indicator on while another confirmation is still waiting', async () => {
+    const answers: Array<(response: unknown) => void> = [];
+    mockEngine.postProposalConfirmedEvent.mockImplementation(
+      () => new Promise(resolve => answers.push(resolve))
+    );
+    await openChatWithPendingProposals([
+      instructionProposals.newContent,
+      instructionProposals.contentVariants,
+    ]);
+    const typing = () =>
+      document.querySelector('.memori-chat--bubble-container--typing');
+
+    const [first, second] = screen.getAllByText('instructionProposal.apply');
+    fireEvent.click(first);
+    fireEvent.click(second);
+    await waitFor(() => expect(answers).toHaveLength(2));
+
+    answers[0]({
+      resultCode: 0,
+      resultMessage: 'Ok',
+      currentState: giverState({ emission: 'First applied' }),
+    });
+
+    expect(await screen.findByText('First applied')).toBeVisible();
+    // The second confirmation is still waiting for the engine
+    expect(typing()).toBeInTheDocument();
+
+    answers[1]({
+      resultCode: 0,
+      resultMessage: 'Ok',
+      currentState: giverState({ emission: 'Second applied' }),
+    });
+    expect(await screen.findByText('Second applied')).toBeVisible();
+    expect(typing()).not.toBeInTheDocument();
   });
 });
