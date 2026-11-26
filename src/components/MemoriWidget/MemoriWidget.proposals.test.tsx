@@ -1,16 +1,18 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '../../testUtils';
+import { act, fireEvent, render, screen, waitFor } from '../../testUtils';
 import { DialogState } from '@memori.ai/memori-api-client/dist/types';
 import MemoriWidget from './MemoriWidget';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 import { instructionProposals, memori, tenant } from '../../mocks/data';
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
+import type { UseNatsOptions } from '../../helpers/nats/useNats';
 
 const mockEngine = {
   initSession: jest.fn(),
   getSession: jest.fn(),
   postProposalConfirmedEvent: jest.fn(),
+  postEnterTextAsync: jest.fn(),
 };
 
 jest.mock('@memori.ai/memori-api-client', () => {
@@ -22,12 +24,18 @@ jest.mock('@memori.ai/memori-api-client', () => {
     getSession: (...a: unknown[]) => mockEngine.getSession(...a),
     postProposalConfirmedEvent: (...a: unknown[]) =>
       mockEngine.postProposalConfirmedEvent(...a),
+    postEnterTextAsync: (...a: unknown[]) =>
+      mockEngine.postEnterTextAsync(...a),
   });
   return { __esModule: true, ...actual, default: mocked };
 });
 
+let natsOptions: UseNatsOptions | undefined;
 jest.mock('../../helpers/nats/useNats', () => ({
-  useNats: () => ({ connected: true, configError: null }),
+  useNats: (options: UseNatsOptions) => {
+    natsOptions = options;
+    return { connected: true, configError: null };
+  },
 }));
 
 const SESSION_ID = 'session-1';
@@ -255,6 +263,55 @@ describe('MemoriWidget proposal confirmation', () => {
       currentState: giverState({ emission: 'Second applied' }),
     });
     expect(await screen.findByText('Second applied')).toBeVisible();
+    expect(typing()).not.toBeInTheDocument();
+  });
+
+  it('keeps the typing indicator while a confirmation waits, when a message is answered meanwhile', async () => {
+    let answerConfirmation: (response: unknown) => void = () => {};
+    mockEngine.postProposalConfirmedEvent.mockImplementationOnce(
+      () => new Promise(resolve => (answerConfirmation = resolve))
+    );
+    mockEngine.postEnterTextAsync.mockResolvedValue({
+      resultCode: 0,
+      resultMessage: 'Ok',
+      correlationID: 'corr-1',
+    });
+    await openChatWithPendingProposals();
+    const typing = () =>
+      document.querySelector('.memori-chat--bubble-container--typing');
+
+    fireEvent.click(screen.getByText('instructionProposal.apply'));
+    await waitFor(() => expect(typing()).toBeInTheDocument());
+
+    // A message sent meanwhile is answered by the engine, which turns the typing off for it
+    act(() => {
+      window.typeMessage('hello');
+    });
+    await waitFor(() =>
+      expect(mockEngine.postEnterTextAsync).toHaveBeenCalled()
+    );
+    act(() => {
+      natsOptions!.onDialogResponse!({
+        eventType: 'dialog_text_entered_response',
+        correlationID: 'corr-1',
+        resultCode: 0,
+        resultMessage: 'Ok',
+        currentState: giverState({ emission: 'Answer to hello' }),
+      } as any);
+    });
+    expect(await screen.findByText('Answer to hello')).toBeVisible();
+
+    // The confirmation is still waiting for the engine
+    expect(typing()).toBeInTheDocument();
+
+    act(() => {
+      answerConfirmation({
+        resultCode: 0,
+        resultMessage: 'Ok',
+        currentState: giverState({ emission: 'Confirmed' }),
+      });
+    });
+    expect(await screen.findByText('Confirmed')).toBeVisible();
     expect(typing()).not.toBeInTheDocument();
   });
 });
