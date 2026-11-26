@@ -370,7 +370,7 @@ it('says when the proposal is no longer pending', async () => {
   );
 });
 
-it('clears the secret fields and lets the Giver retry after an error', async () => {
+it('keeps the secret after an error so the Giver can retry without retyping it', async () => {
   render(
     <InstructionProposalCard
       medium={instructionProposals.connector}
@@ -386,7 +386,9 @@ it('clears the secret fields and lets the Giver retry after an error', async () 
   await waitFor(() =>
     expect(screen.getByText('instructionProposal.error')).toBeInTheDocument()
   );
-  expect(document.querySelector('input[name="api_key"]')).toHaveValue('');
+  expect(document.querySelector('input[name="api_key"]')).toHaveValue(
+    'test-matomo-key'
+  );
   expect(document.querySelector('input[name="MATOMO_URL"]')).toHaveValue(
     'https://analytics.example.com'
   );
@@ -488,4 +490,38 @@ it('lists repeated variants without key warnings', () => {
     error.mock.calls.some(c => String(c[0]).includes('same key'))
   ).toBe(false);
   error.mockRestore();
+});
+
+it('sends the kept secret on retry, then clears it once the connector is linked', async () => {
+  const onConfirm = jest
+    .fn()
+    .mockRejectedValueOnce(new Error('Network error'))
+    .mockResolvedValueOnce(true);
+  render(
+    <InstructionProposalCard
+      medium={instructionProposals.connector}
+      onConfirm={onConfirm}
+    />
+  );
+
+  fireEvent.change(document.querySelector('input[name="api_key"]')!, {
+    target: { value: 'test-matomo-key' },
+  });
+  fireEvent.click(screen.getByText('instructionProposal.link'));
+  await waitFor(() =>
+    expect(screen.getByText('instructionProposal.error')).toBeInTheDocument()
+  );
+
+  fireEvent.click(screen.getByText('instructionProposal.link'));
+  await waitFor(() =>
+    expect(screen.getByText('instructionProposal.linked')).toBeInTheDocument()
+  );
+
+  expect(onConfirm).toHaveBeenNthCalledWith(
+    2,
+    instructionProposals.connector.mediumID,
+    true,
+    { MATOMO_URL: 'https://analytics.example.com', api_key: 'test-matomo-key' }
+  );
+  expect(document.querySelector('input[name="api_key"]')).toHaveValue('');
 });

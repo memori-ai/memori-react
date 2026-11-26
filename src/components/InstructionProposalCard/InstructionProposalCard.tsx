@@ -239,14 +239,17 @@ const InstructionProposalCard = ({
               .filter(([, value]) => value.length > 0)
           )
         : undefined;
-    setValues(v =>
-      Object.fromEntries(
-        Object.entries(v).map(([name, value]) => [
-          name,
-          fields.find(f => f.name === name)?.secret ? '' : value,
-        ])
-      )
-    );
+    // The secret fields stay until the engine answers, so a failed attempt can be retried
+    // without retyping them. They are cleared once the proposal is settled
+    const clearSecrets = () =>
+      setValues(v =>
+        Object.fromEntries(
+          Object.entries(v).map(([name, value]) => [
+            name,
+            fields.find(f => f.name === name)?.secret ? '' : value,
+          ])
+        )
+      );
 
     try {
       const handled = await onConfirm(
@@ -256,6 +259,7 @@ const InstructionProposalCard = ({
           ? parameters
           : undefined
       );
+      clearSecrets();
       setStatus(handled ? (apply ? 'applied' : 'ignored') : 'notPending');
     } catch {
       setStatus('error');
