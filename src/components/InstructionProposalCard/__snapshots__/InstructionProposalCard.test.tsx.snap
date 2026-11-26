@@ -2200,11 +2200,12 @@ exports[`renders scheduledTask proposal unchanged 1`] = `
             class="memori-instruction-proposal--text"
           >
             instructionProposal.scheduleWeekdays
-          </p>
-          <p
-            class="memori-instruction-proposal--hint"
-          >
-            instructionProposal.timezone
+            <span
+              class="memori-instruction-proposal--timezone"
+            >
+               · 
+              instructionProposal.timezone
+            </span>
           </p>
         </div>
         <div
@@ -2321,11 +2322,12 @@ exports[`renders scheduledTaskOnce proposal unchanged 1`] = `
             class="memori-instruction-proposal--text"
           >
             instructionProposal.scheduleOnce
-          </p>
-          <p
-            class="memori-instruction-proposal--hint"
-          >
-            instructionProposal.timezone
+            <span
+              class="memori-instruction-proposal--timezone"
+            >
+               · 
+              instructionProposal.timezone
+            </span>
           </p>
         </div>
         <div
