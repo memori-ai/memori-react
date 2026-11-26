@@ -7,6 +7,8 @@ import {
   historyWithMedia,
   sessionID,
   dialogState as dialogStateWithHints,
+  instructionProposals,
+  chatOnlyInstructionProposals,
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
@@ -807,6 +809,61 @@ it('renders time without seconds inside memori-chat--bubble-addon for both assis
   );
 });
 
+
+describe('hints with instruction proposals', () => {
+  const proposalMessage = (media: Message['media']): Message[] => [
+    ...history,
+    { text: 'Ecco la proposta', fromUser: false, media },
+  ];
+
+  it('hides the hints when a single proposal is confirmed by its card', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([instructionProposals.newContent]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.queryByText('Va bene')).not.toBeInTheDocument();
+  });
+
+  it('keeps the hints to act on all of several proposals', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([
+        instructionProposals.newContent,
+        instructionProposals.promptChange,
+      ]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps the hints when the cards cannot confirm', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([instructionProposals.newContent]),
+      onProposalConfirm: jest.fn(),
+      isHistoryView: true,
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps the hints to confirm a proposal without a card', () => {
+    renderChat({
+      dialogState: dialogStateWithHints,
+      history: proposalMessage([chatOnlyInstructionProposals.welcomeMessage]),
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+    expect(
+      document.querySelector('.memori-instruction-proposal')
+    ).not.toBeInTheDocument();
+  });
+});
+
 it('shows timestamps in the chat history panel even when showDates is false', () => {
   const { container } = renderChat({
     showDates: false,
@@ -883,3 +940,124 @@ it('hides the zero cache row in the LLM usage modal', () => {
   expect(screen.getByText('40%')).toBeTruthy();
 });
 
+
+describe('instruction proposals no longer pending', () => {
+  const pendingState = { ...dialogStateWithHints, state: 'G6' };
+  const settledState = { ...dialogState, state: 'G6' };
+  const reply = (media: Message['media'], text = 'Ecco la proposta') => ({
+    text,
+    fromUser: false,
+    media,
+  });
+
+  it('keeps pending the proposals of older messages along with the new ones', () => {
+    renderChat({
+      dialogState: pendingState,
+      history: [
+        ...history,
+        reply([instructionProposals.newContent]),
+        { text: 'Anche il prompt', fromUser: true },
+        reply([instructionProposals.promptChange], 'Ecco la nuova proposta'),
+      ],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(
+      screen.queryByText('instructionProposal.notPending')
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(2);
+    // Apply and Ignore act on both: the hints stay
+    expect(screen.getByText('Va bene')).toBeInTheDocument();
+  });
+
+  it('keeps settled the proposals confirmed with the hints when new ones arrive', () => {
+    const settledHistory = [
+      ...history,
+      reply([instructionProposals.newContent]),
+      { text: 'Applica', fromUser: true },
+      reply([], 'Fatto'),
+    ];
+    const { rerenderChat } = renderChat({
+      dialogState: pendingState,
+      history: [...history, reply([instructionProposals.newContent])],
+      onProposalConfirm: jest.fn(),
+    });
+
+    rerenderChat({ dialogState: settledState, history: settledHistory });
+    // New proposals bring the hints back, and a new key mounts the older card again
+    rerenderChat({
+      dialogState: pendingState,
+      history: [
+        ...settledHistory.map((m, i) =>
+          i === history.length ? { ...m, timestamp: 'later' } : m
+        ),
+        { text: 'Anche il prompt', fromUser: true },
+        reply([instructionProposals.promptChange], 'Ecco la nuova proposta'),
+      ],
+    });
+
+    expect(
+      screen.getByText('instructionProposal.notPending')
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(1);
+    expect(screen.queryByText('Va bene')).not.toBeInTheDocument();
+  });
+
+  it('expires the proposals the engine replied after without hints', () => {
+    renderChat({
+      dialogState: settledState,
+      history: [
+        ...history,
+        reply([instructionProposals.newContent]),
+        { text: 'Lascia stare', fromUser: true },
+        reply([], 'Va bene'),
+      ],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(
+      screen.getByText('instructionProposal.notPending')
+    ).toBeInTheDocument();
+  });
+
+  it('waits for the hints of the reply that brings the proposals', () => {
+    renderChat({
+      dialogState: settledState,
+      history: [...history, reply([instructionProposals.newContent])],
+      onProposalConfirm: jest.fn(),
+    });
+
+    expect(screen.getByText('instructionProposal.apply')).toBeInTheDocument();
+  });
+
+  it('keeps the outcome of a card when it mounts again', async () => {
+    jest.useRealTimers();
+    const onProposalConfirm = jest.fn().mockResolvedValue(true);
+    const props = {
+      dialogState: pendingState,
+      history: [
+        ...history,
+        reply([
+          instructionProposals.newContent,
+          instructionProposals.promptChange,
+        ]),
+      ],
+      onProposalConfirm,
+    };
+    const { rerenderChat } = renderChat(props);
+
+    fireEvent.click(screen.getAllByText('instructionProposal.apply')[0]);
+    expect(
+      await screen.findByText('instructionProposal.applied')
+    ).toBeInTheDocument();
+
+    // A new key for the bubble mounts its cards again
+    rerenderChat({
+      history: props.history.map((m, i) =>
+        i === props.history.length - 1 ? { ...m, timestamp: 'later' } : m
+      ),
+    });
+    expect(screen.getByText('instructionProposal.applied')).toBeInTheDocument();
+    expect(screen.getAllByText('instructionProposal.apply')).toHaveLength(1);
+  });
+});

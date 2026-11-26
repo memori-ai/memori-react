@@ -56,6 +56,7 @@ import {
 // Components
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
+import { InstructionProposalConfirm } from '../../types/instructionProposal';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
 import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
 import Header, { Props as HeaderProps } from '../Header/Header';
@@ -666,9 +667,14 @@ const MemoriWidget = ({
     getSession,
     getExpertReferences,
     getSessionChatLogs,
+    postProposalConfirmedEvent,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
+  // Proposal confirmations still waiting for the engine: while any is waiting the agent is writing,
+  // whatever else turns the typing indicator off
+  const [proposalConfirmationsInFlight, setProposalConfirmationsInFlight] =
+    useState(0);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
 
   // Capture the widget root via a callback ref so the value is non-null on
@@ -858,6 +864,8 @@ const MemoriWidget = ({
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
+  // The agent is writing while the engine answers a message or a confirmed proposal
+  const isAgentWriting = memoriTyping || proposalConfirmationsInFlight > 0;
   const [typingText, setTypingText] = useState<string>();
 
   type EnterTextRetryParams = {
@@ -3946,7 +3954,7 @@ const MemoriWidget = ({
       isPlayingAudio &&
       !speakerMuted &&
       (enableAudio ?? integrationConfig?.enableAudio ?? true),
-    loading: !!memoriTyping,
+    loading: isAgentWriting,
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     enablePositionControls,
@@ -3989,6 +3997,42 @@ const MemoriWidget = ({
     user,
   };
 
+  // Parameters may hold connector secrets: never log them or keep them here
+  const confirmProposal: InstructionProposalConfirm = async (
+    proposalID,
+    apply,
+    parameters
+  ) => {
+    if (!sessionId) throw new Error('No session');
+
+    // As for a message: the agent is writing, and the hints wait so they can't confirm too
+    setProposalConfirmationsInFlight(n => n + 1);
+    try {
+      const { currentState, resultCode } = await postProposalConfirmedEvent({
+        sessionId,
+        proposalID,
+        apply,
+        parameters,
+      });
+
+      // The session expired and its proposals with it: they are confirmed again in a new one
+      if (resultCode === 404) return false;
+
+      if (resultCode !== 0 || !currentState) {
+        logWidgetError('ProposalConfirmedEvent failed', resultCode);
+        throw new Error(`ProposalConfirmedEvent failed: ${resultCode}`);
+      }
+
+      // The engine ignores proposals no longer pending and emits nothing
+      if (!currentState.emission) return false;
+
+      await translateAndSpeak(currentState, userLang);
+      return true;
+    } finally {
+      setProposalConfirmationsInFlight(n => n - 1);
+    }
+  };
+
   const chatProps: ChatProps = {
     memori,
     sessionID: sessionId || '',
@@ -4006,7 +4050,7 @@ const MemoriWidget = ({
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     layout,
-    memoriTyping,
+    memoriTyping: isAgentWriting,
     typingText,
     toolCallMessages,
     showTypingText:
@@ -4074,6 +4118,7 @@ const MemoriWidget = ({
     setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,
+    onProposalConfirm: confirmProposal,
     user,
     userAvatar,
     experts,
