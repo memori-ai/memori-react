@@ -51,6 +51,7 @@ const CARD_PROPOSAL_TYPES: InstructionProposal['type'][] = [
   'Snippet',
   'LandingPage',
   'Connector',
+  'ScheduledTask',
 ];
 
 export const hasInstructionProposalCard = (medium: Medium) => {

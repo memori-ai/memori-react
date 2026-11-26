@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { medium, sessionID } from '../../mocks/data';
+import { instructionProposals, medium, sessionID } from '../../mocks/data';
 import MediaItemWidget from './MediaItemWidget';
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
 
@@ -315,3 +315,38 @@ it('opens MediaPreviewModal when clicking image with mediumID', () => {
   const modalImage = document.querySelector('.memori-content-preview-modal--image');
   expect(modalImage).toBeInTheDocument();
 });
+
+it.each([
+  [
+    'repeating',
+    instructionProposals.scheduledTask,
+    '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e15',
+  ],
+  [
+    'one-off',
+    instructionProposals.scheduledTaskOnce,
+    '0b1f6a52-2f4e-4d4b-9c1e-1a2b3c4d5e16',
+  ],
+])(
+  'shows a card to schedule a %s task proposal',
+  async (_, proposal, proposalID) => {
+    const onProposalConfirm = jest.fn().mockResolvedValue(true);
+    render(
+      <MediaItemWidget
+        items={[proposal]}
+        sessionID={sessionID}
+        onProposalConfirm={onProposalConfirm}
+      />
+    );
+
+    fireEvent.click(screen.getByText('instructionProposal.schedule'));
+
+    await waitFor(() =>
+      expect(onProposalConfirm).toHaveBeenCalledWith(
+        proposalID,
+        true,
+        undefined
+      )
+    );
+  }
+);
