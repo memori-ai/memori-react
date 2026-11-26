@@ -6,30 +6,22 @@
     color: var(--memori-text-color);
 }
 
+/* Title and reason use the title and description of the @memori.ai/ui Card */
 .memori-instruction-proposal--header {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--memori-spacing-xs);
 }
 
 .memori-instruction-proposal--type {
     color: var(--memori-primary);
     font-size: var(--memori-text-size-sm);
-    font-weight: var(--memori-text-weight-semibold);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    font-weight: var(--memori-text-weight-medium);
+    line-height: var(--memori-text-line-normal);
 }
 
 .memori-instruction-proposal--title {
-    font-size: var(--memori-text-size-md);
-    font-weight: var(--memori-text-weight-semibold);
     word-break: break-word;
-}
-
-.memori-instruction-proposal--reason {
-    margin: 0 0 var(--memori-spacing-sm);
-    color: var(--memori-neutral);
-    font-size: var(--memori-text-size-sm);
 }
 
 .memori-instruction-proposal--section {

@@ -660,10 +660,8 @@ const InstructionProposalCard = ({
           )}
         </span>
       }
+      description={proposal.reason || undefined}
     >
-      {!!proposal.reason && (
-        <p className="memori-instruction-proposal--reason">{proposal.reason}</p>
-      )}
       {renderBody()}
       {!!statusText && (
         <p
