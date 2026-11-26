@@ -92,12 +92,27 @@ export const ConnectorWithoutFields: Story = {
   args: { medium: instructionProposals.connectorWithoutFields },
 };
 
+export const ScheduledTask: Story = {
+  args: { medium: instructionProposals.scheduledTask },
+};
+
+export const ScheduledTaskOnce: Story = {
+  args: { medium: instructionProposals.scheduledTaskOnce },
+};
+
 export const Applied: Story = {
   args: { medium: instructionProposals.newContent, defaultStatus: 'applied' },
 };
 
 export const ConnectorLinked: Story = {
   args: { medium: instructionProposals.connector, defaultStatus: 'applied' },
+};
+
+export const TaskScheduled: Story = {
+  args: {
+    medium: instructionProposals.scheduledTask,
+    defaultStatus: 'applied',
+  },
 };
 
 export const Ignored: Story = {

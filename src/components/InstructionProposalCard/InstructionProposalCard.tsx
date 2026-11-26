@@ -589,14 +589,15 @@ const InstructionProposalCard = ({
               </span>
               <p className="memori-instruction-proposal--text">
                 {describeSchedule()}
+                {!!proposal.scheduledTaskTimezone && (
+                  <span className="memori-instruction-proposal--timezone">
+                    {' · '}
+                    {t('instructionProposal.timezone', {
+                      timezone: proposal.scheduledTaskTimezone,
+                    })}
+                  </span>
+                )}
               </p>
-              {!!proposal.scheduledTaskTimezone && (
-                <p className="memori-instruction-proposal--hint">
-                  {t('instructionProposal.timezone', {
-                    timezone: proposal.scheduledTaskTimezone,
-                  })}
-                </p>
-              )}
             </div>
             <div className="memori-instruction-proposal--section">
               <span className="memori-instruction-proposal--label">
@@ -659,10 +660,8 @@ const InstructionProposalCard = ({
           )}
         </span>
       }
+      description={proposal.reason || undefined}
     >
-      {!!proposal.reason && (
-        <p className="memori-instruction-proposal--reason">{proposal.reason}</p>
-      )}
       {renderBody()}
       {!!statusText && (
         <p

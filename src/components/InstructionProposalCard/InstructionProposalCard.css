@@ -6,30 +6,22 @@
     color: var(--memori-text-color);
 }
 
+/* Title and reason use the title and description of the @memori.ai/ui Card */
 .memori-instruction-proposal--header {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--memori-spacing-xs);
 }
 
 .memori-instruction-proposal--type {
     color: var(--memori-primary);
     font-size: var(--memori-text-size-sm);
-    font-weight: var(--memori-text-weight-semibold);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    font-weight: var(--memori-text-weight-medium);
+    line-height: var(--memori-text-line-normal);
 }
 
 .memori-instruction-proposal--title {
-    font-size: var(--memori-text-size-md);
-    font-weight: var(--memori-text-weight-semibold);
     word-break: break-word;
-}
-
-.memori-instruction-proposal--reason {
-    margin: 0 0 var(--memori-spacing-sm);
-    color: color-mix(in oklch, var(--memori-text-color) 65%, transparent);
-    font-size: var(--memori-text-size-sm);
 }
 
 .memori-instruction-proposal--section {
@@ -40,9 +32,10 @@
 }
 
 .memori-instruction-proposal--label {
-    color: color-mix(in oklch, var(--memori-text-color) 60%, transparent);
+    color: var(--memori-neutral);
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
+    line-height: var(--memori-text-line-normal);
 }
 
 .memori-instruction-proposal--text {
@@ -53,12 +46,19 @@
     word-break: break-word;
 }
 
+.memori-instruction-proposal--removed,
+.memori-instruction-proposal--added {
+    padding: 0 2px;
+    border-radius: var(--memori-radius-xs);
+}
+
 .memori-instruction-proposal--removed {
-    color: color-mix(in oklch, var(--memori-text-color) 55%, transparent);
+    color: var(--memori-neutral);
     text-decoration: line-through;
 }
 
 .memori-instruction-proposal--added {
+    background: color-mix(in oklch, var(--memori-success) 22%, transparent);
     text-decoration: none;
 }
 
@@ -75,14 +75,25 @@
     gap: var(--memori-spacing-sm);
 }
 
+.memori-instruction-proposal--form p {
+    margin-top: 0;
+}
+
 .memori-instruction-proposal--status {
-    margin: var(--memori-spacing-sm) 0 0;
+    padding-top: var(--memori-spacing-sm);
+    border-top: var(--memori-border) solid var(--memori-border-color);
+    margin: var(--memori-spacing-md) 0 0;
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium);
 }
 
+.memori-instruction-proposal--ignored .memori-instruction-proposal--status,
+.memori-instruction-proposal--notPending .memori-instruction-proposal--status {
+    color: var(--memori-neutral);
+}
+
 .memori-instruction-proposal--error .memori-instruction-proposal--status {
-    color: var(--memori-error-color, #c62828);
+    color: var(--memori-error-text);
 }
 
 .memori-instruction-proposal--actions {
@@ -94,6 +105,11 @@
 
 .memori-instruction-proposal--hint {
     margin: var(--memori-spacing-xs) 0 0;
-    color: color-mix(in oklch, var(--memori-text-color) 60%, transparent);
+    color: var(--memori-neutral);
     font-size: var(--memori-text-size-sm);
+}
+
+.memori-instruction-proposal--timezone {
+    color: var(--memori-neutral);
+    white-space: nowrap;
 }

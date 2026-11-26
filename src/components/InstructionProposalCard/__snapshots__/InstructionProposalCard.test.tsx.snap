@@ -32,12 +32,12 @@ exports[`renders applied status unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver told the opening time.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver told the opening time.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -138,12 +138,12 @@ exports[`renders applied status unchanged 2`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the website statistics in chat.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the website statistics in chat.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -323,12 +323,12 @@ exports[`renders attachmentPlacement proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The price list belongs to the knowledge of the agent.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The price list belongs to the knowledge of the agent.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -430,12 +430,12 @@ exports[`renders connector proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the website statistics in chat.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the website statistics in chat.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -636,12 +636,12 @@ exports[`renders connectorOptionalFields proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the agent to look things up on Wikipedia.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the agent to look things up on Wikipedia.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -757,12 +757,12 @@ exports[`renders connectorWithoutFields proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the customers of the CRM in chat.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the customers of the CRM in chat.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -841,12 +841,12 @@ exports[`renders contentAnswerChange proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The opening time has changed.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The opening time has changed.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -960,12 +960,12 @@ exports[`renders contentVariants proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            Users ask it in other words.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          Users ask it in other words.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1072,12 +1072,12 @@ exports[`renders error status unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the website statistics in chat.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the website statistics in chat.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -1284,12 +1284,12 @@ exports[`renders ignored status unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver told the opening time.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver told the opening time.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1390,12 +1390,12 @@ exports[`renders landingPage proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the chat to start by itself.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the chat to start by itself.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1507,12 +1507,12 @@ exports[`renders landingPageSettings proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants a dark page without sharing.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants a dark page without sharing.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1641,12 +1641,12 @@ exports[`renders newContent proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver told the opening time.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver told the opening time.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1767,12 +1767,12 @@ exports[`renders notPending status unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The opening time has changed.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The opening time has changed.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1866,12 +1866,12 @@ exports[`renders promptChange proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the bread of the day suggested.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the bread of the day suggested.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -1974,12 +1974,12 @@ exports[`renders promptRevert proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants the previous instructions back.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants the previous instructions back.
-        </p>
         <p
           class="memori-instruction-proposal--text"
         >
@@ -2082,12 +2082,12 @@ exports[`renders read-only proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver told the opening time.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver told the opening time.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -2182,12 +2182,12 @@ exports[`renders scheduledTask proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants a summary of the blog every working morning.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants a summary of the blog every working morning.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -2200,11 +2200,12 @@ exports[`renders scheduledTask proposal unchanged 1`] = `
             class="memori-instruction-proposal--text"
           >
             instructionProposal.scheduleWeekdays
-          </p>
-          <p
-            class="memori-instruction-proposal--hint"
-          >
-            instructionProposal.timezone
+            <span
+              class="memori-instruction-proposal--timezone"
+            >
+               · 
+              instructionProposal.timezone
+            </span>
           </p>
         </div>
         <div
@@ -2303,12 +2304,12 @@ exports[`renders scheduledTaskOnce proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants to be reminded of the new price list.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants to be reminded of the new price list.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >
@@ -2321,11 +2322,12 @@ exports[`renders scheduledTaskOnce proposal unchanged 1`] = `
             class="memori-instruction-proposal--text"
           >
             instructionProposal.scheduleOnce
-          </p>
-          <p
-            class="memori-instruction-proposal--hint"
-          >
-            instructionProposal.timezone
+            <span
+              class="memori-instruction-proposal--timezone"
+            >
+               · 
+              instructionProposal.timezone
+            </span>
           </p>
         </div>
         <div
@@ -2424,12 +2426,12 @@ exports[`renders snippet proposal unchanged 1`] = `
               </span>
             </span>
           </div>
+          <div
+            class="memori-card__description"
+          >
+            The Giver wants bookings collected in chat.
+          </div>
         </div>
-        <p
-          class="memori-instruction-proposal--reason"
-        >
-          The Giver wants bookings collected in chat.
-        </p>
         <div
           class="memori-instruction-proposal--section"
         >

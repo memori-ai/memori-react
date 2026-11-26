@@ -7627,12 +7627,12 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                             </span>
                           </span>
                         </div>
+                        <div
+                          class="memori-card__description"
+                        >
+                          The Giver told the opening time.
+                        </div>
                       </div>
-                      <p
-                        class="memori-instruction-proposal--reason"
-                      >
-                        The Giver told the opening time.
-                      </p>
                       <div
                         class="memori-instruction-proposal--section"
                       >
@@ -7743,12 +7743,12 @@ exports[`renders ChatBubble with instruction proposals unchanged 1`] = `
                             </span>
                           </span>
                         </div>
+                        <div
+                          class="memori-card__description"
+                        >
+                          The Giver wants the website statistics in chat.
+                        </div>
                       </div>
-                      <p
-                        class="memori-instruction-proposal--reason"
-                      >
-                        The Giver wants the website statistics in chat.
-                      </p>
                       <p
                         class="memori-instruction-proposal--text"
                       >
