@@ -1,5 +1,38 @@
 # Changelog
 
+## [9.2.1](https://github.com/memori-ai/memori-react/compare/v9.2.0...v9.2.1) (2026-11-26)
+
+
+### Features
+
+* instruction proposals in chat ([b623d36](https://github.com/memori-ai/memori-react/commit/b623d369500ac2e464aedc3e5d420d3137544d40))
+* **instruction-proposal:** add the scheduled task card, with the schedule in words ([ec26cf5](https://github.com/memori-ai/memori-react/commit/ec26cf50b95d58941cb99e6b6b9477e40ca2ab3b))
+* **instruction-proposals:** confirm welcome message and AIsuru functions in chat, follow the hints, show what each proposal changes ([cdd9405](https://github.com/memori-ai/memori-react/commit/cdd94053bbb89f0bbcad37ffb2cbab8e37df342d))
+
+
+### Bug Fixes
+
+* **AIP-988:** keep connector secrets for a retry after an error ([5f73a54](https://github.com/memori-ai/memori-react/commit/5f73a54428bf528732d3cc62aec0aef8dbad2e7e))
+* **AIP-988:** keep the typing indicator while a confirmation waits ([99d2367](https://github.com/memori-ai/memori-react/commit/99d2367effffb9e2bddebb1644726ed069590fba))
+* **AIP-988:** keep the typing indicator while a proposal is confirmed ([9b411eb](https://github.com/memori-ai/memori-react/commit/9b411ebf4a14f11e697c0266654ddcb252a31342))
+* **AIP-988:** show the card of scheduled task proposals in chat ([21a706b](https://github.com/memori-ai/memori-react/commit/21a706b4ef329f60de778a34312279c3a487b95e))
+* hide proposal hints when a single card confirms it ([f6b12d9](https://github.com/memori-ai/memori-react/commit/f6b12d944850f452904a8cb7d85ddeffa96151a5))
+* **instruction-proposals:** expire superseded and settled cards, keep their outcome ([876b55e](https://github.com/memori-ai/memori-react/commit/876b55ed81033e24d041e2f5425e180f69c617a2))
+* speechkey get without headers, remove profiling leftovers ([86c2000](https://github.com/memori-ai/memori-react/commit/86c200083fc71af58d12fedfeb7af34bb91be6e5))
+
+
+### Changes
+
+*  enhance styling, and add new story examples for scheduled tasks ([0a8f40b](https://github.com/memori-ai/memori-react/commit/0a8f40b77d79545e7da8d3c57414e89cc153d055))
+* **Chat:** update proposal handling to keep older messages pending ([24fd44b](https://github.com/memori-ai/memori-react/commit/24fd44b6436aefb1be1211037a4938c5fa105e0b))
+* update tenantID and baseURL across multiple components for consistency ([c8b2eaa](https://github.com/memori-ai/memori-react/commit/c8b2eaac9f2c551b7baca6c87b6b5f3c99e73560))
+
+
+### Maintenance
+
+* **AIP-988:** bump memori-api-client to 6.28.0 for postProposalConfirmedEvent ([8b11190](https://github.com/memori-ai/memori-react/commit/8b111906538c60a0e5858b912ff192a9acea6590))
+* update i18next dependency from 22.0.6 to 26.7.2 in package.json and yarn.lock ([c3c20f8](https://github.com/memori-ai/memori-react/commit/c3c20f81dc5822cba6abcb33670384888c90d552))
+
 ## [9.2.0](https://github.com/memori-ai/memori-react/compare/v9.1.7...v9.2.0) (2026-11-18)
 
 
