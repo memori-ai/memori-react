@@ -261,7 +261,7 @@
     "typescript": ">=4.8"
   },
   "dependencies": {
-    "@memori.ai/memori-api-client": "6.24.1",
+    "@memori.ai/memori-api-client": "6.28.0",
     "@memori.ai/ui": "2.0.7",
     "@nats-io/jetstream": "^3.4.0",
     "@nats-io/nats-core": "^3.4.0",

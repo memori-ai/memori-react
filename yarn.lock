@@ -3758,14 +3758,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@memori.ai/memori-api-client@npm:6.24.1":
-  version: 6.24.1
-  resolution: "@memori.ai/memori-api-client@npm:6.24.1"
+"@memori.ai/memori-api-client@npm:6.28.0":
+  version: 6.28.0
+  resolution: "@memori.ai/memori-api-client@npm:6.28.0"
   dependencies:
     cross-fetch: ^3.1.5
   peerDependencies:
     typescript: ">=4.8"
-  checksum: 779d5c23fc746fdef21e903ac43755b941733304d83c0388bfdacdf042228856620c140a3c8d2df410ca1c44efa41b99bca6830c22095aed5c93b0e922a29336
+  checksum: 367a974b3fdc9978542b89138cccdd3a581e5cc51b5f6b516824d43021fb52f0b1a3bac4ed26462cc4fb22915d7e54c4c2f35ec857086414a180d0ec52ac61a7
   languageName: node
   linkType: hard
 
@@ -3780,7 +3780,7 @@ __metadata:
     "@babel/preset-typescript": ^7.21.4
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
-    "@memori.ai/memori-api-client": 6.24.1
+    "@memori.ai/memori-api-client": 6.28.0
     "@memori.ai/ui": 2.0.7
     "@nats-io/jetstream": ^3.4.0
     "@nats-io/nats-core": ^3.4.0

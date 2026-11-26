@@ -671,6 +671,10 @@ const MemoriWidget = ({
   } = client;
 
   const [instruct, setInstruct] = useState(false);
+  // Proposal confirmations still waiting for the engine: while any is waiting the agent is writing,
+  // whatever else turns the typing indicator off
+  const [proposalConfirmationsInFlight, setProposalConfirmationsInFlight] =
+    useState(0);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
 
   // Capture the widget root via a callback ref so the value is non-null on
@@ -860,6 +864,8 @@ const MemoriWidget = ({
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
+  // The agent is writing while the engine answers a message or a confirmed proposal
+  const isAgentWriting = memoriTyping || proposalConfirmationsInFlight > 0;
   const [typingText, setTypingText] = useState<string>();
 
   type EnterTextRetryParams = {
@@ -3948,7 +3954,7 @@ const MemoriWidget = ({
       isPlayingAudio &&
       !speakerMuted &&
       (enableAudio ?? integrationConfig?.enableAudio ?? true),
-    loading: !!memoriTyping,
+    loading: isAgentWriting,
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     enablePositionControls,
@@ -4000,7 +4006,7 @@ const MemoriWidget = ({
     if (!sessionId) throw new Error('No session');
 
     // As for a message: the agent is writing, and the hints wait so they can't confirm too
-    setMemoriTyping(true);
+    setProposalConfirmationsInFlight(n => n + 1);
     try {
       const { currentState, resultCode } = await postProposalConfirmedEvent({
         sessionId,
@@ -4023,7 +4029,7 @@ const MemoriWidget = ({
       await translateAndSpeak(currentState, userLang);
       return true;
     } finally {
-      setMemoriTyping(false);
+      setProposalConfirmationsInFlight(n => n - 1);
     }
   };
 
@@ -4044,7 +4050,7 @@ const MemoriWidget = ({
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     layout,
-    memoriTyping,
+    memoriTyping: isAgentWriting,
     typingText,
     toolCallMessages,
     showTypingText:
