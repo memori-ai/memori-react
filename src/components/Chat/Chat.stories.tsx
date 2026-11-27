@@ -11,6 +11,7 @@ import {
   dialogState as dialogStateWithHints,
   historyWithExpandable,
   historyWithArtifacts,
+  instructionProposals,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -1868,4 +1869,52 @@ WithBase64Image.args = {
   resetTranscript: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+};
+
+const proposalMessage = {
+  fromUser: false,
+  generatedByAI: true,
+  text: 'I propose to add this answer. Confirm it below.',
+  timestamp: '2021-03-01T12:02:00.000Z',
+  media: [instructionProposals.newContent],
+};
+
+/** Card della proposta tra due messaggi: spaziatura rispetto ai fumetti vicini. */
+export const WithInstructionProposal = Template.bind({});
+WithInstructionProposal.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    ...history.slice(0, 2),
+    proposalMessage,
+    {
+      fromUser: true,
+      text: 'Thanks, applied.',
+      timestamp: '2021-03-01T12:03:00.000Z',
+    },
+    {
+      fromUser: false,
+      text: 'Anything else?',
+      timestamp: '2021-03-01T12:04:00.000Z',
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  onProposalConfirm: () =>
+    new Promise(resolve => setTimeout(() => resolve(true), 500)),
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+/** Proposta in attesa, ultimo messaggio: card con Applica e Ignora. */
+export const WithPendingInstructionProposal = Template.bind({});
+WithPendingInstructionProposal.args = {
+  ...WithInstructionProposal.args,
+  history: [...history.slice(0, 2), proposalMessage],
+  dialogState: { ...dialogStateWithHints, state: 'G6' },
 };

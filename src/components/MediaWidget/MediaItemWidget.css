@@ -575,6 +575,11 @@ div.memori-media-item--link:focus-visible {
     max-width: 100%;
 }
 
+/* La card segue il fumetto come un allegato e lascia dopo di sé lo stesso spazio tra due messaggi */
+.memori-media-items--grid:has(.memori-instruction-proposal) {
+    padding: 0 0 calc(var(--memori-spacing-md) + var(--memori-spacing-xs));
+}
+
 .memori-media-items--grid .memori-media-item:has(.memori-instruction-proposal) {
     width: 100%;
     min-width: 0;

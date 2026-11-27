@@ -686,6 +686,11 @@
     .memori-chat--bubble-shell > .memori-chat--attachment-strip {
         margin-bottom: 4px;
     }
+
+    /* Stesso gap di 8px anche tra il fumetto e la card della proposta */
+    .memori-chat--bubble-shell > .memori-media-widget:has(.memori-instruction-proposal) {
+        margin-top: 4px;
+    }
 }
 
 .memori-chat--bubble.memori-chat--user-bubble {
@@ -815,7 +820,8 @@
 
 /* Artifact chips sit in the shell under the bubble: drop the addon slot so
    copy/feedback does not float in a hole above the card. */
-.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor {
+.memori-chat--bubble-shell:has(.memori-chat--artifact-block) .memori-chat--bubble-anchor,
+.memori-chat--bubble-shell:has(.memori-instruction-proposal) .memori-chat--bubble-anchor {
     padding-bottom: 0;
 }
 
