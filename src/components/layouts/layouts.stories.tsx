@@ -1,4 +1,7 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button, useMemoriTheme } from '@memori.ai/ui';
+import { FileText } from 'lucide-react';
 import { memori, tenant, integration } from '../../mocks/data';
 import Memori, { Props } from '../../index';
 import { withWidgetProviders } from '../../../.storybook/decorators';
@@ -50,6 +53,30 @@ export const Chat: Story = {
     ...fixtureBase,
     layout: 'CHAT',
     showUpload: true,
+  },
+};
+
+/** Pulsante della pagina host, con la stessa variante dei pulsanti dell'header. */
+const HostInstructionsButton = () => {
+  const theme = useMemoriTheme();
+  return (
+    <Button
+      variant={theme === 'dark' ? 'inverse' : 'toolbar'}
+      size="sm"
+      icon={<FileText aria-hidden />}
+      aria-label="Instructions"
+      title="Instructions"
+      onClick={() => alert('Instructions')}
+    />
+  );
+};
+
+/** Header con un pulsante passato dalla pagina host (`headerExtraActions`). */
+export const ChatWithHostHeaderButton: Story = {
+  args: {
+    ...fixtureBase,
+    layout: 'CHAT',
+    headerExtraActions: <HostInstructionsButton />,
   },
 };
 

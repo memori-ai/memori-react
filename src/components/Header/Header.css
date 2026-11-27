@@ -619,6 +619,24 @@
     gap: 0.5rem;
 }
 
+/* I pulsanti host prendono gap e allineamento del gruppo in cui finiscono */
+.memori-header--host-actions {
+    display: contents;
+}
+
+/* Stessa misura dei pulsanti del widget (IconButton), anche senza la sua classe */
+.memori-widget .memori-header--host-actions .memori-button {
+    height: var(--memori-icon-button-size);
+    min-height: var(--memori-icon-button-size);
+    box-sizing: border-box;
+}
+
+.memori-widget .memori-header--host-actions .memori-button:not(:has(.memori-button__content)) {
+    width: var(--memori-icon-button-size);
+    min-width: var(--memori-icon-button-size);
+    padding: 0;
+}
+
 .memori-header--auth-icon-button:has(.memori-header--action-label) {
     width: auto;
     min-width: var(--memori-icon-button-size, 44px);

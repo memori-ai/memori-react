@@ -74,6 +74,7 @@ export interface Props {
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: WidgetProps['additionalInfo'];
   customMediaRenderer?: WidgetProps['customMediaRenderer'];
+  headerExtraActions?: WidgetProps['headerExtraActions'];
   additionalSettings?: WidgetProps['additionalSettings'];
   userAvatar?: WidgetProps['userAvatar'];
   useMathFormatting?: boolean;
@@ -159,6 +160,7 @@ const Memori: React.FC<Props> = ({
   onStateChange,
   additionalInfo,
   customMediaRenderer,
+  headerExtraActions,
   additionalSettings,
   userAvatar,
   useMathFormatting = false,
@@ -482,6 +484,7 @@ const Memori: React.FC<Props> = ({
                 onStateChange={onStateChange}
                 additionalInfo={additionalInfo}
                 customMediaRenderer={customMediaRenderer}
+                headerExtraActions={headerExtraActions}
                 additionalSettings={additionalSettings}
                 userAvatar={userAvatar}
                 applyVarsToRoot={applyVarsToRoot}
@@ -589,6 +592,7 @@ Memori.propTypes = {
   onStateChange: PropTypes.func,
   additionalInfo: PropTypes.objectOf(PropTypes.any),
   customMediaRenderer: PropTypes.func,
+  headerExtraActions: PropTypes.node,
   additionalSettings: PropTypes.any,
   userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   useMathFormatting: PropTypes.bool,

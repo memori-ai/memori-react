@@ -525,6 +525,8 @@ export interface Props {
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
+  /** Pulsanti della pagina host mostrati nell'header della chat. */
+  headerExtraActions?: React.ReactNode;
   additionalSettings?: JSX.Element | null;
   userAvatar?: string | JSX.Element;
   useMathFormatting?: boolean;
@@ -638,6 +640,7 @@ const MemoriWidget = ({
   additionalInfo,
   additionalSettings,
   customMediaRenderer,
+  headerExtraActions,
   userAvatar,
   __WEBCOMPONENT__ = false,
   useMathFormatting = false,
@@ -3897,6 +3900,7 @@ const MemoriWidget = ({
     position,
     layout: selectedLayout,
     additionalSettings,
+    hostActions: headerExtraActions,
     setVenue: setPosition,
     positionPopoverOpen,
     setPositionPopoverOpen,

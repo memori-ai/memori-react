@@ -608,6 +608,74 @@ it('keeps the session menu hidden on mobile even when the header is crowded', ()
   }
 });
 
+const hostButton = (
+  <button type="button" aria-label="Instructions">
+    Instructions
+  </button>
+);
+
+const buttonNames = () =>
+  screen
+    .getAllByRole('button')
+    .map(button => button.getAttribute('aria-label') || button.textContent);
+
+it('places host actions after the built-in actions and before the user control when logged in', () => {
+  render(
+    <Header {...loggedInFullpageProps} enableAudio hostActions={hostButton} />
+  );
+
+  const names = buttonNames();
+  const host = names.indexOf('Instructions');
+  expect(host).toBeGreaterThan(names.indexOf('widget.sound'));
+  expect(host).toBeLessThan(names.indexOf(user.userName!));
+});
+
+it('places host actions before the login button for guests', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      loginToken={undefined}
+      user={undefined}
+      enableAudio
+      showLogin
+      hostActions={hostButton}
+    />
+  );
+
+  const names = buttonNames();
+  const host = names.indexOf('Instructions');
+  expect(host).toBeGreaterThan(names.indexOf('widget.sound'));
+  expect(host).toBeLessThan(names.indexOf('login.login'));
+});
+
+it('keeps the layout actions after the host actions', () => {
+  render(
+    <Header
+      {...loggedInFullpageProps}
+      layout="WEBSITE_ASSISTANT"
+      showLogin={false}
+      hostActions={hostButton}
+      extraActions={
+        <button type="button" aria-label="Session panel">
+          Session panel
+        </button>
+      }
+    />
+  );
+
+  const names = buttonNames();
+  expect(names.indexOf('Instructions')).toBeGreaterThan(-1);
+  expect(names.indexOf('Instructions')).toBeLessThan(
+    names.indexOf('Session panel')
+  );
+});
+
+it('renders no host actions container without host actions', () => {
+  render(<Header {...loggedInFullpageProps} />);
+
+  expect(document.querySelector('.memori-header--host-actions')).toBeNull();
+});
+
 it('shows the agent description in the fullpage header', () => {
   render(<Header {...loggedInFullpageProps} />);
 

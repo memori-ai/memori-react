@@ -113,6 +113,9 @@ export interface Props {
   additionalSettings?: WidgetProps['additionalSettings'];
   showMessageConsumption?: boolean;
   showFullscreen?: boolean;
+  /** Pulsanti della pagina host: dopo le azioni del widget, prima del login. */
+  hostActions?: React.ReactNode;
+  /** Pulsanti propri del layout, in fondo alla riga. */
   extraActions?: React.ReactNode;
 }
 
@@ -155,6 +158,7 @@ const Header: React.FC<Props> = ({
   additionalSettings,
   showMessageConsumption = false,
   showFullscreen = true,
+  hostActions,
   extraActions,
 }) => {
   const { t, i18n } = useTranslation();
@@ -539,7 +543,13 @@ const Header: React.FC<Props> = ({
   const showInlineMessageConsumption =
     showFullpageDividers && !isHeaderCrowded && showMessageConsumption;
 
+  const hasHostActions = !!hostActions;
+  const hostActionsNode = hasHostActions && (
+    <div className="memori-header--host-actions">{hostActions}</div>
+  );
+
   const fullpageSecondaryHasContent =
+    hasHostActions ||
     !!memori.needsPosition ||
     showReload ||
     showClear ||
@@ -552,6 +562,7 @@ const Header: React.FC<Props> = ({
     showShare;
 
   const loggedInSecondaryHasActions =
+    hasHostActions ||
     showSessionInfoMenu ||
     showInlineKnownFacts ||
     showInlineMessageConsumption ||
@@ -1634,6 +1645,7 @@ const Header: React.FC<Props> = ({
           {loggedInSecondaryHasActions && (
             <div className="memori-header--fullpage-secondary">
               {loggedInFullpageRightControls}
+              {hostActionsNode}
             </div>
           )}
           {showLoginDivider && (
@@ -1661,6 +1673,7 @@ const Header: React.FC<Props> = ({
             <div className="memori-header--fullpage-secondary">
               {headerActionsBeforeChatHistory}
               {headerActionsAfterChatHistory}
+              {hostActionsNode}
             </div>
           )}
           {showLoginDivider && (
@@ -1676,6 +1689,7 @@ const Header: React.FC<Props> = ({
           {headerActionsBeforeChatHistory}
           {chatHistoryNode}
           {headerActionsAfterChatHistory}
+          {hostActionsNode}
           {loginNode}
         </>
       )}
