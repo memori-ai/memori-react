@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.2.2](https://github.com/memori-ai/memori-react/compare/v9.2.1...v9.2.2) (2026-11-27)
+
+
+### Features
+
+* **header:** host pages can add their own buttons to the chat header ([9be06f7](https://github.com/memori-ai/memori-react/commit/9be06f7427ab5681ec94557146e29b65161d4c77))
+
+
+### Bug Fixes
+
+* **chat:** instruction proposal card follows the chat bubble rhythm ([da3338d](https://github.com/memori-ai/memori-react/commit/da3338d9f1b83d59cc5688e9636357a194c3b993))
+* **chat:** use spacing token for the proposal card gap on mobile ([5084701](https://github.com/memori-ai/memori-react/commit/508470192343cb82161c7875a8921257eecbf8a9))
+
 ## [9.2.1](https://github.com/memori-ai/memori-react/compare/v9.2.0...v9.2.1) (2026-11-26)
 
 
