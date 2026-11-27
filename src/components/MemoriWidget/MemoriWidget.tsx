@@ -525,7 +525,7 @@ export interface Props {
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
-  /** Pulsanti della pagina host mostrati nell'header della chat. */
+  /** Pulsanti della pagina host mostrati nell'header della chat (non nel TOTEM, che non ha header). */
   headerExtraActions?: React.ReactNode;
   additionalSettings?: JSX.Element | null;
   userAvatar?: string | JSX.Element;

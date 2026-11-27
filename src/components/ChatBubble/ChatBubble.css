@@ -687,9 +687,9 @@
         margin-bottom: 4px;
     }
 
-    /* Stesso gap di 8px anche tra il fumetto e la card della proposta */
+    /* Il gap della shell scende a 4px: si aggiunge la differenza per restare a 8px come gli allegati */
     .memori-chat--bubble-shell > .memori-media-widget:has(.memori-instruction-proposal) {
-        margin-top: 4px;
+        margin-top: var(--memori-spacing-xs);
     }
 }
 
